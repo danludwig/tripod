@@ -11,7 +11,7 @@ namespace Tripod
         /// <summary>
         /// Primary key of this entity.
         /// </summary>
-        public TId Id { get; protected set; }
+        public TId Id { get; [UsedImplicitly] protected set; }
 
         /// <summary>
         /// Get the hash code for this entity instance based on its Id property.
