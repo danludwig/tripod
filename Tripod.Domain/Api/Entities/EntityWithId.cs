@@ -71,11 +71,8 @@ namespace Tripod
 
         private static bool IsTransient(EntityWithId<TId> obj)
         {
-            // an object is transient when it is not null
-            return obj != null
-
-                // and when its id is the default (null for strings or 0 for numbers)
-                && Equals(obj.Id, default(TId));
+            // an object is transient when its id is the default (null for strings or 0 for numbers)
+            return Equals(obj.Id, default(TId));
         }
 
         private Type GetUnproxiedType()
