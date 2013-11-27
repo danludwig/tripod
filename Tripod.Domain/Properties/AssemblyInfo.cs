@@ -13,6 +13,7 @@ using System.Runtime.InteropServices;
 // COM, set the ComVisible attribute to true on that type.
 [assembly: ComVisible(false)]
 [assembly: InternalsVisibleTo("Tripod.Domain.UnitTests")]
+[assembly: InternalsVisibleTo("Tripod.Ioc.IntegrationTests")]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
 [assembly: Guid("525bb907-53dc-407e-aa39-1a0cd1c20348")]

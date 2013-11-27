@@ -1,6 +1,6 @@
 ﻿namespace Tripod.Domain.Security
 {
-    public class User
+    public class User : EntityWithId<int>
     {
         protected User() { }
 
