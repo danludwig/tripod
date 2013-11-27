@@ -3,11 +3,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{D217070F-C4C0-46FA-9040-E0EEDF4C673F}</ProjectGuid>
+    <ProjectGuid>{D8C8221F-89B0-4707-B0F7-6762872BDA14}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Tripod</RootNamespace>
-    <AssemblyName>Tripod.Domain.UnitTests</AssemblyName>
+    <RootNamespace>Tripod.Ioc</RootNamespace>
+    <AssemblyName>Tripod.Ioc.UnitTests</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -35,15 +35,21 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
     <Reference Include="Moq">
-      <HintPath>..\packages\Moq.4.1.1311.0615\lib\net40\Moq.dll</HintPath>
+      <HintPath>..\..\packages\Moq.4.1.1311.0615\lib\net40\Moq.dll</HintPath>
     </Reference>
     <Reference Include="Should">
-      <HintPath>..\packages\Should.1.1.20\lib\Should.dll</HintPath>
+      <HintPath>..\..\packages\Should.1.1.20\lib\Should.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Data.Entity" />
     <Reference Include="xunit">
-      <HintPath>..\packages\xunit.1.9.2\lib\net20\xunit.dll</HintPath>
+      <HintPath>..\..\packages\xunit.1.9.2\lib\net20\xunit.dll</HintPath>
     </Reference>
     <Reference Include="xunit.extensions">
       <HintPath>..\..\packages\xunit.extensions.1.9.2\lib\net20\xunit.extensions.dll</HintPath>
@@ -55,27 +61,18 @@
         <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
       </ItemGroup>
     </When>
-    <Otherwise />
+    <Otherwise>
+      <ItemGroup>
+        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework" />
+      </ItemGroup>
+    </Otherwise>
   </Choose>
   <ItemGroup>
     <Compile Include="..\..\GlobalAssemblyInfo.cs">
-      <Link>Properties\GlobalAssemblyInfo.cs</Link>
+      <Link>GlobalAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="Api\Entities\EntityWithIdTests.cs" />
-    <Compile Include="Api\Entities\Fakes\FakeEntityWithGuidId.cs" />
-    <Compile Include="Api\Entities\Fakes\FakeEntityWithIntId.cs" />
-    <Compile Include="Api\Entities\Fakes\FakeEntityWithLongId.cs" />
-    <Compile Include="Api\Entities\Fakes\FakeEntityWithStringId.cs" />
-    <Compile Include="Api\Entities\Fakes\FakeProxiedEntityWithLongId.cs" />
-    <Compile Include="Api\_Extensions\Fakes\FakeClosedGenericB1.cs" />
-    <Compile Include="Api\_Extensions\Fakes\FakeClosedGenericA2.cs" />
-    <Compile Include="Api\_Extensions\Fakes\FakeOpenGenericA.cs" />
-    <Compile Include="Api\_Extensions\Fakes\FakeClosedGenericA1.cs" />
-    <Compile Include="Api\_Extensions\Fakes\FakeOpenGenericA2.cs" />
-    <Compile Include="Api\_Extensions\Fakes\IFakeOpenGenericB.cs" />
-    <Compile Include="Api\_Extensions\ReflectionExtensionTests.cs" />
-    <Compile Include="Domain\Security\Entities\Fakes\ProxiedUser.cs" />
-    <Compile Include="Domain\Security\Entities\UserTests.cs" />
+    <Compile Include="EntityFramework\EntityDbContextTests.cs" />
+    <Compile Include="EntityFramework\Initialization\BrownfieldDbInitializerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -83,9 +80,13 @@
       <Project>{e1ba1d96-1242-4196-85c1-0034447a4106}</Project>
       <Name>Tripod.Domain</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Tripod.Ioc\Tripod.Ioc.csproj">
+      <Project>{df8036d8-f370-49fd-9c85-14d95ad68139}</Project>
+      <Name>Tripod.Ioc</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
+    <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />
@@ -109,7 +110,7 @@
   </Choose>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
   </Target>

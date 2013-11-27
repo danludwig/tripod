@@ -20,6 +20,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tripod.Domain.UnitTests", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tripod.Ioc", "Tripod.Ioc\Tripod.Ioc.csproj", "{DF8036D8-F370-49FD-9C85-14D95AD68139}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tripod.Ioc.UnitTests", "Tests\Tripod.Ioc.UnitTests\Tripod.Ioc.UnitTests.csproj", "{D8C8221F-89B0-4707-B0F7-6762872BDA14}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -38,11 +40,16 @@ Global
 		{DF8036D8-F370-49FD-9C85-14D95AD68139}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DF8036D8-F370-49FD-9C85-14D95AD68139}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DF8036D8-F370-49FD-9C85-14D95AD68139}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D8C8221F-89B0-4707-B0F7-6762872BDA14}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D8C8221F-89B0-4707-B0F7-6762872BDA14}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D8C8221F-89B0-4707-B0F7-6762872BDA14}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D8C8221F-89B0-4707-B0F7-6762872BDA14}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{D217070F-C4C0-46FA-9040-E0EEDF4C673F} = {B443F697-3A23-430D-BE52-12924ECCD617}
+		{D8C8221F-89B0-4707-B0F7-6762872BDA14} = {B443F697-3A23-430D-BE52-12924ECCD617}
 	EndGlobalSection
 EndGlobal

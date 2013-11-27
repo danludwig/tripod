@@ -1,4 +1,7 @@
 ﻿namespace Tripod
 {
-    public interface IFakeOpenGenericB<T> { }
+    public interface IFakeOpenGenericB<out T>
+    {
+        T Property { get; }
+    }
 }
