@@ -37,6 +37,15 @@ Included items must then not match any entries in the exclude list to remain inc
               </Exclude>
             </ModulePaths>-->
 
+            <!-- Match assembly file paths: -->
+            <ModulePaths>
+              <Exclude>
+                <ModulePath>.*msvcr100.dll$</ModulePath>
+                <ModulePath>.*msvcp100.dll$</ModulePath>
+                <ModulePath>.*atl100.dll$</ModulePath>
+              </Exclude>
+            </ModulePaths>
+
             <!-- Match fully qualified names of functions: -->
             <!-- (Use "\." to delimit namespaces in C# or Visual Basic, "::" in C++.)  
             <Functions>
@@ -80,12 +89,12 @@ Included items must then not match any entries in the exclude list to remain inc
               </Exclude>
             </Sources>
 
-            <!-- Match the company name property in the assembly: 
+            <!-- Match the company name property in the assembly: -->
             <CompanyNames>
               <Exclude>
                 <CompanyName>.*microsoft.*</CompanyName>
               </Exclude>
-            </CompanyNames>-->
+            </CompanyNames>
 
             <!-- Match the public key token of a signed assembly: -->
             <PublicKeyTokens>
