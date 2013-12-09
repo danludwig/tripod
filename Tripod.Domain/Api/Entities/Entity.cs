@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Tripod
+﻿namespace Tripod
 {
     /// <summary>
     /// A single unit of relational data that can be identified by a primary key.
