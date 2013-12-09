@@ -8,7 +8,7 @@ namespace Tripod.Ioc.EntityFramework
         [Fact]
         public void InitializeDatabase_HasNoSideEffects()
         {
-            var dbInitializer = new BrownfieldDbInitializer<EntityDbContext>();
+            var dbInitializer = new BrownfieldDbInitializer();
             var dbContext = new EntityDbContext();
             dbInitializer.InitializeDatabase(dbContext);
             dbContext.ShouldNotBeNull();

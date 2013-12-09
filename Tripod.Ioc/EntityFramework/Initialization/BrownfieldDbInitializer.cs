@@ -2,9 +2,9 @@
 
 namespace Tripod.Ioc.EntityFramework
 {
-    public class BrownfieldDbInitializer<TContext> : IDatabaseInitializer<TContext> where TContext : DbContext
+    public class BrownfieldDbInitializer : IDatabaseInitializer<DbContext>
     {
-        public void InitializeDatabase(TContext db)
+        public void InitializeDatabase(DbContext db)
         {
             // assume db already exists and should not be fooled with
         }

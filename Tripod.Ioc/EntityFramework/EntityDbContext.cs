@@ -13,7 +13,7 @@ namespace Tripod.Ioc.EntityFramework
 
         public EntityDbContext()
         {
-            Initializer = new BrownfieldDbInitializer<EntityDbContext>();
+            Initializer = new BrownfieldDbInitializer();
         }
 
         private IDatabaseInitializer<EntityDbContext> _initializer;

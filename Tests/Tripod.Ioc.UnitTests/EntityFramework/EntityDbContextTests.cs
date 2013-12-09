@@ -12,7 +12,7 @@ namespace Tripod.Ioc.EntityFramework
         {
             var dbContext = new EntityDbContext();
             dbContext.Initializer.ShouldNotBeNull();
-            dbContext.Initializer.GetType().ShouldEqual(typeof(BrownfieldDbInitializer<EntityDbContext>));
+            dbContext.Initializer.GetType().ShouldEqual(typeof(BrownfieldDbInitializer));
         }
 
         [Fact]
