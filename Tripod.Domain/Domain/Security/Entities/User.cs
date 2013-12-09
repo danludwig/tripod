@@ -2,14 +2,9 @@
 {
     public class User : EntityWithId<int>
     {
-        protected User() { }
+        protected internal User() { }
 
-        protected internal User(string name)
-        {
-            Name = name;
-        }
-
-        public string Name { get; protected set; }
+        public string Name { get; protected internal set; }
 
         public static class Constraints
         {

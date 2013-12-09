@@ -19,7 +19,7 @@ namespace Tripod
         /// <returns>The hash code for this object instance based on its Id property.</returns>
         public override int GetHashCode()
         {
-            return Equals(Id, default(TId)) ? 0 : Id.GetHashCode();
+            return IsTransient(this) ? 0 : Id.GetHashCode();
         }
 
         /// <summary>
@@ -29,17 +29,6 @@ namespace Tripod
         /// <returns>True if the other object is an EntityWithId, both entities are not null or
         /// transient, and both entities have the same Id value. Otherwise, false.</returns>
         public override bool Equals(object other)
-        {
-            return Equals(other as EntityWithId<TId>);
-        }
-
-        /// <summary>
-        /// Determine whether this entity is equal to another entity.
-        /// </summary>
-        /// <param name="other">The entity to compare to this entity when determining equality.</param>
-        /// <returns>True of the other entity is an EntityWithId, both entities are not null or
-        /// transient, and both entities have the same Id value. Otherwise, false.</returns>
-        public override bool Equals(Entity other)
         {
             return Equals(other as EntityWithId<TId>);
         }

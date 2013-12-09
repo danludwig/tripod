@@ -36,7 +36,7 @@ namespace Tripod.Ioc.EntityFramework
             var dbContext = new EntityDbContext();
             var dbInitializer = new CreateDatabaseIfNotExists<EntityDbContext>();
             dbContext.Initializer = dbInitializer;
-            var createdEntity = new User(Guid.NewGuid().ToString());
+            var createdEntity = new User { Name = Guid.NewGuid().ToString() };
             dbContext.Create(createdEntity);
             dbContext.SaveChanges();
 
@@ -65,7 +65,7 @@ namespace Tripod.Ioc.EntityFramework
             var dbInitializer = new CreateDatabaseIfNotExists<EntityDbContext>();
             dbContext.Initializer = dbInitializer;
 
-            var entity = new User(Guid.NewGuid().ToString());
+            var entity = new User { Name = Guid.NewGuid().ToString() };
             dbContext.Entry(entity).State.ShouldEqual(EntityState.Detached);
             dbContext.Create(entity);
             dbContext.Entry(entity).State.ShouldEqual(EntityState.Added);
@@ -77,7 +77,7 @@ namespace Tripod.Ioc.EntityFramework
             var dbContext = new EntityDbContext();
             var dbInitializer = new CreateDatabaseIfNotExists<EntityDbContext>();
             dbContext.Initializer = dbInitializer;
-            var entity = new User(Guid.NewGuid().ToString());
+            var entity = new User { Name = Guid.NewGuid().ToString() };
             dbContext.Create(entity);
             entity.Id.ShouldEqual(0);
             dbContext.SaveChanges();
@@ -91,7 +91,7 @@ namespace Tripod.Ioc.EntityFramework
             var dbContext = new EntityDbContext();
             var dbInitializer = new CreateDatabaseIfNotExists<EntityDbContext>();
             dbContext.Initializer = dbInitializer;
-            var entity = new User(Guid.NewGuid().ToString());
+            var entity = new User { Name = Guid.NewGuid().ToString() };
             dbContext.Create(entity);
             dbContext.SaveChanges();
 
@@ -106,7 +106,7 @@ namespace Tripod.Ioc.EntityFramework
             var dbContext = new EntityDbContext();
             var dbInitializer = new CreateDatabaseIfNotExists<EntityDbContext>();
             dbContext.Initializer = dbInitializer;
-            var entity = new User(Guid.NewGuid().ToString());
+            var entity = new User { Name = Guid.NewGuid().ToString() };
             dbContext.Create(entity);
 
             dbContext.Entry(entity).State.ShouldEqual(EntityState.Added);
@@ -120,7 +120,7 @@ namespace Tripod.Ioc.EntityFramework
             var dbContext = new EntityDbContext();
             var dbInitializer = new CreateDatabaseIfNotExists<EntityDbContext>();
             dbContext.Initializer = dbInitializer;
-            var entity = new User(Guid.NewGuid().ToString());
+            var entity = new User { Name = Guid.NewGuid().ToString() };
             dbContext.Create(entity);
             dbContext.SaveChanges();
 
