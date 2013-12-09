@@ -7,16 +7,16 @@ using System.Reflection;
 
 namespace Tripod.Ioc.EntityFramework
 {
-    public class SqlServerDbModelCreator : ICreateDbModel
+    public class DefaultDbModelCreator : ICreateDbModel
     {
-        public void Create(DbModelBuilder modelBuilder, Assembly assembly)
+        public void Create(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
 
             var complexType = typeof(ComplexTypeConfiguration<>);
             var entityType = typeof(EntityTypeConfiguration<>);
 
-            assembly = assembly ?? Assembly.GetAssembly(GetType());
+            var assembly = Assembly.GetAssembly(GetType());
             var typesToRegister = assembly.GetTypes()
                 .Where(t => !t.IsAbstract &&
                 (

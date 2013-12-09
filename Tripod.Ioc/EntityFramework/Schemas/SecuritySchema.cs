@@ -1,7 +1,7 @@
 ﻿using System.Data.Entity.ModelConfiguration;
 using Tripod.Domain.Security;
 
-namespace Tripod.Ioc.EntityFramework.SqlServer
+namespace Tripod.Ioc.EntityFramework
 {
     public class UserDb : EntityTypeConfiguration<User>
     {

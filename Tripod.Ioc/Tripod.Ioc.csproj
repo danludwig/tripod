@@ -66,9 +66,9 @@
     <Compile Include="EntityFramework\EntityDbContext.cs" />
     <Compile Include="EntityFramework\Initialization\BrownfieldDbInitializer.cs" />
     <Compile Include="EntityFramework\Initialization\GreenfieldDbInitializer.cs" />
-    <Compile Include="EntityFramework\ModelCreation\SqlServerDbModelCreator.cs" />
+    <Compile Include="EntityFramework\ModelCreation\DefaultDbModelCreator.cs" />
     <Compile Include="EntityFramework\ModelCreation\ICreateDbModel.cs" />
-    <Compile Include="EntityFramework\ModelCreation\SqlServer\SecuritySchema.cs" />
+    <Compile Include="EntityFramework\Schemas\SecuritySchema.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

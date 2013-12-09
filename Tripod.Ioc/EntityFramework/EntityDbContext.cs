@@ -4,7 +4,6 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Reflection;
 
 namespace Tripod.Ioc.EntityFramework
 {
@@ -36,8 +35,8 @@ namespace Tripod.Ioc.EntityFramework
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            ModelCreator = ModelCreator ?? new SqlServerDbModelCreator();
-            ModelCreator.Create(modelBuilder, Assembly.GetAssembly(ModelCreator.GetType()));
+            ModelCreator = ModelCreator ?? new DefaultDbModelCreator();
+            ModelCreator.Create(modelBuilder);
             base.OnModelCreating(modelBuilder);
         }
 
