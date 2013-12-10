@@ -7,14 +7,12 @@ using Xunit;
 
 namespace Tripod.Ioc.Domain.Security
 {
-    public class UserByTests : DbContextIntegrationTest
+    public class UserByTests : EntityDbContextIntegrationTest
     {
         [Fact]
         public void Handler_ReturnsUser_ById()
         {
             var dbContext = new EntityDbContext();
-            var dbInitializer = new CreateDatabaseIfNotExists<EntityDbContext>();
-            dbContext.Initializer = dbInitializer;
             var userName = Guid.NewGuid().ToString();
             var user = new User { Name = userName };
             dbContext.Create(user);
@@ -32,8 +30,6 @@ namespace Tripod.Ioc.Domain.Security
         public void Handler_ReturnsUser_ByName()
         {
             var dbContext = new EntityDbContext();
-            var dbInitializer = new CreateDatabaseIfNotExists<EntityDbContext>();
-            dbContext.Initializer = dbInitializer;
             var userName = Guid.NewGuid().ToString();
             var user = new User { Name = userName };
             dbContext.Create(user);

@@ -66,6 +66,7 @@
     </Compile>
     <Compile Include="EntityFramework\Customization\ICustomizeDb.cs" />
     <Compile Include="EntityFramework\EntityDbContext.cs" />
+    <Compile Include="EntityFramework\EntityDbContext.Views.cs" />
     <Compile Include="EntityFramework\Initialization\BrownfieldDbInitializer.cs" />
     <Compile Include="EntityFramework\Initialization\GreenfieldDbInitializer.cs" />
     <Compile Include="EntityFramework\ModelCreation\DefaultDbModelCreator.cs" />

@@ -7,7 +7,7 @@ using Xunit;
 
 namespace Tripod.Ioc.EntityFramework
 {
-    public class EntityDbContextTests : DbContextIntegrationTest
+    public class EntityDbContextTests : EntityDbContextIntegrationTest
     {
         [Fact]
         public void DatabaseName_IsTestName()
@@ -20,8 +20,6 @@ namespace Tripod.Ioc.EntityFramework
         public void NoArgGet_ReturnsDataFromStore()
         {
             var dbContext = new EntityDbContext();
-            var dbInitializer = new CreateDatabaseIfNotExists<EntityDbContext>();
-            dbContext.Initializer = dbInitializer;
 
             var entities = dbContext.Get<User>().Take(2).ToArray();
 
@@ -33,8 +31,6 @@ namespace Tripod.Ioc.EntityFramework
         public void Query_ReturnsData()
         {
             var dbContext = new EntityDbContext();
-            var dbInitializer = new CreateDatabaseIfNotExists<EntityDbContext>();
-            dbContext.Initializer = dbInitializer;
             var createdEntity = new User { Name = Guid.NewGuid().ToString() };
             dbContext.Create(createdEntity);
             dbContext.SaveChanges();
@@ -49,8 +45,6 @@ namespace Tripod.Ioc.EntityFramework
         public void Get_ReturnsNull_WhenPrimaryKeyDoesNotMatchRow()
         {
             var dbContext = new EntityDbContext();
-            var dbInitializer = new CreateDatabaseIfNotExists<EntityDbContext>();
-            dbContext.Initializer = dbInitializer;
 
             var entity = dbContext.Get<User>(int.MaxValue);
 
@@ -61,8 +55,6 @@ namespace Tripod.Ioc.EntityFramework
         public void Create_SetsEntityState_ToAdded()
         {
             var dbContext = new EntityDbContext();
-            var dbInitializer = new CreateDatabaseIfNotExists<EntityDbContext>();
-            dbContext.Initializer = dbInitializer;
 
             var entity = new User { Name = Guid.NewGuid().ToString() };
             dbContext.Entry(entity).State.ShouldEqual(EntityState.Detached);
@@ -74,22 +66,17 @@ namespace Tripod.Ioc.EntityFramework
         public void Create_AddsEntityToDb_WhenChangesAreSaved()
         {
             var dbContext = new EntityDbContext();
-            var dbInitializer = new CreateDatabaseIfNotExists<EntityDbContext>();
-            dbContext.Initializer = dbInitializer;
             var entity = new User { Name = Guid.NewGuid().ToString() };
             dbContext.Create(entity);
             entity.Id.ShouldEqual(0);
             dbContext.SaveChanges();
             entity.Id.ShouldNotEqual(0);
-
         }
 
         [Fact]
         public void Delete_SetsEntityState_ToDeleted()
         {
             var dbContext = new EntityDbContext();
-            var dbInitializer = new CreateDatabaseIfNotExists<EntityDbContext>();
-            dbContext.Initializer = dbInitializer;
             var entity = new User { Name = Guid.NewGuid().ToString() };
             dbContext.Create(entity);
             dbContext.SaveChanges();
@@ -103,8 +90,6 @@ namespace Tripod.Ioc.EntityFramework
         public void DiscardChanges_ChangesAddedEntityState_ToDetached()
         {
             var dbContext = new EntityDbContext();
-            var dbInitializer = new CreateDatabaseIfNotExists<EntityDbContext>();
-            dbContext.Initializer = dbInitializer;
             var entity = new User { Name = Guid.NewGuid().ToString() };
             dbContext.Create(entity);
 
@@ -117,8 +102,6 @@ namespace Tripod.Ioc.EntityFramework
         public void DiscardChanges_ChangesDeletedEntityState_ToUnchanged()
         {
             var dbContext = new EntityDbContext();
-            var dbInitializer = new CreateDatabaseIfNotExists<EntityDbContext>();
-            dbContext.Initializer = dbInitializer;
             var entity = new User { Name = Guid.NewGuid().ToString() };
             dbContext.Create(entity);
             dbContext.SaveChanges();

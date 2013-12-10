@@ -73,10 +73,9 @@
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Domain\Security\Queries\UserByTests.cs" />
-    <Compile Include="EntityFramework\_Tools\DbContextDatabasePurger.cs" />
-    <Compile Include="EntityFramework\_Tools\EntityDbContextDatabasePurger.cs" />
+    <Compile Include="EntityFramework\_Tools\EntityDbContextDatabaseInitializer.cs" />
     <Compile Include="EntityFramework\EntityDbContextTests.cs" />
-    <Compile Include="EntityFramework\_Tools\DbContextIntegrationTest.cs" />
+    <Compile Include="EntityFramework\_Tools\EntityDbContextIntegrationTest.cs" />
     <Compile Include="EntityFramework\Initialization\GreenfieldDbInitializerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
