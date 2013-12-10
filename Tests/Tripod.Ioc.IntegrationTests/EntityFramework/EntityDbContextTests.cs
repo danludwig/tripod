@@ -39,7 +39,7 @@ namespace Tripod.Ioc.EntityFramework
             dbContext.Create(createdEntity);
             dbContext.SaveChanges();
 
-            var queriedEntity = dbContext.Query<User>().SingleOrDefault(x => x.Id == createdEntity.Id);
+            var queriedEntity = dbContext.Query<User>().SingleOrDefaultAsync(x => x.Id == createdEntity.Id).Result;
 
             Assert.NotNull(queriedEntity);
             createdEntity.Id.ShouldEqual(queriedEntity.Id);
@@ -109,7 +109,7 @@ namespace Tripod.Ioc.EntityFramework
             dbContext.Create(entity);
 
             dbContext.Entry(entity).State.ShouldEqual(EntityState.Added);
-            dbContext.DiscardChanges();
+            dbContext.DiscardChangesAsync().Wait();
             dbContext.Entry(entity).State.ShouldEqual(EntityState.Detached);
         }
 
@@ -126,7 +126,7 @@ namespace Tripod.Ioc.EntityFramework
             dbContext.Entry(entity).State.ShouldEqual(EntityState.Unchanged);
             dbContext.Delete(entity);
             dbContext.Entry(entity).State.ShouldEqual(EntityState.Deleted);
-            dbContext.DiscardChanges();
+            dbContext.DiscardChangesAsync().Wait();
             dbContext.Entry(entity).State.ShouldEqual(EntityState.Unchanged);
         }
     }

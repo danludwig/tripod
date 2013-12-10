@@ -7,7 +7,7 @@ namespace Tripod
     /// <summary>
     /// Informs an underlying relational data store to return sets of read-only entity instances.
     /// </summary>
-    public interface IQueryEntities
+    public interface IQueryEntities : IAwaitQueryables
     {
         /// <summary>
         /// Inform an underlying relational data store to return a set of read-only entity instances.

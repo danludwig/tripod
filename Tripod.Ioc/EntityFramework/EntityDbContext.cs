@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace Tripod.Ioc.EntityFramework
 {
@@ -40,6 +41,14 @@ namespace Tripod.Ioc.EntityFramework
         }
 
         #endregion
+        #region Async
+
+        public async Task<TSource> SingleOrDefaultAsync<TSource>(IQueryable<TSource> source, Expression<Func<TSource, bool>> predicate)
+        {
+            return source != null ? await source.SingleOrDefaultAsync(predicate) : await Task.FromResult(default(TSource));
+        }
+
+        #endregion
         #region Queries
 
         public IQueryable<TEntity> EagerLoad<TEntity>(IQueryable<TEntity> query,
@@ -53,7 +62,7 @@ namespace Tripod.Ioc.EntityFramework
         public IQueryable<TEntity> Query<TEntity>() where TEntity : Entity
         {
             // AsNoTracking returns entities that are not attached to the DbContext
-            return Set<TEntity>().AsNoTracking();
+            return new EntitySet<TEntity>(Set<TEntity>().AsNoTracking(), this);
         }
 
         #endregion
@@ -69,7 +78,7 @@ namespace Tripod.Ioc.EntityFramework
 
         public IQueryable<TEntity> Get<TEntity>() where TEntity : Entity
         {
-            return Set<TEntity>();
+            return new EntitySet<TEntity>(Set<TEntity>(), this);
         }
 
         public void Create<TEntity>(TEntity entity) where TEntity : Entity
@@ -89,16 +98,16 @@ namespace Tripod.Ioc.EntityFramework
                 Set<TEntity>().Remove(entity);
         }
 
-        public void Reload<TEntity>(TEntity entity) where TEntity : Entity
+        public async void Reload<TEntity>(TEntity entity) where TEntity : Entity
         {
-            Entry(entity).Reload();
+            await Entry(entity).ReloadAsync();
         }
 
 
         #endregion
         #region UnitOfWork
 
-        public void DiscardChanges()
+        public async Task DiscardChangesAsync()
         {
             foreach (var entry in ChangeTracker.Entries().Where(x => x != null))
             {
@@ -111,7 +120,7 @@ namespace Tripod.Ioc.EntityFramework
                         entry.State = EntityState.Unchanged;
                         break;
                     case EntityState.Deleted:
-                        entry.Reload();
+                        await entry.ReloadAsync();
                         break;
                 }
             }

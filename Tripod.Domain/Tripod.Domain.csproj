@@ -11,6 +11,8 @@
     <AssemblyName>Tripod.Domain</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -30,6 +32,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FluentValidation">
+      <HintPath>..\packages\FluentValidation.5.0.0.1\lib\Net40\FluentValidation.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="Microsoft.CSharp" />
@@ -41,17 +46,30 @@
     <Compile Include="..\ReSharperAnnotations.cs">
       <Link>Properties\ReSharperAnnotations.cs</Link>
     </Compile>
+    <Compile Include="Api\Entities\EntitySet.cs" />
     <Compile Include="Api\Entities\EntityWithId.cs" />
+    <Compile Include="Api\Entities\IAwaitQueryables.cs" />
     <Compile Include="Api\Entities\ICommandEntities.cs" />
     <Compile Include="Api\Entities\Entity.cs" />
     <Compile Include="Api\Entities\IQueryEntities.cs" />
     <Compile Include="Api\Entities\IUnitOfWork.cs" />
+    <Compile Include="Api\Transactions\IDefineCommand.cs" />
+    <Compile Include="Api\Transactions\IDefineQuery.cs" />
+    <Compile Include="Api\Transactions\IHandleCommand.cs" />
+    <Compile Include="Api\Transactions\IHandleQuery.cs" />
+    <Compile Include="Api\Transactions\IProcessQuery.cs" />
+    <Compile Include="Api\Transactions\OrderByDirection.cs" />
+    <Compile Include="Api\_Extensions\EntityExtensions.cs" />
     <Compile Include="Api\_Extensions\ReflectionExtensions.cs" />
     <Compile Include="Domain\Security\Entities\User.cs" />
+    <Compile Include="Domain\Security\Queries\UserBy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
