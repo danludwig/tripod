@@ -68,12 +68,12 @@ namespace Tripod.Ioc.EntityFramework
         #endregion
         #region Commands
 
-        public TEntity Get<TEntity>(object firstKeyValue, params object[] otherKeyValues) where TEntity : Entity
+        public Task<TEntity> GetAsync<TEntity>(object firstKeyValue, params object[] otherKeyValues) where TEntity : Entity
         {
             if (firstKeyValue == null) throw new ArgumentNullException("firstKeyValue");
             var keyValues = new List<object> { firstKeyValue };
             if (otherKeyValues != null) keyValues.AddRange(otherKeyValues);
-            return Set<TEntity>().Find(keyValues.ToArray());
+            return Set<TEntity>().FindAsync(keyValues.ToArray());
         }
 
         public IQueryable<TEntity> Get<TEntity>() where TEntity : Entity
@@ -107,8 +107,9 @@ namespace Tripod.Ioc.EntityFramework
         #endregion
         #region UnitOfWork
 
-        public async Task DiscardChangesAsync()
+        public Task DiscardChangesAsync()
         {
+            var reloadTasks = new List<Task>();
             foreach (var entry in ChangeTracker.Entries().Where(x => x != null))
             {
                 switch (entry.State)
@@ -120,10 +121,12 @@ namespace Tripod.Ioc.EntityFramework
                         entry.State = EntityState.Unchanged;
                         break;
                     case EntityState.Deleted:
-                        await entry.ReloadAsync();
+                        //await entry.ReloadAsync();
+                        reloadTasks.Add(entry.ReloadAsync());
                         break;
                 }
             }
+            return Task.WhenAll(reloadTasks);
         }
 
         #endregion

@@ -99,7 +99,7 @@ namespace Tripod.Ioc.EntityFramework
         {
             using (var dbContext = new EntityDbContext())
             {
-                var exception = Assert.Throws<ArgumentNullException>(() => dbContext.Get<User>(null));
+                var exception = Assert.Throws<ArgumentNullException>(() => dbContext.GetAsync<User>(null).Result);
                 exception.ShouldNotBeNull();
                 exception.ParamName.ShouldEqual("firstKeyValue");
             }
@@ -110,7 +110,7 @@ namespace Tripod.Ioc.EntityFramework
         {
             using (var dbContext = new EntityDbContext())
             {
-                var entity = dbContext.Get<User>(int.MaxValue);
+                var entity = dbContext.GetAsync<User>(int.MaxValue).Result;
                 entity.ShouldBeNull();
             }
         }

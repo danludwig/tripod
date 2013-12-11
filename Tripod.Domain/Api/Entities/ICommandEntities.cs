@@ -20,7 +20,7 @@ namespace Tripod
         /// <returns>A single writable entity instance whose primary key matches the argument value(s) if one
         /// exists in the underlying relational data store.
         /// Otherwise, null.</returns>
-        TEntity Get<TEntity>(object firstKeyValue, params object[] otherKeyValues) where TEntity : Entity;
+        Task<TEntity> GetAsync<TEntity>(object firstKeyValue, params object[] otherKeyValues) where TEntity : Entity;
 
         /// <summary>
         /// Inform an underlying relational data store to return a set of writable entity instances.
