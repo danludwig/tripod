@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Data.Entity;
 using System.Linq;
+using System.Linq.Expressions;
+using System.Runtime.InteropServices;
 using Should;
 using Tripod.Domain.Security;
 using Xunit;
@@ -17,14 +19,42 @@ namespace Tripod.Ioc.EntityFramework
         }
 
         [Fact]
-        public void NoArgGet_ReturnsDataFromStore()
+        public void SingleOrDefaultAsync_ReturnsNull_WhenQueryableIsNull()
         {
             var dbContext = new EntityDbContext();
+            var result = dbContext.SingleOrDefaultAsync<Permission>(null, x => x != null).Result;
+            result.ShouldBeNull();
+        }
 
-            var entities = dbContext.Get<User>().Take(2).ToArray();
+        [Fact]
+        public void EagerLoad_IncludesRelatedData()
+        {
+            var dbContext = new EntityDbContext();
+            var userName = Guid.NewGuid().ToString();
+            var permissionName = Guid.NewGuid().ToString();
+            var user = new User
+            {
+                Name = userName,
+                Permissions = new[] { new Permission(permissionName) },
+            };
+            dbContext.Create(user);
+            dbContext.SaveChanges();
 
-            entities.ShouldNotBeNull();
-            entities.Length.ShouldBeInRange(0, 2);
+            var entity = dbContext.Query<User>()
+                .EagerLoad(new Expression<Func<User, object>>[]
+                {
+                    x => x.Permissions,
+                }).Single(x => x.Name.Equals(userName));
+            entity.Permissions.Count.ShouldEqual(1);
+            entity.Permissions.Single().Name.ShouldEqual(permissionName);
+        }
+
+        [Fact]
+        public void EagerLoad_ReturnsNull_WhenQueryIsNull()
+        {
+            var dbContext = new EntityDbContext();
+            var result = dbContext.EagerLoad<Permission>(null, x => x.Users);
+            result.ShouldBeNull();
         }
 
         [Fact]
@@ -39,6 +69,26 @@ namespace Tripod.Ioc.EntityFramework
 
             Assert.NotNull(queriedEntity);
             createdEntity.Id.ShouldEqual(queriedEntity.Id);
+        }
+
+        [Fact]
+        public void NoArgGet_ReturnsDataFromStore()
+        {
+            var dbContext = new EntityDbContext();
+
+            var entities = dbContext.Get<User>().Take(2).ToArray();
+
+            entities.ShouldNotBeNull();
+            entities.Length.ShouldBeInRange(0, 2);
+        }
+
+        [Fact]
+        public void Get_ThrowsArgumentNullException_WhenFirstKeyValueArgumentIsNull()
+        {
+            var dbContext = new EntityDbContext();
+            var exception = Assert.Throws<ArgumentNullException>(() => dbContext.Get<User>(null));
+            exception.ShouldNotBeNull();
+            exception.ParamName.ShouldEqual("firstKeyValue");
         }
 
         [Fact]
@@ -74,6 +124,20 @@ namespace Tripod.Ioc.EntityFramework
         }
 
         [Fact]
+        public void Update_SetsEntityState_ToModified()
+        {
+            var dbContext = new EntityDbContext();
+            var permissionName = Guid.NewGuid().ToString();
+            var entity = new Permission(permissionName) { Description = "d1" };
+            dbContext.Create(entity);
+            dbContext.SaveChanges();
+
+            dbContext.Entry(entity).State.ShouldEqual(EntityState.Unchanged);
+            dbContext.Update(entity);
+            dbContext.Entry(entity).State.ShouldEqual(EntityState.Modified);
+        }
+
+        [Fact]
         public void Delete_SetsEntityState_ToDeleted()
         {
             var dbContext = new EntityDbContext();
@@ -87,6 +151,23 @@ namespace Tripod.Ioc.EntityFramework
         }
 
         [Fact]
+        public void ReloadAsync_ChangesModifiedEntityState_ToUnchanged()
+        {
+            var dbContext = new EntityDbContext();
+            var description = Guid.NewGuid().ToString();
+            var entity = new Permission(Guid.NewGuid().ToString()) { Description = description };
+            dbContext.Create(entity);
+            dbContext.SaveChanges();
+
+            dbContext.Entry(entity).State.ShouldEqual(EntityState.Unchanged);
+            entity.Description = Guid.NewGuid().ToString();
+            dbContext.Entry(entity).State.ShouldEqual(EntityState.Modified);
+            dbContext.ReloadAsync(entity).Wait();
+            dbContext.Entry(entity).State.ShouldEqual(EntityState.Unchanged);
+            entity.Description.ShouldEqual(description);
+        }
+
+        [Fact]
         public void DiscardChanges_ChangesAddedEntityState_ToDetached()
         {
             var dbContext = new EntityDbContext();
@@ -96,6 +177,23 @@ namespace Tripod.Ioc.EntityFramework
             dbContext.Entry(entity).State.ShouldEqual(EntityState.Added);
             dbContext.DiscardChangesAsync().Wait();
             dbContext.Entry(entity).State.ShouldEqual(EntityState.Detached);
+        }
+
+        [Fact]
+        public void DiscardChanges_ChangesModifiedEntityState_ToUnchanged()
+        {
+            var dbContext = new EntityDbContext();
+            var userName = Guid.NewGuid().ToString();
+            var entity = new User { Name = userName };
+            dbContext.Create(entity);
+            dbContext.SaveChanges();
+
+            dbContext.Entry(entity).State.ShouldEqual(EntityState.Unchanged);
+            entity.Name = Guid.NewGuid().ToString();
+            dbContext.Entry(entity).State.ShouldEqual(EntityState.Modified);
+            dbContext.DiscardChangesAsync().Wait();
+            dbContext.Entry(entity).State.ShouldEqual(EntityState.Unchanged);
+            entity.Name.ShouldEqual(userName);
         }
 
         [Fact]

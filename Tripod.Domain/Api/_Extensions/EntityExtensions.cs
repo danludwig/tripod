@@ -12,7 +12,7 @@ namespace Tripod
             where TEntity : Entity
         {
             var set = queryable as EntitySet<TEntity>;
-            return set != null ? set.Entities.EagerLoad(queryable, expression) : queryable;
+            return set != null ? new EntitySet<TEntity>(set.Entities.EagerLoad(queryable, expression), set.Entities) : queryable;
         }
 
         internal static IQueryable<TEntity> EagerLoad<TEntity>(this IQueryable<TEntity> queryable, IEnumerable<Expression<Func<TEntity, object>>> expressions)
@@ -25,6 +25,7 @@ namespace Tripod
 
         internal static IQueryable<TEntity> OrderBy<TEntity>(this IQueryable<TEntity> queryable,
             IEnumerable<KeyValuePair<Expression<Func<TEntity, object>>, OrderByDirection>> expressions)
+            where TEntity : Entity
         {
             if (expressions == null) return queryable;
 
@@ -117,6 +118,7 @@ namespace Tripod
         }
 
         private static IQueryable<TEntity> ApplyOrderBy<TEntity, TKey>(this IQueryable<TEntity> queryable, int counter, OrderByDirection direction, Expression<Func<TEntity, TKey>> keySelector)
+            where TEntity : Entity
         {
             if (counter == 0)
             {
@@ -133,11 +135,12 @@ namespace Tripod
             return queryable;
         }
 
-        internal static Expression<Func<T, bool>> Not<T>(this Expression<Func<T, bool>> expressionToNegate)
+        internal static Expression<Func<TEntity, bool>> Not<TEntity>(this Expression<Func<TEntity, bool>> expressionToNegate)
+            where TEntity : Entity
         {
             var candidate = expressionToNegate.Parameters[0];
             var body = Expression.Not(expressionToNegate.Body);
-            return Expression.Lambda<Func<T, bool>>(body, candidate);
+            return Expression.Lambda<Func<TEntity, bool>>(body, candidate);
         }
 
         internal static Task<TEntity> SingleOrDefaultAsync<TEntity>(this IQueryable<TEntity> source,

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Data.Entity;
 using Should;
 using Tripod.Domain.Security;
 using Tripod.Ioc.EntityFramework;

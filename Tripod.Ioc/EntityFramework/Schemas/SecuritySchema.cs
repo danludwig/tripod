@@ -14,6 +14,23 @@ namespace Tripod.Ioc.EntityFramework
             HasKey(x => x.Id);
 
             Property(x => x.Name).IsRequired().HasMaxLength(User.Constraints.NameMaxLength);
+
+            HasMany(x => x.Permissions)
+                .WithMany(x => x.Users)
+                .Map(x => x.ToTable("UserGivenPrivilege", SchemaName).MapLeftKey("UserId").MapRightKey("RoleId"))
+            ;
+        }
+    }
+
+    public class PermissionDb : EntityTypeConfiguration<Permission>
+    {
+        public PermissionDb()
+        {
+            ToTable("Permission", UserDb.SchemaName);
+
+            HasKey(x => x.Id);
+
+            Property(x => x.Name).IsRequired().HasMaxLength(Permission.Constraints.NameMaxLength);
         }
     }
 }

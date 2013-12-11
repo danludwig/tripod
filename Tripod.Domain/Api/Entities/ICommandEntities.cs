@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Threading.Tasks;
 
 namespace Tripod
 {
@@ -68,6 +69,6 @@ namespace Tripod
         /// is part of.</typeparam>
         /// <param name="entity">Entity instance whose data state will be replaced using the values currently
         /// saved in the underlying relational data store.</param>
-        void Reload<TEntity>(TEntity entity) where TEntity : Entity;
+        Task ReloadAsync<TEntity>(TEntity entity) where TEntity : Entity;
     }
 }

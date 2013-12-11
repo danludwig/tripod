@@ -1,4 +1,6 @@
-﻿namespace Tripod.Domain.Security
+﻿using System.Collections.Generic;
+
+namespace Tripod.Domain.Security
 {
     public class ProxiedUser : User
     {
@@ -6,5 +8,7 @@
         {
             Name = "nameFromDb";
         }
+
+        public override ICollection<Permission> Permissions { get; protected internal set; }
     }
 }

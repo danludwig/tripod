@@ -11,7 +11,7 @@ using System.Data.Entity.Infrastructure.MappingViews;
 
 [assembly: DbMappingViewCacheTypeAttribute(
     typeof(Tripod.Ioc.EntityFramework.EntityDbContext),
-    typeof(Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySets3d6bcb17e486b5fa18e5ccb1fd86e39ce1835aa5386e51b6dadef719b832b4cd))]
+    typeof(Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySets7dcbd53ce5882e0e43365c556945dbafb63b07561d8262b094390e04057869e9))]
 
 namespace Edm_EntityMappingGeneratedViews
 {
@@ -23,14 +23,14 @@ namespace Edm_EntityMappingGeneratedViews
     /// Implements a mapping view cache.
     /// </summary>
     [GeneratedCode("Entity Framework Power Tools", "0.9.0.0")]
-    internal sealed class ViewsForBaseEntitySets3d6bcb17e486b5fa18e5ccb1fd86e39ce1835aa5386e51b6dadef719b832b4cd : DbMappingViewCache
+    internal sealed class ViewsForBaseEntitySets7dcbd53ce5882e0e43365c556945dbafb63b07561d8262b094390e04057869e9 : DbMappingViewCache
     {
         /// <summary>
         /// Gets a hash value computed over the mapping closure.
         /// </summary>
         public override string MappingHashValue
         {
-            get { return "3d6bcb17e486b5fa18e5ccb1fd86e39ce1835aa5386e51b6dadef719b832b4cd"; }
+            get { return "7dcbd53ce5882e0e43365c556945dbafb63b07561d8262b094390e04057869e9"; }
         }
 
         /// <summary>
@@ -52,9 +52,29 @@ namespace Edm_EntityMappingGeneratedViews
                 return GetView0();
             }
 
-            if (extentName == "EntityDbContext.Users")
+            if (extentName == "CodeFirstDatabase.Permission")
             {
                 return GetView1();
+            }
+
+            if (extentName == "CodeFirstDatabase.UserPermission")
+            {
+                return GetView2();
+            }
+
+            if (extentName == "EntityDbContext.Users")
+            {
+                return GetView3();
+            }
+
+            if (extentName == "EntityDbContext.Permissions")
+            {
+                return GetView4();
+            }
+
+            if (extentName == "EntityDbContext.User_Permissions")
+            {
+                return GetView5();
             }
 
             return null;
@@ -79,10 +99,47 @@ namespace Edm_EntityMappingGeneratedViews
         }
 
         /// <summary>
-        /// Gets the view for EntityDbContext.Users.
+        /// Gets the view for CodeFirstDatabase.Permission.
         /// </summary>
         /// <returns>The mapping view.</returns>
         private static DbMappingView GetView1()
+        {
+            return new DbMappingView(@"
+    SELECT VALUE -- Constructing Permission
+        [CodeFirstDatabaseSchema.Permission](T1.Permission_Id, T1.Permission_Name, T1.Permission_Description)
+    FROM (
+        SELECT 
+            T.Id AS Permission_Id, 
+            T.Name AS Permission_Name, 
+            T.Description AS Permission_Description, 
+            True AS _from0
+        FROM EntityDbContext.Permissions AS T
+    ) AS T1");
+        }
+
+        /// <summary>
+        /// Gets the view for CodeFirstDatabase.UserPermission.
+        /// </summary>
+        /// <returns>The mapping view.</returns>
+        private static DbMappingView GetView2()
+        {
+            return new DbMappingView(@"
+    SELECT VALUE -- Constructing UserPermission
+        [CodeFirstDatabaseSchema.UserPermission](T1.UserPermission_UserId, T1.UserPermission_RoleId)
+    FROM (
+        SELECT 
+            Key(T.User_Permissions_Source).Id AS UserPermission_UserId, 
+            Key(T.User_Permissions_Target).Id AS UserPermission_RoleId, 
+            True AS _from0
+        FROM EntityDbContext.User_Permissions AS T
+    ) AS T1");
+        }
+
+        /// <summary>
+        /// Gets the view for EntityDbContext.Users.
+        /// </summary>
+        /// <returns>The mapping view.</returns>
+        private static DbMappingView GetView3()
         {
             return new DbMappingView(@"
     SELECT VALUE -- Constructing Users
@@ -94,6 +151,53 @@ namespace Edm_EntityMappingGeneratedViews
             True AS _from0
         FROM CodeFirstDatabase.User AS T
     ) AS T1");
+        }
+
+        /// <summary>
+        /// Gets the view for EntityDbContext.Permissions.
+        /// </summary>
+        /// <returns>The mapping view.</returns>
+        private static DbMappingView GetView4()
+        {
+            return new DbMappingView(@"
+    SELECT VALUE -- Constructing Permissions
+        [Tripod.Ioc.EntityFramework.Permission](T1.Permission_Id, T1.Permission_Name, T1.Permission_Description)
+    FROM (
+        SELECT 
+            T.Id AS Permission_Id, 
+            T.Name AS Permission_Name, 
+            T.Description AS Permission_Description, 
+            True AS _from0
+        FROM CodeFirstDatabase.Permission AS T
+    ) AS T1");
+        }
+
+        /// <summary>
+        /// Gets the view for EntityDbContext.User_Permissions.
+        /// </summary>
+        /// <returns>The mapping view.</returns>
+        private static DbMappingView GetView5()
+        {
+            return new DbMappingView(@"
+    SELECT VALUE -- Constructing User_Permissions
+        [Tripod.Ioc.EntityFramework.User_Permissions](T3.[User_Permissions.User_Permissions_Source], T3.[User_Permissions.User_Permissions_Target])
+    FROM (
+        SELECT -- Constructing User_Permissions_Source
+            CreateRef(EntityDbContext.Users, row(T2.[User_Permissions.User_Permissions_Source.Id]), [Tripod.Ioc.EntityFramework.User]) AS [User_Permissions.User_Permissions_Source], 
+            T2.[User_Permissions.User_Permissions_Target]
+        FROM (
+            SELECT -- Constructing User_Permissions_Target
+                T1.[User_Permissions.User_Permissions_Source.Id], 
+                CreateRef(EntityDbContext.Permissions, row(T1.[User_Permissions.User_Permissions_Target.Id]), [Tripod.Ioc.EntityFramework.Permission]) AS [User_Permissions.User_Permissions_Target]
+            FROM (
+                SELECT 
+                    T.UserId AS [User_Permissions.User_Permissions_Source.Id], 
+                    T.RoleId AS [User_Permissions.User_Permissions_Target.Id], 
+                    True AS _from0
+                FROM CodeFirstDatabase.UserPermission AS T
+            ) AS T1
+        ) AS T2
+    ) AS T3");
         }
     }
 }

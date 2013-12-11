@@ -98,9 +98,9 @@ namespace Tripod.Ioc.EntityFramework
                 Set<TEntity>().Remove(entity);
         }
 
-        public async void Reload<TEntity>(TEntity entity) where TEntity : Entity
+        public Task ReloadAsync<TEntity>(TEntity entity) where TEntity : Entity
         {
-            await Entry(entity).ReloadAsync();
+            return Entry(entity).ReloadAsync();
         }
 
 
