@@ -1,3 +1,4 @@
+using System;
 using System.Data.Entity;
 using System.Linq;
 using Should;
@@ -6,7 +7,7 @@ using Tripod.Domain.Security;
 
 namespace Tripod.Ioc.EntityFramework
 {
-    public class EntityDbContextDatabaseInitializer
+    public class EntityDbContextDatabaseInitializer : IDisposable
     {
         public EntityDbContextDatabaseInitializer()
         {
@@ -19,6 +20,14 @@ namespace Tripod.Ioc.EntityFramework
             Assert.NotNull(users);
             users.Count().ShouldBeInRange(0, int.MaxValue);
             dbContext.Dispose();
+        }
+
+        void IDisposable.Dispose()
+        {
+            using (var dbContext = new EntityDbContext())
+            {
+                dbContext.Database.Delete(); // force initializer to seed
+            }
         }
     }
 }

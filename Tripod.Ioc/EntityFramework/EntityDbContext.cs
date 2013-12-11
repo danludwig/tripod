@@ -43,9 +43,9 @@ namespace Tripod.Ioc.EntityFramework
         #endregion
         #region Async
 
-        public async Task<TSource> SingleOrDefaultAsync<TSource>(IQueryable<TSource> source, Expression<Func<TSource, bool>> predicate)
+        public Task<TEntity> SingleOrDefaultAsync<TEntity>(IQueryable<TEntity> query, Expression<Func<TEntity, bool>> predicate) where TEntity : Entity
         {
-            return source != null ? await source.SingleOrDefaultAsync(predicate) : await Task.FromResult(default(TSource));
+            return query != null ? query.SingleOrDefaultAsync(predicate) : Task.FromResult(default(TEntity));
         }
 
         #endregion
@@ -106,16 +106,6 @@ namespace Tripod.Ioc.EntityFramework
 
         #endregion
         #region UnitOfWork
-
-        public override int SaveChanges()
-        {
-            return base.SaveChanges();
-        }
-
-        public override Task<int> SaveChangesAsync()
-        {
-            return base.SaveChangesAsync();
-        }
 
         public async Task DiscardChangesAsync()
         {

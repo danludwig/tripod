@@ -12,7 +12,9 @@ namespace Tripod
             where TEntity : Entity
         {
             var set = queryable as EntitySet<TEntity>;
-            return set != null ? new EntitySet<TEntity>(set.Entities.EagerLoad(queryable, expression), set.Entities) : queryable;
+            if (set != null)
+                set.Queryable = set.Entities.EagerLoad(set.Queryable, expression);
+            return queryable;
         }
 
         internal static IQueryable<TEntity> EagerLoad<TEntity>(this IQueryable<TEntity> queryable, IEnumerable<Expression<Func<TEntity, object>>> expressions)
@@ -143,13 +145,13 @@ namespace Tripod
             return Expression.Lambda<Func<TEntity, bool>>(body, candidate);
         }
 
-        internal static Task<TEntity> SingleOrDefaultAsync<TEntity>(this IQueryable<TEntity> source,
+        internal static Task<TEntity> SingleOrDefaultAsync<TEntity>(this IQueryable<TEntity> queryable,
             Expression<Func<TEntity, bool>> predicate) where TEntity : Entity
         {
-            var set = source as EntitySet<TEntity>;
+            var set = queryable as EntitySet<TEntity>;
             return set != null
-                ? set.Entities.SingleOrDefaultAsync(source, predicate)
-                : Task.FromResult(source.SingleOrDefault(predicate));
+                ? set.Entities.SingleOrDefaultAsync(queryable, predicate)
+                : Task.FromResult(queryable.SingleOrDefault(predicate));
         }
     }
 }

@@ -14,8 +14,8 @@ namespace Tripod.Ioc.EntityFramework
                 var dbCustomizer = new Mock<ICustomizeDb>(MockBehavior.Strict);
                 dbCustomizer.Setup(x => x.Customize(It.IsAny<EntityDbContext>()));
                 var dbInitializer = new GreenfieldDbInitializer(dbCustomizer.Object);
-
-                dbInitializer.InitializeDatabase(dbContext);
+                dbContext.Initializer = dbInitializer;
+                dbContext.Initializer.InitializeDatabase(dbContext);
 
                 dbCustomizer.Verify(x => x.Customize(It.IsAny<EntityDbContext>()), Times.Once());
                 dbContext.Dispose();

@@ -21,7 +21,7 @@ namespace Tripod.Domain.Security
             _entities = entities;
         }
 
-        public async Task<User> Handle(UserBy query)
+        public Task<User> Handle(UserBy query)
         {
             if (query == null) throw new ArgumentNullException("query");
 
@@ -30,7 +30,7 @@ namespace Tripod.Domain.Security
                 ? queryable.SingleOrDefaultAsync(x => x.Id == query.Id.Value)
                 : queryable.SingleOrDefaultAsync(x => x.Name.Equals(query.Name));
 
-            return await entity;
+            return entity;
         }
     }
 }

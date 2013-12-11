@@ -12,16 +12,16 @@ namespace Tripod
         {
             if (queryable == null) throw new ArgumentNullException("queryable");
             if (entities == null) throw new ArgumentNullException("entities");
-            _queryable = queryable;
+            Queryable = queryable;
             Entities = entities;
         }
 
-        private readonly IQueryable<TEntity> _queryable;
+        internal IQueryable<TEntity> Queryable { get; set; }
         internal IQueryEntities Entities { get; private set; }
 
         public IEnumerator<TEntity> GetEnumerator()
         {
-            return _queryable.GetEnumerator();
+            return Queryable.GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()
@@ -29,8 +29,8 @@ namespace Tripod
             return GetEnumerator();
         }
 
-        public Expression Expression { get { return _queryable.Expression; } }
-        public Type ElementType { get { return _queryable.ElementType; } }
-        public IQueryProvider Provider { get { return _queryable.Provider; } }
+        public Expression Expression { get { return Queryable.Expression; } }
+        public Type ElementType { get { return Queryable.ElementType; } }
+        public IQueryProvider Provider { get { return Queryable.Provider; } }
     }
 }

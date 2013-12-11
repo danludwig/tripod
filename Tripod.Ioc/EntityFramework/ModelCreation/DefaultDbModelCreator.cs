@@ -13,15 +13,15 @@ namespace Tripod.Ioc.EntityFramework
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
 
-            var complexType = typeof(ComplexTypeConfiguration<>);
+            //var complexType = typeof(ComplexTypeConfiguration<>);
             var entityType = typeof(EntityTypeConfiguration<>);
 
             var assembly = Assembly.GetAssembly(GetType());
             var typesToRegister = assembly.GetTypes()
                 .Where(t => !t.IsAbstract &&
                 (
-                       complexType.IsGenericallyAssignableFrom(t)
-                    || entityType.IsGenericallyAssignableFrom(t)
+                    //complexType.IsGenericallyAssignableFrom(t) ||
+                    entityType.IsGenericallyAssignableFrom(t)
                 ))
                 .ToArray();
             foreach (var typeToRegister in typesToRegister)

@@ -48,7 +48,7 @@
     </Compile>
     <Compile Include="Api\Entities\EntitySet.cs" />
     <Compile Include="Api\Entities\EntityWithId.cs" />
-    <Compile Include="Api\Entities\IAwaitQueryables.cs" />
+    <Compile Include="Api\Entities\IAwaitEntities.cs" />
     <Compile Include="Api\Entities\ICommandEntities.cs" />
     <Compile Include="Api\Entities\Entity.cs" />
     <Compile Include="Api\Entities\IQueryEntities.cs" />
