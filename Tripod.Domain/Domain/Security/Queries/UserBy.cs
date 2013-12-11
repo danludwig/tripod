@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace Tripod.Domain.Security
 {
-    public class UserBy : IDefineQuery<Task<User>>
+    public class UserBy : BaseEntityQuery<User>, IDefineQuery<Task<User>>
     {
         public UserBy(int id) { Id = id; }
         public UserBy(string name) { Name = name; }
@@ -25,7 +25,7 @@ namespace Tripod.Domain.Security
         {
             if (query == null) throw new ArgumentNullException("query");
 
-            var queryable = _entities.Query<User>();
+            var queryable = _entities.Query<User>().EagerLoad(query.EagerLoad);
             var entity = query.Id.HasValue
                 ? queryable.SingleOrDefaultAsync(x => x.Id == query.Id.Value)
                 : queryable.SingleOrDefaultAsync(x => x.Name.Equals(query.Name));

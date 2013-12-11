@@ -46,6 +46,8 @@
     <Compile Include="..\ReSharperAnnotations.cs">
       <Link>Properties\ReSharperAnnotations.cs</Link>
     </Compile>
+    <Compile Include="Api\Transactions\BaseEntitiesQuery.cs" />
+    <Compile Include="Api\Transactions\BaseEntityQuery.cs" />
     <Compile Include="Api\Entities\EntitySet.cs" />
     <Compile Include="Api\Entities\EntityWithId.cs" />
     <Compile Include="Api\Entities\IAwaitEntities.cs" />

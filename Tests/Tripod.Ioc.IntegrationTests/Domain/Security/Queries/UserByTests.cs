@@ -28,17 +28,17 @@ namespace Tripod.Ioc.Domain.Security
         }
 
         [Fact]
-        public void Handler_ReturnsUser_ByName()
+        public void Handler_ReturnsUser_ByName_CaseInsensitively()
         {
             using (var dbContext = new EntityDbContext())
             {
-                var userName = Guid.NewGuid().ToString();
+                var userName = Guid.NewGuid().ToString().ToUpper();
                 var user = new User { Name = userName };
                 dbContext.Create(user);
                 var rowsAffected = dbContext.SaveChangesAsync().Result;
                 var handler = new HandleUserByQuery(dbContext);
 
-                var result = handler.Handle(new UserBy(userName)).Result;
+                var result = handler.Handle(new UserBy(userName.ToLower())).Result;
 
                 Assert.NotNull(result);
                 result.ShouldEqual(user);
