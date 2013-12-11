@@ -18,6 +18,7 @@ namespace Tripod.Ioc.EntityFramework
             var users = dbContext.Set<User>().ToArray();
             Assert.NotNull(users);
             users.Count().ShouldBeInRange(0, int.MaxValue);
+            dbContext.Dispose();
         }
     }
 }

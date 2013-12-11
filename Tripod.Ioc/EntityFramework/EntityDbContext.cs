@@ -107,6 +107,16 @@ namespace Tripod.Ioc.EntityFramework
         #endregion
         #region UnitOfWork
 
+        public override int SaveChanges()
+        {
+            return base.SaveChanges();
+        }
+
+        public override Task<int> SaveChangesAsync()
+        {
+            return base.SaveChangesAsync();
+        }
+
         public async Task DiscardChangesAsync()
         {
             foreach (var entry in ChangeTracker.Entries().Where(x => x != null))
