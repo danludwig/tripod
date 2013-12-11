@@ -8,7 +8,7 @@ using Xunit;
 
 namespace Tripod.Ioc.EntityFramework
 {
-    public class EntityDbContextTests : EntityDbContextIntegrationTest
+    public class EntityDbContextTests : EntityDbContextIntegrationTests
     {
         [Fact]
         public void DatabaseName_IsTestName()

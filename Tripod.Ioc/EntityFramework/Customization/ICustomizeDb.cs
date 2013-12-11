@@ -4,6 +4,6 @@ namespace Tripod.Ioc.EntityFramework
 {
     public interface ICustomizeDb
     {
-        void Customize(DbContext db);
+        void Customize(DbContext dbContext);
     }
 }

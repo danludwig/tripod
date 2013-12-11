@@ -3,7 +3,7 @@ using Xunit;
 
 namespace Tripod.Ioc.EntityFramework
 {
-    public class GreenfieldDbInitializerTests : EntityDbContextIntegrationTest
+    public class GreenfieldDbInitializerTests : EntityDbContextIntegrationTests
     {
         [Fact]
         public void InitializeDatabase_CustomizesDuringSeed_WhenDatabaseDoesNotExist()

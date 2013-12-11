@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq.Expressions;
 using Should;
 using Tripod.Domain.Security;
 using Tripod.Ioc.EntityFramework;
@@ -6,7 +7,7 @@ using Xunit;
 
 namespace Tripod.Ioc.Domain.Security
 {
-    public class UserByTests : EntityDbContextIntegrationTest
+    public class UserByTests : EntityDbContextIntegrationTests
     {
         [Fact]
         public void Handler_ReturnsUser_ById()
@@ -19,7 +20,13 @@ namespace Tripod.Ioc.Domain.Security
                 var rowsAffected = dbContext.SaveChangesAsync().Result;
                 var handler = new HandleUserByQuery(dbContext);
 
-                var result = handler.Handle(new UserBy(user.Id)).Result;
+                var result = handler.Handle(new UserBy(user.Id)
+                {
+                    EagerLoad = new Expression<Func<User, object>>[]
+                    {
+                        x => x.Permissions,
+                    }
+                }).Result;
 
                 Assert.NotNull(result);
                 result.ShouldEqual(user);

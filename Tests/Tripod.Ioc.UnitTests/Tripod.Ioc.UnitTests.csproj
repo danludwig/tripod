@@ -50,8 +50,20 @@
     <Reference Include="Should">
       <HintPath>..\..\packages\Should.1.1.20\lib\Should.dll</HintPath>
     </Reference>
+    <Reference Include="SimpleInjector, Version=2.4.0.0, Culture=neutral, PublicKeyToken=984cb50dea722e99, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\SimpleInjector.2.4.0\lib\net45\SimpleInjector.dll</HintPath>
+    </Reference>
+    <Reference Include="SimpleInjector.Diagnostics">
+      <HintPath>..\..\packages\SimpleInjector.2.4.0\lib\net45\SimpleInjector.Diagnostics.dll</HintPath>
+    </Reference>
+    <Reference Include="SimpleInjector.Extensions.LifetimeScoping, Version=2.4.0.0, Culture=neutral, PublicKeyToken=984cb50dea722e99, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\SimpleInjector.Extensions.LifetimeScoping.2.4.0\lib\net40-client\SimpleInjector.Extensions.LifetimeScoping.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Web" />
     <Reference Include="xunit">
       <HintPath>..\..\packages\xunit.1.9.2\lib\net20\xunit.dll</HintPath>
     </Reference>
@@ -71,6 +83,11 @@
     <Compile Include="..\..\GlobalAssemblyInfo.cs">
       <Link>GlobalAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="CompositionRoot\_Fixtures\CompositionRootFixture.cs" />
+    <Compile Include="CompositionRoot\CompositionRootTests.cs" />
+    <Compile Include="CompositionRoot\_Fixtures\SimpleInjectorContainerTests.cs" />
+    <Compile Include="EntityFramework\CompositionRootTests.cs" />
+    <Compile Include="EntityFramework\Customization\VanillaDbCustomizerTests.cs" />
     <Compile Include="EntityFramework\EntityDbContextTests.cs" />
     <Compile Include="EntityFramework\Initialization\BrownfieldDbInitializerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
