@@ -7,6 +7,8 @@ namespace Tripod
 {
     internal static class EntityExtensions
     {
+        #region EagerLoad
+
         private static IQueryable<TEntity> EagerLoad<TEntity>(this IQueryable<TEntity> queryable, Expression<Func<TEntity, object>> expression)
             where TEntity : Entity
         {
@@ -23,6 +25,9 @@ namespace Tripod
                 queryable = expressions.Aggregate(queryable, (current, expression) => current.EagerLoad(expression));
             return queryable;
         }
+
+        #endregion
+        #region OrderBy
 
         internal static IQueryable<TEntity> OrderBy<TEntity>(this IQueryable<TEntity> queryable,
             IEnumerable<KeyValuePair<Expression<Func<TEntity, object>>, OrderByDirection>> expressions)
@@ -136,12 +141,6 @@ namespace Tripod
             return queryable;
         }
 
-        internal static Expression<Func<TEntity, bool>> Not<TEntity>(this Expression<Func<TEntity, bool>> expressionToNegate)
-            where TEntity : Entity
-        {
-            var candidate = expressionToNegate.Parameters[0];
-            var body = Expression.Not(expressionToNegate.Body);
-            return Expression.Lambda<Func<TEntity, bool>>(body, candidate);
-        }
+        #endregion
     }
 }

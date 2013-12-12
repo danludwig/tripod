@@ -67,6 +67,7 @@
     <Compile Include="Api\Transactions\IHandleQuery.cs" />
     <Compile Include="Api\Transactions\IProcessQuery.cs" />
     <Compile Include="Api\Transactions\OrderByDirection.cs" />
+    <Compile Include="Api\_Extensions\ExpressionExtensions.cs" />
     <Compile Include="Api\_Extensions\EntityExtensions.cs" />
     <Compile Include="Api\_Extensions\ReflectionExtensions.cs" />
     <Compile Include="Domain\Security\Entities\Permission.cs" />

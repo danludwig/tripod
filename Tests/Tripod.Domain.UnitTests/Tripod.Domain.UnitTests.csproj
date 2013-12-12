@@ -81,6 +81,7 @@
     <Compile Include="Api\Entities\_Fakes\FakeEntityWithLongId.cs" />
     <Compile Include="Api\Entities\_Fakes\FakeEntityWithStringId.cs" />
     <Compile Include="Api\Entities\_Fakes\FakeProxiedEntityWithLongId.cs" />
+    <Compile Include="Api\_Extensions\ExpressionExtensionTests.cs" />
     <Compile Include="Api\_Extensions\EntityExtensionTests.cs" />
     <Compile Include="Api\_Extensions\_Fakes\FakeClosedGenericB1.cs" />
     <Compile Include="Api\_Extensions\_Fakes\FakeClosedGenericA2.cs" />
