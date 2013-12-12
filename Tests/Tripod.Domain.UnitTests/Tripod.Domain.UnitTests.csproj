@@ -37,6 +37,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Moq">
       <HintPath>..\..\packages\Moq.4.1.1311.0615\lib\net40\Moq.dll</HintPath>
     </Reference>
@@ -44,6 +50,7 @@
       <HintPath>..\..\packages\Should.1.1.20\lib\Should.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="xunit">
       <HintPath>..\..\packages\xunit.1.9.2\lib\net20\xunit.dll</HintPath>
     </Reference>
@@ -65,23 +72,27 @@
     </Compile>
     <Compile Include="Api\Entities\EntitySetTests.cs" />
     <Compile Include="Api\Entities\EntityWithIdTests.cs" />
-    <Compile Include="Api\Entities\Fakes\FakeEntityWithGuidId.cs" />
-    <Compile Include="Api\Entities\Fakes\FakeEntityWithIntId.cs" />
-    <Compile Include="Api\Entities\Fakes\FakeEntityWithLongId.cs" />
-    <Compile Include="Api\Entities\Fakes\FakeEntityWithStringId.cs" />
-    <Compile Include="Api\Entities\Fakes\FakeProxiedEntityWithLongId.cs" />
+    <Compile Include="Api\Entities\_Fakes\FakeDbAsyncEnumerable.cs" />
+    <Compile Include="Api\Entities\_Fakes\FakeDbAsyncEnumerator.cs" />
+    <Compile Include="Api\Entities\_Fakes\FakeDbAsyncExtensions.cs" />
+    <Compile Include="Api\Entities\_Fakes\FakeDbAsyncQueryProvider.cs" />
+    <Compile Include="Api\Entities\_Fakes\FakeEntityWithGuidId.cs" />
+    <Compile Include="Api\Entities\_Fakes\FakeEntityWithIntId.cs" />
+    <Compile Include="Api\Entities\_Fakes\FakeEntityWithLongId.cs" />
+    <Compile Include="Api\Entities\_Fakes\FakeEntityWithStringId.cs" />
+    <Compile Include="Api\Entities\_Fakes\FakeProxiedEntityWithLongId.cs" />
     <Compile Include="Api\_Extensions\EntityExtensionTests.cs" />
-    <Compile Include="Api\_Extensions\Fakes\FakeClosedGenericB1.cs" />
-    <Compile Include="Api\_Extensions\Fakes\FakeClosedGenericA2.cs" />
-    <Compile Include="Api\_Extensions\Fakes\FakeEntityWithSortableProperties.cs" />
-    <Compile Include="Api\_Extensions\Fakes\FakeEntityWithNavigationProperty.cs" />
-    <Compile Include="Api\_Extensions\Fakes\FakeOpenGenericA.cs" />
-    <Compile Include="Api\_Extensions\Fakes\FakeClosedGenericA1.cs" />
-    <Compile Include="Api\_Extensions\Fakes\FakeOpenGenericA2.cs" />
-    <Compile Include="Api\_Extensions\Fakes\IFakeOpenGenericB.cs" />
+    <Compile Include="Api\_Extensions\_Fakes\FakeClosedGenericB1.cs" />
+    <Compile Include="Api\_Extensions\_Fakes\FakeClosedGenericA2.cs" />
+    <Compile Include="Api\_Extensions\_Fakes\FakeEntityWithSortableProperties.cs" />
+    <Compile Include="Api\_Extensions\_Fakes\FakeEntityWithNavigationProperty.cs" />
+    <Compile Include="Api\_Extensions\_Fakes\FakeOpenGenericA.cs" />
+    <Compile Include="Api\_Extensions\_Fakes\FakeClosedGenericA1.cs" />
+    <Compile Include="Api\_Extensions\_Fakes\FakeOpenGenericA2.cs" />
+    <Compile Include="Api\_Extensions\_Fakes\IFakeOpenGenericB.cs" />
     <Compile Include="Api\_Extensions\ReflectionExtensionTests.cs" />
-    <Compile Include="Domain\Security\Entities\Fakes\ProxiedPermission.cs" />
-    <Compile Include="Domain\Security\Entities\Fakes\ProxiedUser.cs" />
+    <Compile Include="Domain\Security\Entities\_Fakes\ProxiedPermission.cs" />
+    <Compile Include="Domain\Security\Entities\_Fakes\ProxiedUser.cs" />
     <Compile Include="Domain\Security\Entities\PermissionTests.cs" />
     <Compile Include="Domain\Security\Entities\UserTests.cs" />
     <Compile Include="Domain\Security\Queries\UserByTests.cs" />
@@ -94,7 +105,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
+    <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />

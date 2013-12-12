@@ -1,7 +1,6 @@
 ﻿using System;
+using System.Data.Entity;
 using System.Linq;
-using System.Linq.Expressions;
-using System.Threading.Tasks;
 using Moq;
 using Should;
 using Xunit;
@@ -53,35 +52,20 @@ namespace Tripod.Domain.Security
         [Fact]
         public void Handler_InvokesQueryUser_Once_OnIQueryEntities()
         {
-            var query = new UserBy(Guid.NewGuid().ToString());
+            var userName = Guid.NewGuid().ToString();
+            var data = new[] { new User { Name = userName } }.AsQueryable();
+            var query = new UserBy(userName);
+            var dbSet = new Mock<DbSet<User>>(MockBehavior.Strict).SetupDataAsync(data);
             var entities = new Mock<IQueryEntities>(MockBehavior.Strict);
-            var entitySet = new EntitySet<User>(new User[0].AsQueryable(), entities.Object);
+            var entitySet = new EntitySet<User>(dbSet.Object, entities.Object);
             entities.Setup(x => x.Query<User>()).Returns(entitySet);
-            entities.Setup(x => x.SingleOrDefaultAsync(entitySet, It.IsAny<Expression<Func<User, bool>>>()))
-                .Returns(Task.FromResult<User>(null));
             var handler = new HandleUserByQuery(entities.Object);
 
             var result = handler.Handle(query).Result;
 
-            result.ShouldEqual(null);
+            result.ShouldNotBeNull();
+            result.ShouldEqual(data.Single());
             entities.Verify(x => x.Query<User>(), Times.Once());
-        }
-
-        [Fact]
-        public void Handler_InvokesSingleOrDefaultAsync_Once_OnIQueryEntities()
-        {
-            var query = new UserBy(new Random().Next(int.MinValue, int.MaxValue));
-            var entities = new Mock<IQueryEntities>(MockBehavior.Strict);
-            var entitySet = new EntitySet<User>(new User[0].AsQueryable(), entities.Object);
-            entities.Setup(x => x.Query<User>()).Returns(entitySet);
-            entities.Setup(x => x.SingleOrDefaultAsync(entitySet, It.IsAny<Expression<Func<User, bool>>>()))
-                .Returns(Task.FromResult<User>(null));
-            var handler = new HandleUserByQuery(entities.Object);
-
-            var result = handler.Handle(query).Result;
-
-            result.ShouldEqual(null);
-            entities.Verify(x => x.SingleOrDefaultAsync(entitySet, It.IsAny<Expression<Func<User, bool>>>()), Times.Once());
         }
     }
 }

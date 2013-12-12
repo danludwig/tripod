@@ -32,10 +32,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="FluentValidation">
       <HintPath>..\packages\FluentValidation.5.0.0.1\lib\Net40\FluentValidation.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
@@ -50,7 +57,6 @@
     <Compile Include="Api\Transactions\BaseEntityQuery.cs" />
     <Compile Include="Api\Entities\EntitySet.cs" />
     <Compile Include="Api\Entities\EntityWithId.cs" />
-    <Compile Include="Api\Entities\IAwaitEntities.cs" />
     <Compile Include="Api\Entities\ICommandEntities.cs" />
     <Compile Include="Api\Entities\Entity.cs" />
     <Compile Include="Api\Entities\IQueryEntities.cs" />

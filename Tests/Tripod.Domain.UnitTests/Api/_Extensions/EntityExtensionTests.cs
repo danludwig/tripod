@@ -33,7 +33,7 @@ namespace Tripod
             };
             var entities = new Mock<IQueryEntities>(MockBehavior.Strict);
             var queryable = new EntitySet<User>(data, entities.Object);
-            Expression<Func<IQueryable<User>, bool>> exprectedQueryable = y => y == data;
+            Expression<Func<IQueryable<User>, bool>> exprectedQueryable = y => ReferenceEquals(y, data);
             Expression<Func<Expression<Func<User, object>>, bool>> expectedExpression = y => eagerLoad.Contains(y);
             entities.Setup(x => x.EagerLoad(It.Is(exprectedQueryable),
                 It.Is(expectedExpression))).Returns(data);
@@ -491,14 +491,6 @@ namespace Tripod
             var exception = Assert.Throws<NotSupportedException>(() => data.AsQueryable().OrderBy(orderBy));
             exception.ShouldNotBeNull();
             exception.Message.ShouldEqual("OrderBy object type resolution is not yet implemented for 'Byte'.");
-        }
-
-        [Fact]
-        public void SingleOrDefaultAsync_UsesSingleOrDefault_WhenQueryableIsNotEntitySet()
-        {
-            var queryable = new User[0].AsQueryable();
-            var result = queryable.SingleOrDefaultAsync(x => x != null).Result;
-            Assert.Null(result);
         }
 
         [Fact]

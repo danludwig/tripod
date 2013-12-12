@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Threading.Tasks;
 
 namespace Tripod
 {
@@ -143,15 +142,6 @@ namespace Tripod
             var candidate = expressionToNegate.Parameters[0];
             var body = Expression.Not(expressionToNegate.Body);
             return Expression.Lambda<Func<TEntity, bool>>(body, candidate);
-        }
-
-        internal static Task<TEntity> SingleOrDefaultAsync<TEntity>(this IQueryable<TEntity> queryable,
-            Expression<Func<TEntity, bool>> predicate) where TEntity : Entity
-        {
-            var set = queryable as EntitySet<TEntity>;
-            return set != null
-                ? set.Entities.SingleOrDefaultAsync(queryable, predicate)
-                : Task.FromResult(queryable.SingleOrDefault(predicate));
         }
     }
 }

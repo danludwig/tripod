@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data.Entity;
 using System.Threading.Tasks;
 
 namespace Tripod.Domain.Security

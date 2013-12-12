@@ -20,16 +20,6 @@ namespace Tripod.Ioc.EntityFramework
         }
 
         [Fact]
-        public void SingleOrDefaultAsync_ReturnsNull_WhenQueryableIsNull()
-        {
-            using (var dbContext = new EntityDbContext())
-            {
-                var result = dbContext.SingleOrDefaultAsync<Permission>(null, x => x != null).Result;
-                result.ShouldBeNull();
-            }
-        }
-
-        [Fact]
         public void EagerLoad_IncludesRelatedData()
         {
             using (var dbContext = new EntityDbContext())

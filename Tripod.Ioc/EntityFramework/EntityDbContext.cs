@@ -41,14 +41,6 @@ namespace Tripod.Ioc.EntityFramework
         }
 
         #endregion
-        #region Async
-
-        public Task<TEntity> SingleOrDefaultAsync<TEntity>(IQueryable<TEntity> query, Expression<Func<TEntity, bool>> predicate) where TEntity : Entity
-        {
-            return query != null ? query.SingleOrDefaultAsync(predicate) : Task.FromResult(default(TEntity));
-        }
-
-        #endregion
         #region Queries
 
         public IQueryable<TEntity> EagerLoad<TEntity>(IQueryable<TEntity> query,
