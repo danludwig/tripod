@@ -19,6 +19,8 @@ namespace Tripod.Ioc.EntityFramework
             }
         }
 
+        #region IQueryEntities
+
         [Fact]
         public void EagerLoad_IncludesRelatedData()
         {
@@ -72,6 +74,9 @@ namespace Tripod.Ioc.EntityFramework
             }
         }
 
+        #endregion
+        #region ICommandEntities
+
         [Fact]
         public void NoArgGet_ReturnsDataFromStore()
         {
@@ -89,7 +94,7 @@ namespace Tripod.Ioc.EntityFramework
         {
             using (var dbContext = new EntityDbContext())
             {
-                var exception = Assert.Throws<ArgumentNullException>(() => dbContext.GetAsync<User>(null).Result);
+                var exception = Assert.Throws<ArgumentNullException>(() => dbContext.Get<User>(null));
                 exception.ShouldNotBeNull();
                 exception.ParamName.ShouldEqual("firstKeyValue");
             }
@@ -97,6 +102,27 @@ namespace Tripod.Ioc.EntityFramework
 
         [Fact]
         public void Get_ReturnsNull_WhenPrimaryKeyDoesNotMatchRow()
+        {
+            using (var dbContext = new EntityDbContext())
+            {
+                var entity = dbContext.Get<User>(int.MaxValue);
+                entity.ShouldBeNull();
+            }
+        }
+
+        [Fact]
+        public void GetAsync_ThrowsArgumentNullException_WhenFirstKeyValueArgumentIsNull()
+        {
+            using (var dbContext = new EntityDbContext())
+            {
+                var exception = Assert.Throws<ArgumentNullException>(() => dbContext.GetAsync<User>(null).Result);
+                exception.ShouldNotBeNull();
+                exception.ParamName.ShouldEqual("firstKeyValue");
+            }
+        }
+
+        [Fact]
+        public void GetAsync_ReturnsNull_WhenPrimaryKeyDoesNotMatchRow()
         {
             using (var dbContext = new EntityDbContext())
             {
@@ -168,6 +194,26 @@ namespace Tripod.Ioc.EntityFramework
         }
 
         [Fact]
+        public void Reload_ChangesModifiedEntityState_ToUnchanged()
+        {
+            using (var dbContext = new EntityDbContext())
+            {
+                var description = Guid.NewGuid().ToString();
+                var entity = new Permission(Guid.NewGuid().ToString()) { Description = description };
+                dbContext.Create(entity);
+                var affectedRows = dbContext.SaveChanges();
+
+                affectedRows.ShouldEqual(1);
+                dbContext.Entry(entity).State.ShouldEqual(EntityState.Unchanged);
+                entity.Description = Guid.NewGuid().ToString();
+                dbContext.Entry(entity).State.ShouldEqual(EntityState.Modified);
+                dbContext.Reload(entity);
+                dbContext.Entry(entity).State.ShouldEqual(EntityState.Unchanged);
+                entity.Description.ShouldEqual(description);
+            }
+        }
+
+        [Fact]
         public void ReloadAsync_ChangesModifiedEntityState_ToUnchanged()
         {
             using (var dbContext = new EntityDbContext())
@@ -187,8 +233,65 @@ namespace Tripod.Ioc.EntityFramework
             }
         }
 
+        #endregion
+        #region IUnitOfWork
+
         [Fact]
         public void DiscardChanges_ChangesAddedEntityState_ToDetached()
+        {
+            using (var dbContext = new EntityDbContext())
+            {
+                var entity = new User { Name = Guid.NewGuid().ToString() };
+                dbContext.Create(entity);
+
+                dbContext.Entry(entity).State.ShouldEqual(EntityState.Added);
+                dbContext.DiscardChanges();
+                dbContext.Entry(entity).State.ShouldEqual(EntityState.Detached);
+            }
+        }
+
+        [Fact]
+        public void DiscardChanges_ChangesModifiedEntityState_ToUnchanged()
+        {
+            using (var dbContext = new EntityDbContext())
+            {
+                var userName = Guid.NewGuid().ToString();
+                var entity = new User { Name = userName };
+                dbContext.Create(entity);
+                var affectedRows = dbContext.SaveChangesAsync().Result;
+
+                affectedRows.ShouldEqual(1);
+                dbContext.Entry(entity).State.ShouldEqual(EntityState.Unchanged);
+                entity.Name = Guid.NewGuid().ToString();
+                dbContext.Entry(entity).State.ShouldEqual(EntityState.Modified);
+                dbContext.DiscardChanges();
+                dbContext.Entry(entity).State.ShouldEqual(EntityState.Unchanged);
+                entity.Name.ShouldEqual(userName);
+
+            }
+        }
+
+        [Fact]
+        public void DiscardChanges_ChangesDeletedEntityState_ToUnchanged()
+        {
+            using (var dbContext = new EntityDbContext())
+            {
+                var entity = new User { Name = Guid.NewGuid().ToString() };
+                dbContext.Create(entity);
+                var affectedRows = dbContext.SaveChangesAsync().Result;
+
+                affectedRows.ShouldEqual(1);
+                dbContext.Entry(entity).State.ShouldEqual(EntityState.Unchanged);
+                dbContext.Delete(entity);
+                dbContext.Entry(entity).State.ShouldEqual(EntityState.Deleted);
+                dbContext.DiscardChanges();
+                dbContext.Entry(entity).State.ShouldEqual(EntityState.Unchanged);
+
+            }
+        }
+
+        [Fact]
+        public void DiscardChangesAsync_ChangesAddedEntityState_ToDetached()
         {
             using (var dbContext = new EntityDbContext())
             {
@@ -202,7 +305,7 @@ namespace Tripod.Ioc.EntityFramework
         }
 
         [Fact]
-        public void DiscardChanges_ChangesModifiedEntityState_ToUnchanged()
+        public void DiscardChangesAsync_ChangesModifiedEntityState_ToUnchanged()
         {
             using (var dbContext = new EntityDbContext())
             {
@@ -223,7 +326,7 @@ namespace Tripod.Ioc.EntityFramework
         }
 
         [Fact]
-        public void DiscardChanges_ChangesDeletedEntityState_ToUnchanged()
+        public void DiscardChangesAsync_ChangesDeletedEntityState_ToUnchanged()
         {
             using (var dbContext = new EntityDbContext())
             {
@@ -240,5 +343,7 @@ namespace Tripod.Ioc.EntityFramework
 
             }
         }
+
+        #endregion
     }
 }

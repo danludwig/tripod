@@ -60,6 +60,14 @@ namespace Tripod.Ioc.EntityFramework
         #endregion
         #region Commands
 
+        public TEntity Get<TEntity>(object firstKeyValue, params object[] otherKeyValues) where TEntity : Entity
+        {
+            if (firstKeyValue == null) throw new ArgumentNullException("firstKeyValue");
+            var keyValues = new List<object> { firstKeyValue };
+            if (otherKeyValues != null) keyValues.AddRange(otherKeyValues);
+            return Set<TEntity>().Find(keyValues.ToArray());
+        }
+
         public Task<TEntity> GetAsync<TEntity>(object firstKeyValue, params object[] otherKeyValues) where TEntity : Entity
         {
             if (firstKeyValue == null) throw new ArgumentNullException("firstKeyValue");
@@ -90,14 +98,37 @@ namespace Tripod.Ioc.EntityFramework
                 Set<TEntity>().Remove(entity);
         }
 
+        public void Reload<TEntity>(TEntity entity) where TEntity : Entity
+        {
+            Entry(entity).Reload();
+        }
+
         public Task ReloadAsync<TEntity>(TEntity entity) where TEntity : Entity
         {
             return Entry(entity).ReloadAsync();
         }
 
-
         #endregion
         #region UnitOfWork
+
+        public void DiscardChanges()
+        {
+            foreach (var entry in ChangeTracker.Entries().Where(x => x != null))
+            {
+                switch (entry.State)
+                {
+                    case EntityState.Added:
+                        entry.State = EntityState.Detached;
+                        break;
+                    case EntityState.Modified:
+                        entry.State = EntityState.Unchanged;
+                        break;
+                    case EntityState.Deleted:
+                        entry.Reload();
+                        break;
+                }
+            }
+        }
 
         public Task DiscardChangesAsync()
         {
@@ -113,7 +144,6 @@ namespace Tripod.Ioc.EntityFramework
                         entry.State = EntityState.Unchanged;
                         break;
                     case EntityState.Deleted:
-                        //await entry.ReloadAsync();
                         reloadTasks.Add(entry.ReloadAsync());
                         break;
                 }

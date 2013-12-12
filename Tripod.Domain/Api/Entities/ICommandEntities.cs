@@ -17,9 +17,22 @@ namespace Tripod
         /// underlying relational data store should return.</param>
         /// <param name="otherKeyValues">Other components of a composite primary key not identified in the
         /// firstKeyValue argument.</param>
-        /// <returns>A single writable entity instance whose primary key matches the argument value(s) if one
+        /// <returns>A single writable entity instance whose primary key matches the argument value(s), if one
         /// exists in the underlying relational data store.
         /// Otherwise, null.</returns>
+        TEntity Get<TEntity>(object firstKeyValue, params object[] otherKeyValues) where TEntity : Entity;
+
+        /// <summary>
+        /// Asynchronously inform an underlying relational data store to return a single writable entity instance.
+        /// </summary>
+        /// <typeparam name="TEntity">Type of the entity instance that the underlying relational data store
+        /// should return.</typeparam>
+        /// <param name="firstKeyValue">First or only primary key value of the entity instance that the
+        /// underlying relational data store should return.</param>
+        /// <param name="otherKeyValues">Other components of a composite primary key not identified in the
+        /// firstKeyValue argument.</param>
+        /// <returns>A task result containing a single writable entity instance whose primary key matches the argument value(s),
+        /// if one exists in the underlying relational data store. Otherwise, the task result will represent null.</returns>
         Task<TEntity> GetAsync<TEntity>(object firstKeyValue, params object[] otherKeyValues) where TEntity : Entity;
 
         /// <summary>
@@ -69,6 +82,17 @@ namespace Tripod
         /// is part of.</typeparam>
         /// <param name="entity">Entity instance whose data state will be replaced using the values currently
         /// saved in the underlying relational data store.</param>
+        void Reload<TEntity>(TEntity entity) where TEntity : Entity;
+
+        /// <summary>
+        /// Asynchronously inform the underlying relational data store to replace the data state of an entity instance with
+        /// the values currently saved in the underlying relational data store.
+        /// </summary>
+        /// <typeparam name="TEntity">Type of the entity instance set that the entity instance to be reloaded
+        /// is part of.</typeparam>
+        /// <param name="entity">Entity instance whose data state will be replaced using the values currently
+        /// saved in the underlying relational data store.</param>
+        /// <returns>A task that represents the asynchronous operation.</returns>
         Task ReloadAsync<TEntity>(TEntity entity) where TEntity : Entity;
     }
 }
