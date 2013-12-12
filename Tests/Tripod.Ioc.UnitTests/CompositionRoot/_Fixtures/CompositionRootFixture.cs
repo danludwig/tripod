@@ -1,4 +1,5 @@
-﻿using SimpleInjector;
+﻿using System.Reflection;
+using SimpleInjector;
 
 namespace Tripod.Ioc
 {
@@ -9,7 +10,14 @@ namespace Tripod.Ioc
         public CompositionRootFixture()
         {
             Container = new Container();
-            Container.ComposeRoot(new RootCompositionSettings());
+            var assemblies = new[] { Assembly.GetAssembly(GetType()) };
+            var settings = new RootCompositionSettings
+            {
+                FluentValidatorAssemblies = assemblies,
+                QueryHandlerAssemblies = assemblies,
+                CommandHandlerAssemblies = assemblies,
+            };
+            Container.ComposeRoot(settings);
         }
     }
 }

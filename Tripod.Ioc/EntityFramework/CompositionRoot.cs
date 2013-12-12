@@ -8,13 +8,12 @@ namespace Tripod.Ioc.EntityFramework
 {
     public static class CompositionRoot
     {
-        public static void RegisterEntityFramework(this Container container, RootCompositionSettings settings)
+        public static void RegisterEntityFramework(this Container container, bool isGreenfield = false)
         {
-            if (settings.IsGreenfield)
+            if (isGreenfield)
             {
                 container.Register<ICustomizeDb, VanillaDbCustomizer>();
                 container.Register<IDatabaseInitializer<EntityDbContext>, GreenfieldDbInitializer>();
-                //container.Register<IDatabaseInitializer<EntityDbContext>, BrownfieldDbInitializer>();
             }
             else
             {

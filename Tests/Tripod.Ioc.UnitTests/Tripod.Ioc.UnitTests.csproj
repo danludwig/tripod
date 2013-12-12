@@ -44,6 +44,10 @@
     <Reference Include="EntityFramework.SqlServer">
       <HintPath>..\..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="FluentValidation, Version=5.0.0.1, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\FluentValidation.5.0.0.1\lib\Net40\FluentValidation.dll</HintPath>
+    </Reference>
     <Reference Include="Moq">
       <HintPath>..\..\packages\Moq.4.1.1311.0615\lib\net40\Moq.dll</HintPath>
     </Reference>
@@ -90,7 +94,18 @@
     <Compile Include="EntityFramework\Customization\VanillaDbCustomizerTests.cs" />
     <Compile Include="EntityFramework\EntityDbContextTests.cs" />
     <Compile Include="EntityFramework\Initialization\BrownfieldDbInitializerTests.cs" />
+    <Compile Include="FluentValidation\CompositionRootTests.cs" />
+    <Compile Include="FluentValidation\ValidateCommandDecoratorTests.cs" />
+    <Compile Include="FluentValidation\ValidateQueryDecoratorTests.cs" />
+    <Compile Include="FluentValidation\ValidatorFactoryTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Transactions\CommandLifetimeScopeDecoratorTests.cs" />
+    <Compile Include="Transactions\CompositionRootTests.cs" />
+    <Compile Include="Transactions\_Fakes\FakeCommandWithoutValidator.cs" />
+    <Compile Include="Transactions\_Fakes\FakeCommandWithValidator.cs" />
+    <Compile Include="Transactions\_Fakes\FakeQuery.cs" />
+    <Compile Include="Transactions\QueryLifetimeScopeDecoratorTests.cs" />
+    <Compile Include="Transactions\QueryProcessorTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Tripod.Domain\Tripod.Domain.csproj">

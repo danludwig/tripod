@@ -26,7 +26,7 @@ An item must first match at least one entry in the include list to be included.
 Included items must then not match any entries in the exclude list to remain included.
 -->
 
-            <!-- Match assembly file paths: 
+            <!-- Match assembly file paths:
             <ModulePaths>
               <Include>
                 <ModulePath>.*\.dll$</ModulePath>
@@ -43,11 +43,12 @@ Included items must then not match any entries in the exclude list to remain inc
                 <ModulePath>.*msvcr100.dll$</ModulePath>
                 <ModulePath>.*msvcp100.dll$</ModulePath>
                 <ModulePath>.*atl100.dll$</ModulePath>
+                <ModulePath>.*FluentValidation.dll$</ModulePath>
               </Exclude>
             </ModulePaths>
 
             <!-- Match fully qualified names of functions: -->
-            <!-- (Use "\." to delimit namespaces in C# or Visual Basic, "::" in C++.)  
+            <!-- (Use "\." to delimit namespaces in C# or Visual Basic, "::" in C++.)
             <Functions>
               <Exclude>
                 <Function>^Fabrikam\.UnitTest\..*</Function>
@@ -62,12 +63,17 @@ Included items must then not match any entries in the exclude list to remain inc
             <!-- Match attributes on any code element: -->
             <Attributes>
               <Exclude>
-                <!-- Don’t forget "Attribute" at the end of the name 
+                <!-- Don't forget "Attribute" at the end of the name
                 <Attribute>^System.Diagnostics.DebuggerHiddenAttribute$</Attribute>
                 <Attribute>^System.Diagnostics.DebuggerNonUserCodeAttribute$</Attribute>
                 <Attribute>^System.Runtime.CompilerServices.CompilerGeneratedAttribute$</Attribute>
                 <Attribute>^System.CodeDom.Compiler.GeneratedCodeAttribute$</Attribute>
                 <Attribute>^System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverageAttribute$</Attribute>-->
+                <!-- Don't forget "Attribute" at the end of the name -->
+                <Attribute>^System.Diagnostics.DebuggerNonUserCodeAttribute$</Attribute>
+                <Attribute>^System.Runtime.CompilerServices.CompilerGeneratedAttribute$</Attribute>
+                <Attribute>^System.CodeDom.Compiler.GeneratedCodeAttribute$</Attribute>
+                <Attribute>^System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverageAttribute$</Attribute>
               </Exclude>
             </Attributes>
 

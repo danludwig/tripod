@@ -20,6 +20,14 @@ namespace Tripod.Ioc
         }
 
         [Fact]
+        public void ComposeRoot_UsesDefaultSettings_WhenNoneArePassed()
+        {
+            var container = new Container();
+            container.ComposeRoot(null);
+            container.Verify();
+        }
+
+        [Fact]
         public void ComposeRoot_RegistersIServiceProvider_UsingOwnContainer_AsSingleton()
         {
             var instance = Container.GetInstance<IServiceProvider>();

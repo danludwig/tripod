@@ -53,6 +53,9 @@
     <Reference Include="EntityFramework.SqlServer">
       <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="FluentValidation">
+      <HintPath>..\packages\FluentValidation.5.0.0.1\lib\Net40\FluentValidation.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="SimpleInjector">
       <HintPath>..\packages\SimpleInjector.2.4.0\lib\net45\SimpleInjector.dll</HintPath>
@@ -90,7 +93,16 @@
     <Compile Include="EntityFramework\ModelCreation\DefaultDbModelCreator.cs" />
     <Compile Include="EntityFramework\ModelCreation\ICreateDbModel.cs" />
     <Compile Include="EntityFramework\Schemas\SecuritySchema.cs" />
+    <Compile Include="FluentValidation\CompositionRoot.cs" />
+    <Compile Include="FluentValidation\ValidatorFactory.cs" />
+    <Compile Include="FluentValidation\ValidateCommandDecorator.cs" />
+    <Compile Include="FluentValidation\ValidateNothingDecorator.cs" />
+    <Compile Include="FluentValidation\ValidateQueryDecorator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Transactions\CommandLifetimeScopeDecorator.cs" />
+    <Compile Include="Transactions\CompositionRoot.cs" />
+    <Compile Include="Transactions\QueryLifetimeScopeDecorator.cs" />
+    <Compile Include="Transactions\QueryProcessor.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

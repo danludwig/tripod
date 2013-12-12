@@ -1,6 +1,8 @@
 ﻿using System;
 using SimpleInjector;
 using Tripod.Ioc.EntityFramework;
+using Tripod.Ioc.FluentValidation;
+using Tripod.Ioc.Transactions;
 
 namespace Tripod.Ioc
 {
@@ -8,12 +10,16 @@ namespace Tripod.Ioc
     {
         public static void ComposeRoot(this Container container, RootCompositionSettings settings)
         {
+            settings = settings ?? new RootCompositionSettings();
 #if !DEBUG
             settings.IsGreenfield = false;
 #endif
             container.Options.AllowOverridingRegistrations = true;
             container.Register<IServiceProvider>(() => container, Lifestyle.Singleton);
-            container.RegisterEntityFramework(settings);
+            container.RegisterEntityFramework(settings.IsGreenfield);
+            container.RegisterFluentValidation(settings.FluentValidatorAssemblies);
+            container.RegisterQueryTransactions(settings.QueryHandlerAssemblies);
+            container.RegisterCommandTransactions(settings.CommandHandlerAssemblies);
         }
     }
 }
