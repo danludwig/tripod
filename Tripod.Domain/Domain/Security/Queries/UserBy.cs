@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Data.Entity;
 using System.Threading.Tasks;
 
 namespace Tripod.Domain.Security
@@ -9,8 +8,8 @@ namespace Tripod.Domain.Security
         public UserBy(int id) { Id = id; }
         public UserBy(string name) { Name = name; }
 
-        public string Name { get; private set; }
         public int? Id { get; private set; }
+        public string Name { get; private set; }
     }
 
     public class HandleUserByQuery : IHandleQuery<UserBy, Task<User>>
@@ -28,8 +27,8 @@ namespace Tripod.Domain.Security
 
             var queryable = _entities.Query<User>().EagerLoad(query.EagerLoad);
             var entity = query.Id.HasValue
-                ? queryable.SingleOrDefaultAsync(x => x.Id == query.Id.Value)
-                : queryable.SingleOrDefaultAsync(x => x.Name.Equals(query.Name));
+                ? queryable.ByIdAsync(query.Id.Value)
+                : queryable.ByNameAsync(query.Name);
 
             return entity;
         }

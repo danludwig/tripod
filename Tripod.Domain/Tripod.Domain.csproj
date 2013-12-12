@@ -73,6 +73,7 @@
     <Compile Include="Domain\Security\Entities\Permission.cs" />
     <Compile Include="Domain\Security\Entities\User.cs" />
     <Compile Include="Domain\Security\Queries\UserBy.cs" />
+    <Compile Include="Domain\Security\_Extensions\QueryUsers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

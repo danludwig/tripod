@@ -5,6 +5,7 @@ using Moq;
 
 namespace Tripod
 {
+    // http://msdn.microsoft.com/en-us/data/dn314429.aspx
     public static class FakeDbAsyncExtensions
     {
         public static Mock<DbSet<TEntity>> SetupDataAsync<TEntity>(this Mock<DbSet<TEntity>> dbSet, IQueryable<TEntity> data) where TEntity : class

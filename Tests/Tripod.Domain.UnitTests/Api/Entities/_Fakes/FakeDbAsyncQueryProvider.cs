@@ -7,8 +7,6 @@ using System.Threading.Tasks;
 namespace Tripod
 {
     // http://msdn.microsoft.com/en-us/data/dn314429.aspx
-
-    // http://msdn.microsoft.com/en-us/data/dn314429.aspx
     public class FakeDbAsyncQueryProvider<TEntity> : IDbAsyncQueryProvider
     {
         private readonly IQueryProvider _inner;

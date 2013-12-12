@@ -85,6 +85,9 @@
     <Compile Include="Api\_Extensions\EntityExtensionTests.cs" />
     <Compile Include="Api\_Extensions\_Fakes\FakeClosedGenericB1.cs" />
     <Compile Include="Api\_Extensions\_Fakes\FakeClosedGenericA2.cs" />
+    <Compile Include="Api\_Extensions\_Fakes\FakeEntityWithId1.cs" />
+    <Compile Include="Api\_Extensions\_Fakes\FakeEntityWithId2.cs" />
+    <Compile Include="Api\_Extensions\_Fakes\FakeEntityWithId3.cs" />
     <Compile Include="Api\_Extensions\_Fakes\FakeEntityWithSortableProperties.cs" />
     <Compile Include="Api\_Extensions\_Fakes\FakeEntityWithNavigationProperty.cs" />
     <Compile Include="Api\_Extensions\_Fakes\FakeOpenGenericA.cs" />
@@ -97,6 +100,7 @@
     <Compile Include="Domain\Security\Entities\PermissionTests.cs" />
     <Compile Include="Domain\Security\Entities\UserTests.cs" />
     <Compile Include="Domain\Security\Queries\UserByTests.cs" />
+    <Compile Include="Domain\Security\_Extensions\QueryUsersTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

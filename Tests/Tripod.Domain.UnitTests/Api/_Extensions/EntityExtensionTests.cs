@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
 using Moq;
@@ -491,6 +492,123 @@ namespace Tripod
             var exception = Assert.Throws<NotSupportedException>(() => data.AsQueryable().OrderBy(orderBy));
             exception.ShouldNotBeNull();
             exception.Message.ShouldEqual("OrderBy object type resolution is not yet implemented for 'Byte'.");
+        }
+
+        [Fact]
+        public void ByIntId_Queryable_CanAllowNull()
+        {
+            var data = new[]
+            {
+                new Permission(Guid.NewGuid().ToString()),
+                new Permission(Guid.NewGuid().ToString()),
+                new Permission(Guid.NewGuid().ToString()),
+            };
+            data.AsQueryable().ById(int.MaxValue).ShouldBeNull();
+        }
+
+        [Fact]
+        public void ByIntId_Queryable_CanDisallowNull()
+        {
+            var data = new Permission[]
+            {
+                new FakeEntityWithId1(),
+                new FakeEntityWithId2(),
+                new FakeEntityWithId3(),
+            };
+            data.AsQueryable().ById(2, false).ShouldNotBeNull();
+            var exception = Assert.Throws<InvalidOperationException>(() =>
+                data.AsQueryable().ById(int.MaxValue, false));
+            Assert.NotNull(exception);
+            exception.Message.IndexOf("Sequence contains no matching element", StringComparison.CurrentCulture).ShouldEqual(0);
+        }
+
+        [Fact]
+        public void ByIntId_Enumerable_CanAllowNull()
+        {
+            var data = new[]
+            {
+                new Permission(Guid.NewGuid().ToString()),
+                new Permission(Guid.NewGuid().ToString()),
+                new Permission(Guid.NewGuid().ToString()),
+            };
+            data.AsEnumerable().ById(int.MaxValue).ShouldBeNull();
+        }
+
+        [Fact]
+        public void ByIntId_Enumerable_CanDisallowNull()
+        {
+            var data = new Permission[]
+            {
+                new FakeEntityWithId1(),
+                new FakeEntityWithId2(),
+                new FakeEntityWithId3(),
+            };
+            data.AsEnumerable().ById(3, false).ShouldNotBeNull();
+            var exception = Assert.Throws<InvalidOperationException>(() =>
+                data.AsEnumerable().ById(int.MaxValue, false));
+            Assert.NotNull(exception);
+            exception.Message.IndexOf("Sequence contains no matching element", StringComparison.CurrentCulture).ShouldEqual(0);
+        }
+
+        [Fact]
+        public void ByIntIdAsync_Queryable_CanAllowNull()
+        {
+            var data = new[]
+            {
+                new Permission(Guid.NewGuid().ToString()),
+                new Permission(Guid.NewGuid().ToString()),
+                new Permission(Guid.NewGuid().ToString()),
+            };
+            var dbSet = new Mock<DbSet<Permission>>(MockBehavior.Strict).SetupDataAsync(data.AsQueryable());
+            dbSet.Object.AsQueryable().ByIdAsync(int.MaxValue).Result.ShouldBeNull();
+        }
+
+        [Fact]
+        public void ByIntIdAsync_Queryable_CanDisallowNull()
+        {
+            var data = new Permission[]
+            {
+                new FakeEntityWithId1(),
+                new FakeEntityWithId2(),
+                new FakeEntityWithId3(),
+            };
+            var dbSet = new Mock<DbSet<Permission>>(MockBehavior.Strict).SetupDataAsync(data.AsQueryable());
+            dbSet.Object.AsQueryable().ByIdAsync(1, false).Result.ShouldNotBeNull();
+            var exception = Assert.Throws<InvalidOperationException>(() =>
+                dbSet.Object.AsQueryable().ByIdAsync(int.MaxValue, false).Result);
+            Assert.NotNull(exception);
+            exception.Message.IndexOf("Sequence contains no matching element", StringComparison.CurrentCulture).ShouldEqual(0);
+        }
+
+        [Fact]
+        public void ByIntIdAsync_Enumerable_CanAllowNull()
+        {
+            var data = new[]
+            {
+                new Permission(Guid.NewGuid().ToString()),
+                new Permission(Guid.NewGuid().ToString()),
+                new Permission(Guid.NewGuid().ToString()),
+            };
+            var dbSet = new Mock<DbSet<Permission>>(MockBehavior.Strict).SetupDataAsync(data.AsQueryable());
+            dbSet.Object.AsEnumerable().ByIdAsync(int.MaxValue).Result.ShouldBeNull();
+        }
+
+        [Fact]
+        public void ByIntIdAsync_Enumerable_CanDisallowNull()
+        {
+            var data = new[]
+            {
+                new Permission(Guid.NewGuid().ToString()),
+                new FakeEntityWithId1(),
+                new FakeEntityWithId2(),
+                new FakeEntityWithId3(),
+            };
+            var dbSet = new Mock<DbSet<Permission>>(MockBehavior.Strict).SetupDataAsync(data.AsQueryable());
+            dbSet.Object.AsEnumerable().ByIdAsync(0, false).Result.ShouldNotBeNull();
+            var exception = Assert.Throws<InvalidOperationException>(() =>
+                dbSet.Object.AsEnumerable().ByIdAsync(int.MaxValue, false).Result);
+            Assert.NotNull(exception);
+            exception.Message.IndexOf("Sequence contains no matching element", StringComparison.CurrentCulture).ShouldEqual(0);
         }
     }
 }
