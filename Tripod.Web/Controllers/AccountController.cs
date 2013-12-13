@@ -16,28 +16,24 @@ namespace Tripod.Web.Controllers
         {
         }
 
-        [UsedImplicitly]
-        public AccountController(UserManager<ApplicationUser> userManager)
+        private AccountController(UserManager<ApplicationUser> userManager)
         {
             UserManager = userManager;
         }
 
         private UserManager<ApplicationUser> UserManager { get; set; }
 
-        //
-        // GET: /Account/Login
         [AllowAnonymous]
+        [HttpGet, Route("account/login")]
         public ActionResult Login(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
 
-        //
-        // POST: /Account/Login
-        [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
+        [HttpPost, Route("account/login")]
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
             if (!ModelState.IsValid) return View(model);
@@ -53,19 +49,16 @@ namespace Tripod.Web.Controllers
             return View(model);
         }
 
-        //
-        // GET: /Account/Register
         [AllowAnonymous]
+        [HttpGet, Route("account/register")]
         public ActionResult Register()
         {
             return View();
         }
 
-        //
-        // POST: /Account/Register
-        [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
+        [HttpPost, Route("account/register")]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
             if (!ModelState.IsValid) return View(model);
@@ -82,10 +75,8 @@ namespace Tripod.Web.Controllers
             return View(model);
         }
 
-        //
-        // POST: /Account/Disassociate
-        [HttpPost]
         [ValidateAntiForgeryToken]
+        [HttpPost, Route("account/disassociate")]
         public async Task<ActionResult> Disassociate(string loginProvider, string providerKey)
         {
             var result = await UserManager.RemoveLoginAsync(User.Identity.GetUserId(), new UserLoginInfo(loginProvider, providerKey));
@@ -93,8 +84,7 @@ namespace Tripod.Web.Controllers
             return RedirectToAction("Manage", new { Message = message });
         }
 
-        //
-        // GET: /Account/Manage
+        [HttpGet, Route("account/manage")]
         public ActionResult Manage(ManageMessageId? message)
         {
             ViewBag.StatusMessage =
@@ -108,10 +98,8 @@ namespace Tripod.Web.Controllers
             return View();
         }
 
-        //
-        // POST: /Account/Manage
-        [HttpPost]
         [ValidateAntiForgeryToken]
+        [HttpPost, Route("account/manage")]
         public async Task<ActionResult> Manage(ManageUserViewModel model)
         {
             var hasPassword = HasPassword();
@@ -149,20 +137,17 @@ namespace Tripod.Web.Controllers
             return View(model);
         }
 
-        //
-        // POST: /Account/ExternalLogin
-        [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
+        [HttpPost, Route("account/external-login")]
         public ActionResult ExternalLogin(string provider, string returnUrl)
         {
             // Request a redirect to the external login provider
             return new ChallengeResult(provider, Url.Action("ExternalLoginCallback", "Account", new { ReturnUrl = returnUrl }));
         }
 
-        //
-        // GET: /Account/ExternalLoginCallback
         [AllowAnonymous]
+        [HttpGet, Route("account/external-login/received")]
         public async Task<ActionResult> ExternalLoginCallback(string returnUrl)
         {
             var loginInfo = await AuthenticationManager.GetExternalLoginInfoAsync();
@@ -184,18 +169,15 @@ namespace Tripod.Web.Controllers
             return View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel { UserName = loginInfo.DefaultUserName });
         }
 
-        //
-        // POST: /Account/LinkLogin
-        [HttpPost]
         [ValidateAntiForgeryToken]
+        [HttpPost, Route("account/link-login")]
         public ActionResult LinkLogin(string provider)
         {
             // Request a redirect to the external login provider to link a login for the current user
             return new ChallengeResult(provider, Url.Action("LinkLoginCallback", "Account"), User.Identity.GetUserId());
         }
 
-        //
-        // GET: /Account/LinkLoginCallback
+        [HttpGet, Route("account/link-login/complete")]
         public async Task<ActionResult> LinkLoginCallback()
         {
             var loginInfo = await AuthenticationManager.GetExternalLoginInfoAsync(XsrfKey, User.Identity.GetUserId());
@@ -209,11 +191,9 @@ namespace Tripod.Web.Controllers
                 : RedirectToAction("Manage", new { Message = ManageMessageId.Error });
         }
 
-        //
-        // POST: /Account/ExternalLoginConfirmation
-        [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
+        [HttpPost, Route("account/external-login/confirm")]
         public async Task<ActionResult> ExternalLoginConfirmation(ExternalLoginConfirmationViewModel model, string returnUrl)
         {
             if (User.Identity.IsAuthenticated)
@@ -247,9 +227,7 @@ namespace Tripod.Web.Controllers
             return View(model);
         }
 
-        //
-        // POST: /Account/LogOff
-        [HttpPost]
+        [HttpPost, Route("account/logoff")]
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
@@ -257,9 +235,8 @@ namespace Tripod.Web.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        //
-        // GET: /Account/ExternalLoginFailure
         [AllowAnonymous]
+        [HttpGet, Route("account/external-login/failed")]
         public ActionResult ExternalLoginFailure()
         {
             return View();

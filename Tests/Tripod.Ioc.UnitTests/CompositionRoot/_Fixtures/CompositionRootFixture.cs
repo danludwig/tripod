@@ -10,7 +10,7 @@ namespace Tripod.Ioc
         public CompositionRootFixture()
         {
             Container = new Container();
-            var assemblies = new[] { Assembly.GetAssembly(GetType()) };
+            var assemblies = new[] { Assembly.GetExecutingAssembly() };
             var settings = new RootCompositionSettings
             {
                 FluentValidatorAssemblies = assemblies,
