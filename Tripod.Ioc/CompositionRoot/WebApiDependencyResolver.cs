@@ -8,17 +8,19 @@ namespace Tripod.Ioc
     public class WebApiDependencyResolver : IDependencyResolver
     {
         private readonly Container _container;
+        private readonly IServiceProvider _provider;
 
         public WebApiDependencyResolver(Container container)
         {
             if (container == null)
                 throw new ArgumentNullException("container");
             _container = container;
+            _provider = container;
         }
 
         public object GetService(Type serviceType)
         {
-            return _container.GetInstance(serviceType);
+            return _provider.GetService(serviceType);
         }
 
         public IEnumerable<object> GetServices(Type serviceType)
