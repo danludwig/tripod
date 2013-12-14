@@ -243,6 +243,7 @@ namespace Tripod.Web.Controllers
         }
 
         [ChildActionOnly]
+        [HttpGet, Route("account/external-logins")]
         public ActionResult RemoveAccountList()
         {
             var linkedAccounts = UserManager.GetLogins(User.Identity.GetUserId());
