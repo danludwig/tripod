@@ -8,10 +8,10 @@ namespace Tripod
     {
         private readonly int _minLength;
 
-        internal MinLength(int minLength) : base(() => ValidationResources.Validation_MinLength)
+        internal MinLength(int minLength) : base(() => Resources.Validation_MinLength)
         {
             if (minLength < 1) throw new ArgumentOutOfRangeException("minLength",
-                ValidationResources.Exception_ArgumentOutOfRange_CannotBeLessThanOne);
+                Resources.Exception_ArgumentOutOfRange_CannotBeLessThanOne);
             _minLength = minLength;
         }
 

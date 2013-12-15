@@ -110,7 +110,7 @@
     <Compile Include="Api\_Extensions\_Fakes\FakeOuterObject.cs" />
     <Compile Include="Api\_Extensions\_Fakes\IFakeOpenGenericB.cs" />
     <Compile Include="Api\_Extensions\ReflectionExtensionTests.cs" />
-    <Compile Include="Domain\Security\Commands\CreateUserValidatorTests.cs" />
+    <Compile Include="Domain\Security\Commands\CreateUserValidationTests.cs" />
     <Compile Include="Domain\Security\Entities\_Fakes\ProxiedPermission.cs" />
     <Compile Include="Domain\Security\Entities\_Fakes\ProxiedUser.cs" />
     <Compile Include="Domain\Security\Entities\PermissionTests.cs" />

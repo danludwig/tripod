@@ -17,7 +17,7 @@ namespace Tripod.Ioc.FluentValidation
         [Fact]
         public void Sets_ResourceProviderType_To_ValidationResources()
         {
-            ValidatorOptions.ResourceProviderType.ShouldEqual(typeof(ValidationResources));
+            ValidatorOptions.ResourceProviderType.ShouldEqual(typeof(Resources));
         }
 
         [Fact]

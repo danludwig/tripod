@@ -10,7 +10,7 @@ namespace Tripod.Ioc.FluentValidation
         public static void RegisterFluentValidation(this Container container, params Assembly[] assemblies)
         {
             ValidatorOptions.CascadeMode = CascadeMode.StopOnFirstFailure;
-            ValidatorOptions.ResourceProviderType = typeof(ValidationResources);
+            ValidatorOptions.ResourceProviderType = typeof(Resources);
 
             assemblies = assemblies ?? new[] { Assembly.GetAssembly(typeof(IHandleCommand<>)), };
 

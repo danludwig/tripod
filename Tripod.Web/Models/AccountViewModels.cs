@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Tripod.Domain.Security;
 
+// ReSharper disable LocalizableElement
 namespace Tripod.Web.Models
 {
     public class ExternalLoginConfirmationViewModel
@@ -62,3 +63,4 @@ namespace Tripod.Web.Models
         public string ConfirmPassword { get; [UsedImplicitly] set; }
     }
 }
+// ReSharper restore LocalizableElement

@@ -16,7 +16,7 @@ namespace Tripod
             var exception = Assert.Throws<ArgumentOutOfRangeException>(() => new MinLength(0));
             exception.ShouldNotBeNull();
             exception.ParamName.ShouldEqual("minLength");
-            exception.Message.ShouldStartWith(ValidationResources.Exception_ArgumentOutOfRange_CannotBeLessThanOne);
+            exception.Message.ShouldStartWith(Resources.Exception_ArgumentOutOfRange_CannotBeLessThanOne);
         }
 
         [Fact]
@@ -30,7 +30,7 @@ namespace Tripod
             result.IsValid.ShouldBeFalse();
             Func<ValidationFailure, bool> minLengthError = x => x.PropertyName == command.PropertyName(y => y.StringProperty);
             result.Errors.Count(minLengthError).ShouldEqual(1);
-            result.Errors.Single(minLengthError).ErrorMessage.ShouldEqual(ValidationResources.Validation_MinLength
+            result.Errors.Single(minLengthError).ErrorMessage.ShouldEqual(Resources.Validation_MinLength
                 .Replace("{PropertyName}", "String Property")
                 .Replace("{MinLength}", "5")
                 .Replace("{TotalLength}", command.StringProperty.Length.ToString(CultureInfo.InvariantCulture))

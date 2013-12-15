@@ -16,7 +16,7 @@ namespace Tripod
             var exception = Assert.Throws<ArgumentOutOfRangeException>(() => new MaxLength(0));
             exception.ShouldNotBeNull();
             exception.ParamName.ShouldEqual("maxLength");
-            exception.Message.ShouldStartWith(ValidationResources.Exception_ArgumentOutOfRange_CannotBeLessThanOne);
+            exception.Message.ShouldStartWith(Resources.Exception_ArgumentOutOfRange_CannotBeLessThanOne);
         }
 
         [Fact]
@@ -30,7 +30,7 @@ namespace Tripod
             result.IsValid.ShouldBeFalse();
             Func<ValidationFailure, bool> maxLengthError = x => x.PropertyName == command.PropertyName(y => y.StringProperty);
             result.Errors.Count(maxLengthError).ShouldEqual(1);
-            result.Errors.Single(maxLengthError).ErrorMessage.ShouldEqual(ValidationResources.Validation_MaxLength
+            result.Errors.Single(maxLengthError).ErrorMessage.ShouldEqual(Resources.Validation_MaxLength
                 .Replace("{PropertyName}", "String Property")
                 .Replace("{MaxLength}", "3")
                 .Replace("{TotalLength}", command.StringProperty.Length.ToString(CultureInfo.InvariantCulture))

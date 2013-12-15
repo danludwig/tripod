@@ -76,10 +76,10 @@
     <Compile Include="Api\Transactions\OrderByDirection.cs" />
     <Compile Include="Api\Validation\MaxLength.cs" />
     <Compile Include="Api\Validation\MinLength.cs" />
-    <Compile Include="Api\Validation\ValidationResources.Designer.cs">
+    <Compile Include="Api\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ValidationResources.resx</DependentUpon>
+      <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Api\_Extensions\ExpressionExtensions.cs" />
     <Compile Include="Api\_Extensions\EntityExtensions.cs" />
@@ -100,9 +100,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Api\Validation\ValidationResources.resx">
+    <EmbeddedResource Include="Api\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>ValidationResources.Designer.cs</LastGenOutput>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <CustomToolNamespace>Tripod</CustomToolNamespace>
     </EmbeddedResource>
   </ItemGroup>

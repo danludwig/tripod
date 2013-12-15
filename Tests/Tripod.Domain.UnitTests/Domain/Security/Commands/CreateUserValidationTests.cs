@@ -10,12 +10,12 @@ using Xunit;
 
 namespace Tripod.Domain.Security
 {
-    public class CreateUserValidatorTests
+    public class CreateUserValidationTests
     {
-        public CreateUserValidatorTests()
+        public CreateUserValidationTests()
         {
             ValidatorOptions.CascadeMode = CascadeMode.StopOnFirstFailure;
-            ValidatorOptions.ResourceProviderType = typeof(ValidationResources);
+            ValidatorOptions.ResourceProviderType = typeof(Resources);
         }
 
         [Fact]
@@ -31,7 +31,7 @@ namespace Tripod.Domain.Security
             Func<ValidationFailure, bool> nameError = x => x.PropertyName == command.PropertyName(y => y.Name);
             result.Errors.Count(nameError).ShouldEqual(1);
             result.Errors.Single(nameError).ErrorMessage
-                .ShouldEqual(ValidationResources.notempty_error.Replace("{PropertyName}", User.Constraints.NameLabel));
+                .ShouldEqual(Resources.notempty_error.Replace("{PropertyName}", User.Constraints.NameLabel));
             validator.ShouldHaveValidationErrorFor(x => x.Name, command.Name);
         }
 
@@ -48,7 +48,7 @@ namespace Tripod.Domain.Security
             Func<ValidationFailure, bool> nameError = x => x.PropertyName == command.PropertyName(y => y.Name);
             result.Errors.Count(nameError).ShouldEqual(1);
             result.Errors.Single(nameError).ErrorMessage
-                .ShouldEqual(ValidationResources.notempty_error.Replace("{PropertyName}", User.Constraints.NameLabel));
+                .ShouldEqual(Resources.notempty_error.Replace("{PropertyName}", User.Constraints.NameLabel));
             validator.ShouldHaveValidationErrorFor(x => x.Name, command.Name);
         }
 
@@ -65,7 +65,7 @@ namespace Tripod.Domain.Security
             Func<ValidationFailure, bool> nameError = x => x.PropertyName == command.PropertyName(y => y.Name);
             result.Errors.Count(nameError).ShouldEqual(1);
             result.Errors.Single(nameError).ErrorMessage
-                .ShouldEqual(ValidationResources.notempty_error.Replace("{PropertyName}", User.Constraints.NameLabel));
+                .ShouldEqual(Resources.notempty_error.Replace("{PropertyName}", User.Constraints.NameLabel));
             validator.ShouldHaveValidationErrorFor(x => x.Name, command.Name);
         }
 
@@ -81,7 +81,7 @@ namespace Tripod.Domain.Security
             result.IsValid.ShouldEqual(false);
             Func<ValidationFailure, bool> nameError = x => x.PropertyName == command.PropertyName(y => y.Name);
             result.Errors.Count(nameError).ShouldEqual(1);
-            result.Errors.Single(nameError).ErrorMessage.ShouldEqual(ValidationResources.Validation_MinLength
+            result.Errors.Single(nameError).ErrorMessage.ShouldEqual(Resources.Validation_MinLength
                 .Replace("{PropertyName}", User.Constraints.NameLabel)
                 .Replace("{MinLength}", User.Constraints.NameMinLength.ToString(CultureInfo.InvariantCulture))
                 .Replace("{TotalLength}", command.Name.Length.ToString(CultureInfo.InvariantCulture))
