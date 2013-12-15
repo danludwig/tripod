@@ -168,4 +168,13 @@
   <data name="scale_precision_error" xml:space="preserve">
     <value>{PropertyName} may not be more than {expectedPrecision} digits in total, with allowance for {expectedScale} decimals. {digits} digits and {actualScale} decimals were found.</value>
   </data>
+  <data name="Exception_ArgumentOutOfRange_CannotBeLessThanOne" xml:space="preserve">
+    <value>Cannot be less than one.</value>
+  </data>
+  <data name="Validation_MinLength" xml:space="preserve">
+    <value>{PropertyName} must contain at least {MinLength} characters. You entered {TotalLength} characters.</value>
+  </data>
+  <data name="Validation_MaxLength" xml:space="preserve">
+    <value>{PropertyName} cannot exceed {MaxLength} characters. You entered {TotalLength} characters.</value>
+  </data>
 </root>

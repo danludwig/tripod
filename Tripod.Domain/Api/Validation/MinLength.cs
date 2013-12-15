@@ -8,10 +8,10 @@ namespace Tripod
     {
         private readonly int _minLength;
 
-        internal MinLength(int minLength)
-            : base("{PropertyName} must contain at least {MinLength} characters. You entered {TotalLength} characters.")
+        internal MinLength(int minLength) : base(() => ValidationResources.Validation_MinLength)
         {
-            if (minLength < 1) throw new ArgumentOutOfRangeException("minLength", "Cannot be less than one.");
+            if (minLength < 1) throw new ArgumentOutOfRangeException("minLength",
+                ValidationResources.Exception_ArgumentOutOfRange_CannotBeLessThanOne);
             _minLength = minLength;
         }
 

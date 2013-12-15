@@ -8,10 +8,10 @@ namespace Tripod
     {
         private readonly int _maxLength;
 
-        internal MaxLength(int maxLength)
-            : base("{PropertyName} cannot exceed {MaxLength} characters. You entered {TotalLength} characters.")
+        internal MaxLength(int maxLength) : base(() => ValidationResources.Validation_MaxLength)
         {
-            if (maxLength < 1) throw new ArgumentOutOfRangeException("maxLength", "Cannot be less than one.");
+            if (maxLength < 1) throw new ArgumentOutOfRangeException("maxLength",
+                ValidationResources.Exception_ArgumentOutOfRange_CannotBeLessThanOne);
             _maxLength = maxLength;
         }
 

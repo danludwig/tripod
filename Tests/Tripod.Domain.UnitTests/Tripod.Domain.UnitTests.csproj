@@ -45,6 +45,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\EntityFramework.6.0.2\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="FluentValidation, Version=5.0.0.1, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\FluentValidation.5.0.0.1\lib\Net40\FluentValidation.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core">
       <HintPath>..\..\packages\Microsoft.AspNet.Identity.Core.2.0.0-alpha1-131213\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
     </Reference>
@@ -86,6 +90,10 @@
     <Compile Include="Api\Entities\_Fakes\FakeEntityWithLongId.cs" />
     <Compile Include="Api\Entities\_Fakes\FakeEntityWithStringId.cs" />
     <Compile Include="Api\Entities\_Fakes\FakeProxiedEntityWithLongId.cs" />
+    <Compile Include="Api\Validation\MaxLengthTests.cs" />
+    <Compile Include="Api\Validation\_Fakes\FakeStringMaxLengthValidator.cs" />
+    <Compile Include="Api\Validation\_Fakes\FakeStringMinLengthValidator.cs" />
+    <Compile Include="Api\Validation\_Fakes\FakeStringLengthCommand.cs" />
     <Compile Include="Api\_Extensions\ExpressionExtensionTests.cs" />
     <Compile Include="Api\_Extensions\EntityExtensionTests.cs" />
     <Compile Include="Api\_Extensions\_Fakes\FakeClosedGenericB1.cs" />
@@ -99,13 +107,16 @@
     <Compile Include="Api\_Extensions\_Fakes\FakeOpenGenericA.cs" />
     <Compile Include="Api\_Extensions\_Fakes\FakeClosedGenericA1.cs" />
     <Compile Include="Api\_Extensions\_Fakes\FakeOpenGenericA2.cs" />
+    <Compile Include="Api\_Extensions\_Fakes\FakeOuterObject.cs" />
     <Compile Include="Api\_Extensions\_Fakes\IFakeOpenGenericB.cs" />
     <Compile Include="Api\_Extensions\ReflectionExtensionTests.cs" />
+    <Compile Include="Domain\Security\Commands\CreateUserValidatorTests.cs" />
     <Compile Include="Domain\Security\Entities\_Fakes\ProxiedPermission.cs" />
     <Compile Include="Domain\Security\Entities\_Fakes\ProxiedUser.cs" />
     <Compile Include="Domain\Security\Entities\PermissionTests.cs" />
     <Compile Include="Domain\Security\Entities\UserTests.cs" />
     <Compile Include="Domain\Security\Queries\UserByTests.cs" />
+    <Compile Include="Api\Validation\MinLengthTests.cs" />
     <Compile Include="Domain\Security\_Extensions\QueryUsersTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -119,7 +130,9 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Domain\Security\Validation\" />
+  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

@@ -1,4 +1,5 @@
-﻿using Should;
+﻿using System;
+using Should;
 using Xunit;
 
 namespace Tripod
@@ -41,7 +42,6 @@ namespace Tripod
             openGeneric.IsGenericallyAssignableFrom(closedGeneric).ShouldEqual(false);
         }
 
-
         [Fact]
         public void IsGenericallyAssignableFrom_ReturnsFalse_WhenClosedDoesNotExtendOpen()
         {
@@ -49,6 +49,50 @@ namespace Tripod
             var closedGeneric = typeof(FakeClosedGenericB1);
 
             openGeneric.IsGenericallyAssignableFrom(closedGeneric).ShouldEqual(false);
+        }
+
+        [Fact]
+        public void PropertyName_ThrowsArgumentNullException_WhenThisArgIsNull()
+        {
+            FakeStringLengthCommand owner = null;
+            // ReSharper disable ExpressionIsAlwaysNull
+            var exception = Assert.Throws<ArgumentNullException>(() => owner.PropertyName(x => x.StringProperty));
+            // ReSharper restore ExpressionIsAlwaysNull
+            exception.ShouldNotBeNull();
+            exception.ParamName.ShouldEqual("owner");
+        }
+
+        [Fact]
+        public void PropertyName_NotSupportedException_WhenExpressionIsNotProperty()
+        {
+            var owner = new FakeOuterObject();
+            var exception = Assert.Throws<NotSupportedException>(() =>
+                owner.PropertyName(x => x.Method()));
+            exception.ShouldNotBeNull();
+        }
+
+        [Fact]
+        public void PropertyName_ReturnsPropertyName()
+        {
+            var owner = new FakeOuterObject();
+            var propertyName = owner.PropertyName(x => x.Inner);
+            propertyName.ShouldEqual("Inner");
+        }
+
+        [Fact]
+        public void PropertyName_ReturnsDotSeparatedName_ForNestedProperty_ByDefault()
+        {
+            var owner = new FakeOuterObject();
+            var propertyName = owner.PropertyName(x => x.Inner.Property);
+            propertyName.ShouldEqual("Inner.Property");
+        }
+
+        [Fact]
+        public void PropertyName_ReturnsNestedPropertyNameOnly_ForNestedProperty_WhenFullNameIsNotRequested()
+        {
+            var owner = new FakeOuterObject();
+            var propertyName = owner.PropertyName(x => x.Inner.Property, false);
+            propertyName.ShouldEqual("Property");
         }
     }
 }

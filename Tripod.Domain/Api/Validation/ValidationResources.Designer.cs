@@ -97,6 +97,15 @@ namespace Tripod {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cannot be less than one..
+        /// </summary>
+        public static string Exception_ArgumentOutOfRange_CannotBeLessThanOne {
+            get {
+                return ResourceManager.GetString("Exception_ArgumentOutOfRange_CannotBeLessThanOne", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {PropertyName} must be between {From} and {To} (exclusive). You entered {Value}..
         /// </summary>
         public static string exclusivebetween_error {
@@ -210,6 +219,24 @@ namespace Tripod {
         public static string scale_precision_error {
             get {
                 return ResourceManager.GetString("scale_precision_error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {PropertyName} cannot exceed {MaxLength} characters. You entered {TotalLength} characters..
+        /// </summary>
+        public static string Validation_MaxLength {
+            get {
+                return ResourceManager.GetString("Validation_MaxLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {PropertyName} must contain at least {MinLength} characters. You entered {TotalLength} characters..
+        /// </summary>
+        public static string Validation_MinLength {
+            get {
+                return ResourceManager.GetString("Validation_MinLength", resourceCulture);
             }
         }
     }
