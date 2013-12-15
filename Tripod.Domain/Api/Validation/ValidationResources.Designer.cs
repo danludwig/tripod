@@ -97,6 +97,15 @@ namespace Tripod {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Value cannot be null or empty..
+        /// </summary>
+        public static string Exception_Argument_CannotBeNullOrEmpty {
+            get {
+                return ResourceManager.GetString("Exception_Argument_CannotBeNullOrEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cannot be less than one..
         /// </summary>
         public static string Exception_ArgumentOutOfRange_CannotBeLessThanOne {

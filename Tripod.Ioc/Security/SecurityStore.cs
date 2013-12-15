@@ -170,7 +170,7 @@ namespace Tripod.Ioc.Security
             ThrowIfDisposed();
             if (user == null) throw new ArgumentNullException("user");
             if (string.IsNullOrWhiteSpace(roleName))
-                throw new ArgumentException("Value cannot be null or empty.", "roleName");
+                throw new ArgumentException(ValidationResources.Exception_Argument_CannotBeNullOrEmpty, "roleName");
 
             var permission = await _entities.Get<Permission>().SingleOrDefaultAsync(r => r.Name.Equals(roleName, StringComparison.OrdinalIgnoreCase));
             if (permission == null) throw new InvalidOperationException(string.Format("Role {0} does not exist", roleName));
@@ -183,7 +183,8 @@ namespace Tripod.Ioc.Security
         {
             ThrowIfDisposed();
             if (user == null) throw new ArgumentNullException("user");
-            if (string.IsNullOrWhiteSpace(roleName)) throw new ArgumentException("Value cannot be null or empty.", "roleName");
+            if (string.IsNullOrWhiteSpace(roleName))
+                throw new ArgumentException(ValidationResources.Exception_Argument_CannotBeNullOrEmpty, "roleName");
 
             var permission = user.Permissions.SingleOrDefault(x => x.Name.Equals(roleName, StringComparison.OrdinalIgnoreCase));
             if (permission == null) return Task.FromResult(0);
@@ -206,7 +207,8 @@ namespace Tripod.Ioc.Security
         {
             ThrowIfDisposed();
             if (user == null) throw new ArgumentNullException("user");
-            if (string.IsNullOrWhiteSpace(roleName)) throw new ArgumentException("Value cannot be null or empty.", "roleName");
+            if (string.IsNullOrWhiteSpace(roleName))
+                throw new ArgumentException(ValidationResources.Exception_Argument_CannotBeNullOrEmpty, "roleName");
 
             return Task.FromResult(user.Permissions.Any(x => x.Name.Equals(roleName, StringComparison.OrdinalIgnoreCase)));
         }

@@ -1,11 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Tripod.Domain.Security;
 
 namespace Tripod.Web.Models
 {
     public class ExternalLoginConfirmationViewModel
     {
         [Required]
-        [Display(Name = "User name")]
+        [Display(Name = User.Constraints.NameLabel)]
         public string UserName { get; set; }
     }
 
@@ -31,7 +32,7 @@ namespace Tripod.Web.Models
     public class LoginViewModel
     {
         [Required]
-        [Display(Name = "User name")]
+        [Display(Name = User.Constraints.NameLabel)]
         public string UserName { get; [UsedImplicitly] set; }
 
         [Required]
@@ -46,7 +47,7 @@ namespace Tripod.Web.Models
     public class RegisterViewModel
     {
         [Required]
-        [Display(Name = "User name")]
+        [Display(Name = User.Constraints.NameLabel)]
         public string UserName { get; [UsedImplicitly] set; }
 
         [Required]
