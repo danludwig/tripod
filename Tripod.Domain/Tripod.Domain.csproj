@@ -74,6 +74,7 @@
     <Compile Include="Api\Transactions\IProcessCommands.cs" />
     <Compile Include="Api\Transactions\IProcessQueries.cs" />
     <Compile Include="Api\Transactions\OrderByDirection.cs" />
+    <Compile Include="Api\Validation\IProcessValidation.cs" />
     <Compile Include="Api\Validation\MaxLength.cs" />
     <Compile Include="Api\Validation\MinLength.cs" />
     <Compile Include="Api\Resources.Designer.cs">

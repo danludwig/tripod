@@ -16,7 +16,7 @@ namespace Tripod.Ioc.Transactions
             container.RegisterManyForOpenGeneric(typeof(IHandleQuery<,>), Assembly.GetExecutingAssembly());
             container.Verify();
             var queries = container.GetInstance<IProcessQueries>();
-            var result = queries.Execute(new FakeQuery());
+            var result = queries.Execute(new FakeQueryWithoutValidator());
             result.ShouldEqual("faked");
         }
     }

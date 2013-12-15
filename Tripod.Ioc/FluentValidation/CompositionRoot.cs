@@ -14,6 +14,8 @@ namespace Tripod.Ioc.FluentValidation
 
             assemblies = assemblies ?? new[] { Assembly.GetAssembly(typeof(IHandleCommand<>)), };
 
+            container.RegisterSingle<IProcessValidation, ValidationProcessor>();
+
             // fluent validation open generics
             container.RegisterManyForOpenGeneric(typeof(IValidator<>), assemblies);
 

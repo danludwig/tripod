@@ -15,13 +15,15 @@ namespace Tripod.Web.Controllers
         private readonly IUnitOfWork _unitOfWork;
         private readonly IAuthenticate _authenticator;
         private readonly IProcessCommands _commands;
+        private readonly IProcessValidation _validation;
 
-        public AccountController(UserManager<User, int> userManager, IUnitOfWork unitOfWork, IAuthenticate authenticator, IProcessCommands commands)
+        public AccountController(UserManager<User, int> userManager, IUnitOfWork unitOfWork, IAuthenticate authenticator, IProcessCommands commands, IProcessValidation validation)
         {
             _userManager = userManager;
             _unitOfWork = unitOfWork;
             _authenticator = authenticator;
             _commands = commands;
+            _validation = validation;
         }
 
         [AllowAnonymous]
@@ -44,7 +46,9 @@ namespace Tripod.Web.Controllers
                 await SignInAsync(user, model.RememberMe);
                 return RedirectToLocal(returnUrl);
             }
+            // ReSharper disable LocalizableElement
             ModelState.AddModelError("", "Invalid username or password.");
+            // ReSharper restore LocalizableElement
 
             // If we got this far, something failed, redisplay form
             return View(model);
@@ -62,15 +66,17 @@ namespace Tripod.Web.Controllers
         [HttpPost, Route("account/register")]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
+            var command = new CreateUser { Name = model.UserName };
+            var validation = _validation.Validate(command);
+            ModelState.AddModelErrors(validation);
             if (!ModelState.IsValid) return View(model);
-            var createUser = new CreateUser  {Name = model.UserName };
-            _commands.Execute(createUser);
+            _commands.Execute(command);
             //var user = new User { Name = model.UserName };
-            var result = await _userManager.CreateAsync(createUser.Created, model.Password);
+            var result = await _userManager.CreateAsync(command.Created, model.Password);
             await _unitOfWork.SaveChangesAsync();
             if (result.Succeeded)
             {
-                await SignInAsync(createUser.Created, isPersistent: false);
+                await SignInAsync(command.Created, isPersistent: false);
                 return RedirectToAction("Index", "Home");
             }
             AddErrors(result);

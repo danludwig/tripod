@@ -12,11 +12,11 @@ namespace Tripod.Ioc.Transactions
         [Fact]
         public void BeginsLifetimeScope_WhenCurrentLifetimeScope_IsNull()
         {
-            var query = new FakeQuery();
-            var decorated = new Mock<IHandleQuery<FakeQuery, string>>(MockBehavior.Strict);
-            Expression<Func<FakeQuery, bool>> expectedQuery = x => ReferenceEquals(x, query);
+            var query = new FakeQueryWithoutValidator();
+            var decorated = new Mock<IHandleQuery<FakeQueryWithoutValidator, string>>(MockBehavior.Strict);
+            Expression<Func<FakeQueryWithoutValidator, bool>> expectedQuery = x => ReferenceEquals(x, query);
             decorated.Setup(x => x.Handle(It.Is(expectedQuery))).Returns("faked");
-            var decorator = new QueryLifetimeScopeDecorator<FakeQuery, string>(Container, () => decorated.Object);
+            var decorator = new QueryLifetimeScopeDecorator<FakeQueryWithoutValidator, string>(Container, () => decorated.Object);
             Container.GetCurrentLifetimeScope().ShouldEqual(null);
 
             var result = decorator.Handle(query);
@@ -28,11 +28,11 @@ namespace Tripod.Ioc.Transactions
         [Fact]
         public void UsesCurrentLifetimeScope_WhenCurrentLifetimeScope_IsNotNull()
         {
-            var query = new FakeQuery();
-            var decorated = new Mock<IHandleQuery<FakeQuery, string>>(MockBehavior.Strict);
-            Expression<Func<FakeQuery, bool>> expectedQuery = x => ReferenceEquals(x, query);
+            var query = new FakeQueryWithoutValidator();
+            var decorated = new Mock<IHandleQuery<FakeQueryWithoutValidator, string>>(MockBehavior.Strict);
+            Expression<Func<FakeQueryWithoutValidator, bool>> expectedQuery = x => ReferenceEquals(x, query);
             decorated.Setup(x => x.Handle(It.Is(expectedQuery))).Returns("faked");
-            var decorator = new QueryLifetimeScopeDecorator<FakeQuery, string>(Container, () => decorated.Object);
+            var decorator = new QueryLifetimeScopeDecorator<FakeQueryWithoutValidator, string>(Container, () => decorated.Object);
             Container.GetCurrentLifetimeScope().ShouldEqual(null);
             string result;
             using (Container.BeginLifetimeScope())

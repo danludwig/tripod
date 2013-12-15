@@ -21,6 +21,17 @@ namespace Tripod.Ioc.FluentValidation
         }
 
         [Fact]
+        public void RegistersIProcessValidation_UsingValidationProcessor_AsSingleton()
+        {
+            var instance = Container.GetInstance<IProcessValidation>();
+            var registration = Container.GetRegistration(typeof(IProcessValidation));
+
+            instance.ShouldNotBeNull();
+            instance.ShouldBeType<ValidationProcessor>();
+            registration.Lifestyle.ShouldEqual(Lifestyle.Singleton);
+        }
+
+        [Fact]
         public void RegistersIValidator_Transiently_UsingOpenGenerics_WhenValidatorExists()
         {
             var instance = Container.GetInstance<IValidator<FakeCommandWithValidator>>();

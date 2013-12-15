@@ -22,11 +22,11 @@ namespace Tripod.Ioc.Transactions
         [Fact]
         public void RegistersIHandleQuery_UsingOpenGenerics_WithDecorationChain()
         {
-            var instance = Container.GetInstance<IHandleQuery<FakeQuery, string>>();
-            var registration = Container.GetRegistration(typeof(IHandleQuery<FakeQuery, string>));
+            var instance = Container.GetInstance<IHandleQuery<FakeQueryWithoutValidator, string>>();
+            var registration = Container.GetRegistration(typeof(IHandleQuery<FakeQueryWithoutValidator, string>));
 
             instance.ShouldNotBeNull();
-            registration.Registration.ImplementationType.ShouldEqual(typeof(HandleFakeQuery));
+            registration.Registration.ImplementationType.ShouldEqual(typeof(HandleFakeQueryWithoutValidator));
             registration.Registration.Lifestyle.ShouldEqual(Lifestyle.Transient);
             var decoratorChain = registration.GetRelationships()
                 .Select(x => new
@@ -36,9 +36,9 @@ namespace Tripod.Ioc.Transactions
                 })
                 .Reverse().Distinct().ToArray();
             decoratorChain.Length.ShouldEqual(2);
-            decoratorChain[0].ImplementationType.ShouldEqual(typeof(QueryLifetimeScopeDecorator<FakeQuery, string>));
+            decoratorChain[0].ImplementationType.ShouldEqual(typeof(QueryLifetimeScopeDecorator<FakeQueryWithoutValidator, string>));
             decoratorChain[0].Lifestyle.ShouldEqual(Lifestyle.Singleton);
-            decoratorChain[1].ImplementationType.ShouldEqual(typeof(ValidateQueryDecorator<FakeQuery, string>));
+            decoratorChain[1].ImplementationType.ShouldEqual(typeof(ValidateQueryDecorator<FakeQueryWithoutValidator, string>));
             decoratorChain[1].Lifestyle.ShouldEqual(Lifestyle.Transient);
         }
 

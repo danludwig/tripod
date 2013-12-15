@@ -118,6 +118,7 @@
     <Compile Include="FluentValidation\CompositionRootTests.cs" />
     <Compile Include="FluentValidation\ValidateCommandDecoratorTests.cs" />
     <Compile Include="FluentValidation\ValidateQueryDecoratorTests.cs" />
+    <Compile Include="FluentValidation\ValidationProcessorTests.cs" />
     <Compile Include="FluentValidation\ValidatorFactoryTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Transactions\CommandLifetimeScopeDecoratorTests.cs" />
@@ -125,7 +126,8 @@
     <Compile Include="Transactions\CommandProcessorTests.cs" />
     <Compile Include="Transactions\_Fakes\FakeCommandWithoutValidator.cs" />
     <Compile Include="Transactions\_Fakes\FakeCommandWithValidator.cs" />
-    <Compile Include="Transactions\_Fakes\FakeQuery.cs" />
+    <Compile Include="Transactions\_Fakes\FakeQueryWithValidator.cs" />
+    <Compile Include="Transactions\_Fakes\FakeQueryWithoutValidator.cs" />
     <Compile Include="Transactions\QueryLifetimeScopeDecoratorTests.cs" />
     <Compile Include="Transactions\QueryProcessorTests.cs" />
   </ItemGroup>

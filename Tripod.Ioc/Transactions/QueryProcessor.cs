@@ -3,6 +3,7 @@ using SimpleInjector;
 
 namespace Tripod.Ioc.Transactions
 {
+    [UsedImplicitly]
     sealed class QueryProcessor : IProcessQueries
     {
         private readonly Container _container;

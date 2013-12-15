@@ -14,32 +14,32 @@ namespace Tripod.Ioc.FluentValidation
         [Fact]
         public void Handle_ThrowsValidationException_AndDoesNotInvokeDecoratedHandle_WhenValidationFails()
         {
-            var query = new FakeQuery();
-            var decorated = new Mock<IHandleQuery<FakeQuery, string>>(MockBehavior.Strict);
-            var validator = new Mock<IValidator<FakeQuery>>(MockBehavior.Strict);
-            Expression<Func<FakeQuery, bool>> expectedQuery = x => ReferenceEquals(x, query);
+            var query = new FakeQueryWithoutValidator();
+            var decorated = new Mock<IHandleQuery<FakeQueryWithoutValidator, string>>(MockBehavior.Strict);
+            var validator = new Mock<IValidator<FakeQueryWithoutValidator>>(MockBehavior.Strict);
+            Expression<Func<FakeQueryWithoutValidator, bool>> expectedQuery = x => ReferenceEquals(x, query);
             var expectedResult = new ValidationResult(new[] { new ValidationFailure("Name", "Invalid."), });
             validator.Setup(x => x.Validate(It.Is(expectedQuery))).Returns(expectedResult);
-            var decorator = new ValidateQueryDecorator<FakeQuery, string>(decorated.Object, validator.Object);
+            var decorator = new ValidateQueryDecorator<FakeQueryWithoutValidator, string>(decorated.Object, validator.Object);
 
             var exception = Assert.Throws<ValidationException>(() => decorator.Handle(query));
 
             exception.ShouldNotBeNull();
             validator.Verify(x => x.Validate(It.Is(expectedQuery)), Times.Once);
-            decorated.Verify(x => x.Handle(It.IsAny<FakeQuery>()), Times.Never);
+            decorated.Verify(x => x.Handle(It.IsAny<FakeQueryWithoutValidator>()), Times.Never);
         }
 
         [Fact]
         public void Handle_InvokesDecoratedHandle_WhenValidationPasses()
         {
-            var query = new FakeQuery();
-            var decorated = new Mock<IHandleQuery<FakeQuery, string>>(MockBehavior.Strict);
-            var validator = new Mock<IValidator<FakeQuery>>(MockBehavior.Strict);
-            Expression<Func<FakeQuery, bool>> expectedQuery = x => ReferenceEquals(x, query);
+            var query = new FakeQueryWithoutValidator();
+            var decorated = new Mock<IHandleQuery<FakeQueryWithoutValidator, string>>(MockBehavior.Strict);
+            var validator = new Mock<IValidator<FakeQueryWithoutValidator>>(MockBehavior.Strict);
+            Expression<Func<FakeQueryWithoutValidator, bool>> expectedQuery = x => ReferenceEquals(x, query);
             var expectedResult = new ValidationResult();
             validator.Setup(x => x.Validate(It.Is(expectedQuery))).Returns(expectedResult);
             decorated.Setup(x => x.Handle(It.Is(expectedQuery))).Returns("faked");
-            var decorator = new ValidateQueryDecorator<FakeQuery, string>(decorated.Object, validator.Object);
+            var decorator = new ValidateQueryDecorator<FakeQueryWithoutValidator, string>(decorated.Object, validator.Object);
 
             var result = decorator.Handle(query);
 

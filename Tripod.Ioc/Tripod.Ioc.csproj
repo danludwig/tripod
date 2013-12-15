@@ -132,6 +132,7 @@
     <Compile Include="EntityFramework\ModelCreation\ICreateDbModel.cs" />
     <Compile Include="EntityFramework\Schemas\SecuritySchema.cs" />
     <Compile Include="FluentValidation\CompositionRoot.cs" />
+    <Compile Include="FluentValidation\ValidationProcessor.cs" />
     <Compile Include="FluentValidation\ValidatorFactory.cs" />
     <Compile Include="FluentValidation\ValidateCommandDecorator.cs" />
     <Compile Include="FluentValidation\ValidateNothingDecorator.cs" />
