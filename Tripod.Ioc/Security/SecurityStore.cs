@@ -48,7 +48,7 @@ namespace Tripod.Ioc.Security
                 .Include(u => u.EmailAddresses)
                 .Include(u => u.LocalMembership)
                 .Include(u => u.Claims)
-                .Include(u => u.Logins)
+                .Include(u => u.RemoteMemberships)
                 .FirstOrDefaultAsync(filter);
         }
 
@@ -121,7 +121,7 @@ namespace Tripod.Ioc.Security
         {
             ThrowIfDisposed();
             if (login == null) throw new ArgumentNullException("login");
-            return await GetUserAggregateAsync(u => u.Logins.Any(l => l.LoginProvider == login.LoginProvider && l.ProviderKey == login.ProviderKey));
+            return await GetUserAggregateAsync(u => u.RemoteMemberships.Any(l => l.LoginProvider == login.LoginProvider && l.ProviderKey == login.ProviderKey));
         }
 
         public Task AddLoginAsync(User user, UserLoginInfo login)
@@ -157,7 +157,7 @@ namespace Tripod.Ioc.Security
         {
             ThrowIfDisposed();
             if (user == null) throw new ArgumentNullException("user");
-            var result = user.Logins.Select(x => new UserLoginInfo(x.LoginProvider, x.ProviderKey))
+            var result = user.RemoteMemberships.Select(x => new UserLoginInfo(x.LoginProvider, x.ProviderKey))
                 .ToArray() as IList<UserLoginInfo>;
             return Task.FromResult(result);
         }

@@ -5,25 +5,20 @@ namespace Tripod.Domain.Security
 {
     public class Permission : EntityWithId<int>, IRole<int>
     {
-        protected Permission()
+        protected internal Permission()
         {
             // ReSharper disable DoNotCallOverridableMethodsInConstructor
             Users = new List<User>();
             // ReSharper restore DoNotCallOverridableMethodsInConstructor
         }
 
-        internal Permission(string name)
-        {
-            Name = name;
-        }
-
-        public string Name { get; protected set; }
+        public string Name { get; protected internal set; }
 
         string IRole<int>.Name { get; set; }
 
         public string Description { get; protected internal set; }
 
-        public virtual ICollection<User> Users { get; protected set; }
+        public virtual ICollection<User> Users { get; private set; }
 
         public static class Constraints
         {

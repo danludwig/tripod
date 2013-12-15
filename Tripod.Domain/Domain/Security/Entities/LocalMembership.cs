@@ -4,11 +4,11 @@
     {
         protected internal LocalMembership() { }
 
-        public virtual User Owner { get; protected set; }
+        public virtual User Owner { get; protected internal set; }
 
         public string PasswordHash { get; protected internal set; }
 
-        public virtual bool IsConfirmed { get; set; }
+        public bool IsConfirmed { get; protected internal set; }
 
         public static class Constraints
         {

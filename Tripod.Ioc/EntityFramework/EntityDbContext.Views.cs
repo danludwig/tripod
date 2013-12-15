@@ -11,7 +11,7 @@ using System.Data.Entity.Infrastructure.MappingViews;
 
 [assembly: DbMappingViewCacheTypeAttribute(
     typeof(Tripod.Ioc.EntityFramework.EntityDbContext),
-    typeof(Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySetsaec1a8c1f2b132965aa155582b9cc3f3d2fa31b6eb32760c4ad2f55299e05d54))]
+    typeof(Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySets7327a0e3bd37817e4b85c7e51ec87452191aff7ca187632415e8d9315b3aa679))]
 
 namespace Edm_EntityMappingGeneratedViews
 {
@@ -23,14 +23,14 @@ namespace Edm_EntityMappingGeneratedViews
     /// Implements a mapping view cache.
     /// </summary>
     [GeneratedCode("Entity Framework Power Tools", "0.9.0.0")]
-    internal sealed class ViewsForBaseEntitySetsaec1a8c1f2b132965aa155582b9cc3f3d2fa31b6eb32760c4ad2f55299e05d54 : DbMappingViewCache
+    internal sealed class ViewsForBaseEntitySets7327a0e3bd37817e4b85c7e51ec87452191aff7ca187632415e8d9315b3aa679 : DbMappingViewCache
     {
         /// <summary>
         /// Gets a hash value computed over the mapping closure.
         /// </summary>
         public override string MappingHashValue
         {
-            get { return "aec1a8c1f2b132965aa155582b9cc3f3d2fa31b6eb32760c4ad2f55299e05d54"; }
+            get { return "7327a0e3bd37817e4b85c7e51ec87452191aff7ca187632415e8d9315b3aa679"; }
         }
 
         /// <summary>
@@ -67,12 +67,12 @@ namespace Edm_EntityMappingGeneratedViews
                 return GetView3();
             }
 
-            if (extentName == "CodeFirstDatabase.RemoteMembership")
+            if (extentName == "CodeFirstDatabase.Permission")
             {
                 return GetView4();
             }
 
-            if (extentName == "CodeFirstDatabase.Permission")
+            if (extentName == "CodeFirstDatabase.RemoteMembership")
             {
                 return GetView5();
             }
@@ -102,12 +102,12 @@ namespace Edm_EntityMappingGeneratedViews
                 return GetView10();
             }
 
-            if (extentName == "EntityDbContext.RemoteMemberships")
+            if (extentName == "EntityDbContext.Permissions")
             {
                 return GetView11();
             }
 
-            if (extentName == "EntityDbContext.Permissions")
+            if (extentName == "EntityDbContext.RemoteMemberships")
             {
                 return GetView12();
             }
@@ -200,29 +200,10 @@ namespace Edm_EntityMappingGeneratedViews
         }
 
         /// <summary>
-        /// Gets the view for CodeFirstDatabase.RemoteMembership.
-        /// </summary>
-        /// <returns>The mapping view.</returns>
-        private static DbMappingView GetView4()
-        {
-            return new DbMappingView(@"
-    SELECT VALUE -- Constructing RemoteMembership
-        [CodeFirstDatabaseSchema.RemoteMembership](T1.RemoteMembership_LoginProvider, T1.RemoteMembership_ProviderKey, T1.RemoteMembership_UserId)
-    FROM (
-        SELECT 
-            T.LoginProvider AS RemoteMembership_LoginProvider, 
-            T.ProviderKey AS RemoteMembership_ProviderKey, 
-            T.UserId AS RemoteMembership_UserId, 
-            True AS _from0
-        FROM EntityDbContext.RemoteMemberships AS T
-    ) AS T1");
-        }
-
-        /// <summary>
         /// Gets the view for CodeFirstDatabase.Permission.
         /// </summary>
         /// <returns>The mapping view.</returns>
-        private static DbMappingView GetView5()
+        private static DbMappingView GetView4()
         {
             return new DbMappingView(@"
     SELECT VALUE -- Constructing Permission
@@ -238,6 +219,25 @@ namespace Edm_EntityMappingGeneratedViews
         }
 
         /// <summary>
+        /// Gets the view for CodeFirstDatabase.RemoteMembership.
+        /// </summary>
+        /// <returns>The mapping view.</returns>
+        private static DbMappingView GetView5()
+        {
+            return new DbMappingView(@"
+    SELECT VALUE -- Constructing RemoteMembership
+        [CodeFirstDatabaseSchema.RemoteMembership](T1.RemoteMembership_LoginProvider, T1.RemoteMembership_ProviderKey, T1.RemoteMembership_UserId)
+    FROM (
+        SELECT 
+            T.LoginProvider AS RemoteMembership_LoginProvider, 
+            T.ProviderKey AS RemoteMembership_ProviderKey, 
+            T.UserId AS RemoteMembership_UserId, 
+            True AS _from0
+        FROM EntityDbContext.RemoteMemberships AS T
+    ) AS T1");
+        }
+
+        /// <summary>
         /// Gets the view for CodeFirstDatabase.UserPermission.
         /// </summary>
         /// <returns>The mapping view.</returns>
@@ -245,11 +245,11 @@ namespace Edm_EntityMappingGeneratedViews
         {
             return new DbMappingView(@"
     SELECT VALUE -- Constructing UserPermission
-        [CodeFirstDatabaseSchema.UserPermission](T1.UserPermission_UserId, T1.UserPermission_RoleId)
+        [CodeFirstDatabaseSchema.UserPermission](T1.UserPermission_UserId, T1.UserPermission_PermissionId)
     FROM (
         SELECT 
             Key(T.User_Permissions_Source).Id AS UserPermission_UserId, 
-            Key(T.User_Permissions_Target).Id AS UserPermission_RoleId, 
+            Key(T.User_Permissions_Target).Id AS UserPermission_PermissionId, 
             True AS _from0
         FROM EntityDbContext.User_Permissions AS T
     ) AS T1");
@@ -335,29 +335,10 @@ namespace Edm_EntityMappingGeneratedViews
         }
 
         /// <summary>
-        /// Gets the view for EntityDbContext.RemoteMemberships.
-        /// </summary>
-        /// <returns>The mapping view.</returns>
-        private static DbMappingView GetView11()
-        {
-            return new DbMappingView(@"
-    SELECT VALUE -- Constructing RemoteMemberships
-        [Tripod.Ioc.EntityFramework.RemoteMembership](T1.RemoteMembership_LoginProvider, T1.RemoteMembership_ProviderKey, T1.RemoteMembership_UserId)
-    FROM (
-        SELECT 
-            T.LoginProvider AS RemoteMembership_LoginProvider, 
-            T.ProviderKey AS RemoteMembership_ProviderKey, 
-            T.UserId AS RemoteMembership_UserId, 
-            True AS _from0
-        FROM CodeFirstDatabase.RemoteMembership AS T
-    ) AS T1");
-        }
-
-        /// <summary>
         /// Gets the view for EntityDbContext.Permissions.
         /// </summary>
         /// <returns>The mapping view.</returns>
-        private static DbMappingView GetView12()
+        private static DbMappingView GetView11()
         {
             return new DbMappingView(@"
     SELECT VALUE -- Constructing Permissions
@@ -369,6 +350,25 @@ namespace Edm_EntityMappingGeneratedViews
             T.Description AS Permission_Description, 
             True AS _from0
         FROM CodeFirstDatabase.Permission AS T
+    ) AS T1");
+        }
+
+        /// <summary>
+        /// Gets the view for EntityDbContext.RemoteMemberships.
+        /// </summary>
+        /// <returns>The mapping view.</returns>
+        private static DbMappingView GetView12()
+        {
+            return new DbMappingView(@"
+    SELECT VALUE -- Constructing RemoteMemberships
+        [Tripod.Ioc.EntityFramework.RemoteMembership](T1.RemoteMembership_LoginProvider, T1.RemoteMembership_ProviderKey, T1.RemoteMembership_UserId)
+    FROM (
+        SELECT 
+            T.LoginProvider AS RemoteMembership_LoginProvider, 
+            T.ProviderKey AS RemoteMembership_ProviderKey, 
+            T.UserId AS RemoteMembership_UserId, 
+            True AS _from0
+        FROM CodeFirstDatabase.RemoteMembership AS T
     ) AS T1");
         }
 
@@ -392,7 +392,7 @@ namespace Edm_EntityMappingGeneratedViews
             FROM (
                 SELECT 
                     T.UserId AS [User_Permissions.User_Permissions_Source.Id], 
-                    T.RoleId AS [User_Permissions.User_Permissions_Target.Id], 
+                    T.PermissionId AS [User_Permissions.User_Permissions_Target.Id], 
                     True AS _from0
                 FROM CodeFirstDatabase.UserPermission AS T
             ) AS T1

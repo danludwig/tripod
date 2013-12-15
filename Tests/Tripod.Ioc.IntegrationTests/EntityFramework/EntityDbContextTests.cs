@@ -29,7 +29,7 @@ namespace Tripod.Ioc.EntityFramework
                 var userName = Guid.NewGuid().ToString();
                 var permissionName = Guid.NewGuid().ToString();
                 var user = new User { Name = userName, };
-                user.Permissions.Add(new Permission(permissionName));
+                user.Permissions.Add(new Permission { Name = permissionName });
                 dbContext.Create(user);
                 var affectedRows = dbContext.SaveChangesAsync().Result;
                 affectedRows.ShouldEqual(3);
@@ -160,7 +160,7 @@ namespace Tripod.Ioc.EntityFramework
             using (var dbContext = new EntityDbContext())
             {
                 var permissionName = Guid.NewGuid().ToString();
-                var entity = new Permission(permissionName) { Description = "d1" };
+                var entity = new Permission { Name = permissionName, Description = "d1" };
                 dbContext.Create(entity);
                 var affectedRows = dbContext.SaveChangesAsync().Result;
 
@@ -196,7 +196,7 @@ namespace Tripod.Ioc.EntityFramework
             using (var dbContext = new EntityDbContext())
             {
                 var description = Guid.NewGuid().ToString();
-                var entity = new Permission(Guid.NewGuid().ToString()) { Description = description };
+                var entity = new Permission { Name = Guid.NewGuid().ToString(), Description = description };
                 dbContext.Create(entity);
                 var affectedRows = dbContext.SaveChanges();
 
@@ -216,7 +216,7 @@ namespace Tripod.Ioc.EntityFramework
             using (var dbContext = new EntityDbContext())
             {
                 var description = Guid.NewGuid().ToString();
-                var entity = new Permission(Guid.NewGuid().ToString()) { Description = description };
+                var entity = new Permission { Name = Guid.NewGuid().ToString(), Description = description };
                 dbContext.Create(entity);
                 var affectedRows = dbContext.SaveChangesAsync().Result;
 

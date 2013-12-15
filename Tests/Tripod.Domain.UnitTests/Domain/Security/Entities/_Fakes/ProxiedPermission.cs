@@ -9,6 +9,6 @@ namespace Tripod.Domain.Security
             Name = "nameFromDb";
         }
 
-        public override ICollection<User> Users { get; protected set; }
+        public override ICollection<User> Users { get { return new User[0]; } }
     }
 }

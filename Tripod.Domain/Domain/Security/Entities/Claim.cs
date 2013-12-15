@@ -7,8 +7,8 @@
         public int UserId { get; protected internal set; }
         public virtual User Owner { get; protected set; }
 
-        public virtual string ClaimType { get; set; }
+        public virtual string ClaimType { get; protected internal set; }
 
-        public virtual string ClaimValue { get; set; }
+        public virtual string ClaimValue { get; protected internal set; }
     }
 }

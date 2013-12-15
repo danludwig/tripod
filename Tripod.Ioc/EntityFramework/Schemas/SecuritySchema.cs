@@ -4,6 +4,7 @@ using Tripod.Domain.Security;
 
 namespace Tripod.Ioc.EntityFramework
 {
+    [UsedImplicitly]
     public class UserDb : EntityTypeConfiguration<User>
     {
         public const string SchemaName = "Security";
@@ -17,14 +18,11 @@ namespace Tripod.Ioc.EntityFramework
             Property(x => x.Name).IsRequired().HasMaxLength(User.Constraints.NameMaxLength);
 
             HasMany(x => x.Permissions).WithMany(x => x.Users)
-                .Map(x => x.ToTable("UserGivenPermission", SchemaName).MapLeftKey("UserId").MapRightKey("RoleId"));
-
-            HasMany(x => x.Logins).WithRequired(x => x.Owner).HasForeignKey(x => x.UserId).WillCascadeOnDelete();
-
-            HasMany(x => x.Claims).WithRequired(x => x.Owner).HasForeignKey(x => x.UserId).WillCascadeOnDelete();
+                .Map(x => x.ToTable("UserGivenPermission", SchemaName).MapLeftKey("UserId").MapRightKey("PermissionId"));
         }
     }
 
+    [UsedImplicitly]
     public class PermissionDb : EntityTypeConfiguration<Permission>
     {
         public PermissionDb()
@@ -34,9 +32,13 @@ namespace Tripod.Ioc.EntityFramework
             HasKey(x => x.Id);
 
             Property(x => x.Name).IsRequired().HasMaxLength(Permission.Constraints.NameMaxLength);
+
+            HasMany(x => x.Users).WithMany(x => x.Permissions)
+                .Map(x => x.ToTable("UserGivenPermission", UserDb.SchemaName).MapLeftKey("PermissionId").MapRightKey("UserId"));
         }
     }
 
+    [UsedImplicitly]
     public class EmailAddressDb : EntityTypeConfiguration<EmailAddress>
     {
         public EmailAddressDb()
@@ -50,6 +52,7 @@ namespace Tripod.Ioc.EntityFramework
         }
     }
 
+    [UsedImplicitly]
     public class LocalMembershipDb : EntityTypeConfiguration<LocalMembership>
     {
         public LocalMembershipDb()
@@ -63,6 +66,7 @@ namespace Tripod.Ioc.EntityFramework
         }
     }
 
+    [UsedImplicitly]
     public class RemoteMembershipDb : EntityTypeConfiguration<RemoteMembership>
     {
         public RemoteMembershipDb()
@@ -74,10 +78,11 @@ namespace Tripod.Ioc.EntityFramework
             Property(x => x.LoginProvider).HasColumnName("LoginProvider").HasMaxLength(RemoteMembership.Constraints.ProviderMaxLength);
             Property(x => x.ProviderKey).HasColumnName("ProviderKey").HasMaxLength(RemoteMembership.Constraints.ProviderUserIdMaxLength);
 
-            HasRequired(x => x.Owner).WithMany(x => x.Logins).HasForeignKey(x => x.UserId).WillCascadeOnDelete();
+            HasRequired(x => x.Owner).WithMany(x => x.RemoteMemberships).HasForeignKey(x => x.UserId).WillCascadeOnDelete();
         }
     }
 
+    [UsedImplicitly]
     public class ClaimDb : EntityTypeConfiguration<Claim>
     {
         public ClaimDb()

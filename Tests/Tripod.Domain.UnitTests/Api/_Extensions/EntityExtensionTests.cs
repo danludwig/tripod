@@ -499,9 +499,9 @@ namespace Tripod
         {
             var data = new[]
             {
-                new Permission(Guid.NewGuid().ToString()),
-                new Permission(Guid.NewGuid().ToString()),
-                new Permission(Guid.NewGuid().ToString()),
+                new Permission { Name = Guid.NewGuid().ToString() },
+                new Permission { Name = Guid.NewGuid().ToString() },
+                new Permission { Name = Guid.NewGuid().ToString() },
             };
             data.AsQueryable().ById(int.MaxValue).ShouldBeNull();
         }
@@ -527,9 +527,9 @@ namespace Tripod
         {
             var data = new[]
             {
-                new Permission(Guid.NewGuid().ToString()),
-                new Permission(Guid.NewGuid().ToString()),
-                new Permission(Guid.NewGuid().ToString()),
+                new Permission { Name = Guid.NewGuid().ToString() },
+                new Permission { Name = Guid.NewGuid().ToString() },
+                new Permission { Name = Guid.NewGuid().ToString() },
             };
             data.AsEnumerable().ById(int.MaxValue).ShouldBeNull();
         }
@@ -555,9 +555,9 @@ namespace Tripod
         {
             var data = new[]
             {
-                new Permission(Guid.NewGuid().ToString()),
-                new Permission(Guid.NewGuid().ToString()),
-                new Permission(Guid.NewGuid().ToString()),
+                new Permission { Name = Guid.NewGuid().ToString() },
+                new Permission { Name = Guid.NewGuid().ToString() },
+                new Permission { Name = Guid.NewGuid().ToString() },
             };
             var dbSet = new Mock<DbSet<Permission>>(MockBehavior.Strict).SetupDataAsync(data.AsQueryable());
             dbSet.Object.AsQueryable().ByIdAsync(int.MaxValue).Result.ShouldBeNull();
@@ -585,9 +585,9 @@ namespace Tripod
         {
             var data = new[]
             {
-                new Permission(Guid.NewGuid().ToString()),
-                new Permission(Guid.NewGuid().ToString()),
-                new Permission(Guid.NewGuid().ToString()),
+                new Permission { Name = Guid.NewGuid().ToString() },
+                new Permission { Name = Guid.NewGuid().ToString() },
+                new Permission { Name = Guid.NewGuid().ToString() },
             };
             var dbSet = new Mock<DbSet<Permission>>(MockBehavior.Strict).SetupDataAsync(data.AsQueryable());
             dbSet.Object.AsEnumerable().ByIdAsync(int.MaxValue).Result.ShouldBeNull();
@@ -598,7 +598,7 @@ namespace Tripod
         {
             var data = new[]
             {
-                new Permission(Guid.NewGuid().ToString()),
+                new Permission { Name = Guid.NewGuid().ToString() },
                 new FakeEntityWithId1(),
                 new FakeEntityWithId2(),
                 new FakeEntityWithId3(),

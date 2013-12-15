@@ -9,7 +9,7 @@ namespace Tripod.Domain.Security
         public void InternalCtor_SetsNameProperty()
         {
             const string name = "Permission Name";
-            var entity = new Permission(name);
+            var entity = new Permission { Name = name };
             entity.Name.ShouldEqual(name);
         }
 
