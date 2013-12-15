@@ -13,22 +13,12 @@ namespace Tripod.Ioc.EntityFramework
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
 
-            //var complexType = typeof(ComplexTypeConfiguration<>);
-            var structuralType = typeof(StructuralTypeConfiguration<>);
-
             var assembly = Assembly.GetAssembly(GetType());
             var typesToRegister = assembly.GetTypes()
-                .Where(t => !t.IsAbstract &&
-                (
-                    //complexType.IsGenericallyAssignableFrom(t) ||
-                    structuralType.IsGenericallyAssignableFrom(t)
-                ))
+                .Where(t => !t.IsAbstract && typeof(StructuralTypeConfiguration<>).IsGenericallyAssignableFrom(t))
                 .ToArray();
-            foreach (var typeToRegister in typesToRegister)
-            {
-                dynamic configurationInstance = Activator.CreateInstance(typeToRegister);
-                modelBuilder.Configurations.Add(configurationInstance);
-            }
+            foreach (var configurationInstance in typesToRegister.Select(Activator.CreateInstance))
+                modelBuilder.Configurations.Add((dynamic)configurationInstance);
         }
     }
 }

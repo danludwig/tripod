@@ -1,4 +1,8 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Data.Entity;
+using System.Data.Entity.Infrastructure.MappingViews;
+using System.Linq;
+using System.Reflection;
 using Moq;
 using Should;
 using Xunit;
@@ -35,6 +39,23 @@ namespace Tripod.Ioc.EntityFramework
                 ModelCreator = modelCreator.Object
             };
             dbContext.ModelCreator.ShouldEqual(modelCreator.Object);
+        }
+
+        [Fact]
+        public void DbMappingViewCache_ThrowsArgumentNullException_WhenExtentIsNull()
+        {
+            var assembly = Assembly.GetAssembly(typeof(EntityDbContext));
+            var typesToTest = assembly.GetTypes()
+                .Where(t => !t.IsAbstract && typeof(DbMappingViewCache).IsAssignableFrom(t))
+                .ToArray();
+            if (!typesToTest.Any()) return;
+            foreach (var instance in typesToTest.Select(typeToTest => Activator.CreateInstance(typeToTest) as DbMappingViewCache))
+            {
+                Assert.NotNull(instance);
+                var exception = Assert.Throws<ArgumentNullException>(() => instance.GetView(null));
+                exception.ShouldNotBeNull();
+                exception.ParamName.ShouldEqual("extent");
+            }
         }
     }
 }
