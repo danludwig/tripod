@@ -26,7 +26,7 @@ namespace Tripod.Ioc.EntityFramework
         {
             using (var dbContext = new EntityDbContext())
             {
-                dbContext.Database.Delete(); // force initializer to seed
+                dbContext.Database.Delete();
             }
         }
     }

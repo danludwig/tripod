@@ -106,14 +106,14 @@ namespace Tripod
         {
             var data = new[]
             {
-                new User { Name = "user2", Permissions = new Permission[2] },
-                new User { Name = "user2", Permissions = new Permission[1] },
-                new User { Name = "user1", Permissions = new Permission[0] },
+                new FakeEntityWithCollectionProperty { Name = "user2", CollectionProperty = new FakeEntityWithSortableProperties[2] },
+                new FakeEntityWithCollectionProperty { Name = "user2", CollectionProperty = new FakeEntityWithSortableProperties[1] },
+                new FakeEntityWithCollectionProperty { Name = "user1", CollectionProperty = new FakeEntityWithSortableProperties[0] },
             };
-            var orderBy = new Dictionary<Expression<Func<User, object>>, OrderByDirection>
+            var orderBy = new Dictionary<Expression<Func<FakeEntityWithCollectionProperty, object>>, OrderByDirection>
             {
                 { x => x.Name, OrderByDirection.Ascending },
-                { x => x.Permissions.Count, OrderByDirection.Descending },
+                { x => x.CollectionProperty.Count, OrderByDirection.Descending },
             };
             var orderedQueryable = data.AsQueryable().OrderBy(orderBy);
             orderedQueryable.Count().ShouldEqual(3);
@@ -127,14 +127,14 @@ namespace Tripod
         {
             var data = new[]
             {
-                new User { Name = "user1", Permissions = new Permission[0] },
-                new User { Name = "user2", Permissions = new Permission[1] },
-                new User { Name = "user2", Permissions = new Permission[2] },
+                new FakeEntityWithCollectionProperty { Name = "user1", CollectionProperty = new FakeEntityWithSortableProperties[0] },
+                new FakeEntityWithCollectionProperty { Name = "user2", CollectionProperty = new FakeEntityWithSortableProperties[1] },
+                new FakeEntityWithCollectionProperty { Name = "user2", CollectionProperty = new FakeEntityWithSortableProperties[2] },
             };
-            var orderBy = new Dictionary<Expression<Func<User, object>>, OrderByDirection>
+            var orderBy = new Dictionary<Expression<Func<FakeEntityWithCollectionProperty, object>>, OrderByDirection>
             {
                 { x => x.Name, OrderByDirection.Descending },
-                { x => x.Permissions.Count, OrderByDirection.Ascending },
+                { x => x.CollectionProperty.Count, OrderByDirection.Ascending },
             };
             var orderedQueryable = data.AsQueryable().OrderBy(orderBy);
             orderedQueryable.Count().ShouldEqual(3);

@@ -28,11 +28,8 @@ namespace Tripod.Ioc.EntityFramework
             {
                 var userName = Guid.NewGuid().ToString();
                 var permissionName = Guid.NewGuid().ToString();
-                var user = new User
-                {
-                    Name = userName,
-                    Permissions = new[] { new Permission(permissionName) },
-                };
+                var user = new User { Name = userName, };
+                user.Permissions.Add(new Permission(permissionName));
                 dbContext.Create(user);
                 var affectedRows = dbContext.SaveChangesAsync().Result;
                 affectedRows.ShouldEqual(3);

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Data.Entity;
-using Edm_EntityMappingGeneratedViews;
+﻿using System.Data.Entity;
 using Moq;
 using Should;
 using Xunit;
@@ -37,15 +35,6 @@ namespace Tripod.Ioc.EntityFramework
                 ModelCreator = modelCreator.Object
             };
             dbContext.ModelCreator.ShouldEqual(modelCreator.Object);
-        }
-
-        [Fact]
-        public void Views_GetView_ThrowsArgumentNullException_WhenExtentIsNull()
-        {
-            var views = new ViewsForBaseEntitySets7dcbd53ce5882e0e43365c556945dbafb63b07561d8262b094390e04057869e9();
-            var exception = Assert.Throws<ArgumentNullException>(() => views.GetView(null));
-            Assert.NotNull(exception);
-            exception.ParamName.ShouldEqual("extent");
         }
     }
 }

@@ -1,9 +1,10 @@
-﻿using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin.Security;
+using Tripod.Domain.Security;
 using Tripod.Web.Models;
 
 namespace Tripod.Web.Controllers
@@ -11,17 +12,18 @@ namespace Tripod.Web.Controllers
     [Authorize]
     public class AccountController : Controller
     {
-        public AccountController()
-            : this(new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext())))
-        {
-        }
+        private readonly UserManager<User, int> _userManager;
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly IAuthenticate _authenticator;
+        private readonly IProcessCommands _commands;
 
-        private AccountController(UserManager<ApplicationUser> userManager)
+        public AccountController(UserManager<User, int> userManager, IUnitOfWork unitOfWork, IAuthenticate authenticator, IProcessCommands commands)
         {
-            UserManager = userManager;
+            _userManager = userManager;
+            _unitOfWork = unitOfWork;
+            _authenticator = authenticator;
+            _commands = commands;
         }
-
-        private UserManager<ApplicationUser> UserManager { get; set; }
 
         [AllowAnonymous]
         [HttpGet, Route("account/login")]
@@ -37,7 +39,7 @@ namespace Tripod.Web.Controllers
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
             if (!ModelState.IsValid) return View(model);
-            var user = await UserManager.FindAsync(model.UserName, model.Password);
+            var user = await _userManager.FindAsync(model.UserName, model.Password);
             if (user != null)
             {
                 await SignInAsync(user, model.RememberMe);
@@ -62,11 +64,14 @@ namespace Tripod.Web.Controllers
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
             if (!ModelState.IsValid) return View(model);
-            var user = new ApplicationUser { UserName = model.UserName };
-            var result = await UserManager.CreateAsync(user, model.Password);
+            var createUser = new CreateUser  {Name = model.UserName };
+            _commands.Execute(createUser);
+            //var user = new User { Name = model.UserName };
+            var result = await _userManager.CreateAsync(createUser.Created, model.Password);
+            await _unitOfWork.SaveChangesAsync();
             if (result.Succeeded)
             {
-                await SignInAsync(user, isPersistent: false);
+                await SignInAsync(createUser.Created, isPersistent: false);
                 return RedirectToAction("Index", "Home");
             }
             AddErrors(result);
@@ -79,7 +84,7 @@ namespace Tripod.Web.Controllers
         [HttpPost, Route("account/disassociate")]
         public async Task<ActionResult> Disassociate(string loginProvider, string providerKey)
         {
-            var result = await UserManager.RemoveLoginAsync(User.Identity.GetUserId(), new UserLoginInfo(loginProvider, providerKey));
+            var result = await _userManager.RemoveLoginAsync(int.Parse(User.Identity.GetUserId()), new UserLoginInfo(loginProvider, providerKey));
             var message = result.Succeeded ? ManageMessageId.RemoveLoginSuccess : ManageMessageId.Error;
             return RedirectToAction("Manage", new { Message = message });
         }
@@ -108,7 +113,7 @@ namespace Tripod.Web.Controllers
             if (hasPassword)
             {
                 if (!ModelState.IsValid) return View(model);
-                var result = await UserManager.ChangePasswordAsync(User.Identity.GetUserId(), model.OldPassword, model.NewPassword);
+                var result = await _userManager.ChangePasswordAsync(int.Parse(User.Identity.GetUserId()), model.OldPassword, model.NewPassword);
                 if (result.Succeeded)
                 {
                     return RedirectToAction("Manage", new { Message = ManageMessageId.ChangePasswordSuccess });
@@ -125,7 +130,7 @@ namespace Tripod.Web.Controllers
                 }
 
                 if (!ModelState.IsValid) return View(model);
-                var result = await UserManager.AddPasswordAsync(User.Identity.GetUserId(), model.NewPassword);
+                var result = await _userManager.AddPasswordAsync(int.Parse(User.Identity.GetUserId()), model.NewPassword);
                 if (result.Succeeded)
                 {
                     return RedirectToAction("Manage", new { Message = ManageMessageId.SetPasswordSuccess });
@@ -157,7 +162,7 @@ namespace Tripod.Web.Controllers
             }
 
             // Sign in the user with this external login provider if the user already has a login
-            var user = await UserManager.FindAsync(loginInfo.Login);
+            var user = await _userManager.FindAsync(loginInfo.Login);
             if (user != null)
             {
                 await SignInAsync(user, isPersistent: false);
@@ -185,7 +190,7 @@ namespace Tripod.Web.Controllers
             {
                 return RedirectToAction("Manage", new { Message = ManageMessageId.Error });
             }
-            var result = await UserManager.AddLoginAsync(User.Identity.GetUserId(), loginInfo.Login);
+            var result = await _userManager.AddLoginAsync(int.Parse(User.Identity.GetUserId()), loginInfo.Login);
             return result.Succeeded
                 ? RedirectToAction("Manage")
                 : RedirectToAction("Manage", new { Message = ManageMessageId.Error });
@@ -209,14 +214,16 @@ namespace Tripod.Web.Controllers
                 {
                     return View("ExternalLoginFailure");
                 }
-                var user = new ApplicationUser { UserName = model.UserName };
-                var result = await UserManager.CreateAsync(user);
+                var createUser = new CreateUser { Name = model.UserName };
+                _commands.Execute(createUser);
+                //var user = new User { Name = model.UserName };
+                var result = await _userManager.CreateAsync(createUser.Created);
                 if (result.Succeeded)
                 {
-                    result = await UserManager.AddLoginAsync(user.Id, info.Login);
+                    result = await _userManager.AddLoginAsync(createUser.Created.Id, info.Login);
                     if (result.Succeeded)
                     {
-                        await SignInAsync(user, isPersistent: false);
+                        await SignInAsync(createUser.Created, isPersistent: false);
                         return RedirectToLocal(returnUrl);
                     }
                 }
@@ -231,7 +238,8 @@ namespace Tripod.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
-            AuthenticationManager.SignOut();
+            //AuthenticationManager.SignOut();
+            _authenticator.SignOff();
             return RedirectToAction("Index", "Home");
         }
 
@@ -246,22 +254,23 @@ namespace Tripod.Web.Controllers
         [HttpGet, Route("account/external-logins")]
         public ActionResult RemoveAccountList()
         {
-            var linkedAccounts = UserManager.GetLogins(User.Identity.GetUserId());
+            var linkedAccounts = _userManager.GetLogins(int.Parse(User.Identity.GetUserId()));
             ViewBag.ShowRemoveButton = HasPassword() || linkedAccounts.Count > 1;
             return PartialView("_RemoveAccountPartial", linkedAccounts);
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing && UserManager != null)
-            {
-                UserManager.Dispose();
-                UserManager = null;
-            }
-            base.Dispose(disposing);
-        }
+        //protected override void Dispose(bool disposing)
+        //{
+        //    if (disposing && _userManager != null)
+        //    {
+        //        _userManager.Dispose();
+        //        //UserManager = null;
+        //    }
+        //    base.Dispose(disposing);
+        //}
 
         #region Helpers
+
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";
 
@@ -273,11 +282,10 @@ namespace Tripod.Web.Controllers
             }
         }
 
-        private async Task SignInAsync(ApplicationUser user, bool isPersistent)
+        private async Task SignInAsync(User user, bool isPersistent)
         {
-            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ExternalCookie);
-            var identity = await UserManager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie);
-            AuthenticationManager.SignIn(new AuthenticationProperties { IsPersistent = isPersistent }, identity);
+            await _authenticator.SignOff();
+            await _authenticator.SignOn(user, isPersistent);
         }
 
         private void AddErrors(IdentityResult result)
@@ -290,10 +298,10 @@ namespace Tripod.Web.Controllers
 
         private bool HasPassword()
         {
-            var user = UserManager.FindById(User.Identity.GetUserId());
-            if (user != null)
+            var user = _userManager.FindById(int.Parse(User.Identity.GetUserId()));
+            if (user != null && user.LocalMembership != null)
             {
-                return user.PasswordHash != null;
+                return user.LocalMembership.PasswordHash != null;
             }
             return false;
         }

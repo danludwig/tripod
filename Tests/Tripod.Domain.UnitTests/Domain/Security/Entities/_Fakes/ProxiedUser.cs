@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace Tripod.Domain.Security
 {
@@ -9,6 +10,9 @@ namespace Tripod.Domain.Security
             Name = "nameFromDb";
         }
 
-        public override ICollection<Permission> Permissions { get; protected internal set; }
+        public override ICollection<Permission> Permissions
+        {
+            get { return base.Permissions.ToArray(); }
+        }
     }
 }

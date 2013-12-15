@@ -1,20 +1,40 @@
 ﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
+using Microsoft.AspNet.Identity;
 
 namespace Tripod.Domain.Security
 {
-    public class User : EntityWithId<int>
+    public class User : EntityWithId<int>, IUser<int>
     {
         protected internal User()
         {
             // ReSharper disable DoNotCallOverridableMethodsInConstructor
-            Permissions = new Collection<Permission>();
+            Permissions = new List<Permission>();
+            Logins = new List<RemoteMembership>();
+            Claims = new List<Claim>();
+            EmailAddresses = new List<EmailAddress>();
             // ReSharper restore DoNotCallOverridableMethodsInConstructor
         }
 
+        //public string Name { get; set; }
         public string Name { get; protected internal set; }
 
-        public virtual ICollection<Permission> Permissions { get; protected internal set; }
+        string IUser<int>.UserName
+        {
+            get { return Name; }
+            set { Name = value; }
+        }
+
+        public virtual LocalMembership LocalMembership { get; protected internal set; }
+
+        public virtual ICollection<Permission> Permissions { get; private set; }
+
+        public virtual ICollection<RemoteMembership> Logins { get; private set; }
+
+        public virtual ICollection<Claim> Claims { get; private set; }
+
+        public virtual ICollection<EmailAddress> EmailAddresses { get; private set; }
+
+        public string SecurityStamp { get; protected internal set; }
 
         public static class Constraints
         {

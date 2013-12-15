@@ -13,7 +13,12 @@ namespace Tripod.Web
         public static void Configure()
         {
             var container = new Container();
-            var settings = new RootCompositionSettings();
+            var settings = new RootCompositionSettings
+            {
+#if DEBUG
+                IsGreenfield = true
+#endif
+            };
             container.ComposeRoot(settings);
 
             container.RegisterMvcControllers(Assembly.GetExecutingAssembly());

@@ -32,14 +32,19 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework">
-      <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.dll</HintPath>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.0.2\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
-    <Reference Include="EntityFramework.SqlServer">
-      <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.0.2\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="FluentValidation">
       <HintPath>..\packages\FluentValidation.5.0.0.1\lib\Net40\FluentValidation.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.0.0-alpha1-131213\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -53,6 +58,7 @@
     <Compile Include="..\ReSharperAnnotations.cs">
       <Link>Properties\ReSharperAnnotations.cs</Link>
     </Compile>
+    <Compile Include="Api\Security\IAuthenticate.cs" />
     <Compile Include="Api\Transactions\BaseEntitiesQuery.cs" />
     <Compile Include="Api\Transactions\BaseEntityQuery.cs" />
     <Compile Include="Api\Entities\EntitySet.cs" />
@@ -65,8 +71,11 @@
     <Compile Include="Api\Transactions\IDefineQuery.cs" />
     <Compile Include="Api\Transactions\IHandleCommand.cs" />
     <Compile Include="Api\Transactions\IHandleQuery.cs" />
+    <Compile Include="Api\Transactions\IProcessCommands.cs" />
     <Compile Include="Api\Transactions\IProcessQuery.cs" />
     <Compile Include="Api\Transactions\OrderByDirection.cs" />
+    <Compile Include="Api\Validation\MaxLength.cs" />
+    <Compile Include="Api\Validation\MinLength.cs" />
     <Compile Include="Api\Validation\ValidationResources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -75,9 +84,15 @@
     <Compile Include="Api\_Extensions\ExpressionExtensions.cs" />
     <Compile Include="Api\_Extensions\EntityExtensions.cs" />
     <Compile Include="Api\_Extensions\ReflectionExtensions.cs" />
+    <Compile Include="Domain\Security\Commands\CreateUser.cs" />
+    <Compile Include="Domain\Security\Entities\EmailAddress.cs" />
+    <Compile Include="Domain\Security\Entities\LocalMembership.cs" />
     <Compile Include="Domain\Security\Entities\Permission.cs" />
+    <Compile Include="Domain\Security\Entities\Claim.cs" />
+    <Compile Include="Domain\Security\Entities\RemoteMembership.cs" />
     <Compile Include="Domain\Security\Entities\User.cs" />
     <Compile Include="Domain\Security\Queries\UserBy.cs" />
+    <Compile Include="Domain\Security\Validation\MustNotFindUserByName.cs" />
     <Compile Include="Domain\Security\_Extensions\QueryUsers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

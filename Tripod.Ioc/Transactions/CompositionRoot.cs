@@ -28,6 +28,8 @@ namespace Tripod.Ioc.Transactions
         {
             assemblies = assemblies ?? new[] { Assembly.GetAssembly(typeof(IHandleCommand<>)), };
 
+            container.RegisterSingle<IProcessCommands, CommandProcessor>();
+
             container.RegisterManyForOpenGeneric(typeof(IHandleCommand<>), assemblies);
             container.RegisterDecorator(
                 typeof(IHandleCommand<>),

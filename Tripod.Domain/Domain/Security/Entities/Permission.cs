@@ -1,14 +1,14 @@
 ﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
+using Microsoft.AspNet.Identity;
 
 namespace Tripod.Domain.Security
 {
-    public class Permission : EntityWithId<int>
+    public class Permission : EntityWithId<int>, IRole<int>
     {
         protected Permission()
         {
             // ReSharper disable DoNotCallOverridableMethodsInConstructor
-            Users = new Collection<User>();
+            Users = new List<User>();
             // ReSharper restore DoNotCallOverridableMethodsInConstructor
         }
 
@@ -18,6 +18,8 @@ namespace Tripod.Domain.Security
         }
 
         public string Name { get; protected set; }
+
+        string IRole<int>.Name { get; set; }
 
         public string Description { get; protected internal set; }
 

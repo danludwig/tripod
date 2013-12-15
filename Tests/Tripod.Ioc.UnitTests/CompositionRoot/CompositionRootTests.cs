@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Linq;
 using Should;
 using SimpleInjector;
+using SimpleInjector.Diagnostics;
 using Xunit;
 
 namespace Tripod.Ioc
@@ -8,9 +10,11 @@ namespace Tripod.Ioc
     public class CompositionRootTests : SimpleInjectorContainerTests
     {
         [Fact]
-        public void ComposeRoot_ComposesVerifiedRoot()
+        public void ComposeRoot_ComposesVerifiedRoot_WithoutDiagnosticsWarnings()
         {
             Container.Verify();
+            var results = Analyzer.Analyze(Container);
+            results.Any().ShouldBeFalse();
         }
 
         [Fact]
@@ -24,7 +28,6 @@ namespace Tripod.Ioc
         {
             var container = new Container();
             container.ComposeRoot(null);
-            container.Verify();
         }
 
         [Fact]

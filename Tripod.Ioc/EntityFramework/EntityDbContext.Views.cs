@@ -11,7 +11,7 @@ using System.Data.Entity.Infrastructure.MappingViews;
 
 [assembly: DbMappingViewCacheTypeAttribute(
     typeof(Tripod.Ioc.EntityFramework.EntityDbContext),
-    typeof(Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySets7dcbd53ce5882e0e43365c556945dbafb63b07561d8262b094390e04057869e9))]
+    typeof(Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySetsaec1a8c1f2b132965aa155582b9cc3f3d2fa31b6eb32760c4ad2f55299e05d54))]
 
 namespace Edm_EntityMappingGeneratedViews
 {
@@ -23,14 +23,14 @@ namespace Edm_EntityMappingGeneratedViews
     /// Implements a mapping view cache.
     /// </summary>
     [GeneratedCode("Entity Framework Power Tools", "0.9.0.0")]
-    internal sealed class ViewsForBaseEntitySets7dcbd53ce5882e0e43365c556945dbafb63b07561d8262b094390e04057869e9 : DbMappingViewCache
+    internal sealed class ViewsForBaseEntitySetsaec1a8c1f2b132965aa155582b9cc3f3d2fa31b6eb32760c4ad2f55299e05d54 : DbMappingViewCache
     {
         /// <summary>
         /// Gets a hash value computed over the mapping closure.
         /// </summary>
         public override string MappingHashValue
         {
-            get { return "7dcbd53ce5882e0e43365c556945dbafb63b07561d8262b094390e04057869e9"; }
+            get { return "aec1a8c1f2b132965aa155582b9cc3f3d2fa31b6eb32760c4ad2f55299e05d54"; }
         }
 
         /// <summary>
@@ -52,29 +52,69 @@ namespace Edm_EntityMappingGeneratedViews
                 return GetView0();
             }
 
-            if (extentName == "CodeFirstDatabase.Permission")
+            if (extentName == "CodeFirstDatabase.Claim")
             {
                 return GetView1();
             }
 
-            if (extentName == "CodeFirstDatabase.UserPermission")
+            if (extentName == "CodeFirstDatabase.EmailAddress")
             {
                 return GetView2();
             }
 
-            if (extentName == "EntityDbContext.Users")
+            if (extentName == "CodeFirstDatabase.LocalMembership")
             {
                 return GetView3();
             }
 
-            if (extentName == "EntityDbContext.Permissions")
+            if (extentName == "CodeFirstDatabase.RemoteMembership")
             {
                 return GetView4();
             }
 
-            if (extentName == "EntityDbContext.User_Permissions")
+            if (extentName == "CodeFirstDatabase.Permission")
             {
                 return GetView5();
+            }
+
+            if (extentName == "CodeFirstDatabase.UserPermission")
+            {
+                return GetView6();
+            }
+
+            if (extentName == "EntityDbContext.Users")
+            {
+                return GetView7();
+            }
+
+            if (extentName == "EntityDbContext.Claims")
+            {
+                return GetView8();
+            }
+
+            if (extentName == "EntityDbContext.EmailAddresses")
+            {
+                return GetView9();
+            }
+
+            if (extentName == "EntityDbContext.LocalMemberships")
+            {
+                return GetView10();
+            }
+
+            if (extentName == "EntityDbContext.RemoteMemberships")
+            {
+                return GetView11();
+            }
+
+            if (extentName == "EntityDbContext.Permissions")
+            {
+                return GetView12();
+            }
+
+            if (extentName == "EntityDbContext.User_Permissions")
+            {
+                return GetView13();
             }
 
             return null;
@@ -88,13 +128,93 @@ namespace Edm_EntityMappingGeneratedViews
         {
             return new DbMappingView(@"
     SELECT VALUE -- Constructing User
-        [CodeFirstDatabaseSchema.User](T1.User_Id, T1.User_Name)
+        [CodeFirstDatabaseSchema.User](T1.User_Id, T1.User_Name, T1.User_SecurityStamp)
     FROM (
         SELECT 
             T.Id AS User_Id, 
             T.Name AS User_Name, 
+            T.SecurityStamp AS User_SecurityStamp, 
             True AS _from0
         FROM EntityDbContext.Users AS T
+    ) AS T1");
+        }
+
+        /// <summary>
+        /// Gets the view for CodeFirstDatabase.Claim.
+        /// </summary>
+        /// <returns>The mapping view.</returns>
+        private static DbMappingView GetView1()
+        {
+            return new DbMappingView(@"
+    SELECT VALUE -- Constructing Claim
+        [CodeFirstDatabaseSchema.Claim](T1.Claim_Id, T1.Claim_UserId, T1.Claim_ClaimType, T1.Claim_ClaimValue)
+    FROM (
+        SELECT 
+            T.Id AS Claim_Id, 
+            T.UserId AS Claim_UserId, 
+            T.ClaimType AS Claim_ClaimType, 
+            T.ClaimValue AS Claim_ClaimValue, 
+            True AS _from0
+        FROM EntityDbContext.Claims AS T
+    ) AS T1");
+        }
+
+        /// <summary>
+        /// Gets the view for CodeFirstDatabase.EmailAddress.
+        /// </summary>
+        /// <returns>The mapping view.</returns>
+        private static DbMappingView GetView2()
+        {
+            return new DbMappingView(@"
+    SELECT VALUE -- Constructing EmailAddress
+        [CodeFirstDatabaseSchema.EmailAddress](T1.EmailAddress_Id, T1.EmailAddress_OwnerId, T1.EmailAddress_Value, T1.EmailAddress_IsDefault, T1.EmailAddress_IsConfirmed)
+    FROM (
+        SELECT 
+            T.Id AS EmailAddress_Id, 
+            T.OwnerId AS EmailAddress_OwnerId, 
+            T.[Value] AS EmailAddress_Value, 
+            T.IsDefault AS EmailAddress_IsDefault, 
+            T.IsConfirmed AS EmailAddress_IsConfirmed, 
+            True AS _from0
+        FROM EntityDbContext.EmailAddresses AS T
+    ) AS T1");
+        }
+
+        /// <summary>
+        /// Gets the view for CodeFirstDatabase.LocalMembership.
+        /// </summary>
+        /// <returns>The mapping view.</returns>
+        private static DbMappingView GetView3()
+        {
+            return new DbMappingView(@"
+    SELECT VALUE -- Constructing LocalMembership
+        [CodeFirstDatabaseSchema.LocalMembership](T1.LocalMembership_UserId, T1.LocalMembership_PasswordHash, T1.LocalMembership_IsConfirmed)
+    FROM (
+        SELECT 
+            T.Id AS LocalMembership_UserId, 
+            T.PasswordHash AS LocalMembership_PasswordHash, 
+            T.IsConfirmed AS LocalMembership_IsConfirmed, 
+            True AS _from0
+        FROM EntityDbContext.LocalMemberships AS T
+    ) AS T1");
+        }
+
+        /// <summary>
+        /// Gets the view for CodeFirstDatabase.RemoteMembership.
+        /// </summary>
+        /// <returns>The mapping view.</returns>
+        private static DbMappingView GetView4()
+        {
+            return new DbMappingView(@"
+    SELECT VALUE -- Constructing RemoteMembership
+        [CodeFirstDatabaseSchema.RemoteMembership](T1.RemoteMembership_LoginProvider, T1.RemoteMembership_ProviderKey, T1.RemoteMembership_UserId)
+    FROM (
+        SELECT 
+            T.LoginProvider AS RemoteMembership_LoginProvider, 
+            T.ProviderKey AS RemoteMembership_ProviderKey, 
+            T.UserId AS RemoteMembership_UserId, 
+            True AS _from0
+        FROM EntityDbContext.RemoteMemberships AS T
     ) AS T1");
         }
 
@@ -102,7 +222,7 @@ namespace Edm_EntityMappingGeneratedViews
         /// Gets the view for CodeFirstDatabase.Permission.
         /// </summary>
         /// <returns>The mapping view.</returns>
-        private static DbMappingView GetView1()
+        private static DbMappingView GetView5()
         {
             return new DbMappingView(@"
     SELECT VALUE -- Constructing Permission
@@ -121,7 +241,7 @@ namespace Edm_EntityMappingGeneratedViews
         /// Gets the view for CodeFirstDatabase.UserPermission.
         /// </summary>
         /// <returns>The mapping view.</returns>
-        private static DbMappingView GetView2()
+        private static DbMappingView GetView6()
         {
             return new DbMappingView(@"
     SELECT VALUE -- Constructing UserPermission
@@ -139,17 +259,97 @@ namespace Edm_EntityMappingGeneratedViews
         /// Gets the view for EntityDbContext.Users.
         /// </summary>
         /// <returns>The mapping view.</returns>
-        private static DbMappingView GetView3()
+        private static DbMappingView GetView7()
         {
             return new DbMappingView(@"
     SELECT VALUE -- Constructing Users
-        [Tripod.Ioc.EntityFramework.User](T1.User_Id, T1.User_Name)
+        [Tripod.Ioc.EntityFramework.User](T1.User_Id, T1.User_Name, T1.User_SecurityStamp)
     FROM (
         SELECT 
             T.Id AS User_Id, 
             T.Name AS User_Name, 
+            T.SecurityStamp AS User_SecurityStamp, 
             True AS _from0
         FROM CodeFirstDatabase.User AS T
+    ) AS T1");
+        }
+
+        /// <summary>
+        /// Gets the view for EntityDbContext.Claims.
+        /// </summary>
+        /// <returns>The mapping view.</returns>
+        private static DbMappingView GetView8()
+        {
+            return new DbMappingView(@"
+    SELECT VALUE -- Constructing Claims
+        [Tripod.Ioc.EntityFramework.Claim](T1.Claim_Id, T1.Claim_UserId, T1.Claim_ClaimType, T1.Claim_ClaimValue)
+    FROM (
+        SELECT 
+            T.Id AS Claim_Id, 
+            T.UserId AS Claim_UserId, 
+            T.ClaimType AS Claim_ClaimType, 
+            T.ClaimValue AS Claim_ClaimValue, 
+            True AS _from0
+        FROM CodeFirstDatabase.Claim AS T
+    ) AS T1");
+        }
+
+        /// <summary>
+        /// Gets the view for EntityDbContext.EmailAddresses.
+        /// </summary>
+        /// <returns>The mapping view.</returns>
+        private static DbMappingView GetView9()
+        {
+            return new DbMappingView(@"
+    SELECT VALUE -- Constructing EmailAddresses
+        [Tripod.Ioc.EntityFramework.EmailAddress](T1.EmailAddress_Id, T1.EmailAddress_OwnerId, T1.EmailAddress_Value, T1.EmailAddress_IsDefault, T1.EmailAddress_IsConfirmed)
+    FROM (
+        SELECT 
+            T.Id AS EmailAddress_Id, 
+            T.OwnerId AS EmailAddress_OwnerId, 
+            T.[Value] AS EmailAddress_Value, 
+            T.IsDefault AS EmailAddress_IsDefault, 
+            T.IsConfirmed AS EmailAddress_IsConfirmed, 
+            True AS _from0
+        FROM CodeFirstDatabase.EmailAddress AS T
+    ) AS T1");
+        }
+
+        /// <summary>
+        /// Gets the view for EntityDbContext.LocalMemberships.
+        /// </summary>
+        /// <returns>The mapping view.</returns>
+        private static DbMappingView GetView10()
+        {
+            return new DbMappingView(@"
+    SELECT VALUE -- Constructing LocalMemberships
+        [Tripod.Ioc.EntityFramework.LocalMembership](T1.LocalMembership_Id, T1.LocalMembership_PasswordHash, T1.LocalMembership_IsConfirmed)
+    FROM (
+        SELECT 
+            T.UserId AS LocalMembership_Id, 
+            T.PasswordHash AS LocalMembership_PasswordHash, 
+            T.IsConfirmed AS LocalMembership_IsConfirmed, 
+            True AS _from0
+        FROM CodeFirstDatabase.LocalMembership AS T
+    ) AS T1");
+        }
+
+        /// <summary>
+        /// Gets the view for EntityDbContext.RemoteMemberships.
+        /// </summary>
+        /// <returns>The mapping view.</returns>
+        private static DbMappingView GetView11()
+        {
+            return new DbMappingView(@"
+    SELECT VALUE -- Constructing RemoteMemberships
+        [Tripod.Ioc.EntityFramework.RemoteMembership](T1.RemoteMembership_LoginProvider, T1.RemoteMembership_ProviderKey, T1.RemoteMembership_UserId)
+    FROM (
+        SELECT 
+            T.LoginProvider AS RemoteMembership_LoginProvider, 
+            T.ProviderKey AS RemoteMembership_ProviderKey, 
+            T.UserId AS RemoteMembership_UserId, 
+            True AS _from0
+        FROM CodeFirstDatabase.RemoteMembership AS T
     ) AS T1");
         }
 
@@ -157,7 +357,7 @@ namespace Edm_EntityMappingGeneratedViews
         /// Gets the view for EntityDbContext.Permissions.
         /// </summary>
         /// <returns>The mapping view.</returns>
-        private static DbMappingView GetView4()
+        private static DbMappingView GetView12()
         {
             return new DbMappingView(@"
     SELECT VALUE -- Constructing Permissions
@@ -176,7 +376,7 @@ namespace Edm_EntityMappingGeneratedViews
         /// Gets the view for EntityDbContext.User_Permissions.
         /// </summary>
         /// <returns>The mapping view.</returns>
-        private static DbMappingView GetView5()
+        private static DbMappingView GetView13()
         {
             return new DbMappingView(@"
     SELECT VALUE -- Constructing User_Permissions
