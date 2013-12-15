@@ -1,6 +1,6 @@
 ﻿namespace Tripod
 {
-    public interface IProcessQuery
+    public interface IProcessQueries
     {
         TResult Execute<TResult>(IDefineQuery<TResult> query);
     }

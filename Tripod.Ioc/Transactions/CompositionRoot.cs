@@ -11,7 +11,7 @@ namespace Tripod.Ioc.Transactions
         {
             assemblies = assemblies ?? new[] { Assembly.GetAssembly(typeof(IHandleQuery<,>)), };
 
-            container.RegisterSingle<IProcessQuery, QueryProcessor>();
+            container.RegisterSingle<IProcessQueries, QueryProcessor>();
 
             container.RegisterManyForOpenGeneric(typeof(IHandleQuery<,>), assemblies);
             container.RegisterDecorator(

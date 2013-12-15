@@ -6,19 +6,19 @@ namespace Tripod.Domain.Security
 {
     public class MustNotFindUserByName : PropertyValidator
     {
-        private readonly IProcessQuery _queryProcessor;
+        private readonly IProcessQueries _queries;
 
-        internal MustNotFindUserByName(IProcessQuery queryProcessor)
+        internal MustNotFindUserByName(IProcessQueries queries)
             : base("{PropertyName} '{PropertyValue}' already exists.")
         {
-            if (queryProcessor == null) throw new ArgumentNullException("queryProcessor");
-            _queryProcessor = queryProcessor;
+            if (queries == null) throw new ArgumentNullException("queries");
+            _queries = queries;
         }
 
         protected override bool IsValid(PropertyValidatorContext context)
         {
             var userName = (string)context.PropertyValue;
-            var entity = _queryProcessor.Execute(new UserBy(userName)).Result;
+            var entity = _queries.Execute(new UserBy(userName)).Result;
 
             // assert that user does not exist
             return entity == null;
@@ -28,9 +28,9 @@ namespace Tripod.Domain.Security
     public static class MustNotFindUserByNameExtensions
     {
         public static IRuleBuilderOptions<T, string> MustNotFindUserByName<T>
-            (this IRuleBuilder<T, string> ruleBuilder, IProcessQuery queryProcessor)
+            (this IRuleBuilder<T, string> ruleBuilder, IProcessQueries queries)
         {
-            return ruleBuilder.SetValidator(new MustNotFindUserByName(queryProcessor));
+            return ruleBuilder.SetValidator(new MustNotFindUserByName(queries));
         }
     }
 }

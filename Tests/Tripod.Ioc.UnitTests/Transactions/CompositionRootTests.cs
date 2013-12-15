@@ -9,10 +9,10 @@ namespace Tripod.Ioc.Transactions
     public class CompositionRootTests : SimpleInjectorContainerTests
     {
         [Fact]
-        public void RegistersIProcessQuery_UsingQueryProcessor_AsSingleton()
+        public void RegistersIProcessQueries_UsingQueryProcessor_AsSingleton()
         {
-            var instance = Container.GetInstance<IProcessQuery>();
-            var registration = Container.GetRegistration(typeof(IProcessQuery));
+            var instance = Container.GetInstance<IProcessQueries>();
+            var registration = Container.GetRegistration(typeof(IProcessQueries));
 
             instance.ShouldNotBeNull();
             instance.ShouldBeType<QueryProcessor>();
@@ -40,6 +40,17 @@ namespace Tripod.Ioc.Transactions
             decoratorChain[0].Lifestyle.ShouldEqual(Lifestyle.Singleton);
             decoratorChain[1].ImplementationType.ShouldEqual(typeof(ValidateQueryDecorator<FakeQuery, string>));
             decoratorChain[1].Lifestyle.ShouldEqual(Lifestyle.Transient);
+        }
+
+        [Fact]
+        public void RegistersIProcessCommands_UsingCommandProcessor_AsSingleton()
+        {
+            var instance = Container.GetInstance<IProcessCommands>();
+            var registration = Container.GetRegistration(typeof(IProcessCommands));
+
+            instance.ShouldNotBeNull();
+            instance.ShouldBeType<CommandProcessor>();
+            registration.Lifestyle.ShouldEqual(Lifestyle.Singleton);
         }
 
         [Fact]

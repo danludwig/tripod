@@ -10,14 +10,14 @@ namespace Tripod.Domain.Security
 
     public class ValidateCreateUserCommand : AbstractValidator<CreateUser>
     {
-        public ValidateCreateUserCommand(IProcessQuery queryProcessor)
+        public ValidateCreateUserCommand(IProcessQueries queries)
         {
             // name is required, has min/max lengths, and cannot already exist
             RuleFor(x => x.Name)
                 .NotEmpty().WithName(User.Constraints.NameLabel)
                 .MinLength(User.Constraints.NameMinLength)
                 .MaxLength(User.Constraints.NameMaxLength)
-                .MustNotFindUserByName(queryProcessor)
+                .MustNotFindUserByName(queries)
             ;
         }
     }

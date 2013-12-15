@@ -12,11 +12,11 @@ namespace Tripod.Ioc.Transactions
         public void Execute_InvokesQueryHandler_UsingContainerForResolution()
         {
             var container = new Container();
-            container.RegisterSingle<IProcessQuery, QueryProcessor>();
-            container.RegisterManyForOpenGeneric(typeof(IHandleQuery<,>), Assembly.GetAssembly(GetType()));
+            container.RegisterSingle<IProcessQueries, QueryProcessor>();
+            container.RegisterManyForOpenGeneric(typeof(IHandleQuery<,>), Assembly.GetExecutingAssembly());
             container.Verify();
-            var queryProcessor = container.GetInstance<IProcessQuery>();
-            var result = queryProcessor.Execute(new FakeQuery());
+            var queries = container.GetInstance<IProcessQueries>();
+            var result = queries.Execute(new FakeQuery());
             result.ShouldEqual("faked");
         }
     }
