@@ -15,7 +15,6 @@ namespace Tripod.Domain.Security
             // ReSharper restore DoNotCallOverridableMethodsInConstructor
         }
 
-        //public string Name { get; set; }
         public string Name { get; protected internal set; }
 
         string IUser<int>.UserName

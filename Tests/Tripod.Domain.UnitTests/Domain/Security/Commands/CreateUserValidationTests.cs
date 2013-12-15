@@ -8,53 +8,18 @@ using FluentValidation.TestHelper;
 using Moq;
 using Should;
 using Xunit;
+using Xunit.Extensions;
 
 namespace Tripod.Domain.Security
 {
     public class CreateUserValidationTests : FluentValidationTests
     {
-        [Fact]
-        public void IsInvalid_WhenName_IsNull()
+        [Theory, InlineData(null), InlineData(""), InlineData("\t  \r\n")]
+        public void IsInvalid_WhenName_IsNullOrWhitespace(string name)
         {
             var queries = new Mock<IProcessQueries>(MockBehavior.Strict);
             var validator = new ValidateCreateUserCommand(queries.Object);
-            var command = new CreateUser();
-
-            var result = validator.Validate(command);
-
-            result.IsValid.ShouldBeFalse();
-            Func<ValidationFailure, bool> nameError = x => x.PropertyName == command.PropertyName(y => y.Name);
-            result.Errors.Count(nameError).ShouldEqual(1);
-            result.Errors.Single(nameError).ErrorMessage
-                .ShouldEqual(Resources.notempty_error.Replace("{PropertyName}", User.Constraints.NameLabel));
-            validator.ShouldHaveValidationErrorFor(x => x.Name, command.Name);
-            queries.Verify(x => x.Execute(It.IsAny<UserBy>()), Times.Never);
-        }
-
-        [Fact]
-        public void IsInvalid_WhenName_IsEmptyString()
-        {
-            var queries = new Mock<IProcessQueries>(MockBehavior.Strict);
-            var validator = new ValidateCreateUserCommand(queries.Object);
-            var command = new CreateUser { Name = "" };
-
-            var result = validator.Validate(command);
-
-            result.IsValid.ShouldBeFalse();
-            Func<ValidationFailure, bool> nameError = x => x.PropertyName == command.PropertyName(y => y.Name);
-            result.Errors.Count(nameError).ShouldEqual(1);
-            result.Errors.Single(nameError).ErrorMessage
-                .ShouldEqual(Resources.notempty_error.Replace("{PropertyName}", User.Constraints.NameLabel));
-            validator.ShouldHaveValidationErrorFor(x => x.Name, command.Name);
-            queries.Verify(x => x.Execute(It.IsAny<UserBy>()), Times.Never);
-        }
-
-        [Fact]
-        public void IsInvalid_WhenName_IsWhitespaceString()
-        {
-            var queries = new Mock<IProcessQueries>(MockBehavior.Strict);
-            var validator = new ValidateCreateUserCommand(queries.Object);
-            var command = new CreateUser { Name = "\t  \r\n" };
+            var command = new CreateUser { Name = name };
 
             var result = validator.Validate(command);
 

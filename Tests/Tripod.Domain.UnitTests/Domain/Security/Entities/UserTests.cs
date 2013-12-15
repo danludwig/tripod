@@ -1,4 +1,5 @@
-﻿using Should;
+﻿using Microsoft.AspNet.Identity;
+using Should;
 using Xunit;
 
 namespace Tripod.Domain.Security
@@ -6,18 +7,22 @@ namespace Tripod.Domain.Security
     public class UserTests
     {
         [Fact]
-        public void InternalCtor_SetsNameProperty()
+        public void Ctor_InitializesCollections()
         {
-            const string userName = "username";
-            var entity = new User { Name = userName };
-            entity.Name.ShouldEqual(userName);
+            var entity = new User();
+            entity.Permissions.ShouldNotBeNull();
+            entity.RemoteMemberships.ShouldNotBeNull();
+            entity.Claims.ShouldNotBeNull();
+            entity.EmailAddresses.ShouldNotBeNull();
         }
 
         [Fact]
-        public void NoArgCtor_IsProtected()
+        public void Implements_IUser()
         {
-            var entity = new ProxiedUser();
-            entity.ShouldNotBeNull();
+            var user = new User() as IUser<int>;
+            user.ShouldNotBeNull();
+            user.UserName = "test";
+            user.UserName.ShouldEqual("test");
         }
     }
 }
