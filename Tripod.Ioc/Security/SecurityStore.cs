@@ -186,11 +186,10 @@ namespace Tripod.Ioc.Security
             if (string.IsNullOrWhiteSpace(roleName)) throw new ArgumentException("Value cannot be null or empty.", "roleName");
 
             var permission = user.Permissions.SingleOrDefault(x => x.Name.Equals(roleName, StringComparison.OrdinalIgnoreCase));
-            if (permission != null)
-            {
-                user.Permissions.Remove(permission);
-                permission.Users.Remove(user);
-            }
+            if (permission == null) return Task.FromResult(0);
+
+            user.Permissions.Remove(permission);
+            permission.Users.Remove(user);
             return Task.FromResult(0);
         }
 
@@ -283,15 +282,15 @@ namespace Tripod.Ioc.Security
             ThrowIfDisposed();
             if (user == null) throw new ArgumentNullException("user");
 
-            if (!user.EmailAddresses.Any(x => x.Value.Equals(email, StringComparison.OrdinalIgnoreCase)))
+            if (user.EmailAddresses.Any(x => x.Value.Equals(email, StringComparison.OrdinalIgnoreCase)))
+                return Task.FromResult(0);
+
+            var entity = new EmailAddress
             {
-                var entity = new EmailAddress
-                {
-                    Value = email,
-                    IsDefault = !user.EmailAddresses.Any(x => x.IsDefault),
-                };
-                user.EmailAddresses.Add(entity);
-            }
+                Value = email,
+                IsDefault = !user.EmailAddresses.Any(x => x.IsDefault),
+            };
+            user.EmailAddresses.Add(entity);
             return Task.FromResult(0);
         }
 

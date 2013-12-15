@@ -1,9 +1,6 @@
 ﻿using System.Web;
 using Microsoft.AspNet.Identity;
-using Microsoft.Owin.Security;
 using SimpleInjector;
-using SimpleInjector.Extensions.LifetimeScoping;
-using SimpleInjector.Integration.Web;
 using Tripod.Domain.Security;
 
 namespace Tripod.Ioc.Security
