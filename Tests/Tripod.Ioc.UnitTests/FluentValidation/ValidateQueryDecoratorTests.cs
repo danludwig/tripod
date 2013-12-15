@@ -25,8 +25,8 @@ namespace Tripod.Ioc.FluentValidation
             var exception = Assert.Throws<ValidationException>(() => decorator.Handle(query));
 
             exception.ShouldNotBeNull();
-            validator.Verify(x => x.Validate(It.Is(expectedQuery)), Times.Once());
-            decorated.Verify(x => x.Handle(It.IsAny<FakeQuery>()), Times.Never());
+            validator.Verify(x => x.Validate(It.Is(expectedQuery)), Times.Once);
+            decorated.Verify(x => x.Handle(It.IsAny<FakeQuery>()), Times.Never);
         }
 
         [Fact]
@@ -44,8 +44,8 @@ namespace Tripod.Ioc.FluentValidation
             var result = decorator.Handle(query);
 
             result.ShouldEqual("faked");
-            validator.Verify(x => x.Validate(It.Is(expectedQuery)), Times.Once());
-            decorated.Verify(x => x.Handle(It.Is(expectedQuery)), Times.Once());
+            validator.Verify(x => x.Validate(It.Is(expectedQuery)), Times.Once);
+            decorated.Verify(x => x.Handle(It.Is(expectedQuery)), Times.Once);
         }
     }
 }

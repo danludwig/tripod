@@ -21,7 +21,7 @@ namespace Tripod
                     x => x.Permissions,
                 })
             ;
-            ReferenceEquals(queryable, eagerLoaded).ShouldEqual(true);
+            ReferenceEquals(queryable, eagerLoaded).ShouldBeTrue();
         }
 
         [Fact]
@@ -40,9 +40,9 @@ namespace Tripod
                 It.Is(expectedExpression))).Returns(data);
             var eagerLoaded = queryable.EagerLoad(eagerLoad);
 
-            ReferenceEquals(queryable, eagerLoaded).ShouldEqual(true);
+            ReferenceEquals(queryable, eagerLoaded).ShouldBeTrue();
             entities.Verify(x => x.EagerLoad(It.Is(exprectedQueryable),
-                It.Is(expectedExpression)), Times.Once());
+                It.Is(expectedExpression)), Times.Once);
         }
 
         [Fact]

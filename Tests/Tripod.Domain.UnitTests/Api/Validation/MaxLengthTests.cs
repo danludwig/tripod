@@ -8,7 +8,7 @@ using Xunit;
 
 namespace Tripod
 {
-    public class MaxLengthTests
+    public class MaxLengthTests : FluentValidationTests
     {
         [Fact]
         public void Ctor_ThrowsArgumentOutOfRangeException_WhenMaxLength_IsLessThanOne()

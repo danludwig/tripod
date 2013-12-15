@@ -20,7 +20,7 @@ namespace Tripod.Ioc.Transactions
             Container.GetCurrentLifetimeScope().ShouldEqual(null);
             decorator.Handle(command);
             Container.GetCurrentLifetimeScope().ShouldEqual(null);
-            decorated.Verify(x => x.Handle(It.Is(expectedCommand)), Times.Once());
+            decorated.Verify(x => x.Handle(It.Is(expectedCommand)), Times.Once);
         }
 
         [Fact]
@@ -37,7 +37,7 @@ namespace Tripod.Ioc.Transactions
                 decorator.Handle(command);
             }
             Container.GetCurrentLifetimeScope().ShouldEqual(null);
-            decorated.Verify(x => x.Handle(It.Is(expectedCommand)), Times.Once());
+            decorated.Verify(x => x.Handle(It.Is(expectedCommand)), Times.Once);
         }
     }
 }

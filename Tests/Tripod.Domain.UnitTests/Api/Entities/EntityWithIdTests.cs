@@ -20,7 +20,7 @@ namespace Tripod
         {
             var entity = new FakeEntityWithStringId("test");
 
-            entity.Equals((object)null).ShouldEqual(false);
+            entity.Equals((object)null).ShouldBeFalse();
         }
 
         [Fact]
@@ -28,7 +28,7 @@ namespace Tripod
         {
             var entity = new FakeEntityWithStringId("test");
 
-            entity.Equals((Entity)null).ShouldEqual(false);
+            entity.Equals((Entity)null).ShouldBeFalse();
         }
 
         [Fact]
@@ -36,7 +36,7 @@ namespace Tripod
         {
             var entity = new FakeEntityWithStringId("test");
 
-            entity.Equals(null).ShouldEqual(false);
+            entity.Equals(null).ShouldBeFalse();
         }
 
         [Fact]
@@ -44,7 +44,7 @@ namespace Tripod
         {
             var entity = new FakeEntityWithStringId("test");
 
-            entity.Equals(entity).ShouldEqual(true);
+            entity.Equals(entity).ShouldBeTrue();
         }
 
         [Fact]
@@ -53,7 +53,7 @@ namespace Tripod
             var entity = new FakeEntityWithIntId(0);
             var other = new FakeEntityWithIntId(6);
 
-            entity.Equals(other).ShouldEqual(false);
+            entity.Equals(other).ShouldBeFalse();
         }
 
         [Fact]
@@ -62,7 +62,7 @@ namespace Tripod
             var entity = new FakeEntityWithIntId(8);
             var other = new FakeEntityWithIntId(0);
 
-            entity.Equals(other).ShouldEqual(false);
+            entity.Equals(other).ShouldBeFalse();
         }
 
         [Fact]
@@ -71,7 +71,7 @@ namespace Tripod
             var entity = new FakeEntityWithIntId(8);
             var other = new FakeEntityWithIntId(6);
 
-            entity.Equals(other).ShouldEqual(false);
+            entity.Equals(other).ShouldBeFalse();
         }
 
         [Fact]
@@ -81,7 +81,7 @@ namespace Tripod
             var entity = new FakeEntityWithGuidId(id);
             var other = new FakeEntityWithGuidId(id);
 
-            entity.Equals(other).ShouldEqual(true);
+            entity.Equals(other).ShouldBeTrue();
         }
 
         [Fact]
@@ -91,7 +91,7 @@ namespace Tripod
             var entity = new FakeProxiedEntityWithLongId(id);
             var other = new FakeEntityWithLongId(id);
 
-            entity.Equals(other).ShouldEqual(true);
+            entity.Equals(other).ShouldBeTrue();
         }
 
         [Fact]
@@ -101,7 +101,7 @@ namespace Tripod
             var entity = new FakeEntityWithLongId(id);
             var other = new FakeProxiedEntityWithLongId(id);
 
-            entity.Equals(other).ShouldEqual(true);
+            entity.Equals(other).ShouldBeTrue();
         }
     }
 }

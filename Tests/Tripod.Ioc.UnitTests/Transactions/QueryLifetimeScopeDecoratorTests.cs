@@ -22,7 +22,7 @@ namespace Tripod.Ioc.Transactions
             var result = decorator.Handle(query);
 
             result.ShouldEqual("faked");
-            decorated.Verify(x => x.Handle(It.Is(expectedQuery)), Times.Once());
+            decorated.Verify(x => x.Handle(It.Is(expectedQuery)), Times.Once);
         }
 
         [Fact]
@@ -40,7 +40,7 @@ namespace Tripod.Ioc.Transactions
                 result = decorator.Handle(query);
             }
             result.ShouldEqual("faked");
-            decorated.Verify(x => x.Handle(It.Is(expectedQuery)), Times.Once());
+            decorated.Verify(x => x.Handle(It.Is(expectedQuery)), Times.Once);
         }
     }
 }

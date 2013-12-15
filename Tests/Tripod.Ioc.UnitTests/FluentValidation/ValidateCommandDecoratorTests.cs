@@ -25,8 +25,8 @@ namespace Tripod.Ioc.FluentValidation
             var exception = Assert.Throws<ValidationException>(() => decorator.Handle(command));
 
             exception.ShouldNotBeNull();
-            validator.Verify(x => x.Validate(It.Is(expectedCommand)), Times.Once());
-            decorated.Verify(x => x.Handle(It.IsAny<FakeCommandWithValidator>()), Times.Never());
+            validator.Verify(x => x.Validate(It.Is(expectedCommand)), Times.Once);
+            decorated.Verify(x => x.Handle(It.IsAny<FakeCommandWithValidator>()), Times.Never);
         }
 
         [Fact]
@@ -43,8 +43,8 @@ namespace Tripod.Ioc.FluentValidation
 
             decorator.Handle(command);
 
-            validator.Verify(x => x.Validate(It.Is(expectedCommand)), Times.Once());
-            decorated.Verify(x => x.Handle(It.Is(expectedCommand)), Times.Once());
+            validator.Verify(x => x.Validate(It.Is(expectedCommand)), Times.Once);
+            decorated.Verify(x => x.Handle(It.Is(expectedCommand)), Times.Once);
         }
     }
 }

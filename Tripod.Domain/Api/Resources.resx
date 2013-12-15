@@ -180,4 +180,7 @@
   <data name="Validation_MaxLength" xml:space="preserve">
     <value>{PropertyName} cannot exceed {MaxLength} characters. You entered {TotalLength} characters.</value>
   </data>
+  <data name="Validation_AlreadyExists" xml:space="preserve">
+    <value>{PropertyName} '{PropertyValue}' already exists.</value>
+  </data>
 </root>

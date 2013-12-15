@@ -12,7 +12,7 @@ namespace Tripod
             var openGeneric = typeof(FakeOpenGenericA<>);
             var closedGeneric = typeof(FakeClosedGenericA1);
 
-            openGeneric.IsGenericallyAssignableFrom(closedGeneric).ShouldEqual(true);
+            openGeneric.IsGenericallyAssignableFrom(closedGeneric).ShouldBeTrue();
         }
 
         [Fact]
@@ -21,7 +21,7 @@ namespace Tripod
             var openGeneric = typeof(FakeOpenGenericA<>);
             var closedGeneric = typeof(FakeClosedGenericA2);
 
-            openGeneric.IsGenericallyAssignableFrom(closedGeneric).ShouldEqual(true);
+            openGeneric.IsGenericallyAssignableFrom(closedGeneric).ShouldBeTrue();
         }
 
         [Fact]
@@ -30,7 +30,7 @@ namespace Tripod
             var openGeneric = typeof(IFakeOpenGenericB<>);
             var closedGeneric = typeof(FakeClosedGenericB1);
 
-            openGeneric.IsGenericallyAssignableFrom(closedGeneric).ShouldEqual(true);
+            openGeneric.IsGenericallyAssignableFrom(closedGeneric).ShouldBeTrue();
         }
 
         [Fact]
@@ -39,7 +39,7 @@ namespace Tripod
             var openGeneric = typeof(FakeOpenGenericA<>);
             var closedGeneric = typeof(object);
 
-            openGeneric.IsGenericallyAssignableFrom(closedGeneric).ShouldEqual(false);
+            openGeneric.IsGenericallyAssignableFrom(closedGeneric).ShouldBeFalse();
         }
 
         [Fact]
@@ -48,7 +48,7 @@ namespace Tripod
             var openGeneric = typeof(FakeOpenGenericA<>);
             var closedGeneric = typeof(FakeClosedGenericB1);
 
-            openGeneric.IsGenericallyAssignableFrom(closedGeneric).ShouldEqual(false);
+            openGeneric.IsGenericallyAssignableFrom(closedGeneric).ShouldBeFalse();
         }
 
         [Fact]

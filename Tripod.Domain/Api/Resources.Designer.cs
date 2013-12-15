@@ -232,6 +232,15 @@ namespace Tripod {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {PropertyName} &apos;{PropertyValue}&apos; already exists..
+        /// </summary>
+        public static string Validation_AlreadyExists {
+            get {
+                return ResourceManager.GetString("Validation_AlreadyExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {PropertyName} cannot exceed {MaxLength} characters. You entered {TotalLength} characters..
         /// </summary>
         public static string Validation_MaxLength {

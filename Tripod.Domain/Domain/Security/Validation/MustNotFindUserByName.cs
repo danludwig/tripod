@@ -9,7 +9,7 @@ namespace Tripod.Domain.Security
         private readonly IProcessQueries _queries;
 
         internal MustNotFindUserByName(IProcessQueries queries)
-            : base("{PropertyName} '{PropertyValue}' already exists.")
+            : base(() => Resources.Validation_AlreadyExists)
         {
             if (queries == null) throw new ArgumentNullException("queries");
             _queries = queries;

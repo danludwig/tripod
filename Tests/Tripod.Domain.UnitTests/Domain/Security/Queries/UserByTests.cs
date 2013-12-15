@@ -24,7 +24,7 @@ namespace Tripod.Domain.Security
             var name = Guid.NewGuid().ToString();
             var query = new UserBy(name);
             query.Name.ShouldEqual(name);
-            query.Id.HasValue.ShouldEqual(false);
+            query.Id.HasValue.ShouldBeFalse();
         }
 
         [Fact]
@@ -65,7 +65,7 @@ namespace Tripod.Domain.Security
 
             result.ShouldNotBeNull();
             result.ShouldEqual(data.Single());
-            entities.Verify(x => x.Query<User>(), Times.Once());
+            entities.Verify(x => x.Query<User>(), Times.Once);
         }
     }
 }

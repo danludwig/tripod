@@ -17,7 +17,7 @@ namespace Tripod.Ioc.EntityFramework
                 dbContext.Initializer = dbInitializer;
                 dbContext.Initializer.InitializeDatabase(dbContext);
 
-                dbCustomizer.Verify(x => x.Customize(It.IsAny<EntityDbContext>()), Times.Once());
+                dbCustomizer.Verify(x => x.Customize(It.IsAny<EntityDbContext>()), Times.Once);
                 dbContext.Dispose();
             }
         }
