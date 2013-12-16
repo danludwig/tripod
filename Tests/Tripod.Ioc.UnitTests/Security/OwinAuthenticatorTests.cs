@@ -49,7 +49,7 @@ namespace Tripod.Ioc.Security
             var instance = new OwinAuthenticator(authenticationManager.Object, userManager);
             authenticationManager.Setup(x => x.SignOut(It.IsAny<string>()));
             Expression<Func<ClaimsIdentity, bool>> expectedIdentity = x => x.Name.Equals(user.Name);
-            Expression<Func<AuthenticationProperties, bool>> expectedProperties = y => y.IsPersistent == isPersistent;
+            Expression<Func<AuthenticationProperties, bool>> expectedProperties = x => x.IsPersistent == isPersistent;
             authenticationManager.Setup(x => x.SignIn(It.Is(expectedProperties), It.Is(expectedIdentity)));
 
             instance.SignOn(user, isPersistent).Wait();

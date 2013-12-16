@@ -131,9 +131,20 @@ namespace Tripod.Ioc.Security
         [Fact]
         public void RegistersIAuthenticationManager_UsingBigFatPhony_WhenCurrentHttpContext_IsNull()
         {
-            var registration = Container.GetRegistration(typeof (IAuthenticationManager));
+            //var registration = Container.GetRegistration(typeof (IAuthenticationManager));
+            //registration.Lifestyle.ShouldEqual(Lifestyle.Transient);
+            //var instance = Container.GetInstance<IAuthenticationManager>();
+            //instance.ShouldNotBeNull();
+            //instance.ShouldBeType<BigFatPhonyAuthenticationManager>();
+            HttpContext.Current = null;
+            var container = new Container();
+            container.RegisterEntityFramework();
+            container.RegisterSecurity();
+            container.Verify();
+
+            var registration = container.GetRegistration(typeof(IAuthenticationManager));
             registration.Lifestyle.ShouldEqual(Lifestyle.Transient);
-            var instance = Container.GetInstance<IAuthenticationManager>();
+            var instance = container.GetInstance<IAuthenticationManager>();
             instance.ShouldNotBeNull();
             instance.ShouldBeType<BigFatPhonyAuthenticationManager>();
         }

@@ -70,7 +70,7 @@ namespace Tripod.Web.Controllers
             var validation = _validation.Validate(command);
             ModelState.AddModelErrors(validation);
             if (!ModelState.IsValid) return View(model);
-            _commands.Execute(command);
+            await _commands.Execute(command);
             //var user = new User { Name = model.UserName };
             var result = await _userManager.CreateAsync(command.Created, model.Password);
             await _unitOfWork.SaveChangesAsync();
@@ -220,7 +220,7 @@ namespace Tripod.Web.Controllers
                     return View("ExternalLoginFailure");
                 }
                 var createUser = new CreateUser { Name = model.UserName };
-                _commands.Execute(createUser);
+                await _commands.Execute(createUser);
                 //var user = new User { Name = model.UserName };
                 var result = await _userManager.CreateAsync(createUser.Created);
                 if (result.Succeeded)

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Linq.Expressions;
-using Moq;
+﻿using Moq;
 using Should;
 using SimpleInjector;
 using Xunit;
@@ -14,15 +12,14 @@ namespace Tripod.Ioc.Transactions
         {
             var query = new FakeQueryWithoutValidator();
             var decorated = new Mock<IHandleQuery<FakeQueryWithoutValidator, string>>(MockBehavior.Strict);
-            Expression<Func<FakeQueryWithoutValidator, bool>> expectedQuery = x => ReferenceEquals(x, query);
-            decorated.Setup(x => x.Handle(It.Is(expectedQuery))).Returns("faked");
+            decorated.Setup(x => x.Handle(query)).Returns("faked");
             var decorator = new QueryLifetimeScopeDecorator<FakeQueryWithoutValidator, string>(Container, () => decorated.Object);
             Container.GetCurrentLifetimeScope().ShouldEqual(null);
 
             var result = decorator.Handle(query);
 
             result.ShouldEqual("faked");
-            decorated.Verify(x => x.Handle(It.Is(expectedQuery)), Times.Once);
+            decorated.Verify(x => x.Handle(query), Times.Once);
         }
 
         [Fact]
@@ -30,8 +27,7 @@ namespace Tripod.Ioc.Transactions
         {
             var query = new FakeQueryWithoutValidator();
             var decorated = new Mock<IHandleQuery<FakeQueryWithoutValidator, string>>(MockBehavior.Strict);
-            Expression<Func<FakeQueryWithoutValidator, bool>> expectedQuery = x => ReferenceEquals(x, query);
-            decorated.Setup(x => x.Handle(It.Is(expectedQuery))).Returns("faked");
+            decorated.Setup(x => x.Handle(query)).Returns("faked");
             var decorator = new QueryLifetimeScopeDecorator<FakeQueryWithoutValidator, string>(Container, () => decorated.Object);
             Container.GetCurrentLifetimeScope().ShouldEqual(null);
             string result;
@@ -40,7 +36,7 @@ namespace Tripod.Ioc.Transactions
                 result = decorator.Handle(query);
             }
             result.ShouldEqual("faked");
-            decorated.Verify(x => x.Handle(It.Is(expectedQuery)), Times.Once);
+            decorated.Verify(x => x.Handle(query), Times.Once);
         }
     }
 }

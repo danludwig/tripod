@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using System.Web;
 using SimpleInjector;
 
 namespace Tripod.Ioc
@@ -9,6 +10,7 @@ namespace Tripod.Ioc
 
         public CompositionRootFixture()
         {
+            HttpContext.Current = null;
             Container = new Container();
             var assemblies = new[] { Assembly.GetExecutingAssembly() };
             var settings = new RootCompositionSettings

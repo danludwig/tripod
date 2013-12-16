@@ -108,10 +108,9 @@ namespace Tripod.Ioc.Security
             var entities = new Mock<ICommandEntities>(MockBehavior.Strict);
             var instance = new SecurityStore(entities.Object) as IUserStore<User, int>;
             var entity = new User();
-            Expression<Func<User, bool>> expectedEntity = x => ReferenceEquals(x, entity);
-            entities.Setup(x => x.Create(It.Is(expectedEntity)));
+            entities.Setup(x => x.Create(entity));
             instance.CreateAsync(entity);
-            entities.Verify(x => x.Create(It.Is(expectedEntity)), Times.Once);
+            entities.Verify(x => x.Create(entity), Times.Once);
         }
 
         [Fact]
@@ -141,10 +140,9 @@ namespace Tripod.Ioc.Security
             var entities = new Mock<ICommandEntities>(MockBehavior.Strict);
             var instance = new SecurityStore(entities.Object) as IUserStore<User, int>;
             var entity = new User();
-            Expression<Func<User, bool>> expectedEntity = x => ReferenceEquals(x, entity);
-            entities.Setup(x => x.Update(It.Is(expectedEntity)));
+            entities.Setup(x => x.Update(entity));
             instance.UpdateAsync(entity);
-            entities.Verify(x => x.Update(It.Is(expectedEntity)), Times.Once);
+            entities.Verify(x => x.Update(entity), Times.Once);
         }
 
         [Fact]
@@ -174,10 +172,9 @@ namespace Tripod.Ioc.Security
             var entities = new Mock<ICommandEntities>(MockBehavior.Strict);
             var instance = new SecurityStore(entities.Object) as IUserStore<User, int>;
             var entity = new User();
-            Expression<Func<User, bool>> expectedEntity = x => ReferenceEquals(x, entity);
-            entities.Setup(x => x.Delete(It.Is(expectedEntity)));
+            entities.Setup(x => x.Delete(entity));
             instance.DeleteAsync(entity);
-            entities.Verify(x => x.Delete(It.Is(expectedEntity)), Times.Once);
+            entities.Verify(x => x.Delete(entity), Times.Once);
         }
 
         #endregion

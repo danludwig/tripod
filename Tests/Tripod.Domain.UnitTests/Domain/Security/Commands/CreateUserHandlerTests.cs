@@ -14,7 +14,7 @@ namespace Tripod.Domain.Security
             var command = new CreateUser { Name = "new" };
             var entities = new Mock<ICommandEntities>(MockBehavior.Strict);
             var handler = new HandleCreateUserCommand(entities.Object);
-            Expression<Func<User, bool>> expectedEntity = y => y.Name.Equals(command.Name);
+            Expression<Func<User, bool>> expectedEntity = x => x.Name.Equals(command.Name);
             entities.Setup(x => x.Create(It.Is(expectedEntity)));
 
             handler.Handle(command);

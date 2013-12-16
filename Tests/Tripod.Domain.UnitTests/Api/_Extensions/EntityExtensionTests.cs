@@ -34,15 +34,12 @@ namespace Tripod
             };
             var entities = new Mock<IQueryEntities>(MockBehavior.Strict);
             var queryable = new EntitySet<User>(data, entities.Object);
-            Expression<Func<IQueryable<User>, bool>> exprectedQueryable = y => ReferenceEquals(y, data);
-            Expression<Func<Expression<Func<User, object>>, bool>> expectedExpression = y => eagerLoad.Contains(y);
-            entities.Setup(x => x.EagerLoad(It.Is(exprectedQueryable),
-                It.Is(expectedExpression))).Returns(data);
+            Expression<Func<Expression<Func<User, object>>, bool>> expectedExpression = x => eagerLoad.Contains(x);
+            entities.Setup(x => x.EagerLoad(data, It.Is(expectedExpression))).Returns(data);
             var eagerLoaded = queryable.EagerLoad(eagerLoad);
 
             ReferenceEquals(queryable, eagerLoaded).ShouldBeTrue();
-            entities.Verify(x => x.EagerLoad(It.Is(exprectedQueryable),
-                It.Is(expectedExpression)), Times.Once);
+            entities.Verify(x => x.EagerLoad(data, It.Is(expectedExpression)), Times.Once);
         }
 
         [Fact]
