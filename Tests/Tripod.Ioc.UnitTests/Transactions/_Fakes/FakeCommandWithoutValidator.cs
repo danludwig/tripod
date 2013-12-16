@@ -1,4 +1,6 @@
-﻿namespace Tripod.Ioc.Transactions
+﻿using System.Threading.Tasks;
+
+namespace Tripod.Ioc.Transactions
 {
     public class FakeCommandWithoutValidator : IDefineCommand
     {
@@ -8,9 +10,10 @@
     [UsedImplicitly]
     public class HandleFakeCommandWithoutValidator : IHandleCommand<FakeCommandWithoutValidator>
     {
-        public void Handle(FakeCommandWithoutValidator command)
+        public Task Handle(FakeCommandWithoutValidator command)
         {
             command.ReturnValue = "faked";
+            return Task.FromResult(0);
         }
     }
 }

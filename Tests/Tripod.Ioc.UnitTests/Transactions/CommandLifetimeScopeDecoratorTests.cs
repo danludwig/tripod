@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 using Moq;
 using Should;
 using SimpleInjector;
@@ -15,7 +16,7 @@ namespace Tripod.Ioc.Transactions
             var command = new FakeCommandWithValidator();
             var decorated = new Mock<IHandleCommand<FakeCommandWithValidator>>(MockBehavior.Strict);
             Expression<Func<FakeCommandWithValidator, bool>> expectedCommand = y => ReferenceEquals(y, command);
-            decorated.Setup(x => x.Handle(It.Is(expectedCommand)));
+            decorated.Setup(x => x.Handle(It.Is(expectedCommand))).Returns(Task.FromResult(0));
             var decorator = new CommandLifetimeScopeDecorator<FakeCommandWithValidator>(Container, () => decorated.Object);
             Container.GetCurrentLifetimeScope().ShouldEqual(null);
             decorator.Handle(command);
@@ -29,7 +30,7 @@ namespace Tripod.Ioc.Transactions
             var command = new FakeCommandWithValidator();
             var decorated = new Mock<IHandleCommand<FakeCommandWithValidator>>(MockBehavior.Strict);
             Expression<Func<FakeCommandWithValidator, bool>> expectedCommand = y => ReferenceEquals(y, command);
-            decorated.Setup(x => x.Handle(It.Is(expectedCommand)));
+            decorated.Setup(x => x.Handle(It.Is(expectedCommand))).Returns(Task.FromResult(0));
             var decorator = new CommandLifetimeScopeDecorator<FakeCommandWithValidator>(Container, () => decorated.Object);
             Container.GetCurrentLifetimeScope().ShouldEqual(null);
             using (Container.BeginLifetimeScope())

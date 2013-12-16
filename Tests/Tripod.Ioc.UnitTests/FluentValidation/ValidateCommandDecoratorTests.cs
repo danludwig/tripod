@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 using FluentValidation;
 using FluentValidation.Results;
 using Moq;
@@ -38,10 +39,10 @@ namespace Tripod.Ioc.FluentValidation
             Expression<Func<FakeCommandWithValidator, bool>> expectedCommand = x => ReferenceEquals(x, command);
             var expectedResult = new ValidationResult();
             validator.Setup(x => x.Validate(It.Is(expectedCommand))).Returns(expectedResult);
-            decorated.Setup(x => x.Handle(It.Is(expectedCommand)));
+            decorated.Setup(x => x.Handle(It.Is(expectedCommand))).Returns(Task.FromResult(0));
             var decorator = new ValidateCommandDecorator<FakeCommandWithValidator>(decorated.Object, validator.Object);
 
-            decorator.Handle(command);
+            decorator.Handle(command).Wait();
 
             validator.Verify(x => x.Validate(It.Is(expectedCommand)), Times.Once);
             decorated.Verify(x => x.Handle(It.Is(expectedCommand)), Times.Once);

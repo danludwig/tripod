@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Threading.Tasks;
 using FluentValidation;
 
 namespace Tripod.Ioc.FluentValidation
@@ -17,11 +18,11 @@ namespace Tripod.Ioc.FluentValidation
         }
 
         [DebuggerStepThrough]
-        public void Handle(TCommand command)
+        public Task Handle(TCommand command)
         {
             _validator.ValidateAndThrow(command);
 
-            _decorated.Handle(command);
+            return _decorated.Handle(command);
         }
     }
 }

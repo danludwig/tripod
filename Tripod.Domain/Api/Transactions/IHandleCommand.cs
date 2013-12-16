@@ -1,7 +1,9 @@
-﻿namespace Tripod
+﻿using System.Threading.Tasks;
+
+namespace Tripod
 {
     public interface IHandleCommand<in TCommand> where TCommand : IDefineCommand
     {
-        void Handle(TCommand command);
+        Task Handle(TCommand command);
     }
 }

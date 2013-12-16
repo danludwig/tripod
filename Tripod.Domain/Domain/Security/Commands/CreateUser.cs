@@ -1,4 +1,5 @@
-﻿using FluentValidation;
+﻿using System.Threading.Tasks;
+using FluentValidation;
 
 namespace Tripod.Domain.Security
 {
@@ -31,12 +32,13 @@ namespace Tripod.Domain.Security
             _entities = entities;
         }
 
-        public void Handle(CreateUser command)
+        public Task Handle(CreateUser command)
         {
             var entity = new User { Name = command.Name };
             _entities.Create(entity);
 
             command.Created = entity;
+            return Task.FromResult(0);
         }
     }
 }

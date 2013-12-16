@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Threading.Tasks;
 using SimpleInjector;
 
 namespace Tripod.Ioc.Transactions
@@ -14,11 +15,11 @@ namespace Tripod.Ioc.Transactions
         }
 
         [DebuggerStepThrough]
-        public void Execute(IDefineCommand command)
+        public Task Execute(IDefineCommand command)
         {
             var handlerType = typeof(IHandleCommand<>).MakeGenericType(command.GetType());
             dynamic handler = _container.GetInstance(handlerType);
-            handler.Handle((dynamic)command);
+            return handler.Handle((dynamic)command);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using FluentValidation;
+﻿using System.Threading.Tasks;
+using FluentValidation;
 
 namespace Tripod.Ioc.Transactions
 {
@@ -19,9 +20,10 @@ namespace Tripod.Ioc.Transactions
 
     public class HandleFakeCommandWithValidator : IHandleCommand<FakeCommandWithValidator>
     {
-        public void Handle(FakeCommandWithValidator command)
+        public Task Handle(FakeCommandWithValidator command)
         {
             command.ReturnValue = "faked";
+            return Task.FromResult(0);
         }
     }
 }

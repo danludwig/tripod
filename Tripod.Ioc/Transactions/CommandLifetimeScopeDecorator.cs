@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using SimpleInjector;
 
 namespace Tripod.Ioc.Transactions
@@ -16,13 +17,12 @@ namespace Tripod.Ioc.Transactions
         }
 
         [DebuggerStepThrough]
-        public void Handle(TCommand command)
+        public Task Handle(TCommand command)
         {
             if (_container.GetCurrentLifetimeScope() != null)
-                _handlerFactory().Handle(command);
-            else
-                using (_container.BeginLifetimeScope())
-                    _handlerFactory().Handle(command);
+                return _handlerFactory().Handle(command);
+            using (_container.BeginLifetimeScope())
+                return _handlerFactory().Handle(command);
         }
     }
 }
