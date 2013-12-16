@@ -31,21 +31,8 @@ namespace Tripod.Domain.Security
         public void Handler_ThrowsArgumentNullException_WhenQueryIsNull()
         {
             var handler = new HandleUserByQuery(null);
-            ArgumentNullException exception = null;
-            try
-            {
-                handler.Handle(null).Wait();
-            }
-            catch (ArgumentNullException ex)
-            {
-                exception = ex;
-            }
-            catch (AggregateException ex)
-            {
-                ex.InnerExceptions.Count.ShouldEqual(1);
-                exception = ex.InnerExceptions.Single() as ArgumentNullException;
-            }
-            Assert.NotNull(exception);
+            var exception = Assert.Throws<ArgumentNullException>(() => handler.Handle(null).GetAwaiter().GetResult());
+            exception.ShouldNotBeNull();
             exception.ParamName.ShouldEqual("query");
         }
 

@@ -11,7 +11,7 @@ namespace Tripod
     {
         #region EagerLoad
 
-        private static IQueryable<TEntity> EagerLoad<TEntity>(this IQueryable<TEntity> queryable, Expression<Func<TEntity, object>> expression)
+        public static IQueryable<TEntity> EagerLoad<TEntity>(this IQueryable<TEntity> queryable, Expression<Func<TEntity, object>> expression)
             where TEntity : Entity
         {
             var set = queryable as EntitySet<TEntity>;

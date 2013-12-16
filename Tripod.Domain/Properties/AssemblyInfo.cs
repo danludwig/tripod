@@ -14,6 +14,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 [assembly: InternalsVisibleTo("Tripod.Ioc")]
 [assembly: InternalsVisibleTo("Tripod.Domain.UnitTests")]
+[assembly: InternalsVisibleTo("Tripod.Ioc.UnitTests")]
 [assembly: InternalsVisibleTo("Tripod.Ioc.IntegrationTests")]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM

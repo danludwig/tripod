@@ -115,6 +115,15 @@ namespace Tripod {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} &apos;{1}&apos; does not exist.
+        /// </summary>
+        public static string Exception_InvalidOperation_DoesNotExist {
+            get {
+                return ResourceManager.GetString("Exception_InvalidOperation_DoesNotExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {PropertyName} must be between {From} and {To} (exclusive). You entered {Value}..
         /// </summary>
         public static string exclusivebetween_error {

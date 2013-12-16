@@ -11,8 +11,8 @@ using SecurityClaim = System.Security.Claims.Claim;
 namespace Tripod.Ioc.Security
 {
     public class SecurityStore : IQueryableUserStore<User, int>, IUserLoginStore<User, int>,
-        IUserRoleStore<User, int>, IUserPasswordStore<User, int>, IUserClaimStore<User, int>,
-        IUserEmailStore<User, int>, IUserConfirmationStore<User, int>, IUserSecurityStampStore<User, int>
+        IUserRoleStore<User, int>, IUserPasswordStore<User, int>, IUserClaimStore<User, int>, IUserSecurityStampStore<User, int>
+        //IUserEmailStore<User, int>, IUserConfirmationStore<User, int>
     {
         #region Construction & Properties
 
@@ -44,33 +44,22 @@ namespace Tripod.Ioc.Security
         private Task<User> GetUserAggregateAsync(Expression<Func<User, bool>> filter)
         {
             return _entities.Get<User>()
-                .Include(u => u.Permissions)
-                .Include(u => u.EmailAddresses)
-                .Include(u => u.LocalMembership)
-                .Include(u => u.Claims)
-                .Include(u => u.RemoteMemberships)
+                .EagerLoad(u => u.Permissions)
+                .EagerLoad(u => u.EmailAddresses)
+                .EagerLoad(u => u.LocalMembership)
+                .EagerLoad(u => u.Claims)
+                .EagerLoad(u => u.RemoteMemberships)
                 .FirstOrDefaultAsync(filter);
         }
 
-        private static Task SaveChanges()
-        {
-            //if (AutoSaveChanges)
-            //{
-            //    await _entities.SaveChangesAsync().ConfigureAwait(false);
-            //}
-            return Task.FromResult(0);
-        }
-
-        #endregion
-        #region IQueryableUserStore
-
-        IQueryable<User> IQueryableUserStore<User, int>.Users
-        {
-            get
-            {
-                return _entities.Query<User>();
-            }
-        }
+        //private static Task SaveChanges()
+        //{
+        //    //if (AutoSaveChanges)
+        //    //{
+        //    //    await _entities.SaveChangesAsync().ConfigureAwait(false);
+        //    //}
+        //    return Task.FromResult(0);
+        //}
 
         #endregion
         #region IUserStore
@@ -87,31 +76,46 @@ namespace Tripod.Ioc.Security
             return GetUserAggregateAsync(u => u.Name.Equals(userName, StringComparison.OrdinalIgnoreCase));
         }
 
-        public async Task CreateAsync(User user)
+        public Task CreateAsync(User user)
         {
             ThrowIfDisposed();
             if (user == null)
                 throw new ArgumentNullException("user");
             _entities.Create(user);
-            await SaveChanges().ConfigureAwait(false);
+            //await SaveChanges().ConfigureAwait(false);
+            return Task.FromResult(0);
         }
 
-        public async Task DeleteAsync(User user)
-        {
-            ThrowIfDisposed();
-            if (user == null)
-                throw new ArgumentNullException("user");
-            _entities.Delete(user);
-            await SaveChanges().ConfigureAwait(false);
-        }
-
-        public async Task UpdateAsync(User user)
+        public Task UpdateAsync(User user)
         {
             ThrowIfDisposed();
             if (user == null)
                 throw new ArgumentNullException("user");
             _entities.Update(user);
-            await SaveChanges().ConfigureAwait(false);
+            //await SaveChanges().ConfigureAwait(false);
+            return Task.FromResult(0);
+        }
+
+        public Task DeleteAsync(User user)
+        {
+            ThrowIfDisposed();
+            if (user == null)
+                throw new ArgumentNullException("user");
+            _entities.Delete(user);
+            //await SaveChanges().ConfigureAwait(false);
+            return Task.FromResult(0);
+        }
+
+        #endregion
+        #region IQueryableUserStore
+
+        IQueryable<User> IQueryableUserStore<User, int>.Users
+        {
+            get
+            {
+                ThrowIfDisposed();
+                return _entities.Query<User>();
+            }
         }
 
         #endregion
@@ -142,15 +146,18 @@ namespace Tripod.Ioc.Security
             return Task.FromResult(0);
         }
 
-        public async Task RemoveLoginAsync(User user, UserLoginInfo login)
+        public Task RemoveLoginAsync(User user, UserLoginInfo login)
         {
             ThrowIfDisposed();
             if (user == null) throw new ArgumentNullException("user");
             if (login == null) throw new ArgumentNullException("login");
 
-            var userLogin = await _entities.GetAsync<RemoteMembership>(login.LoginProvider, login.ProviderKey);
+            //var userLogin = await _entities.GetAsync<RemoteMembership>(login.LoginProvider, login.ProviderKey);
+            var userLogin = user.RemoteMemberships.FirstOrDefault(x =>
+                x.LoginProvider == login.LoginProvider && x.ProviderKey == login.ProviderKey);
             if (userLogin != null)
-                _entities.Delete(userLogin);
+                user.RemoteMemberships.Remove(userLogin);
+            return Task.FromResult(0);
         }
 
         public Task<IList<UserLoginInfo>> GetLoginsAsync(User user)
@@ -173,7 +180,8 @@ namespace Tripod.Ioc.Security
                 throw new ArgumentException(Resources.Exception_Argument_CannotBeNullOrEmpty, "roleName");
 
             var permission = await _entities.Get<Permission>().SingleOrDefaultAsync(r => r.Name.Equals(roleName, StringComparison.OrdinalIgnoreCase));
-            if (permission == null) throw new InvalidOperationException(string.Format("Role {0} does not exist", roleName));
+            if (permission == null) throw new InvalidOperationException(string.Format(Resources.Exception_InvalidOperation_DoesNotExist,
+                Permission.Constraints.Label, roleName));
 
             user.Permissions.Add(permission);
             permission.Users.Add(user);
@@ -271,71 +279,9 @@ namespace Tripod.Ioc.Security
             ThrowIfDisposed();
             if (user == null) throw new ArgumentNullException("user");
             if (claim == null) throw new ArgumentNullException("claim");
-            foreach (var entity in user.Claims.Where(uc => uc.ClaimValue == claim.Value && uc.ClaimType == claim.Type).ToArray())
-                _entities.Delete(entity);
-            return Task.FromResult(0);
-        }
-
-        #endregion
-        #region IUserEmailStore
-
-        public Task SetEmailAsync(User user, string email)
-        {
-            ThrowIfDisposed();
-            if (user == null) throw new ArgumentNullException("user");
-
-            if (user.EmailAddresses.Any(x => x.Value.Equals(email, StringComparison.OrdinalIgnoreCase)))
-                return Task.FromResult(0);
-
-            var entity = new EmailAddress
-            {
-                Value = email,
-                IsDefault = !user.EmailAddresses.Any(x => x.IsDefault),
-            };
-            user.EmailAddresses.Add(entity);
-            return Task.FromResult(0);
-        }
-
-        public Task<string> GetEmailAsync(User user)
-        {
-            ThrowIfDisposed();
-            if (user == null) throw new ArgumentNullException("user");
-
-            var entity = user.EmailAddresses.FirstOrDefault(x => x.IsDefault && x.IsConfirmed)
-                ?? user.EmailAddresses.FirstOrDefault(x => x.IsDefault)
-                ?? user.EmailAddresses.FirstOrDefault(x => x.IsConfirmed)
-                ?? user.EmailAddresses.FirstOrDefault();
-            return Task.FromResult(entity != null ? entity.Value : null);
-        }
-
-        public Task<User> FindByEmailAsync(string email)
-        {
-            ThrowIfDisposed();
-            return GetUserAggregateAsync(u => u.EmailAddresses.Any(x => x.IsDefault && x.IsConfirmed && x.Value.Equals(email, StringComparison.OrdinalIgnoreCase)))
-                ?? GetUserAggregateAsync(u => u.EmailAddresses.Any(x => x.IsDefault && x.Value.Equals(email, StringComparison.OrdinalIgnoreCase)))
-                ?? GetUserAggregateAsync(u => u.EmailAddresses.Any(x => x.IsConfirmed && x.Value.Equals(email, StringComparison.OrdinalIgnoreCase)))
-                ?? GetUserAggregateAsync(u => u.EmailAddresses.Any(x => x.Value.Equals(email, StringComparison.OrdinalIgnoreCase)));
-        }
-
-        #endregion
-        #region IUserConfirmationStore
-
-        public Task<bool> IsConfirmedAsync(User user)
-        {
-            ThrowIfDisposed();
-            if (user == null) throw new ArgumentNullException("user");
-            return Task.FromResult(user.LocalMembership != null && user.LocalMembership.IsConfirmed);
-        }
-
-        public Task SetConfirmedAsync(User user, bool confirmed)
-        {
-            ThrowIfDisposed();
-            if (user == null) throw new ArgumentNullException("user");
-
-            if (user.LocalMembership == null && confirmed)
-                user.LocalMembership = new LocalMembership();
-            if (user.LocalMembership != null)
-                user.LocalMembership.IsConfirmed = confirmed;
+            var userClaims = user.Claims.Where(uc => uc.ClaimValue == claim.Value && uc.ClaimType == claim.Type).ToArray();
+            foreach (var entity in userClaims)
+                user.Claims.Remove(entity);
             return Task.FromResult(0);
         }
 
@@ -359,5 +305,68 @@ namespace Tripod.Ioc.Security
         }
 
         #endregion
+        //#region IUserEmailStore
+
+        //public Task SetEmailAsync(User user, string email)
+        //{
+        //    ThrowIfDisposed();
+        //    if (user == null) throw new ArgumentNullException("user");
+
+        //    if (user.EmailAddresses.Any(x => x.Value.Equals(email, StringComparison.OrdinalIgnoreCase)))
+        //        return Task.FromResult(0);
+
+        //    var entity = new EmailAddress
+        //    {
+        //        Value = email,
+        //        IsDefault = !user.EmailAddresses.Any(x => x.IsDefault),
+        //    };
+        //    user.EmailAddresses.Add(entity);
+        //    return Task.FromResult(0);
+        //}
+
+        //public Task<string> GetEmailAsync(User user)
+        //{
+        //    ThrowIfDisposed();
+        //    if (user == null) throw new ArgumentNullException("user");
+
+        //    var entity = user.EmailAddresses.FirstOrDefault(x => x.IsDefault && x.IsConfirmed)
+        //        ?? user.EmailAddresses.FirstOrDefault(x => x.IsDefault)
+        //        ?? user.EmailAddresses.FirstOrDefault(x => x.IsConfirmed)
+        //        ?? user.EmailAddresses.FirstOrDefault();
+        //    return Task.FromResult(entity != null ? entity.Value : null);
+        //}
+
+        //public Task<User> FindByEmailAsync(string email)
+        //{
+        //    ThrowIfDisposed();
+        //    return GetUserAggregateAsync(u => u.EmailAddresses.Any(x => x.IsDefault && x.IsConfirmed && x.Value.Equals(email, StringComparison.OrdinalIgnoreCase)))
+        //        ?? GetUserAggregateAsync(u => u.EmailAddresses.Any(x => x.IsDefault && x.Value.Equals(email, StringComparison.OrdinalIgnoreCase)))
+        //        ?? GetUserAggregateAsync(u => u.EmailAddresses.Any(x => x.IsConfirmed && x.Value.Equals(email, StringComparison.OrdinalIgnoreCase)))
+        //        ?? GetUserAggregateAsync(u => u.EmailAddresses.Any(x => x.Value.Equals(email, StringComparison.OrdinalIgnoreCase)));
+        //}
+
+        //#endregion
+        //#region IUserConfirmationStore
+
+        //public Task<bool> IsConfirmedAsync(User user)
+        //{
+        //    ThrowIfDisposed();
+        //    if (user == null) throw new ArgumentNullException("user");
+        //    return Task.FromResult(user.LocalMembership != null && user.LocalMembership.IsConfirmed);
+        //}
+
+        //public Task SetConfirmedAsync(User user, bool confirmed)
+        //{
+        //    ThrowIfDisposed();
+        //    if (user == null) throw new ArgumentNullException("user");
+
+        //    if (user.LocalMembership == null && confirmed)
+        //        user.LocalMembership = new LocalMembership();
+        //    if (user.LocalMembership != null)
+        //        user.LocalMembership.IsConfirmed = confirmed;
+        //    return Task.FromResult(0);
+        //}
+
+        //#endregion
     }
 }

@@ -121,6 +121,8 @@
     <Compile Include="FluentValidation\ValidationProcessorTests.cs" />
     <Compile Include="FluentValidation\ValidatorFactoryTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Security\_Fakes\FakeUser.cs" />
+    <Compile Include="Security\SecurityStoreTests.cs" />
     <Compile Include="Transactions\CommandLifetimeScopeDecoratorTests.cs" />
     <Compile Include="Transactions\CompositionRootTests.cs" />
     <Compile Include="Transactions\CommandProcessorTests.cs" />
@@ -139,6 +141,10 @@
     <ProjectReference Include="..\..\Tripod.Ioc\Tripod.Ioc.csproj">
       <Project>{df8036d8-f370-49fd-9c85-14d95ad68139}</Project>
       <Name>Tripod.Ioc</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Tripod.Domain.UnitTests\Tripod.Domain.UnitTests.csproj">
+      <Project>{d217070f-c4c0-46fa-9040-e0eedf4c673f}</Project>
+      <Name>Tripod.Domain.UnitTests</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

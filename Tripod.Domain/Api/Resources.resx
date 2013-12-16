@@ -183,4 +183,7 @@
   <data name="Validation_AlreadyExists" xml:space="preserve">
     <value>{PropertyName} '{PropertyValue}' already exists.</value>
   </data>
+  <data name="Exception_InvalidOperation_DoesNotExist" xml:space="preserve">
+    <value>{0} '{1}' does not exist</value>
+  </data>
 </root>

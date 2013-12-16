@@ -28,10 +28,10 @@ namespace Tripod.Domain.Security
             public const string Label = "OAuth provider";
 
             public const string ProviderLabel = "OAuth provider name";
-            public const int ProviderMaxLength = 30;
+            public const int ProviderMaxLength = 130;
 
             public const string ProviderUserIdLabel = "OAuth provider user id";
-            public const int ProviderUserIdMaxLength = 100;
+            public const int ProviderUserIdMaxLength = 130;
         }
     }
 

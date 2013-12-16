@@ -83,6 +83,7 @@
     <Compile Include="EntityFramework\_Fixtures\EntityDbContextIntegrationTests.cs" />
     <Compile Include="EntityFramework\Initialization\GreenfieldDbInitializerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Security\SecurityStoreTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

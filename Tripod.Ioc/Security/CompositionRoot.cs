@@ -17,8 +17,8 @@ namespace Tripod.Ioc.Security
             container.Register<IUserClaimStore<User, int>, SecurityStore>();
             container.Register<IUserSecurityStampStore<User, int>, SecurityStore>();
             container.Register<IQueryableUserStore<User, int>, SecurityStore>();
-            container.Register<IUserConfirmationStore<User, int>, SecurityStore>();
-            container.Register<IUserEmailStore<User, int>, SecurityStore>();
+            //container.Register<IUserConfirmationStore<User, int>, SecurityStore>();
+            //container.Register<IUserEmailStore<User, int>, SecurityStore>();
 
             container.Register(() => HttpContext.Current != null && HttpContext.Current.Items["owin.Environment"] != null
                 ? HttpContext.Current.GetOwinContext().Authentication : new BigFatPhonyAuthenticationManager());
