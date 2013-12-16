@@ -33,25 +33,22 @@ namespace Tripod
             if (memberExpression == null && unaryExpression != null)
                 memberExpression = unaryExpression.Operand as MemberExpression;
 
-            if (memberExpression != null)
-            {
-                var builder = new StringBuilder(memberExpression.Member.Name);
-                if (fullName)
-                {
-                    memberExpression = memberExpression.Expression as MemberExpression;
-                    while (memberExpression != null)
-                    {
-                        builder.Insert(0, '.');
-                        builder.Insert(0, memberExpression.Member.Name);
-                        memberExpression = memberExpression.Expression as MemberExpression;
-                    }
-                }
-                return builder.ToString();
-            }
+            if (memberExpression == null)
+                throw new NotSupportedException(string.Format(
+                    "Unable to determine the property name for the lambda '{0}' on '{1}'.",
+                        expression, owner.GetType().Name));
 
-            throw new NotSupportedException(string.Format(
-                "Unable to determine the property name for the lambda '{0}' on '{1}'.",
-                    expression, owner.GetType().Name));
+            var builder = new StringBuilder(memberExpression.Member.Name);
+            if (!fullName) return builder.ToString();
+
+            memberExpression = memberExpression.Expression as MemberExpression;
+            while (memberExpression != null)
+            {
+                builder.Insert(0, '.');
+                builder.Insert(0, memberExpression.Member.Name);
+                memberExpression = memberExpression.Expression as MemberExpression;
+            }
+            return builder.ToString();
         }
     }
 }

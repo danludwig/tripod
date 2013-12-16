@@ -6,23 +6,24 @@ using Tripod.Domain.Security;
 
 namespace Tripod.Ioc.Security
 {
-    public class OwinAuthenticationManager : IAuthenticate
+    public class OwinAuthenticator : IAuthenticate
     {
         private readonly IAuthenticationManager _authenticationManager;
         private readonly UserManager<User, int> _userManager;
 
-        public OwinAuthenticationManager(IAuthenticationManager authenticationManager, UserManager<User, int> userManager)
+        public OwinAuthenticator(IAuthenticationManager authenticationManager, UserManager<User, int> userManager)
         {
             _authenticationManager = authenticationManager;
             _userManager = userManager;
         }
 
-        public async Task SignOn(User user, bool isPersistent = false)
+        public Task SignOn(User user, bool isPersistent = false)
         {
             ThrowIfNoOwin();
             _authenticationManager.SignOut(DefaultAuthenticationTypes.ExternalCookie);
-            var identity = await _userManager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie);
+            var identity = _userManager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie).Result;
             _authenticationManager.SignIn(new AuthenticationProperties { IsPersistent = isPersistent }, identity);
+            return Task.FromResult(0);
         }
 
         public Task SignOff()

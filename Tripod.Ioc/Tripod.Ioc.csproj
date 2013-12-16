@@ -140,7 +140,7 @@
     <Compile Include="CompositionRoot\WebApiDependencyResolver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Security\CompositionRoot.cs" />
-    <Compile Include="Security\OwinAuthenticationManager.cs" />
+    <Compile Include="Security\OwinAuthenticator.cs" />
     <Compile Include="Security\SecurityStore.cs" />
     <Compile Include="Security\BigFatPhonyAuthenticationManager.cs" />
     <Compile Include="Transactions\CommandLifetimeScopeDecorator.cs" />

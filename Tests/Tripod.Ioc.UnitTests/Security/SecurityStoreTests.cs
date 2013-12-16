@@ -662,8 +662,10 @@ namespace Tripod.Ioc.Security
         public void UserPasswordStoreInterface_SetPasswordHashAsync_DelegatesToUserLocalMembership()
         {
             var instance = new SecurityStore(null) as IUserPasswordStore<User, int>;
-            var user = new User();
-            user.LocalMembership = new LocalMembership();
+            var user = new User
+            {
+                LocalMembership = new LocalMembership()
+            };
             var passwordHash = Guid.NewGuid().ToString();
             instance.SetPasswordHashAsync(user, passwordHash).Wait();
 

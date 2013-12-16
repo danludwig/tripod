@@ -20,12 +20,12 @@ namespace Tripod.Ioc.Security
             //container.Register<IUserConfirmationStore<User, int>, SecurityStore>();
             //container.Register<IUserEmailStore<User, int>, SecurityStore>();
 
+            container.Register<UserManager<User, int>>();
+
             container.Register(() => HttpContext.Current != null && HttpContext.Current.Items["owin.Environment"] != null
                 ? HttpContext.Current.GetOwinContext().Authentication : new BigFatPhonyAuthenticationManager());
 
-            container.Register<IAuthenticate, OwinAuthenticationManager>();
-
-            container.Register<UserManager<User, int>>();
+            container.Register<IAuthenticate, OwinAuthenticator>();
         }
     }
 }
