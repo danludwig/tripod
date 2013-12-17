@@ -12,15 +12,14 @@
                     <td>
                         @if (ViewBag.ShowRemoveButton)
                         {
-                            using (Html.BeginForm("Disassociate", "Account"))
-                            {
-                            @Html.AntiForgeryToken()
-                            <div>
-                                @Html.Hidden("loginProvider", account.LoginProvider)
-                                @Html.Hidden("providerKey", account.ProviderKey)
-                                <input type="submit" class="btn btn-default" value="Remove" title="Remove this @account.LoginProvider login from your account" />
-                            </div>
-                            }
+                            <form action="@Url.Action(MVC.Account.Disassociate())">
+                                @Html.AntiForgeryToken()
+                                <div>
+                                    @Html.Hidden("loginProvider", account.LoginProvider)
+                                    @Html.Hidden("providerKey", account.ProviderKey)
+                                    <input type="submit" class="btn btn-default" value="Remove" title="Remove this @account.LoginProvider login from your account" />
+                                </div>
+                            </form>
                         }
                         else
                         {

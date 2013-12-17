@@ -8,8 +8,7 @@
 <div class="row">
     <div class="col-md-8">
         <section id="loginForm">
-            @using (Html.BeginForm("Login", "Authentication", new { ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-            {
+            <form action="@Url.Action(MVC.Authentication.Login(null, (string)ViewBag.ReturnUrl))" method="POST" class="form-horizontal" role="form">
                 @Html.AntiForgeryToken()
                 <h4>Use a local account to log in.</h4>
                 <hr />
@@ -42,14 +41,14 @@
                     </div>
                 </div>
                 <p>
-                    @Html.ActionLink("Register", "Register") if you don't have a local account.
+                    <a href="@Url.Action(MVC.Account.Register())">Register</a> if you don't have a local account.
                 </p>
-            }
+            </form>
         </section>
     </div>
     <div class="col-md-4">
         <section id="socialLoginForm">
-            @Html.Partial("~/Views/Account/_ExternalLoginsListPartial.cshtml", new { Action = "ExternalLogin", ViewBag.ReturnUrl })
+            @Html.Partial(MVC.Account.Views._ExternalLoginsListPartial, new { Action = MVC.Account.ActionNames.ExternalLogin, ViewBag.ReturnUrl })
         </section>
     </div>
 </div>

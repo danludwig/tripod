@@ -77,7 +77,7 @@ namespace Tripod.Web.Controllers
             if (result.Succeeded)
             {
                 await SignInAsync(command.Created, isPersistent: false);
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction(MVC.Home.Index());
             }
             AddErrors(result);
 
@@ -91,7 +91,7 @@ namespace Tripod.Web.Controllers
         {
             var result = await _userManager.RemoveLoginAsync(int.Parse(User.Identity.GetUserId()), new UserLoginInfo(loginProvider, providerKey));
             var message = result.Succeeded ? ManageMessageId.RemoveLoginSuccess : ManageMessageId.Error;
-            return RedirectToAction("Manage", new { Message = message });
+            return RedirectToAction(MVC.Account.Manage(message));
         }
 
         [HttpGet, Route("account/manage")]
@@ -104,7 +104,7 @@ namespace Tripod.Web.Controllers
                 : message == ManageMessageId.Error ? "An error has occurred."
                 : "";
             ViewBag.HasLocalPassword = HasPassword();
-            ViewBag.ReturnUrl = Url.Action("Manage");
+            ViewBag.ReturnUrl = Url.Action(MVC.Account.Manage());
             return View();
         }
 
@@ -114,14 +114,14 @@ namespace Tripod.Web.Controllers
         {
             var hasPassword = HasPassword();
             ViewBag.HasLocalPassword = hasPassword;
-            ViewBag.ReturnUrl = Url.Action("Manage");
+            ViewBag.ReturnUrl = Url.Action(MVC.Account.Manage());
             if (hasPassword)
             {
                 if (!ModelState.IsValid) return View(model);
                 var result = await _userManager.ChangePasswordAsync(int.Parse(User.Identity.GetUserId()), model.OldPassword, model.NewPassword);
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("Manage", new { Message = ManageMessageId.ChangePasswordSuccess });
+                    return RedirectToAction(MVC.Account.Manage(ManageMessageId.ChangePasswordSuccess));
                 }
                 AddErrors(result);
             }
@@ -138,7 +138,7 @@ namespace Tripod.Web.Controllers
                 var result = await _userManager.AddPasswordAsync(int.Parse(User.Identity.GetUserId()), model.NewPassword);
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("Manage", new { Message = ManageMessageId.SetPasswordSuccess });
+                    return RedirectToAction(MVC.Account.Manage(ManageMessageId.SetPasswordSuccess));
                 }
                 AddErrors(result);
             }
@@ -153,7 +153,7 @@ namespace Tripod.Web.Controllers
         public virtual ActionResult ExternalLogin(string provider, string returnUrl)
         {
             // Request a redirect to the external login provider
-            return new ChallengeResult(provider, Url.Action("ExternalLoginCallback", "Account", new { ReturnUrl = returnUrl }));
+            return new ChallengeResult(provider, Url.Action(MVC.Account.ExternalLoginCallback(returnUrl)));
         }
 
         [AllowAnonymous]
@@ -163,7 +163,7 @@ namespace Tripod.Web.Controllers
             var loginInfo = await AuthenticationManager.GetExternalLoginInfoAsync();
             if (loginInfo == null)
             {
-                return RedirectToAction("Login", "Authentication");
+                return RedirectToAction(MVC.Authentication.Login());
             }
 
             // Sign in the user with this external login provider if the user already has a login
@@ -176,7 +176,7 @@ namespace Tripod.Web.Controllers
             // If the user does not have an account, then prompt the user to create an account
             ViewBag.ReturnUrl = returnUrl;
             ViewBag.LoginProvider = loginInfo.Login.LoginProvider;
-            return View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel { UserName = loginInfo.DefaultUserName });
+            return View(MVC.Account.Views.ExternalLoginConfirmation, new ExternalLoginConfirmationViewModel { UserName = loginInfo.DefaultUserName });
         }
 
         [ValidateAntiForgeryToken]
@@ -184,7 +184,7 @@ namespace Tripod.Web.Controllers
         public virtual ActionResult LinkLogin(string provider)
         {
             // Request a redirect to the external login provider to link a login for the current user
-            return new ChallengeResult(provider, Url.Action("LinkLoginCallback", "Account"), User.Identity.GetUserId());
+            return new ChallengeResult(provider, Url.Action(MVC.Account.LinkLoginCallback(), User.Identity.GetUserId()));
         }
 
         [HttpGet, Route("account/link-login/complete")]
@@ -193,12 +193,12 @@ namespace Tripod.Web.Controllers
             var loginInfo = await AuthenticationManager.GetExternalLoginInfoAsync(XsrfKey, User.Identity.GetUserId());
             if (loginInfo == null)
             {
-                return RedirectToAction("Manage", new { Message = ManageMessageId.Error });
+                return RedirectToAction(MVC.Account.Manage(ManageMessageId.Error));
             }
             var result = await _userManager.AddLoginAsync(int.Parse(User.Identity.GetUserId()), loginInfo.Login);
             return result.Succeeded
-                ? RedirectToAction("Manage")
-                : RedirectToAction("Manage", new { Message = ManageMessageId.Error });
+                ? RedirectToAction(MVC.Account.Manage())
+                : RedirectToAction(MVC.Account.Manage(ManageMessageId.Error));
         }
 
         [AllowAnonymous]
@@ -208,7 +208,7 @@ namespace Tripod.Web.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                return RedirectToAction("Manage");
+                return RedirectToAction(MVC.Account.Manage());
             }
 
             if (ModelState.IsValid)
@@ -217,7 +217,7 @@ namespace Tripod.Web.Controllers
                 var info = await AuthenticationManager.GetExternalLoginInfoAsync();
                 if (info == null)
                 {
-                    return View("ExternalLoginFailure");
+                    return View(MVC.Account.Views.ExternalLoginFailure);
                 }
                 var createUser = new CreateUser { Name = model.UserName };
                 await _commands.Execute(createUser);
@@ -245,7 +245,7 @@ namespace Tripod.Web.Controllers
         {
             //AuthenticationManager.SignOut();
             _authenticator.SignOff();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction(MVC.Home.Index());
         }
 
         [AllowAnonymous]
@@ -261,7 +261,7 @@ namespace Tripod.Web.Controllers
         {
             var linkedAccounts = _userManager.GetLogins(int.Parse(User.Identity.GetUserId()));
             ViewBag.ShowRemoveButton = HasPassword() || linkedAccounts.Count > 1;
-            return PartialView("_RemoveAccountPartial", linkedAccounts);
+            return PartialView(MVC.Account.Views._RemoveAccountPartial, linkedAccounts);
         }
 
         //protected override void Dispose(bool disposing)
@@ -325,7 +325,7 @@ namespace Tripod.Web.Controllers
             {
                 return Redirect(returnUrl);
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction(MVC.Home.Index());
         }
 
         private class ChallengeResult : HttpUnauthorizedResult
