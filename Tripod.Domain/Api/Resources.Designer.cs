@@ -250,6 +250,15 @@ namespace Tripod {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Invalid user name or password..
+        /// </summary>
+        public static string Validation_InvalidUsernameOrPassword {
+            get {
+                return ResourceManager.GetString("Validation_InvalidUsernameOrPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {PropertyName} cannot exceed {MaxLength} characters. You entered {TotalLength} characters..
         /// </summary>
         public static string Validation_MaxLength {

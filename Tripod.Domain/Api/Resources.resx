@@ -186,4 +186,7 @@
   <data name="Exception_InvalidOperation_DoesNotExist" xml:space="preserve">
     <value>{0} '{1}' does not exist</value>
   </data>
+  <data name="Validation_InvalidUsernameOrPassword" xml:space="preserve">
+    <value>Invalid user name or password.</value>
+  </data>
 </root>

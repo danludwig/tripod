@@ -26,33 +26,33 @@ namespace Tripod.Web.Controllers
             _validation = validation;
         }
 
-        [AllowAnonymous]
-        [HttpGet, Route("account/login")]
-        public ActionResult Login(string returnUrl)
-        {
-            ViewBag.ReturnUrl = returnUrl;
-            return View();
-        }
+        //[AllowAnonymous]
+        //[HttpGet, Route("account/login")]
+        //public ActionResult Login(string returnUrl)
+        //{
+        //    ViewBag.ReturnUrl = returnUrl;
+        //    return View();
+        //}
 
-        [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        [HttpPost, Route("account/login")]
-        public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
-        {
-            if (!ModelState.IsValid) return View(model);
-            var user = await _userManager.FindAsync(model.UserName, model.Password);
-            if (user != null)
-            {
-                await SignInAsync(user, model.RememberMe);
-                return RedirectToLocal(returnUrl);
-            }
-            // ReSharper disable LocalizableElement
-            ModelState.AddModelError("", "Invalid username or password.");
-            // ReSharper restore LocalizableElement
+        //[AllowAnonymous]
+        //[ValidateAntiForgeryToken]
+        //[HttpPost, Route("account/login")]
+        //public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
+        //{
+        //    if (!ModelState.IsValid) return View(model);
+        //    var user = await _userManager.FindAsync(model.UserName, model.Password);
+        //    if (user != null)
+        //    {
+        //        await SignInAsync(user, model.RememberMe);
+        //        return RedirectToLocal(returnUrl);
+        //    }
+        //    // ReSharper disable LocalizableElement
+        //    ModelState.AddModelError("", "Invalid username or password.");
+        //    // ReSharper restore LocalizableElement
 
-            // If we got this far, something failed, redisplay form
-            return View(model);
-        }
+        //    // If we got this far, something failed, redisplay form
+        //    return View(model);
+        //}
 
         [AllowAnonymous]
         [HttpGet, Route("account/register")]
@@ -163,7 +163,7 @@ namespace Tripod.Web.Controllers
             var loginInfo = await AuthenticationManager.GetExternalLoginInfoAsync();
             if (loginInfo == null)
             {
-                return RedirectToAction("Login");
+                return RedirectToAction("Login", "Authentication");
             }
 
             // Sign in the user with this external login provider if the user already has a login

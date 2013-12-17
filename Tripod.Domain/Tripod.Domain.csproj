@@ -86,13 +86,16 @@
     <Compile Include="Api\_Extensions\EntityExtensions.cs" />
     <Compile Include="Api\_Extensions\ReflectionExtensions.cs" />
     <Compile Include="Domain\Security\Commands\CreateUser.cs" />
+    <Compile Include="Domain\Security\Commands\SignIn.cs" />
     <Compile Include="Domain\Security\Entities\EmailAddress.cs" />
     <Compile Include="Domain\Security\Entities\LocalMembership.cs" />
     <Compile Include="Domain\Security\Entities\Permission.cs" />
     <Compile Include="Domain\Security\Entities\Claim.cs" />
     <Compile Include="Domain\Security\Entities\RemoteMembership.cs" />
     <Compile Include="Domain\Security\Entities\User.cs" />
+    <Compile Include="Domain\Security\Queries\IsPasswordVerified.cs" />
     <Compile Include="Domain\Security\Queries\UserBy.cs" />
+    <Compile Include="Domain\Security\Validation\MustBeValidPasswordForUser.cs" />
     <Compile Include="Domain\Security\Validation\MustNotFindUserByName.cs" />
     <Compile Include="Domain\Security\_Extensions\QueryUsers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

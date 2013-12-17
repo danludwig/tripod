@@ -30,20 +30,20 @@ namespace Tripod.Web.Models
         public string ConfirmPassword { get; [UsedImplicitly] set; }
     }
 
-    public class LoginViewModel
-    {
-        [Required]
-        [Display(Name = User.Constraints.NameLabel)]
-        public string UserName { get; [UsedImplicitly] set; }
+    //public class LoginViewModel
+    //{
+    //    //[Required]
+    //    [Display(Name = User.Constraints.NameLabel)]
+    //    public string UserName { get; [UsedImplicitly] set; }
 
-        [Required]
-        [DataType(DataType.Password)]
-        [Display(Name = "Password")]
-        public string Password { get; [UsedImplicitly] set; }
+    //    //[Required]
+    //    [DataType(DataType.Password)]
+    //    [Display(Name = "Password")]
+    //    public string Password { get; [UsedImplicitly] set; }
 
-        [Display(Name = "Remember me?")]
-        public bool RememberMe { get; [UsedImplicitly] set; }
-    }
+    //    [Display(Name = "Remember me?")]
+    //    public bool RememberMe { get; [UsedImplicitly] set; }
+    //}
 
     public class RegisterViewModel
     {

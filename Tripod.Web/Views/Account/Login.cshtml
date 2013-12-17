@@ -1,4 +1,4 @@
-﻿@model Tripod.Web.Models.LoginViewModel
+﻿@model Tripod.Domain.Security.SignIn
 
 @{
     ViewBag.Title = "Log in";
@@ -8,7 +8,7 @@
 <div class="row">
     <div class="col-md-8">
         <section id="loginForm">
-            @using (Html.BeginForm("Login", "Account", new { ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            @using (Html.BeginForm("Login", "Authentication", new { ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {
                 @Html.AntiForgeryToken()
                 <h4>Use a local account to log in.</h4>
@@ -31,8 +31,8 @@
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
                         <div class="checkbox">
-                            @Html.CheckBoxFor(m => m.RememberMe)
-                            @Html.LabelFor(m => m.RememberMe)
+                            @Html.CheckBoxFor(m => m.IsPersistent)
+                            @Html.LabelFor(m => m.IsPersistent)
                         </div>
                     </div>
                 </div>
@@ -49,7 +49,7 @@
     </div>
     <div class="col-md-4">
         <section id="socialLoginForm">
-            @Html.Partial("_ExternalLoginsListPartial", new { Action = "ExternalLogin", ViewBag.ReturnUrl })
+            @Html.Partial("~/Views/Account/_ExternalLoginsListPartial.cshtml", new { Action = "ExternalLogin", ViewBag.ReturnUrl })
         </section>
     </div>
 </div>

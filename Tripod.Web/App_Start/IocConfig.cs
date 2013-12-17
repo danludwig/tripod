@@ -16,8 +16,13 @@ namespace Tripod.Web
             var settings = new RootCompositionSettings
             {
 #if DEBUG
-                IsGreenfield = true
+                IsGreenfield = true,
 #endif
+                FluentValidatorAssemblies = new[]
+                {
+                    Assembly.GetAssembly(typeof(IHandleCommand<>)),
+                    Assembly.GetExecutingAssembly(),
+                },
             };
             container.ComposeRoot(settings);
 
