@@ -2,16 +2,16 @@
 
 namespace Tripod.Web.Controllers
 {
-    public class HomeController : Controller
+    public partial class HomeController : Controller
     {
         [HttpGet, Route("")]
-        public ActionResult Index()
+        public virtual ActionResult Index()
         {
             return View();
         }
 
         [HttpGet, Route("about")]
-        public ActionResult About()
+        public virtual ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
 
@@ -19,7 +19,7 @@ namespace Tripod.Web.Controllers
         }
 
         [HttpGet, Route("contact")]
-        public ActionResult Contact()
+        public virtual ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
 

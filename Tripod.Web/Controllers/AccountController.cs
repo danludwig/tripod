@@ -9,7 +9,7 @@ using Tripod.Web.Models;
 namespace Tripod.Web.Controllers
 {
     [Authorize]
-    public class AccountController : Controller
+    public partial class AccountController : Controller
     {
         private readonly UserManager<User, int> _userManager;
         private readonly IUnitOfWork _unitOfWork;
@@ -56,7 +56,7 @@ namespace Tripod.Web.Controllers
 
         [AllowAnonymous]
         [HttpGet, Route("account/register")]
-        public ActionResult Register()
+        public virtual ActionResult Register()
         {
             return View();
         }
@@ -64,7 +64,7 @@ namespace Tripod.Web.Controllers
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
         [HttpPost, Route("account/register")]
-        public async Task<ActionResult> Register(RegisterViewModel model)
+        public virtual async Task<ActionResult> Register(RegisterViewModel model)
         {
             var command = new CreateUser { Name = model.UserName };
             var validation = _validation.Validate(command);
@@ -87,7 +87,7 @@ namespace Tripod.Web.Controllers
 
         [ValidateAntiForgeryToken]
         [HttpPost, Route("account/disassociate")]
-        public async Task<ActionResult> Disassociate(string loginProvider, string providerKey)
+        public virtual async Task<ActionResult> Disassociate(string loginProvider, string providerKey)
         {
             var result = await _userManager.RemoveLoginAsync(int.Parse(User.Identity.GetUserId()), new UserLoginInfo(loginProvider, providerKey));
             var message = result.Succeeded ? ManageMessageId.RemoveLoginSuccess : ManageMessageId.Error;
@@ -95,7 +95,7 @@ namespace Tripod.Web.Controllers
         }
 
         [HttpGet, Route("account/manage")]
-        public ActionResult Manage(ManageMessageId? message)
+        public virtual ActionResult Manage(ManageMessageId? message)
         {
             ViewBag.StatusMessage =
                 message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
@@ -110,7 +110,7 @@ namespace Tripod.Web.Controllers
 
         [ValidateAntiForgeryToken]
         [HttpPost, Route("account/manage")]
-        public async Task<ActionResult> Manage(ManageUserViewModel model)
+        public virtual async Task<ActionResult> Manage(ManageUserViewModel model)
         {
             var hasPassword = HasPassword();
             ViewBag.HasLocalPassword = hasPassword;
@@ -150,7 +150,7 @@ namespace Tripod.Web.Controllers
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
         [HttpPost, Route("account/external-login")]
-        public ActionResult ExternalLogin(string provider, string returnUrl)
+        public virtual ActionResult ExternalLogin(string provider, string returnUrl)
         {
             // Request a redirect to the external login provider
             return new ChallengeResult(provider, Url.Action("ExternalLoginCallback", "Account", new { ReturnUrl = returnUrl }));
@@ -158,7 +158,7 @@ namespace Tripod.Web.Controllers
 
         [AllowAnonymous]
         [HttpGet, Route("account/external-login/received")]
-        public async Task<ActionResult> ExternalLoginCallback(string returnUrl)
+        public virtual async Task<ActionResult> ExternalLoginCallback(string returnUrl)
         {
             var loginInfo = await AuthenticationManager.GetExternalLoginInfoAsync();
             if (loginInfo == null)
@@ -181,14 +181,14 @@ namespace Tripod.Web.Controllers
 
         [ValidateAntiForgeryToken]
         [HttpPost, Route("account/link-login")]
-        public ActionResult LinkLogin(string provider)
+        public virtual ActionResult LinkLogin(string provider)
         {
             // Request a redirect to the external login provider to link a login for the current user
             return new ChallengeResult(provider, Url.Action("LinkLoginCallback", "Account"), User.Identity.GetUserId());
         }
 
         [HttpGet, Route("account/link-login/complete")]
-        public async Task<ActionResult> LinkLoginCallback()
+        public virtual async Task<ActionResult> LinkLoginCallback()
         {
             var loginInfo = await AuthenticationManager.GetExternalLoginInfoAsync(XsrfKey, User.Identity.GetUserId());
             if (loginInfo == null)
@@ -204,7 +204,7 @@ namespace Tripod.Web.Controllers
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
         [HttpPost, Route("account/external-login/confirm")]
-        public async Task<ActionResult> ExternalLoginConfirmation(ExternalLoginConfirmationViewModel model, string returnUrl)
+        public virtual async Task<ActionResult> ExternalLoginConfirmation(ExternalLoginConfirmationViewModel model, string returnUrl)
         {
             if (User.Identity.IsAuthenticated)
             {
@@ -241,7 +241,7 @@ namespace Tripod.Web.Controllers
 
         [HttpPost, Route("account/logoff")]
         [ValidateAntiForgeryToken]
-        public ActionResult LogOff()
+        public virtual ActionResult LogOff()
         {
             //AuthenticationManager.SignOut();
             _authenticator.SignOff();
@@ -250,14 +250,14 @@ namespace Tripod.Web.Controllers
 
         [AllowAnonymous]
         [HttpGet, Route("account/external-login/failed")]
-        public ActionResult ExternalLoginFailure()
+        public virtual ActionResult ExternalLoginFailure()
         {
             return View();
         }
 
         [ChildActionOnly]
         [HttpGet, Route("account/external-logins")]
-        public ActionResult RemoveAccountList()
+        public virtual ActionResult RemoveAccountList()
         {
             var linkedAccounts = _userManager.GetLogins(int.Parse(User.Identity.GetUserId()));
             ViewBag.ShowRemoveButton = HasPassword() || linkedAccounts.Count > 1;

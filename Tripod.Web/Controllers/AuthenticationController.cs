@@ -4,7 +4,7 @@ using Tripod.Domain.Security;
 
 namespace Tripod.Web.Controllers
 {
-    public class AuthenticationController : Controller
+    public partial class AuthenticationController : Controller
     {
         private readonly IProcessCommands _commands;
 
@@ -15,7 +15,7 @@ namespace Tripod.Web.Controllers
 
         [AllowAnonymous]
         [HttpGet, Route("account/login")]
-        public ActionResult Login(string returnUrl)
+        public virtual ActionResult Login(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
             return View("~/Views/Account/Login.cshtml");
@@ -24,7 +24,7 @@ namespace Tripod.Web.Controllers
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
         [HttpPost, Route("account/login")]
-        public async Task<ActionResult> Login(SignIn command, string returnUrl)
+        public virtual async Task<ActionResult> Login(SignIn command, string returnUrl)
         {
             if (!ModelState.IsValid) return View("~/Views/Account/Login.cshtml", command);
             await _commands.Execute(command);
