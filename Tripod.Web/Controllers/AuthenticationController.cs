@@ -18,7 +18,7 @@ namespace Tripod.Web.Controllers
         public virtual ActionResult Login(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
-            return View("~/Views/Account/Login.cshtml");
+            return View(MVC.Account.Views.Login);
         }
 
         [AllowAnonymous]
@@ -26,7 +26,7 @@ namespace Tripod.Web.Controllers
         [HttpPost, Route("account/login")]
         public virtual async Task<ActionResult> Login(SignIn command, string returnUrl)
         {
-            if (!ModelState.IsValid) return View("~/Views/Account/Login.cshtml", command);
+            if (!ModelState.IsValid) return View(MVC.Account.Views.Login, command);
             await _commands.Execute(command);
             return RedirectToLocal(returnUrl);
         }

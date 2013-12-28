@@ -189,4 +189,16 @@
   <data name="Validation_InvalidUsernameOrPassword" xml:space="preserve">
     <value>Invalid user name or password.</value>
   </data>
+  <data name="Validation_NoUserByLoginInfo" xml:space="preserve">
+    <value>There are no users with the given {PropertyName}.</value>
+  </data>
+  <data name="Validation_PasswordDoesNotEqualConfirmation" xml:space="preserve">
+    <value>The password and confirmation password do not match.</value>
+  </data>
+  <data name="Validation_DoesNotExist" xml:space="preserve">
+    <value>{PropertyName} '{PropertyValue}' does not exist.</value>
+  </data>
+  <data name="Validation_LocalMembershipByUser_AlreadyExists" xml:space="preserve">
+    <value>{PropertyName} for user '{PropertyValue}' already exists.</value>
+  </data>
 </root>

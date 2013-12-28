@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Security.Principal;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Tripod.Domain.Security;
 
@@ -31,6 +33,28 @@ namespace Tripod.Ioc.Security
             ThrowIfNoOwin();
             _authenticationManager.SignOut();
             return Task.FromResult(0);
+        }
+
+        public async Task<RemoteMembershipTicket> GetRemoteMembershipTicket()
+        {
+            ThrowIfNoOwin();
+            return GetRemoteMembershipTicket(await _authenticationManager.GetExternalLoginInfoAsync());
+        }
+
+        public async Task<RemoteMembershipTicket> GetRemoteMembershipTicket(IPrincipal principal, string xsrfKey)
+        {
+            ThrowIfNoOwin();
+            return GetRemoteMembershipTicket(await _authenticationManager.GetExternalLoginInfoAsync(xsrfKey, principal.Identity.GetUserId()));
+        }
+
+        private static RemoteMembershipTicket GetRemoteMembershipTicket(ExternalLoginInfo externalLoginInfo)
+        {
+            if (externalLoginInfo == null) return null;
+            return new RemoteMembershipTicket
+            {
+                Login = externalLoginInfo.Login,
+                UserName = externalLoginInfo.DefaultUserName,
+            };
         }
 
         private void ThrowIfNoOwin()

@@ -18,7 +18,7 @@
             public const int PasswordMinLength = 8;
 
             public const int ConfirmationTokenMaxLength = 128;
-            public const int PasswordMaxLength = 128;
+            public const int PasswordMaxLength = 100;
             public const int PasswordSaltMaxLength = 128;
             public const int PasswordVerificationTokenMaxLength = 128;
         }

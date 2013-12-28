@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Security.Principal;
+using System.Threading.Tasks;
 using Tripod.Domain.Security;
 
 namespace Tripod
@@ -7,5 +8,7 @@ namespace Tripod
     {
         Task SignOn(User user, bool isPersistent = false);
         Task SignOff();
+        Task<RemoteMembershipTicket> GetRemoteMembershipTicket();
+        Task<RemoteMembershipTicket> GetRemoteMembershipTicket(IPrincipal principal, string xsrfKey);
     }
 }

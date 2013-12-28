@@ -59,6 +59,7 @@
       <Link>Properties\ReSharperAnnotations.cs</Link>
     </Compile>
     <Compile Include="Api\Security\IAuthenticate.cs" />
+    <Compile Include="Api\Security\RemoteMembershipTicket.cs" />
     <Compile Include="Api\Transactions\BaseEntitiesQuery.cs" />
     <Compile Include="Api\Transactions\BaseEntityQuery.cs" />
     <Compile Include="Api\Entities\EntitySet.cs" />
@@ -85,7 +86,9 @@
     <Compile Include="Api\_Extensions\ExpressionExtensions.cs" />
     <Compile Include="Api\_Extensions\EntityExtensions.cs" />
     <Compile Include="Api\_Extensions\ReflectionExtensions.cs" />
+    <Compile Include="Domain\Security\Commands\CreateLocalMembership.cs" />
     <Compile Include="Domain\Security\Commands\CreateUser.cs" />
+    <Compile Include="Domain\Security\Commands\SignOn.cs" />
     <Compile Include="Domain\Security\Commands\SignIn.cs" />
     <Compile Include="Domain\Security\Entities\EmailAddress.cs" />
     <Compile Include="Domain\Security\Entities\LocalMembership.cs" />
@@ -93,10 +96,17 @@
     <Compile Include="Domain\Security\Entities\Claim.cs" />
     <Compile Include="Domain\Security\Entities\RemoteMembership.cs" />
     <Compile Include="Domain\Security\Entities\User.cs" />
+    <Compile Include="Domain\Security\Queries\GetRemoteMembershipTicket.cs" />
     <Compile Include="Domain\Security\Queries\IsPasswordVerified.cs" />
+    <Compile Include="Domain\Security\Queries\LocalMembershipByUser.cs" />
     <Compile Include="Domain\Security\Queries\UserBy.cs" />
-    <Compile Include="Domain\Security\Validation\MustBeValidPasswordForUser.cs" />
+    <Compile Include="Domain\Security\Validation\MustEqualPassword.cs" />
+    <Compile Include="Domain\Security\Validation\MustBeVerifiedPassword.cs" />
+    <Compile Include="Domain\Security\Validation\MustNotFindLocalMembershipByPrincipal.cs" />
+    <Compile Include="Domain\Security\Validation\MustFindUserByPrincipal.cs" />
+    <Compile Include="Domain\Security\Validation\MustFindUserByLoginInfo.cs" />
     <Compile Include="Domain\Security\Validation\MustNotFindUserByName.cs" />
+    <Compile Include="Domain\Security\_Extensions\QueryLocalMemberships.cs" />
     <Compile Include="Domain\Security\_Extensions\QueryUsers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

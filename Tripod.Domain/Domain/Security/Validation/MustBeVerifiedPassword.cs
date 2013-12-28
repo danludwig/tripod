@@ -6,16 +6,16 @@ namespace Tripod.Domain.Security
 {
     public class MustBeVerifiedPassword<T> : PropertyValidator
     {
-        private readonly Func<T, string> _userName;
         private readonly IProcessQueries _queries;
+        private readonly Func<T, string> _userName;
 
-        internal MustBeVerifiedPassword(Func<T, string> userName, IProcessQueries queries)
+        internal MustBeVerifiedPassword(IProcessQueries queries, Func<T, string> userName)
             : base(() => Resources.Validation_InvalidUsernameOrPassword)
         {
-            if (userName == null) throw new ArgumentNullException("userName");
             if (queries == null) throw new ArgumentNullException("queries");
-            _userName = userName;
+            if (userName == null) throw new ArgumentNullException("userName");
             _queries = queries;
+            _userName = userName;
         }
 
         protected override bool IsValid(PropertyValidatorContext context)
@@ -29,7 +29,6 @@ namespace Tripod.Domain.Security
             };
             var isVerified = _queries.Execute(query).Result;
 
-            // assert that user does not exist
             return isVerified;
         }
     }
@@ -39,7 +38,7 @@ namespace Tripod.Domain.Security
         public static IRuleBuilderOptions<T, string> MustBeVerifiedPassword<T>
             (this IRuleBuilder<T, string> ruleBuilder, IProcessQueries queries, Func<T, string> userName)
         {
-            return ruleBuilder.SetValidator(new MustBeVerifiedPassword<T>(userName, queries));
+            return ruleBuilder.SetValidator(new MustBeVerifiedPassword<T>(queries, userName));
         }
     }
 }

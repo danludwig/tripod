@@ -16,43 +16,17 @@ namespace Tripod.Web.Controllers
         private readonly IAuthenticate _authenticator;
         private readonly IProcessCommands _commands;
         private readonly IProcessValidation _validation;
+        private readonly IProcessQueries _queries;
 
-        public AccountController(UserManager<User, int> userManager, IUnitOfWork unitOfWork, IAuthenticate authenticator, IProcessCommands commands, IProcessValidation validation)
+        public AccountController(UserManager<User, int> userManager, IUnitOfWork unitOfWork, IAuthenticate authenticator, IProcessCommands commands, IProcessValidation validation, IProcessQueries queries)
         {
             _userManager = userManager;
             _unitOfWork = unitOfWork;
             _authenticator = authenticator;
             _commands = commands;
             _validation = validation;
+            _queries = queries;
         }
-
-        //[AllowAnonymous]
-        //[HttpGet, Route("account/login")]
-        //public ActionResult Login(string returnUrl)
-        //{
-        //    ViewBag.ReturnUrl = returnUrl;
-        //    return View();
-        //}
-
-        //[AllowAnonymous]
-        //[ValidateAntiForgeryToken]
-        //[HttpPost, Route("account/login")]
-        //public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
-        //{
-        //    if (!ModelState.IsValid) return View(model);
-        //    var user = await _userManager.FindAsync(model.UserName, model.Password);
-        //    if (user != null)
-        //    {
-        //        await SignInAsync(user, model.RememberMe);
-        //        return RedirectToLocal(returnUrl);
-        //    }
-        //    // ReSharper disable LocalizableElement
-        //    ModelState.AddModelError("", "Invalid username or password.");
-        //    // ReSharper restore LocalizableElement
-
-        //    // If we got this far, something failed, redisplay form
-        //    return View(model);
-        //}
 
         [AllowAnonymous]
         [HttpGet, Route("account/register")]
@@ -66,23 +40,33 @@ namespace Tripod.Web.Controllers
         [HttpPost, Route("account/register")]
         public virtual async Task<ActionResult> Register(RegisterViewModel model)
         {
-            var command = new CreateUser { Name = model.UserName };
+            //var command = new CreateUser { Name = model.UserName };
+            var command = new CreateLocalMembership(model.UserName)
+            {
+                Password = model.Password,
+                ConfirmPassword = model.ConfirmPassword,
+            };
             var validation = _validation.Validate(command);
             ModelState.AddModelErrors(validation);
             if (!ModelState.IsValid) return View(model);
-            await _commands.Execute(command);
-            //var user = new User { Name = model.UserName };
-            var result = await _userManager.CreateAsync(command.Created, model.Password);
-            await _unitOfWork.SaveChangesAsync();
-            if (result.Succeeded)
-            {
-                await SignInAsync(command.Created, isPersistent: false);
-                return RedirectToAction(MVC.Home.Index());
-            }
-            AddErrors(result);
 
-            // If we got this far, something failed, redisplay form
-            return View(model);
+            await _commands.Execute(command);
+            await _commands.Execute(new SignIn
+            {
+                UserName = model.UserName,
+                Password = model.Password
+            });
+            //var result = await _userManager.CreateAsync(command.Created.Owner, model.Password);
+            //await _unitOfWork.SaveChangesAsync();
+            //if (result.Succeeded)
+            //{
+            //    await SignInAsync(command.Created, isPersistent: false);
+            return RedirectToAction(MVC.Home.Index());
+            //}
+            //AddErrors(result);
+
+            //// If we got this far, something failed, redisplay form
+            //return View(model);
         }
 
         [ValidateAntiForgeryToken]
@@ -160,23 +144,24 @@ namespace Tripod.Web.Controllers
         [HttpGet, Route("account/external-login/received")]
         public virtual async Task<ActionResult> ExternalLoginCallback(string returnUrl)
         {
-            var loginInfo = await AuthenticationManager.GetExternalLoginInfoAsync();
-            if (loginInfo == null)
-            {
-                return RedirectToAction(MVC.Authentication.Login());
-            }
+            var loginInfo = await _queries.Execute(new GetRemoteMembershipTicket());
+            if (loginInfo == null) return RedirectToAction(MVC.Authentication.Login());
 
             // Sign in the user with this external login provider if the user already has a login
-            var user = await _userManager.FindAsync(loginInfo.Login);
+            var user = await _queries.Execute(new UserBy(loginInfo.Login));
             if (user != null)
             {
-                await SignInAsync(user, isPersistent: false);
+                await _commands.Execute(new SignOn { UserLoginInfo = loginInfo.Login });
                 return RedirectToLocal(returnUrl);
             }
             // If the user does not have an account, then prompt the user to create an account
             ViewBag.ReturnUrl = returnUrl;
             ViewBag.LoginProvider = loginInfo.Login.LoginProvider;
-            return View(MVC.Account.Views.ExternalLoginConfirmation, new ExternalLoginConfirmationViewModel { UserName = loginInfo.DefaultUserName });
+            var model = new ExternalLoginConfirmationViewModel
+            {
+                UserName = loginInfo.UserName
+            };
+            return View(MVC.Account.Views.ExternalLoginConfirmation, model);
         }
 
         [ValidateAntiForgeryToken]
@@ -190,7 +175,8 @@ namespace Tripod.Web.Controllers
         [HttpGet, Route("account/link-login/complete")]
         public virtual async Task<ActionResult> LinkLoginCallback()
         {
-            var loginInfo = await AuthenticationManager.GetExternalLoginInfoAsync(XsrfKey, User.Identity.GetUserId());
+            //var loginInfo = await AuthenticationManager.GetExternalLoginInfoAsync(XsrfKey, User.Identity.GetUserId());
+            var loginInfo = await _queries.Execute(new GetRemoteMembershipTicket(User, XsrfKey));
             if (loginInfo == null)
             {
                 return RedirectToAction(MVC.Account.Manage(ManageMessageId.Error));
@@ -223,9 +209,11 @@ namespace Tripod.Web.Controllers
                 await _commands.Execute(createUser);
                 //var user = new User { Name = model.UserName };
                 var result = await _userManager.CreateAsync(createUser.Created);
+                _unitOfWork.SaveChanges();
                 if (result.Succeeded)
                 {
                     result = await _userManager.AddLoginAsync(createUser.Created.Id, info.Login);
+                    _unitOfWork.SaveChanges();
                     if (result.Succeeded)
                     {
                         await SignInAsync(createUser.Created, isPersistent: false);

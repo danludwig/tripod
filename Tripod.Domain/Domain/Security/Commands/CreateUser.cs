@@ -1,25 +1,34 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using FluentValidation;
 
 namespace Tripod.Domain.Security
 {
     public class CreateUser : IDefineCommand
     {
+        public CreateUser() { }
         public string Name { get; set; }
         public User Created { get; internal set; }
+    }
+
+    public class ValidateUserName : AbstractValidator<string>
+    {
+        public ValidateUserName()
+        {
+            // username is required, has min/max lengths, and cannot already exist
+            RuleFor(x => x)
+                .NotEmpty().WithName(User.Constraints.NameLabel)
+                .MinLength(User.Constraints.NameMinLength)
+                .MaxLength(User.Constraints.NameMaxLength)
+            ;
+        }
     }
 
     public class ValidateCreateUserCommand : AbstractValidator<CreateUser>
     {
         public ValidateCreateUserCommand(IProcessQueries queries)
         {
-            // name is required, has min/max lengths, and cannot already exist
-            RuleFor(x => x.Name)
-                .NotEmpty().WithName(User.Constraints.NameLabel)
-                .MinLength(User.Constraints.NameMinLength)
-                .MaxLength(User.Constraints.NameMaxLength)
-                .MustNotFindUserByName(queries)
-            ;
+            RuleFor(x => x.Name).SetValidator(new ValidateUserName()).MustNotFindUserByName(queries);
         }
     }
 
@@ -34,7 +43,11 @@ namespace Tripod.Domain.Security
 
         public Task Handle(CreateUser command)
         {
-            var entity = new User { Name = command.Name };
+            var entity = new User
+            {
+                Name = command.Name,
+                SecurityStamp = Guid.NewGuid().ToString(),
+            };
             _entities.Create(entity);
 
             command.Created = entity;

@@ -15,7 +15,7 @@
     }
     else
     {
-        <form action="@Url.Action(Model.Action, MVC.Account.Name, new { returnUrl = Model.ReturnUrl })">
+        <form action="@Url.Action(Model.Action, MVC.Account.Name, new { returnUrl = Model.ReturnUrl })" method="POST">
             @Html.AntiForgeryToken()
             <div id="socialLoginList">
                 <p>
