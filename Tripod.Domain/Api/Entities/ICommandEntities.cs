@@ -6,7 +6,7 @@ namespace Tripod
     /// <summary>
     /// Informs an underlying relational data store to accept or return sets of writeable entity instances.
     /// </summary>
-    public interface ICommandEntities : IUnitOfWork, IQueryEntities
+    public interface IWriteEntities : IUnitOfWork, IReadEntities
     {
         /// <summary>
         /// Inform an underlying relational data store to return a single writable entity instance.

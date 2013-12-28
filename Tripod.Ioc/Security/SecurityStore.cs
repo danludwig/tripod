@@ -16,9 +16,9 @@ namespace Tripod.Ioc.Security
     {
         #region Construction & Properties
 
-        private readonly ICommandEntities _entities;
+        private readonly IWriteEntities _entities;
 
-        public SecurityStore(ICommandEntities entities)
+        public SecurityStore(IWriteEntities entities)
         {
             _entities = entities;
         }

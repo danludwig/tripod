@@ -25,9 +25,9 @@ namespace Tripod.Domain.Security
 
     public class HandleCreateUserCommand : IHandleCommand<CreateUser>
     {
-        private readonly ICommandEntities _entities;
+        private readonly IWriteEntities _entities;
 
-        public HandleCreateUserCommand(ICommandEntities entities)
+        public HandleCreateUserCommand(IWriteEntities entities)
         {
             _entities = entities;
         }

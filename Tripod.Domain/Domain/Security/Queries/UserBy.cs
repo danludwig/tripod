@@ -14,9 +14,9 @@ namespace Tripod.Domain.Security
 
     public class HandleUserByQuery : IHandleQuery<UserBy, Task<User>>
     {
-        private readonly IQueryEntities _entities;
+        private readonly IReadEntities _entities;
 
-        public HandleUserByQuery(IQueryEntities entities)
+        public HandleUserByQuery(IReadEntities entities)
         {
             _entities = entities;
         }

@@ -37,13 +37,13 @@ namespace Tripod.Domain.Security
         }
 
         [Fact]
-        public void Handler_InvokesQueryUser_Once_OnIQueryEntities()
+        public void Handler_InvokesQueryUser_Once_OnIReadEntities()
         {
             var userName = Guid.NewGuid().ToString();
             var data = new[] { new User { Name = userName } }.AsQueryable();
             var query = new UserBy(userName);
             var dbSet = new Mock<DbSet<User>>(MockBehavior.Strict).SetupDataAsync(data);
-            var entities = new Mock<IQueryEntities>(MockBehavior.Strict);
+            var entities = new Mock<IReadEntities>(MockBehavior.Strict);
             var entitySet = new EntitySet<User>(dbSet.Object, entities.Object);
             entities.Setup(x => x.Query<User>()).Returns(entitySet);
             var handler = new HandleUserByQuery(entities.Object);

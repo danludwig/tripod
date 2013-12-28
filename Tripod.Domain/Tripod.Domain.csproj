@@ -65,7 +65,7 @@
     <Compile Include="Api\Entities\EntityWithId.cs" />
     <Compile Include="Api\Entities\ICommandEntities.cs" />
     <Compile Include="Api\Entities\Entity.cs" />
-    <Compile Include="Api\Entities\IQueryEntities.cs" />
+    <Compile Include="Api\Entities\IReadEntities.cs" />
     <Compile Include="Api\Entities\IUnitOfWork.cs" />
     <Compile Include="Api\Transactions\IDefineCommand.cs" />
     <Compile Include="Api\Transactions\IDefineQuery.cs" />

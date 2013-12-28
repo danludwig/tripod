@@ -35,8 +35,8 @@ namespace Tripod.Ioc.EntityFramework
             var contextRegistration = lifestyle.CreateRegistration<EntityDbContext, EntityDbContext>(container);
             container.AddRegistration(typeof(EntityDbContext), contextRegistration);
             container.AddRegistration(typeof(IUnitOfWork), contextRegistration);
-            container.AddRegistration(typeof(ICommandEntities), contextRegistration);
-            container.AddRegistration(typeof(IQueryEntities), contextRegistration);
+            container.AddRegistration(typeof(IWriteEntities), contextRegistration);
+            container.AddRegistration(typeof(IReadEntities), contextRegistration);
         }
     }
 }

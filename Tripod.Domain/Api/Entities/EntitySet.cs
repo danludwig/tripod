@@ -8,7 +8,7 @@ namespace Tripod
 {
     public class EntitySet<TEntity> : IQueryable<TEntity> where TEntity : Entity
     {
-        public EntitySet(IQueryable<TEntity> queryable, IQueryEntities entities)
+        public EntitySet(IQueryable<TEntity> queryable, IReadEntities entities)
         {
             if (queryable == null) throw new ArgumentNullException("queryable");
             if (entities == null) throw new ArgumentNullException("entities");
@@ -17,7 +17,7 @@ namespace Tripod
         }
 
         internal IQueryable<TEntity> Queryable { get; set; }
-        internal IQueryEntities Entities { get; private set; }
+        internal IReadEntities Entities { get; private set; }
 
         public IEnumerator<TEntity> GetEnumerator()
         {

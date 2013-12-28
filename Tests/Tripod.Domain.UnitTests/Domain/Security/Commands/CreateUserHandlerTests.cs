@@ -12,7 +12,7 @@ namespace Tripod.Domain.Security
         public void CreatesUserEntity()
         {
             var command = new CreateUser { Name = "new" };
-            var entities = new Mock<ICommandEntities>(MockBehavior.Strict);
+            var entities = new Mock<IWriteEntities>(MockBehavior.Strict);
             var handler = new HandleCreateUserCommand(entities.Object);
             Expression<Func<User, bool>> expectedEntity = x => x.Name.Equals(command.Name);
             entities.Setup(x => x.Create(It.Is(expectedEntity)));
@@ -26,7 +26,7 @@ namespace Tripod.Domain.Security
         public void SetsCreatedProperty_OnCommand()
         {
             var command = new CreateUser { Name = "new" };
-            var entities = new Mock<ICommandEntities>(MockBehavior.Loose);
+            var entities = new Mock<IWriteEntities>(MockBehavior.Loose);
             var handler = new HandleCreateUserCommand(entities.Object);
 
             handler.Handle(command);

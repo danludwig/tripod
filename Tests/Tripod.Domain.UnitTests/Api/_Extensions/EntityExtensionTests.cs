@@ -32,7 +32,7 @@ namespace Tripod
             {
                 x => x.Permissions,
             };
-            var entities = new Mock<IQueryEntities>(MockBehavior.Strict);
+            var entities = new Mock<IReadEntities>(MockBehavior.Strict);
             var queryable = new EntitySet<User>(data, entities.Object);
             Expression<Func<Expression<Func<User, object>>, bool>> expectedExpression = x => eagerLoad.Contains(x);
             entities.Setup(x => x.EagerLoad(data, It.Is(expectedExpression))).Returns(data);

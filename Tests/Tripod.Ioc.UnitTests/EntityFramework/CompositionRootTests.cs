@@ -112,17 +112,17 @@ namespace Tripod.Ioc.EntityFramework
         }
 
         [Fact]
-        public void RegistersICommandEntities_WithScopedLifestyleHybrid_WebRequest_LifetimeScope()
+        public void RegistersIWriteEntities_WithScopedLifestyleHybrid_WebRequest_LifetimeScope()
         {
-            var registration = Container.GetRegistration(typeof(ICommandEntities));
+            var registration = Container.GetRegistration(typeof(IWriteEntities));
             registration.Lifestyle.ShouldImplement<ScopedLifestyle>();
             registration.Lifestyle.Name.ShouldEqual("Hybrid Web Request / Lifetime Scope");
         }
 
         [Fact]
-        public void RegistersIQueryEntities_WithScopedLifestyleHybrid_WebRequest_LifetimeScope()
+        public void RegistersIReadEntities_WithScopedLifestyleHybrid_WebRequest_LifetimeScope()
         {
-            var registration = Container.GetRegistration(typeof(IQueryEntities));
+            var registration = Container.GetRegistration(typeof(IReadEntities));
             registration.Lifestyle.ShouldImplement<ScopedLifestyle>();
             registration.Lifestyle.Name.ShouldEqual("Hybrid Web Request / Lifetime Scope");
         }
@@ -150,8 +150,8 @@ namespace Tripod.Ioc.EntityFramework
             {
                 var dbContext = Container.GetInstance<EntityDbContext>();
                 var unitOfWork = Container.GetInstance<IUnitOfWork>();
-                var commands = Container.GetInstance<ICommandEntities>();
-                var queries = Container.GetInstance<IQueryEntities>();
+                var commands = Container.GetInstance<IWriteEntities>();
+                var queries = Container.GetInstance<IReadEntities>();
 
                 dbContext.ShouldEqual(unitOfWork);
                 dbContext.ShouldEqual(commands);

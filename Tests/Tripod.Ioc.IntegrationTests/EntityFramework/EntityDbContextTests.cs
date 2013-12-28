@@ -19,7 +19,7 @@ namespace Tripod.Ioc.EntityFramework
             }
         }
 
-        #region IQueryEntities
+        #region IReadEntities
 
         [Fact]
         public void EagerLoad_IncludesRelatedData()
@@ -72,7 +72,7 @@ namespace Tripod.Ioc.EntityFramework
         }
 
         #endregion
-        #region ICommandEntities
+        #region IWriteEntities
 
         [Fact]
         public void NoArgGet_ReturnsDataFromStore()

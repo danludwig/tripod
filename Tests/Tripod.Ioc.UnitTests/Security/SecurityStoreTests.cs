@@ -30,7 +30,7 @@ namespace Tripod.Ioc.Security
         [Theory, InlineData(4, false), InlineData(2, true)]
         public void UserStoreInterface_FindByIdAsync_DelegatesToDataDependency(int userId, bool expectFound)
         {
-            var entities = new Mock<ICommandEntities>(MockBehavior.Strict);
+            var entities = new Mock<IWriteEntities>(MockBehavior.Strict);
             var instance = new SecurityStore(entities.Object) as IUserStore<User, int>;
             var data = new[] { new FakeUser(1), new FakeUser(2), new FakeUser(3) }.AsQueryable();
             var dbSet = new Mock<DbSet<User>>(MockBehavior.Strict).SetupDataAsync(data);
@@ -60,7 +60,7 @@ namespace Tripod.Ioc.Security
         [Theory, InlineData("user4", false), InlineData("user2", true)]
         public void UserStoreInterface_FindByNameAsync_DelegatesToDataDependency(string userName, bool expectFound)
         {
-            var entities = new Mock<ICommandEntities>(MockBehavior.Strict);
+            var entities = new Mock<IWriteEntities>(MockBehavior.Strict);
             var instance = new SecurityStore(entities.Object) as IUserStore<User, int>;
             var data = new[]
             {
@@ -105,7 +105,7 @@ namespace Tripod.Ioc.Security
         [Fact]
         public void UserStoreInterface_CreateAsync_CreatesUserEntity()
         {
-            var entities = new Mock<ICommandEntities>(MockBehavior.Strict);
+            var entities = new Mock<IWriteEntities>(MockBehavior.Strict);
             var instance = new SecurityStore(entities.Object) as IUserStore<User, int>;
             var entity = new User();
             entities.Setup(x => x.Create(entity));
@@ -137,7 +137,7 @@ namespace Tripod.Ioc.Security
         [Fact]
         public void UserStoreInterface_UpdateAsync_UpdatesUserEntity()
         {
-            var entities = new Mock<ICommandEntities>(MockBehavior.Strict);
+            var entities = new Mock<IWriteEntities>(MockBehavior.Strict);
             var instance = new SecurityStore(entities.Object) as IUserStore<User, int>;
             var entity = new User();
             entities.Setup(x => x.Update(entity));
@@ -169,7 +169,7 @@ namespace Tripod.Ioc.Security
         [Fact]
         public void UserStoreInterface_DeleteAsync_DeletesUserEntity()
         {
-            var entities = new Mock<ICommandEntities>(MockBehavior.Strict);
+            var entities = new Mock<IWriteEntities>(MockBehavior.Strict);
             var instance = new SecurityStore(entities.Object) as IUserStore<User, int>;
             var entity = new User();
             entities.Setup(x => x.Delete(entity));
@@ -196,7 +196,7 @@ namespace Tripod.Ioc.Security
         [Fact]
         public void QueryableUserStoreInterface_UsersPropertyGetter_DelegatesToDataDependency()
         {
-            var entities = new Mock<ICommandEntities>(MockBehavior.Strict);
+            var entities = new Mock<IWriteEntities>(MockBehavior.Strict);
             var instance = new SecurityStore(entities.Object) as IQueryableUserStore<User, int>;
             var data = new[] { new FakeUser(1), new FakeUser(2), new FakeUser(3) }.AsQueryable();
             entities.Setup(x => x.Query<User>()).Returns(data);
@@ -232,7 +232,7 @@ namespace Tripod.Ioc.Security
         [InlineData("provider2", "key2", false)]
         public void UserLoginStoreInterface_FindAsync_DelegatesToDataDependency(string provider, string key, bool expectFound)
         {
-            var entities = new Mock<ICommandEntities>(MockBehavior.Strict);
+            var entities = new Mock<IWriteEntities>(MockBehavior.Strict);
             var instance = new SecurityStore(entities.Object) as IUserLoginStore<User, int>;
             var data = new[]
             {
@@ -297,7 +297,7 @@ namespace Tripod.Ioc.Security
         [Fact]
         public void UserLoginStoreInterface_AddLoginAsync_DelegatesToDataDependency()
         {
-            var entities = new Mock<ICommandEntities>(MockBehavior.Strict);
+            var entities = new Mock<IWriteEntities>(MockBehavior.Strict);
             var instance = new SecurityStore(entities.Object) as IUserLoginStore<User, int>;
             var user = new FakeUser(6);
             var login = new UserLoginInfo(Guid.NewGuid().ToString(), Guid.NewGuid().ToString());
@@ -440,7 +440,7 @@ namespace Tripod.Ioc.Security
         [Fact]
         public void UserRoleStoreInterface_AddToRoleAsync_ThrowsInvalidOperation_WhenRoleNameDoesNotExist()
         {
-            var entities = new Mock<ICommandEntities>(MockBehavior.Strict);
+            var entities = new Mock<IWriteEntities>(MockBehavior.Strict);
             var instance = new SecurityStore(entities.Object) as IUserRoleStore<User, int>;
             const string roleName = "test";
             var data = new[]
@@ -461,7 +461,7 @@ namespace Tripod.Ioc.Security
         [Fact]
         public void UserRoleStoreInterface_AddToRoleAsync_AddsInstancesToCollectionProperties_ForBothSidesOfEntityRelationship()
         {
-            var entities = new Mock<ICommandEntities>(MockBehavior.Strict);
+            var entities = new Mock<IWriteEntities>(MockBehavior.Strict);
             var instance = new SecurityStore(entities.Object) as IUserRoleStore<User, int>;
             const string roleName = "test";
             var user = new User();

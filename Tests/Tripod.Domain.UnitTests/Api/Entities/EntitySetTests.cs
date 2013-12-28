@@ -29,7 +29,7 @@ namespace Tripod
         }
 
         [Fact]
-        public void Ctor_ThrowsArgumentNullException_WhenIQueryEntitiesArgIsNull()
+        public void Ctor_ThrowsArgumentNullException_WhenIReadEntitiesArgIsNull()
         {
             EntitySet<User> set = null;
             ArgumentNullException exception = null;
@@ -50,7 +50,7 @@ namespace Tripod
         public void GetEnumerator_IsImplemented_Generically()
         {
             var queryable = new User[0].AsQueryable();
-            var entities = new Mock<IQueryEntities>(MockBehavior.Strict);
+            var entities = new Mock<IReadEntities>(MockBehavior.Strict);
             var set = new EntitySet<User>(queryable, entities.Object);
 
             var enumerator = set.GetEnumerator();
@@ -62,7 +62,7 @@ namespace Tripod
         public void GetEnumerator_IsImplemented_NonGenerically()
         {
             var queryable = new User[0].AsQueryable();
-            var entities = new Mock<IQueryEntities>(MockBehavior.Strict);
+            var entities = new Mock<IReadEntities>(MockBehavior.Strict);
             var set = new EntitySet<User>(queryable, entities.Object) as IEnumerable;
 
             var enumerator = set.GetEnumerator();
@@ -74,7 +74,7 @@ namespace Tripod
         public void ElementType_DelegatesTo_Queryable()
         {
             var queryable = new User[0].AsQueryable();
-            var entities = new Mock<IQueryEntities>(MockBehavior.Strict);
+            var entities = new Mock<IReadEntities>(MockBehavior.Strict);
             var set = new EntitySet<User>(queryable, entities.Object);
 
             var elementType = set.ElementType;

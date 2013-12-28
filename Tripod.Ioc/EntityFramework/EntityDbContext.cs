@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Tripod.Ioc.EntityFramework
 {
-    public class EntityDbContext : DbContext, ICommandEntities
+    public class EntityDbContext : DbContext, IWriteEntities
     {
         #region Construction & Initialization
 
