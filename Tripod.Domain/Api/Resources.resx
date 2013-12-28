@@ -193,7 +193,7 @@
     <value>There are no users with the given {PropertyName}.</value>
   </data>
   <data name="Validation_PasswordDoesNotEqualConfirmation" xml:space="preserve">
-    <value>The password and confirmation password do not match.</value>
+    <value>{PropertyName} does not match {PasswordLabel}.</value>
   </data>
   <data name="Validation_DoesNotExist" xml:space="preserve">
     <value>{PropertyName} '{PropertyValue}' does not exist.</value>

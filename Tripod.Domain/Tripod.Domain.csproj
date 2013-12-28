@@ -70,6 +70,7 @@
     <Compile Include="Api\Entities\IUnitOfWork.cs" />
     <Compile Include="Api\Transactions\IDefineCommand.cs" />
     <Compile Include="Api\Transactions\IDefineQuery.cs" />
+    <Compile Include="Api\Transactions\IDefineSecuredCommand.cs" />
     <Compile Include="Api\Transactions\IHandleCommand.cs" />
     <Compile Include="Api\Transactions\IHandleQuery.cs" />
     <Compile Include="Api\Transactions\IProcessCommands.cs" />
@@ -100,11 +101,13 @@
     <Compile Include="Domain\Security\Queries\IsPasswordVerified.cs" />
     <Compile Include="Domain\Security\Queries\LocalMembershipByUser.cs" />
     <Compile Include="Domain\Security\Queries\UserBy.cs" />
+    <Compile Include="Domain\Security\Validation\MustBeValidPassword.cs" />
     <Compile Include="Domain\Security\Validation\MustEqualPassword.cs" />
     <Compile Include="Domain\Security\Validation\MustBeVerifiedPassword.cs" />
     <Compile Include="Domain\Security\Validation\MustNotFindLocalMembershipByPrincipal.cs" />
     <Compile Include="Domain\Security\Validation\MustFindUserByPrincipal.cs" />
     <Compile Include="Domain\Security\Validation\MustFindUserByLoginInfo.cs" />
+    <Compile Include="Domain\Security\Validation\MustBeValidUserName.cs" />
     <Compile Include="Domain\Security\Validation\MustNotFindUserByName.cs" />
     <Compile Include="Domain\Security\_Extensions\QueryLocalMemberships.cs" />
     <Compile Include="Domain\Security\_Extensions\QueryUsers.cs" />
@@ -118,6 +121,7 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <CustomToolNamespace>Tripod</CustomToolNamespace>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

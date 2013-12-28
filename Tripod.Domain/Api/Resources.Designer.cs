@@ -304,7 +304,7 @@ namespace Tripod {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The password and confirmation password do not match..
+        ///   Looks up a localized string similar to {PropertyName} does not match {PasswordLabel}..
         /// </summary>
         public static string Validation_PasswordDoesNotEqualConfirmation {
             get {

@@ -14,7 +14,7 @@
         {
             public const string Label = "Local password";
             public const string PasswordLabel = "Password";
-            public const string Password2Label = "Confirm password";
+            public const string PasswordConfirmationLabel = "Password confirmation";
             public const int PasswordMinLength = 8;
 
             public const int ConfirmationTokenMaxLength = 128;

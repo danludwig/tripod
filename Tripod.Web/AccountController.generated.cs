@@ -132,7 +132,7 @@ namespace Tripod.Web.Controllers
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionParamsClass_Register
         {
-            public readonly string model = "model";
+            public readonly string command = "command";
         }
         static readonly ActionParamsClass_Disassociate s_params_Disassociate = new ActionParamsClass_Disassociate();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -232,13 +232,13 @@ namespace Tripod.Web.Controllers
             return callInfo;
         }
 
-        partial void RegisterOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Tripod.Web.Models.RegisterViewModel model);
+        partial void RegisterOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Tripod.Domain.Security.CreateLocalMembership command);
 
-        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Register(Tripod.Web.Models.RegisterViewModel model)
+        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Register(Tripod.Domain.Security.CreateLocalMembership command)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Register);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
-            RegisterOverride(callInfo, model);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "command", command);
+            RegisterOverride(callInfo, command);
             return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
         }
 

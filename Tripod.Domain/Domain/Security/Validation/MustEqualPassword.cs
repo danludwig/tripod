@@ -19,7 +19,11 @@ namespace Tripod.Domain.Security
         {
             var password2 = (string)context.PropertyValue;
             var password = _password((T)context.Instance);
-            return password.Equals(password2);
+
+            if (password.Equals(password2)) return true;
+
+            context.MessageFormatter.AppendArgument("PasswordLabel", LocalMembership.Constraints.PasswordLabel.ToLower());
+            return false;
         }
     }
 

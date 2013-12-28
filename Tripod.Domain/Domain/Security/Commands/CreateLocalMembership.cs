@@ -6,21 +6,21 @@ using Microsoft.AspNet.Identity;
 
 namespace Tripod.Domain.Security
 {
-    public class CreateLocalMembership : IDefineCommand
+    public class CreateLocalMembership : IDefineSecuredCommand
     {
-        public CreateLocalMembership(string userName)
-        {
-            UserName = userName;
-        }
+        //public CreateLocalMembership(string userName)
+        //{
+        //    UserName = userName;
+        //}
 
-        public CreateLocalMembership(IPrincipal principal)
-        {
-            if (principal == null) throw new ArgumentNullException("principal");
-            Principal = principal;
-        }
+        //public CreateLocalMembership(IPrincipal principal)
+        //{
+        //    if (principal == null) throw new ArgumentNullException("principal");
+        //    Principal = principal;
+        //}
 
-        public IPrincipal Principal { get; private set; }
-        public string UserName { get; private set; }
+        public IPrincipal Principal { get; set; }
+        public string UserName { get; set; }
         public string Password { get; set; }
         public string ConfirmPassword { get; set; }
         public LocalMembership Created { get; internal set; }
@@ -33,22 +33,25 @@ namespace Tripod.Domain.Security
             RuleFor(x => x.Principal).MustFindUserByPrincipal(queries).WithName(User.Constraints.Label)
 
                 // use a different name here because we want the error message to say something like
-                // "Local password for user 'username' already exists."
-                .MustNotFindLocalMembershipByPrincipal(queries).WithName(LocalMembership.Constraints.Label)
-                .When(x => x.Principal != null)
+                // "Password for user 'username' already exists."
+                .MustNotFindLocalMembershipByPrincipal(queries).WithName(LocalMembership.Constraints.PasswordLabel)
+                .When(x => x.Principal.Identity.GetUserId() != null)
             ;
 
-            RuleFor(x => x.UserName).SetValidator(new ValidateUserName()).MustNotFindUserByName(queries)
-                .When(x => x.Principal == null);
-
-            RuleFor(x => x.Password).NotEmpty().WithName(LocalMembership.Constraints.PasswordLabel)
-                .MinLength(LocalMembership.Constraints.PasswordMinLength)
-                .MaxLength(LocalMembership.Constraints.PasswordMaxLength)
+            RuleFor(x => x.UserName)
+                .MustBeValidUserName().WithName(User.Constraints.NameLabel)
+                .MustNotFindUserByName(queries)
+                .When(x => x.Principal.Identity.GetUserId() == null)
             ;
 
-            RuleFor(x => x.ConfirmPassword).NotEmpty().WithName(LocalMembership.Constraints.Password2Label)
+            RuleFor(x => x.Password)
+                .MustBeValidPassword().WithName(LocalMembership.Constraints.PasswordLabel)
+            ;
+
+            RuleFor(x => x.ConfirmPassword)
+                .NotEmpty().WithName(LocalMembership.Constraints.PasswordConfirmationLabel)
                 .MustEqualPassword(x => x.Password)
-                .When(x => !string.IsNullOrWhiteSpace(x.Password));
+                .When(x => !string.IsNullOrWhiteSpace(x.Password), ApplyConditionTo.CurrentValidator);
         }
     }
 
@@ -68,7 +71,7 @@ namespace Tripod.Domain.Security
         public async Task Handle(CreateLocalMembership command)
         {
             // when user does not exist, must create both user and local membership
-            if (command.Principal == null)
+            if (string.IsNullOrWhiteSpace(command.Principal.Identity.Name))
             {
                 var createUser = new CreateUser { Name = command.UserName };
                 await _commands.Execute(createUser);

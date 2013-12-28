@@ -11,24 +11,14 @@ namespace Tripod.Domain.Security
         public User Created { get; internal set; }
     }
 
-    public class ValidateUserName : AbstractValidator<string>
-    {
-        public ValidateUserName()
-        {
-            // username is required, has min/max lengths, and cannot already exist
-            RuleFor(x => x)
-                .NotEmpty().WithName(User.Constraints.NameLabel)
-                .MinLength(User.Constraints.NameMinLength)
-                .MaxLength(User.Constraints.NameMaxLength)
-            ;
-        }
-    }
-
     public class ValidateCreateUserCommand : AbstractValidator<CreateUser>
     {
         public ValidateCreateUserCommand(IProcessQueries queries)
         {
-            RuleFor(x => x.Name).SetValidator(new ValidateUserName()).MustNotFindUserByName(queries);
+            RuleFor(x => x.Name)
+                .MustBeValidUserName().WithName(User.Constraints.NameLabel)
+                .MustNotFindUserByName(queries)
+            ;
         }
     }
 

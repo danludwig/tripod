@@ -38,23 +38,25 @@ namespace Tripod.Web.Controllers
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
         [HttpPost, Route("account/register")]
-        public virtual async Task<ActionResult> Register(RegisterViewModel model)
+        public virtual async Task<ActionResult> Register(CreateLocalMembership command)
         {
             //var command = new CreateUser { Name = model.UserName };
-            var command = new CreateLocalMembership(model.UserName)
-            {
-                Password = model.Password,
-                ConfirmPassword = model.ConfirmPassword,
-            };
-            var validation = _validation.Validate(command);
-            ModelState.AddModelErrors(validation);
-            if (!ModelState.IsValid) return View(model);
+            //var command = new CreateLocalMembership
+            //{
+            //    Principal = User,
+            //    UserName = model.UserName,
+            //    Password = model.Password,
+            //    ConfirmPassword = model.ConfirmPassword,
+            //};
+            //var validation = _validation.Validate(command);
+            //ModelState.AddModelErrors(validation);
+            if (!ModelState.IsValid) return View(command);
 
             await _commands.Execute(command);
             await _commands.Execute(new SignIn
             {
-                UserName = model.UserName,
-                Password = model.Password
+                UserName = command.UserName,
+                Password = command.Password
             });
             //var result = await _userManager.CreateAsync(command.Created.Owner, model.Password);
             //await _unitOfWork.SaveChangesAsync();
