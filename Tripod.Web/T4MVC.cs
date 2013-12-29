@@ -27,6 +27,7 @@ public static class MVC
     public static Tripod.Web.Controllers.AccountController Account = new Tripod.Web.Controllers.T4MVC_AccountController();
     public static Tripod.Web.Controllers.AuthenticationController Authentication = new Tripod.Web.Controllers.T4MVC_AuthenticationController();
     public static Tripod.Web.Controllers.HomeController Home = new Tripod.Web.Controllers.T4MVC_HomeController();
+    public static Tripod.Web.Controllers.LocalMembershipsController LocalMemberships = new Tripod.Web.Controllers.T4MVC_LocalMembershipsController();
     public static T4MVC.SharedController Shared = new T4MVC.SharedController();
 }
 

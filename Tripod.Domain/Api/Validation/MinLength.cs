@@ -24,6 +24,8 @@ namespace Tripod
 
             context.MessageFormatter.AppendArgument("MinLength", _minLength);
             context.MessageFormatter.AppendArgument("TotalLength", text.Length);
+            context.MessageFormatter.AppendArgument("Characters", text.Length == 1
+                ? Resources.Validation_CharacterLower : Resources.Validation_CharactersLower);
             return false;
         }
     }

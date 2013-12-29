@@ -250,6 +250,24 @@ namespace Tripod {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to character.
+        /// </summary>
+        public static string Validation_CharacterLower {
+            get {
+                return ResourceManager.GetString("Validation_CharacterLower", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to characters.
+        /// </summary>
+        public static string Validation_CharactersLower {
+            get {
+                return ResourceManager.GetString("Validation_CharactersLower", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {PropertyName} &apos;{PropertyValue}&apos; does not exist..
         /// </summary>
         public static string Validation_DoesNotExist {
@@ -268,7 +286,7 @@ namespace Tripod {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {PropertyName} for user &apos;{PropertyValue}&apos; already exists..
+        ///   Looks up a localized string similar to {PropertyName} &apos;{PropertyValue}&apos; already has a {PasswordLabel}..
         /// </summary>
         public static string Validation_LocalMembershipByUser_AlreadyExists {
             get {
@@ -286,7 +304,7 @@ namespace Tripod {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {PropertyName} must contain at least {MinLength} characters. You entered {TotalLength} characters..
+        ///   Looks up a localized string similar to {PropertyName} must contain at least {MinLength} characters. You entered {TotalLength} {Characters}..
         /// </summary>
         public static string Validation_MinLength {
             get {

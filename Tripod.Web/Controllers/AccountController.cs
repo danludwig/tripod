@@ -18,14 +18,14 @@ namespace Tripod.Web.Controllers
         private readonly IProcessValidation _validation;
         private readonly IProcessQueries _queries;
 
-        public AccountController(UserManager<User, int> userManager, IUnitOfWork unitOfWork, IAuthenticate authenticator, IProcessCommands commands, IProcessValidation validation, IProcessQueries queries)
+        public AccountController(UserManager<User, int> userManager, IUnitOfWork unitOfWork, IAuthenticate authenticator, IProcessCommands commands, IProcessQueries queries, IProcessValidation validation)
         {
             _userManager = userManager;
             _unitOfWork = unitOfWork;
             _authenticator = authenticator;
             _commands = commands;
-            _validation = validation;
             _queries = queries;
+            _validation = validation;
         }
 
         [AllowAnonymous]
@@ -40,16 +40,6 @@ namespace Tripod.Web.Controllers
         [HttpPost, Route("account/register")]
         public virtual async Task<ActionResult> Register(CreateLocalMembership command)
         {
-            //var command = new CreateUser { Name = model.UserName };
-            //var command = new CreateLocalMembership
-            //{
-            //    Principal = User,
-            //    UserName = model.UserName,
-            //    Password = model.Password,
-            //    ConfirmPassword = model.ConfirmPassword,
-            //};
-            //var validation = _validation.Validate(command);
-            //ModelState.AddModelErrors(validation);
             if (!ModelState.IsValid) return View(command);
 
             await _commands.Execute(command);
@@ -58,17 +48,7 @@ namespace Tripod.Web.Controllers
                 UserName = command.UserName,
                 Password = command.Password
             });
-            //var result = await _userManager.CreateAsync(command.Created.Owner, model.Password);
-            //await _unitOfWork.SaveChangesAsync();
-            //if (result.Succeeded)
-            //{
-            //    await SignInAsync(command.Created, isPersistent: false);
             return RedirectToAction(MVC.Home.Index());
-            //}
-            //AddErrors(result);
-
-            //// If we got this far, something failed, redisplay form
-            //return View(model);
         }
 
         [ValidateAntiForgeryToken]
@@ -115,18 +95,20 @@ namespace Tripod.Web.Controllers
             {
                 // User does not have a password so remove any validation errors caused by a missing OldPassword field
                 var state = ModelState["OldPassword"];
-                if (state != null)
-                {
-                    state.Errors.Clear();
-                }
+                if (state != null) state.Errors.Clear();
 
-                if (!ModelState.IsValid) return View(model);
-                var result = await _userManager.AddPasswordAsync(int.Parse(User.Identity.GetUserId()), model.NewPassword);
-                if (result.Succeeded)
+                var createLocalMembership = new CreateLocalMembership
                 {
-                    return RedirectToAction(MVC.Account.Manage(ManageMessageId.SetPasswordSuccess));
-                }
-                AddErrors(result);
+                    Principal = User,
+                    Password = model.NewPassword,
+                    ConfirmPassword = model.ConfirmPassword,
+                };
+                var validation = _validation.Validate(createLocalMembership);
+                ModelState.AddModelErrors(validation);
+                if (!ModelState.IsValid) return View(model);
+
+                await _commands.Execute(createLocalMembership);
+                return RedirectToAction(MVC.Account.Manage(ManageMessageId.SetPasswordSuccess));
             }
 
             // If we got this far, something failed, redisplay form

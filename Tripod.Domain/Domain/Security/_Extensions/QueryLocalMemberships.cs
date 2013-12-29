@@ -32,7 +32,7 @@ namespace Tripod.Domain.Security
             return set.AsQueryable().ByUserIdAsync(userId, allowNull);
         }
 
-        private static Expression<Func<LocalMembership, bool>> ByUserId(int userId)
+        internal static Expression<Func<LocalMembership, bool>> ByUserId(int userId)
         {
             return x => x.Owner.Id == userId;
         }
@@ -60,7 +60,7 @@ namespace Tripod.Domain.Security
             return set.AsQueryable().ByUserNameAsync(userName, allowNull);
         }
 
-        private static Expression<Func<LocalMembership, bool>> ByUserName(string userName)
+        internal static Expression<Func<LocalMembership, bool>> ByUserName(string userName)
         {
             return x => x.Owner.Name.Equals(userName, StringComparison.OrdinalIgnoreCase);
         }

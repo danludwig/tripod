@@ -8,22 +8,11 @@ namespace Tripod.Domain.Security
 {
     public class CreateLocalMembership : IDefineSecuredCommand
     {
-        //public CreateLocalMembership(string userName)
-        //{
-        //    UserName = userName;
-        //}
-
-        //public CreateLocalMembership(IPrincipal principal)
-        //{
-        //    if (principal == null) throw new ArgumentNullException("principal");
-        //    Principal = principal;
-        //}
-
         public IPrincipal Principal { get; set; }
-        public string UserName { get; set; }
+        public string UserName { get; [UsedImplicitly] set; }
         public string Password { get; set; }
         public string ConfirmPassword { get; set; }
-        public LocalMembership Created { get; internal set; }
+        public LocalMembership Created { [UsedImplicitly] get; internal set; }
     }
 
     public class ValidateCreateLocalMembershipCommand : AbstractValidator<CreateLocalMembership>
@@ -34,7 +23,8 @@ namespace Tripod.Domain.Security
 
                 // use a different name here because we want the error message to say something like
                 // "Password for user 'username' already exists."
-                .MustNotFindLocalMembershipByPrincipal(queries).WithName(LocalMembership.Constraints.PasswordLabel)
+                .MustNotFindLocalMembershipByPrincipal(queries)
+                //.WithName(LocalMembership.Constraints.PasswordLabel)
                 .When(x => x.Principal.Identity.GetUserId() != null)
             ;
 
@@ -70,32 +60,25 @@ namespace Tripod.Domain.Security
 
         public async Task Handle(CreateLocalMembership command)
         {
-            // when user does not exist, must create both user and local membership
-            if (string.IsNullOrWhiteSpace(command.Principal.Identity.Name))
-            {
-                var createUser = new CreateUser { Name = command.UserName };
-                await _commands.Execute(createUser);
-                createUser.Created.LocalMembership = new LocalMembership
-                {
-                    Owner = createUser.Created,
-                    PasswordHash = _userManager.PasswordHasher.HashPassword(command.Password),
-                    IsConfirmed = true,
-                };
-                _entities.SaveChanges();
-                command.Created = createUser.Created.LocalMembership;
-                return;
-            }
-
             // does user already exist?
-            var user = command.Principal != null
-                ? await _entities.GetAsync<User>(command.Principal.Identity.GetUserId()) : null;
-            if (user == null)
+            var userId = command.Principal.Identity.GetUserId();
+            var user = userId != null ? await _entities.GetAsync<User>(int.Parse(command.Principal.Identity.GetUserId())) : null;
+            if (userId == null)
             {
                 var createUser = new CreateUser { Name = command.UserName };
                 await _commands.Execute(createUser);
                 user = createUser.Created;
             }
 
+            user.LocalMembership = new LocalMembership
+            {
+                Owner = user,
+                PasswordHash = _userManager.PasswordHasher.HashPassword(command.Password),
+                IsConfirmed = true,
+            };
+            user.SecurityStamp = Guid.NewGuid().ToString();
+            _entities.SaveChanges();
+            command.Created = user.LocalMembership;
         }
     }
 }

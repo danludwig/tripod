@@ -25,6 +25,7 @@ namespace Tripod.Domain.Security
             if (entity == null) return true;
 
             context.MessageFormatter.AppendArgument("PropertyValue", principal.Identity.Name);
+            context.MessageFormatter.AppendArgument("PasswordLabel", LocalMembership.Constraints.Label.ToLower());
             return false;
         }
     }

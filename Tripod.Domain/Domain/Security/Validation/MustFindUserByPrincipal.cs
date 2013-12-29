@@ -20,7 +20,7 @@ namespace Tripod.Domain.Security
         protected override bool IsValid(PropertyValidatorContext context)
         {
             var principal = (IPrincipal)context.PropertyValue;
-            var entity = _queries.Execute(new UserBy(principal.Identity.GetUserId())).Result;
+            var entity = _queries.Execute(new UserBy(principal.Identity.Name)).Result;
 
             // assert that user does exist
             if (entity != null) return true;

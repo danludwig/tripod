@@ -99,6 +99,7 @@
     <Compile Include="Domain\Security\Entities\User.cs" />
     <Compile Include="Domain\Security\Queries\GetRemoteMembershipTicket.cs" />
     <Compile Include="Domain\Security\Queries\IsPasswordVerified.cs" />
+    <Compile Include="Domain\Security\Queries\UserHasLocalMembership.cs" />
     <Compile Include="Domain\Security\Queries\LocalMembershipByUser.cs" />
     <Compile Include="Domain\Security\Queries\UserBy.cs" />
     <Compile Include="Domain\Security\Validation\MustBeValidPassword.cs" />

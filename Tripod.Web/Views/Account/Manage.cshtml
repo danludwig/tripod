@@ -7,8 +7,11 @@
 <p class="text-success">@ViewBag.StatusMessage</p>
 <div class="row">
     <div class="col-md-12">
-        @(ViewBag.HasLocalPassword ? Html.Partial(MVC.Account.Views._ChangePasswordPartial) : Html.Partial(MVC.Account.Views._SetPasswordPartial))
-
+        @*@(ViewBag.HasLocalPassword ? Html.Partial(MVC.Account.Views._ChangePasswordPartial) : Html.Partial(MVC.Account.Views._SetPasswordPartial))*@
+        @{ Html.RenderAction(MVC.LocalMemberships.GetForm()); }
+        @*@{
+                Html.RenderPartial(ViewBag.HasLocalPassword ? MVC.Account.Views._ChangePasswordPartial : MVC.LocalMemberships.Views.AddPasswordForm);
+            }*@
         <section id="externalLogins">
             @Html.Action(MVC.Account.RemoveAccountList())
             @Html.Partial(MVC.Account.Views._ExternalLoginsListPartial, new { Action = MVC.Account.ActionNames.LinkLogin, ViewBag.ReturnUrl })

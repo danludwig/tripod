@@ -172,7 +172,7 @@
     <value>Cannot be less than one.</value>
   </data>
   <data name="Validation_MinLength" xml:space="preserve">
-    <value>{PropertyName} must contain at least {MinLength} characters. You entered {TotalLength} characters.</value>
+    <value>{PropertyName} must contain at least {MinLength} characters. You entered {TotalLength} {Characters}.</value>
   </data>
   <data name="Exception_Argument_CannotBeNullOrEmpty" xml:space="preserve">
     <value>Value cannot be null or empty.</value>
@@ -199,6 +199,12 @@
     <value>{PropertyName} '{PropertyValue}' does not exist.</value>
   </data>
   <data name="Validation_LocalMembershipByUser_AlreadyExists" xml:space="preserve">
-    <value>{PropertyName} for user '{PropertyValue}' already exists.</value>
+    <value>{PropertyName} '{PropertyValue}' already has a {PasswordLabel}.</value>
+  </data>
+  <data name="Validation_CharacterLower" xml:space="preserve">
+    <value>character</value>
+  </data>
+  <data name="Validation_CharactersLower" xml:space="preserve">
+    <value>characters</value>
   </data>
 </root>
