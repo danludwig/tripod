@@ -48,7 +48,7 @@
     </div>
     <div class="col-md-4">
         <section id="socialLoginForm">
-            @Html.Partial(MVC.Account.Views._ExternalLoginsListPartial, new { Action = MVC.Account.ActionNames.ExternalLogin, ViewBag.ReturnUrl })
+            @Html.Partial(MVC.Account.Views._ExternalLoginsListPartial, new { Action = MVC.Authentication.ActionNames.ExternalLogin, Controller = MVC.Authentication.Name, ViewBag.ReturnUrl })
         </section>
     </div>
 </div>

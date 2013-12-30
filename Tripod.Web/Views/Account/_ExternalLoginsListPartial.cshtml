@@ -1,4 +1,5 @@
 ﻿@using Microsoft.Owin.Security
+@model dynamic
 
 <h4>Use another service to log in.</h4>
 <hr />
@@ -15,7 +16,7 @@
     }
     else
     {
-        <form action="@Url.Action(Model.Action, MVC.Account.Name, new { returnUrl = Model.ReturnUrl })" method="POST">
+        <form action="@Url.Action(Model.Action, Model.Controller, new { returnUrl = Model.ReturnUrl })" method="POST">
             @Html.AntiForgeryToken()
             <div id="socialLoginList">
                 <p>

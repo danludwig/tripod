@@ -25,13 +25,13 @@ namespace Tripod.Web
             //    clientId: "",
             //    clientSecret: "");
 
-            //app.UseTwitterAuthentication(
-            //   consumerKey: "",
-            //   consumerSecret: "");
+            app.UseTwitterAuthentication(
+               consumerKey: "ROkPQ6Lcu3TZ3NEEgAiw",
+               consumerSecret: "XbuHawYulw4K385lrstlWlyn8j7Masp1Bvt2i3k");
 
-            //app.UseFacebookAuthentication(
-            //   appId: "",
-            //   appSecret: "");
+            app.UseFacebookAuthentication(
+               appId: "406322042831063",
+               appSecret: "682d4c4acb90e7cfecc66635256560d4");
 
             app.UseGoogleAuthentication();
         }

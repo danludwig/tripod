@@ -225,9 +225,11 @@
     <Compile Include="Controllers\AuthenticationController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LocalMembershipsController.cs" />
+    <Compile Include="Controllers\RemoteMembershipsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\ChallengeResult.cs" />
     <Compile Include="Helpers\ControllerExtensions.cs" />
     <Compile Include="Helpers\SecuredCommandModelBinder.cs" />
     <Compile Include="HomeController.generated.cs">
@@ -239,6 +241,9 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="App_Start\Startup.cs" />
+    <Compile Include="RemoteMembershipsController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
     <Compile Include="SharedController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
@@ -289,7 +294,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
-    <Content Include="Views\Account\_RemoveAccountPartial.cshtml" />
+    <Content Include="Views\Account\_RemoveAccountsPartial.cshtml" />
     <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
     <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
@@ -305,6 +310,9 @@
     <Content Include="Views\LocalMemberships\ChangePasswordForm.cshtml" />
     <Content Include="Views\Account\_Deprecated\_ChangePasswordPartial.cshtml" />
     <Content Include="Views\Account\_Deprecated\_SetPasswordPartial.cshtml" />
+    <Content Include="Views\RemoteMemberships\_DeleteForm.cshtml" />
+    <Content Include="Views\RemoteMemberships\_Table.cshtml" />
+    <Content Include="Views\RemoteMemberships\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

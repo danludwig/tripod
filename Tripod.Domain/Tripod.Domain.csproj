@@ -87,6 +87,7 @@
     <Compile Include="Api\_Extensions\ExpressionExtensions.cs" />
     <Compile Include="Api\_Extensions\EntityExtensions.cs" />
     <Compile Include="Api\_Extensions\ReflectionExtensions.cs" />
+    <Compile Include="Domain\Security\Commands\DeleteRemoteMembership.cs" />
     <Compile Include="Domain\Security\Commands\ChangeLocalPassword.cs" />
     <Compile Include="Domain\Security\Commands\CreateLocalMembership.cs" />
     <Compile Include="Domain\Security\Commands\CreateUser.cs" />
@@ -100,6 +101,8 @@
     <Compile Include="Domain\Security\Entities\User.cs" />
     <Compile Include="Domain\Security\Queries\GetRemoteMembershipTicket.cs" />
     <Compile Include="Domain\Security\Queries\IsPasswordVerified.cs" />
+    <Compile Include="Domain\Security\Queries\RemoteMembershipsByUser.cs" />
+    <Compile Include="Domain\Security\Queries\RemoteMembershipByUser.cs" />
     <Compile Include="Domain\Security\Queries\UserHasLocalMembership.cs" />
     <Compile Include="Domain\Security\Queries\LocalMembershipByUser.cs" />
     <Compile Include="Domain\Security\Queries\UserBy.cs" />
@@ -112,6 +115,7 @@
     <Compile Include="Domain\Security\Validation\MustFindUserByLoginInfo.cs" />
     <Compile Include="Domain\Security\Validation\MustBeValidUserName.cs" />
     <Compile Include="Domain\Security\Validation\MustNotFindUserByName.cs" />
+    <Compile Include="Domain\Security\_Extensions\QueryRemoteMemberships.cs" />
     <Compile Include="Domain\Security\_Extensions\QueryLocalMemberships.cs" />
     <Compile Include="Domain\Security\_Extensions\QueryUsers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

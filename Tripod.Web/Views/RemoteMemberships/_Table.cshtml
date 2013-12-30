@@ -1,0 +1,30 @@
+﻿@using Microsoft.AspNet.Identity
+@using Tripod.Domain.Security
+@model ICollection<UserLoginInfo>
+
+
+<table class="table">
+    <tbody>
+        @foreach (var account in Model)
+        {
+            <tr>
+                <td>@account.LoginProvider</td>
+                <td>
+                    @if (ViewBag.ShowRemoveButton)
+                    {
+                        Html.RenderPartial(MVC.RemoteMemberships.Views._DeleteForm, new DeleteRemoteMembership
+                        {
+                            Principal = User,
+                            LoginProvider = account.LoginProvider,
+                            ProviderKey = account.ProviderKey,
+                        });
+                    }
+                    else
+                    {
+                        @: &nbsp;
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

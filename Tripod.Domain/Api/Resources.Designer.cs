@@ -347,5 +347,23 @@ namespace Tripod {
                 return ResourceManager.GetString("Validation_PasswordDoesNotEqualConfirmation", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {PropertyName} &apos;{PropertyValue}&apos; does not own this &apos;{ProviderName}&apos; login..
+        /// </summary>
+        public static string Validation_RemoteMembershipByUser_DoesNotExist {
+            get {
+                return ResourceManager.GetString("Validation_RemoteMembershipByUser_DoesNotExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {PropertyName} &apos;{PropertyValue}&apos; does not have a {PasswordLabel} or any other external logins..
+        /// </summary>
+        public static string Validation_RemoteMembershipByUser_IsOnlyLogin {
+            get {
+                return ResourceManager.GetString("Validation_RemoteMembershipByUser_IsOnlyLogin", resourceCulture);
+            }
+        }
     }
 }

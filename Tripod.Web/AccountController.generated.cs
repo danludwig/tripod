@@ -43,29 +43,9 @@ namespace Tripod.Web.Controllers
 
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Disassociate()
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Disassociate);
-            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
-        }
-        [NonAction]
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public virtual System.Web.Mvc.ActionResult Manage()
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Manage);
-        }
-        [NonAction]
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult ExternalLogin()
-        {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ExternalLogin);
-        }
-        [NonAction]
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> ExternalLoginCallback()
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ExternalLoginCallback);
-            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -96,43 +76,26 @@ namespace Tripod.Web.Controllers
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNamesClass
         {
-            public readonly string Disassociate = "Disassociate";
             public readonly string Manage = "Manage";
-            public readonly string ExternalLogin = "ExternalLogin";
-            public readonly string ExternalLoginCallback = "ExternalLoginCallback";
             public readonly string LinkLogin = "LinkLogin";
             public readonly string LinkLoginCallback = "LinkLoginCallback";
             public readonly string ExternalLoginConfirmation = "ExternalLoginConfirmation";
             public readonly string LogOff = "LogOff";
             public readonly string ExternalLoginFailure = "ExternalLoginFailure";
-            public readonly string RemoveAccountList = "RemoveAccountList";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNameConstants
         {
-            public const string Disassociate = "Disassociate";
             public const string Manage = "Manage";
-            public const string ExternalLogin = "ExternalLogin";
-            public const string ExternalLoginCallback = "ExternalLoginCallback";
             public const string LinkLogin = "LinkLogin";
             public const string LinkLoginCallback = "LinkLoginCallback";
             public const string ExternalLoginConfirmation = "ExternalLoginConfirmation";
             public const string LogOff = "LogOff";
             public const string ExternalLoginFailure = "ExternalLoginFailure";
-            public const string RemoveAccountList = "RemoveAccountList";
         }
 
 
-        static readonly ActionParamsClass_Disassociate s_params_Disassociate = new ActionParamsClass_Disassociate();
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_Disassociate DisassociateParams { get { return s_params_Disassociate; } }
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_Disassociate
-        {
-            public readonly string loginProvider = "loginProvider";
-            public readonly string providerKey = "providerKey";
-        }
         static readonly ActionParamsClass_Manage s_params_Manage = new ActionParamsClass_Manage();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_Manage ManageParams { get { return s_params_Manage; } }
@@ -140,23 +103,6 @@ namespace Tripod.Web.Controllers
         public class ActionParamsClass_Manage
         {
             public readonly string message = "message";
-        }
-        static readonly ActionParamsClass_ExternalLogin s_params_ExternalLogin = new ActionParamsClass_ExternalLogin();
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_ExternalLogin ExternalLoginParams { get { return s_params_ExternalLogin; } }
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_ExternalLogin
-        {
-            public readonly string provider = "provider";
-            public readonly string returnUrl = "returnUrl";
-        }
-        static readonly ActionParamsClass_ExternalLoginCallback s_params_ExternalLoginCallback = new ActionParamsClass_ExternalLoginCallback();
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_ExternalLoginCallback ExternalLoginCallbackParams { get { return s_params_ExternalLoginCallback; } }
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_ExternalLoginCallback
-        {
-            public readonly string returnUrl = "returnUrl";
         }
         static readonly ActionParamsClass_LinkLogin s_params_LinkLogin = new ActionParamsClass_LinkLogin();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -186,7 +132,7 @@ namespace Tripod.Web.Controllers
             public class _ViewNamesClass
             {
                 public readonly string _ExternalLoginsListPartial = "_ExternalLoginsListPartial";
-                public readonly string _RemoveAccountPartial = "_RemoveAccountPartial";
+                public readonly string _RemoveAccountsPartial = "_RemoveAccountsPartial";
                 public readonly string ExternalLoginConfirmation = "ExternalLoginConfirmation";
                 public readonly string ExternalLoginFailure = "ExternalLoginFailure";
                 public readonly string Login = "Login";
@@ -194,7 +140,7 @@ namespace Tripod.Web.Controllers
                 public readonly string Register = "Register";
             }
             public readonly string _ExternalLoginsListPartial = "~/Views/Account/_ExternalLoginsListPartial.cshtml";
-            public readonly string _RemoveAccountPartial = "~/Views/Account/_RemoveAccountPartial.cshtml";
+            public readonly string _RemoveAccountsPartial = "~/Views/Account/_RemoveAccountsPartial.cshtml";
             public readonly string ExternalLoginConfirmation = "~/Views/Account/ExternalLoginConfirmation.cshtml";
             public readonly string ExternalLoginFailure = "~/Views/Account/ExternalLoginFailure.cshtml";
             public readonly string Login = "~/Views/Account/Login.cshtml";
@@ -223,17 +169,6 @@ namespace Tripod.Web.Controllers
     {
         public T4MVC_AccountController() : base(Dummy.Instance) { }
 
-        partial void DisassociateOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string loginProvider, string providerKey);
-
-        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Disassociate(string loginProvider, string providerKey)
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Disassociate);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "loginProvider", loginProvider);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "providerKey", providerKey);
-            DisassociateOverride(callInfo, loginProvider, providerKey);
-            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
-        }
-
         partial void ManageOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Tripod.Web.Controllers.AccountController.ManageMessageId? message);
 
         public override System.Web.Mvc.ActionResult Manage(Tripod.Web.Controllers.AccountController.ManageMessageId? message)
@@ -242,27 +177,6 @@ namespace Tripod.Web.Controllers
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "message", message);
             ManageOverride(callInfo, message);
             return callInfo;
-        }
-
-        partial void ExternalLoginOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string provider, string returnUrl);
-
-        public override System.Web.Mvc.ActionResult ExternalLogin(string provider, string returnUrl)
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ExternalLogin);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "provider", provider);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "returnUrl", returnUrl);
-            ExternalLoginOverride(callInfo, provider, returnUrl);
-            return callInfo;
-        }
-
-        partial void ExternalLoginCallbackOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string returnUrl);
-
-        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> ExternalLoginCallback(string returnUrl)
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ExternalLoginCallback);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "returnUrl", returnUrl);
-            ExternalLoginCallbackOverride(callInfo, returnUrl);
-            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
         }
 
         partial void LinkLoginOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string provider);
@@ -310,15 +224,6 @@ namespace Tripod.Web.Controllers
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ExternalLoginFailure);
             ExternalLoginFailureOverride(callInfo);
-            return callInfo;
-        }
-
-        partial void RemoveAccountListOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
-
-        public override System.Web.Mvc.ActionResult RemoveAccountList()
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.RemoveAccountList);
-            RemoveAccountListOverride(callInfo);
             return callInfo;
         }
 

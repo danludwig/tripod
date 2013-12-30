@@ -213,4 +213,10 @@
   <data name="Validation_InvalidPassword" xml:space="preserve">
     <value>Invalid password.</value>
   </data>
+  <data name="Validation_RemoteMembershipByUser_DoesNotExist" xml:space="preserve">
+    <value>{PropertyName} '{PropertyValue}' does not own this '{ProviderName}' login.</value>
+  </data>
+  <data name="Validation_RemoteMembershipByUser_IsOnlyLogin" xml:space="preserve">
+    <value>{PropertyName} '{PropertyValue}' does not have a {PasswordLabel} or any other external logins.</value>
+  </data>
 </root>
