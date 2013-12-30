@@ -71,7 +71,7 @@ namespace Tripod.Web.Controllers
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNamesClass
         {
-            public readonly string Form = "Form";
+            public readonly string PasswordForm = "PasswordForm";
             public readonly string CreatePassword = "CreatePassword";
             public readonly string ChangePassword = "ChangePassword";
         }
@@ -79,7 +79,7 @@ namespace Tripod.Web.Controllers
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNameConstants
         {
-            public const string Form = "Form";
+            public const string PasswordForm = "PasswordForm";
             public const string CreatePassword = "CreatePassword";
             public const string ChangePassword = "ChangePassword";
         }
@@ -124,12 +124,12 @@ namespace Tripod.Web.Controllers
     {
         public T4MVC_LocalMembershipsController() : base(Dummy.Instance) { }
 
-        partial void FormOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+        partial void PasswordFormOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
 
-        public override System.Web.Mvc.ActionResult Form()
+        public override System.Web.Mvc.ActionResult PasswordForm()
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Form);
-            FormOverride(callInfo);
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.PasswordForm);
+            PasswordFormOverride(callInfo);
             return callInfo;
         }
 

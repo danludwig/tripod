@@ -17,7 +17,7 @@ namespace Tripod.Web.Controllers
 
         [Authorize]
         [HttpGet, Route("account/password")]
-        public virtual ActionResult Form()
+        public virtual ActionResult PasswordForm()
         {
             var hasPassword = _queries.Execute(new UserHasLocalMembership(User)).Result;
             var view = hasPassword

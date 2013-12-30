@@ -288,10 +288,8 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="scripts\jquery-1.10.2.min.map" />
-    <Content Include="Views\Account\_ChangePasswordPartial.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\_RemoveAccountPartial.cshtml" />
-    <Content Include="Views\Account\_SetPasswordPartial.cshtml" />
     <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
     <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
@@ -305,6 +303,8 @@
     </None>
     <Content Include="Views\LocalMemberships\AddPasswordForm.cshtml" />
     <Content Include="Views\LocalMemberships\ChangePasswordForm.cshtml" />
+    <Content Include="Views\Account\_Deprecated\_ChangePasswordPartial.cshtml" />
+    <Content Include="Views\Account\_Deprecated\_SetPasswordPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

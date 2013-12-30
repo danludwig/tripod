@@ -195,25 +195,36 @@ namespace Tripod.Web.Controllers
             public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
             public class _ViewNamesClass
             {
-                public readonly string _ChangePasswordPartial = "_ChangePasswordPartial";
                 public readonly string _ExternalLoginsListPartial = "_ExternalLoginsListPartial";
                 public readonly string _RemoveAccountPartial = "_RemoveAccountPartial";
-                public readonly string _SetPasswordPartial = "_SetPasswordPartial";
                 public readonly string ExternalLoginConfirmation = "ExternalLoginConfirmation";
                 public readonly string ExternalLoginFailure = "ExternalLoginFailure";
                 public readonly string Login = "Login";
                 public readonly string Manage = "Manage";
                 public readonly string Register = "Register";
             }
-            public readonly string _ChangePasswordPartial = "~/Views/Account/_ChangePasswordPartial.cshtml";
             public readonly string _ExternalLoginsListPartial = "~/Views/Account/_ExternalLoginsListPartial.cshtml";
             public readonly string _RemoveAccountPartial = "~/Views/Account/_RemoveAccountPartial.cshtml";
-            public readonly string _SetPasswordPartial = "~/Views/Account/_SetPasswordPartial.cshtml";
             public readonly string ExternalLoginConfirmation = "~/Views/Account/ExternalLoginConfirmation.cshtml";
             public readonly string ExternalLoginFailure = "~/Views/Account/ExternalLoginFailure.cshtml";
             public readonly string Login = "~/Views/Account/Login.cshtml";
             public readonly string Manage = "~/Views/Account/Manage.cshtml";
             public readonly string Register = "~/Views/Account/Register.cshtml";
+            static readonly __DeprecatedClass s__Deprecated = new __DeprecatedClass();
+            public __DeprecatedClass _Deprecated { get { return s__Deprecated; } }
+            [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+            public partial class __DeprecatedClass
+            {
+                static readonly _ViewNamesClass s_ViewNames = new _ViewNamesClass();
+                public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
+                public class _ViewNamesClass
+                {
+                    public readonly string _ChangePasswordPartial = "_ChangePasswordPartial";
+                    public readonly string _SetPasswordPartial = "_SetPasswordPartial";
+                }
+                public readonly string _ChangePasswordPartial = "~/Views/Account/_Deprecated/_ChangePasswordPartial.cshtml";
+                public readonly string _SetPasswordPartial = "~/Views/Account/_Deprecated/_SetPasswordPartial.cshtml";
+            }
         }
     }
 
