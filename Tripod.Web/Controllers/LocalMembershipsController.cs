@@ -15,6 +15,29 @@ namespace Tripod.Web.Controllers
             _commands = commands;
         }
 
+        [AllowAnonymous]
+        [HttpGet, Route("account/register")]
+        public virtual ActionResult Register()
+        {
+            return View(MVC.Account.Views.Register);
+        }
+
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        [HttpPost, Route("account/register")]
+        public virtual async Task<ActionResult> Register(CreateLocalMembership command)
+        {
+            if (!ModelState.IsValid) return View(MVC.Account.Views.Register, command);
+
+            await _commands.Execute(command);
+            await _commands.Execute(new SignIn
+            {
+                UserName = command.UserName,
+                Password = command.Password
+            });
+            return RedirectToAction(MVC.Home.Index());
+        }
+
         [Authorize]
         [HttpGet, Route("account/password")]
         public virtual ActionResult PasswordForm()

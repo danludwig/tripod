@@ -96,7 +96,6 @@ namespace Tripod.Web.Controllers
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNamesClass
         {
-            public readonly string Register = "Register";
             public readonly string Disassociate = "Disassociate";
             public readonly string Manage = "Manage";
             public readonly string ExternalLogin = "ExternalLogin";
@@ -112,7 +111,6 @@ namespace Tripod.Web.Controllers
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNameConstants
         {
-            public const string Register = "Register";
             public const string Disassociate = "Disassociate";
             public const string Manage = "Manage";
             public const string ExternalLogin = "ExternalLogin";
@@ -126,14 +124,6 @@ namespace Tripod.Web.Controllers
         }
 
 
-        static readonly ActionParamsClass_Register s_params_Register = new ActionParamsClass_Register();
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_Register RegisterParams { get { return s_params_Register; } }
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_Register
-        {
-            public readonly string command = "command";
-        }
         static readonly ActionParamsClass_Disassociate s_params_Disassociate = new ActionParamsClass_Disassociate();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_Disassociate DisassociateParams { get { return s_params_Disassociate; } }
@@ -232,25 +222,6 @@ namespace Tripod.Web.Controllers
     public partial class T4MVC_AccountController : Tripod.Web.Controllers.AccountController
     {
         public T4MVC_AccountController() : base(Dummy.Instance) { }
-
-        partial void RegisterOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
-
-        public override System.Web.Mvc.ActionResult Register()
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Register);
-            RegisterOverride(callInfo);
-            return callInfo;
-        }
-
-        partial void RegisterOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Tripod.Domain.Security.CreateLocalMembership command);
-
-        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Register(Tripod.Domain.Security.CreateLocalMembership command)
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Register);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "command", command);
-            RegisterOverride(callInfo, command);
-            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
-        }
 
         partial void DisassociateOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string loginProvider, string providerKey);
 

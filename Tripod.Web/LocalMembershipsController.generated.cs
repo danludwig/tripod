@@ -71,6 +71,7 @@ namespace Tripod.Web.Controllers
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNamesClass
         {
+            public readonly string Register = "Register";
             public readonly string PasswordForm = "PasswordForm";
             public readonly string CreatePassword = "CreatePassword";
             public readonly string ChangePassword = "ChangePassword";
@@ -79,12 +80,21 @@ namespace Tripod.Web.Controllers
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNameConstants
         {
+            public const string Register = "Register";
             public const string PasswordForm = "PasswordForm";
             public const string CreatePassword = "CreatePassword";
             public const string ChangePassword = "ChangePassword";
         }
 
 
+        static readonly ActionParamsClass_Register s_params_Register = new ActionParamsClass_Register();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_Register RegisterParams { get { return s_params_Register; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_Register
+        {
+            public readonly string command = "command";
+        }
         static readonly ActionParamsClass_CreatePassword s_params_CreatePassword = new ActionParamsClass_CreatePassword();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_CreatePassword CreatePasswordParams { get { return s_params_CreatePassword; } }
@@ -123,6 +133,25 @@ namespace Tripod.Web.Controllers
     public partial class T4MVC_LocalMembershipsController : Tripod.Web.Controllers.LocalMembershipsController
     {
         public T4MVC_LocalMembershipsController() : base(Dummy.Instance) { }
+
+        partial void RegisterOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        public override System.Web.Mvc.ActionResult Register()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Register);
+            RegisterOverride(callInfo);
+            return callInfo;
+        }
+
+        partial void RegisterOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Tripod.Domain.Security.CreateLocalMembership command);
+
+        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Register(Tripod.Domain.Security.CreateLocalMembership command)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Register);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "command", command);
+            RegisterOverride(callInfo, command);
+            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
+        }
 
         partial void PasswordFormOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
 
