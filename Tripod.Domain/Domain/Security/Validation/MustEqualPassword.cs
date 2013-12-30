@@ -7,12 +7,14 @@ namespace Tripod.Domain.Security
     public class MustEqualPassword<T> : PropertyValidator
     {
         private readonly Func<T, string> _password;
+        private readonly string _matchLabel;
 
-        internal MustEqualPassword(Func<T, string> password)
+        internal MustEqualPassword(Func<T, string> password, string matchLabel)
             : base(() => Resources.Validation_PasswordDoesNotEqualConfirmation)
         {
             if (password == null) throw new ArgumentNullException("password");
             _password = password;
+            _matchLabel = matchLabel;
         }
 
         protected override bool IsValid(PropertyValidatorContext context)
@@ -22,7 +24,7 @@ namespace Tripod.Domain.Security
 
             if (password.Equals(password2)) return true;
 
-            context.MessageFormatter.AppendArgument("PasswordLabel", LocalMembership.Constraints.PasswordLabel.ToLower());
+            context.MessageFormatter.AppendArgument("PasswordLabel", _matchLabel ?? LocalMembership.Constraints.PasswordLabel.ToLower());
             return false;
         }
     }
@@ -30,9 +32,9 @@ namespace Tripod.Domain.Security
     public static class MustEqualPasswordExtensions
     {
         public static IRuleBuilderOptions<T, string> MustEqualPassword<T>
-            (this IRuleBuilder<T, string> ruleBuilder, Func<T, string> password)
+            (this IRuleBuilder<T, string> ruleBuilder, Func<T, string> password, string matchLabel = null)
         {
-            return ruleBuilder.SetValidator(new MustEqualPassword<T>(password));
+            return ruleBuilder.SetValidator(new MustEqualPassword<T>(password, matchLabel));
         }
     }
 }

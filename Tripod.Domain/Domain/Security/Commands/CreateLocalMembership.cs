@@ -19,28 +19,30 @@ namespace Tripod.Domain.Security
     {
         public ValidateCreateLocalMembershipCommand(IProcessQueries queries)
         {
-            RuleFor(x => x.Principal).MustFindUserByPrincipal(queries).WithName(User.Constraints.Label)
-
-                // use a different name here because we want the error message to say something like
-                // "Password for user 'username' already exists."
+            RuleFor(x => x.Principal)
+                .NotNull()
+                .MustFindUserByPrincipal(queries)
                 .MustNotFindLocalMembershipByPrincipal(queries)
-                //.WithName(LocalMembership.Constraints.PasswordLabel)
+                    .WithName(User.Constraints.Label)
                 .When(x => x.Principal.Identity.GetUserId() != null)
             ;
 
             RuleFor(x => x.UserName)
-                .MustBeValidUserName().WithName(User.Constraints.NameLabel)
+                .MustBeValidUserName()
                 .MustNotFindUserByName(queries)
+                    .WithName(User.Constraints.NameLabel)
                 .When(x => x.Principal.Identity.GetUserId() == null)
             ;
 
             RuleFor(x => x.Password)
-                .MustBeValidPassword().WithName(LocalMembership.Constraints.PasswordLabel)
+                .MustBeValidPassword()
+                    .WithName(LocalMembership.Constraints.PasswordLabel)
             ;
 
             RuleFor(x => x.ConfirmPassword)
-                .NotEmpty().WithName(LocalMembership.Constraints.PasswordConfirmationLabel)
+                .NotEmpty()
                 .MustEqualPassword(x => x.Password)
+                    .WithName(LocalMembership.Constraints.PasswordConfirmationLabel)
                 .When(x => !string.IsNullOrWhiteSpace(x.Password), ApplyConditionTo.CurrentValidator);
         }
     }
@@ -77,7 +79,7 @@ namespace Tripod.Domain.Security
                 IsConfirmed = true,
             };
             user.SecurityStamp = Guid.NewGuid().ToString();
-            _entities.SaveChanges();
+            await _entities.SaveChangesAsync();
             command.Created = user.LocalMembership;
         }
     }

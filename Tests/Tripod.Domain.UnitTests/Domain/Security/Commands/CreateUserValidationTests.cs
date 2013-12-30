@@ -48,6 +48,7 @@ namespace Tripod.Domain.Security
                 .Replace("{PropertyName}", User.Constraints.NameLabel)
                 .Replace("{MinLength}", User.Constraints.NameMinLength.ToString(CultureInfo.InvariantCulture))
                 .Replace("{TotalLength}", command.Name.Length.ToString(CultureInfo.InvariantCulture))
+                .Replace("{Characters}", Resources.Validation_CharacterLower)
             );
             validator.ShouldHaveValidationErrorFor(x => x.Name, command.Name);
             queries.Verify(x => x.Execute(It.IsAny<UserBy>()), Times.Never);

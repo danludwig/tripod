@@ -87,6 +87,7 @@
     <Compile Include="Api\_Extensions\ExpressionExtensions.cs" />
     <Compile Include="Api\_Extensions\EntityExtensions.cs" />
     <Compile Include="Api\_Extensions\ReflectionExtensions.cs" />
+    <Compile Include="Domain\Security\Commands\ChangeLocalPassword.cs" />
     <Compile Include="Domain\Security\Commands\CreateLocalMembership.cs" />
     <Compile Include="Domain\Security\Commands\CreateUser.cs" />
     <Compile Include="Domain\Security\Commands\SignOn.cs" />
@@ -105,6 +106,7 @@
     <Compile Include="Domain\Security\Validation\MustBeValidPassword.cs" />
     <Compile Include="Domain\Security\Validation\MustEqualPassword.cs" />
     <Compile Include="Domain\Security\Validation\MustBeVerifiedPassword.cs" />
+    <Compile Include="Domain\Security\Validation\MustFindLocalMembershipByPrincipal.cs" />
     <Compile Include="Domain\Security\Validation\MustNotFindLocalMembershipByPrincipal.cs" />
     <Compile Include="Domain\Security\Validation\MustFindUserByPrincipal.cs" />
     <Compile Include="Domain\Security\Validation\MustFindUserByLoginInfo.cs" />

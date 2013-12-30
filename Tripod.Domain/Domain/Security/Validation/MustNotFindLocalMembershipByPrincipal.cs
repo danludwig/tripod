@@ -20,7 +20,11 @@ namespace Tripod.Domain.Security
         protected override bool IsValid(PropertyValidatorContext context)
         {
             var principal = (IPrincipal)context.PropertyValue;
-            var entity = _queries.Execute(new LocalMembershipByUser(principal.Identity.GetUserId())).Result;
+            if (principal == null) return true;
+
+            var userId = principal.Identity.GetUserId();
+            if (string.IsNullOrWhiteSpace(userId)) return true;
+            var entity = _queries.Execute(new LocalMembershipByUser(int.Parse(userId))).Result;
 
             if (entity == null) return true;
 

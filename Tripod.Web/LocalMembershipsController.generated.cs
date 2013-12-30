@@ -43,9 +43,16 @@ namespace Tripod.Web.Controllers
 
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Post()
+        public virtual System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> CreatePassword()
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Post);
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.CreatePassword);
+            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> ChangePassword()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ChangePassword);
             return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
         }
 
@@ -64,23 +71,33 @@ namespace Tripod.Web.Controllers
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNamesClass
         {
-            public readonly string GetForm = "GetForm";
-            public readonly string Post = "Post";
+            public readonly string Form = "Form";
+            public readonly string CreatePassword = "CreatePassword";
+            public readonly string ChangePassword = "ChangePassword";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNameConstants
         {
-            public const string GetForm = "GetForm";
-            public const string Post = "Post";
+            public const string Form = "Form";
+            public const string CreatePassword = "CreatePassword";
+            public const string ChangePassword = "ChangePassword";
         }
 
 
-        static readonly ActionParamsClass_Post s_params_Post = new ActionParamsClass_Post();
+        static readonly ActionParamsClass_CreatePassword s_params_CreatePassword = new ActionParamsClass_CreatePassword();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_Post PostParams { get { return s_params_Post; } }
+        public ActionParamsClass_CreatePassword CreatePasswordParams { get { return s_params_CreatePassword; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_Post
+        public class ActionParamsClass_CreatePassword
+        {
+            public readonly string command = "command";
+        }
+        static readonly ActionParamsClass_ChangePassword s_params_ChangePassword = new ActionParamsClass_ChangePassword();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_ChangePassword ChangePasswordParams { get { return s_params_ChangePassword; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_ChangePassword
         {
             public readonly string command = "command";
         }
@@ -95,8 +112,10 @@ namespace Tripod.Web.Controllers
             public class _ViewNamesClass
             {
                 public readonly string AddPasswordForm = "AddPasswordForm";
+                public readonly string ChangePasswordForm = "ChangePasswordForm";
             }
             public readonly string AddPasswordForm = "~/Views/LocalMemberships/AddPasswordForm.cshtml";
+            public readonly string ChangePasswordForm = "~/Views/LocalMemberships/ChangePasswordForm.cshtml";
         }
     }
 
@@ -105,22 +124,32 @@ namespace Tripod.Web.Controllers
     {
         public T4MVC_LocalMembershipsController() : base(Dummy.Instance) { }
 
-        partial void GetFormOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+        partial void FormOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
 
-        public override System.Web.Mvc.ActionResult GetForm()
+        public override System.Web.Mvc.ActionResult Form()
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.GetForm);
-            GetFormOverride(callInfo);
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Form);
+            FormOverride(callInfo);
             return callInfo;
         }
 
-        partial void PostOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Tripod.Domain.Security.CreateLocalMembership command);
+        partial void CreatePasswordOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Tripod.Domain.Security.CreateLocalMembership command);
 
-        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Post(Tripod.Domain.Security.CreateLocalMembership command)
+        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> CreatePassword(Tripod.Domain.Security.CreateLocalMembership command)
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Post);
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.CreatePassword);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "command", command);
-            PostOverride(callInfo, command);
+            CreatePasswordOverride(callInfo, command);
+            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
+        }
+
+        partial void ChangePasswordOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Tripod.Domain.Security.ChangeLocalPassword command);
+
+        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> ChangePassword(Tripod.Domain.Security.ChangeLocalPassword command)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ChangePassword);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "command", command);
+            ChangePasswordOverride(callInfo, command);
             return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
         }
 

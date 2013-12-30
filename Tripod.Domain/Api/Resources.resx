@@ -207,4 +207,10 @@
   <data name="Validation_CharactersLower" xml:space="preserve">
     <value>characters</value>
   </data>
+  <data name="Validation_LocalMembershipByUser_DoesNotExist" xml:space="preserve">
+    <value>{PropertyName} '{PropertyValue}' does not have a {PasswordLabel}.</value>
+  </data>
+  <data name="Validation_InvalidPassword" xml:space="preserve">
+    <value>Invalid password.</value>
+  </data>
 </root>

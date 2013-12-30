@@ -16,6 +16,9 @@
             public const string PasswordLabel = "Password";
             public const string PasswordConfirmationLabel = "Password confirmation";
             public const int PasswordMinLength = 8;
+            public const string OldPasswordLabel = "Old password";
+            public const string NewPasswordLabel = "New password";
+            public const string NewPasswordConfirmationLabel = "New password confirmation";
 
             public const int ConfirmationTokenMaxLength = 128;
             public const int PasswordMaxLength = 100;

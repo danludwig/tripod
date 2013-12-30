@@ -34,6 +34,7 @@ namespace Tripod
                 .Replace("{PropertyName}", "String Property")
                 .Replace("{MinLength}", "5")
                 .Replace("{TotalLength}", command.StringProperty.Length.ToString(CultureInfo.InvariantCulture))
+                .Replace("{Characters}", Resources.Validation_CharactersLower)
             );
             validator.ShouldHaveValidationErrorFor(x => x.StringProperty, command.StringProperty);
         }

@@ -277,6 +277,15 @@ namespace Tripod {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Invalid password..
+        /// </summary>
+        public static string Validation_InvalidPassword {
+            get {
+                return ResourceManager.GetString("Validation_InvalidPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Invalid user name or password..
         /// </summary>
         public static string Validation_InvalidUsernameOrPassword {
@@ -291,6 +300,15 @@ namespace Tripod {
         public static string Validation_LocalMembershipByUser_AlreadyExists {
             get {
                 return ResourceManager.GetString("Validation_LocalMembershipByUser_AlreadyExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {PropertyName} &apos;{PropertyValue}&apos; does not have a {PasswordLabel}..
+        /// </summary>
+        public static string Validation_LocalMembershipByUser_DoesNotExist {
+            get {
+                return ResourceManager.GetString("Validation_LocalMembershipByUser_DoesNotExist", resourceCulture);
             }
         }
         

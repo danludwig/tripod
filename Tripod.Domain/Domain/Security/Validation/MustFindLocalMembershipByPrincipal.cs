@@ -6,12 +6,12 @@ using Microsoft.AspNet.Identity;
 
 namespace Tripod.Domain.Security
 {
-    public class MustFindUserByPrincipal : PropertyValidator
+    public class MustFindLocalMembershipByPrincipal : PropertyValidator
     {
         private readonly IProcessQueries _queries;
 
-        internal MustFindUserByPrincipal(IProcessQueries queries)
-            : base(() => Resources.Validation_DoesNotExist)
+        internal MustFindLocalMembershipByPrincipal(IProcessQueries queries)
+            : base(() => Resources.Validation_LocalMembershipByUser_DoesNotExist)
         {
             if (queries == null) throw new ArgumentNullException("queries");
             _queries = queries;
@@ -25,22 +25,23 @@ namespace Tripod.Domain.Security
                 var userId = principal.Identity.GetUserId();
                 if (userId != null)
                 {
-                    var entity = _queries.Execute(new UserBy(int.Parse(userId))).Result;
+                    var entity = _queries.Execute(new LocalMembershipByUser(int.Parse(userId))).Result;
                     if (entity != null) return true;
                 }
             }
 
             context.MessageFormatter.AppendArgument("PropertyValue", principal != null ? principal.Identity.Name : "");
+            context.MessageFormatter.AppendArgument("PasswordLabel", LocalMembership.Constraints.Label.ToLower());
             return false;
         }
     }
 
-    public static class MustFindUserByPrincipalExtensions
+    public static class MustFindLocalMembershipByPrincipalExtensions
     {
-        public static IRuleBuilderOptions<T, IPrincipal> MustFindUserByPrincipal<T>
+        public static IRuleBuilderOptions<T, IPrincipal> MustFindLocalMembershipByPrincipal<T>
             (this IRuleBuilder<T, IPrincipal> ruleBuilder, IProcessQueries queries)
         {
-            return ruleBuilder.SetValidator(new MustFindUserByPrincipal(queries));
+            return ruleBuilder.SetValidator(new MustFindLocalMembershipByPrincipal(queries));
         }
     }
 }

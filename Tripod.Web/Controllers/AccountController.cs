@@ -15,17 +15,23 @@ namespace Tripod.Web.Controllers
         private readonly IUnitOfWork _unitOfWork;
         private readonly IAuthenticate _authenticator;
         private readonly IProcessCommands _commands;
-        private readonly IProcessValidation _validation;
+        //private readonly IProcessValidation _validation;
         private readonly IProcessQueries _queries;
 
-        public AccountController(UserManager<User, int> userManager, IUnitOfWork unitOfWork, IAuthenticate authenticator, IProcessCommands commands, IProcessQueries queries, IProcessValidation validation)
+        public AccountController(IProcessQueries queries
+            , IProcessCommands commands
+            //, IProcessValidation validation
+            , IUnitOfWork unitOfWork
+            , IAuthenticate authenticator
+            , UserManager<User, int> userManager
+        )
         {
             _userManager = userManager;
             _unitOfWork = unitOfWork;
             _authenticator = authenticator;
             _commands = commands;
             _queries = queries;
-            _validation = validation;
+            //_validation = validation;
         }
 
         [AllowAnonymous]
@@ -74,46 +80,46 @@ namespace Tripod.Web.Controllers
             return View();
         }
 
-        [ValidateAntiForgeryToken]
-        [HttpPost, Route("account/manage")]
-        public virtual async Task<ActionResult> Manage(ManageUserViewModel model)
-        {
-            var hasPassword = HasPassword();
-            ViewBag.HasLocalPassword = hasPassword;
-            ViewBag.ReturnUrl = Url.Action(MVC.Account.Manage());
-            if (hasPassword)
-            {
-                if (!ModelState.IsValid) return View(model);
-                var result = await _userManager.ChangePasswordAsync(int.Parse(User.Identity.GetUserId()), model.OldPassword, model.NewPassword);
-                if (result.Succeeded)
-                {
-                    return RedirectToAction(MVC.Account.Manage(ManageMessageId.ChangePasswordSuccess));
-                }
-                AddErrors(result);
-            }
-            else
-            {
-                // User does not have a password so remove any validation errors caused by a missing OldPassword field
-                var state = ModelState["OldPassword"];
-                if (state != null) state.Errors.Clear();
+        //[ValidateAntiForgeryToken]
+        //[HttpPost, Route("account/manage")]
+        //public virtual async Task<ActionResult> Manage(ManageUserViewModel model)
+        //{
+        //    var hasPassword = HasPassword();
+        //    ViewBag.HasLocalPassword = hasPassword;
+        //    ViewBag.ReturnUrl = Url.Action(MVC.Account.Manage());
+        //    if (hasPassword)
+        //    {
+        //        if (!ModelState.IsValid) return View(model);
+        //        var result = await _userManager.ChangePasswordAsync(int.Parse(User.Identity.GetUserId()), model.OldPassword, model.NewPassword);
+        //        if (result.Succeeded)
+        //        {
+        //            return RedirectToAction(MVC.Account.Manage(ManageMessageId.ChangePasswordSuccess));
+        //        }
+        //        AddErrors(result);
+        //    }
+        //    else
+        //    {
+        //        // User does not have a password so remove any validation errors caused by a missing OldPassword field
+        //        var state = ModelState["OldPassword"];
+        //        if (state != null) state.Errors.Clear();
 
-                var createLocalMembership = new CreateLocalMembership
-                {
-                    Principal = User,
-                    Password = model.NewPassword,
-                    ConfirmPassword = model.ConfirmPassword,
-                };
-                var validation = _validation.Validate(createLocalMembership);
-                ModelState.AddModelErrors(validation);
-                if (!ModelState.IsValid) return View(model);
+        //        var createLocalMembership = new CreateLocalMembership
+        //        {
+        //            Principal = User,
+        //            Password = model.NewPassword,
+        //            ConfirmPassword = model.ConfirmPassword,
+        //        };
+        //        var validation = _validation.Validate(createLocalMembership);
+        //        ModelState.AddModelErrors(validation);
+        //        if (!ModelState.IsValid) return View(model);
 
-                await _commands.Execute(createLocalMembership);
-                return RedirectToAction(MVC.Account.Manage(ManageMessageId.SetPasswordSuccess));
-            }
+        //        await _commands.Execute(createLocalMembership);
+        //        return RedirectToAction(MVC.Account.Manage(ManageMessageId.SetPasswordSuccess));
+        //    }
 
-            // If we got this far, something failed, redisplay form
-            return View(model);
-        }
+        //    // If we got this far, something failed, redisplay form
+        //    return View(model);
+        //}
 
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -193,11 +199,11 @@ namespace Tripod.Web.Controllers
                 await _commands.Execute(createUser);
                 //var user = new User { Name = model.UserName };
                 var result = await _userManager.CreateAsync(createUser.Created);
-                _unitOfWork.SaveChanges();
+                await _unitOfWork.SaveChangesAsync();
                 if (result.Succeeded)
                 {
                     result = await _userManager.AddLoginAsync(createUser.Created.Id, info.Login);
-                    _unitOfWork.SaveChanges();
+                    await _unitOfWork.SaveChangesAsync();
                     if (result.Succeeded)
                     {
                         await SignInAsync(createUser.Created, isPersistent: false);

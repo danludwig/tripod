@@ -150,7 +150,6 @@ namespace Tripod.Web.Controllers
         public class ActionParamsClass_Manage
         {
             public readonly string message = "message";
-            public readonly string model = "model";
         }
         static readonly ActionParamsClass_ExternalLogin s_params_ExternalLogin = new ActionParamsClass_ExternalLogin();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -261,16 +260,6 @@ namespace Tripod.Web.Controllers
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "message", message);
             ManageOverride(callInfo, message);
             return callInfo;
-        }
-
-        partial void ManageOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Tripod.Web.Models.ManageUserViewModel model);
-
-        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Manage(Tripod.Web.Models.ManageUserViewModel model)
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Manage);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
-            ManageOverride(callInfo, model);
-            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
         }
 
         partial void ExternalLoginOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string provider, string returnUrl);

@@ -304,6 +304,7 @@
       <LastGenOutput>T4MVC.cs</LastGenOutput>
     </None>
     <Content Include="Views\LocalMemberships\AddPasswordForm.cshtml" />
+    <Content Include="Views\LocalMemberships\ChangePasswordForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
