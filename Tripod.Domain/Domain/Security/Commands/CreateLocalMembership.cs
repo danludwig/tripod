@@ -24,14 +24,14 @@ namespace Tripod.Domain.Security
                 .MustFindUserByPrincipal(queries)
                 .MustNotFindLocalMembershipByPrincipal(queries)
                     .WithName(User.Constraints.Label)
-                .When(x => x.Principal.Identity.GetUserId() != null)
+                    .When(x => x.Principal.Identity.IsAuthenticated)
             ;
 
             RuleFor(x => x.UserName)
                 .MustBeValidUserName()
                 .MustNotFindUserByName(queries)
                     .WithName(User.Constraints.NameLabel)
-                .When(x => x.Principal.Identity.GetUserId() == null)
+                    .When(x => !x.Principal.Identity.IsAuthenticated)
             ;
 
             RuleFor(x => x.Password)
@@ -64,7 +64,7 @@ namespace Tripod.Domain.Security
         {
             // does user already exist?
             var userId = command.Principal.Identity.GetUserId();
-            var user = userId != null ? await _entities.GetAsync<User>(int.Parse(command.Principal.Identity.GetUserId())) : null;
+            var user = userId != null ? await _entities.GetAsync<User>(int.Parse(userId)) : null;
             if (userId == null)
             {
                 var createUser = new CreateUser { Name = command.UserName };

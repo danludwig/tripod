@@ -60,7 +60,7 @@ namespace Tripod.Web.Controllers
             // If the user does not have an account, then prompt the user to create an account
             ViewBag.ReturnUrl = returnUrl;
             ViewBag.LoginProvider = loginInfo.Login.LoginProvider;
-            var model = new ExternalLoginConfirmationViewModel
+            var model = new CreateRemoteMembership
             {
                 UserName = loginInfo.UserName
             };

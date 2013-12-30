@@ -276,6 +276,8 @@
     <Content Include="scripts\respond.min.js" />
     <Content Include="scripts\_references.js" />
     <None Include="T4MVC.tt.settings.xml" />
+    <Content Include="Views\Account\_Deprecated\_ChangePasswordPartial.cshtml.txt" />
+    <Content Include="Views\Account\_Deprecated\_SetPasswordPartial.cshtml.txt" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -308,8 +310,6 @@
     </None>
     <Content Include="Views\LocalMemberships\AddPasswordForm.cshtml" />
     <Content Include="Views\LocalMemberships\ChangePasswordForm.cshtml" />
-    <Content Include="Views\Account\_Deprecated\_ChangePasswordPartial.cshtml" />
-    <Content Include="Views\Account\_Deprecated\_SetPasswordPartial.cshtml" />
     <Content Include="Views\RemoteMemberships\_DeleteForm.cshtml" />
     <Content Include="Views\RemoteMemberships\_Table.cshtml" />
     <Content Include="Views\RemoteMemberships\Delete.cshtml" />

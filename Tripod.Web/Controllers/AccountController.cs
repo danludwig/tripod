@@ -87,41 +87,47 @@ namespace Tripod.Web.Controllers
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
         [HttpPost, Route("account/external-login/confirm")]
-        public virtual async Task<ActionResult> ExternalLoginConfirmation(ExternalLoginConfirmationViewModel model, string returnUrl)
+        public virtual async Task<ActionResult> ExternalLoginConfirmation(CreateRemoteMembership command, string returnUrl)
         {
-            if (User.Identity.IsAuthenticated)
-            {
-                return RedirectToAction(MVC.Account.Manage());
-            }
+            if (User.Identity.IsAuthenticated) return RedirectToAction(MVC.Account.Manage());
+
+            // Get the information about the user from the external login provider
+            //var info = await AuthenticationManager.GetExternalLoginInfoAsync();
+            var info = await _queries.Execute(new GetRemoteMembershipTicket());
+            if (info == null) return View(MVC.Account.Views.ExternalLoginFailure);
 
             if (ModelState.IsValid)
             {
-                // Get the information about the user from the external login provider
-                var info = await AuthenticationManager.GetExternalLoginInfoAsync();
-                if (info == null)
+                //var command = new CreateRemoteMembership
+                //{
+                //    Principal = User,
+                //    UserName = model.UserName,
+                //};
+                await _commands.Execute(command);
+                await _commands.Execute(new SignOn
                 {
-                    return View(MVC.Account.Views.ExternalLoginFailure);
-                }
-                var createUser = new CreateUser { Name = model.UserName };
-                await _commands.Execute(createUser);
-                //var user = new User { Name = model.UserName };
-                var result = await _userManager.CreateAsync(createUser.Created);
-                await _unitOfWork.SaveChangesAsync();
-                if (result.Succeeded)
-                {
-                    result = await _userManager.AddLoginAsync(createUser.Created.Id, info.Login);
-                    await _unitOfWork.SaveChangesAsync();
-                    if (result.Succeeded)
-                    {
-                        await SignInAsync(createUser.Created, isPersistent: false);
-                        return RedirectToLocal(returnUrl);
-                    }
-                }
-                AddErrors(result);
+                    UserLoginInfo = info.Login,
+                });
+                //var createUser = new CreateUser { Name = model.UserName };
+                //await _commands.Execute(createUser);
+                //var result = await _userManager.CreateAsync(createUser.Created);
+                //await _unitOfWork.SaveChangesAsync();
+                //if (result.Succeeded)
+                //{
+                //    result = await _userManager.AddLoginAsync(createUser.Created.Id, info.Login);
+                //    await _unitOfWork.SaveChangesAsync();
+                //    if (result.Succeeded)
+                //    {
+                //        await SignInAsync(createUser.Created, isPersistent: false);
+                return RedirectToLocal(returnUrl);
+                //    }
+                //}
+                //AddErrors(result);
             }
 
+            ViewBag.LoginProvider = info.Login.LoginProvider;
             ViewBag.ReturnUrl = returnUrl;
-            return View(model);
+            return View(command);
         }
 
         [HttpPost, Route("account/logoff")]

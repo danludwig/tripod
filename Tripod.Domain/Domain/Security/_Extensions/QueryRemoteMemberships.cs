@@ -46,6 +46,43 @@ namespace Tripod.Domain.Security
         }
 
         #endregion
+        #region ByUserLoginInfo
+
+        public static RemoteMembership ByUserLoginInfo(this IQueryable<RemoteMembership> set,
+            UserLoginInfo userLoginInfo, bool allowNull = true)
+        {
+            return allowNull
+                ? set.SingleOrDefault(ByUserLoginInfo(userLoginInfo))
+                : set.Single(ByUserLoginInfo(userLoginInfo));
+        }
+
+        public static RemoteMembership ByUserLoginInfo(this IEnumerable<RemoteMembership> set,
+            UserLoginInfo userLoginInfo, bool allowNull = true)
+        {
+            return set.AsQueryable().ByUserLoginInfo(userLoginInfo, allowNull);
+        }
+
+        public static Task<RemoteMembership> ByUserLoginInfoAsync(this IQueryable<RemoteMembership> set,
+            UserLoginInfo userLoginInfo, bool allowNull = true)
+        {
+            return allowNull
+                ? set.SingleOrDefaultAsync(ByUserLoginInfo(userLoginInfo))
+                : set.SingleAsync(ByUserLoginInfo(userLoginInfo));
+        }
+
+        public static Task<RemoteMembership> ByUserLoginInfoAsync(this IEnumerable<RemoteMembership> set,
+            UserLoginInfo userLoginInfo, bool allowNull = true)
+        {
+            return set.AsQueryable().ByUserLoginInfoAsync(userLoginInfo, allowNull);
+        }
+
+        internal static Expression<Func<RemoteMembership, bool>> ByUserLoginInfo(UserLoginInfo userLoginInfo)
+        {
+            return x => x.LoginProvider == userLoginInfo.LoginProvider
+                && x.ProviderKey == userLoginInfo.ProviderKey;
+        }
+
+        #endregion
         #region ByUserIdAndLoginInfo
 
         public static RemoteMembership ByUserIdAndLoginInfo(this IQueryable<RemoteMembership> set,

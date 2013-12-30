@@ -8,6 +8,6 @@
             ProviderKey = providerKey;
         }
 
-        public override User Owner { get; protected set; }
+        public override User Owner { get; protected internal set; }
     }
 }

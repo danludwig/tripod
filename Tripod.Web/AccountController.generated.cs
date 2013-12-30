@@ -118,7 +118,7 @@ namespace Tripod.Web.Controllers
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionParamsClass_ExternalLoginConfirmation
         {
-            public readonly string model = "model";
+            public readonly string command = "command";
             public readonly string returnUrl = "returnUrl";
         }
         static readonly ViewsClass s_views = new ViewsClass();
@@ -155,11 +155,11 @@ namespace Tripod.Web.Controllers
                 public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
                 public class _ViewNamesClass
                 {
-                    public readonly string _ChangePasswordPartial = "_ChangePasswordPartial";
-                    public readonly string _SetPasswordPartial = "_SetPasswordPartial";
+                    public readonly string _ChangePasswordPartial_cshtml = "_ChangePasswordPartial.cshtml";
+                    public readonly string _SetPasswordPartial_cshtml = "_SetPasswordPartial.cshtml";
                 }
-                public readonly string _ChangePasswordPartial = "~/Views/Account/_Deprecated/_ChangePasswordPartial.cshtml";
-                public readonly string _SetPasswordPartial = "~/Views/Account/_Deprecated/_SetPasswordPartial.cshtml";
+                public readonly string _ChangePasswordPartial_cshtml = "~/Views/Account/_Deprecated/_ChangePasswordPartial.cshtml.txt";
+                public readonly string _SetPasswordPartial_cshtml = "~/Views/Account/_Deprecated/_SetPasswordPartial.cshtml.txt";
             }
         }
     }
@@ -198,14 +198,14 @@ namespace Tripod.Web.Controllers
             return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
         }
 
-        partial void ExternalLoginConfirmationOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Tripod.Web.Models.ExternalLoginConfirmationViewModel model, string returnUrl);
+        partial void ExternalLoginConfirmationOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Tripod.Domain.Security.CreateRemoteMembership command, string returnUrl);
 
-        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> ExternalLoginConfirmation(Tripod.Web.Models.ExternalLoginConfirmationViewModel model, string returnUrl)
+        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> ExternalLoginConfirmation(Tripod.Domain.Security.CreateRemoteMembership command, string returnUrl)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ExternalLoginConfirmation);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "command", command);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "returnUrl", returnUrl);
-            ExternalLoginConfirmationOverride(callInfo, model, returnUrl);
+            ExternalLoginConfirmationOverride(callInfo, command, returnUrl);
             return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
         }
 
