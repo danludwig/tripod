@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Configuration;
 using System.Security.Principal;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Tripod.Domain.Security;
+using Tripod.Ioc.Configuration;
 
 namespace Tripod.Ioc.Security
 {
@@ -28,32 +30,32 @@ namespace Tripod.Ioc.Security
             return Task.FromResult(0);
         }
 
-        public Task SignOff()
+        public Task SignOut()
         {
             ThrowIfNoOwin();
             _authenticationManager.SignOut();
             return Task.FromResult(0);
         }
 
-        public async Task<RemoteMembershipTicket> GetRemoteMembershipTicket()
+        public async Task<RemoteMembershipTicket> GetRemoteMembershipTicket(IPrincipal principal)
         {
             ThrowIfNoOwin();
-            return GetRemoteMembershipTicket(await _authenticationManager.GetExternalLoginInfoAsync());
-        }
+            ExternalLoginInfo info;
+            if (principal == null || !principal.Identity.IsAuthenticated)
+            {
+                info = await _authenticationManager.GetExternalLoginInfoAsync();
+            }
+            else
+            {
+                var xsrfKey = ConfigurationManager.AppSettings[AppSettingKey.XsrfKey.ToString()];
+                info = await _authenticationManager.GetExternalLoginInfoAsync(xsrfKey, principal.Identity.GetUserId());
+            }
 
-        public async Task<RemoteMembershipTicket> GetRemoteMembershipTicket(IPrincipal principal, string xsrfKey)
-        {
-            ThrowIfNoOwin();
-            return GetRemoteMembershipTicket(await _authenticationManager.GetExternalLoginInfoAsync(xsrfKey, principal.Identity.GetUserId()));
-        }
-
-        private static RemoteMembershipTicket GetRemoteMembershipTicket(ExternalLoginInfo externalLoginInfo)
-        {
-            if (externalLoginInfo == null) return null;
+            if (info == null) return null;
             return new RemoteMembershipTicket
             {
-                Login = externalLoginInfo.Login,
-                UserName = externalLoginInfo.DefaultUserName,
+                Login = info.Login,
+                UserName = info.DefaultUserName,
             };
         }
 

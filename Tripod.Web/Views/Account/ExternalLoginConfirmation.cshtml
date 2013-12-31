@@ -6,7 +6,7 @@
 <h2>@ViewBag.Title.</h2>
 <h3>Associate your @ViewBag.LoginProvider account.</h3>
 
-<form action="@Url.Action(MVC.Account.ExternalLoginConfirmation(null, (string)ViewBag.ReturnUrl))" method="POST" class="form-horizontal" role="form">
+<form action="@Url.Action(MVC.Authentication.ExternalLoginConfirmation(null, (string)ViewBag.ReturnUrl))" method="POST" class="form-horizontal" role="form">
     @Html.AntiForgeryToken()
 
     <h4>Association Form</h4>

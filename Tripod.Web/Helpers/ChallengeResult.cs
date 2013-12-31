@@ -1,14 +1,13 @@
-﻿using System.Web;
+﻿using System.Configuration;
+using System.Web;
 using System.Web.Mvc;
 using Microsoft.Owin.Security;
+using Tripod.Ioc.Configuration;
 
 namespace Tripod.Web
 {
     public class ChallengeResult : HttpUnauthorizedResult
     {
-        // Used for XSRF protection when adding external logins
-        public const string XsrfKey = "XsrfId";
-
         public ChallengeResult(string provider, string redirectUri, string userId = null)
         {
             LoginProvider = provider;
@@ -25,7 +24,7 @@ namespace Tripod.Web
             var properties = new AuthenticationProperties { RedirectUri = RedirectUri };
             if (UserId != null)
             {
-                properties.Dictionary[XsrfKey] = UserId;
+                properties.Dictionary[ConfigurationManager.AppSettings[AppSettingKey.XsrfKey.ToString()]] = UserId;
             }
             context.HttpContext.GetOwinContext().Authentication.Challenge(properties, LoginProvider);
         }

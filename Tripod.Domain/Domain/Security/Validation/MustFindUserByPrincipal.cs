@@ -2,7 +2,6 @@
 using System.Security.Principal;
 using FluentValidation;
 using FluentValidation.Validators;
-using Microsoft.AspNet.Identity;
 
 namespace Tripod.Domain.Security
 {
@@ -22,12 +21,8 @@ namespace Tripod.Domain.Security
             var principal = (IPrincipal)context.PropertyValue;
             if (principal != null)
             {
-                var userId = principal.Identity.GetUserId();
-                if (userId != null)
-                {
-                    var entity = _queries.Execute(new UserBy(int.Parse(userId))).Result;
-                    if (entity != null) return true;
-                }
+                var entity = _queries.Execute(new UserBy(principal)).Result;
+                if (entity != null) return true;
             }
 
             context.MessageFormatter.AppendArgument("PropertyValue", principal != null ? principal.Identity.Name : "");

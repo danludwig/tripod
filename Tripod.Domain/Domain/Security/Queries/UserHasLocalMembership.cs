@@ -31,9 +31,12 @@ namespace Tripod.Domain.Security
             if (query == null) throw new ArgumentNullException("query");
 
             var queryable = _entities.Query<LocalMembership>();
+
             if (query.UserId.HasValue) return queryable.AnyAsync(QueryLocalMemberships.ByUserId(query.UserId.Value));
+
             if (query.Principal != null && query.Principal.Identity.GetUserId() != null)
                 return queryable.AnyAsync(QueryLocalMemberships.ByUserId(int.Parse(query.Principal.Identity.GetUserId())));
+
             return queryable.AnyAsync(QueryLocalMemberships.ByUserName(query.UserName));
         }
     }

@@ -26,13 +26,10 @@ namespace Tripod.Web.Controllers
             if (ModelState.IsValid)
             {
                 await _commands.Execute(command);
-                //var result = await _userManager.RemoveLoginAsync(int.Parse(User.Identity.GetUserId()), new UserLoginInfo(loginProvider, providerKey));
-                //var message = result.Succeeded ? ManageMessageId.RemoveLoginSuccess : ManageMessageId.Error;
-                return RedirectToAction(MVC.Account.Manage(AccountController.ManageMessageId.RemoveLoginSuccess));
+                return RedirectToAction(await MVC.Account.Manage(AccountController.ManageMessageId.RemoveLoginSuccess));
             }
             ViewBag.ShowRemoveButton = true;
             return View(MVC.RemoteMemberships.Views.Delete, command);
-            //return null;
         }
 
         [ChildActionOnly]
@@ -47,10 +44,10 @@ namespace Tripod.Web.Controllers
                     x => x.RemoteMemberships,
                 }
             }).Result;
+
             var linkedAccounts = user.RemoteMemberships.Select(x => new UserLoginInfo(x.LoginProvider, x.ProviderKey)).ToArray();
             ViewBag.ShowRemoveButton = user.LocalMembership != null || user.RemoteMemberships.Count > 1;
             return PartialView(MVC.Account.Views._RemoveAccountsPartial, linkedAccounts);
         }
-
     }
 }

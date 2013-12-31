@@ -9,8 +9,10 @@
     <div class="col-md-12">
         @{ Html.RenderAction(MVC.LocalMemberships.PasswordForm()); }
         <section id="externalLogins">
-            @Html.Action(MVC.RemoteMemberships.RemoveAccountList())
-            @Html.Partial(MVC.Account.Views._ExternalLoginsListPartial, new { Action = MVC.Account.ActionNames.LinkLogin, Controller = MVC.Account.Name, ViewBag.ReturnUrl })
+            @{
+                Html.RenderAction(MVC.RemoteMemberships.RemoveAccountList());
+                Html.RenderPartial(MVC.RemoteMemberships.Views._AddForm, ViewData);
+            }
         </section>
     </div>
 </div>

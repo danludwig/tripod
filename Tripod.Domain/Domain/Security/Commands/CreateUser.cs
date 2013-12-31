@@ -6,9 +6,9 @@ namespace Tripod.Domain.Security
 {
     public class CreateUser : IDefineCommand
     {
-        public CreateUser() { }
-        public string Name { get; set; }
-        public User Created { get; internal set; }
+        internal CreateUser() { }
+        internal string Name { get; set; }
+        internal User Created { get; set; }
     }
 
     public class ValidateCreateUserCommand : AbstractValidator<CreateUser>

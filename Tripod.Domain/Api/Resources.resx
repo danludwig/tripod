@@ -189,7 +189,7 @@
   <data name="Validation_InvalidUsernameOrPassword" xml:space="preserve">
     <value>Invalid user name or password.</value>
   </data>
-  <data name="Validation_NoUserByLoginInfo" xml:space="preserve">
+  <data name="Validation_NoUserByLoginProviderKey" xml:space="preserve">
     <value>There are no users with the given {PropertyName}.</value>
   </data>
   <data name="Validation_PasswordDoesNotEqualConfirmation" xml:space="preserve">

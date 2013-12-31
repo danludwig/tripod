@@ -9,17 +9,24 @@ namespace Tripod.Domain.Security
     /// </summary>
     public class SignOn : IDefineCommand
     {
-        public UserLoginInfo UserLoginInfo { get; set; }
-        public bool IsPersistent { get; set; }
+        public string LoginProvider { get; set; }
+        public string ProviderKey { get; set; }
+        public bool IsPersistent { get; [UsedImplicitly] set; }
     }
 
     public class ValidateSignOnCommand : AbstractValidator<SignOn>
     {
         public ValidateSignOnCommand(IProcessQueries queries)
         {
-            RuleFor(x => x.UserLoginInfo)
-                .NotNull().WithName(RemoteMembership.Constraints.Label)
-                .MustFindUserByLoginInfo(queries);
+            RuleFor(x => x.LoginProvider)
+                .NotEmpty().WithName(RemoteMembership.Constraints.ProviderLabel)
+            ;
+
+            RuleFor(x => x.ProviderKey)
+                .NotEmpty()
+                .MustFindUserByLoginProviderKey(queries, x => x.LoginProvider)
+                    .WithName(RemoteMembership.Constraints.ProviderUserIdLabel)
+            ;
         }
     }
 
@@ -36,7 +43,9 @@ namespace Tripod.Domain.Security
 
         public async Task Handle(SignOn command)
         {
-            var user = await _entities.Query<User>().ByUserLoginInfoAsync(command.UserLoginInfo, false);
+            var userLoginInfo = new UserLoginInfo(command.LoginProvider, command.ProviderKey);
+            var user = await _entities.Query<User>()
+                .ByUserLoginInfoAsync(userLoginInfo, false);
             await _authenticator.SignOn(user, command.IsPersistent);
         }
     }

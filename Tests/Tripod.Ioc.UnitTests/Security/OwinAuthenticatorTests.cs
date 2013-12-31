@@ -62,7 +62,7 @@ namespace Tripod.Ioc.Security
         {
             var authenticationManager = useBigFatPhony ? new BigFatPhonyAuthenticationManager() : null;
             var instance = new OwinAuthenticator(authenticationManager, null);
-            var exception = Assert.Throws<InvalidOperationException>(() => instance.SignOff().GetAwaiter().GetResult());
+            var exception = Assert.Throws<InvalidOperationException>(() => instance.SignOut().GetAwaiter().GetResult());
             exception.ShouldNotBeNull();
             exception.Message.ShouldContain("no owin");
         }
@@ -76,7 +76,7 @@ namespace Tripod.Ioc.Security
             var instance = new OwinAuthenticator(authenticationManager.Object, userManager);
             authenticationManager.Setup(x => x.SignOut());
 
-            instance.SignOff().Wait();
+            instance.SignOut().Wait();
 
             authenticationManager.Verify(x => x.SignOut(), Times.Once);
         }

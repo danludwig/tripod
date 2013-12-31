@@ -48,6 +48,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
@@ -58,6 +59,7 @@
     <Compile Include="..\ReSharperAnnotations.cs">
       <Link>Properties\ReSharperAnnotations.cs</Link>
     </Compile>
+    <Compile Include="Api\Configuration\AppSettingKey.cs" />
     <Compile Include="Api\Security\IAuthenticate.cs" />
     <Compile Include="Api\Security\RemoteMembershipTicket.cs" />
     <Compile Include="Api\Transactions\BaseEntitiesQuery.cs" />
@@ -92,6 +94,7 @@
     <Compile Include="Domain\Security\Commands\ChangeLocalPassword.cs" />
     <Compile Include="Domain\Security\Commands\CreateLocalMembership.cs" />
     <Compile Include="Domain\Security\Commands\CreateUser.cs" />
+    <Compile Include="Domain\Security\Commands\SignOut.cs" />
     <Compile Include="Domain\Security\Commands\SignOn.cs" />
     <Compile Include="Domain\Security\Commands\SignIn.cs" />
     <Compile Include="Domain\Security\Entities\EmailAddress.cs" />
@@ -114,7 +117,7 @@
     <Compile Include="Domain\Security\Validation\MustFindRemoteMembershipTicket.cs" />
     <Compile Include="Domain\Security\Validation\MustNotFindLocalMembershipByPrincipal.cs" />
     <Compile Include="Domain\Security\Validation\MustFindUserByPrincipal.cs" />
-    <Compile Include="Domain\Security\Validation\MustFindUserByLoginInfo.cs" />
+    <Compile Include="Domain\Security\Validation\MustFindUserByLoginProviderKey.cs" />
     <Compile Include="Domain\Security\Validation\MustBeValidUserName.cs" />
     <Compile Include="Domain\Security\Validation\MustNotFindUserByName.cs" />
     <Compile Include="Domain\Security\_Extensions\QueryRemoteMemberships.cs" />

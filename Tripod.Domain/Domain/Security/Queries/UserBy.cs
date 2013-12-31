@@ -32,9 +32,14 @@ namespace Tripod.Domain.Security
             if (query == null) throw new ArgumentNullException("query");
 
             var queryable = _entities.Query<User>().EagerLoad(query.EagerLoad);
+
             if (query.Id.HasValue) return queryable.ByIdAsync(query.Id.Value);
-            if (query.Principal != null) return queryable.ByIdAsync(int.Parse(query.Principal.Identity.GetUserId()));
+
+            if (query.Principal != null && query.Principal.Identity.IsAuthenticated)
+                return queryable.ByIdAsync(int.Parse(query.Principal.Identity.GetUserId()));
+
             if (query.UserLoginInfo != null) return queryable.ByUserLoginInfoAsync(query.UserLoginInfo);
+
             return queryable.ByNameAsync(query.Name);
         }
     }

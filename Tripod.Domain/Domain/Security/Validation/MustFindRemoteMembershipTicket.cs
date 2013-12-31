@@ -5,28 +5,23 @@ using FluentValidation.Validators;
 
 namespace Tripod.Domain.Security
 {
-    public class MustFindRemoteMembershipTicket<T> : PropertyValidator
+    public class MustFindRemoteMembershipTicket : PropertyValidator
     {
         private readonly IProcessQueries _queries;
-        private readonly Func<T, string> _xsrfKey;
 
-        internal MustFindRemoteMembershipTicket(IProcessQueries queries, Func<T, string> xsrfKey)
+        internal MustFindRemoteMembershipTicket(IProcessQueries queries)
             : base(() => "There is no external login information to process.")
         {
             if (queries == null) throw new ArgumentNullException("queries");
             _queries = queries;
-            _xsrfKey = xsrfKey;
         }
 
         protected override bool IsValid(PropertyValidatorContext context)
         {
             var principal = (IPrincipal)context.PropertyValue;
-            var xsrfKey = _xsrfKey != null ? _xsrfKey((T)context.Instance) : null;
             if (principal == null) return false;
 
-            var query = principal.Identity.IsAuthenticated
-                ? new GetRemoteMembershipTicket(principal, xsrfKey)
-                : new GetRemoteMembershipTicket();
+            var query =  new GetRemoteMembershipTicket(principal);
             var ticket = _queries.Execute(query).Result;
             return ticket != null;
         }
@@ -35,9 +30,9 @@ namespace Tripod.Domain.Security
     public static class MustFindRemoteMembershipTicketExtensions
     {
         public static IRuleBuilderOptions<T, IPrincipal> MustFindRemoteMembershipTicket<T>
-            (this IRuleBuilder<T, IPrincipal> ruleBuilder, IProcessQueries queries, Func<T, string> xsrfKey = null)
+            (this IRuleBuilder<T, IPrincipal> ruleBuilder, IProcessQueries queries)
         {
-            return ruleBuilder.SetValidator(new MustFindRemoteMembershipTicket<T>(queries, xsrfKey));
+            return ruleBuilder.SetValidator(new MustFindRemoteMembershipTicket(queries));
         }
     }
 }

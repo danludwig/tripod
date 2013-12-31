@@ -11,9 +11,6 @@ namespace Tripod.Domain.Security
     {
         public IPrincipal Principal { get; set; }
         public string UserName { get; [UsedImplicitly] set; }
-        //public string LoginProvider { get; [UsedImplicitly] set; }
-        //public string ProviderKey { get; [UsedImplicitly] set; }
-        public string XsrfKey { get; [UsedImplicitly] set; }
         public RemoteMembership Created { [UsedImplicitly] get; internal set; }
     }
 
@@ -22,10 +19,11 @@ namespace Tripod.Domain.Security
         public ValidateCreateRemoteMembershipCommand(IProcessQueries queries)
         {
             RuleFor(x => x.Principal)
-                .NotNull().WithName(User.Constraints.Label)
+                .NotNull()
                 .MustFindUserByPrincipal(queries)
                     .When(x => x.Principal.Identity.IsAuthenticated, ApplyConditionTo.CurrentValidator)
-                .MustFindRemoteMembershipTicket(queries, x => x.XsrfKey)
+                .MustFindRemoteMembershipTicket(queries)
+                    .WithName(User.Constraints.Label)
             ;
 
             RuleFor(x => x.UserName)
@@ -34,16 +32,6 @@ namespace Tripod.Domain.Security
                     .WithName(User.Constraints.NameLabel)
                     .When(x => !x.Principal.Identity.IsAuthenticated)
             ;
-
-            //RuleFor(x => x.LoginProvider)
-            //    .NotEmpty().WithName(RemoteMembership.Constraints.ProviderLabel)
-            //    .MaxLength(RemoteMembership.Constraints.ProviderMaxLength)
-            //;
-
-            //RuleFor(x => x.ProviderKey)
-            //    .NotEmpty().WithName(RemoteMembership.Constraints.ProviderUserIdLabel)
-            //    .MaxLength(RemoteMembership.Constraints.ProviderUserIdMaxLength)
-            //;
         }
     }
 
@@ -78,9 +66,7 @@ namespace Tripod.Domain.Security
                 user = createUser.Created;
             }
 
-            var ticket = await _queries.Execute(command.Principal.Identity.IsAuthenticated
-                ? new GetRemoteMembershipTicket(command.Principal, command.XsrfKey)
-                : new GetRemoteMembershipTicket());
+            var ticket = await _queries.Execute(new GetRemoteMembershipTicket(command.Principal));
 
             // do not add this login if it already exists
             if (user.RemoteMemberships.ByUserLoginInfo(ticket.Login) != null) return;

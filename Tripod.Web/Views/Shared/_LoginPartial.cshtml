@@ -2,7 +2,7 @@
 
 @if (Request.IsAuthenticated)
 {
-    <form id="logoutForm" class="navbar-right" method="POST" action="@Url.Action(MVC.Account.LogOff())">
+    <form id="logoutForm" class="navbar-right" method="POST" action="@Url.Action(MVC.Authentication.LogOff())">
         @Html.AntiForgeryToken()
 
         <ul class="nav navbar-nav navbar-right">

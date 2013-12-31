@@ -42,6 +42,7 @@ namespace Tripod.Web.Controllers
         [HttpGet, Route("account/password")]
         public virtual ActionResult PasswordForm()
         {
+            // since this gets executed as a child action, cannot mark it as async
             var hasPassword = _queries.Execute(new UserHasLocalMembership(User)).Result;
             var view = hasPassword
                 ? MVC.LocalMemberships.Views.ChangePasswordForm
@@ -61,7 +62,7 @@ namespace Tripod.Web.Controllers
             if (ModelState.IsValid)
             {
                 await _commands.Execute(command);
-                return RedirectToAction(MVC.Account.Manage(AccountController.ManageMessageId.SetPasswordSuccess));
+                return RedirectToAction(await MVC.Account.Manage(AccountController.ManageMessageId.SetPasswordSuccess));
             }
 
             ViewBag.AsPartial = false;
@@ -76,7 +77,7 @@ namespace Tripod.Web.Controllers
             if (ModelState.IsValid)
             {
                 await _commands.Execute(command);
-                return RedirectToAction(MVC.Account.Manage(AccountController.ManageMessageId.ChangePasswordSuccess));
+                return RedirectToAction(await MVC.Account.Manage(AccountController.ManageMessageId.ChangePasswordSuccess));
             }
 
             ViewBag.AsPartial = false;

@@ -313,6 +313,9 @@
     <Content Include="Views\RemoteMemberships\_DeleteForm.cshtml" />
     <Content Include="Views\RemoteMemberships\_Table.cshtml" />
     <Content Include="Views\RemoteMemberships\Delete.cshtml" />
+    <Content Include="Views\RemoteMemberships\_SignOnForm.cshtml" />
+    <Content Include="Views\RemoteMemberships\_SignOnList.cshtml" />
+    <Content Include="Views\RemoteMemberships\_AddForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

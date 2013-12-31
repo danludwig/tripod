@@ -1,6 +1,9 @@
-﻿using Microsoft.AspNet.Identity;
+﻿using System.Security.Claims;
+using System.Threading.Tasks;
+using Microsoft.AspNet.Identity;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
+using Microsoft.Owin.Security.Facebook;
 using Owin;
 
 namespace Tripod.Web
@@ -29,9 +32,24 @@ namespace Tripod.Web
                consumerKey: "ROkPQ6Lcu3TZ3NEEgAiw",
                consumerSecret: "XbuHawYulw4K385lrstlWlyn8j7Masp1Bvt2i3k");
 
-            app.UseFacebookAuthentication(
-               appId: "406322042831063",
-               appSecret: "682d4c4acb90e7cfecc66635256560d4");
+            var facebookAuthenticationOptions = new FacebookAuthenticationOptions();
+            facebookAuthenticationOptions.Scope.Add("email");
+            facebookAuthenticationOptions.AppId = "406322042831063";
+            facebookAuthenticationOptions.AppSecret = "682d4c4acb90e7cfecc66635256560d4";
+            facebookAuthenticationOptions.Provider = new FacebookAuthenticationProvider
+            {
+                OnAuthenticated = x =>
+                {
+                    x.Identity.AddClaim(new Claim("FacebookAccessToken", x.AccessToken));
+                    return Task.FromResult(0);
+                }
+            };
+            facebookAuthenticationOptions.SignInAsAuthenticationType = DefaultAuthenticationTypes.ExternalCookie;
+            app.UseFacebookAuthentication(facebookAuthenticationOptions);
+
+            //app.UseFacebookAuthentication(
+            //   appId: "406322042831063",
+            //   appSecret: "682d4c4acb90e7cfecc66635256560d4");
 
             app.UseGoogleAuthentication();
         }

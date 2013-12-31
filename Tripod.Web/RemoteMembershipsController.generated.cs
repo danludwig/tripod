@@ -94,11 +94,17 @@ namespace Tripod.Web.Controllers
             public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
             public class _ViewNamesClass
             {
+                public readonly string _AddForm = "_AddForm";
                 public readonly string _DeleteForm = "_DeleteForm";
+                public readonly string _SignOnForm = "_SignOnForm";
+                public readonly string _SignOnList = "_SignOnList";
                 public readonly string _Table = "_Table";
                 public readonly string Delete = "Delete";
             }
+            public readonly string _AddForm = "~/Views/RemoteMemberships/_AddForm.cshtml";
             public readonly string _DeleteForm = "~/Views/RemoteMemberships/_DeleteForm.cshtml";
+            public readonly string _SignOnForm = "~/Views/RemoteMemberships/_SignOnForm.cshtml";
+            public readonly string _SignOnList = "~/Views/RemoteMemberships/_SignOnList.cshtml";
             public readonly string _Table = "~/Views/RemoteMemberships/_Table.cshtml";
             public readonly string Delete = "~/Views/RemoteMemberships/Delete.cshtml";
         }

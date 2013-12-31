@@ -43,21 +43,9 @@ namespace Tripod.Web.Controllers
 
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult Manage()
+        public virtual System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Manage()
         {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Manage);
-        }
-        [NonAction]
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult LinkLogin()
-        {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.LinkLogin);
-        }
-        [NonAction]
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> ExternalLoginConfirmation()
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ExternalLoginConfirmation);
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Manage);
             return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
         }
 
@@ -77,22 +65,12 @@ namespace Tripod.Web.Controllers
         public class ActionNamesClass
         {
             public readonly string Manage = "Manage";
-            public readonly string LinkLogin = "LinkLogin";
-            public readonly string LinkLoginCallback = "LinkLoginCallback";
-            public readonly string ExternalLoginConfirmation = "ExternalLoginConfirmation";
-            public readonly string LogOff = "LogOff";
-            public readonly string ExternalLoginFailure = "ExternalLoginFailure";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNameConstants
         {
             public const string Manage = "Manage";
-            public const string LinkLogin = "LinkLogin";
-            public const string LinkLoginCallback = "LinkLoginCallback";
-            public const string ExternalLoginConfirmation = "ExternalLoginConfirmation";
-            public const string LogOff = "LogOff";
-            public const string ExternalLoginFailure = "ExternalLoginFailure";
         }
 
 
@@ -103,23 +81,6 @@ namespace Tripod.Web.Controllers
         public class ActionParamsClass_Manage
         {
             public readonly string message = "message";
-        }
-        static readonly ActionParamsClass_LinkLogin s_params_LinkLogin = new ActionParamsClass_LinkLogin();
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_LinkLogin LinkLoginParams { get { return s_params_LinkLogin; } }
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_LinkLogin
-        {
-            public readonly string provider = "provider";
-        }
-        static readonly ActionParamsClass_ExternalLoginConfirmation s_params_ExternalLoginConfirmation = new ActionParamsClass_ExternalLoginConfirmation();
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_ExternalLoginConfirmation ExternalLoginConfirmationParams { get { return s_params_ExternalLoginConfirmation; } }
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_ExternalLoginConfirmation
-        {
-            public readonly string command = "command";
-            public readonly string returnUrl = "returnUrl";
         }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -171,60 +132,12 @@ namespace Tripod.Web.Controllers
 
         partial void ManageOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Tripod.Web.Controllers.AccountController.ManageMessageId? message);
 
-        public override System.Web.Mvc.ActionResult Manage(Tripod.Web.Controllers.AccountController.ManageMessageId? message)
+        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Manage(Tripod.Web.Controllers.AccountController.ManageMessageId? message)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Manage);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "message", message);
             ManageOverride(callInfo, message);
-            return callInfo;
-        }
-
-        partial void LinkLoginOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string provider);
-
-        public override System.Web.Mvc.ActionResult LinkLogin(string provider)
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.LinkLogin);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "provider", provider);
-            LinkLoginOverride(callInfo, provider);
-            return callInfo;
-        }
-
-        partial void LinkLoginCallbackOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
-
-        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> LinkLoginCallback()
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.LinkLoginCallback);
-            LinkLoginCallbackOverride(callInfo);
             return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
-        }
-
-        partial void ExternalLoginConfirmationOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Tripod.Domain.Security.CreateRemoteMembership command, string returnUrl);
-
-        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> ExternalLoginConfirmation(Tripod.Domain.Security.CreateRemoteMembership command, string returnUrl)
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ExternalLoginConfirmation);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "command", command);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "returnUrl", returnUrl);
-            ExternalLoginConfirmationOverride(callInfo, command, returnUrl);
-            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
-        }
-
-        partial void LogOffOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
-
-        public override System.Web.Mvc.ActionResult LogOff()
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.LogOff);
-            LogOffOverride(callInfo);
-            return callInfo;
-        }
-
-        partial void ExternalLoginFailureOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
-
-        public override System.Web.Mvc.ActionResult ExternalLoginFailure()
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ExternalLoginFailure);
-            ExternalLoginFailureOverride(callInfo);
-            return callInfo;
         }
 
     }

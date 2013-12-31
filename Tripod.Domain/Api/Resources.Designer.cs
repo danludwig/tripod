@@ -333,9 +333,9 @@ namespace Tripod {
         /// <summary>
         ///   Looks up a localized string similar to There are no users with the given {PropertyName}..
         /// </summary>
-        public static string Validation_NoUserByLoginInfo {
+        public static string Validation_NoUserByLoginProviderKey {
             get {
-                return ResourceManager.GetString("Validation_NoUserByLoginInfo", resourceCulture);
+                return ResourceManager.GetString("Validation_NoUserByLoginProviderKey", resourceCulture);
             }
         }
         
