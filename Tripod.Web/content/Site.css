@@ -25,6 +25,31 @@ textarea {
     display: none;
 }
 
+.input-group-addon.validation-icon {
+    min-width: 30px;
+    background-size: 16px auto;
+    background-repeat: no-repeat;
+    background-position: center 8px;
+    text-indent: -9999px;
+}
+
+.has-error .input-group-addon.validation-icon {
+    background-image: url(../images/icons/white-x-on-red-disc-110.png);
+}
+
+.has-success .input-group-addon.validation-icon {
+    background-image: url(../images/icons/green-checkmark-a-256.png);
+}
+
+.validation-msg {
+    padding-top: 8px;
+}
+
+    .validation-msg .help-block.control-message {
+        /* can either do this, or remove padding above and set margins on field-validation-error */
+        margin: 0;
+    }
+
 input.input-validation-error {
     border: 1px solid #b94a48;
 }

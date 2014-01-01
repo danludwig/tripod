@@ -223,14 +223,19 @@
     </Compile>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AuthenticationController.cs" />
+    <Compile Include="Controllers\EmailAddressesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LocalMembershipsController.cs" />
     <Compile Include="Controllers\RemoteMembershipsController.cs" />
+    <Compile Include="EmailAddressesController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\ChallengeResult.cs" />
     <Compile Include="Helpers\ControllerExtensions.cs" />
+    <Compile Include="Helpers\HtmlHelpers.cs" />
     <Compile Include="Helpers\SecuredCommandModelBinder.cs" />
     <Compile Include="HomeController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
@@ -261,6 +266,8 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="content\Site.css" />
+    <Content Include="images\icons\green-checkmark-a-256.png" />
+    <Content Include="images\icons\white-x-on-red-disc-110.png" />
     <Content Include="scripts\bootstrap.js" />
     <Content Include="scripts\bootstrap.min.js" />
     <None Include="scripts\jquery-1.10.2.intellisense.js" />
@@ -316,6 +323,7 @@
     <Content Include="Views\RemoteMemberships\_SignOnForm.cshtml" />
     <Content Include="Views\RemoteMemberships\_SignOnList.cshtml" />
     <Content Include="Views\RemoteMemberships\_AddForm.cshtml" />
+    <Content Include="Views\EmailAddresses\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

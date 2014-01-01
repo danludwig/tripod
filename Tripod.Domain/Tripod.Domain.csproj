@@ -94,6 +94,7 @@
     <Compile Include="Domain\Security\Commands\ChangeLocalPassword.cs" />
     <Compile Include="Domain\Security\Commands\CreateLocalMembership.cs" />
     <Compile Include="Domain\Security\Commands\CreateUser.cs" />
+    <Compile Include="Domain\Security\Commands\SendConfirmationEmail.cs" />
     <Compile Include="Domain\Security\Commands\SignOut.cs" />
     <Compile Include="Domain\Security\Commands\SignOn.cs" />
     <Compile Include="Domain\Security\Commands\SignIn.cs" />
