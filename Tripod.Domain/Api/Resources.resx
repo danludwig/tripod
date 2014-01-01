@@ -121,7 +121,7 @@
     <value>{PropertyName} is not a valid credit card number.</value>
   </data>
   <data name="email_error" xml:space="preserve">
-    <value>{PropertyName} is not a valid email address.</value>
+    <value>'{PropertyValue}' is not a valid email address.</value>
   </data>
   <data name="equal_error" xml:space="preserve">
     <value>{PropertyName} should be equal to '{ComparisonValue}'.</value>

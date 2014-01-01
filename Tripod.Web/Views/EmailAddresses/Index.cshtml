@@ -7,58 +7,6 @@
     ViewBag.Title = "Register";
 }
 
-<h2>
-    @ViewBag.Title.
-</h2>
-
-<form id="send_confirmation_email" action="@Url.Action(MVC.EmailAddresses.SendEmail())" method="POST" class="form-horizontal" role="form">
-
-    @Html.AntiForgeryToken()
-
-    <h4>Create a new account.</h4>
-    <hr />
-    @Html.ValidationSummary(true)
-
-    <div class="form-group @Html.BootstrapValidationCssClassFor(x => x.EmailAddress)">
-        <label for="@Html.IdFor(x => x.EmailAddress)" class="col-sm-2 control-label">
-            @EmailAddress.Constraints.Label
-        </label>
-        <div class="col-md-5">
-            <div class="email-address input-group">
-                <input type="email" id="@Html.IdFor(x => x.EmailAddress)" name="@Html.NameFor(x => x.EmailAddress)" value="@Html.ValueFor(x => x.EmailAddress)"
-                       placeholder="[example@somewhere.com]" class="form-control" />
-                <span class="input-group-addon validation-icon"></span>
-            </div>
-        </div>
-        <div class="col-md-5 validation-msg">
-            @Html.ValidationMessageFor(x => x.EmailAddress)
-        </div>
-    </div>
-    <div class="form-group @Html.BootstrapValidationCssClassFor(x => x.IsExpectingEmail)">
-        <div class="col-md-offset-2 col-md-5">
-            <label class="acknowledge-box input-group">
-                <span class="input-group-addon">
-                    <input type="checkbox" name="@Html.NameFor(x => x.IsExpectingEmail)" value="true" checked="@(Model != null && Model.IsExpectingEmail ? "checked" : null)" />
-                    <input type="hidden" name="@Html.NameFor(x => x.IsExpectingEmail)" value="false" />
-                </span>
-                <span class="form-control">
-                    Send an email to the above address so that I can confirm access to it.
-                </span>
-                <span class="input-group-addon validation-icon"></span>
-            </label>
-        </div>
-        <div class="col-md-5 validation-msg">
-            @Html.ValidationMessageFor(x => x.IsExpectingEmail)
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" class="btn btn-default" value="Send confirmation email" />
-            <a href="@Url.Action(MVC.EmailAddresses.Index())">Reload</a>
-        </div>
-    </div>
-</form>
-
 @section styles
 {
     <style>
@@ -67,6 +15,7 @@
         textarea {
             max-width: 100%;
         }
+
         .email-address.input-group {
             max-width: 100%;
         }
@@ -83,45 +32,73 @@
     </style>
 }
 
+<h2>
+    @ViewBag.Title.
+</h2>
+
+<div id="ng-app_test" ng-controller="FormController">
+    <form name="f" action="@Url.Action(MVC.EmailAddresses.SendEmail())" method="POST" class="form-horizontal" role="form" novalidate rc-submit="submit()">
+
+        @Html.AntiForgeryToken()
+
+        <h4>Create a new account.</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+
+        <div class="form-group"
+             ng-class="{ 'has-success': m.hasSuccess(f.EmailAddress), 'has-error': m.hasError(f.EmailAddress) }">
+            <label for="@Html.IdFor(x => x.EmailAddress)" class="col-sm-2 control-label">
+                @EmailAddress.Constraints.Label
+            </label>
+            <div class="col-md-5">
+                <div class="email-address input-group">
+                    <input type="email" ng-model="m.emailAddress" required
+                           ng-init="m.emailAddress='@Html.ValueFor(x => x.EmailAddress)'"
+                           id="@Html.IdFor(x => x.EmailAddress)" name="@Html.NameFor(x => x.EmailAddress)" value="@Html.ValueFor(x => x.EmailAddress)"
+                           placeholder="[example@somewhere.com]" class="form-control" />
+                    <span class="input-group-addon validation-icon"></span>
+                </div>
+            </div>
+            <div class="col-md-5 validation-msg help-block">
+                <span ng-show="f.$pristine">
+                    @Html.ValidationMessageFor(x => x.EmailAddress)
+                </span>
+                <span ng-show="f.$dirty && f.$invalid">
+                    invalidness!
+                    <span ng-show="f.EmailAddress.$error.email">
+                        @Html.Raw(Resources.email_error.Replace("{PropertyValue}", "{{ m.prop }}"))
+                    </span>
+                </span>
+            </div>
+        </div>
+        <div class="form-group @Html.BootstrapValidationCssClassFor(x => x.IsExpectingEmail)">
+            <div class="col-md-offset-2 col-md-5">
+                <label class="acknowledge-box input-group">
+                    <span class="input-group-addon">
+                        <input type="checkbox" name="@Html.NameFor(x => x.IsExpectingEmail)" value="true" checked="@(Model != null && Model.IsExpectingEmail ? "checked" : null)" />
+                        <input type="hidden" name="@Html.NameFor(x => x.IsExpectingEmail)" value="false" />
+                    </span>
+                    <span class="form-control">
+                        Send an email to the above address so that I can confirm access to it.
+                    </span>
+                    <span class="input-group-addon validation-icon"></span>
+                </label>
+            </div>
+            <div class="col-md-5 validation-msg">
+                @Html.ValidationMessageFor(x => x.IsExpectingEmail)
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" class="btn btn-default" value="Send confirmation email" ng-click="m.click()" ng-xdisabled="f.$invalid" />
+                <a href="@Url.Action(MVC.EmailAddresses.Index())">Reload</a>
+            </div>
+        </div>
+    </form>
+    <pre>form = {{m | json}}</pre>
+    <pre>master = {{master | json}}</pre>
+</div>
+
 @section scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-    <script>
-        (function($) {
-            $.validator.setDefaults({
-                highlight: function(element) {
-                    $(element).closest('.form-group').removeClass('has-success').addClass('has-error');
-                },
-                unhighlight: function(element) {
-                    $(element).closest('.form-group').removeClass('has-error').addClass('has-success');
-                },
-                errorElement: 'span',
-                errorClass: 'help-block control-message',
-                errorPlacement: function(error, element) {
-                    if (element.parent('.input-group').length || element.prop('type') === 'checkbox' || element.prop('type') === 'radio') {
-                        if (element.closest('.form-group').children('.validation-msg').length) {
-                            error.appendTo(element.closest('.form-group').children('.validation-msg'));
-                        } else {
-                            error.insertAfter(element.parent());
-                        }
-                    } else {
-                        error.insertAfter(element);
-                    }
-                }
-            });
-            $('form#send_confirmation_email').validate({
-                rules: {
-                    EmailAddress: {
-                        //required: true,
-                        remote: {
-                            url: '/account/register2/validate',
-                            type: 'POST',
-                        },
-                        //email: true,
-                    },
-                },
-                success: 'has-success',
-            });
-        })
-        (jQuery);
-    </script>
+    <script src="~/scripts/require.js" data-main="@Url.Content("~/app/security/confirm-email-address/FormMain.js")"></script>
 }

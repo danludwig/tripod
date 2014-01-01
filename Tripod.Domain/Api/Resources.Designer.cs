@@ -70,7 +70,7 @@ namespace Tripod {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {PropertyName} is not a valid email address..
+        ///   Looks up a localized string similar to &apos;{PropertyValue}&apos; is not a valid email address..
         /// </summary>
         public static string email_error {
             get {
