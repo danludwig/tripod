@@ -1,86 +1,85 @@
 'use strict';
 
 export function ngT3SubmitAction($parse: ng.IParseService): ng.IDirective {
-    return {
+    var directive: ng.IDirective = {
         restrict: 'A',
         require: ['ngT3SubmitAction', '?form'],
-        controller: ['$scope', function ($scope) {
-
-            var formController = null;
-
-            this.setFormController = function (controller) {
-                formController = controller;
-            };
-
-            this.needsAttention = function (fieldModelController) {
-                if (!formController) return false;
-
-                if (fieldModelController) {
-                    return fieldModelController.$invalid &&
-                        (fieldModelController.$dirty || this.attempted);
-                } else {
-                    return formController && formController.$invalid &&
-                        (formController.$dirty || this.attempted);
-                }
-            };
-
-            this.isGoodToGo = function(fieldModelController) {
-                if (!formController) return false;
-                if (this.needsAttention(fieldModelController)) return false;
-
-                if (fieldModelController) {
-                    return fieldModelController.$valid &&
-                        (fieldModelController.$dirty || this.attempted);
-                } else {
-                    return formController && formController.$valid &&
-                        (formController.$dirty || this.attempted);
-                }
-            };
-
-            this.attempted = false;
-
-            this.setAttempted = function () {
-                this.attempted = true;
-            };
-        }],
-        compile: function (cElement, cAttributes, transclude) {
+        controller: [SubmitActionController],
+        compile: (): any => {
             return {
-                pre: function (scope, formElement, attributes, controllers) {
+                pre: (scope: ng.IScope, formElement: JQuery, attributes: ISubmitActionAttributes, controllers: any[]): void => {
 
-                    var submitController = controllers[0];
+                    var submitController: SubmitActionController = controllers[0];
 
-                    var formController = (controllers.length > 1) ?
+                    var formController: ng.IFormController = (controllers.length > 1) ?
                         controllers[1] : null;
-                    submitController.setFormController(formController);
+                    submitController.formController = formController;
 
-                    scope.t3 = scope.t3 || {};
-                    scope.t3[attributes.name] = submitController;
+                    scope['t3'] = scope['t3'] || {};
+                    scope['t3'][attributes.name] = submitController;
                 },
-                post: function (scope, formElement, attributes, controllers) {
+                post: (scope: ng.IScope, formElement: JQuery, attributes: ISubmitActionAttributes, controllers: any[]): void => {
 
-                    var submitController = controllers[0];
-                    var formController = (controllers.length > 1) ?
+                    var submitController: SubmitActionController = controllers[0];
+                    var formController: ng.IFormController = (controllers.length > 1) ?
                         controllers[1] : null;
 
                     var fn = $parse(attributes.ngT3SubmitAction);
 
-                    formElement.bind('submit', function () {
-                        submitController.setAttempted();
+                    formElement.bind('submit', (): boolean => {
+                        submitController.attempted = true;
                         if (!scope.$$phase) scope.$apply();
 
                         if (!formController.$valid) return false;
 
-                        scope.$apply(function () {
+                        scope.$apply((): void => {
                             fn(scope, { $event: event });
                         });
+                        return true;
                     });
 
                     if (attributes.ngT3SubmitActionAttempted)
-                        submitController.setAttempted();
+                        submitController.attempted = true;
                 }
             };
         }
     };
+    return directive;
 }
 
 ngT3SubmitAction.$inject = ['$parse'];
+
+class SubmitActionController {
+
+    attempted = false;
+    formController: ng.IFormController;
+
+    needsAttention(fieldModelController: ng.INgModelController): boolean {
+        if (!this.formController) return false;
+
+        if (fieldModelController)
+            return fieldModelController.$invalid &&
+                (fieldModelController.$dirty || this.attempted);
+
+        return this.formController && this.formController.$invalid &&
+            (this.formController.$dirty || this.attempted);
+    }
+
+    isGoodToGo(fieldModelController: ng.INgModelController): boolean {
+        if (!this.formController) return false;
+        if (this.needsAttention(fieldModelController)) return false;
+
+        if (fieldModelController)
+            return fieldModelController.$valid &&
+                (fieldModelController.$dirty || this.attempted);
+
+        return this.formController && this.formController.$valid &&
+            (this.formController.$dirty || this.attempted);
+    }
+}
+
+interface ISubmitActionAttributes extends ng.IAttributes {
+    ngT3SubmitAction?: string;
+    ngT3SubmitActionAttempted?: string;
+    name?: string;
+}

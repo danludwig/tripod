@@ -1,57 +1,20 @@
 'use strict';
 define(["require", "exports"], function(require, exports) {
     function ngT3SubmitAction($parse) {
-        return {
+        var directive = {
             restrict: 'A',
             require: ['ngT3SubmitAction', '?form'],
-            controller: [
-                '$scope', function ($scope) {
-                    var formController = null;
-
-                    this.setFormController = function (controller) {
-                        formController = controller;
-                    };
-
-                    this.needsAttention = function (fieldModelController) {
-                        if (!formController)
-                            return false;
-
-                        if (fieldModelController) {
-                            return fieldModelController.$invalid && (fieldModelController.$dirty || this.attempted);
-                        } else {
-                            return formController && formController.$invalid && (formController.$dirty || this.attempted);
-                        }
-                    };
-
-                    this.isGoodToGo = function (fieldModelController) {
-                        if (!formController)
-                            return false;
-                        if (this.needsAttention(fieldModelController))
-                            return false;
-
-                        if (fieldModelController) {
-                            return fieldModelController.$valid && (fieldModelController.$dirty || this.attempted);
-                        } else {
-                            return formController && formController.$valid && (formController.$dirty || this.attempted);
-                        }
-                    };
-
-                    this.attempted = false;
-
-                    this.setAttempted = function () {
-                        this.attempted = true;
-                    };
-                }],
-            compile: function (cElement, cAttributes, transclude) {
+            controller: [SubmitActionController],
+            compile: function () {
                 return {
                     pre: function (scope, formElement, attributes, controllers) {
                         var submitController = controllers[0];
 
                         var formController = (controllers.length > 1) ? controllers[1] : null;
-                        submitController.setFormController(formController);
+                        submitController.formController = formController;
 
-                        scope.t3 = scope.t3 || {};
-                        scope.t3[attributes.name] = submitController;
+                        scope['t3'] = scope['t3'] || {};
+                        scope['t3'][attributes.name] = submitController;
                     },
                     post: function (scope, formElement, attributes, controllers) {
                         var submitController = controllers[0];
@@ -60,7 +23,7 @@ define(["require", "exports"], function(require, exports) {
                         var fn = $parse(attributes.ngT3SubmitAction);
 
                         formElement.bind('submit', function () {
-                            submitController.setAttempted();
+                            submitController.attempted = true;
                             if (!scope.$$phase)
                                 scope.$apply();
 
@@ -70,16 +33,46 @@ define(["require", "exports"], function(require, exports) {
                             scope.$apply(function () {
                                 fn(scope, { $event: event });
                             });
+                            return true;
                         });
 
                         if (attributes.ngT3SubmitActionAttempted)
-                            submitController.setAttempted();
+                            submitController.attempted = true;
                     }
                 };
             }
         };
+        return directive;
     }
     exports.ngT3SubmitAction = ngT3SubmitAction;
 
     exports.ngT3SubmitAction.$inject = ['$parse'];
+
+    var SubmitActionController = (function () {
+        function SubmitActionController() {
+            this.attempted = false;
+        }
+        SubmitActionController.prototype.needsAttention = function (fieldModelController) {
+            if (!this.formController)
+                return false;
+
+            if (fieldModelController)
+                return fieldModelController.$invalid && (fieldModelController.$dirty || this.attempted);
+
+            return this.formController && this.formController.$invalid && (this.formController.$dirty || this.attempted);
+        };
+
+        SubmitActionController.prototype.isGoodToGo = function (fieldModelController) {
+            if (!this.formController)
+                return false;
+            if (this.needsAttention(fieldModelController))
+                return false;
+
+            if (fieldModelController)
+                return fieldModelController.$valid && (fieldModelController.$dirty || this.attempted);
+
+            return this.formController && this.formController.$valid && (this.formController.$dirty || this.attempted);
+        };
+        return SubmitActionController;
+    })();
 });

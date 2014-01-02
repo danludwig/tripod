@@ -266,6 +266,9 @@
     <Content Include="app\ng\directives\PreventSubmit.js">
       <DependentUpon>PreventSubmit.ts</DependentUpon>
     </Content>
+    <Content Include="app\ng\directives\SubmitActionDirective.js">
+      <DependentUpon>SubmitActionDirective.ts</DependentUpon>
+    </Content>
     <Content Include="app\security\confirm-email-address\FormController.js">
       <DependentUpon>FormController.ts</DependentUpon>
     </Content>
