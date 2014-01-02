@@ -3,7 +3,7 @@ define(["require", "exports"], function(require, exports) {
     var FormController = (function () {
         function FormController($scope) {
             this.emailAddress = '';
-            this.prop = 'asdf';
+            this.isExpectingEmail = false;
             $scope.m = this;
         }
         FormController.prototype.submit = function (arg1) {
@@ -12,7 +12,7 @@ define(["require", "exports"], function(require, exports) {
         };
 
         FormController.prototype.click = function (m) {
-            alert('click');
+            //alert('click');
         };
 
         FormController.prototype.hasError = function (field) {

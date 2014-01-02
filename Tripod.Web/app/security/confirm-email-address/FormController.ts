@@ -14,7 +14,7 @@ export interface IFormScope extends IModelScope<IFormModel> { }
 export class FormController implements IFormModel {
 
     emailAddress: string = '';
-    prop: string = 'asdf';
+    isExpectingEmail: boolean = false;
 
     static $inject = ['$scope'];
     constructor($scope: IFormScope) {
@@ -27,7 +27,7 @@ export class FormController implements IFormModel {
     }
 
     click(m: any): void {
-        alert('click');
+        //alert('click');
     }
 
     hasError(field: ng.INgModelController): boolean {

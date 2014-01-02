@@ -20,9 +20,28 @@ namespace Tripod.Web.Controllers
         }
 
         [HttpPost, Route("account/register2/validate")]
-        public virtual JsonResult ValidateSendEmail(SendConfirmationEmail command)
+        public virtual ActionResult ValidateSendEmail(SendConfirmationEmail command)
         {
-            return Json("Here is a custom error message for Email address.");
+            Response.StatusCode = 400;
+            return Content("Here is a custom error message for Email address.", "application/json");
+            //return Json(new
+            //{
+            //    Field = "EmailAddy",
+            //    Message = "Here is a custom error message for Email address.",
+            //});
         }
+
+        //[HttpPost, Route("account/register2/validate/{field?}")]
+        //public virtual ActionResult ValidateSendEmail(SendConfirmationEmail command, string field = null)
+        //{
+        //    var key = ModelState.Keys.FirstOrDefault(x => x.Equals(field));
+        //    var isValid = !string.IsNullOrWhiteSpace(key) ? ModelState.IsValidField(key) : ModelState.IsValid;
+        //    if (!isValid)
+        //    {
+        //        Response.StatusCode = 400;
+        //        return Content("Here is a custom error message for Email address.", "application/json");
+        //    }
+        //    return Json(true);
+        //}
     }
 }

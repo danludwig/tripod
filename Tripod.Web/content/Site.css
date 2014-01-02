@@ -69,3 +69,7 @@ input[type="checkbox"].input-validation-error {
 hr {
     border-top-color: #ccc;
 }
+
+[ng-cloak] {
+    display: none !important;
+}

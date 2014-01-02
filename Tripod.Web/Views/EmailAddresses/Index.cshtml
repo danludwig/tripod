@@ -37,7 +37,8 @@
 </h2>
 
 <div id="ng-app_test" ng-controller="FormController">
-    <form name="f" action="@Url.Action(MVC.EmailAddresses.SendEmail())" method="POST" class="form-horizontal" role="form" novalidate rc-submit="submit()">
+    <form name="f" action="@Url.Action(MVC.EmailAddresses.SendEmail())" method="POST" class="form-horizontal" role="form"
+          ng-t3-submit-action="submit()" ng-t3-submit-action-attempted="@(!ViewData.ModelState.IsValid)" novalidate>
 
         @Html.AntiForgeryToken()
 
@@ -45,37 +46,48 @@
         <hr />
         @Html.ValidationSummary(true)
 
+        @* EMAIL ADDRESS INPUT *@
         <div class="form-group"
-             ng-class="{ 'has-success': m.hasSuccess(f.EmailAddress), 'has-error': m.hasError(f.EmailAddress) }">
+             ng-class="{ 'has-success': t3.f.isGoodToGo(f.EmailAddress), 'has-error': t3.f.needsAttention(f.EmailAddress) }">
             <label for="@Html.IdFor(x => x.EmailAddress)" class="col-sm-2 control-label">
                 @EmailAddress.Constraints.Label
             </label>
             <div class="col-md-5">
                 <div class="email-address input-group">
-                    <input type="email" ng-model="m.emailAddress" required
-                           ng-init="m.emailAddress='@Html.ValueFor(x => x.EmailAddress)'"
+                    <input type="email" placeholder="[example@somewhere.com]" class="form-control"
                            id="@Html.IdFor(x => x.EmailAddress)" name="@Html.NameFor(x => x.EmailAddress)" value="@Html.ValueFor(x => x.EmailAddress)"
-                           placeholder="[example@somewhere.com]" class="form-control" />
+                           ng-model="m.emailAddress" required
+                           ng-init="m.emailAddress='@Html.ValueFor(x => x.EmailAddress)'" />
                     <span class="input-group-addon validation-icon"></span>
                 </div>
             </div>
             <div class="col-md-5 validation-msg help-block">
-                <span ng-show="f.$pristine">
+                <span ng-show="!t3.f.needsAttention(f.EmailAddress) && f.EmailAddress.$pristine">
                     @Html.ValidationMessageFor(x => x.EmailAddress)
                 </span>
-                <span ng-show="f.$dirty && f.$invalid">
-                    invalidness!
+                <span ng-show="t3.f.needsAttention(f.EmailAddress)" ng-cloak>
+                    <span ng-show="f.EmailAddress.$error.required && !f.EmailAddress.$viewValue">
+                        @Html.Raw(Resources.notempty_error.Replace("{PropertyName}", @EmailAddress.Constraints.Label))
+                    </span>
                     <span ng-show="f.EmailAddress.$error.email">
-                        @Html.Raw(Resources.email_error.Replace("{PropertyValue}", "{{ m.prop }}"))
+                        @Html.Raw(Resources.email_error.Replace("{PropertyValue}", "{{ f.EmailAddress.$viewValue }}"))
+                    </span>
+                    <span ng-show="f.EmailAddress.$error.server">
+                        why {{ serverErrors.EmailAddress }} not
                     </span>
                 </span>
             </div>
         </div>
-        <div class="form-group @Html.BootstrapValidationCssClassFor(x => x.IsExpectingEmail)">
+
+        @* DISCLAIMER CHECKBOX INPUT *@
+        <div class="form-group" ng-class="{ 'has-success': t3.f.isGoodToGo(f.IsExpectingEmail), 'has-error': t3.f.needsAttention(f.IsExpectingEmail) }">
             <div class="col-md-offset-2 col-md-5">
                 <label class="acknowledge-box input-group">
                     <span class="input-group-addon">
-                        <input type="checkbox" name="@Html.NameFor(x => x.IsExpectingEmail)" value="true" checked="@(Model != null && Model.IsExpectingEmail ? "checked" : null)" />
+                        <input type="checkbox" id="@Html.IdFor(x => x.IsExpectingEmail)" name="@Html.NameFor(x => x.IsExpectingEmail)" value="true"
+                               checked="@(Model != null && Model.IsExpectingEmail ? "checked" : null)"
+                               ng-model="m.isExpectingEmail" required
+                               ng-init="m.isExpectingEmail=@(Model != null ? Html.ValueFor(x => x.IsExpectingEmail) : MvcHtmlString.Create("false"))" />
                         <input type="hidden" name="@Html.NameFor(x => x.IsExpectingEmail)" value="false" />
                     </span>
                     <span class="form-control">
@@ -95,8 +107,22 @@
             </div>
         </div>
     </form>
-    <pre>form = {{m | json}}</pre>
-    <pre>master = {{master | json}}</pre>
+    <pre ng-cloak>
+m = {{m | json}}
+f = {{f | json}}
+f.EmailAddress.$viewValue = {{f.EmailAddress.$viewValue | json}}
+f.EmailAddress.$pristine = {{f.EmailAddress.$pristine | json}}
+f.IsExpectingEmail.$viewValue = {{f.IsExpectingEmail.$viewValue | json}}
+f.valid = {{ f.$valid | json}}
+m.hasSuccess(f.EmailAddress) = {{ m.hasSuccess(f.EmailAddress) }}
+m.hasError(f.EmailAddress) = {{ m.hasError(f.EmailAddress) }}
+f.EmailAddress.$invalid = {{ f.EmailAddress.$invalid }}
+f.EmailAddress.$dirty = {{ f.EmailAddress.$dirty }}
+t3.f.needsAttention(f.EmailAddress) = {{ t3.f.needsAttention(f.EmailAddress) }}
+f.IsExpectingEmail = {{ f.IsExpectingEmail }}
+t3.f.needsAttention(f.IsExpectingEmail) = {{ t3.f.needsAttention(f.IsExpectingEmail) }}
+t3.f.isGoodToGo(f.IsExpectingEmail) = {{ t3.f.needsAttention(f.IsExpectingEmail) }}
+    </pre>
 </div>
 
 @section scripts {

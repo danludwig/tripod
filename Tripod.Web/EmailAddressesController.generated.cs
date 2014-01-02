@@ -52,9 +52,9 @@ namespace Tripod.Web.Controllers
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.JsonResult ValidateSendEmail()
+        public virtual System.Web.Mvc.ActionResult ValidateSendEmail()
         {
-            return new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.ValidateSendEmail);
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ValidateSendEmail);
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -142,11 +142,11 @@ namespace Tripod.Web.Controllers
             return callInfo;
         }
 
-        partial void ValidateSendEmailOverride(T4MVC_System_Web_Mvc_JsonResult callInfo, Tripod.Domain.Security.SendConfirmationEmail command);
+        partial void ValidateSendEmailOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Tripod.Domain.Security.SendConfirmationEmail command);
 
-        public override System.Web.Mvc.JsonResult ValidateSendEmail(Tripod.Domain.Security.SendConfirmationEmail command)
+        public override System.Web.Mvc.ActionResult ValidateSendEmail(Tripod.Domain.Security.SendConfirmationEmail command)
         {
-            var callInfo = new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.ValidateSendEmail);
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ValidateSendEmail);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "command", command);
             ValidateSendEmailOverride(callInfo, command);
             return callInfo;

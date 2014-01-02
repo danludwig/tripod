@@ -275,6 +275,12 @@
     <Content Include="app\security\confirm-email-address\FormModule.js">
       <DependentUpon>FormModule.ts</DependentUpon>
     </Content>
+    <Content Include="app\security\confirm-email-address\TestValidator.js">
+      <DependentUpon>TestValidator.ts</DependentUpon>
+    </Content>
+    <Content Include="app\security\confirm-email-address\TestValidator1.js">
+      <DependentUpon>TestValidator1.ts</DependentUpon>
+    </Content>
     <Content Include="content\bootstrap.css" />
     <Content Include="content\bootstrap.min.css" />
     <Content Include="content\resharper-unused.css" />
@@ -644,9 +650,12 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="app\ng\directives\PreventSubmit.ts" />
+    <TypeScriptCompile Include="app\ng\directives\SubmitActionDirective.ts" />
     <TypeScriptCompile Include="app\security\confirm-email-address\FormController.ts" />
     <TypeScriptCompile Include="app\security\confirm-email-address\FormModule.ts" />
     <TypeScriptCompile Include="app\security\confirm-email-address\FormMain.ts" />
+    <TypeScriptCompile Include="app\security\confirm-email-address\TestValidator.ts" />
+    <TypeScriptCompile Include="app\security\confirm-email-address\TestValidator1.ts" />
     <TypeScriptCompile Include="scripts\typings\angularjs\angular-cookies.d.ts" />
     <TypeScriptCompile Include="scripts\typings\angularjs\angular-mocks.d.ts" />
     <TypeScriptCompile Include="scripts\typings\angularjs\angular-resource.d.ts" />
