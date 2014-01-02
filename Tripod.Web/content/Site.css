@@ -13,10 +13,11 @@
 input,
 select,
 textarea {
-    max-width: 280px;
+    /* remove max-width, let inputs go 100%, and set containers to constrain */
+    /*max-width: 280px;*/
 }
 
-/* styles for validation helpers */
+/* styles for validation chelpers */
 .xfield-validation-error {
     /* disable this and display these within a help-block */
     color: #b94a48;
@@ -79,4 +80,15 @@ hr {
 
 [ng-cloak] {
     display: none !important;
+}
+
+.form-control .checkbox {
+    /* when a checkbox is nested within a form-control (which is also probably nested within an input-group),
+                remove the top padding, since the form-control provides padding already */
+    padding-top: 0;
+}
+
+input[type=checkbox] {
+    /* make checkboxes use pointer cursor to match up with their labels */
+    cursor: pointer;
 }
