@@ -1,5 +1,11 @@
 'use strict';
 
+interface ISubmitActionAttributes extends ng.IAttributes {
+    ngT3SubmitAction?: string;
+    ngT3SubmitActionAttempted?: string;
+    name?: string;
+}
+
 export function ngT3SubmitAction($parse: ng.IParseService): ng.IDirective {
     var directive: ng.IDirective = {
         restrict: 'A',
@@ -76,10 +82,4 @@ class SubmitActionController {
         return this.formController && this.formController.$valid &&
             (this.formController.$dirty || this.attempted);
     }
-}
-
-interface ISubmitActionAttributes extends ng.IAttributes {
-    ngT3SubmitAction?: string;
-    ngT3SubmitActionAttempted?: string;
-    name?: string;
 }
