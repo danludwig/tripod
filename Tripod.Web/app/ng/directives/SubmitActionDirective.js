@@ -1,5 +1,7 @@
 'use strict';
 define(["require", "exports"], function(require, exports) {
+    exports.directiveName = 'ngT3SubmitAction';
+
     function ngT3SubmitAction($parse) {
         var directive = {
             restrict: 'A',

@@ -11,6 +11,8 @@ export interface IModelScope<T> extends ng.IScope {
 
 export interface IFormScope extends IModelScope<IFormModel> { }
 
+export var controllerName = 'FormController';
+
 export class FormController implements IFormModel {
 
     emailAddress: string = '';

@@ -4,6 +4,8 @@ interface IInputPreFormatterAttributes extends ng.IAttributes {
     type?: string;
 }
 
+export var directiveName = 'input';
+
 export function ngT3InputPreFormatter(): ng.IDirective {
     var directive: ng.IDirective = {
         restrict: 'E',

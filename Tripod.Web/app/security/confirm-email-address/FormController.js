@@ -1,5 +1,7 @@
 'use strict';
 define(["require", "exports"], function(require, exports) {
+    exports.controllerName = 'FormController';
+
     var FormController = (function () {
         function FormController($scope) {
             this.emailAddress = '';

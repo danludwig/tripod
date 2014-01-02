@@ -6,6 +6,8 @@ interface ISubmitActionAttributes extends ng.IAttributes {
     name?: string;
 }
 
+export var directiveName = 'ngT3SubmitAction';
+
 export function ngT3SubmitAction($parse: ng.IParseService): ng.IDirective {
     var directive: ng.IDirective = {
         restrict: 'A',

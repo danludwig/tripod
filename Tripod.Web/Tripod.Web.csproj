@@ -263,6 +263,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="app\ng\directives\InputPreFormatterDirective.js">
+      <DependentUpon>InputPreFormatterDirective.ts</DependentUpon>
+    </Content>
     <Content Include="app\ng\directives\SubmitActionDirective.js">
       <DependentUpon>SubmitActionDirective.ts</DependentUpon>
     </Content>
@@ -649,6 +652,7 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <TypeScriptCompile Include="app\ng\directives\RemoveCssClassDirective.ts" />
     <TypeScriptCompile Include="app\ng\directives\InputPreFormatterDirective.ts" />
     <TypeScriptCompile Include="app\ng\directives\SubmitActionDirective.ts" />
     <TypeScriptCompile Include="app\security\confirm-email-address\FormController.ts" />

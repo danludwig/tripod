@@ -1,5 +1,7 @@
 'use strict';
 define(["require", "exports"], function(require, exports) {
+    exports.directiveName = 'input';
+
     function ngT3InputPreFormatter() {
         var directive = {
             restrict: 'E',
