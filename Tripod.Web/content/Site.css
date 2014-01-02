@@ -17,7 +17,8 @@ textarea {
 }
 
 /* styles for validation helpers */
-.field-validation-error {
+.xfield-validation-error {
+    /* disable this and display these within a help-block */
     color: #b94a48;
 }
 
@@ -41,20 +42,26 @@ textarea {
     background-image: url(../images/icons/green-checkmark-a-256.png);
 }
 
-.validation-msg {
-    padding-top: 8px;
+@media(min-width: 992px) {
+    .validation-msg.help-block {
+        /* get rid of the margin-bottom on this when it is displayed to the side
+            so that it does not change height of overall field when disappearing */
+        margin-bottom: 0;
+        /* line this up a vertically with the field */
+        margin-top: 7px;
+        /* bring the validation message closer to the field */
+        margin-left: 0;
+        padding-left: 0;
+    }
 }
 
-    .validation-msg .help-block.control-message {
-        /* can either do this, or remove padding above and set margins on field-validation-error */
-        margin: 0;
-    }
-
-input.input-validation-error {
+input.xinput-validation-error {
+    /* disable this and display these within a help-block */
     border: 1px solid #b94a48;
 }
 
-input[type="checkbox"].input-validation-error {
+input[type="checkbox"].xinput-validation-error {
+    /* disable this and display these within a help-block */
     border: 0 none;
 }
 

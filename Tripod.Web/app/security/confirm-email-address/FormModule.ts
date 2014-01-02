@@ -34,6 +34,15 @@ export var ngModule = angular.module('test', [])
             }
         };
     })
+    .directive('ngT3RemoveClass', function () {
+        return {
+            require: '?ngModel',
+            restrict: 'A',
+            link: function (scope, element, attrs) {
+                element.removeClass(attrs.removeClass);
+            }
+        };
+    })
     //.directive('ngTripodValidateEmailAddress', testValidator.ngTripodValidateEmailAddress)
 ;
 return ngModule;

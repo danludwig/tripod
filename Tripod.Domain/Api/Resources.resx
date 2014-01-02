@@ -219,4 +219,7 @@
   <data name="Validation_RemoteMembershipByUser_IsOnlyLogin" xml:space="preserve">
     <value>{PropertyName} '{PropertyValue}' does not have a {PasswordLabel} or any other external logins.</value>
   </data>
+  <data name="Validation_SendConfirmationEmail_IsExpectingEmail" xml:space="preserve">
+    <value>Please acknowledge that you will expect a confirmation email to be sent to this {PropertyName}.</value>
+  </data>
 </root>

@@ -47,9 +47,10 @@
         @Html.ValidationSummary(true)
 
         @* EMAIL ADDRESS INPUT *@
-        <div class="form-group"
+        <div class="form-group @Html.BootstrapValidationCssClassFor(x => x.EmailAddress)"
+             ng-t3-remove-class="has-success has-error"
              ng-class="{ 'has-success': t3.f.isGoodToGo(f.EmailAddress), 'has-error': t3.f.needsAttention(f.EmailAddress) }">
-            <label for="@Html.IdFor(x => x.EmailAddress)" class="col-sm-2 control-label">
+            <label for="@Html.IdFor(x => x.EmailAddress)" class="col-md-3 control-label">
                 @EmailAddress.Constraints.Label
             </label>
             <div class="col-md-5">
@@ -61,16 +62,18 @@
                     <span class="input-group-addon validation-icon"></span>
                 </div>
             </div>
-            <div class="col-md-5 validation-msg help-block">
+
+            @* VALIDATION MESSAGES *@
+            <div class="col-md-4 validation-msg help-block">
                 <span ng-show="!t3.f.needsAttention(f.EmailAddress) && f.EmailAddress.$pristine">
                     @Html.ValidationMessageFor(x => x.EmailAddress)
                 </span>
                 <span ng-show="t3.f.needsAttention(f.EmailAddress)" ng-cloak>
                     <span ng-show="f.EmailAddress.$error.required && !f.EmailAddress.$viewValue">
-                        @Html.Raw(Resources.notempty_error.Replace("{PropertyName}", @EmailAddress.Constraints.Label))
+                        @Resources.notempty_error.Replace("{PropertyName}", @EmailAddress.Constraints.Label)
                     </span>
                     <span ng-show="f.EmailAddress.$error.email">
-                        @Html.Raw(Resources.email_error.Replace("{PropertyValue}", "{{ f.EmailAddress.$viewValue }}"))
+                        @Resources.email_error.Replace("{PropertyValue}", "{{ f.EmailAddress.$viewValue }}")
                     </span>
                     <span ng-show="f.EmailAddress.$error.server">
                         why {{ serverErrors.EmailAddress }} not
@@ -80,8 +83,10 @@
         </div>
 
         @* DISCLAIMER CHECKBOX INPUT *@
-        <div class="form-group" ng-class="{ 'has-success': t3.f.isGoodToGo(f.IsExpectingEmail), 'has-error': t3.f.needsAttention(f.IsExpectingEmail) }">
-            <div class="col-md-offset-2 col-md-5">
+        <div class="form-group @Html.BootstrapValidationCssClassFor(x => x.IsExpectingEmail)"
+             ng-t3-remove-class="has-success has-error"
+             ng-class="{ 'has-success': t3.f.isGoodToGo(f.IsExpectingEmail), 'has-error': t3.f.needsAttention(f.IsExpectingEmail) }">
+            <div class="col-md-offset-3 col-md-5">
                 <label class="acknowledge-box input-group">
                     <span class="input-group-addon">
                         <input type="checkbox" id="@Html.IdFor(x => x.IsExpectingEmail)" name="@Html.NameFor(x => x.IsExpectingEmail)" value="true"
@@ -96,12 +101,21 @@
                     <span class="input-group-addon validation-icon"></span>
                 </label>
             </div>
-            <div class="col-md-5 validation-msg">
-                @Html.ValidationMessageFor(x => x.IsExpectingEmail)
+
+            @* VALIDATION MESSAGES *@
+            <div class="col-md-4 validation-msg help-block">
+                <span ng-show="!t3.f.needsAttention(f.IsExpectingEmail) && f.IsExpectingEmail.$pristine">
+                    @Html.ValidationMessageFor(x => x.IsExpectingEmail)
+                </span>
+                <span ng-show="t3.f.needsAttention(f.IsExpectingEmail)" ng-cloak>
+                    <span ng-show="f.IsExpectingEmail.$error.required">
+                        @Resources.Validation_SendConfirmationEmail_IsExpectingEmail.Replace("{PropertyName}", @EmailAddress.Constraints.Label.ToLower())
+                    </span>
+                </span>
             </div>
         </div>
         <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
+            <div class="col-md-offset-3 col-md-9">
                 <input type="submit" class="btn btn-default" value="Send confirmation email" ng-click="m.click()" ng-xdisabled="f.$invalid" />
                 <a href="@Url.Action(MVC.EmailAddresses.Index())">Reload</a>
             </div>

@@ -21,6 +21,14 @@ define(["require", "exports", './FormController', '../../ng/directives/SubmitAct
                 });
             }
         };
+    }).directive('ngT3RemoveClass', function () {
+        return {
+            require: '?ngModel',
+            restrict: 'A',
+            link: function (scope, element, attrs) {
+                element.removeClass(attrs.removeClass);
+            }
+        };
     });
     return exports.ngModule;
 });

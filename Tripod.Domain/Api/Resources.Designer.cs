@@ -365,5 +365,14 @@ namespace Tripod {
                 return ResourceManager.GetString("Validation_RemoteMembershipByUser_IsOnlyLogin", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please acknowledge that you will expect a confirmation email to be sent to this {PropertyName}..
+        /// </summary>
+        public static string Validation_SendConfirmationEmail_IsExpectingEmail {
+            get {
+                return ResourceManager.GetString("Validation_SendConfirmationEmail_IsExpectingEmail", resourceCulture);
+            }
+        }
     }
 }

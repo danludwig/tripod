@@ -24,7 +24,8 @@ namespace Tripod.Domain.Security
 
             RuleFor(x => x.IsExpectingEmail)
                 .Equal(true)
-                    .WithMessage("Please acknowledge that you will expect a confirmation email to be sent to this {PropertyName}.");
+                    .WithMessage(Resources.Validation_SendConfirmationEmail_IsExpectingEmail)
+                        .WithName(EmailAddress.Constraints.Label.ToLower());
         }
     }
 
