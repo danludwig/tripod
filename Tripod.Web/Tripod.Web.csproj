@@ -266,6 +266,9 @@
     <Content Include="app\ng\directives\InputPreFormatterDirective.js">
       <DependentUpon>InputPreFormatterDirective.ts</DependentUpon>
     </Content>
+    <Content Include="app\ng\directives\RemoveCssClassDirective.js">
+      <DependentUpon>RemoveCssClassDirective.ts</DependentUpon>
+    </Content>
     <Content Include="app\ng\directives\SubmitActionDirective.js">
       <DependentUpon>SubmitActionDirective.ts</DependentUpon>
     </Content>

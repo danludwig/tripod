@@ -39,7 +39,7 @@
                            ng-model="m.emailAddress" required
                            ng-init="m.emailAddress='@Html.ValueFor(x => x.EmailAddress)'" />
                     <span class="input-group-addon validation">
-                        <i class="fa fa-fw fa-asterisk default"></i>
+                        <i class="fa fa-fw fa-asterisk default" title="This is a required field"></i>
                         <i class="fa fa-fw fa-times error"></i>
                         <i class="fa fa-fw fa-exclamation-triangle warning"></i>
                         <i class="fa fa-fw fa-check success"></i>
@@ -87,7 +87,7 @@
                         </div>
                     </div>
                     <span class="input-group-addon validation">
-                        <i class="fa fa-fw fa-asterisk default"></i>
+                        <i class="fa fa-fw fa-asterisk default" title="This is a required field"></i>
                         <i class="fa fa-fw fa-times error"></i>
                         <i class="fa fa-fw fa-exclamation-triangle warning"></i>
                         <i class="fa fa-fw fa-check success"></i>
@@ -111,7 +111,7 @@
         @* FORM SUBMIT BUTTON *@
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" class="btn btn-default" value="Send confirmation email" ng-click="m.click()" ng-xdisabled="f.$invalid" />
+                <input type="submit" class="btn btn-default btn-primary" value="Send confirmation email" ng-click="m.click()" ng-disabled="f.$invalid && t3.f.attempted" />
                 <a href="@Url.Action(MVC.EmailAddresses.Index())">Reload</a>
             </div>
         </div>

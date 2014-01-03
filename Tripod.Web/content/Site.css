@@ -138,6 +138,10 @@ hr {
 [ng-cloak] {
     display: none !important;
 }
+[disabled], .btn[disabled] {
+    pointer-events: auto;
+    cursor: not-allowed;
+}
 
 .form-control .checkbox {
     /* when a checkbox is nested within a form-control (which is also probably nested within an input-group),

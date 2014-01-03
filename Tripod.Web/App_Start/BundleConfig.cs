@@ -8,7 +8,7 @@ namespace Tripod.Web
         public static void RegisterBundles(BundleCollection bundles)
         {
 #if DEBUG
-            BundleTable.EnableOptimizations = true;
+            //BundleTable.EnableOptimizations = true;
 #else
             //BundleTable.EnableOptimizations = false;
 #endif
