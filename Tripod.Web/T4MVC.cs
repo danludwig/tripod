@@ -430,6 +430,9 @@ namespace Links
         public static readonly string bootstrap_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/bootstrap.min.css") ? Url("bootstrap.min.css") : Url("bootstrap.css");
              
         public static readonly string bootstrap_min_css = Url("bootstrap.min.css");
+        public static readonly string font_awesome_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/font-awesome.min.css") ? Url("font-awesome.min.css") : Url("font-awesome.css");
+             
+        public static readonly string font_awesome_min_css = Url("font-awesome.min.css");
         public static readonly string resharper_unused_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/resharper-unused.min.css") ? Url("resharper-unused.min.css") : Url("resharper-unused.css");
              
         public static readonly string Site_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Site.min.css") ? Url("Site.min.css") : Url("Site.css");
