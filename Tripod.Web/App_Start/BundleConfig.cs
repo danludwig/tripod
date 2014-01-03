@@ -7,6 +7,12 @@ namespace Tripod.Web
         // For more information on bundling, visit http://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {
+#if DEBUG
+            BundleTable.EnableOptimizations = true;
+#else
+            //BundleTable.EnableOptimizations = false;
+#endif
+
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/scripts/jquery-{version}.js"));
 
@@ -24,6 +30,7 @@ namespace Tripod.Web
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/content/bootstrap.css",
+                      "~/content/font-awesome.css",
                       "~/content/site.css"));
         }
     }

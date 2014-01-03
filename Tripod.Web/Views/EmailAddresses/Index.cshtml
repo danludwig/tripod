@@ -38,7 +38,12 @@
                            id="@Html.IdFor(x => x.EmailAddress)" name="@Html.NameFor(x => x.EmailAddress)" value="@Html.ValueFor(x => x.EmailAddress)"
                            ng-model="m.emailAddress" required
                            ng-init="m.emailAddress='@Html.ValueFor(x => x.EmailAddress)'" />
-                    <span class="input-group-addon validation-icon"></span>
+                    <span class="input-group-addon validation">
+                        <i class="fa fa-fw fa-asterisk default"></i>
+                        <i class="fa fa-fw fa-times error"></i>
+                        <i class="fa fa-fw fa-exclamation-triangle warning"></i>
+                        <i class="fa fa-fw fa-check success"></i>
+                    </span>
                 </div>
             </div>
 
@@ -81,7 +86,12 @@
                             </label>
                         </div>
                     </div>
-                    <span class="input-group-addon validation-icon"></span>
+                    <span class="input-group-addon validation">
+                        <i class="fa fa-fw fa-asterisk default"></i>
+                        <i class="fa fa-fw fa-times error"></i>
+                        <i class="fa fa-fw fa-exclamation-triangle warning"></i>
+                        <i class="fa fa-fw fa-check success"></i>
+                    </span>
                 </div>
             </div>
 

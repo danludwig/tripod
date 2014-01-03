@@ -27,7 +27,7 @@ textarea {
     display: none;
 }
 
-.input-group-addon.validation-icon {
+/*.input-group-addon.xvalidation-icon {
     min-width: 30px;
     background-size: 16px auto;
     background-repeat: no-repeat;
@@ -35,13 +35,70 @@ textarea {
     text-indent: -9999px;
 }
 
-.has-error .input-group-addon.validation-icon {
+.has-error .input-group-addon.xvalidation-icon {
     background-image: url(../images/icons/white-x-on-red-disc-110.png);
 }
 
-.has-success .input-group-addon.validation-icon {
+.has-success .input-group-addon.xvalidation-icon {
     background-image: url(../images/icons/green-checkmark-a-256.png);
+}*/
+
+.input-group-addon.validation {
+    vertical-align: top;
+    padding: 6px 6px 0 6px;
 }
+
+.input-group-addon.validation i {
+    width: 18px;
+}
+
+.form-group i.default {
+    color: #555;
+}
+
+.form-group i.error, .form-group i.warning, .form-group i.success {
+    display: none;
+}
+
+.has-error i.error {
+    display: inline-block;
+}
+
+.has-error i.default, .has-error i.warning, .has-error i.success {
+    display: none;
+}
+
+.has-success i.success {
+    display: inline-block;
+}
+
+.has-success i.default, .has-success i.warning, .has-success i.error {
+    display: none;
+}
+
+.has-warning i.warning {
+    display: inline-block;
+}
+
+.has-warning i.default, .has-warning i.success, .has-warning i.error {
+    display: none;
+}
+
+.input-group-addon.validation i.default.fa-asterisk {
+    font-size: 12px;
+    line-height: 20px;
+}
+.has-error .input-group-addon.validation i.error.fa-times {
+    font-size: 18px;
+}
+.has-success .input-group-addon.validation i.success.fa-check {
+    font-size: 18px;
+}
+.has-warning .input-group-addon.validation i.warning.fa-exclamation-triangle {
+    font-size: 16px;
+    line-height: 20px;
+}
+
 
 @media(min-width: 992px) {
     .validation-msg.help-block {
