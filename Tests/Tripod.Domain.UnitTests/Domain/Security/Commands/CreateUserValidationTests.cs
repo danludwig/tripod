@@ -14,7 +14,7 @@ namespace Tripod.Domain.Security
     public class CreateUserValidationTests : FluentValidationTests
     {
         [Theory, InlineData(null), InlineData(""), InlineData("\t  \r\n")]
-        public void IsInvalid_WhenName_IsNullOrWhitespace(string name)
+        public void IsInvalid_WhenName_IsEmpty(string name)
         {
             var queries = new Mock<IProcessQueries>(MockBehavior.Strict);
             var validator = new ValidateCreateUserCommand(queries.Object);
@@ -83,7 +83,7 @@ namespace Tripod.Domain.Security
             {
                 Name = "alreadyIn",
             };
-            Expression<Func<UserBy, bool>> expectedQuery = y => y.Name == command.Name;
+            Expression<Func<UserBy, bool>> expectedQuery = x => x.Name == command.Name;
             var entity = new User { Name = "AlreadyIn" };
             queries.Setup(x => x.Execute(It.Is(expectedQuery))).Returns(Task.FromResult(entity));
 
@@ -98,7 +98,7 @@ namespace Tripod.Domain.Security
             );
             queries.Verify(x => x.Execute(It.Is(expectedQuery)), Times.Once);
             //validator.ShouldHaveValidationErrorFor(x => x.Name, command.Name);
-            queries.Verify(x => x.Execute(It.Is(expectedQuery)), Times.Once);
+            //queries.Verify(x => x.Execute(It.Is(expectedQuery)), Times.Once);
         }
 
         [Fact]
@@ -115,7 +115,7 @@ namespace Tripod.Domain.Security
             result.IsValid.ShouldBeTrue();
             queries.Verify(x => x.Execute(It.Is(expectedQuery)), Times.Once);
             //validator.ShouldNotHaveValidationErrorFor(x => x.Name, command.Name);
-            queries.Verify(x => x.Execute(It.Is(expectedQuery)), Times.Once);
+            //queries.Verify(x => x.Execute(It.Is(expectedQuery)), Times.Once);
         }
     }
 }

@@ -12,7 +12,7 @@ namespace Tripod.Domain.Security
     public class SendConfirmationEmailValidationTests : FluentValidationTests
     {
         [Theory, InlineData(null), InlineData(""), InlineData("\t  \r\n")]
-        public void IsInvalid_EmailAddress_IsNullOrWhitespace(string emailAddress)
+        public void IsInvalid_WhenEmailAddress_IsEmpty(string emailAddress)
         {
             var queries = new Mock<IProcessQueries>(MockBehavior.Strict);
             var validator = new ValidateSendConfirmationEmailCommand(queries.Object);
@@ -28,7 +28,7 @@ namespace Tripod.Domain.Security
         }
 
         [Theory, InlineData("invalid"), InlineData("invalid@"), InlineData("invalid@gmail"), InlineData("invalid@gmail."), InlineData("invalid@.com")]
-        public void IsInvalid_EmailAddress_DoesNotMatchPattern(string emailAddress)
+        public void IsInvalid_WhenEmailAddress_DoesNotMatchPattern(string emailAddress)
         {
             var queries = new Mock<IProcessQueries>(MockBehavior.Strict);
             var validator = new ValidateSendConfirmationEmailCommand(queries.Object);
