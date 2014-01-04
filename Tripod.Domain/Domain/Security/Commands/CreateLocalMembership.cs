@@ -9,10 +9,10 @@ namespace Tripod.Domain.Security
     public class CreateLocalMembership : IDefineSecuredCommand
     {
         public IPrincipal Principal { get; set; }
-        public string UserName { get; [UsedImplicitly] set; }
-        public string Password { get; [UsedImplicitly] set; }
-        public string ConfirmPassword { get; [UsedImplicitly] set; }
-        public LocalMembership Created { [UsedImplicitly] get; internal set; }
+        public string UserName { get; set; }
+        public string Password { get; set; }
+        public string ConfirmPassword { get; set; }
+        public LocalMembership Created { get; internal set; }
     }
 
     public class ValidateCreateLocalMembershipCommand : AbstractValidator<CreateLocalMembership>

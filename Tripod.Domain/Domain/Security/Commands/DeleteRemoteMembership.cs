@@ -11,8 +11,8 @@ namespace Tripod.Domain.Security
     public class DeleteRemoteMembership : IDefineSecuredCommand
     {
         public IPrincipal Principal { get; set; }
-        public string LoginProvider { get; [UsedImplicitly] set; }
-        public string ProviderKey { get; [UsedImplicitly] set; }
+        public string LoginProvider { get; set; }
+        public string ProviderKey { get; set; }
     }
 
     public class ValidateDeleteRemoteMembershipCommand : AbstractValidator<DeleteRemoteMembership>

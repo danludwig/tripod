@@ -11,7 +11,7 @@ namespace Tripod.Domain.Security
     {
         public string LoginProvider { get; set; }
         public string ProviderKey { get; set; }
-        public bool IsPersistent { get; [UsedImplicitly] set; }
+        public bool IsPersistent { get; set; }
     }
 
     public class ValidateSignOnCommand : AbstractValidator<SignOn>

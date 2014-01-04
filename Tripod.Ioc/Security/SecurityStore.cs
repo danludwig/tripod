@@ -267,6 +267,8 @@ namespace Tripod.Ioc.Security
             if (claim == null) throw new ArgumentNullException("claim");
             var entity = new Claim
             {
+                Owner = user,
+                UserId = user.Id,
                 ClaimType = claim.Type,
                 ClaimValue = claim.Value,
             };
