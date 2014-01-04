@@ -1,0 +1,88 @@
+@import "compass/css3";
+
+.providers.row {
+
+    margin-top: 20px;
+    margin-bottom: 20px;
+
+    button {
+        text-align: left;
+        width: 100%;
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        font-size: 15px;
+        color: #fff;
+
+        i {
+            display: block;
+            float: left;
+        }
+
+        &.btn-lg {
+            padding: 0 8px;
+            height: 42px; /* this may need to change if there is no btn-lg */
+            line-height: 40px;
+
+            i {
+                height: 42px;
+                line-height: 40px;
+                width: 32px;
+            }
+        }
+
+        &.google {
+            background-color: #dd4b39;
+
+            &:hover {
+                background-color: #e94a2f;
+            }
+
+            &:active {
+                background-color: #be3e2e;
+            }
+
+            i {
+                background-image: url(../../images/oauth-buttons/google/Red-signin-Small-transparent-44dp.png);
+                @include background-size(auto 36px);
+                background-repeat: no-repeat;
+                background-position: -4px 2px;
+            }
+        }
+
+        &.facebook {
+            background-color: #3b5998;
+
+            &:hover {
+                background-color: #4c69a3;
+            }
+
+            &:active {
+                background-color: #2f477a;
+            }
+
+            i {
+                background-image: url(../../images/oauth-buttons/facebook/f-white-around-transparent.png);
+                @include background-size(auto 24px);
+                background-repeat: no-repeat;
+                background-position: 1px 8px;
+            }
+        }
+
+        &.twitter {
+            background-color: #1daee3;
+
+            &:hover {
+                background-color: #00bbff;
+            }
+
+            &:active {
+                background-color: #2b93b9;
+            }
+
+            i {
+                background-image: url(../../images/oauth-buttons/twitter/bird-white-on-transparent-30-22.png);
+                background-repeat: no-repeat;
+                background-position: -1px 10px;
+            }
+        }
+    }
+}

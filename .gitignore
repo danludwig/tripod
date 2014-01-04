@@ -40,6 +40,9 @@ Packages/
 #Allow released nupkg files
 !MyProjectName.1.0.nupkg
 
+@Ignore sass-cache
+.sass-cache/
+
 #Ignore local testsettings
 Local.testsettings
 

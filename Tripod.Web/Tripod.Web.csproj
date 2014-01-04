@@ -26,6 +26,7 @@
     <TypeScriptToolsVersion>0.9</TypeScriptToolsVersion>
     <TypeScriptModuleKind>amd</TypeScriptModuleKind>
     <TypeScriptSourceMap>False</TypeScriptSourceMap>
+    <IsCompassProject>True</IsCompassProject>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -291,7 +292,6 @@
     <Content Include="content\bootstrap.min.css" />
     <Content Include="content\font-awesome.css" />
     <Content Include="content\font-awesome.min.css" />
-    <Content Include="content\resharper-unused.css" />
     <Content Include="content\security\sign-in.css">
       <DependentUpon>sign-in.scss</DependentUpon>
     </Content>
@@ -299,7 +299,7 @@
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="content\Site.css" />
+    <Content Include="content\site.css" />
     <Content Include="images\oauth-buttons\facebook\f-white-around-transparent.png" />
     <Content Include="images\oauth-buttons\google\Red-signin-Small-transparent-44dp.png" />
     <Content Include="images\oauth-buttons\twitter\bird-white-on-transparent-30-22.png" />
@@ -338,6 +338,29 @@
     <Content Include="fonts\fontawesome-webfont.eot" />
     <Content Include="fonts\FontAwesome.otf" />
     <Content Include="content\security\sign-in.scss" />
+    <Content Include="config.rb" />
+    <Content Include="sass\ie.scss">
+      <Compile>True</Compile>
+      <Minify>True</Minify>
+      <OutputFolder>C:\Users\Dan\Code\GitHub\Tripod\Tripod.Web\stylesheets</OutputFolder>
+      <CompileStyle>Nested</CompileStyle>
+      <DebugInfo>False</DebugInfo>
+    </Content>
+    <Content Include="sass\print.scss">
+      <Compile>True</Compile>
+      <Minify>True</Minify>
+      <OutputFolder>C:\Users\Dan\Code\GitHub\Tripod\Tripod.Web\stylesheets</OutputFolder>
+      <CompileStyle>Nested</CompileStyle>
+      <DebugInfo>False</DebugInfo>
+    </Content>
+    <Content Include="sass\screen.scss">
+      <Compile>True</Compile>
+      <Minify>True</Minify>
+      <OutputFolder>C:\Users\Dan\Code\GitHub\Tripod\Tripod.Web\stylesheets</OutputFolder>
+      <CompileStyle>Nested</CompileStyle>
+      <DebugInfo>False</DebugInfo>
+    </Content>
+    <Content Include="sass\security\sign-in.scss" />
     <None Include="scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="scripts\i18n\angular-locale_af-na.js" />
     <Content Include="scripts\i18n\angular-locale_af-za.js" />
@@ -598,6 +621,10 @@
     <Content Include="scripts\respond.min.js" />
     <Content Include="scripts\_references.js" />
     <None Include="T4MVC.tt.settings.xml" />
+    <Content Include="stylesheets\ie.css" />
+    <Content Include="stylesheets\print.css" />
+    <Content Include="stylesheets\screen.css" />
+    <Content Include="stylesheets\security\sign-in.css" />
     <Content Include="Views\Account\_Deprecated\_ChangePasswordPartial.cshtml.txt" />
     <Content Include="Views\Account\_Deprecated\_SetPasswordPartial.cshtml.txt" />
     <Content Include="Web.config">
