@@ -430,6 +430,19 @@ namespace Links
         public static readonly string bootstrap_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/bootstrap.min.css") ? Url("bootstrap.min.css") : Url("bootstrap.css");
              
         public static readonly string bootstrap_min_css = Url("bootstrap.min.css");
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public static class compass_defaults {
+            private const string URLPATH = "~/content/compass-defaults";
+            public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+            public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+            public static readonly string ie_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/ie.min.css") ? Url("ie.min.css") : Url("ie.css");
+                 
+            public static readonly string print_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/print.min.css") ? Url("print.min.css") : Url("print.css");
+                 
+            public static readonly string screen_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/screen.min.css") ? Url("screen.min.css") : Url("screen.css");
+                 
+        }
+    
         public static readonly string font_awesome_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/font-awesome.min.css") ? Url("font-awesome.min.css") : Url("font-awesome.css");
              
         public static readonly string font_awesome_min_css = Url("font-awesome.min.css");
@@ -438,7 +451,6 @@ namespace Links
             private const string URLPATH = "~/content/security";
             public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
             public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-            public static readonly string sign_in_scss = Url("sign-in.scss");
             public static readonly string sign_in_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/sign-in.min.css") ? Url("sign-in.min.css") : Url("sign-in.css");
                  
         }

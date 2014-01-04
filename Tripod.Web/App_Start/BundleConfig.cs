@@ -28,7 +28,7 @@ namespace Tripod.Web
                       "~/scripts/bootstrap.js",
                       "~/scripts/respond.js"));
 
-            bundles.Add(new StyleBundle("~/Content/css").Include(
+            bundles.Add(new StyleBundle("~/content/css").Include(
                       "~/content/bootstrap.css",
                       "~/content/font-awesome.css",
                       "~/content/site.css"));

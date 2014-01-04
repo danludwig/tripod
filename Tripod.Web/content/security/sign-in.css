@@ -1,60 +1,93 @@
+/* line 3, ../../compass/security/sign-in.scss */
 .providers.row {
   margin-top: 20px;
-  margin-bottom: 20px; }
-  .providers.row button {
-    text-align: left;
-    width: 100%;
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    font-size: 15px;
-    color: #fff; }
-    .providers.row button i {
-      display: block;
-      float: left; }
-    .providers.row button.btn-lg {
-      padding: 0 8px;
-      height: 42px;
-      /* this may need to change if there is no btn-lg */
-      line-height: 40px; }
-      .providers.row button.btn-lg i {
-        height: 42px;
-        line-height: 40px;
-        width: 32px; }
-    .providers.row button.google {
-      background-color: #dd4b39; }
-      .providers.row button.google:hover {
-        background-color: #e94a2f; }
-      .providers.row button.google:active {
-        background-color: #be3e2e; }
-      .providers.row button.google i {
-        background-image: url(../../images/oauth-buttons/google/Red-signin-Small-transparent-44dp.png);
-        -moz-background-size: auto 36px;
-        -o-background-size: auto 36px;
-        -webkit-background-size: auto 36px;
-        background-size: auto 36px;
-        background-repeat: no-repeat;
-        background-position: -4px 2px; }
-    .providers.row button.facebook {
-      background-color: #3b5998; }
-      .providers.row button.facebook:hover {
-        background-color: #4c69a3; }
-      .providers.row button.facebook:active {
-        background-color: #2f477a; }
-      .providers.row button.facebook i {
-        background-image: url(../../images/oauth-buttons/facebook/f-white-around-transparent.png);
-        -moz-background-size: auto 24px;
-        -o-background-size: auto 24px;
-        -webkit-background-size: auto 24px;
-        background-size: auto 24px;
-        background-repeat: no-repeat;
-        background-position: 1px 8px; }
-    .providers.row button.twitter {
-      background-color: #1daee3; }
-      .providers.row button.twitter:hover {
-        background-color: #00bbff; }
-      .providers.row button.twitter:active {
-        background-color: #2b93b9; }
-      .providers.row button.twitter i {
-        background-image: url(../../images/oauth-buttons/twitter/bird-white-on-transparent-30-22.png);
-        background-repeat: no-repeat;
-        background-position: -1px 10px; }
-
+  margin-bottom: 20px;
+}
+/* line 8, ../../compass/security/sign-in.scss */
+.providers.row button {
+  text-align: left;
+  width: 100%;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 15px;
+  color: #fff;
+}
+/* line 15, ../../compass/security/sign-in.scss */
+.providers.row button i {
+  display: block;
+  float: left;
+}
+/* line 20, ../../compass/security/sign-in.scss */
+.providers.row button.btn-lg {
+  padding: 0 8px;
+  height: 42px;
+  /* this may need to change if there is no btn-lg */
+  line-height: 40px;
+}
+/* line 25, ../../compass/security/sign-in.scss */
+.providers.row button.btn-lg i {
+  height: 42px;
+  line-height: 40px;
+  width: 32px;
+}
+/* line 32, ../../compass/security/sign-in.scss */
+.providers.row button.google {
+  background-color: #dd4b39;
+}
+/* line 35, ../../compass/security/sign-in.scss */
+.providers.row button.google:hover {
+  background-color: #e94a2f;
+}
+/* line 39, ../../compass/security/sign-in.scss */
+.providers.row button.google:active {
+  background-color: #be3e2e;
+}
+/* line 43, ../../compass/security/sign-in.scss */
+.providers.row button.google i {
+  background-image: url(../../images/oauth-buttons/google/Red-signin-Small-transparent-44dp.png);
+  -webkit-background-size: auto 36px;
+  -moz-background-size: auto 36px;
+  -o-background-size: auto 36px;
+  background-size: auto 36px;
+  background-repeat: no-repeat;
+  background-position: -4px 2px;
+}
+/* line 51, ../../compass/security/sign-in.scss */
+.providers.row button.facebook {
+  background-color: #3b5998;
+}
+/* line 54, ../../compass/security/sign-in.scss */
+.providers.row button.facebook:hover {
+  background-color: #4c69a3;
+}
+/* line 58, ../../compass/security/sign-in.scss */
+.providers.row button.facebook:active {
+  background-color: #2f477a;
+}
+/* line 62, ../../compass/security/sign-in.scss */
+.providers.row button.facebook i {
+  background-image: url(../../images/oauth-buttons/facebook/f-white-around-transparent.png);
+  -webkit-background-size: auto 24px;
+  -moz-background-size: auto 24px;
+  -o-background-size: auto 24px;
+  background-size: auto 24px;
+  background-repeat: no-repeat;
+  background-position: 1px 8px;
+}
+/* line 70, ../../compass/security/sign-in.scss */
+.providers.row button.twitter {
+  background-color: #1daee3;
+}
+/* line 73, ../../compass/security/sign-in.scss */
+.providers.row button.twitter:hover {
+  background-color: #00bbff;
+}
+/* line 77, ../../compass/security/sign-in.scss */
+.providers.row button.twitter:active {
+  background-color: #2b93b9;
+}
+/* line 81, ../../compass/security/sign-in.scss */
+.providers.row button.twitter i {
+  background-image: url(../../images/oauth-buttons/twitter/bird-white-on-transparent-30-22.png);
+  background-repeat: no-repeat;
+  background-position: -1px 10px;
+}
