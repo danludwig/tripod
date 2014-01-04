@@ -9,37 +9,40 @@
     @Scripts.Render("~/bundles/modernizr")
 
 </head>
-<body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a href="@Url.Action(MVC.Home.Index())" class="navbar-brand">Application name</a>
+    <body>
+        <div id="wrap">
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a href="@Url.Action(MVC.Home.Index())" class="navbar-brand">Application name</a>
+                    </div>
+                    <div class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav">
+                            <li><a href="@Url.Action(MVC.Home.Index())">Home</a></li>
+                            <li><a href="@Url.Action(MVC.Home.About())">About</a></li>
+                            <li><a href="@Url.Action(MVC.Home.Contact())">Contact</a></li>
+                        </ul>
+                        @Html.Partial(MVC.Shared.Views._LoginPartial)
+                    </div>
+                </div>
             </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li><a href="@Url.Action(MVC.Home.Index())">Home</a></li>
-                    <li><a href="@Url.Action(MVC.Home.About())">About</a></li>
-                    <li><a href="@Url.Action(MVC.Home.Contact())">Contact</a></li>
-                </ul>
-                @Html.Partial(MVC.Shared.Views._LoginPartial)
+            <div class="container body-content">
+                @RenderBody()
             </div>
         </div>
-    </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+        <footer id="footer">
+            <div class="container">
+                <hr />
+                <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            </div>
         </footer>
-    </div>
-
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
-</body>
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+        @RenderSection("scripts", required: false)
+    </body>
 </html>

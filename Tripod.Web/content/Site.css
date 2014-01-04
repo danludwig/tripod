@@ -1,6 +1,18 @@
-﻿body {
+﻿html, body {
+    height: 100%;
+}
+body {
     padding-top: 50px;
     padding-bottom: 20px;
+}
+#wrap {
+    min-height: 100%;
+    height: auto !important;
+    margin: 0 auto -80px;
+    padding: 0 0 80px;
+}
+#footer {
+    height: 80px;
 }
 
 /* Set padding to keep content from hitting the edges */
