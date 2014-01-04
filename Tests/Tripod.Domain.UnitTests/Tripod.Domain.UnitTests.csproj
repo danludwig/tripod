@@ -113,6 +113,7 @@
     <Compile Include="Api\_Extensions\_Fakes\FakeOuterObject.cs" />
     <Compile Include="Api\_Extensions\_Fakes\IFakeOpenGenericB.cs" />
     <Compile Include="Api\_Extensions\ReflectionExtensionTests.cs" />
+    <Compile Include="Domain\Security\Commands\SignInHandlerTests.cs" />
     <Compile Include="Domain\Security\Commands\CreateUserHandlerTests.cs" />
     <Compile Include="Domain\Security\Commands\SignInValidationTests.cs" />
     <Compile Include="Domain\Security\Commands\SendConfirmationEmailValidationTests.cs" />
