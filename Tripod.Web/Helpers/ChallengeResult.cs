@@ -2,7 +2,6 @@
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.Owin.Security;
-using Tripod.Ioc.Configuration;
 
 namespace Tripod.Web
 {

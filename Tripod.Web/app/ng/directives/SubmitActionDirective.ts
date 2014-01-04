@@ -6,6 +6,10 @@ interface ISubmitActionAttributes extends ng.IAttributes {
     name?: string;
 }
 
+interface ISubmitActionScope extends ng.IScope {
+    t3?: any;
+}
+
 export var directiveName = 'ngT3SubmitAction';
 
 export function ngT3SubmitAction($parse: ng.IParseService): ng.IDirective {
@@ -15,7 +19,7 @@ export function ngT3SubmitAction($parse: ng.IParseService): ng.IDirective {
         controller: [SubmitActionController],
         compile: (): any => {
             return {
-                pre: (scope: ng.IScope, formElement: JQuery, attributes: ISubmitActionAttributes, controllers: any[]): void => {
+                pre: (scope: ISubmitActionScope, formElement: JQuery, attributes: ISubmitActionAttributes, controllers: any[]): void => {
 
                     var submitController: SubmitActionController = controllers[0];
 
@@ -23,8 +27,8 @@ export function ngT3SubmitAction($parse: ng.IParseService): ng.IDirective {
                         controllers[1] : null;
                     submitController.formController = formController;
 
-                    scope['t3'] = scope['t3'] || {};
-                    scope['t3'][attributes.name] = submitController;
+                    scope.t3 = scope.t3 || {};
+                    scope.t3[attributes.name] = submitController;
                 },
                 post: (scope: ng.IScope, formElement: JQuery, attributes: ISubmitActionAttributes, controllers: any[]): void => {
 

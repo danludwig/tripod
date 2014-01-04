@@ -1,6 +1,4 @@
-﻿using System.Threading.Tasks;
-using FluentValidation;
-using Microsoft.AspNet.Identity;
+﻿using FluentValidation;
 
 namespace Tripod.Domain.Security
 {

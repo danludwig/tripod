@@ -9,13 +9,13 @@
     padding-right: 15px;
 }
 
-/* Set width on the form input elements since they're 100% wide by default */
+/* Set width on the form input elements since they're 100% wide by default
 input,
 select,
-textarea {
+textarea { */
     /* remove max-width, let inputs go 100%, and set containers to constrain */
     /*max-width: 280px;*/
-}
+/*}*/
 
 /* styles for validation chelpers */
 .xfield-validation-error {

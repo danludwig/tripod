@@ -15,7 +15,7 @@ namespace Tripod.Web.Controllers
         [HttpPost, Route("account/register2")]
         public virtual ActionResult SendEmail(SendConfirmationEmail command)
         {
-            var isValid = ModelState.IsValid;
+            //var isValid = ModelState.IsValid;
             return View(MVC.EmailAddresses.Views.Index, command);
         }
 

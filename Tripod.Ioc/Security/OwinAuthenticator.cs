@@ -6,7 +6,6 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Tripod.Domain.Security;
-using Tripod.Ioc.Configuration;
 
 namespace Tripod.Ioc.Security
 {

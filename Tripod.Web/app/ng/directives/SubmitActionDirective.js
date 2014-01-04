@@ -15,8 +15,8 @@ define(["require", "exports"], function(require, exports) {
                         var formController = (controllers.length > 1) ? controllers[1] : null;
                         submitController.formController = formController;
 
-                        scope['t3'] = scope['t3'] || {};
-                        scope['t3'][attributes.name] = submitController;
+                        scope.t3 = scope.t3 || {};
+                        scope.t3[attributes.name] = submitController;
                     },
                     post: function (scope, formElement, attributes, controllers) {
                         var submitController = controllers[0];
