@@ -4,7 +4,7 @@
 @model SendConfirmationEmail
 
 @{
-    ViewBag.Title = "Register";
+    ViewBag.Title = "Sign up";
 }
 
 <h2>
@@ -12,7 +12,7 @@
 </h2>
 
 <div id="ng-app_test" ng-controller="FormController">
-    <form name="f" action="@Url.Action(MVC.EmailAddresses.SendEmail())" method="POST" class="form-horizontal" role="form"
+    <form name="f" action="@Url.Action(MVC.EmailAddresses.SignUp(null))" method="POST" class="form-horizontal" role="form"
           ng-t3-submit-action="submit()" ng-t3-submit-action-attempted="@(!ViewData.ModelState.IsValid)" novalidate>
 
         @Html.AntiForgeryToken()
@@ -112,7 +112,7 @@
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" class="btn btn-default btn-primary" value="Send confirmation email" ng-click="m.click()" ng-disabled="f.$invalid && t3.f.attempted" />
-                <a href="@Url.Action(MVC.EmailAddresses.Index())">Reload</a>
+                <a href="@Url.Action(MVC.EmailAddresses.SignUp())">Reload</a>
             </div>
         </div>
     </form>

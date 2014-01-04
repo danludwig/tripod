@@ -46,15 +46,9 @@ namespace Tripod.Web.Controllers
 
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult SendEmail()
+        public virtual System.Web.Mvc.ActionResult ValidateSignUp()
         {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SendEmail);
-        }
-        [NonAction]
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult ValidateSendEmail()
-        {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ValidateSendEmail);
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ValidateSignUp);
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -72,33 +66,31 @@ namespace Tripod.Web.Controllers
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNamesClass
         {
-            public readonly string Index = "Index";
-            public readonly string SendEmail = "SendEmail";
-            public readonly string ValidateSendEmail = "ValidateSendEmail";
+            public readonly string SignUp = "SignUp";
+            public readonly string ValidateSignUp = "ValidateSignUp";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNameConstants
         {
-            public const string Index = "Index";
-            public const string SendEmail = "SendEmail";
-            public const string ValidateSendEmail = "ValidateSendEmail";
+            public const string SignUp = "SignUp";
+            public const string ValidateSignUp = "ValidateSignUp";
         }
 
 
-        static readonly ActionParamsClass_SendEmail s_params_SendEmail = new ActionParamsClass_SendEmail();
+        static readonly ActionParamsClass_SignUp s_params_SignUp = new ActionParamsClass_SignUp();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_SendEmail SendEmailParams { get { return s_params_SendEmail; } }
+        public ActionParamsClass_SignUp SignUpParams { get { return s_params_SignUp; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_SendEmail
+        public class ActionParamsClass_SignUp
         {
             public readonly string command = "command";
         }
-        static readonly ActionParamsClass_ValidateSendEmail s_params_ValidateSendEmail = new ActionParamsClass_ValidateSendEmail();
+        static readonly ActionParamsClass_ValidateSignUp s_params_ValidateSignUp = new ActionParamsClass_ValidateSignUp();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_ValidateSendEmail ValidateSendEmailParams { get { return s_params_ValidateSendEmail; } }
+        public ActionParamsClass_ValidateSignUp ValidateSignUpParams { get { return s_params_ValidateSignUp; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_ValidateSendEmail
+        public class ActionParamsClass_ValidateSignUp
         {
             public readonly string command = "command";
         }
@@ -112,9 +104,9 @@ namespace Tripod.Web.Controllers
             public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
             public class _ViewNamesClass
             {
-                public readonly string Index = "Index";
+                public readonly string SignUp = "SignUp";
             }
-            public readonly string Index = "~/Views/EmailAddresses/Index.cshtml";
+            public readonly string SignUp = "~/Views/EmailAddresses/SignUp.cshtml";
         }
     }
 
@@ -123,32 +115,32 @@ namespace Tripod.Web.Controllers
     {
         public T4MVC_EmailAddressesController() : base(Dummy.Instance) { }
 
-        partial void IndexOverride(T4MVC_System_Web_Mvc_ViewResult callInfo);
+        partial void SignUpOverride(T4MVC_System_Web_Mvc_ViewResult callInfo);
 
-        public override System.Web.Mvc.ViewResult Index()
+        public override System.Web.Mvc.ViewResult SignUp()
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ViewResult(Area, Name, ActionNames.Index);
-            IndexOverride(callInfo);
+            var callInfo = new T4MVC_System_Web_Mvc_ViewResult(Area, Name, ActionNames.SignUp);
+            SignUpOverride(callInfo);
             return callInfo;
         }
 
-        partial void SendEmailOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Tripod.Domain.Security.SendConfirmationEmail command);
+        partial void SignUpOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Tripod.Domain.Security.SendConfirmationEmail command);
 
-        public override System.Web.Mvc.ActionResult SendEmail(Tripod.Domain.Security.SendConfirmationEmail command)
+        public override System.Web.Mvc.ActionResult SignUp(Tripod.Domain.Security.SendConfirmationEmail command)
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SendEmail);
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SignUp);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "command", command);
-            SendEmailOverride(callInfo, command);
+            SignUpOverride(callInfo, command);
             return callInfo;
         }
 
-        partial void ValidateSendEmailOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Tripod.Domain.Security.SendConfirmationEmail command);
+        partial void ValidateSignUpOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Tripod.Domain.Security.SendConfirmationEmail command);
 
-        public override System.Web.Mvc.ActionResult ValidateSendEmail(Tripod.Domain.Security.SendConfirmationEmail command)
+        public override System.Web.Mvc.ActionResult ValidateSignUp(Tripod.Domain.Security.SendConfirmationEmail command)
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ValidateSendEmail);
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ValidateSignUp);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "command", command);
-            ValidateSendEmailOverride(callInfo, command);
+            ValidateSignUpOverride(callInfo, command);
             return callInfo;
         }
 

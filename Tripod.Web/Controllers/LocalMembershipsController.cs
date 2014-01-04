@@ -17,7 +17,7 @@ namespace Tripod.Web.Controllers
 
         [AllowAnonymous]
         [HttpGet, Route("account/register")]
-        public virtual ActionResult Register()
+        public virtual ActionResult OldRegister()
         {
             return View(MVC.Account.Views.Register);
         }
@@ -25,7 +25,7 @@ namespace Tripod.Web.Controllers
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
         [HttpPost, Route("account/register")]
-        public virtual async Task<ActionResult> Register(CreateLocalMembership command)
+        public virtual async Task<ActionResult> OldRegister(CreateLocalMembership command)
         {
             if (!ModelState.IsValid) return View(MVC.Account.Views.Register, command);
 

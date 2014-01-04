@@ -71,7 +71,7 @@ namespace Tripod.Web.Controllers
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNamesClass
         {
-            public readonly string Register = "Register";
+            public readonly string OldRegister = "OldRegister";
             public readonly string PasswordForm = "PasswordForm";
             public readonly string CreatePassword = "CreatePassword";
             public readonly string ChangePassword = "ChangePassword";
@@ -80,18 +80,18 @@ namespace Tripod.Web.Controllers
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNameConstants
         {
-            public const string Register = "Register";
+            public const string OldRegister = "OldRegister";
             public const string PasswordForm = "PasswordForm";
             public const string CreatePassword = "CreatePassword";
             public const string ChangePassword = "ChangePassword";
         }
 
 
-        static readonly ActionParamsClass_Register s_params_Register = new ActionParamsClass_Register();
+        static readonly ActionParamsClass_OldRegister s_params_OldRegister = new ActionParamsClass_OldRegister();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_Register RegisterParams { get { return s_params_Register; } }
+        public ActionParamsClass_OldRegister OldRegisterParams { get { return s_params_OldRegister; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_Register
+        public class ActionParamsClass_OldRegister
         {
             public readonly string command = "command";
         }
@@ -134,22 +134,22 @@ namespace Tripod.Web.Controllers
     {
         public T4MVC_LocalMembershipsController() : base(Dummy.Instance) { }
 
-        partial void RegisterOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+        partial void OldRegisterOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
 
-        public override System.Web.Mvc.ActionResult Register()
+        public override System.Web.Mvc.ActionResult OldRegister()
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Register);
-            RegisterOverride(callInfo);
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.OldRegister);
+            OldRegisterOverride(callInfo);
             return callInfo;
         }
 
-        partial void RegisterOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Tripod.Domain.Security.CreateLocalMembership command);
+        partial void OldRegisterOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Tripod.Domain.Security.CreateLocalMembership command);
 
-        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Register(Tripod.Domain.Security.CreateLocalMembership command)
+        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> OldRegister(Tripod.Domain.Security.CreateLocalMembership command)
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Register);
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.OldRegister);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "command", command);
-            RegisterOverride(callInfo, command);
+            OldRegisterOverride(callInfo, command);
             return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
         }
 

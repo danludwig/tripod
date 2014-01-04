@@ -631,7 +631,7 @@
     <Content Include="Views\RemoteMemberships\_SignOnForm.cshtml" />
     <Content Include="Views\RemoteMemberships\_SignOnList.cshtml" />
     <Content Include="Views\RemoteMemberships\_AddForm.cshtml" />
-    <Content Include="Views\EmailAddresses\Index.cshtml" />
+    <Content Include="Views\EmailAddresses\SignUp.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
