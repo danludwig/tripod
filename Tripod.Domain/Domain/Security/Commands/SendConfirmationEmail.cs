@@ -18,6 +18,7 @@ namespace Tripod.Domain.Security
             RuleFor(x => x.EmailAddress)
                 .NotEmpty()
                 .EmailAddress()
+                .MaxLength(EmailAddress.Constraints.ValueMaxLength)
                     .WithName(EmailAddress.Constraints.Label);
 
             RuleFor(x => x.IsExpectingEmail)

@@ -23,9 +23,9 @@ namespace Tripod.Domain.Security
             var result = validator.Validate(command);
 
             result.IsValid.ShouldBeFalse();
-            Func<ValidationFailure, bool> nameError = x => x.PropertyName == command.PropertyName(y => y.Name);
-            result.Errors.Count(nameError).ShouldEqual(1);
-            result.Errors.Single(nameError).ErrorMessage
+            Func<ValidationFailure, bool> targetError = x => x.PropertyName == command.PropertyName(y => y.Name);
+            result.Errors.Count(targetError).ShouldEqual(1);
+            result.Errors.Single(targetError).ErrorMessage
                 .ShouldEqual(Resources.notempty_error.Replace("{PropertyName}", User.Constraints.NameLabel));
             //validator.ShouldHaveValidationErrorFor(x => x.Name, command.Name);
             queries.Verify(x => x.Execute(It.IsAny<UserBy>()), Times.Never);
@@ -41,9 +41,9 @@ namespace Tripod.Domain.Security
             var result = validator.Validate(command);
 
             result.IsValid.ShouldBeFalse();
-            Func<ValidationFailure, bool> nameError = x => x.PropertyName == command.PropertyName(y => y.Name);
-            result.Errors.Count(nameError).ShouldEqual(1);
-            result.Errors.Single(nameError).ErrorMessage.ShouldEqual(Resources.Validation_MinLength
+            Func<ValidationFailure, bool> targetError = x => x.PropertyName == command.PropertyName(y => y.Name);
+            result.Errors.Count(targetError).ShouldEqual(1);
+            result.Errors.Single(targetError).ErrorMessage.ShouldEqual(Resources.Validation_MinLength
                 .Replace("{PropertyName}", User.Constraints.NameLabel)
                 .Replace("{MinLength}", User.Constraints.NameMinLength.ToString(CultureInfo.InvariantCulture))
                 .Replace("{TotalLength}", command.Name.Length.ToString(CultureInfo.InvariantCulture))
@@ -63,9 +63,9 @@ namespace Tripod.Domain.Security
             var result = validator.Validate(command);
 
             result.IsValid.ShouldBeFalse();
-            Func<ValidationFailure, bool> nameError = x => x.PropertyName == command.PropertyName(y => y.Name);
-            result.Errors.Count(nameError).ShouldEqual(1);
-            result.Errors.Single(nameError).ErrorMessage.ShouldEqual(Resources.Validation_MaxLength
+            Func<ValidationFailure, bool> targetError = x => x.PropertyName == command.PropertyName(y => y.Name);
+            result.Errors.Count(targetError).ShouldEqual(1);
+            result.Errors.Single(targetError).ErrorMessage.ShouldEqual(Resources.Validation_MaxLength
                 .Replace("{PropertyName}", User.Constraints.NameLabel)
                 .Replace("{MaxLength}", User.Constraints.NameMaxLength.ToString(CultureInfo.InvariantCulture))
                 .Replace("{TotalLength}", command.Name.Length.ToString(CultureInfo.InvariantCulture))
@@ -90,9 +90,9 @@ namespace Tripod.Domain.Security
             var result = validator.Validate(command);
 
             result.IsValid.ShouldBeFalse();
-            Func<ValidationFailure, bool> nameError = x => x.PropertyName == command.PropertyName(y => y.Name);
-            result.Errors.Count(nameError).ShouldEqual(1);
-            result.Errors.Single(nameError).ErrorMessage.ShouldEqual(Resources.Validation_AlreadyExists
+            Func<ValidationFailure, bool> targetError = x => x.PropertyName == command.PropertyName(y => y.Name);
+            result.Errors.Count(targetError).ShouldEqual(1);
+            result.Errors.Single(targetError).ErrorMessage.ShouldEqual(Resources.Validation_AlreadyExists
                 .Replace("{PropertyName}", User.Constraints.NameLabel)
                 .Replace("{PropertyValue}", command.Name)
             );
