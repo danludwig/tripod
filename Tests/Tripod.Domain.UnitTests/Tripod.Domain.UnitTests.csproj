@@ -90,6 +90,8 @@
     <Compile Include="Api\Entities\_Fakes\FakeEntityWithLongId.cs" />
     <Compile Include="Api\Entities\_Fakes\FakeEntityWithStringId.cs" />
     <Compile Include="Api\Entities\_Fakes\FakeProxiedEntityWithLongId.cs" />
+    <Compile Include="Api\Transactions\BaseEntitiesQueryTests.cs" />
+    <Compile Include="Api\Transactions\_Fakes\FakeEntitiesQuery.cs" />
     <Compile Include="Api\Validation\MaxLengthTests.cs" />
     <Compile Include="Api\Validation\_Fakes\FakeStringMaxLengthValidator.cs" />
     <Compile Include="Api\Validation\_Fakes\FakeStringMinLengthValidator.cs" />
