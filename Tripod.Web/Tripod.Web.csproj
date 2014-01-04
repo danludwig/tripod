@@ -234,9 +234,6 @@
     <Compile Include="EmailAddressesController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
-    <Compile Include="FaqsController.generated.cs">
-      <DependentUpon>T4MVC.tt</DependentUpon>
-    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -300,55 +297,9 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="content\Site.css" />
-    <Content Include="images\facebook-assets\active_200%402x.png" />
-    <Content Include="images\facebook-assets\active_200.png" />
-    <Content Include="images\facebook-assets\active_404%402x.png" />
-    <Content Include="images\facebook-assets\active_404.png" />
-    <Content Include="images\facebook-assets\active_600%402x.png" />
-    <Content Include="images\facebook-assets\active_600.png" />
-    <Content Include="images\facebook-assets\pressed_200%402x.png" />
-    <Content Include="images\facebook-assets\pressed_200.png" />
-    <Content Include="images\facebook-assets\pressed_404%402x.png" />
-    <Content Include="images\facebook-assets\pressed_404.png" />
-    <Content Include="images\facebook-assets\pressed_600%402x.png" />
-    <Content Include="images\facebook-assets\pressed_600.png" />
-    <Content Include="images\gplus-assets\Red-signin-Long-base-20dp.png" />
-    <Content Include="images\gplus-assets\Red-signin-Long-base-32dp.png" />
-    <Content Include="images\gplus-assets\Red-signin-Long-base-44dp.png" />
-    <Content Include="images\gplus-assets\Red-signin-Long-hover-20dp.png" />
-    <Content Include="images\gplus-assets\Red-signin-Long-hover-32dp.png" />
-    <Content Include="images\gplus-assets\Red-signin-Long-hover-44dp.png" />
-    <Content Include="images\gplus-assets\Red-signin-Long-press-20dp.png" />
-    <Content Include="images\gplus-assets\Red-signin-Long-press-32dp.png" />
-    <Content Include="images\gplus-assets\Red-signin-Long-press-44dp.png" />
-    <Content Include="images\gplus-assets\Red-signin_Long_base_20dp.png" />
-    <Content Include="images\gplus-assets\Red-signin_Long_base_32dp.png" />
-    <Content Include="images\gplus-assets\Red-signin_Long_base_44dp.png" />
-    <Content Include="images\gplus-assets\Red-signin_Long_hover_20dp.png" />
-    <Content Include="images\gplus-assets\Red-signin_Long_hover_32dp.png" />
-    <Content Include="images\gplus-assets\Red-signin_Long_hover_44dp.png" />
-    <Content Include="images\gplus-assets\Red-signin_Long_press_20dp.png" />
-    <Content Include="images\gplus-assets\Red-signin_Long_press_32dp.png" />
-    <Content Include="images\gplus-assets\Red-signin_Long_press_44dp.png" />
-    <Content Include="images\gplus-assets\White-signin-Long-base-20dp.png" />
-    <Content Include="images\gplus-assets\White-signin-Long-base-32dp.png" />
-    <Content Include="images\gplus-assets\White-signin-Long-base-44dp.png" />
-    <Content Include="images\gplus-assets\White-signin-Long-hover-20dp.png" />
-    <Content Include="images\gplus-assets\White-signin-Long-hover-32dp.png" />
-    <Content Include="images\gplus-assets\White-signin-Long-hover-44dp.png" />
-    <Content Include="images\gplus-assets\White-signin-Long-press-20dp.png" />
-    <Content Include="images\gplus-assets\White-signin-Long-press-32dp.png" />
-    <Content Include="images\gplus-assets\White-signin-Long-press-44dp.png" />
-    <Content Include="images\gplus-assets\White-signin_Long_base_20dp.png" />
-    <Content Include="images\gplus-assets\White-signin_Long_base_32dp.png" />
-    <Content Include="images\gplus-assets\White-signin_Long_base_44dp.png" />
-    <Content Include="images\gplus-assets\White-signin_Long_hover_20dp.png" />
-    <Content Include="images\gplus-assets\White-signin_Long_hover_32dp.png" />
-    <Content Include="images\gplus-assets\White-signin_Long_hover_44dp.png" />
-    <Content Include="images\gplus-assets\White-signin_Long_press_20dp.png" />
-    <Content Include="images\gplus-assets\White-signin_Long_press_32dp.png" />
-    <Content Include="images\gplus-assets\White-signin_Long_press_44dp.png" />
-    <Content Include="images\twitter-assets\sign-in-with-twitter-gray.png" />
+    <Content Include="images\oauth-buttons\facebook\f-white-around-transparent.png" />
+    <Content Include="images\oauth-buttons\google\Red-signin-Small-transparent-44dp.png" />
+    <Content Include="images\oauth-buttons\twitter\bird-white-on-transparent-30-22.png" />
     <Content Include="scripts\angular-animate.js" />
     <Content Include="scripts\angular-animate.min.js" />
     <Content Include="scripts\angular-cookies.js" />
@@ -684,10 +635,10 @@
     <Content Include="Views\RemoteMemberships\_SignOnList.cshtml" />
     <Content Include="Views\RemoteMemberships\_AddForm.cshtml" />
     <Content Include="Views\EmailAddresses\SignUp.cshtml" />
+    <Content Include="Views\Authentication\SignIn.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Authentication\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

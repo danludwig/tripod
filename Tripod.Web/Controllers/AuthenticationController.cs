@@ -19,19 +19,19 @@ namespace Tripod.Web.Controllers
         }
 
         [AllowAnonymous]
-        [HttpGet, Route("account/login")]
-        public virtual ActionResult Login(string returnUrl)
+        [HttpGet, Route("sign-in")]
+        public virtual ActionResult SignIn(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
-            return View(MVC.Account.Views.Login);
+            return View(Views.SignIn);
         }
 
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        [HttpPost, Route("account/login")]
-        public virtual async Task<ActionResult> Login(SignIn command, string returnUrl)
+        [HttpPost, Route("sign-in")]
+        public virtual async Task<ActionResult> SignIn(SignIn command, string returnUrl)
         {
-            if (!ModelState.IsValid) return View(MVC.Account.Views.Login, command);
+            if (!ModelState.IsValid) return View(Views.SignIn, command);
             await _commands.Execute(command);
             return RedirectToLocal(returnUrl);
         }
@@ -50,7 +50,7 @@ namespace Tripod.Web.Controllers
         public virtual async Task<ActionResult> ExternalLoginCallback(string returnUrl)
         {
             var loginInfo = await _queries.Execute(new GetRemoteMembershipTicket(User));
-            if (loginInfo == null) return RedirectToAction(MVC.Authentication.Login());
+            if (loginInfo == null) return RedirectToAction(MVC.Authentication.SignIn());
 
             //var externalIdentity = await HttpContext.GetOwinContext().Authentication
             //    .GetExternalIdentityAsync(DefaultAuthenticationTypes.ExternalCookie);

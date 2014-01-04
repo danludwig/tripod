@@ -1,7 +1,7 @@
 ﻿@using Microsoft.Owin.Security
 @model dynamic
 
-<h4>Use another service to log in.</h4>
+<h4>Use another service to sign in.</h4>
 <hr />
 @{
     var loginProviders = Context.GetOwinContext().Authentication.GetExternalAuthenticationTypes().ToArray();
@@ -18,13 +18,13 @@
     {
         <form action="@Url.Action(Model.Action, Model.Controller, new { returnUrl = Model.ReturnUrl })" method="POST">
             @Html.AntiForgeryToken()
-            <div id="socialLoginList">
+            <div>
                 <p>
                     @foreach (var p in loginProviders)
                     {
                         <button type="submit" class="btn btn-default"
                                 id="@p.AuthenticationType" name="provider" value="@p.AuthenticationType"
-                                title="Log in using your @p.Caption account">@p.AuthenticationType</button>
+                                title="Sign in using your @p.Caption account">@p.AuthenticationType</button>
                     }
                 </p>
             </div>

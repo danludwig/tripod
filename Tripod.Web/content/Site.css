@@ -123,6 +123,11 @@ input[type="checkbox"].xinput-validation-error {
     border: 0 none;
 }
 
+input[type=image].btn {
+    padding: 0;
+    border: 0;
+}
+
 .validation-summary-errors {
     color: #b94a48;
 }

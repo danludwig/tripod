@@ -1,0 +1,187 @@
+﻿@model Tripod.Domain.Security.SignIn
+
+@{
+    ViewBag.Title = "Sign in";
+}
+
+@section styles
+{
+    <style>
+        .providers.row button {
+            text-align: left;
+            width: 100%;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-size: 15px;
+            color: #fff;
+        }
+
+            .providers.row button i {
+                display: block;
+                float: left;
+            }
+
+            .providers.row button.btn-lg {
+                padding: 0 8px;
+                height: 42px; /* this may need to change if there is no btn-lg */
+                line-height: 40px;
+            }
+
+                .providers.row button.btn-lg i {
+                    height: 42px;
+                    line-height: 40px;
+                    width: 32px;
+                }
+
+            .providers.row button.google {
+                background-color: #dd4b39;
+            }
+
+                .providers.row button.google:hover {
+                    background-color: #e94a2f;
+                }
+
+                .providers.row button.google:active {
+                    background-color: #be3e2e;
+                }
+
+                .providers.row button.google i {
+                    background-image: url(/images/oauth-buttons/google/Red-signin-Small-transparent-44dp.png);
+                    background-size: auto 36px;
+                    background-repeat: no-repeat;
+                    background-position: -4px 2px;
+                }
+
+            .providers.row button.facebook {
+                background-color: #3b5998;
+            }
+
+                .providers.row button.facebook:hover {
+                    background-color: #4c69a3;
+                }
+
+                .providers.row button.facebook:active {
+                    background-color: #2f477a;
+                }
+
+                .providers.row button.facebook i {
+                    background-image: url(/images/oauth-buttons/facebook/f-white-around-transparent.png);
+                    background-size: auto 24px;
+                    background-repeat: no-repeat;
+                    background-position: 1px 8px;
+                }
+
+            .providers.row button.twitter {
+                background-color: #1daee3;
+            }
+
+                .providers.row button.twitter:hover {
+                    background-color: #00bbff;
+                }
+
+                .providers.row button.twitter:active {
+                    background-color: #2b93b9;
+                }
+
+                .providers.row button.twitter i {
+                    background-image: url(/images/oauth-buttons/twitter/bird-white-on-transparent-30-22.png);
+                    background-repeat: no-repeat;
+                    background-position: -1px 10px;
+                }
+    </style>
+}
+<form action="@Url.Action(MVC.Authentication.ExternalLogin())" method="POST">
+    @Html.AntiForgeryToken()
+    <input type="hidden" name="returnUrl" value="@ViewBag.ReturnUrl" />
+
+    <div class="row">
+        <div class="col-sm-8 col-sm-offset-2">
+            <h2>@ViewBag.Title.</h2>
+            <div class="providers row">
+                @* GOOGLE *@
+                <div class="col-sm-4">
+                    <p>
+                        <button type="submit" name="provider" value="Google" title="Sign in with Google" class="google btn btn-lg">
+                            <i></i>
+                            <span class="hidden-md hidden-sm">Sign in with <strong>Google</strong></span>
+                            <strong class="hidden-lg hidden-xs">Google</strong>
+                        </button>
+                    </p>
+                </div>
+                @* FACEBOOK *@
+                <div class="col-sm-4">
+                    <p>
+                        <button type="submit" name="provider" value="Facebook" title="Sign in with Facebook" class="facebook btn btn-lg">
+                            <i></i>
+                            <span class="hidden-md hidden-sm">Sign in with <strong>Facebook</strong></span>
+                            <strong class="hidden-lg hidden-xs">Facebook</strong>
+                        </button>
+                    </p>
+                </div>
+                @* TWITTER *@
+                <div class="col-sm-4">
+                    <p>
+                        <button type="submit" name="provider" value="Twitter" title="Sign in with Twitter" class="twitter btn btn-lg">
+                            <i></i>
+                            <span class="hidden-md hidden-sm">Sign in with <strong>Twitter</strong></span>
+                            <strong class="hidden-lg hidden-xs">Twitter</strong>
+                        </button>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+@*<div class="row">
+        <div class="col-md-8">
+            <section>
+                <form action="@Url.Action(MVC.Authentication.SignIn(null, (string)ViewBag.ReturnUrl))" method="POST" class="form-horizontal" role="form">
+                    @Html.AntiForgeryToken()
+                    <h4>Use a local account to sign in.</h4>
+                    <hr />
+                    @Html.ValidationSummary(true)
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.UserName, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.UserName)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.Password)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <div class="checkbox">
+                                @Html.CheckBoxFor(m => m.IsPersistent)
+                                @Html.LabelFor(x => x.IsPersistent, "Remember me?")
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Sign In" class="btn btn-default" />
+                        </div>
+                    </div>
+                    <p>
+                        <a href="@Url.Action(MVC.EmailAddresses.SignUp())">Sign up</a> if you don't have a local account.
+                    </p>
+                </form>
+            </section>
+        </div>
+        <div class="col-md-4">
+            <section>
+                @{
+                    Html.RenderPartial(MVC.RemoteMemberships.Views._SignOnList, ViewData);
+                }
+            </section>
+        </div>
+    </div>*@
+
+@section scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

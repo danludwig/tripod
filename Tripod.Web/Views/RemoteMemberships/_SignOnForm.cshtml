@@ -5,12 +5,12 @@
 }
 <form action="@Url.Action(MVC.Authentication.ActionNames.ExternalLogin, MVC.Authentication.Name, new { returnUrl = ViewBag.ReturnUrl })" method="POST">
     @Html.AntiForgeryToken()
-    <div id="socialLoginList">
+    <div>
         <p>
             @foreach (var p in loginProviders)
             {
                 <button type="submit" name="provider" value="@p.AuthenticationType"
-                        title="Log in using your @p.Caption account" class="btn btn-default">
+                        title="Sign in using your @p.Caption account" class="btn btn-default">
                     @p.AuthenticationType
                 </button>
             }
