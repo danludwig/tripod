@@ -27,12 +27,53 @@ html {
             padding-left: 15px;
             padding-right: 15px;
         }
+
+        hr {
+            &.hr-space { border-color: transparent; }
+            &.hr-md { margin: 12px 0; }
+            &.hr-sm { margin: 4px 0; }
+        }
     }
 }
 
 /* angular ng-cloak directive */
 [ng-cloak] {
     display: none !important;
+}
+
+/* navbar treatments */
+body {
+    .navbar-header.pull-right {
+        /* do not collapse right nav links */
+        ul.navbar-nav.pull-left.nav {
+            margin-right: 0;
+            margin-top: 5px;
+            margin-bottom: 5px;
+            > li {
+                float: left;
+            }
+        }
+        @media(min-width: 768px) {
+            ul.navbar-nav.pull-left.nav {
+                margin: 0 0 0 15px;
+            }
+        }
+    }
+
+    .navbar {
+        .navbar-btn.navbar-link.btn-link.btn {
+            margin-top: 0;
+            margin-bottom: 0;
+            padding: 9px 14px;
+            text-decoration: none;
+        }
+
+        @media(min-width: 768px) {
+            .navbar-btn.navbar-link.btn-link.btn {
+                padding: 14px;
+            }
+        }
+    }
 }
 
 /* validation input group add-on & icon */
