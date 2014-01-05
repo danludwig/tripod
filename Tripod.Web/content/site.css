@@ -1,172 +1,165 @@
-﻿html, body {
+/* Primary layout styles */
+/* line 4, ../compass/site.scss */
+html {
+  /* height:100% is necessary on both html and body for the sticky footer to work */
+  height: 100%; }
+  /* line 7, ../compass/site.scss */
+  html body {
     height: 100%;
-}
-body {
     padding-top: 50px;
     padding-bottom: 20px;
-}
-#wrap {
-    min-height: 100%;
-    height: auto !important;
-    margin: 0 auto -80px;
-    padding: 0 0 80px;
-}
-#footer {
-    height: 80px;
-}
+    /* Set padding to keep content from hitting the edges */ }
+    /* line 12, ../compass/site.scss */
+    html body #wrap {
+      /* styles used for the sticky footer */
+      min-height: 100%;
+      height: auto !important;
+      margin: 0 auto -80px;
+      padding: 0 0 80px; }
+    /* line 19, ../compass/site.scss */
+    html body #footer {
+      /* footer height should be padded by other sticky footer styles */
+      height: 80px; }
+    /* line 25, ../compass/site.scss */
+    html body .body-content {
+      /* give the main content block some left & right spacing */
+      padding-left: 15px;
+      padding-right: 15px; }
 
-/* Set padding to keep content from hitting the edges */
-.body-content {
-    padding-left: 15px;
-    padding-right: 15px;
-}
-
-/* Set width on the form input elements since they're 100% wide by default
-input,
-select,
-textarea { */
-    /* remove max-width, let inputs go 100%, and set containers to constrain */
-    /*max-width: 280px;*/
-/*}*/
-
-/* styles for validation chelpers */
-.xfield-validation-error {
-    /* disable this and display these within a help-block */
-    color: #b94a48;
-}
-
-.field-validation-valid {
-    display: none;
-}
-
-/*.input-group-addon.xvalidation-icon {
-    min-width: 30px;
-    background-size: 16px auto;
-    background-repeat: no-repeat;
-    background-position: center 8px;
-    text-indent: -9999px;
-}
-
-.has-error .input-group-addon.xvalidation-icon {
-    background-image: url(../images/icons/white-x-on-red-disc-110.png);
-}
-
-.has-success .input-group-addon.xvalidation-icon {
-    background-image: url(../images/icons/green-checkmark-a-256.png);
-}*/
-
-.input-group-addon.validation {
-    vertical-align: top;
-    padding: 6px 6px 0 6px;
-}
-
-.input-group-addon.validation i {
-    width: 18px;
-}
-
-.form-group i.default {
-    color: #555;
-}
-
-.form-group i.error, .form-group i.warning, .form-group i.success {
-    display: none;
-}
-
-.has-error i.error {
-    display: inline-block;
-}
-
-.has-error i.default, .has-error i.warning, .has-error i.success {
-    display: none;
-}
-
-.has-success i.success {
-    display: inline-block;
-}
-
-.has-success i.default, .has-success i.warning, .has-success i.error {
-    display: none;
-}
-
-.has-warning i.warning {
-    display: inline-block;
-}
-
-.has-warning i.default, .has-warning i.success, .has-warning i.error {
-    display: none;
-}
-
-.input-group-addon.validation i.default.fa-asterisk {
-    font-size: 12px;
-    line-height: 20px;
-}
-.has-error .input-group-addon.validation i.error.fa-times {
-    font-size: 18px;
-}
-.has-success .input-group-addon.validation i.success.fa-check {
-    font-size: 18px;
-}
-.has-warning .input-group-addon.validation i.warning.fa-exclamation-triangle {
-    font-size: 16px;
-    line-height: 20px;
-}
-
-
-@media(min-width: 992px) {
-    .validation-msg.help-block {
-        /* get rid of the margin-bottom on this when it is displayed to the side
-            so that it does not change height of overall field when disappearing */
-        margin-bottom: 0;
-        /* line this up a vertically with the field */
-        margin-top: 7px;
-        /* bring the validation message closer to the field */
-        margin-left: 0;
-        padding-left: 0;
-    }
-}
-
-input.xinput-validation-error {
-    /* disable this and display these within a help-block */
-    border: 1px solid #b94a48;
-}
-
-input[type="checkbox"].xinput-validation-error {
-    /* disable this and display these within a help-block */
-    border: 0 none;
-}
-
-input[type=image].btn {
-    padding: 0;
-    border: 0;
-}
-
-.validation-summary-errors {
-    color: #b94a48;
-}
-
-.validation-summary-valid {
-    display: none;
-}
-
-hr {
-    border-top-color: #ccc;
-}
-
+/* angular ng-cloak directive */
+/* line 34, ../compass/site.scss */
 [ng-cloak] {
-    display: none !important;
-}
-[disabled], .btn[disabled] {
-    pointer-events: auto;
-    cursor: not-allowed;
-}
+  display: none !important; }
 
-.form-control .checkbox {
+/* validation input group add-on & icon */
+/* line 39, ../compass/site.scss */
+body {
+  /* show & hide icons during success, error, and warning */ }
+  /* line 40, ../compass/site.scss */
+  body .input-group-addon.validation {
+    /* position the icon(s) within this container */
+    vertical-align: top;
+    padding: 6px 6px 0 6px; }
+    /* line 45, ../compass/site.scss */
+    body .input-group-addon.validation i {
+      width: 18px;
+      /* fix width for all validation icons (has no effect when display:none) */
+      display: none; }
+      /* line 49, ../compass/site.scss */
+      body .input-group-addon.validation i.default {
+        color: #555;
+        /* make this a little softer than black */
+        display: inline-block;
+        /* without a default icon, add-on will shrink */ }
+        /* line 53, ../compass/site.scss */
+        body .input-group-addon.validation i.default.fa-asterisk {
+          /* make default asterisks smaller */
+          font-size: 12px;
+          line-height: 20px; }
+      /* line 61, ../compass/site.scss */
+      body .input-group-addon.validation i.error.fa-times {
+        /* size for red error X icons */
+        font-size: 18px; }
+      /* line 68, ../compass/site.scss */
+      body .input-group-addon.validation i.success.fa-check {
+        /* size for green checkmark icons */
+        font-size: 18px; }
+      /* line 75, ../compass/site.scss */
+      body .input-group-addon.validation i.warning.fa-exclamation-triangle {
+        /* size for yellow exclamation warning triangle */
+        font-size: 16px;
+        line-height: 20px; }
+  /* line 86, ../compass/site.scss */
+  body .has-success .input-group-addon.validation i.default {
+    display: none; }
+  /* line 87, ../compass/site.scss */
+  body .has-success .input-group-addon.validation i.success {
+    display: inline-block; }
+  /* line 90, ../compass/site.scss */
+  body .has-error .input-group-addon.validation i.default {
+    display: none; }
+  /* line 91, ../compass/site.scss */
+  body .has-error .input-group-addon.validation i.error {
+    display: inline-block; }
+  /* line 94, ../compass/site.scss */
+  body .has-warning .input-group-addon.validation i.default {
+    display: none; }
+  /* line 95, ../compass/site.scss */
+  body .has-warning .input-group-addon.validation i.warning {
+    display: inline-block; }
+
+/* validation help block horizontal positioning */
+@media (min-width: 992px) {
+  /* line 102, ../compass/site.scss */
+  body .help-block-horizontal-lg {
+    /* get rid of the margin-bottom on this when it is displayed to the side
+        so that it does not change height of overall field when disappearing */
+    margin-bottom: 0;
+    /* line this up a vertically with the field */
+    margin-top: 7px;
+    /* bring the validation message closer to the field */
+    margin-left: 0;
+    padding-left: 0; } }
+
+/* form elements */
+/* line 116, ../compass/site.scss */
+body {
+  /* checkbox treatments */
+  /* show not-allowed cursor on disabled elements */
+  /* hide padding on image buttons */ }
+  /* line 118, ../compass/site.scss */
+  body .form-control .checkbox {
     /* when a checkbox is nested within a form-control (which is also probably nested within an input-group),
-                remove the top padding, since the form-control provides padding already */
-    padding-top: 0;
-}
-
-input[type=checkbox] {
+    remove the top padding, since the form-control provides padding already */
+    padding-top: 0; }
+  /* line 123, ../compass/site.scss */
+  body input[type=checkbox] {
     /* make checkboxes use pointer cursor to match up with their labels */
-    cursor: pointer;
-}
+    cursor: pointer; }
+  /* line 129, ../compass/site.scss */
+  body [disabled], body .btn[disabled] {
+    pointer-events: auto;
+    cursor: not-allowed; }
+  /* line 135, ../compass/site.scss */
+  body input[type=image].btn {
+    padding: 0;
+    border: 0; }
+
+/* VS starter template styles */
+/* line 143, ../compass/site.scss */
+body .validation-summary-errors {
+  color: #b94a48; }
+/* line 147, ../compass/site.scss */
+body .validation-summary-valid {
+  display: none; }
+/* line 151, ../compass/site.scss */
+body hr {
+  border-top-color: #ccc; }
+
+/* deprecated VS starter template styles */
+/* line 157, ../compass/site.scss */
+body {
+  /* This was included by the VS starter template, but we don't want it.
+  Instead, we want to let bootstrap size the form elements at 100% and
+  use containers to provide widths where necessary
+  input,
+  select,
+  textarea {
+      max-width: 280px;
+  }*/
+  /* These were generated by the VS starter template, but we don't want them.
+  Instead, we want to put field validation errors inside form help-blocks for coloration.
+  Also, we don't want to use jQuery validation.
+  .field-validation-error {
+      color: #b94a48;
+  }
+  .field-validation-valid {
+      display: none;
+  }
+  input.input-validation-error {
+      border: 1px solid #b94a48;
+  }
+  input[type="checkbox"].input-validation-error {
+      border: 0 none;
+  }
+  */ }
