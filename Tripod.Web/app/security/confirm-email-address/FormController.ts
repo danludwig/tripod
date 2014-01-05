@@ -1,19 +1,13 @@
 'use strict';
 
-export interface IFormModel {
-    emailAddress?: string;
-    isExpectingEmail?: boolean;
-}
+import iScope = require('../../_common/IModelScope');
+import iModel = require('./FormModel');
 
-export interface IModelScope<T> extends ng.IScope {
-    m: T;
-}
-
-export interface IFormScope extends IModelScope<IFormModel> { }
+export interface IFormScope extends iScope.IModelScope<iModel.IFormModel> { }
 
 export var controllerName = 'FormController';
 
-export class FormController implements IFormModel {
+export class FormController implements iModel.IFormModel {
 
     emailAddress: string = '';
     isExpectingEmail: boolean = false;

@@ -1,4 +1,5 @@
 @import "compass/css3";
+@import "global-variables";
 
 /* Primary layout styles */
 html {
@@ -53,7 +54,7 @@ body {
                 float: left;
             }
         }
-        @media(min-width: 768px) {
+        @media(min-width: $screen-sm-min) {
             ul.navbar-nav.pull-left.nav {
                 margin: 0 0 0 15px;
             }
@@ -68,7 +69,7 @@ body {
             text-decoration: none;
         }
 
-        @media(min-width: 768px) {
+        @media(min-width: $screen-sm-min) {
             .navbar-btn.navbar-link.btn-link.btn {
                 padding: 14px;
             }
@@ -139,8 +140,8 @@ body {
 
 /* validation help block horizontal positioning */
 body {
-    @media(min-width: 992px) {
-        .help-block-horizontal-lg {
+    @media(min-width: $screen-md-min) {
+        .help-block-horizontal-md {
             /* get rid of the margin-bottom on this when it is displayed to the side
                 so that it does not change height of overall field when disappearing */
             margin-bottom: 0;

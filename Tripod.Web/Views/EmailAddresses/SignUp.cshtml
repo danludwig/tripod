@@ -48,7 +48,7 @@
             </div>
 
             @* VALIDATION MESSAGES COLUMN *@
-            <div class="col-md-5  help-block help-block-horizontal-lg">
+            <div class="col-md-5  help-block help-block-horizontal-md">
                 <span ng-show="!t3.f.needsAttention(f.EmailAddress) && f.EmailAddress.$pristine">
                     @Html.ValidationMessageFor(x => x.EmailAddress)
                 </span>
@@ -96,7 +96,7 @@
             </div>
 
             @* VALIDATION MESSAGES COLUMN *@
-            <div class="col-md-5 help-block help-block-horizontal-lg">
+            <div class="col-md-5 help-block help-block-horizontal-md">
                 <span ng-show="!t3.f.needsAttention(f.IsExpectingEmail) && f.IsExpectingEmail.$pristine">
                     @Html.ValidationMessageFor(x => x.IsExpectingEmail)
                 </span>

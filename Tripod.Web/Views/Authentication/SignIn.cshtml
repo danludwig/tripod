@@ -2,7 +2,7 @@
 @using Tripod.Domain.Security
 @using UserConstraints = Tripod.Domain.Security.User.Constraints
 
-@model Tripod.Domain.Security.SignIn
+@model SignIn
 @{
     ViewBag.Title = "Sign in";
 }
@@ -63,26 +63,24 @@
         </div>
 
         <hr class="hr-md hr-space" />
-        <p>
+        <h4>
             Have an account? Sign in with your username or email address.
-        </p>
+        </h4>
 
-        <div id="ng-app_signin" xng-controller="FormController">
+        <div id="ng-app_signin" ng-controller="FormController">
             <form name="f" action="@Url.Action(MVC.Authentication.SignIn(null, null))" method="POST" class="form-horizontal" role="form"
-                  xng-t3-submit-action="" xng-t3-submit-action-attempted="@(!ViewData.ModelState.IsValid)" novalidate>
+                  ng-t3-submit-action ng-t3-submit-action-attempted="@(!ViewData.ModelState.IsValid)" novalidate>
 
                 @Html.AntiForgeryToken()
 
                 <input type="hidden" name="returnUrl" value="@ViewBag.ReturnUrl" />
 
-                @*<h4>Create a new account.</h4>
-                    <hr />*@
                 @Html.ValidationSummary(true)
 
                 @* EMAIL ADDRESS INPUT *@
                 <div class="form-group @Html.BootstrapValidationCssClassFor(x => x.UserName)"
-                     xng-t3-remove-class="has-success has-error"
-                     xng-class="{ 'has-success': t3.f.isGoodToGo(f.EmailAddress), 'has-error': t3.f.needsAttention(f.EmailAddress) }">
+                     ng-t3-remove-class="has-success has-error"
+                     ng-class="{ 'has-success': t3.f.isGoodToGo(f.userName), 'has-error': t3.f.needsAttention(f.userName) }">
 
                     @* INPUT GROUP COLUMN *@
                     <div class="col-md-8">
@@ -90,13 +88,17 @@
                         <label for="@Html.IdFor(x => x.UserName)" class="control-label sr-only">
                             @UserConstraints.NameLabel or @EmailAddress.Constraints.Label
                         </label>
-                        <div class="input-group input-group-lg">
-                            <input type="email" class="form-control" placeholder="@UserConstraints.NameLabel or @EmailAddress.Constraints.Label"
-                                   id="@Html.IdFor(x => x.UserName)" name="@Html.NameFor(x => x.UserName)" value="@Html.ValueFor(x => x.UserName)"
-                                   xng-model="m.emailAddress" required
-                                   xng-init="m.emailAddress='@Html.ValueFor(x => x.UserName)'" />
+                        <div class="@Html.CssClassWhenInvalidFor(x => x.UserName, "input-group input-group-lg")"
+                             ng-t3-remove-class="input-group input-group-lg"
+                             ng-class="{ 'input-group input-group-lg': t3.f.needsAttention(f.userName) || t3.f.isGoodToGo(f.userName) }">
+                            <input type="text" class="form-control input-lg" placeholder="@UserConstraints.NameLabel or @EmailAddress.Constraints.Label"
+                                   id="@Html.IdFor(x => x.UserName)" name="userName" value="@Html.ValueFor(x => x.UserName)"
+                                   ng-model="m.userName" required
+                                   ng-init="m.userName='@Html.ValueFor(x => x.UserName)'" />
 
-                            <span class="input-group-addon validation">
+                            <span class="input-group-addon validation @Html.CssClassWhenValidFor(x => x.UserName, "hide")"
+                                  ng-t3-remove-class="hide"
+                                  ng-class="{ 'hide':  !t3.f.needsAttention(f.userName) && !t3.f.isGoodToGo(f.userName) }">
                                 <i class="fa fa-fw fa-asterisk default" title="This is a required field"></i>
                                 <i class="fa fa-fw fa-times error"></i>
                                 <i class="fa fa-fw fa-exclamation-triangle warning"></i>
@@ -106,19 +108,13 @@
                     </div>
 
                     @* VALIDATION MESSAGES COLUMN *@
-                    <div class="col-md-4  help-block help-block-horizontal-lg">
-                        <span ng-show="!t3.f.needsAttention(f.EmailAddress) && f.EmailAddress.$pristine">
+                    <div class="col-md-4  help-block help-block-horizontal-md">
+                        <span ng-show="!t3.f.needsAttention(f.userName) && f.userName.$pristine">
                             @Html.ValidationMessageFor(x => x.UserName)
                         </span>
-                        <span ng-show="t3.f.needsAttention(f.EmailAddress)" ng-cloak>
-                            <span ng-show="f.EmailAddress.$error.required && !f.EmailAddress.$viewValue">
-                                @Resources.notempty_error.Replace("{PropertyName}", UserConstraints.NameLabel)
-                            </span>
-                            <span ng-show="f.EmailAddress.$error.email">
-                                @Resources.email_error.Replace("{PropertyValue}", "{{ f.EmailAddress.$viewValue }}")
-                            </span>
-                            <span ng-show="f.EmailAddress.$error.server">
-                                why {{ serverErrors.EmailAddress }} not
+                        <span ng-show="t3.f.needsAttention(f.userName)" ng-cloak>
+                            <span ng-show="f.userName.$error.required && !f.userName.$viewValue">
+                                @Resources.notempty_error.Replace("{PropertyName}", string.Format("{0} or {1}", UserConstraints.NameLabel, EmailAddress.Constraints.Label))
                             </span>
                         </span>
                     </div>
@@ -126,8 +122,8 @@
 
                 @* PASSWORD INPUT *@
                 <div class="form-group @Html.BootstrapValidationCssClassFor(x => x.Password)"
-                     xng-t3-remove-class="has-success has-error"
-                     xng-class="{ 'has-success': t3.f.isGoodToGo(f.EmailAddress), 'has-error': t3.f.needsAttention(f.EmailAddress) }">
+                     ng-t3-remove-class="has-success has-error"
+                     ng-class="{ 'has-success': t3.f.isGoodToGo(f.password), 'has-error': t3.f.needsAttention(f.password) }">
 
                     @* INPUT GROUP COLUMN *@
                     <div class="col-md-8">
@@ -135,13 +131,16 @@
                         <label for="@Html.IdFor(x => x.Password)" class="control-label sr-only">
                             @LocalMembership.Constraints.PasswordLabel
                         </label>
-                        <div class="input-group input-group-lg">
+                        <div class="@Html.CssClassWhenInvalidFor(x => x.Password, "input-group input-group-lg")"
+                             ng-t3-remove-class="input-group input-group-lg"
+                             ng-class="{ 'input-group input-group-lg': t3.f.needsAttention(f.password) || t3.f.isGoodToGo(f.password) }">
                             <input type="password" class="form-control input-lg" placeholder="@LocalMembership.Constraints.PasswordLabel"
-                                   id="@Html.IdFor(x => x.Password)" name="@Html.NameFor(x => x.Password)" value="@Html.ValueFor(x => x.Password)"
-                                   xng-model="m.emailAddress" required
-                                   xng-init="m.emailAddress='@Html.ValueFor(x => x.Password)'" />
+                                   id="@Html.IdFor(x => x.Password)" name="password"
+                                   ng-model="m.password" required />
 
-                            <span class="input-group-addon validation">
+                            <span class="input-group-addon validation @Html.CssClassWhenValidFor(x => x.Password, "hide")"
+                                  ng-t3-remove-class="hide"
+                                  ng-class="{ 'hide':  !t3.f.needsAttention(f.password) && !t3.f.isGoodToGo(f.password) }">
                                 <i class="fa fa-fw fa-asterisk default" title="This is a required field"></i>
                                 <i class="fa fa-fw fa-times error"></i>
                                 <i class="fa fa-fw fa-exclamation-triangle warning"></i>
@@ -151,55 +150,36 @@
                     </div>
 
                     @* VALIDATION MESSAGES COLUMN *@
-                    <div class="col-md-4  help-block help-block-horizontal-lg">
-                        <span ng-show="!t3.f.needsAttention(f.EmailAddress) && f.EmailAddress.$pristine">
+                    <div class="col-md-4  help-block help-block-horizontal-md">
+                        <span ng-show="!t3.f.needsAttention(f.password) && f.password.$pristine">
                             @Html.ValidationMessageFor(x => x.Password)
                         </span>
-                        <span ng-show="t3.f.needsAttention(f.EmailAddress)" ng-cloak>
-                            <span ng-show="f.EmailAddress.$error.required && !f.EmailAddress.$viewValue">
-                                @Resources.notempty_error.Replace("{PropertyName}", UserConstraints.NameLabel)
-                            </span>
-                            <span ng-show="f.EmailAddress.$error.email">
-                                @Resources.email_error.Replace("{PropertyValue}", "{{ f.EmailAddress.$viewValue }}")
-                            </span>
-                            <span ng-show="f.EmailAddress.$error.server">
-                                why {{ serverErrors.EmailAddress }} not
+                        <span ng-show="t3.f.needsAttention(f.password)" ng-cloak>
+                            <span ng-show="f.password.$error.required && !f.password.$viewValue">
+                                @Resources.notempty_error.Replace("{PropertyName}", LocalMembership.Constraints.PasswordLabel)
                             </span>
                         </span>
                     </div>
                 </div>
+
                 @* REMEMBER ME CHECKBOX INPUT *@
-                <div class="form-group @Html.BootstrapValidationCssClassFor(x => x.IsPersistent)"
-                     xng-t3-remove-class="has-success has-error"
-                     xng-class="{ 'has-success': t3.f.isGoodToGo(f.IsExpectingEmail), 'has-error': t3.f.needsAttention(f.IsExpectingEmail) }">
+                <div class="form-group @Html.BootstrapValidationCssClassFor(x => x.IsPersistent)">
 
                     @* INPUT GROUP COLUMN (OFFSET WITHOUT LABEL COLUMN) *@
                     <div class="col-md-8">
                         <div class="form-control">
                             <div class="checkbox">
                                 <label>
-                                    <input type="checkbox" id="@Html.IdFor(x => x.IsPersistent)" name="@Html.NameFor(x => x.IsPersistent)" value="true"
+                                    <input type="checkbox" id="@Html.IdFor(x => x.IsPersistent)" name="isPersistent" value="true"
                                            checked="@(Model != null && Model.IsPersistent ? "checked" : null)"
-                                           ng-model="m.isExpectingEmail"
-                                           ng-init="m.isExpectingEmail=@(Model != null ? Html.ValueFor(x => x.IsPersistent) : MvcHtmlString.Create("false"))" />
-                                    <input type="hidden" name="@Html.NameFor(x => x.IsPersistent)" value="false" />
+                                           ng-model="m.isPersistent"
+                                           ng-init="m.isPersistent=@(Model != null ? Html.ValueFor(x => x.IsPersistent) : MvcHtmlString.Create("false"))" />
+                                    <input type="hidden" name="isPersistent" value="false" />
                                     Keep me signed in after I close my browser
                                 </label>
                             </div>
                         </div>
                     </div>
-
-                    @* VALIDATION MESSAGES COLUMN *@
-                    @*<div class="col-md-5 help-block help-block-horizontal-lg">
-                        <span ng-show="!t3.f.needsAttention(f.IsExpectingEmail) && f.IsExpectingEmail.$pristine">
-                            @Html.ValidationMessageFor(x => x.IsPersistent)
-                        </span>
-                        <span ng-show="t3.f.needsAttention(f.IsExpectingEmail)" ng-cloak>
-                            <span ng-show="f.IsExpectingEmail.$error.required">
-                                @Resources.Validation_SendConfirmationEmail_IsExpectingEmail.Replace("{PropertyName}", @EmailAddress.Constraints.Label.ToLower())
-                            </span>
-                        </span>
-                    </div>*@
                 </div>
 
                 @* FORM SUBMIT BUTTON *@
@@ -209,11 +189,14 @@
                     </div>
                 </div>
             </form>
+
+            <a href="@Url.Action(MVC.Authentication.SignIn())">Reload</a>
+
+            <pre ng-cloak>
+m = {{m | json}}
+t3.f.needsAttention(f.userName) = {{ t3.f.needsAttention(f.userName) }}
+</pre>
         </div>
-
-        <a href="@Url.Action(MVC.Authentication.SignIn())">Reload</a>
-
-
     </div>
 </div>
 
@@ -267,6 +250,8 @@
         </div>
     </div>*@
 
-@section scripts {
+@section scripts
+{
     @*@Scripts.Render("~/bundles/jqueryval")*@
+    <script src="~/scripts/require.js" data-main="@Url.Content("~/app/security/sign-in/FormMain.js")"></script>
 }

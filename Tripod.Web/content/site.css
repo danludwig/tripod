@@ -1,133 +1,133 @@
 /* Primary layout styles */
-/* line 4, ../compass/site.scss */
+/* line 5, ../compass/site.scss */
 html {
   /* height:100% is necessary on both html and body for the sticky footer to work */
   height: 100%; }
-  /* line 7, ../compass/site.scss */
+  /* line 8, ../compass/site.scss */
   html body {
     height: 100%;
     padding-top: 50px;
     padding-bottom: 20px;
     /* Set padding to keep content from hitting the edges */ }
-    /* line 12, ../compass/site.scss */
+    /* line 13, ../compass/site.scss */
     html body #wrap {
       /* styles used for the sticky footer */
       min-height: 100%;
       height: auto !important;
       margin: 0 auto -80px;
       padding: 0 0 80px; }
-    /* line 19, ../compass/site.scss */
+    /* line 20, ../compass/site.scss */
     html body #footer {
       /* footer height should be padded by other sticky footer styles */
       height: 80px; }
-    /* line 25, ../compass/site.scss */
+    /* line 26, ../compass/site.scss */
     html body .body-content {
       /* give the main content block some left & right spacing */
       padding-left: 15px;
       padding-right: 15px; }
-    /* line 32, ../compass/site.scss */
+    /* line 33, ../compass/site.scss */
     html body hr.hr-space {
       border-color: transparent; }
-    /* line 33, ../compass/site.scss */
+    /* line 34, ../compass/site.scss */
     html body hr.hr-md {
       margin: 12px 0; }
-    /* line 34, ../compass/site.scss */
+    /* line 35, ../compass/site.scss */
     html body hr.hr-sm {
       margin: 4px 0; }
 
 /* angular ng-cloak directive */
-/* line 40, ../compass/site.scss */
+/* line 41, ../compass/site.scss */
 [ng-cloak] {
   display: none !important; }
 
 /* navbar treatments */
-/* line 46, ../compass/site.scss */
+/* line 47, ../compass/site.scss */
 body .navbar-header.pull-right {
   /* do not collapse right nav links */ }
-  /* line 48, ../compass/site.scss */
+  /* line 49, ../compass/site.scss */
   body .navbar-header.pull-right ul.navbar-nav.pull-left.nav {
     margin-right: 0;
     margin-top: 5px;
     margin-bottom: 5px; }
-    /* line 52, ../compass/site.scss */
+    /* line 53, ../compass/site.scss */
     body .navbar-header.pull-right ul.navbar-nav.pull-left.nav > li {
       float: left; }
   @media (min-width: 768px) {
-    /* line 57, ../compass/site.scss */
+    /* line 58, ../compass/site.scss */
     body .navbar-header.pull-right ul.navbar-nav.pull-left.nav {
       margin: 0 0 0 15px; } }
-/* line 64, ../compass/site.scss */
+/* line 65, ../compass/site.scss */
 body .navbar .navbar-btn.navbar-link.btn-link.btn {
   margin-top: 0;
   margin-bottom: 0;
   padding: 9px 14px;
   text-decoration: none; }
 @media (min-width: 768px) {
-  /* line 72, ../compass/site.scss */
+  /* line 73, ../compass/site.scss */
   body .navbar .navbar-btn.navbar-link.btn-link.btn {
     padding: 14px; } }
 
 /* validation input group add-on & icon */
-/* line 80, ../compass/site.scss */
+/* line 81, ../compass/site.scss */
 body {
   /* show & hide icons during success, error, and warning */ }
-  /* line 81, ../compass/site.scss */
+  /* line 82, ../compass/site.scss */
   body .input-group-addon.validation {
     /* position the icon(s) within this container */
     vertical-align: top;
     padding: 6px 6px 0 6px; }
-    /* line 86, ../compass/site.scss */
+    /* line 87, ../compass/site.scss */
     body .input-group-addon.validation i {
       width: 18px;
       /* fix width for all validation icons (has no effect when display:none) */
       display: none; }
-      /* line 90, ../compass/site.scss */
+      /* line 91, ../compass/site.scss */
       body .input-group-addon.validation i.default {
         color: #555;
         /* make this a little softer than black */
         display: inline-block;
         /* without a default icon, add-on will shrink */ }
-        /* line 94, ../compass/site.scss */
+        /* line 95, ../compass/site.scss */
         body .input-group-addon.validation i.default.fa-asterisk {
           /* make default asterisks smaller */
           font-size: 12px;
           line-height: 20px; }
-      /* line 102, ../compass/site.scss */
+      /* line 103, ../compass/site.scss */
       body .input-group-addon.validation i.error.fa-times {
         /* size for red error X icons */
         font-size: 18px; }
-      /* line 109, ../compass/site.scss */
+      /* line 110, ../compass/site.scss */
       body .input-group-addon.validation i.success.fa-check {
         /* size for green checkmark icons */
         font-size: 18px; }
-      /* line 116, ../compass/site.scss */
+      /* line 117, ../compass/site.scss */
       body .input-group-addon.validation i.warning.fa-exclamation-triangle {
         /* size for yellow exclamation warning triangle */
         font-size: 16px;
         line-height: 20px; }
-  /* line 127, ../compass/site.scss */
+  /* line 128, ../compass/site.scss */
   body .has-success .input-group-addon.validation i.default {
     display: none; }
-  /* line 128, ../compass/site.scss */
+  /* line 129, ../compass/site.scss */
   body .has-success .input-group-addon.validation i.success {
     display: inline-block; }
-  /* line 131, ../compass/site.scss */
+  /* line 132, ../compass/site.scss */
   body .has-error .input-group-addon.validation i.default {
     display: none; }
-  /* line 132, ../compass/site.scss */
+  /* line 133, ../compass/site.scss */
   body .has-error .input-group-addon.validation i.error {
     display: inline-block; }
-  /* line 135, ../compass/site.scss */
+  /* line 136, ../compass/site.scss */
   body .has-warning .input-group-addon.validation i.default {
     display: none; }
-  /* line 136, ../compass/site.scss */
+  /* line 137, ../compass/site.scss */
   body .has-warning .input-group-addon.validation i.warning {
     display: inline-block; }
 
 /* validation help block horizontal positioning */
 @media (min-width: 992px) {
-  /* line 143, ../compass/site.scss */
-  body .help-block-horizontal-lg {
+  /* line 144, ../compass/site.scss */
+  body .help-block-horizontal-md {
     /* get rid of the margin-bottom on this when it is displayed to the side
         so that it does not change height of overall field when disappearing */
     margin-bottom: 0;
@@ -138,42 +138,42 @@ body {
     padding-left: 0; } }
 
 /* form elements */
-/* line 157, ../compass/site.scss */
+/* line 158, ../compass/site.scss */
 body {
   /* checkbox treatments */
   /* show not-allowed cursor on disabled elements */
   /* hide padding on image buttons */ }
-  /* line 159, ../compass/site.scss */
+  /* line 160, ../compass/site.scss */
   body .form-control .checkbox {
     /* when a checkbox is nested within a form-control (which is also probably nested within an input-group),
     remove the top padding, since the form-control provides padding already */
     padding-top: 0; }
-  /* line 164, ../compass/site.scss */
+  /* line 165, ../compass/site.scss */
   body input[type=checkbox] {
     /* make checkboxes use pointer cursor to match up with their labels */
     cursor: pointer; }
-  /* line 170, ../compass/site.scss */
+  /* line 171, ../compass/site.scss */
   body [disabled], body .btn[disabled] {
     pointer-events: auto;
     cursor: not-allowed; }
-  /* line 176, ../compass/site.scss */
+  /* line 177, ../compass/site.scss */
   body input[type=image].btn {
     padding: 0;
     border: 0; }
 
 /* VS starter template styles */
-/* line 184, ../compass/site.scss */
+/* line 185, ../compass/site.scss */
 body .validation-summary-errors {
   color: #b94a48; }
-/* line 188, ../compass/site.scss */
+/* line 189, ../compass/site.scss */
 body .validation-summary-valid {
   display: none; }
-/* line 192, ../compass/site.scss */
+/* line 193, ../compass/site.scss */
 body hr {
   border-top-color: #ccc; }
 
 /* deprecated VS starter template styles */
-/* line 198, ../compass/site.scss */
+/* line 199, ../compass/site.scss */
 body {
   /* This was included by the VS starter template, but we don't want it.
   Instead, we want to let bootstrap size the form elements at 100% and

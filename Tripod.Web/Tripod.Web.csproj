@@ -264,13 +264,22 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="app\ng\directives\InputPreFormatterDirective.js">
+    <Content Include="app\security\sign-in\FormController.js">
+      <DependentUpon>FormController.ts</DependentUpon>
+    </Content>
+    <Content Include="app\security\sign-in\FormMain.js">
+      <DependentUpon>FormMain.ts</DependentUpon>
+    </Content>
+    <Content Include="app\security\sign-in\FormModule.js">
+      <DependentUpon>FormModule.ts</DependentUpon>
+    </Content>
+    <Content Include="app\_ng\directives\InputPreFormatterDirective.js">
       <DependentUpon>InputPreFormatterDirective.ts</DependentUpon>
     </Content>
-    <Content Include="app\ng\directives\RemoveCssClassDirective.js">
+    <Content Include="app\_ng\directives\RemoveCssClassDirective.js">
       <DependentUpon>RemoveCssClassDirective.ts</DependentUpon>
     </Content>
-    <Content Include="app\ng\directives\SubmitActionDirective.js">
+    <Content Include="app\_ng\directives\SubmitActionDirective.js">
       <DependentUpon>SubmitActionDirective.ts</DependentUpon>
     </Content>
     <Content Include="app\security\confirm-email-address\FormController.js">
@@ -282,10 +291,10 @@
     <Content Include="app\security\confirm-email-address\FormModule.js">
       <DependentUpon>FormModule.ts</DependentUpon>
     </Content>
-    <Content Include="app\security\confirm-email-address\TestValidator.js">
+    <Content Include="app\_ng\directives\TestValidator.js">
       <DependentUpon>TestValidator.ts</DependentUpon>
     </Content>
-    <Content Include="app\security\confirm-email-address\TestValidator1.js">
+    <Content Include="app\_ng\directives\TestValidator1.js">
       <DependentUpon>TestValidator1.ts</DependentUpon>
     </Content>
     <Content Include="content\bootstrap.css" />
@@ -338,6 +347,7 @@
     <Content Include="fonts\fontawesome-webfont.ttf" />
     <Content Include="fonts\fontawesome-webfont.eot" />
     <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="compass\_global-variables.scss" />
     <None Include="config.rb" />
     <None Include="compass\compass-defaults\ie.scss">
       <Compile>True</Compile>
@@ -691,14 +701,20 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <TypeScriptCompile Include="app\ng\directives\RemoveCssClassDirective.ts" />
-    <TypeScriptCompile Include="app\ng\directives\InputPreFormatterDirective.ts" />
-    <TypeScriptCompile Include="app\ng\directives\SubmitActionDirective.ts" />
+    <TypeScriptCompile Include="app\security\confirm-email-address\FormModel.d.ts" />
+    <TypeScriptCompile Include="app\security\sign-in\FormController.ts" />
+    <TypeScriptCompile Include="app\security\sign-in\FormMain.ts" />
+    <TypeScriptCompile Include="app\security\sign-in\FormModel.d.ts" />
+    <TypeScriptCompile Include="app\security\sign-in\FormModule.ts" />
+    <TypeScriptCompile Include="app\_common\IModelScope.d.ts" />
+    <TypeScriptCompile Include="app\_ng\directives\RemoveCssClassDirective.ts" />
+    <TypeScriptCompile Include="app\_ng\directives\InputPreFormatterDirective.ts" />
+    <TypeScriptCompile Include="app\_ng\directives\SubmitActionDirective.ts" />
     <TypeScriptCompile Include="app\security\confirm-email-address\FormController.ts" />
     <TypeScriptCompile Include="app\security\confirm-email-address\FormModule.ts" />
     <TypeScriptCompile Include="app\security\confirm-email-address\FormMain.ts" />
-    <TypeScriptCompile Include="app\security\confirm-email-address\TestValidator.ts" />
-    <TypeScriptCompile Include="app\security\confirm-email-address\TestValidator1.ts" />
+    <TypeScriptCompile Include="app\_ng\directives\TestValidator.ts" />
+    <TypeScriptCompile Include="app\_ng\directives\TestValidator1.ts" />
     <TypeScriptCompile Include="scripts\typings\angularjs\angular-cookies.d.ts" />
     <TypeScriptCompile Include="scripts\typings\angularjs\angular-mocks.d.ts" />
     <TypeScriptCompile Include="scripts\typings\angularjs\angular-resource.d.ts" />
