@@ -6,6 +6,7 @@
 	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/GeneratedFilesAndFolders/=5058F80F_002DC633_002D433B_002DA381_002D55A8A3F2BAA0_002Fd_003Ascripts_002Ff_003Ajquery_002D1_002E10_002E2_002Eintellisense_002Ejs/@EntryIndexedValue">5058F80F-C633-433B-A381-55A8A3F2BAA0/d:scripts/f:jquery-1.10.2.intellisense.js</s:String>
 	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/GeneratedFilesAndFolders/=5058F80F_002DC633_002D433B_002DA381_002D55A8A3F2BAA0_002Ff_003AT4MVC_002Ecs/@EntryIndexedValue">5058F80F-C633-433B-A381-55A8A3F2BAA0/f:T4MVC.cs</s:String>
 	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/GeneratedFilesAndFolders/=E1BA1D96_002D1242_002D4196_002D85C1_002D0034447A4106_002Fd_003AProperties_002Ff_003AReSharperAnnotations_002Ecs_002Fl_003A_002E_002E_003F_002E_002E_003FReSharperAnnotations_002Ecs/@EntryIndexedValue">E1BA1D96-1242-4196-85C1-0034447A4106/d:Properties/f:ReSharperAnnotations.cs/l:..?..?ReSharperAnnotations.cs</s:String>
+	<s:String x:Key="/Default/CodeInspection/Highlighting/AnalysisEnabled/@EntryValue">SOLUTION</s:String>
 	<s:String x:Key="/Default/CodeInspection/Highlighting/InspectionSeverities/=Html_002EAttributeNotResolved/@EntryIndexedValue">HINT</s:String>
 	<s:String x:Key="/Default/CodeInspection/Highlighting/InspectionSeverities/=Html_002EPathError/@EntryIndexedValue">ERROR</s:String>
 	<s:String x:Key="/Default/CodeInspection/Highlighting/InspectionSeverities/=LoopCanBeConvertedToQuery/@EntryIndexedValue">HINT</s:String>
