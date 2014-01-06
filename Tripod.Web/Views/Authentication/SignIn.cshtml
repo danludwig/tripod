@@ -108,14 +108,22 @@
                     </div>
 
                     @* VALIDATION MESSAGES COLUMN *@
-                    <div class="col-md-4  help-block help-block-horizontal-md">
-                        <span ng-show="!t3.f.needsAttention(f.userName) && f.userName.$pristine">
-                            @Html.ValidationMessageFor(x => x.UserName)
-                        </span>
+                    <div class="col-md-4  help-block help-block-horizontal-md hidden-sm hidden-xs">
+                        <span t3-popover="@Resources.notempty_error.Replace("{PropertyName}", string.Format("{0} or {1}", UserConstraints.NameLabel, EmailAddress.Constraints.Label))"
+                              t3-popover-switch="t3.f.needsAttention(f.userName)"
+                              t3-popover-animation="false"
+                              style="width: 0; height: 0; margin-left: -10px; margin-right: 10px;"></span>
+
+                        <span ng-class="{ hide: true }">@Html.ValidationMessageFor(x => x.UserName)</span>
+                    </div>
+                    <div class="col-md-4  help-block hidden-md hidden-lg">
                         <span ng-show="t3.f.needsAttention(f.userName)" ng-cloak>
                             <span ng-show="f.userName.$error.required && !f.userName.$viewValue">
                                 @Resources.notempty_error.Replace("{PropertyName}", string.Format("{0} or {1}", UserConstraints.NameLabel, EmailAddress.Constraints.Label))
                             </span>
+                        </span>
+                        <span ng-class="{ hide: true }">
+                            @Html.ValidationMessageFor(x => x.UserName)
                         </span>
                     </div>
                 </div>
@@ -200,58 +208,7 @@ t3.f.needsAttention(f.userName) = {{ t3.f.needsAttention(f.userName) }}
     </div>
 </div>
 
-@*<div class="row">
-        <div class="col-md-8">
-            <section>
-                <form action="@Url.Action(MVC.Authentication.SignIn(null, (string)ViewBag.ReturnUrl))" method="POST" class="form-horizontal" role="form">
-                    @Html.AntiForgeryToken()
-                    <h4>Use a local account to sign in.</h4>
-                    <hr />
-                    @Html.ValidationSummary(true)
-                    <div class="form-group">
-                        @Html.LabelFor(m => m.UserName, new { @class = "col-md-2 control-label" })
-                        <div class="col-md-10">
-                            @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
-                            @Html.ValidationMessageFor(m => m.UserName)
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
-                        <div class="col-md-10">
-                            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-                            @Html.ValidationMessageFor(m => m.Password)
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-md-offset-2 col-md-10">
-                            <div class="checkbox">
-                                @Html.CheckBoxFor(m => m.IsPersistent)
-                                @Html.LabelFor(x => x.IsPersistent, "Remember me?")
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-md-offset-2 col-md-10">
-                            <input type="submit" value="Sign In" class="btn btn-default" />
-                        </div>
-                    </div>
-                    <p>
-                        <a href="@Url.Action(MVC.EmailAddresses.SignUp())">Sign up</a> if you don't have a local account.
-                    </p>
-                </form>
-            </section>
-        </div>
-        <div class="col-md-4">
-            <section>
-                @{
-                    Html.RenderPartial(MVC.RemoteMemberships.Views._SignOnList, ViewData);
-                }
-            </section>
-        </div>
-    </div>*@
-
 @section scripts
 {
-    @*@Scripts.Render("~/bundles/jqueryval")*@
     <script src="~/scripts/require.js" data-main="@Url.Content("~/app/security/sign-in/FormMain.js")"></script>
 }

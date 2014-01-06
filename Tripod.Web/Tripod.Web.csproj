@@ -273,6 +273,9 @@
     <Content Include="app\security\sign-in\FormModule.js">
       <DependentUpon>FormModule.ts</DependentUpon>
     </Content>
+    <Content Include="app\_ng\directives\BootstrapPopover.js">
+      <DependentUpon>BootstrapPopover.ts</DependentUpon>
+    </Content>
     <Content Include="app\_ng\directives\InputPreFormatterDirective.js">
       <DependentUpon>InputPreFormatterDirective.ts</DependentUpon>
     </Content>
@@ -630,6 +633,10 @@
     <Content Include="scripts\require.js" />
     <Content Include="scripts\respond.js" />
     <Content Include="scripts\respond.min.js" />
+    <Content Include="scripts\ui-bootstrap-0.9.0.js" />
+    <Content Include="scripts\ui-bootstrap-0.9.0.min.js" />
+    <Content Include="scripts\ui-bootstrap-tpls-0.9.0.js" />
+    <Content Include="scripts\ui-bootstrap-tpls-0.9.0.min.js" />
     <Content Include="scripts\_references.js" />
     <None Include="T4MVC.tt.settings.xml" />
     <Content Include="Views\Account\_Deprecated\_ChangePasswordPartial.cshtml.txt" />
@@ -707,6 +714,7 @@
     <TypeScriptCompile Include="app\security\sign-in\FormModel.d.ts" />
     <TypeScriptCompile Include="app\security\sign-in\FormModule.ts" />
     <TypeScriptCompile Include="app\_common\IModelScope.d.ts" />
+    <TypeScriptCompile Include="app\_ng\directives\BootstrapPopover.ts" />
     <TypeScriptCompile Include="app\_ng\directives\RemoveCssClassDirective.ts" />
     <TypeScriptCompile Include="app\_ng\directives\InputPreFormatterDirective.ts" />
     <TypeScriptCompile Include="app\_ng\directives\SubmitActionDirective.ts" />

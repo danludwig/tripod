@@ -1,14 +1,16 @@
 require.config({
     paths: {
-        'angular': '../../../scripts/angular'
+        'angular': '../../../scripts/angular',
+        'ui-bootstrap': '../../../scripts/ui-bootstrap-tpls-0.9.0'
     },
     shim: {
-        'angular': { 'exports': 'angular' }
+        'angular': { 'exports': 'angular' },
+        'ui-bootstrap': { deps: ['angular'], 'exports': 'ui-bootstrap' }
     },
-    priority: ['angular']
+    priority: ['angular', 'ui-bootstrap']
 });
 
-require(['angular', './FormModule'], function (angular, module) {
+require(['angular', './FormModule', 'ui-bootstrap'], function (angular, module) {
     'use strict';
     $(document).ready(function () {
         var node = $('#ng-app_signin');
