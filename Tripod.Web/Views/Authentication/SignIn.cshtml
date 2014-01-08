@@ -69,7 +69,7 @@
 
         <div id="ng-app_signin" ng-controller="FormController">
             <form name="f" action="@Url.Action(MVC.Authentication.SignIn(null, null))" method="POST" class="form-horizontal" role="form"
-                  ng-t3-submit-action ng-t3-submit-action-attempted="@(!ViewData.ModelState.IsValid)" novalidate>
+                  ng-t3-submit-action ng-t3-submit-action-attempted="@(!ViewData.ModelState.IsValid)" novalidate form-helper="h">
 
                 @Html.AntiForgeryToken()
 
@@ -80,7 +80,7 @@
                 @* EMAIL ADDRESS INPUT *@
                 <div class="form-group @Html.BootstrapValidationCssClassFor(x => x.UserName)"
                      ng-t3-remove-class="has-success has-error"
-                     ng-class="{ 'has-success': t3.f.isGoodToGo(f.userName), 'has-error': t3.f.needsAttention(f.userName) }">
+                     ng-class="{ 'has-success': h.userName.hasSuccess(), 'has-error': h.userName.hasError() }">
 
                     @* INPUT GROUP COLUMN *@
                     <div class="col-md-8">
@@ -94,6 +94,7 @@
                             <input type="text" class="form-control input-lg" placeholder="@UserConstraints.NameLabel or @EmailAddress.Constraints.Label"
                                    id="@Html.IdFor(x => x.UserName)" name="userName" value="@Html.ValueFor(x => x.UserName)"
                                    ng-model="m.userName" required
+                                   model-helper
                                    ng-init="m.userName='@Html.ValueFor(x => x.UserName)'" />
 
                             <span class="input-group-addon validation @Html.CssClassWhenValidFor(x => x.UserName, "hide")"
@@ -158,14 +159,30 @@
                     </div>
 
                     @* VALIDATION MESSAGES COLUMN *@
-                    <div class="col-md-4  help-block help-block-horizontal-md">
-                        <span ng-show="!t3.f.needsAttention(f.password) && f.password.$pristine">
+                    <div class="col-md-4  help-block help-block-horizontal-md hidden-sm hidden-xs">
+                        <span t3-popover="@Resources.notempty_error.Replace("{PropertyName}", LocalMembership.Constraints.PasswordLabel)"
+                              t3-popover-switch="t3.f.needsAttention(f.password)"
+                              t3-popover-animation="false"
+                              style="width: 0; height: 0; margin-left: -10px; margin-right: 10px;"></span>
+
+                        <span ng-class="{ hide: true }">@Html.ValidationMessageFor(x => x.Password)</span>
+                        @*<span ng-show="!t3.f.needsAttention(f.password) && f.password.$pristine">
                             @Html.ValidationMessageFor(x => x.Password)
                         </span>
                         <span ng-show="t3.f.needsAttention(f.password)" ng-cloak>
                             <span ng-show="f.password.$error.required && !f.password.$viewValue">
                                 @Resources.notempty_error.Replace("{PropertyName}", LocalMembership.Constraints.PasswordLabel)
                             </span>
+                        </span>*@
+                    </div>
+                    <div class="col-md-4  help-block hidden-md hidden-lg">
+                        <span ng-show="t3.f.needsAttention(f.password)" ng-cloak>
+                            <span ng-show="f.password.$error.required">
+                                @Resources.notempty_error.Replace("{PropertyName}", LocalMembership.Constraints.PasswordLabel)
+                            </span>
+                        </span>
+                        <span ng-class="{ hide: true }">
+                            @Html.ValidationMessageFor(x => x.Password)
                         </span>
                     </div>
                 </div>
@@ -203,6 +220,9 @@
             <pre ng-cloak>
 m = {{m | json}}
 t3.f.needsAttention(f.userName) = {{ t3.f.needsAttention(f.userName) }}
+h.submitAttempted = {{ h.submitAttempted }}
+h.userName.hasError() = {{ h.userName.hasError() }}
+h.userName.hasSuccess() = {{ h.userName.hasSuccess() }}
 </pre>
         </div>
     </div>

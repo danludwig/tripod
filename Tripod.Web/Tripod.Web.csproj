@@ -276,8 +276,14 @@
     <Content Include="app\_ng\directives\BootstrapPopover.js">
       <DependentUpon>BootstrapPopover.ts</DependentUpon>
     </Content>
+    <Content Include="app\_ng\directives\FormHelperDirective.js">
+      <DependentUpon>FormHelperDirective.ts</DependentUpon>
+    </Content>
     <Content Include="app\_ng\directives\InputPreFormatterDirective.js">
       <DependentUpon>InputPreFormatterDirective.ts</DependentUpon>
+    </Content>
+    <Content Include="app\_ng\directives\ModelHelperDirective.js">
+      <DependentUpon>ModelHelperDirective.ts</DependentUpon>
     </Content>
     <Content Include="app\_ng\directives\RemoveCssClassDirective.js">
       <DependentUpon>RemoveCssClassDirective.ts</DependentUpon>
@@ -715,6 +721,8 @@
     <TypeScriptCompile Include="app\security\sign-in\FormModule.ts" />
     <TypeScriptCompile Include="app\_common\IModelScope.d.ts" />
     <TypeScriptCompile Include="app\_ng\directives\BootstrapPopover.ts" />
+    <TypeScriptCompile Include="app\_ng\directives\FormHelperDirective.ts" />
+    <TypeScriptCompile Include="app\_ng\directives\ModelHelperDirective.ts" />
     <TypeScriptCompile Include="app\_ng\directives\RemoveCssClassDirective.ts" />
     <TypeScriptCompile Include="app\_ng\directives\InputPreFormatterDirective.ts" />
     <TypeScriptCompile Include="app\_ng\directives\SubmitActionDirective.ts" />

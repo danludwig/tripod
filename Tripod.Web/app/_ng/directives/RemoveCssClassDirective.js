@@ -1,4 +1,4 @@
-﻿'use strict';
+'use strict';
 define(["require", "exports"], function(require, exports) {
     exports.directiveName = 'ngT3RemoveClass';
 

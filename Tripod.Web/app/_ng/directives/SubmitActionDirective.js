@@ -4,6 +4,7 @@ define(["require", "exports"], function(require, exports) {
 
     function ngT3SubmitAction($parse) {
         var directive = {
+            name: exports.directiveName,
             restrict: 'A',
             require: ['ngT3SubmitAction', '?form'],
             controller: [SubmitActionController],
