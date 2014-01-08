@@ -1,10 +1,9 @@
-'use strict';
+﻿'use strict';
 define(["require", "exports"], function(require, exports) {
     exports.directiveName = 'ngT3RemoveClass';
 
     function ngT3RemoveClass() {
         var directive = {
-            require: '?ngModel',
             restrict: 'A',
             link: function (scope, element, attrs) {
                 element.removeClass(attrs.ngT3RemoveClass);
