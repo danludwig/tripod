@@ -403,6 +403,14 @@ namespace Links
             }
         
             [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+            public static class bootstrap {
+                private const string URLPATH = "~/scripts/typings/bootstrap";
+                public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+                public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+                public static readonly string bootstrap_d_ts = Url("bootstrap.d.ts");
+            }
+        
+            [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
             public static class jquery {
                 private const string URLPATH = "~/scripts/typings/jquery";
                 public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
@@ -420,6 +428,10 @@ namespace Links
         
         }
     
+        public static readonly string ui_bootstrap_0_9_0_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/ui-bootstrap-0.9.0.min.js") ? Url("ui-bootstrap-0.9.0.min.js") : Url("ui-bootstrap-0.9.0.js");
+        public static readonly string ui_bootstrap_0_9_0_min_js = Url("ui-bootstrap-0.9.0.min.js");
+        public static readonly string ui_bootstrap_tpls_0_9_0_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/ui-bootstrap-tpls-0.9.0.min.js") ? Url("ui-bootstrap-tpls-0.9.0.min.js") : Url("ui-bootstrap-tpls-0.9.0.js");
+        public static readonly string ui_bootstrap_tpls_0_9_0_min_js = Url("ui-bootstrap-tpls-0.9.0.min.js");
     }
 
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]

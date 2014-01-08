@@ -17,8 +17,7 @@ define(["require", "exports"], function(require, exports) {
 
                     // passwords may not be valid on server, but will come back with empty box
                     var inputType = attr['type'];
-                    if (!inputType || inputType.toLowerCase() != 'password')
-                        return;
+                    var isPassword = inputType && inputType.toLowerCase() == 'password';
 
                     var modelCtrl = ctrls[0];
                     var helpCtrl = ctrls[1];
@@ -27,23 +26,31 @@ define(["require", "exports"], function(require, exports) {
                     helpCtrl.serverError = serverError;
 
                     // initial watch to remove required error and set server error
-                    var removeInitWatch = scope.$watch(function () {
+                    var initialValue;
+                    var initWatch = scope.$watch(function () {
                         return modelCtrl.$error;
                     }, function (value) {
-                        if (value.required) {
+                        initialValue = modelCtrl.$viewValue;
+                        if (value.required && isPassword) {
                             modelCtrl.$setValidity('required', true);
                         }
                         modelCtrl.$setValidity('server', false);
-                        removeInitWatch(); // remove this watch now
+                        initWatch(); // remove this watch now
                     });
 
-                    // remove server error when view value becomes dirty
-                    var removeChangeWatch = scope.$watch(function () {
+                    // watch for changes and hide / show server error accordingly
+                    scope.$watch(function () {
                         return modelCtrl.$viewValue;
-                    }, function () {
+                    }, function (value) {
+                        // always remove the error message when input becomes dirty
                         if (modelCtrl.$dirty) {
                             modelCtrl.$setValidity('server', true);
-                            removeChangeWatch();
+                        }
+
+                        // restore the error message when input becomes pristine
+                        // unless it is a password
+                        if (!isPassword && value === initialValue) {
+                            modelCtrl.$setValidity('server', false);
                         }
                     });
                 }

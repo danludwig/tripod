@@ -16,18 +16,20 @@ export class ModelHelperController {
     constructor(scope: ng.IScope) { }
 
     hasError(): boolean {
-        return this.modelController.$invalid &&
+        return !this.serverValidating && this.modelController.$invalid &&
             (this.modelController.$dirty || this.formController.submitAttempted);
     }
 
     hasSuccess(): boolean {
-        return !this.hasError() && this.modelController.$valid &&
+        return !this.serverValidating && !this.hasError() && this.modelController.$valid &&
             (this.modelController.$dirty || this.formController.submitAttempted);
     }
 
     hasFeedback(): boolean {
         return this.hasError() || this.hasSuccess();
     }
+
+    serverValidating = false;
 
     serverError: string;
 }

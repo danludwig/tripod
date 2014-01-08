@@ -95,7 +95,9 @@
                                    id="@Html.IdFor(x => x.UserName)" name="userName" value="@Html.ValueFor(x => x.UserName)"
                                    ng-model="m.userName" required
                                    model-helper
-                                   ng-init="m.userName='@Html.ValueFor(x => x.UserName)'" />
+                                   server-validate="@Url.Action(MVC.Authentication.SignInValidate(null, Html.NameFor(x => x.UserName).ToString()))"
+                                   ng-init="m.userName='@Html.ValueFor(x => x.UserName)'"
+                                   server-error="@Html.ValidationMessageTextFor(x => x.UserName)" />
 
                             <span class="input-group-addon validation @Html.CssClassWhenValidFor(x => x.UserName, "hide")"
                                   ng-t3-remove-class="hide"
@@ -108,10 +110,15 @@
                         </div>
                     </div>
 
-                    @* VALIDATION MESSAGES COLUMN *@
+                    @* VALIDATION MESSAGES COLUMNS *@
                     <div class="col-md-4  help-block help-block-horizontal-md hidden-sm hidden-xs">
                         <span t3-popover="'@Resources.notempty_error.Replace("{PropertyName}", string.Format("{0} or {1}", UserConstraints.NameLabel, EmailAddress.Constraints.Label))'"
-                              t3-popover-switch="h.userName.hasError()"
+                              t3-popover-switch="h.userName.hasError() && f.userName.$error.required"
+                              t3-popover-animation="false"
+                              style="width: 0; height: 0; margin-left: -10px; margin-right: 10px;"></span>
+
+                        <span t3-popover="h.userName.serverError"
+                              t3-popover-switch="h.userName.hasError() && f.userName.$error.server"
                               t3-popover-animation="false"
                               style="width: 0; height: 0; margin-left: -10px; margin-right: 10px;"></span>
 
@@ -121,6 +128,9 @@
                         <span ng-show="h.userName.hasError()" ng-cloak>
                             <span ng-show="f.userName.$error.required && !f.userName.$viewValue">
                                 @Resources.notempty_error.Replace("{PropertyName}", string.Format("{0} or {1}", UserConstraints.NameLabel, EmailAddress.Constraints.Label))
+                            </span>
+                            <span ng-show="f.userName.$error.server">
+                                {{ h.userName.serverError }}
                             </span>
                         </span>
                         <span ng-class="{ hide: true }">
@@ -159,7 +169,7 @@
                         </div>
                     </div>
 
-                    @* VALIDATION MESSAGES COLUMN *@
+                    @* VALIDATION MESSAGES COLUMNS *@
                     <div class="col-md-4  help-block help-block-horizontal-md hidden-sm hidden-xs">
                         <span t3-popover="'@Resources.notempty_error.Replace("{PropertyName}", LocalMembership.Constraints.PasswordLabel)'"
                               t3-popover-switch="h.password.hasError() && f.password.$error.required"
@@ -177,6 +187,9 @@
                         <span ng-show="h.password.hasError()" ng-cloak>
                             <span ng-show="f.password.$error.required">
                                 @Resources.notempty_error.Replace("{PropertyName}", LocalMembership.Constraints.PasswordLabel)
+                            </span>
+                            <span ng-show="f.password.$error.server">
+                                {{ h.password.serverError }}
                             </span>
                         </span>
                         <span ng-class="{ hide: true }">
@@ -220,7 +233,10 @@ m = {{m | json}}
 h.submitAttempted = {{ h.submitAttempted }}
 h.userName.hasError() = {{ h.userName.hasError() }}
 h.userName.hasSuccess() = {{ h.userName.hasSuccess() }}
-f.password = {{ f.password }}
+h.userName.serverError = {{ h.userName.serverError }}
+f.userName.$error.required = {{ f.userName.$error.required }}
+f.userName.$error.server = {{ f.userName.$error.server }}
+h.password.serverError = {{ h.password.serverError }}
 </pre>
         </div>
     </div>

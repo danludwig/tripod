@@ -19,7 +19,9 @@ namespace Tripod.Domain.Security
         public ValidateSignInCommand(IProcessQueries queries)
         {
             RuleFor(x => x.UserName)
-                .NotEmpty().WithName(string.Format("{0} or {1}", User.Constraints.NameLabel, EmailAddress.Constraints.Label));
+                .NotEmpty().WithName(string.Format("{0} or {1}", User.Constraints.NameLabel, EmailAddress.Constraints.Label))
+                .Equal("").WithMessage("custom username message")
+            ;
             
             RuleFor(x => x.Password)
                 .NotEmpty().WithName(LocalMembership.Constraints.PasswordLabel)

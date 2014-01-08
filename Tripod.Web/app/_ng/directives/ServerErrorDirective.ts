@@ -19,7 +19,7 @@ var directiveFactory = () => {
 
                 // passwords may not be valid on server, but will come back with empty box
                 var inputType = attr['type'];
-                if (!inputType || inputType.toLowerCase() != 'password') return;
+                var isPassword = inputType && inputType.toLowerCase() == 'password';
 
                 var modelCtrl: ng.INgModelController = ctrls[0];
                 var helpCtrl: dModelHelper.ModelHelperController = ctrls[1];
@@ -28,23 +28,31 @@ var directiveFactory = () => {
                 helpCtrl.serverError = serverError;
 
                 // initial watch to remove required error and set server error
-                var removeInitWatch = scope.$watch(
+                var initialValue;
+                var initWatch = scope.$watch(
                     (): any => { return modelCtrl.$error; },
                     (value: any): void => {
-                        if (value.required) {
+                        initialValue = modelCtrl.$viewValue;
+                        if (value.required && isPassword) {
                             modelCtrl.$setValidity('required', true);
                         }
                         modelCtrl.$setValidity('server', false);
-                        removeInitWatch(); // remove this watch now
+                        initWatch(); // remove this watch now
                     });
 
-                // remove server error when view value becomes dirty
-                var removeChangeWatch = scope.$watch(
+                // watch for changes and hide / show server error accordingly
+                scope.$watch(
                     (): any => { return modelCtrl.$viewValue; },
-                    (): void => {
+                    (value: any): void => {
+                        // always remove the error message when input becomes dirty
                         if (modelCtrl.$dirty) {
                             modelCtrl.$setValidity('server', true);
-                            removeChangeWatch();
+                        }
+
+                        // restore the error message when input becomes pristine
+                        // unless it is a password
+                        if (!isPassword && value === initialValue) {
+                            modelCtrl.$setValidity('server', false);
                         }
                     });
             },

@@ -37,6 +37,18 @@ namespace Tripod.Web.Controllers
         }
 
         [AllowAnonymous]
+        [HttpPost, Route("sign-in/validate/{fieldName?}")]
+        public virtual ActionResult SignInValidate(SignIn command, string fieldName = null)
+        {
+            if (command.UserName == "asdf")
+            {
+                return Json(new object[0], "application/json");
+            }
+            Response.StatusCode = 400;
+            return Content("Here is a custom error message for Email address.", "application/json");
+        }
+
+        [AllowAnonymous]
         [ValidateAntiForgeryToken]
         [HttpPost, Route("account/external-login")]
         public virtual ActionResult ExternalLogin(string provider, string returnUrl)
