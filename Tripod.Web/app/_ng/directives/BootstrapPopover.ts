@@ -8,10 +8,11 @@ interface IPopoverAttributes extends ng.IAttributes {
 
 export var directiveName = 't3Popover';
 
-export function t3Popover(): ng.IDirective {
+export function t3Popover($parse: ng.IParseService): ng.IDirective {
     var directive: ng.IDirective = {
         restrict: 'A',
         link: (scope: ng.IScope, element: JQuery, attrs: IPopoverAttributes) => {
+            var content = $parse(attrs.t3Popover);
             scope.$watch(attrs.t3PopoverSwitch, (value: boolean): void => {
 
                 // has the popover been initialized?
@@ -19,7 +20,7 @@ export function t3Popover(): ng.IDirective {
                 if (!data) {
                     var animation = typeof attrs.t3PopoverAnimation == 'string' ? attrs.t3PopoverAnimation.toLowerCase() !== 'false' : true;
                     element.popover({
-                        content: attrs.t3Popover,
+                        content: content(scope),
                         trigger: 'manual',
                         animation: animation,
                     });
@@ -45,3 +46,6 @@ export function t3Popover(): ng.IDirective {
     };
     return directive;
 }
+
+t3Popover.$inject = ['$parse'];
+

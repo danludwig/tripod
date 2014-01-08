@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Web.Mvc;
 
@@ -52,6 +53,22 @@ namespace Tripod.Web
             var fieldName = ExpressionHelper.GetExpressionText(expression);
             var isValid = html.ViewData.ModelState.IsValidField(fieldName);
             return isValid ? MvcHtmlString.Create(cssStyle) : null;
+        }
+
+        public static MvcHtmlString ValidationMessageTextFor<TModel, TProperty>(this HtmlHelper<TModel> html, Expression<Func<TModel, TProperty>> expression)
+        {
+            var fieldName = ExpressionHelper.GetExpressionText(expression);
+            var fullHtmlFieldName = html.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(fieldName);
+
+            if (!html.ViewData.ModelState.ContainsKey(fullHtmlFieldName))
+                return null;
+            var modelState = html.ViewData.ModelState[fullHtmlFieldName];
+            var modelErrorCollection = modelState == null ? null : modelState.Errors;
+            var error = modelErrorCollection == null || modelErrorCollection.Count == 0
+                ? null
+                : modelErrorCollection.FirstOrDefault(m => !string.IsNullOrEmpty(m.ErrorMessage))
+                ?? modelErrorCollection[0];
+            return error != null ? MvcHtmlString.Create(error.ErrorMessage) : null;
         }
     }
 }

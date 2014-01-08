@@ -9,6 +9,7 @@ import dRemoveClass = require('../../_ng/directives/RemoveCssClassDirective');
 import dPopover = require('../../_ng/directives/BootstrapPopover');
 import dFormHelper = require('../../_ng/directives/FormHelperDirective');
 import dModelHelper = require('../../_ng/directives/ModelHelperDirective');
+import dServerError = require('../../_ng/directives/ServerErrorDirective');
 
 export var ngModule = angular.module('SignInModule', ['ui.bootstrap'])
     .controller(cForm.controllerName, cForm.FormController)
@@ -18,5 +19,6 @@ export var ngModule = angular.module('SignInModule', ['ui.bootstrap'])
     .directive(dPopover.directiveName, dPopover.t3Popover)
     .directive(dFormHelper.directiveName, dFormHelper.directive)
     .directive(dModelHelper.directiveName, dModelHelper.directive)
+    .directive(dServerError.directiveName, dServerError.directive)
 ;
 return ngModule; 

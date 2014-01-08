@@ -4,7 +4,7 @@ import dFormHelper = require('./FormHelperDirective');
 
 export var directiveName = 'modelHelper';
 
-class ModelHelperController {
+export class ModelHelperController {
 
     // keep a reference to the angular model controller
     modelController: ng.INgModelController;
@@ -24,6 +24,12 @@ class ModelHelperController {
         return !this.hasError() && this.modelController.$valid &&
             (this.modelController.$dirty || this.formController.submitAttempted);
     }
+
+    hasFeedback(): boolean {
+        return this.hasError() || this.hasSuccess();
+    }
+
+    serverError: string;
 }
 
 //#region Directive

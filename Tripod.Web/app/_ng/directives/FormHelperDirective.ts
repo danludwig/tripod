@@ -35,7 +35,7 @@ var directiveFactory = () => {
                         helpCtrl.formController = formCtrl;
 
                         // initialize the form submission
-                        if (attr['submit-attempted']) helpCtrl.submitAttempted = true;
+                        if (attr['submitAttempted']) helpCtrl.submitAttempted = true;
 
                         // put the helper controller on the scope
                         var alias = $.trim(attr[directiveName]);

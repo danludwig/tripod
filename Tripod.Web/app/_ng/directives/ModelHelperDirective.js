@@ -12,9 +12,14 @@ define(["require", "exports"], function(require, exports) {
         ModelHelperController.prototype.hasSuccess = function () {
             return !this.hasError() && this.modelController.$valid && (this.modelController.$dirty || this.formController.submitAttempted);
         };
+
+        ModelHelperController.prototype.hasFeedback = function () {
+            return this.hasError() || this.hasSuccess();
+        };
         ModelHelperController.$inject = ['$scope'];
         return ModelHelperController;
     })();
+    exports.ModelHelperController = ModelHelperController;
 
     //#region Directive
     var directiveFactory = function () {

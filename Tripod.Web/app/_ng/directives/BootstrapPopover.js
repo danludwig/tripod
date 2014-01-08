@@ -1,18 +1,19 @@
-'use strict';
+﻿'use strict';
 define(["require", "exports"], function(require, exports) {
     exports.directiveName = 't3Popover';
 
-    function t3Popover() {
+    function t3Popover($parse) {
         var directive = {
             restrict: 'A',
             link: function (scope, element, attrs) {
+                var content = $parse(attrs.t3Popover);
                 scope.$watch(attrs.t3PopoverSwitch, function (value) {
                     // has the popover been initialized?
                     var data = element.data('t3-popover');
                     if (!data) {
                         var animation = typeof attrs.t3PopoverAnimation == 'string' ? attrs.t3PopoverAnimation.toLowerCase() !== 'false' : true;
                         element.popover({
-                            content: attrs.t3Popover,
+                            content: content(scope),
                             trigger: 'manual',
                             animation: animation
                         });
@@ -39,4 +40,6 @@ define(["require", "exports"], function(require, exports) {
         return directive;
     }
     exports.t3Popover = t3Popover;
+
+    exports.t3Popover.$inject = ['$parse'];
 });

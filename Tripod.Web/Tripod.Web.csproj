@@ -288,6 +288,9 @@
     <Content Include="app\_ng\directives\RemoveCssClassDirective.js">
       <DependentUpon>RemoveCssClassDirective.ts</DependentUpon>
     </Content>
+    <Content Include="app\_ng\directives\ServerErrorDirective.js">
+      <DependentUpon>ServerErrorDirective.ts</DependentUpon>
+    </Content>
     <Content Include="app\_ng\directives\SubmitActionDirective.js">
       <DependentUpon>SubmitActionDirective.ts</DependentUpon>
     </Content>
@@ -725,6 +728,7 @@
     <TypeScriptCompile Include="app\_ng\directives\ModelHelperDirective.ts" />
     <TypeScriptCompile Include="app\_ng\directives\RemoveCssClassDirective.ts" />
     <TypeScriptCompile Include="app\_ng\directives\InputPreFormatterDirective.ts" />
+    <TypeScriptCompile Include="app\_ng\directives\ServerErrorDirective.ts" />
     <TypeScriptCompile Include="app\_ng\directives\SubmitActionDirective.ts" />
     <TypeScriptCompile Include="app\security\confirm-email-address\FormController.ts" />
     <TypeScriptCompile Include="app\security\confirm-email-address\FormModule.ts" />

@@ -32,7 +32,7 @@ define(["require", "exports"], function(require, exports) {
                                 helpCtrl.formController = formCtrl;
 
                                 // initialize the form submission
-                                if (attr['submit-attempted'])
+                                if (attr['submitAttempted'])
                                     helpCtrl.submitAttempted = true;
 
                                 // put the helper controller on the scope
