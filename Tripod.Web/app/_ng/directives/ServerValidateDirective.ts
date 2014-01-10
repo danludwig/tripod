@@ -49,11 +49,18 @@ var directiveFactory = (): any[]=> {
                         }
 
                         // tell the controller there is validation progress
-                        helpCtrl.serverValidating = true;
+                        // this needs throttled for cases when the server returns very quickly
+                        var spinnerTimeoutPromise = $timeout((): void => {
+                            helpCtrl.serverValidating = true;
+                        }, 20);
 
+                        //helpCtrl.serverValidating = false;
+                        //helpCtrl.serverError = null;
+                        //modelCtrl.$setValidity('server', true);
                         var url = attr[directiveName];
                         $http.post(url, { userName: value, }, {})
                             .success((data: any, status: number, headers: (headerName: string) => string, config: ng.IRequestConfig): void => {
+                                $timeout.cancel(spinnerTimeoutPromise);
                                 helpCtrl.serverValidating = false;
 
                                 // expect the result to have a property with the same name as the validated field
@@ -71,6 +78,7 @@ var directiveFactory = (): any[]=> {
                                 }
                             })
                             .error((data: any, status: number, headers: (headerName: string) => string, config: ng.IRequestConfig): void => {
+                                $timeout.cancel(spinnerTimeoutPromise);
                                 helpCtrl.serverValidating = false;
 
                                 // when status is zero, user probably refreshed before this returned

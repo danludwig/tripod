@@ -45,10 +45,17 @@ define(["require", "exports"], function(require, exports) {
                             }
 
                             // tell the controller there is validation progress
-                            helpCtrl.serverValidating = true;
+                            // this needs throttled for cases when the server returns very quickly
+                            var spinnerTimeoutPromise = $timeout(function () {
+                                helpCtrl.serverValidating = true;
+                            }, 20);
 
+                            //helpCtrl.serverValidating = false;
+                            //helpCtrl.serverError = null;
+                            //modelCtrl.$setValidity('server', true);
                             var url = attr[exports.directiveName];
                             $http.post(url, { userName: value }, {}).success(function (data, status, headers, config) {
+                                $timeout.cancel(spinnerTimeoutPromise);
                                 helpCtrl.serverValidating = false;
 
                                 // expect the result to have a property with the same name as the validated field
@@ -65,6 +72,7 @@ define(["require", "exports"], function(require, exports) {
                                     modelCtrl.$setValidity('server', false);
                                 }
                             }).error(function (data, status, headers, config) {
+                                $timeout.cancel(spinnerTimeoutPromise);
                                 helpCtrl.serverValidating = false;
 
                                 // when status is zero, user probably refreshed before this returned

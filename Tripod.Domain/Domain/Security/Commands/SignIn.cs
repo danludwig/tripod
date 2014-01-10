@@ -20,7 +20,7 @@ namespace Tripod.Domain.Security
         {
             RuleFor(x => x.UserName)
                 .NotEmpty().WithName(string.Format("{0} or {1}", User.Constraints.NameLabel, EmailAddress.Constraints.Label))
-                .Equal("asdf").WithMessage("username must be 'asdf'")
+                .Equal("asdf").WithMessage("Could not find {PropertyName} '{PropertyValue}'.")
             ;
             //RuleFor(x => x.UserName)
             //    .Equal("asdf").WithMessage("custom username message 2").WithState(x => "400")

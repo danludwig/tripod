@@ -48,20 +48,24 @@ var directiveFactory = (): any[]=> {
                     }
                 });
 
+                var isVisible = false;
                 scope.$watch(attrs[directiveName], (value: string): void => {
                     if (value != options.content) {
                         options.content = value;
                         initPopup(element, options);
+                        if (isVisible) element.popover('show');
                     }
                 });
 
                 scope.$watch(attrs['t3PopoverSwitch'], (value: boolean): void => {
 
                     if (value) {
+                        isVisible = true;
                         element.popover('show');
                         element.data('t3-popover-redraw', !element.is(':visible'));
                         needsRedraw(element, !element.is(':visible'));
                     } else {
+                        isVisible = false;
                         element.popover('hide');
                         element.data('t3-popover-redraw', false);
                         needsRedraw(element, false);

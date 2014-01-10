@@ -45,19 +45,24 @@ define(["require", "exports"], function(require, exports) {
                             }
                         });
 
+                        var isVisible = false;
                         scope.$watch(attrs[exports.directiveName], function (value) {
                             if (value != options.content) {
                                 options.content = value;
                                 initPopup(element, options);
+                                if (isVisible)
+                                    element.popover('show');
                             }
                         });
 
                         scope.$watch(attrs['t3PopoverSwitch'], function (value) {
                             if (value) {
+                                isVisible = true;
                                 element.popover('show');
                                 element.data('t3-popover-redraw', !element.is(':visible'));
                                 needsRedraw(element, !element.is(':visible'));
                             } else {
+                                isVisible = false;
                                 element.popover('hide');
                                 element.data('t3-popover-redraw', false);
                                 needsRedraw(element, false);
