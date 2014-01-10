@@ -95,7 +95,7 @@
                                    id="@Html.IdFor(x => x.UserName)" name="userName" value="@Html.ValueFor(x => x.UserName)"
                                    ng-model="m.userName" required
                                    model-helper
-                                   server-validate="@Url.Action(MVC.Authentication.SignInValidate(null, Html.NameFor(x => x.UserName).ToString()))"
+                                   server-validate="@Url.Action(MVC.Authentication.SignInValidate(null, "userName"))"
                                    ng-init="m.userName='@Html.ValueFor(x => x.UserName)'"
                                    server-error="@Html.ValidationMessageTextFor(x => x.UserName)" />
 

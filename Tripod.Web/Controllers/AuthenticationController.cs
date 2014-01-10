@@ -1,7 +1,12 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using System.Web.Mvc;
+using FluentValidation.Mvc;
 using Microsoft.AspNet.Identity;
 using Tripod.Domain.Security;
+using Tripod.Web.Models;
 
 namespace Tripod.Web.Controllers
 {
@@ -41,13 +46,15 @@ namespace Tripod.Web.Controllers
         public virtual ActionResult SignInValidate(SignIn command, string fieldName = null)
         {
             //System.Threading.Thread.Sleep(2000);
-            if (command.UserName == "asdf")
-            {
-                return Json(new object[0], "application/json");
-            }
+
+            //var result = new ValidatedFields(ModelState, fieldName);
+            //if (command.UserName == "asdf")
+            //{
+            //    return Json(new object[0], "application/json");
+            //}
             //Response.StatusCode = 400;
             //return Content("Here is a custom error message for Email address.", "application/json");
-            return Json(new[] { new { message = "test1" }, new { message = "test2" }, }, "application/json");
+            return new CamelCaseJsonResult(new ValidatedFields(ModelState, fieldName));
         }
 
         [AllowAnonymous]
