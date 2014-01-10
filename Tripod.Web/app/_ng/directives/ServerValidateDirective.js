@@ -17,7 +17,6 @@ define(["require", "exports"], function(require, exports) {
                 var directive = {
                     name: exports.directiveName,
                     restrict: 'A',
-                    scope: true,
                     require: [exports.directiveName, 'modelHelper', 'ngModel'],
                     controller: ServerValidateController,
                     link: function (scope, element, attr, ctrls) {
@@ -47,6 +46,9 @@ define(["require", "exports"], function(require, exports) {
                                     modelCtrl.$setValidity('server', false);
                                 }
                             }).error(function (data, status, headers, config) {
+                                // when status is zero, user probably refreshed before this returned
+                                if (status === 0)
+                                    return;
                                 helpCtrl.serverValidating = false;
                                 helpCtrl.serverError = 'An unexpected validation error has occurred.';
                                 modelCtrl.$setValidity('server', false);

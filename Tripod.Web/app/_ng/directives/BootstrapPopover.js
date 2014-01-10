@@ -28,7 +28,6 @@ define(["require", "exports"], function(require, exports) {
             '$parse', function ($parse) {
                 var directive = {
                     name: exports.directiveName,
-                    scope: true,
                     restrict: 'A',
                     link: function (scope, element, attrs) {
                         var options = {

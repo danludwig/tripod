@@ -28,7 +28,6 @@ var directiveFactory = (): any[]=> {
     return ['$parse', ($parse: ng.IParseService): ng.IDirective => {
         var directive: ng.IDirective = {
             name: directiveName,
-            scope: true,
             restrict: 'A',
             link: (scope: ng.IScope, element: JQuery, attrs: ng.IAttributes) => {
 

@@ -120,6 +120,19 @@ body {
                     line-height: 20px;
                 }
             }
+
+            &.spinner {
+                &.fa-spinner {
+                    /* size for green checkmark icons */
+                    font-size: 18px;
+                }
+                &.spin-fast {
+                    -webkit-animation: spin 1s infinite linear;
+                    -moz-animation: spin 1s infinite linear;
+                    -o-animation: spin 1s infinite linear;
+                    animation: spin 1s infinite linear;
+                }
+            }
         }
     }
 
@@ -135,6 +148,10 @@ body {
     .has-warning .input-group-addon.validation i {
         &.default { display: none; }
         &.warning { display: inline-block; }
+    }
+    .has-spinner .input-group-addon.validation i {
+        &.default { display: none; }
+        &.spinner { display: inline-block; }
     }
 }
 

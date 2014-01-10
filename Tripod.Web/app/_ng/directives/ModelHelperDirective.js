@@ -15,7 +15,11 @@ define(["require", "exports"], function(require, exports) {
         };
 
         ModelHelperController.prototype.hasFeedback = function () {
-            return this.hasError() || this.hasSuccess();
+            return this.hasError() || this.hasSuccess() || this.hasSpinner();
+        };
+
+        ModelHelperController.prototype.hasSpinner = function () {
+            return this.serverValidating;
         };
         ModelHelperController.$inject = ['$scope'];
         return ModelHelperController;
@@ -28,7 +32,6 @@ define(["require", "exports"], function(require, exports) {
             var directive = {
                 name: exports.directiveName,
                 restrict: 'A',
-                scope: true,
                 require: [exports.directiveName, 'ngModel', '^formHelper'],
                 controller: ModelHelperController,
                 link: function (scope, element, attr, ctrls) {

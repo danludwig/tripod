@@ -11,7 +11,6 @@ var directiveFactory = (): () => ng.IDirective => {
         var directive: ng.IDirective = {
             name: directiveName,
             restrict: 'A', // attribute only
-            scope: true,
             require: ['ngModel', 'modelHelper'],
             link: (scope: ng.IScope, element: JQuery, attr: ng.IAttributes, ctrls: any[]): void => {
                 // don't initialize this unless there is a value in the attribute

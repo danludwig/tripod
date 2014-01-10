@@ -105,28 +105,44 @@ body {
         /* size for yellow exclamation warning triangle */
         font-size: 16px;
         line-height: 20px; }
-  /* line 128, ../compass/site.scss */
+      /* line 125, ../compass/site.scss */
+      body .input-group-addon.validation i.spinner.fa-spinner {
+        /* size for green checkmark icons */
+        font-size: 18px; }
+      /* line 129, ../compass/site.scss */
+      body .input-group-addon.validation i.spinner.spin-fast {
+        -webkit-animation: spin 1s infinite linear;
+        -moz-animation: spin 1s infinite linear;
+        -o-animation: spin 1s infinite linear;
+        animation: spin 1s infinite linear; }
+  /* line 141, ../compass/site.scss */
   body .has-success .input-group-addon.validation i.default {
     display: none; }
-  /* line 129, ../compass/site.scss */
+  /* line 142, ../compass/site.scss */
   body .has-success .input-group-addon.validation i.success {
     display: inline-block; }
-  /* line 132, ../compass/site.scss */
+  /* line 145, ../compass/site.scss */
   body .has-error .input-group-addon.validation i.default {
     display: none; }
-  /* line 133, ../compass/site.scss */
+  /* line 146, ../compass/site.scss */
   body .has-error .input-group-addon.validation i.error {
     display: inline-block; }
-  /* line 136, ../compass/site.scss */
+  /* line 149, ../compass/site.scss */
   body .has-warning .input-group-addon.validation i.default {
     display: none; }
-  /* line 137, ../compass/site.scss */
+  /* line 150, ../compass/site.scss */
   body .has-warning .input-group-addon.validation i.warning {
+    display: inline-block; }
+  /* line 153, ../compass/site.scss */
+  body .has-spinner .input-group-addon.validation i.default {
+    display: none; }
+  /* line 154, ../compass/site.scss */
+  body .has-spinner .input-group-addon.validation i.spinner {
     display: inline-block; }
 
 /* validation help block horizontal positioning */
 @media (min-width: 992px) {
-  /* line 144, ../compass/site.scss */
+  /* line 161, ../compass/site.scss */
   body .help-block-horizontal-md {
     /* get rid of the margin-bottom on this when it is displayed to the side
         so that it does not change height of overall field when disappearing */
@@ -138,42 +154,42 @@ body {
     padding-left: 0; } }
 
 /* form elements */
-/* line 158, ../compass/site.scss */
+/* line 175, ../compass/site.scss */
 body {
   /* checkbox treatments */
   /* show not-allowed cursor on disabled elements */
   /* hide padding on image buttons */ }
-  /* line 160, ../compass/site.scss */
+  /* line 177, ../compass/site.scss */
   body .form-control .checkbox {
     /* when a checkbox is nested within a form-control (which is also probably nested within an input-group),
     remove the top padding, since the form-control provides padding already */
     padding-top: 0; }
-  /* line 165, ../compass/site.scss */
+  /* line 182, ../compass/site.scss */
   body input[type=checkbox] {
     /* make checkboxes use pointer cursor to match up with their labels */
     cursor: pointer; }
-  /* line 171, ../compass/site.scss */
+  /* line 188, ../compass/site.scss */
   body [disabled], body .btn[disabled] {
     pointer-events: auto;
     cursor: not-allowed; }
-  /* line 177, ../compass/site.scss */
+  /* line 194, ../compass/site.scss */
   body input[type=image].btn {
     padding: 0;
     border: 0; }
 
 /* VS starter template styles */
-/* line 185, ../compass/site.scss */
+/* line 202, ../compass/site.scss */
 body .validation-summary-errors {
   color: #b94a48; }
-/* line 189, ../compass/site.scss */
+/* line 206, ../compass/site.scss */
 body .validation-summary-valid {
   display: none; }
-/* line 193, ../compass/site.scss */
+/* line 210, ../compass/site.scss */
 body hr {
   border-top-color: #ccc; }
 
 /* deprecated VS starter template styles */
-/* line 199, ../compass/site.scss */
+/* line 216, ../compass/site.scss */
 body {
   /* This was included by the VS starter template, but we don't want it.
   Instead, we want to let bootstrap size the form elements at 100% and

@@ -19,7 +19,6 @@ define(["require", "exports"], function(require, exports) {
                 var directive = {
                     name: exports.directiveName,
                     restrict: 'A',
-                    scope: true,
                     require: [exports.directiveName, 'form'],
                     controller: [FormHelperController],
                     compile: function () {

@@ -11,13 +11,12 @@ export class ServerValidateController {
 
 //#region Directive
 
-var directiveFactory = (): any[] => {
+var directiveFactory = (): any[]=> {
     // inject services
     return ['$http', '$timeout', ($http: ng.IHttpService, $timeout: ng.ITimeoutService): ng.IDirective => {
         var directive: ng.IDirective = {
             name: directiveName,
             restrict: 'A', // attribute only
-            scope: true,
             require: [directiveName, 'modelHelper', 'ngModel'], // need both controllers when compiling
             controller: ServerValidateController,
             link: (scope: ng.IScope, element: JQuery, attr: ng.IAttributes, ctrls: any[]): void => {
@@ -52,6 +51,8 @@ var directiveFactory = (): any[] => {
                                 }
                             })
                             .error((data: any, status: number, headers: (headerName: string) => string, config: ng.IRequestConfig): void => {
+                                // when status is zero, user probably refreshed before this returned
+                                if (status === 0) return;
                                 helpCtrl.serverValidating = false;
                                 helpCtrl.serverError = 'An unexpected validation error has occurred.';
                                 modelCtrl.$setValidity('server', false);

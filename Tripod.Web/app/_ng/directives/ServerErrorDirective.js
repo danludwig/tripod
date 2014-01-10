@@ -8,7 +8,6 @@ define(["require", "exports"], function(require, exports) {
             var directive = {
                 name: exports.directiveName,
                 restrict: 'A',
-                scope: true,
                 require: ['ngModel', 'modelHelper'],
                 link: function (scope, element, attr, ctrls) {
                     // don't initialize this unless there is a value in the attribute

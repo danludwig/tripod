@@ -40,6 +40,7 @@ namespace Tripod.Web.Controllers
         [HttpPost, Route("sign-in/validate/{fieldName?}")]
         public virtual ActionResult SignInValidate(SignIn command, string fieldName = null)
         {
+            //System.Threading.Thread.Sleep(2000);
             if (command.UserName == "asdf")
             {
                 return Json(new object[0], "application/json");

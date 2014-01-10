@@ -80,7 +80,7 @@
                 @* EMAIL ADDRESS INPUT *@
                 <div class="form-group @Html.BootstrapValidationCssClassFor(x => x.UserName)"
                      ng-t3-remove-class="has-success has-error"
-                     ng-class="{ 'has-success': h.userName.hasSuccess(), 'has-error': h.userName.hasError() }">
+                     ng-class="{ 'has-success': h.userName.hasSuccess(), 'has-error': h.userName.hasError(), 'has-spinner': h.userName.hasSpinner() }">
 
                     @* INPUT GROUP COLUMN *@
                     <div class="col-md-8">
@@ -104,6 +104,7 @@
                                   ng-class="{ 'hide':  !h.userName.hasFeedback() }">
                                 <i class="fa fa-fw fa-asterisk default" title="This is a required field"></i>
                                 <i class="fa fa-fw fa-times error"></i>
+                                <i class="fa fa-fw fa-spinner fa-spin spin-fast spinner"></i>
                                 <i class="fa fa-fw fa-exclamation-triangle warning"></i>
                                 <i class="fa fa-fw fa-check success"></i>
                             </span>
@@ -233,6 +234,7 @@ m = {{m | json}}
 h.submitAttempted = {{ h.submitAttempted }}
 h.userName.hasError() = {{ h.userName.hasError() }}
 h.userName.hasSuccess() = {{ h.userName.hasSuccess() }}
+h.userName.hasSpinner() = {{ h.userName.hasSpinner() }}
 h.userName.serverError = {{ h.userName.serverError }}
 f.userName.$error.required = {{ f.userName.$error.required }}
 f.userName.$error.server = {{ f.userName.$error.server }}

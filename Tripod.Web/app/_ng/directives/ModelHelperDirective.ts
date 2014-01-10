@@ -26,7 +26,11 @@ export class ModelHelperController {
     }
 
     hasFeedback(): boolean {
-        return this.hasError() || this.hasSuccess();
+        return this.hasError() || this.hasSuccess() || this.hasSpinner();
+    }
+
+    hasSpinner(): boolean {
+        return this.serverValidating;
     }
 
     serverValidating = false;
@@ -41,7 +45,6 @@ var directiveFactory = (): () => ng.IDirective => {
         var directive: ng.IDirective = {
             name: directiveName,
             restrict: 'A', // attribute only
-            scope: true,
             require: [directiveName, 'ngModel', '^formHelper'],
             controller: ModelHelperController,
             link: (scope: ng.IScope, element: JQuery, attr: ng.IAttributes, ctrls: any[]): void => {

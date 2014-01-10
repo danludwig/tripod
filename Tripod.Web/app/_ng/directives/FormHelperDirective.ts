@@ -21,7 +21,6 @@ var directiveFactory = (): any[] => {
         var directive: ng.IDirective = {
             name: directiveName,
             restrict: 'A', // attribute only
-            scope: true,
             require: [directiveName, 'form'], // need both controllers when compiling
             controller: [FormHelperController],
             compile: (): any => {
