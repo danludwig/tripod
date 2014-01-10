@@ -44,8 +44,9 @@ namespace Tripod.Web.Controllers
             {
                 return Json(new object[0], "application/json");
             }
-            Response.StatusCode = 400;
-            return Content("Here is a custom error message for Email address.", "application/json");
+            //Response.StatusCode = 400;
+            //return Content("Here is a custom error message for Email address.", "application/json");
+            return Json(new[] { new { message = "test1" }, new { message = "test2" }, }, "application/json");
         }
 
         [AllowAnonymous]

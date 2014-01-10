@@ -36,11 +36,12 @@ export class ModelHelperController {
 
 //#region Directive
 
-var directiveFactory = () => {
+var directiveFactory = (): () => ng.IDirective => {
     return (): ng.IDirective => {
         var directive: ng.IDirective = {
             name: directiveName,
             restrict: 'A', // attribute only
+            scope: true,
             require: [directiveName, 'ngModel', '^formHelper'],
             controller: ModelHelperController,
             link: (scope: ng.IScope, element: JQuery, attr: ng.IAttributes, ctrls: any[]): void => {

@@ -28,6 +28,7 @@ define(["require", "exports"], function(require, exports) {
             var directive = {
                 name: exports.directiveName,
                 restrict: 'A',
+                scope: true,
                 require: [exports.directiveName, 'ngModel', '^formHelper'],
                 controller: ModelHelperController,
                 link: function (scope, element, attr, ctrls) {

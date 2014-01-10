@@ -15,12 +15,13 @@ export class FormHelperController {
 
 //#region Directive
 
-var directiveFactory = () => {
+var directiveFactory = (): any[] => {
     // inject parse service
     return ['$parse', ($parse: ng.IParseService): ng.IDirective => {
         var directive: ng.IDirective = {
             name: directiveName,
             restrict: 'A', // attribute only
+            scope: true,
             require: [directiveName, 'form'], // need both controllers when compiling
             controller: [FormHelperController],
             compile: (): any => {

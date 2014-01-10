@@ -1,11 +1,5 @@
 'use strict';
 
-interface IPopoverAttributes extends ng.IAttributes {
-    t3Popover?: string;
-    t3PopoverSwitch?: string;
-    t3PopoverAnimation?: string;
-}
-
 export var directiveName = 't3Popover';
 
 function initPopup(element: JQuery, options: PopoverOptions): void {
@@ -26,75 +20,58 @@ function needsRedraw(element: JQuery, value?: boolean): any {
         return element.data(dataKey) || false;
     }
     element.data(dataKey, value);
+    return undefined;
 }
 // ReSharper restore DuplicatingLocalDeclaration
 
-export function t3Popover($parse: ng.IParseService): ng.IDirective {
-    var directive: ng.IDirective = {
-        restrict: 'A',
-        link: (scope: ng.IScope, element: JQuery, attrs: IPopoverAttributes) => {
+var directiveFactory = (): any[]=> {
+    return ['$parse', ($parse: ng.IParseService): ng.IDirective => {
+        var directive: ng.IDirective = {
+            name: directiveName,
+            scope: true,
+            restrict: 'A',
+            link: (scope: ng.IScope, element: JQuery, attrs: ng.IAttributes) => {
 
-            var options: PopoverOptions = {
-                content: $parse(attrs.t3Popover)(scope),
-                trigger: 'manual',
-                animation: typeof attrs.t3PopoverAnimation == 'string'
-                    ? attrs.t3PopoverAnimation.toLowerCase() !== 'false'
+                var options: PopoverOptions = {
+                    content: $parse(attrs[directiveName])(scope),
+                    trigger: 'manual',
+                    animation: typeof attrs['t3PopoverAnimation'] === 'string'
+                    ? attrs['t3PopoverAnimation'].toLowerCase() !== 'false'
                     : true,
-            };
-            initPopup(element, options);
+                };
+                initPopup(element, options);
 
-            $(window).on('resize', (): void => {
-                // will be incorrectly positioned if triggered when hidden
-                if (needsRedraw(element)) {
-                    element.popover('hide');
-                    element.popover('show');
-                }
-            });
+                $(window).on('resize', (): void => {
+                    // will be incorrectly positioned if triggered when hidden
+                    if (needsRedraw(element)) {
+                        element.popover('hide');
+                        element.popover('show');
+                    }
+                });
 
-            //var content = $parse(attrs.t3Popover);
-            //var content2 = content(scope);
-            scope.$watch(attrs[directiveName], (value: string): void => {
-                if (value != options.content) {
-                    options.content = value;
-                    initPopup(element, options);
-                }
-            });
+                scope.$watch(attrs[directiveName], (value: string): void => {
+                    if (value != options.content) {
+                        options.content = value;
+                        initPopup(element, options);
+                    }
+                });
 
-            scope.$watch(attrs.t3PopoverSwitch, (value: boolean): void => {
+                scope.$watch(attrs['t3PopoverSwitch'], (value: boolean): void => {
 
-                //// has the popover been initialized?
-                //var data = element.data('t3-popover');
-                //if (!data) {
-                //    var animation = typeof attrs.t3PopoverAnimation == 'string' ? attrs.t3PopoverAnimation.toLowerCase() !== 'false' : true;
-                //    element.popover({
-                //        content: content2 || 'default content',
-                //        trigger: 'manual',
-                //        animation: animation,
-                //    });
-                //    element.data('t3-popover', true);
-                //    $(window).on('resize', (e: JQueryEventObject): void => {
-                //        // will be incorrectly positioned if triggered when hidden
-                //        if (element.data('t3-popover-redraw')) {
-                //            element.popover('hide');
-                //            element.popover('show');
-                //        }
-                //    });
-                //}
+                    if (value) {
+                        element.popover('show');
+                        element.data('t3-popover-redraw', !element.is(':visible'));
+                        needsRedraw(element, !element.is(':visible'));
+                    } else {
+                        element.popover('hide');
+                        element.data('t3-popover-redraw', false);
+                        needsRedraw(element, false);
+                    }
+                });
+            }
+        };
+        return directive;
+    }];
+};
 
-                if (value) {
-                    element.popover('show');
-                    element.data('t3-popover-redraw', !element.is(':visible'));
-                    needsRedraw(element, !element.is(':visible'));
-                } else {
-                    element.popover('hide');
-                    element.data('t3-popover-redraw', false);
-                    needsRedraw(element, false);
-                }
-            });
-        }
-    };
-    return directive;
-}
-
-t3Popover.$inject = ['$parse'];
-
+export var directive = directiveFactory();
