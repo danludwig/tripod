@@ -6,7 +6,11 @@ define(["require", "exports"], function(require, exports) {
         //modelController: ng.INgModelController;
         //helpController: dModelHelper.ModelHelperController;
         function ServerValidateController() {
+            this.attempts = [];
         }
+        ServerValidateController.prototype.lastAttempt = function () {
+            return this.attempts[this.attempts.length - 1];
+        };
         return ServerValidateController;
     })();
     exports.ServerValidateController = ServerValidateController;
@@ -27,20 +31,29 @@ define(["require", "exports"], function(require, exports) {
                     require: [exports.directiveName, 'modelHelper', 'ngModel'],
                     controller: ServerValidateController,
                     link: function (scope, element, attr, ctrls) {
-                        //var validateCtrl: ServerValidateController = ctrls[0];
+                        var validateCtrl = ctrls[0];
                         var helpCtrl = ctrls[1];
                         var modelCtrl = ctrls[2];
 
-                        //validateCtrl.modelController = modelCtrl;
-                        //validateCtrl.helpController = helpCtrl;
                         var initialValue;
                         scope.$watch(function () {
                             initialValue = typeof initialValue === 'undefined' ? modelCtrl.$viewValue : initialValue;
                             return modelCtrl.$viewValue;
                         }, function (value) {
+                            var attempt = { viewValue: value };
+                            validateCtrl.attempts.push(attempt);
+
                             // set server validity to true when model is pristine or equal to its initial value..?
                             if (modelCtrl.$pristine || modelCtrl.$viewValue == initialValue) {
+                                helpCtrl.serverError = null;
                                 modelCtrl.$setValidity('server', true);
+                                attempt.result = {
+                                    isValid: true,
+                                    attemptedValue: value,
+                                    attemptedString: value,
+                                    errors: []
+                                };
+                                helpCtrl.serverValidating = false;
                                 return;
                             }
 
@@ -50,11 +63,14 @@ define(["require", "exports"], function(require, exports) {
                                 helpCtrl.serverValidating = true;
                             }, 20);
 
-                            //helpCtrl.serverValidating = false;
-                            //helpCtrl.serverError = null;
-                            //modelCtrl.$setValidity('server', true);
+                            helpCtrl.serverError = null;
+                            modelCtrl.$setValidity('server', true);
                             var url = attr[exports.directiveName];
-                            $http.post(url, { userName: value }, {}).success(function (data, status, headers, config) {
+                            $http.post(url, { userName: value }, {}).success(function (data) {
+                                // if this is not the last attempt, skip silently
+                                if (validateCtrl.lastAttempt() !== attempt)
+                                    return;
+
                                 $timeout.cancel(spinnerTimeoutPromise);
                                 helpCtrl.serverValidating = false;
 
@@ -64,6 +80,7 @@ define(["require", "exports"], function(require, exports) {
                                     failUnexpectedly(modelCtrl, helpCtrl);
 
                                 var result = data[fieldName];
+                                attempt.result = result;
                                 if (result.isValid) {
                                     helpCtrl.serverError = null;
                                     modelCtrl.$setValidity('server', true);
@@ -71,7 +88,7 @@ define(["require", "exports"], function(require, exports) {
                                     helpCtrl.serverError = result.errors[0].message;
                                     modelCtrl.$setValidity('server', false);
                                 }
-                            }).error(function (data, status, headers, config) {
+                            }).error(function (data, status) {
                                 $timeout.cancel(spinnerTimeoutPromise);
                                 helpCtrl.serverValidating = false;
 

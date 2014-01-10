@@ -4,12 +4,23 @@ import dModelHelper = require('./ModelHelperDirective');
 
 export var directiveName = 'serverValidate';
 
+export interface ServerValidateAttempt {
+    viewValue?: any;
+    result?: ValidatedField;
+}
+
 export class ServerValidateController {
 
     //modelController: ng.INgModelController;
     //helpController: dModelHelper.ModelHelperController;
 
     constructor() { }
+
+    attempts: ServerValidateAttempt[] = [];
+
+    lastAttempt(): ServerValidateAttempt {
+        return this.attempts[this.attempts.length - 1];
+    }
 }
 
 //#region Directive
@@ -29,11 +40,9 @@ var directiveFactory = (): any[]=> {
             controller: ServerValidateController,
             link: (scope: ng.IScope, element: JQuery, attr: ng.IAttributes, ctrls: any[]): void => {
 
-                //var validateCtrl: ServerValidateController = ctrls[0];
+                var validateCtrl: ServerValidateController = ctrls[0];
                 var helpCtrl: dModelHelper.ModelHelperController = ctrls[1];
                 var modelCtrl: ng.INgModelController = ctrls[2];
-                //validateCtrl.modelController = modelCtrl;
-                //validateCtrl.helpController = helpCtrl;
 
                 var initialValue: any;
                 scope.$watch(
@@ -42,9 +51,20 @@ var directiveFactory = (): any[]=> {
                         return modelCtrl.$viewValue;
                     },
                     (value: any): void => {
+                        var attempt: ServerValidateAttempt = { viewValue: value };
+                        validateCtrl.attempts.push(attempt);
+
                         // set server validity to true when model is pristine or equal to its initial value..?
                         if (modelCtrl.$pristine || modelCtrl.$viewValue == initialValue) {
+                            helpCtrl.serverError = null;
                             modelCtrl.$setValidity('server', true);
+                            attempt.result = {
+                                isValid: true,
+                                attemptedValue: value,
+                                attemptedString: value,
+                                errors: [],
+                            };
+                            helpCtrl.serverValidating = false;
                             return;
                         }
 
@@ -54,12 +74,15 @@ var directiveFactory = (): any[]=> {
                             helpCtrl.serverValidating = true;
                         }, 20);
 
-                        //helpCtrl.serverValidating = false;
-                        //helpCtrl.serverError = null;
-                        //modelCtrl.$setValidity('server', true);
+                        helpCtrl.serverError = null;
+                        modelCtrl.$setValidity('server', true);
                         var url = attr[directiveName];
                         $http.post(url, { userName: value, }, {})
-                            .success((data: any, status: number, headers: (headerName: string) => string, config: ng.IRequestConfig): void => {
+                            .success((data: any): void => {
+
+                                // if this is not the last attempt, skip silently
+                                if (validateCtrl.lastAttempt() !== attempt) return;
+
                                 $timeout.cancel(spinnerTimeoutPromise);
                                 helpCtrl.serverValidating = false;
 
@@ -69,6 +92,7 @@ var directiveFactory = (): any[]=> {
                                     failUnexpectedly(modelCtrl, helpCtrl);
 
                                 var result: ValidatedField = data[fieldName];
+                                attempt.result = result;
                                 if (result.isValid) {
                                     helpCtrl.serverError = null;
                                     modelCtrl.$setValidity('server', true);
@@ -77,7 +101,7 @@ var directiveFactory = (): any[]=> {
                                     modelCtrl.$setValidity('server', false);
                                 }
                             })
-                            .error((data: any, status: number, headers: (headerName: string) => string, config: ng.IRequestConfig): void => {
+                            .error((data: any, status: number): void => {
                                 $timeout.cancel(spinnerTimeoutPromise);
                                 helpCtrl.serverValidating = false;
 
