@@ -47,14 +47,8 @@ namespace Tripod.Web.Controllers
         {
             //System.Threading.Thread.Sleep(2000);
 
-            //var result = new ValidatedFields(ModelState, fieldName);
-            //if (command.UserName == "asdf")
-            //{
-            //    return Json(new object[0], "application/json");
-            //}
-            //Response.StatusCode = 400;
-            //return Content("Here is a custom error message for Email address.", "application/json");
-            return new CamelCaseJsonResult(new ValidatedFields(ModelState, fieldName));
+            var result = new ValidatedFields(ModelState, fieldName);
+            return new CamelCaseJsonResult(result);
         }
 
         [AllowAnonymous]

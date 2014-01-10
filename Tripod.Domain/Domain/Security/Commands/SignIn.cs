@@ -20,14 +20,14 @@ namespace Tripod.Domain.Security
         {
             RuleFor(x => x.UserName)
                 .NotEmpty().WithName(string.Format("{0} or {1}", User.Constraints.NameLabel, EmailAddress.Constraints.Label))
-                .Equal("").WithMessage("custom username message 1")
+                .Equal("asdf").WithMessage("username must be 'asdf'")
             ;
-            RuleFor(x => x.UserName)
-                .Equal("asdf").WithMessage("custom username message 2").WithState(x => "400")
-            ;
-            RuleFor(x => x.UserName)
-                .Equal("asdf2").WithMessage("custom username message 3").WithState(x => "401")
-            ;
+            //RuleFor(x => x.UserName)
+            //    .Equal("asdf").WithMessage("custom username message 2").WithState(x => "400")
+            //;
+            //RuleFor(x => x.UserName)
+            //    .Equal("asdf2").WithMessage("custom username message 3").WithState(x => "401")
+            //;
             
             RuleFor(x => x.Password)
                 .NotEmpty().WithName(LocalMembership.Constraints.PasswordLabel)
