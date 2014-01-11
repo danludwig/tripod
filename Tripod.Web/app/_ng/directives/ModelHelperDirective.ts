@@ -16,12 +16,12 @@ export class ModelHelperController {
     constructor(scope: ng.IScope) { }
 
     hasError(): boolean {
-        return !this.serverValidating && this.modelController.$invalid &&
+        return !this.isServerValidating && this.modelController.$invalid &&
             (this.modelController.$dirty || this.formController.submitAttempted);
     }
 
     hasSuccess(): boolean {
-        return !this.serverValidating && !this.hasError() && this.modelController.$valid &&
+        return !this.isServerValidating && !this.hasError() && this.modelController.$valid &&
             (this.modelController.$dirty || this.formController.submitAttempted);
     }
 
@@ -30,10 +30,10 @@ export class ModelHelperController {
     }
 
     hasSpinner(): boolean {
-        return this.serverValidating;
+        return this.isServerValidating;
     }
 
-    serverValidating = false;
+    isServerValidating = false;
 
     serverError: string;
 }

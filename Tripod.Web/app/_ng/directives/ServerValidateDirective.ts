@@ -5,22 +5,46 @@ import dModelHelper = require('./ModelHelperDirective');
 export var directiveName = 'serverValidate';
 
 export interface ServerValidateAttempt {
-    viewValue?: any;
+    value?: any;
     result?: ValidatedField;
 }
 
 export class ServerValidateController {
 
-    //modelController: ng.INgModelController;
-    //helpController: dModelHelper.ModelHelperController;
+    modelController: ng.INgModelController;
+    helpController: dModelHelper.ModelHelperController;
 
     constructor() { }
 
     attempts: ServerValidateAttempt[] = [];
 
-    lastAttempt(): ServerValidateAttempt {
+    isFirstAttempt(): boolean {
+        return !this.attempts.length;
+    }
+
+    getAttempt(value: string): ServerValidateAttempt {
+        if (!this.attempts.length) return null;
+
+        for (var i = 0; i < this.attempts.length; i++)
+            if (this.attempts[i].value === value)
+                return this.attempts[i];
+        return null;
+    }
+
+    getLastAttempt(): ServerValidateAttempt {
         return this.attempts[this.attempts.length - 1];
     }
+
+    setValidity(attempt: ServerValidateAttempt): void {
+        this.modelController.$setValidity('server', attempt.result.isValid);
+        if (attempt.result.isValid) {
+            this.helpController.serverError = null;
+        }
+        else {
+            this.helpController.serverError = attempt.result.errors[0].message;
+        }
+    }
+
 }
 
 //#region Directive
@@ -43,67 +67,72 @@ var directiveFactory = (): any[]=> {
                 var validateCtrl: ServerValidateController = ctrls[0];
                 var helpCtrl: dModelHelper.ModelHelperController = ctrls[1];
                 var modelCtrl: ng.INgModelController = ctrls[2];
+                validateCtrl.helpController = helpCtrl;
+                validateCtrl.modelController = modelCtrl;
 
-                var initialValue: any;
                 scope.$watch(
-                    (): any => {
-                        initialValue = typeof initialValue === 'undefined' ? modelCtrl.$viewValue : initialValue;
-                        return modelCtrl.$viewValue;
-                    },
-                    (value: any): void => {
-                        var attempt: ServerValidateAttempt = { viewValue: value };
-                        validateCtrl.attempts.push(attempt);
+                    (): any => { return modelCtrl.$viewValue; }, // watch the ngModel $viewValue
+                    (value: string): void => {
 
-                        // set server validity to true when model is pristine or equal to its initial value..?
-                        if (modelCtrl.$pristine || modelCtrl.$viewValue == initialValue) {
-                            helpCtrl.serverError = null;
-                            modelCtrl.$setValidity('server', true);
-                            attempt.result = {
-                                isValid: true,
-                                attemptedValue: value,
-                                attemptedString: value,
-                                errors: [],
-                            };
-                            helpCtrl.serverValidating = false;
+                        // the first time this watch executes, record the value as the first attempt
+                        // and stop, to prevent the server from validating when first loaded
+                        if (validateCtrl.isFirstAttempt()) {
+                            validateCtrl.attempts.push({
+                                value: value,
+                                result: {
+                                    isValid: true,
+                                    errors: [{ message: null }],
+                                },
+                            });
                             return;
                         }
 
+                        // check to see if this value has already been attempted
+                        // and if it has, skip hitting the server
+                        var attempt = validateCtrl.getAttempt(value);
+                        if (attempt && attempt.result) {
+                            validateCtrl.setValidity(attempt);
+                            return;
+                        }
+
+                        // record all value attempts in this directive's controller
+                        attempt = { value: value };
+                        validateCtrl.attempts.push(attempt);
+
                         // tell the controller there is validation progress
-                        // this needs throttled for cases when the server returns very quickly
+                        // this should be throttled for cases when the server returns very quickly
                         var spinnerTimeoutPromise = $timeout((): void => {
-                            helpCtrl.serverValidating = true;
+                            helpCtrl.isServerValidating = true;
                         }, 20);
 
-                        helpCtrl.serverError = null;
-                        modelCtrl.$setValidity('server', true);
+                        // set validity to true while we are validating
+                        validateCtrl.setValidity({ result: { isValid: true } });
+
                         var url = attr[directiveName];
-                        $http.post(url, { userName: value, }, {})
+                        $http.post(url, { userName: value, })
                             .success((data: any): void => {
-
-                                // if this is not the last attempt, skip silently
-                                if (validateCtrl.lastAttempt() !== attempt) return;
-
-                                $timeout.cancel(spinnerTimeoutPromise);
-                                helpCtrl.serverValidating = false;
 
                                 // expect the result to have a property with the same name as the validated field
                                 var fieldName = attr['name'];
                                 if (!fieldName || !data[fieldName])
                                     failUnexpectedly(modelCtrl, helpCtrl);
 
+                                // load the result from the response data and store with attempt
                                 var result: ValidatedField = data[fieldName];
                                 attempt.result = result;
-                                if (result.isValid) {
-                                    helpCtrl.serverError = null;
-                                    modelCtrl.$setValidity('server', true);
-                                } else {
-                                    helpCtrl.serverError = result.errors[0].message;
-                                    modelCtrl.$setValidity('server', false);
+                                $timeout.cancel(spinnerTimeoutPromise);
+
+                                // if this is not the last attempt, just record the result and skip
+                                if (validateCtrl.getLastAttempt() !== attempt) {
+                                    return;
                                 }
+
+                                helpCtrl.isServerValidating = false;
+                                validateCtrl.setValidity(attempt);
                             })
                             .error((data: any, status: number): void => {
                                 $timeout.cancel(spinnerTimeoutPromise);
-                                helpCtrl.serverValidating = false;
+                                helpCtrl.isServerValidating = false;
 
                                 // when status is zero, user probably refreshed before this returned
                                 if (status === 0) return;

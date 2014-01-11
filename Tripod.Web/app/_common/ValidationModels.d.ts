@@ -1,11 +1,11 @@
 interface ValidatedFieldError {
-    message: string;
-    customState: any;
+    message?: string;
+    customState?: any;
 }
 
 interface ValidatedField {
-    attemptedValue: any;
-    attemptedString: string;
-    errors: ValidatedFieldError[];
-    isValid: boolean;
+    attemptedValue?: any;
+    attemptedString?: string;
+    errors?: ValidatedFieldError[];
+    isValid?: boolean;
 }
