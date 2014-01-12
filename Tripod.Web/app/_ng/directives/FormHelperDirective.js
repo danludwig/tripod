@@ -51,6 +51,8 @@ define(["require", "exports"], function(require, exports) {
                                 element.bind('submit', function () {
                                     // record the fact that a form submission was attempted
                                     helpCtrl.submitAttempted = true;
+                                    if (formCtrl.$valid)
+                                        helpCtrl.isSubmitDisabled = true;
                                     if (!scope.$$phase)
                                         scope.$apply();
 

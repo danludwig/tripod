@@ -76,9 +76,12 @@
                 <input type="hidden" name="returnUrl" value="@ViewBag.ReturnUrl" />
 
                 @Html.ValidationSummary(true)
-
+                @{
+                    const string inputCss = "input-lg";
+                    const string inputGroupCss = "input-group input-group-lg";
+                }
                 @* EMAIL ADDRESS INPUT *@
-                <div class="form-group @Html.BootstrapValidationCssClassFor(x => x.UserName)"
+                <div class="form-group form-group-lg @Html.BootstrapValidationCssClassFor(x => x.UserName)"
                      ng-t3-remove-class="has-success has-error"
                      ng-class="{ 'has-success': h.userName.hasSuccess(), 'has-error': h.userName.hasError(), 'has-spinner': h.userName.hasSpinner() }">
 
@@ -88,10 +91,10 @@
                         <label for="@Html.IdFor(x => x.UserName)" class="control-label sr-only">
                             @UserConstraints.NameLabel or @EmailAddress.Constraints.Label
                         </label>
-                        <div class="@Html.CssClassWhenInvalidFor(x => x.UserName, "input-group input-group-lg")"
-                             ng-t3-remove-class="input-group input-group-lg"
-                             ng-class="{ 'input-group input-group-lg': h.userName.hasFeedback() }">
-                            <input type="text" class="form-control input-lg" placeholder="@UserConstraints.NameLabel or @EmailAddress.Constraints.Label"
+                        <div class="@Html.CssClassWhenInvalidFor(x => x.UserName, inputGroupCss)"
+                             ng-t3-remove-class="@inputGroupCss"
+                             ng-class="{ '@inputGroupCss': h.userName.hasFeedback() }">
+                            <input type="text" class="form-control @inputCss" placeholder="@UserConstraints.NameLabel or @EmailAddress.Constraints.Label"
                                    id="@Html.IdFor(x => x.UserName)" name="userName" value="@Html.ValueFor(x => x.UserName)"
                                    ng-model="m.userName" required
                                    model-helper
@@ -114,20 +117,20 @@
                     </div>
 
                     @* VALIDATION MESSAGES COLUMNS *@
-                    <div class="col-md-4  help-block help-block-horizontal-md hidden-sm hidden-xs">
+                    <div class="col-md-4 validation help-block help-block-horizontal-md hidden-sm hidden-xs">
                         <span t3-popover="'@Resources.notempty_error.Replace("{PropertyName}", string.Format("{0} or {1}", UserConstraints.NameLabel, EmailAddress.Constraints.Label))'"
                               t3-popover-switch="h.userName.hasError() && f.userName.$error.required"
                               t3-popover-animation="false"
-                              style="width: 0; height: 0; margin-left: -10px; margin-right: 10px;"></span>
+                              class="validation-popover"></span>
 
                         <span t3-popover="h.userName.serverError"
                               t3-popover-switch="h.userName.hasError() && f.userName.$error.server"
                               t3-popover-animation="false"
-                              style="width: 0; height: 0; margin-left: -10px; margin-right: 10px;"></span>
+                              class="validation-popover"></span>
 
                         <span ng-class="{ hide: true }">@Html.ValidationMessageFor(x => x.UserName)</span>
                     </div>
-                    <div class="col-md-4  help-block hidden-md hidden-lg">
+                    <div class="col-md-4 validation help-block hidden-md hidden-lg">
                         <span ng-show="h.userName.hasError()" ng-cloak>
                             <span ng-show="f.userName.$error.required && !f.userName.$viewValue">
                                 @Resources.notempty_error.Replace("{PropertyName}", string.Format("{0} or {1}", UserConstraints.NameLabel, EmailAddress.Constraints.Label))
@@ -143,7 +146,7 @@
                 </div>
 
                 @* PASSWORD INPUT *@
-                <div class="form-group @Html.BootstrapValidationCssClassFor(x => x.Password)"
+                <div class="form-group form-group-lg @Html.BootstrapValidationCssClassFor(x => x.Password)"
                      ng-t3-remove-class="has-success has-error"
                      ng-class="{ 'has-success': h.password.hasSuccess(), 'has-error': h.password.hasError() }">
 
@@ -153,10 +156,10 @@
                         <label for="@Html.IdFor(x => x.Password)" class="control-label sr-only">
                             @LocalMembership.Constraints.PasswordLabel
                         </label>
-                        <div class="@Html.CssClassWhenInvalidFor(x => x.Password, "input-group input-group-lg")"
-                             ng-t3-remove-class="input-group input-group-lg"
-                             ng-class="{ 'input-group input-group-lg': h.password.hasFeedback() }">
-                            <input type="PASSWORD" class="form-control input-lg" placeholder="@LocalMembership.Constraints.PasswordLabel"
+                        <div class="@Html.CssClassWhenInvalidFor(x => x.Password, inputGroupCss)"
+                             ng-t3-remove-class="@inputGroupCss"
+                             ng-class="{ '@inputGroupCss': h.password.hasFeedback() }">
+                            <input type="PASSWORD" class="form-control @inputCss" placeholder="@LocalMembership.Constraints.PasswordLabel"
                                    id="@Html.IdFor(x => x.Password)" name="password"
                                    ng-model="m.password" required model-helper
                                    server-error="@Html.ValidationMessageTextFor(x => x.Password)" />
@@ -170,23 +173,26 @@
                                 <i class="fa fa-fw fa-check success"></i>
                             </span>
                         </div>
+                        <div class="help-block hidden-xs hidden-sm">
+                            <a href="#" class="hidden-xs hidden-sm">I forgot my password</a>
+                        </div>
                     </div>
 
                     @* VALIDATION MESSAGES COLUMNS *@
-                    <div class="col-md-4  help-block help-block-horizontal-md hidden-sm hidden-xs">
-                        <span t3-popover="'@Resources.notempty_error.Replace("{PropertyName}", LocalMembership.Constraints.PasswordLabel)'"
-                              t3-popover-switch="h.password.hasError() && f.password.$error.required"
-                              t3-popover-animation="false"
-                              style="width: 0; height: 0; margin-left: -10px; margin-right: 10px;"></span>
-
+                    <div class="col-md-4 validation help-block help-block-horizontal-md hidden-sm hidden-xs">
                         <span t3-popover="h.password.serverError"
                               t3-popover-switch="h.password.hasError() && f.password.$error.server"
                               t3-popover-animation="false"
-                              style="width: 0; height: 0; margin-left: -10px; margin-right: 10px;"></span>
+                              class="validation-popover"></span>
+
+                        <span t3-popover="'@Resources.notempty_error.Replace("{PropertyName}", LocalMembership.Constraints.PasswordLabel)'"
+                              t3-popover-switch="h.password.hasError() && f.password.$error.required"
+                              t3-popover-animation="false"
+                              class="validation-popover"></span>
 
                         <span ng-class="{ hide: true }">@Html.ValidationMessageFor(x => x.Password)</span>
                     </div>
-                    <div class="col-md-4  help-block hidden-md hidden-lg">
+                    <div class="col-md-4 validation help-block hidden-md hidden-lg">
                         <span ng-show="h.password.hasError()" ng-cloak>
                             <span ng-show="f.password.$error.required">
                                 @Resources.notempty_error.Replace("{PropertyName}", LocalMembership.Constraints.PasswordLabel)
@@ -198,6 +204,7 @@
                         <span ng-class="{ hide: true }">
                             @Html.ValidationMessageFor(x => x.Password)
                         </span>
+                        <a href="#">I forgot my password</a>
                     </div>
                 </div>
 

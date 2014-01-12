@@ -136,6 +136,14 @@ body {
         }
     }
 
+    .input-group-lg .input-group-addon.validation i {
+        margin-top: 6px;
+    }
+
+    .input-group-sm .input-group-addon.validation i {
+        margin-top: -1px;
+    }
+
     /* show & hide icons during success, error, and warning */
     .has-success .input-group-addon.validation i {
         &.default { display: none; }
@@ -163,11 +171,36 @@ body {
                 so that it does not change height of overall field when disappearing */
             margin-bottom: 0;
             /* line this up a vertically with the field */
-            margin-top: 7px;
+            margin-top: 0;
             /* bring the validation message closer to the field */
             margin-left: 0;
             padding-left: 0;
         }
+    }
+}
+
+/* validation popover positioning */
+body {
+    .validation-popover {
+        width: 0;
+        height: 0;
+        margin-left: -12px;
+        margin-right: 12px;
+        position: relative;
+        top: 6px;
+    }
+
+    .form-group-lg .validation-popover {
+        top: 12px;
+    }
+
+    .form-group-sm .validation-popover {
+        top: 5px;
+    }
+
+    .validation.help-block .popover-content {
+        padding: 4px 12px;
+        word-wrap: break-word;
     }
 }
 

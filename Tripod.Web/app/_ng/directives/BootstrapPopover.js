@@ -2,30 +2,9 @@
 define(["require", "exports"], function(require, exports) {
     exports.directiveName = 't3Popover';
 
-    function initPopup(element, options) {
-        var data = element.data(exports.directiveName);
-        if (data) {
-            element.popover('destroy');
-        }
-        element.popover(options);
-        element.data(exports.directiveName, true);
-    }
-
-    
-
-    function needsRedraw(element, value) {
-        var dataKey = exports.directiveName + 'Redraw';
-        if (arguments.length === 1) {
-            return element.data(dataKey) || false;
-        }
-        element.data(dataKey, value);
-        return undefined;
-    }
-
-    // ReSharper restore DuplicatingLocalDeclaration
     var directiveFactory = function () {
         return [
-            '$parse', function ($parse) {
+            '$parse', '$timeout', function ($parse, $timeout) {
                 var directive = {
                     name: exports.directiveName,
                     restrict: 'A',
@@ -35,37 +14,47 @@ define(["require", "exports"], function(require, exports) {
                             trigger: 'manual',
                             animation: typeof attrs['t3PopoverAnimation'] === 'string' ? attrs['t3PopoverAnimation'].toLowerCase() !== 'false' : true
                         };
-                        initPopup(element, options);
 
-                        $(window).on('resize', function () {
-                            // will be incorrectly positioned if triggered when hidden
-                            if (needsRedraw(element)) {
-                                element.popover('hide');
-                                element.popover('show');
+                        var initPopup = function () {
+                            var data = element.data(exports.directiveName);
+                            if (data) {
+                                element.popover('destroy');
                             }
-                        });
+                            element.popover(options);
+                            element.data(exports.directiveName, true);
+                        };
+
+                        initPopup();
 
                         var isVisible = false;
                         scope.$watch(attrs[exports.directiveName], function (value) {
                             if (value != options.content) {
                                 options.content = value;
-                                initPopup(element, options);
+                                initPopup();
                                 if (isVisible)
                                     element.popover('show');
                             }
+                        });
+
+                        var redrawPromise;
+                        $(window).on('resize', function () {
+                            if (redrawPromise)
+                                $timeout.cancel(redrawPromise);
+                            redrawPromise = $timeout(function () {
+                                if (!isVisible)
+                                    return;
+                                element.popover('hide');
+                                element.popover('show');
+                            }, 100);
                         });
 
                         scope.$watch(attrs['t3PopoverSwitch'], function (value) {
                             if (value) {
                                 isVisible = true;
                                 element.popover('show');
-                                element.data('t3-popover-redraw', !element.is(':visible'));
-                                needsRedraw(element, !element.is(':visible'));
                             } else {
                                 isVisible = false;
                                 element.popover('hide');
-                                element.data('t3-popover-redraw', false);
-                                needsRedraw(element, false);
                             }
                         });
                     }

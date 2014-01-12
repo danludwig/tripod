@@ -56,6 +56,8 @@ var directiveFactory = (): any[] => {
 
                             // record the fact that a form submission was attempted
                             helpCtrl.submitAttempted = true;
+                            if (formCtrl.$valid)
+                                helpCtrl.isSubmitDisabled = true;
                             if (!scope.$$phase) scope.$apply();
 
                             // prevent the form from being submitted if not valid
