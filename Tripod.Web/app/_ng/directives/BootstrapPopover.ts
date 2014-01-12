@@ -1,67 +1,71 @@
 'use strict';
 
-export var directiveName = 't3Popover';
+module App.Directives.Popover {
 
-var directiveFactory = (): any[]=> {
-    return ['$parse', '$timeout', ($parse: ng.IParseService, $timeout: ng.ITimeoutService): ng.IDirective => {
-        var directive: ng.IDirective = {
-            name: directiveName,
-            restrict: 'A',
-            link: (scope: ng.IScope, element: JQuery, attrs: ng.IAttributes) => {
+    export var directiveName = 't3Popover';
 
-                var options: PopoverOptions = {
-                    content: $parse(attrs[directiveName])(scope),
-                    trigger: 'manual',
-                    animation: typeof attrs['t3PopoverAnimation'] === 'string'
-                    ? attrs['t3PopoverAnimation'].toLowerCase() !== 'false'
-                    : true,
-                };
+    var directiveFactory = (): any[]=> {
+        return ['$parse', '$timeout', ($parse: ng.IParseService, $timeout: ng.ITimeoutService): ng.IDirective => {
+            var directive: ng.IDirective = {
+                name: directiveName,
+                restrict: 'A',
+                link: (scope: ng.IScope, element: JQuery, attrs: ng.IAttributes) => {
 
-                var initPopup = (): void => {
-                    var data = element.data(directiveName);
-                    if (data) {
-                        element.popover('destroy');
-                    }
-                    element.popover(options);
-                    element.data(directiveName, true);
-                };
+                    var options: PopoverOptions = {
+                        content: $parse(attrs[directiveName])(scope),
+                        trigger: 'manual',
+                        animation: typeof attrs['t3PopoverAnimation'] === 'string'
+                        ? attrs['t3PopoverAnimation'].toLowerCase() !== 'false'
+                        : true,
+                    };
 
-                initPopup();
+                    var initPopup = (): void => {
+                        var data = element.data(directiveName);
+                        if (data) {
+                            element.popover('destroy');
+                        }
+                        element.popover(options);
+                        element.data(directiveName, true);
+                    };
 
-                var isVisible = false;
-                scope.$watch(attrs[directiveName], (value: string): void => {
-                    if (value != options.content) {
-                        options.content = value;
-                        initPopup();
-                        if (isVisible) element.popover('show');
-                    }
-                });
+                    initPopup();
 
-                var redrawPromise: ng.IPromise<void>;
-                $(window).on('resize', (): void => {
-                    if (redrawPromise) $timeout.cancel(redrawPromise);
-                    redrawPromise = $timeout((): void => {
-                        if (!isVisible) return;
-                        element.popover('hide');
-                        element.popover('show');
+                    var isVisible = false;
+                    scope.$watch(attrs[directiveName], (value: string): void => {
+                        if (value != options.content) {
+                            options.content = value;
+                            initPopup();
+                            if (isVisible) element.popover('show');
+                        }
+                    });
 
-                    }, 100);
-                });
+                    var redrawPromise: ng.IPromise<void>;
+                    $(window).on('resize', (): void => {
+                        if (redrawPromise) $timeout.cancel(redrawPromise);
+                        redrawPromise = $timeout((): void => {
+                            if (!isVisible) return;
+                            element.popover('hide');
+                            element.popover('show');
 
-                scope.$watch(attrs['t3PopoverSwitch'], (value: boolean): void => {
+                        }, 100);
+                    });
 
-                    if (value) {
-                        isVisible = true;
-                        element.popover('show');
-                    } else {
-                        isVisible = false;
-                        element.popover('hide');
-                    }
-                });
-            }
-        };
-        return directive;
-    }];
-};
+                    scope.$watch(attrs['t3PopoverSwitch'], (value: boolean): void => {
 
-export var directive = directiveFactory();
+                        if (value) {
+                            isVisible = true;
+                            element.popover('show');
+                        } else {
+                            isVisible = false;
+                            element.popover('hide');
+                        }
+                    });
+                }
+            };
+            return directive;
+        }];
+    };
+
+    export var directive = directiveFactory();
+}
+

@@ -1,4 +1,5 @@
-export interface IModelScope<T> extends ng.IScope {
-    m: T;
+declare module App {
+    export interface IModelScope<T> extends ng.IScope {
+        m: T;
+    }
 }
- 

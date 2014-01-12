@@ -1,16 +1,24 @@
 'use strict';
-define(["require", "exports"], function(require, exports) {
-    exports.controllerName = 'FormController';
-
-    var FormController = (function () {
-        function FormController($scope) {
-            this.userName = '';
-            this.password = '';
-            this.isPersistent = false;
-            $scope.m = this;
-        }
-        FormController.$inject = ['$scope'];
-        return FormController;
-    })();
-    exports.FormController = FormController;
-});
+var App;
+(function (App) {
+    (function (Security) {
+        (function (SignIn) {
+            (function (Form) {
+                var Controller = (function () {
+                    function Controller($scope) {
+                        this.userName = '';
+                        this.password = '';
+                        this.isPersistent = false;
+                        $scope.m = this;
+                    }
+                    Controller.$inject = ['$scope'];
+                    return Controller;
+                })();
+                Form.Controller = Controller;
+            })(SignIn.Form || (SignIn.Form = {}));
+            var Form = SignIn.Form;
+        })(Security.SignIn || (Security.SignIn = {}));
+        var SignIn = Security.SignIn;
+    })(App.Security || (App.Security = {}));
+    var Security = App.Security;
+})(App || (App = {}));

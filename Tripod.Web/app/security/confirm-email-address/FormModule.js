@@ -1,5 +1,16 @@
 'use strict';
-define(["require", "exports", './FormController', '../../_ng/directives/SubmitActionDirective', '../../_ng/directives/InputPreFormatterDirective', '../../_ng/directives/RemoveCssClassDirective', "angular"], function(require, exports, cForm, dSubmitAction, dInputPreFormatter, dRemoveClass) {
-    exports.ngModule = angular.module('test', []).controller(cForm.controllerName, cForm.FormController).directive(dSubmitAction.directiveName, dSubmitAction.ngT3SubmitAction).directive(dInputPreFormatter.directiveName, dInputPreFormatter.ngT3InputPreFormatter).directive(dRemoveClass.directiveName, dRemoveClass.ngT3RemoveClass);
-    return exports.ngModule;
-});
+var App;
+(function (App) {
+    (function (Security) {
+        (function (SignUp) {
+            (function (Form) {
+                Form.moduleName = 'sign-up-form';
+
+                Form.ngModule = angular.module(Form.moduleName, [App.Modules.Tripod.moduleName]);
+            })(SignUp.Form || (SignUp.Form = {}));
+            var Form = SignUp.Form;
+        })(Security.SignUp || (Security.SignUp = {}));
+        var SignUp = Security.SignUp;
+    })(App.Security || (App.Security = {}));
+    var Security = App.Security;
+})(App || (App = {}));

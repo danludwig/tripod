@@ -1,26 +1,8 @@
-/// <amd-dependency path="angular"/>
-
 'use strict';
 
-import cForm = require('./FormController');
-import dSubmitAction = require('../../_ng/directives/SubmitActionDirective');
-import dInputPreFormatter = require('../../_ng/directives/InputPreFormatterDirective');
-import dRemoveClass = require('../../_ng/directives/RemoveCssClassDirective');
-import dPopover = require('../../_ng/directives/BootstrapPopover');
-import dFormHelper = require('../../_ng/directives/FormHelperDirective');
-import dModelHelper = require('../../_ng/directives/ModelHelperDirective');
-import dServerError = require('../../_ng/directives/ServerErrorDirective');
-import dServerValidate = require('../../_ng/directives/ServerValidateDirective');
+module App.Security.SignIn.Form {
 
-export var ngModule = angular.module('SignInModule', ['ui.bootstrap'])
-    .controller(cForm.controllerName, cForm.FormController)
-    .directive(dSubmitAction.directiveName, dSubmitAction.ngT3SubmitAction)
-    .directive(dInputPreFormatter.directiveName, dInputPreFormatter.ngT3InputPreFormatter)
-    .directive(dRemoveClass.directiveName, dRemoveClass.ngT3RemoveClass)
-    .directive(dPopover.directiveName, dPopover.directive)
-    .directive(dFormHelper.directiveName, dFormHelper.directive)
-    .directive(dModelHelper.directiveName, dModelHelper.directive)
-    .directive(dServerError.directiveName, dServerError.directive)
-    .directive(dServerValidate.directiveName, dServerValidate.directive)
-;
-return ngModule; 
+    export var moduleName = 'sign-in-form';
+
+    export var ngModule = angular.module(moduleName, [Modules.Tripod.moduleName]);
+}

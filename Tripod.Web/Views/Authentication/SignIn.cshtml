@@ -67,7 +67,7 @@
             Have an account? Sign in with your username or email address.
         </h4>
 
-        <div id="ng-app_signin" ng-controller="FormController">
+        <div ng-app="sign-in-form" ng-controller="App.Security.SignIn.Form.Controller">
             <form name="f" action="@Url.Action(MVC.Authentication.SignIn(null, null))" method="POST" class="form-horizontal" role="form"
                   novalidate form-helper="h" submit-attempted="@(!ViewData.ModelState.IsValid)">
 
@@ -82,7 +82,7 @@
                 }
                 @* EMAIL ADDRESS INPUT *@
                 <div class="form-group form-group-lg @Html.BootstrapValidationCssClassFor(x => x.UserName)"
-                     ng-t3-remove-class="has-success has-error"
+                     remove-class="has-success has-error"
                      ng-class="{ 'has-success': h.userName.hasSuccess(), 'has-error': h.userName.hasError(), 'has-spinner': h.userName.hasSpinner() }">
 
                     @* INPUT GROUP COLUMN *@
@@ -92,7 +92,7 @@
                             @UserConstraints.NameLabel or @EmailAddress.Constraints.Label
                         </label>
                         <div class="@Html.CssClassWhenInvalidFor(x => x.UserName, inputGroupCss)"
-                             ng-t3-remove-class="@inputGroupCss"
+                             remove-class="@inputGroupCss"
                              ng-class="{ '@inputGroupCss': h.userName.hasFeedback() }">
                             <input type="text"
                                    class="form-control @inputCss"
@@ -109,7 +109,7 @@
                                    server-error="@Html.ValidationMessageTextFor(x => x.UserName)" />
 
                             <span class="input-group-addon validation @Html.CssClassWhenValidFor(x => x.UserName, "hide")"
-                                  ng-t3-remove-class="hide"
+                                  remove-class="hide"
                                   ng-class="{ 'hide':  !h.userName.hasFeedback() }">
                                 <i class="fa fa-fw fa-asterisk default" title="This is a required field"></i>
                                 <i class="fa fa-fw fa-times error"></i>
@@ -151,7 +151,7 @@
 
                 @* PASSWORD INPUT *@
                 <div class="form-group form-group-lg @Html.BootstrapValidationCssClassFor(x => x.Password)"
-                     ng-t3-remove-class="has-success has-error"
+                     remove-class="has-success has-error"
                      ng-class="{ 'has-error': h.password.hasError() }">
 
                     @* INPUT GROUP COLUMN *@
@@ -161,7 +161,7 @@
                             @LocalMembership.Constraints.PasswordLabel
                         </label>
                         <div class="@Html.CssClassWhenInvalidFor(x => x.Password, inputGroupCss)"
-                             ng-t3-remove-class="@inputGroupCss"
+                             remove-class="@inputGroupCss"
                              ng-class="{ '@inputGroupCss': h.password.hasError() }">
                             <input type="password" class="form-control @inputCss" placeholder="@LocalMembership.Constraints.PasswordLabel"
                                    id="@Html.IdFor(x => x.Password)" name="password"
@@ -169,7 +169,7 @@
                                    server-error="@Html.ValidationMessageTextFor(x => x.Password)" />
 
                             <span class="input-group-addon validation @Html.CssClassWhenValidFor(x => x.Password, "hide")"
-                                  ng-t3-remove-class="hide"
+                                  remove-class="hide"
                                   ng-class="{ 'hide':  !h.password.hasError() }">
                                 <i class="fa fa-fw fa-asterisk default" title="This is a required field"></i>
                                 <i class="fa fa-fw fa-times error"></i>
@@ -178,7 +178,7 @@
                             </span>
                         </div>
                         <div class="help-block hidden-xs hidden-sm">
-                            <a href="#" class="hidden-xs hidden-sm">I forgot my password</a>
+                            <a href="#">I forgot my password</a>
                         </div>
                     </div>
 
@@ -257,5 +257,17 @@ h.password.serverError = {{ h.password.serverError }}
 
 @section scripts
 {
-    <script src="~/scripts/require.js" data-main="@Url.Content("~/app/security/sign-in/FormMain.js")"></script>
+    @*<script src="~/scripts/require.js" data-main="@Url.Content("~/app/security/sign-in/FormMain.js")"></script>*@
+    <script src="~/scripts/angular.js"></script>
+    <script src="~/app/_ng/directives/InputPreFormatterDirective.js"></script>
+    <script src="~/app/_ng/directives/RemoveCssClassDirective.js"></script>
+    <script src="~/app/_ng/directives/BootstrapPopover.js"></script>
+    <script src="~/app/_ng/directives/FormHelperDirective.js"></script>
+    <script src="~/app/_ng/directives/ModelHelperDirective.js"></script>
+    <script src="~/app/_ng/directives/ServerErrorDirective.js"></script>
+    <script src="~/app/_ng/directives/ServerValidateDirective.js"></script>
+    <script src="~/app/_ng/directives/SubmitActionDirective.js"></script>
+    <script src="~/app/_ng/modules/Tripod.js"></script>
+    <script src="~/app/security/sign-in/FormModule.js"></script>
+    <script src="~/app/security/sign-in/FormController.js"></script>
 }

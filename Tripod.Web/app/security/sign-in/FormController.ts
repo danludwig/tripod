@@ -1,20 +1,18 @@
 'use strict';
 
-import iScope = require('../../_common/IModelScope');
-import iModel = require('./FormModel');
+module App.Security.SignIn.Form {
 
-export interface IFormScope extends iScope.IModelScope<iModel.IFormModel> { }
+    export interface IFormScope extends IModelScope<IFormModel> { }
 
-export var controllerName = 'FormController';
+    export class Controller implements IFormModel {
 
-export class FormController implements iModel.IFormModel {
+        userName: string = '';
+        password: string = '';
+        isPersistent: boolean = false;
 
-    userName: string = '';
-    password: string = '';
-    isPersistent: boolean = false;
-
-    static $inject = ['$scope'];
-    constructor($scope: IFormScope) {
-        $scope.m = this;
+        static $inject = ['$scope'];
+        constructor($scope: IFormScope) {
+            $scope.m = this;
+        }
     }
-} 
+}

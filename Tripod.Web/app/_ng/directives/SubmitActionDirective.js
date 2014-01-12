@@ -1,81 +1,90 @@
 'use strict';
-define(["require", "exports"], function(require, exports) {
-    exports.directiveName = 'ngT3SubmitAction';
+var App;
+(function (App) {
+    (function (Directives) {
+        (function (SubmitAction) {
+            SubmitAction.directiveName = 'ngT3SubmitAction';
 
-    function ngT3SubmitAction($parse) {
-        var directive = {
-            name: exports.directiveName,
-            restrict: 'A',
-            require: ['ngT3SubmitAction', '?form'],
-            controller: [SubmitActionController],
-            compile: function () {
-                return {
-                    pre: function (scope, formElement, attributes, controllers) {
-                        var submitController = controllers[0];
+            var Controller = (function () {
+                function Controller() {
+                    this.attempted = false;
+                }
+                Controller.prototype.needsAttention = function (fieldModelController) {
+                    if (!this.formController)
+                        return false;
 
-                        var formController = (controllers.length > 1) ? controllers[1] : null;
-                        submitController.formController = formController;
+                    if (fieldModelController)
+                        return fieldModelController.$invalid && (fieldModelController.$dirty || this.attempted);
 
-                        scope.t3 = scope.t3 || {};
-                        scope.t3[attributes.name] = submitController;
-                    },
-                    post: function (scope, formElement, attributes, controllers) {
-                        var submitController = controllers[0];
-                        var formController = (controllers.length > 1) ? controllers[1] : null;
-
-                        var fn = $parse(attributes.ngT3SubmitAction);
-
-                        formElement.bind('submit', function () {
-                            submitController.attempted = true;
-                            if (!scope.$$phase)
-                                scope.$apply();
-
-                            if (!formController.$valid)
-                                return false;
-
-                            scope.$apply(function () {
-                                fn(scope, { $event: event });
-                            });
-                            return true;
-                        });
-
-                        if (attributes.ngT3SubmitActionAttempted)
-                            submitController.attempted = true;
-                    }
+                    return this.formController && this.formController.$invalid && (this.formController.$dirty || this.attempted);
                 };
-            }
-        };
-        return directive;
-    }
-    exports.ngT3SubmitAction = ngT3SubmitAction;
 
-    exports.ngT3SubmitAction.$inject = ['$parse'];
+                Controller.prototype.isGoodToGo = function (fieldModelController) {
+                    if (!this.formController)
+                        return false;
+                    if (this.needsAttention(fieldModelController))
+                        return false;
 
-    var SubmitActionController = (function () {
-        function SubmitActionController() {
-            this.attempted = false;
-        }
-        SubmitActionController.prototype.needsAttention = function (fieldModelController) {
-            if (!this.formController)
-                return false;
+                    if (fieldModelController)
+                        return fieldModelController.$valid && (fieldModelController.$dirty || this.attempted);
 
-            if (fieldModelController)
-                return fieldModelController.$invalid && (fieldModelController.$dirty || this.attempted);
+                    return this.formController && this.formController.$valid && (this.formController.$dirty || this.attempted);
+                };
+                return Controller;
+            })();
 
-            return this.formController && this.formController.$invalid && (this.formController.$dirty || this.attempted);
-        };
+            var directiveFactory = function () {
+                return [
+                    '$parse', function ($parse) {
+                        var directive = {
+                            name: SubmitAction.directiveName,
+                            restrict: 'A',
+                            require: ['ngT3SubmitAction', '?form'],
+                            controller: Controller,
+                            compile: function () {
+                                return {
+                                    pre: function (scope, formElement, attributes, controllers) {
+                                        var submitController = controllers[0];
 
-        SubmitActionController.prototype.isGoodToGo = function (fieldModelController) {
-            if (!this.formController)
-                return false;
-            if (this.needsAttention(fieldModelController))
-                return false;
+                                        var formController = (controllers.length > 1) ? controllers[1] : null;
+                                        submitController.formController = formController;
 
-            if (fieldModelController)
-                return fieldModelController.$valid && (fieldModelController.$dirty || this.attempted);
+                                        scope['t3'] = scope['t3'] || {};
+                                        scope['t3'][attributes['name']] = submitController;
+                                    },
+                                    post: function (scope, formElement, attributes, controllers) {
+                                        var submitController = controllers[0];
+                                        var formController = (controllers.length > 1) ? controllers[1] : null;
 
-            return this.formController && this.formController.$valid && (this.formController.$dirty || this.attempted);
-        };
-        return SubmitActionController;
-    })();
-});
+                                        var fn = $parse(attributes[SubmitAction.directiveName]);
+
+                                        formElement.bind('submit', function () {
+                                            submitController.attempted = true;
+                                            if (!scope.$$phase)
+                                                scope.$apply();
+
+                                            if (!formController.$valid)
+                                                return false;
+
+                                            scope.$apply(function () {
+                                                fn(scope, { $event: event });
+                                            });
+                                            return true;
+                                        });
+
+                                        if (attributes['ngT3SubmitActionAttempted'])
+                                            submitController.attempted = true;
+                                    }
+                                };
+                            }
+                        };
+                        return directive;
+                    }];
+            };
+
+            SubmitAction.directive = directiveFactory();
+        })(Directives.SubmitAction || (Directives.SubmitAction = {}));
+        var SubmitAction = Directives.SubmitAction;
+    })(App.Directives || (App.Directives = {}));
+    var Directives = App.Directives;
+})(App || (App = {}));

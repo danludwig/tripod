@@ -1,35 +1,33 @@
 'use strict';
 
-import iScope = require('../../_common/IModelScope');
-import iModel = require('./FormModel');
+module App.Security.SignUp.Form {
 
-export interface IFormScope extends iScope.IModelScope<iModel.IFormModel> { }
+    export interface IFormScope extends IModelScope<IFormModel> { }
 
-export var controllerName = 'FormController';
+    export class Controller implements IFormModel {
 
-export class FormController implements iModel.IFormModel {
+        emailAddress: string = '';
+        isExpectingEmail: boolean = false;
 
-    emailAddress: string = '';
-    isExpectingEmail: boolean = false;
+        static $inject = ['$scope'];
+        constructor($scope: IFormScope) {
+            $scope.m = this;
+        }
 
-    static $inject = ['$scope'];
-    constructor($scope: IFormScope) {
-        $scope.m = this;
-    }
+        submit(arg1: any): boolean {
+            alert('submit');
+            return false;
+        }
 
-    submit(arg1: any): boolean {
-        alert('submit');
-        return false;
-    }
+        click(m: any): void {
+            //alert('click');
+        }
 
-    click(m: any): void {
-        //alert('click');
-    }
-
-    hasError(field: ng.INgModelController): boolean {
-        return field && field.$invalid && field.$dirty;
-    }
-    hasSuccess(field: ng.INgModelController): boolean {
-        return field && field.$valid && field.$dirty;
+        hasError(field: ng.INgModelController): boolean {
+            return field && field.$invalid && field.$dirty;
+        }
+        hasSuccess(field: ng.INgModelController): boolean {
+            return field && field.$valid && field.$dirty;
+        }
     }
 }

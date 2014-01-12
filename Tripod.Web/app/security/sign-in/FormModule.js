@@ -1,5 +1,16 @@
 'use strict';
-define(["require", "exports", './FormController', '../../_ng/directives/SubmitActionDirective', '../../_ng/directives/InputPreFormatterDirective', '../../_ng/directives/RemoveCssClassDirective', '../../_ng/directives/BootstrapPopover', '../../_ng/directives/FormHelperDirective', '../../_ng/directives/ModelHelperDirective', '../../_ng/directives/ServerErrorDirective', '../../_ng/directives/ServerValidateDirective', "angular"], function(require, exports, cForm, dSubmitAction, dInputPreFormatter, dRemoveClass, dPopover, dFormHelper, dModelHelper, dServerError, dServerValidate) {
-    exports.ngModule = angular.module('SignInModule', ['ui.bootstrap']).controller(cForm.controllerName, cForm.FormController).directive(dSubmitAction.directiveName, dSubmitAction.ngT3SubmitAction).directive(dInputPreFormatter.directiveName, dInputPreFormatter.ngT3InputPreFormatter).directive(dRemoveClass.directiveName, dRemoveClass.ngT3RemoveClass).directive(dPopover.directiveName, dPopover.directive).directive(dFormHelper.directiveName, dFormHelper.directive).directive(dModelHelper.directiveName, dModelHelper.directive).directive(dServerError.directiveName, dServerError.directive).directive(dServerValidate.directiveName, dServerValidate.directive);
-    return exports.ngModule;
-});
+var App;
+(function (App) {
+    (function (Security) {
+        (function (SignIn) {
+            (function (Form) {
+                Form.moduleName = 'sign-in-form';
+
+                Form.ngModule = angular.module(Form.moduleName, [App.Modules.Tripod.moduleName]);
+            })(SignIn.Form || (SignIn.Form = {}));
+            var Form = SignIn.Form;
+        })(Security.SignIn || (Security.SignIn = {}));
+        var SignIn = Security.SignIn;
+    })(App.Security || (App.Security = {}));
+    var Security = App.Security;
+})(App || (App = {}));

@@ -1,18 +1,20 @@
 'use strict';
 
-interface IRemoveClassAttributes extends ng.IAttributes {
-    ngT3RemoveClass?: string;
-}
+module App.Directives.RemoveCssClass {
 
-export var directiveName = 'ngT3RemoveClass';
+    export var directiveName = 'removeClass';
 
-export function ngT3RemoveClass(): ng.IDirective {
-    var directive: ng.IDirective = {
-        restrict: 'A',
-        link: (scope: ng.IScope, element: JQuery, attrs: IRemoveClassAttributes) => {
-            element.removeClass(attrs.ngT3RemoveClass);
-        }
+    var directiveFactory = (): () => ng.IDirective => {
+        return (): ng.IDirective => {
+            var directive: ng.IDirective = {
+                restrict: 'A',
+                link: (scope: ng.IScope, element: JQuery, attrs: ng.IAttributes) => {
+                    element.removeClass(attrs[directiveName]);
+                }
+            };
+            return directive;
+        };
     };
-    return directive;
-}
 
+    export var directive = directiveFactory();
+}

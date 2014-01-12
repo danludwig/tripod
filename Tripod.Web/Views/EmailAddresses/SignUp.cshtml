@@ -11,7 +11,7 @@
     @ViewBag.Title.
 </h2>
 
-<div id="ng-app_test" ng-controller="FormController">
+<div ng-app="sign-up-form" ng-controller="App.Security.SignUp.Form.Controller">
     <form name="f" action="@Url.Action(MVC.EmailAddresses.SignUp(null))" method="POST" class="form-horizontal" role="form"
           ng-t3-submit-action="submit()" ng-t3-submit-action-attempted="@(!ViewData.ModelState.IsValid)" novalidate>
 
@@ -23,7 +23,7 @@
 
         @* EMAIL ADDRESS INPUT *@
         <div class="form-group @Html.BootstrapValidationCssClassFor(x => x.EmailAddress)"
-             ng-t3-remove-class="has-success has-error"
+             remove-class="has-success has-error"
              ng-class="{ 'has-success': t3.f.isGoodToGo(f.EmailAddress), 'has-error': t3.f.needsAttention(f.EmailAddress) }">
 
             @* LABEL COLUMN *@
@@ -68,7 +68,7 @@
 
         @* DISCLAIMER CHECKBOX INPUT *@
         <div class="form-group @Html.BootstrapValidationCssClassFor(x => x.IsExpectingEmail)"
-             ng-t3-remove-class="has-success has-error"
+             remove-class="has-success has-error"
              ng-class="{ 'has-success': t3.f.isGoodToGo(f.IsExpectingEmail), 'has-error': t3.f.needsAttention(f.IsExpectingEmail) }">
 
             @* INPUT GROUP COLUMN (OFFSET WITHOUT LABEL COLUMN) *@
@@ -135,5 +135,17 @@
 </div>
 
 @section scripts {
-    <script src="~/scripts/require.js" data-main="@Url.Content("~/app/security/confirm-email-address/FormMain.js")"></script>
+    @*<script src="~/scripts/require.js" data-main="@Url.Content("~/app/security/confirm-email-address/FormMain.js")"></script>*@
+    <script src="~/scripts/angular.js"></script>
+    <script src="~/app/_ng/directives/InputPreFormatterDirective.js"></script>
+    <script src="~/app/_ng/directives/RemoveCssClassDirective.js"></script>
+    <script src="~/app/_ng/directives/BootstrapPopover.js"></script>
+    <script src="~/app/_ng/directives/FormHelperDirective.js"></script>
+    <script src="~/app/_ng/directives/ModelHelperDirective.js"></script>
+    <script src="~/app/_ng/directives/ServerErrorDirective.js"></script>
+    <script src="~/app/_ng/directives/ServerValidateDirective.js"></script>
+    <script src="~/app/_ng/directives/SubmitActionDirective.js"></script>
+    <script src="~/app/_ng/modules/Tripod.js"></script>
+    <script src="~/app/security/confirm-email-address/FormModule.js"></script>
+    <script src="~/app/security/confirm-email-address/FormController.js"></script>
 }
