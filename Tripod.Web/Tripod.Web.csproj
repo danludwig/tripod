@@ -27,6 +27,7 @@
     <TypeScriptModuleKind>amd</TypeScriptModuleKind>
     <TypeScriptSourceMap>False</TypeScriptSourceMap>
     <IsCompassProject>True</IsCompassProject>
+    <TypeScriptRemoveComments>True</TypeScriptRemoveComments>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>

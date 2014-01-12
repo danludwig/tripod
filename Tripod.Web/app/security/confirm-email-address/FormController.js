@@ -14,7 +14,6 @@ define(["require", "exports"], function(require, exports) {
         };
 
         FormController.prototype.click = function (m) {
-            //alert('click');
         };
 
         FormController.prototype.hasError = function (field) {

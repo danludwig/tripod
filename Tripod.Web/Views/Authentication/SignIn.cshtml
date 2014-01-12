@@ -152,7 +152,7 @@
                 @* PASSWORD INPUT *@
                 <div class="form-group form-group-lg @Html.BootstrapValidationCssClassFor(x => x.Password)"
                      ng-t3-remove-class="has-success has-error"
-                     ng-class="{ 'has-success': h.password.hasSuccess(), 'has-error': h.password.hasError() }">
+                     ng-class="{ 'has-error': h.password.hasError() }">
 
                     @* INPUT GROUP COLUMN *@
                     <div class="col-md-8">
@@ -162,15 +162,15 @@
                         </label>
                         <div class="@Html.CssClassWhenInvalidFor(x => x.Password, inputGroupCss)"
                              ng-t3-remove-class="@inputGroupCss"
-                             ng-class="{ '@inputGroupCss': h.password.hasFeedback() }">
-                            <input type="PASSWORD" class="form-control @inputCss" placeholder="@LocalMembership.Constraints.PasswordLabel"
+                             ng-class="{ '@inputGroupCss': h.password.hasError() }">
+                            <input type="password" class="form-control @inputCss" placeholder="@LocalMembership.Constraints.PasswordLabel"
                                    id="@Html.IdFor(x => x.Password)" name="password"
                                    ng-model="m.password" required model-helper
                                    server-error="@Html.ValidationMessageTextFor(x => x.Password)" />
 
                             <span class="input-group-addon validation @Html.CssClassWhenValidFor(x => x.Password, "hide")"
                                   ng-t3-remove-class="hide"
-                                  ng-class="{ 'hide':  !h.password.hasFeedback() }">
+                                  ng-class="{ 'hide':  !h.password.hasError() }">
                                 <i class="fa fa-fw fa-asterisk default" title="This is a required field"></i>
                                 <i class="fa fa-fw fa-times error"></i>
                                 <i class="fa fa-fw fa-exclamation-triangle warning"></i>

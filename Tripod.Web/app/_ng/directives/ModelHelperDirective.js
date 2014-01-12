@@ -27,7 +27,6 @@ define(["require", "exports"], function(require, exports) {
     })();
     exports.ModelHelperController = ModelHelperController;
 
-    //#region Directive
     var directiveFactory = function () {
         return function () {
             var directive = {
@@ -36,16 +35,13 @@ define(["require", "exports"], function(require, exports) {
                 require: [exports.directiveName, 'ngModel', '^formHelper'],
                 controller: ModelHelperController,
                 link: function (scope, element, attr, ctrls) {
-                    // get the required controllers based on directive order
                     var helpCtrl = ctrls[0];
                     var modelCtrl = ctrls[1];
                     var formCtrl = ctrls[2];
 
-                    // give the helper controller access to the other controllers
                     helpCtrl.modelController = modelCtrl;
                     helpCtrl.formController = formCtrl;
 
-                    // put the helper controller on the scope
                     var alias = $.trim(attr['name']);
                     if (alias)
                         formCtrl[alias] = helpCtrl;
@@ -55,6 +51,5 @@ define(["require", "exports"], function(require, exports) {
         };
     };
 
-    //#endregion
     exports.directive = directiveFactory();
 });

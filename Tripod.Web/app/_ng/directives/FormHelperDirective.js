@@ -4,7 +4,6 @@ define(["require", "exports"], function(require, exports) {
 
     var FormHelperController = (function () {
         function FormHelperController() {
-            // tells us whether or not a form submit has been attempted
             this.submitAttempted = false;
             this.isSubmitDisabled = false;
         }
@@ -12,9 +11,7 @@ define(["require", "exports"], function(require, exports) {
     })();
     exports.FormHelperController = FormHelperController;
 
-    //#region Directive
     var directiveFactory = function () {
-        // inject parse service
         return [
             '$parse', function ($parse) {
                 var directive = {
@@ -25,45 +22,32 @@ define(["require", "exports"], function(require, exports) {
                     compile: function () {
                         return {
                             pre: function (scope, element, attr, ctrls) {
-                                // get the required controllers based on directive order
                                 var helpCtrl = ctrls[0];
                                 var formCtrl = ctrls[1];
 
-                                // give the helper controller access to the form controller
                                 helpCtrl.formController = formCtrl;
 
-                                // initialize the form submission
                                 if (attr['submitAttempted'])
                                     helpCtrl.submitAttempted = true;
 
-                                // put the helper controller on the scope
                                 var alias = $.trim(attr[exports.directiveName]);
                                 if (alias)
                                     scope[alias] = helpCtrl;
                             },
                             post: function (scope, element, attr, ctrls) {
-                                // get the required controllers based on directive order
                                 var helpCtrl = ctrls[0];
                                 var formCtrl = ctrls[1];
 
-                                // this is in case the attribute has a submit action
-                                //var fn = $parse(attr[directiveName]);
                                 element.bind('submit', function () {
-                                    // record the fact that a form submission was attempted
                                     helpCtrl.submitAttempted = true;
                                     if (formCtrl.$valid)
                                         helpCtrl.isSubmitDisabled = true;
                                     if (!scope.$$phase)
                                         scope.$apply();
 
-                                    // prevent the form from being submitted if not valid
                                     if (!formCtrl.$valid)
                                         return false;
 
-                                    //scope.$apply((): void => {
-                                    //    // invoke the submit action on the scope
-                                    //    fn(scope, { $event: event });
-                                    //});
                                     return true;
                                 });
                             }
@@ -74,6 +58,5 @@ define(["require", "exports"], function(require, exports) {
             }];
     };
 
-    //#endregion
     exports.directive = directiveFactory();
 });
