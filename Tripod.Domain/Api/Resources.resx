@@ -222,4 +222,7 @@
   <data name="Validation_SendConfirmationEmail_IsExpectingEmail" xml:space="preserve">
     <value>Please acknowledge that you will expect a confirmation email to be sent to this {PropertyName}.</value>
   </data>
+  <data name="Validation_CouldNotFind" xml:space="preserve">
+    <value>Could not find {PropertyName} '{PropertyValue}'.</value>
+  </data>
 </root>

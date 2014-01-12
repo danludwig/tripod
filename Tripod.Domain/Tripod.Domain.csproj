@@ -116,6 +116,7 @@
     <Compile Include="Domain\Security\Validation\MustBeVerifiedPassword.cs" />
     <Compile Include="Domain\Security\Validation\MustFindLocalMembershipByPrincipal.cs" />
     <Compile Include="Domain\Security\Validation\MustFindRemoteMembershipTicket.cs" />
+    <Compile Include="Domain\Security\Validation\MustFindUserByNameOrEmail.cs" />
     <Compile Include="Domain\Security\Validation\MustNotFindLocalMembershipByPrincipal.cs" />
     <Compile Include="Domain\Security\Validation\MustFindUserByPrincipal.cs" />
     <Compile Include="Domain\Security\Validation\MustFindUserByLoginProviderKey.cs" />

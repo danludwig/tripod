@@ -268,6 +268,15 @@ namespace Tripod {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Could not find {PropertyName} &apos;{PropertyValue}&apos;..
+        /// </summary>
+        public static string Validation_CouldNotFind {
+            get {
+                return ResourceManager.GetString("Validation_CouldNotFind", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {PropertyName} &apos;{PropertyValue}&apos; does not exist..
         /// </summary>
         public static string Validation_DoesNotExist {
