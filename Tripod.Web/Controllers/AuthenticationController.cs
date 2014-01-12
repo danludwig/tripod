@@ -36,6 +36,8 @@ namespace Tripod.Web.Controllers
         [HttpPost, Route("sign-in")]
         public virtual async Task<ActionResult> SignIn(SignIn command, string returnUrl)
         {
+            //System.Threading.Thread.Sleep(new Random().Next(5000, 5001));
+
             if (!ModelState.IsValid) return View(Views.SignIn, command);
             await _commands.Execute(command);
             return RedirectToLocal(returnUrl);
@@ -45,7 +47,7 @@ namespace Tripod.Web.Controllers
         [HttpPost, Route("sign-in/validate/{fieldName?}")]
         public virtual ActionResult SignInValidate(SignIn command, string fieldName = null)
         {
-            //System.Threading.Thread.Sleep(new Random().Next(2000, 5000));
+            //System.Threading.Thread.Sleep(new Random().Next(5000, 5001));
 
             var result = new ValidatedFields(ModelState, fieldName);
             return new CamelCaseJsonResult(result);

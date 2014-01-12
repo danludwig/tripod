@@ -6,6 +6,7 @@ define(["require", "exports"], function(require, exports) {
         function FormHelperController() {
             // tells us whether or not a form submit has been attempted
             this.submitAttempted = false;
+            this.isSubmitDisabled = false;
         }
         return FormHelperController;
     })();

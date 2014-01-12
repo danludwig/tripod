@@ -97,6 +97,7 @@
                                    model-helper
                                    server-validate="@Url.Action(MVC.Authentication.SignInValidate(null, "userName"))"
                                    server-validate-throttle="200"
+                                   server-validate-no-success="@(!IsPost)"
                                    ng-init="m.userName='@Html.ValueFor(x => x.UserName)'"
                                    server-error="@Html.ValidationMessageTextFor(x => x.UserName)" />
 
@@ -205,17 +206,15 @@
 
                     @* INPUT GROUP COLUMN (OFFSET WITHOUT LABEL COLUMN) *@
                     <div class="col-md-8">
-                        <div class="form-control">
-                            <div class="checkbox">
-                                <label>
-                                    <input type="checkbox" id="@Html.IdFor(x => x.IsPersistent)" name="isPersistent" value="true"
-                                           checked="@(Model != null && Model.IsPersistent ? "checked" : null)"
-                                           ng-model="m.isPersistent"
-                                           ng-init="m.isPersistent=@(Model != null ? Html.ValueFor(x => x.IsPersistent) : MvcHtmlString.Create("false"))" />
-                                    <input type="hidden" name="isPersistent" value="false" />
-                                    Keep me signed in after I close my browser
-                                </label>
-                            </div>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" id="@Html.IdFor(x => x.IsPersistent)" name="isPersistent" value="true"
+                                       checked="@(Model != null && Model.IsPersistent ? "checked" : null)"
+                                       ng-model="m.isPersistent"
+                                       ng-init="m.isPersistent=@(Model != null ? Html.ValueFor(x => x.IsPersistent) : MvcHtmlString.Create("false"))" />
+                                <input type="hidden" name="isPersistent" value="false" />
+                                Keep me signed in after I close my browser
+                            </label>
                         </div>
                     </div>
                 </div>
@@ -223,7 +222,7 @@
                 @* FORM SUBMIT BUTTON *@
                 <div class="form-group">
                     <div class="col-md-4">
-                        <input type="submit" class="btn btn-primary btn-lg btn-block" value="Sign In" />
+                        <input type="submit" class="btn btn-primary btn-lg btn-block" value="Sign In" ng-disabled="h.isSubmitDisabled" />
                     </div>
                 </div>
             </form>

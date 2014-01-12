@@ -1,5 +1,6 @@
 'use strict';
 
+import dFormHelper = require('./FormHelperDirective');
 import dModelHelper = require('./ModelHelperDirective');
 
 export var directiveName = 'serverValidate';
@@ -29,7 +30,6 @@ export class ServerValidateController {
     }
 
     setError(validateAttempt: ServerValidateAttempt): void {
-        //this.modelController.$setValidity('server', hasResult ? validateAttempt.result.isValid : true);
 
         if (!validateAttempt) {
             this.helpController.isNoSuccess = false;
@@ -64,20 +64,23 @@ var directiveFactory = (): any[]=> {
         var directive: ng.IDirective = {
             name: directiveName,
             restrict: 'A', // attribute only
-            require: [directiveName, 'modelHelper', 'ngModel'],
+            require: [directiveName, 'modelHelper', 'ngModel', '^formHelper', '^form'],
             controller: ServerValidateController,
             link: (scope: ng.IScope, element: JQuery, attr: ng.IAttributes, ctrls: any[]): void => {
 
                 // unload controllers from array and wire dependencies to validation controller
                 var validateCtrl: ServerValidateController = ctrls[0];
-                var helpCtrl: dModelHelper.ModelHelperController = ctrls[1];
+                var modelHelpCtrl: dModelHelper.ModelHelperController = ctrls[1];
                 var modelCtrl: ng.INgModelController = ctrls[2];
-                validateCtrl.helpController = helpCtrl;
+                var formHelpCtrl: dFormHelper.FormHelperController = ctrls[3];
+                var formCtrl: ng.IFormController = ctrls[4];
+                validateCtrl.helpController = modelHelpCtrl;
                 validateCtrl.modelController = modelCtrl;
 
                 // get configuration attributes
                 var validateUrl = attr[directiveName];
                 var validateThrottleAttr: string = attr['serverValidateThrottle'];
+                var validateNoSuccessAttr: string = attr['serverValidateNoSuccess'];
                 var throttle = isNaN(parseInt(validateThrottleAttr)) ? 0 : parseInt(validateThrottleAttr);
                 var validateDataAttr: string = attr['serverValidateData'];
 
@@ -89,6 +92,8 @@ var directiveFactory = (): any[]=> {
 
                     if (formInterval) $interval.cancel(formInterval);
 
+                    formHelpCtrl.isSubmitDisabled = true;
+
                     // make sure the value is valid
                     foundAttempt = validateCtrl.getAttempt(modelCtrl.$viewValue);
                     if (foundAttempt && foundAttempt.result) {
@@ -97,15 +102,17 @@ var directiveFactory = (): any[]=> {
                         if (!foundAttempt.result.isValid) {
                             e.preventDefault();
                         }
+                        if (formCtrl.$invalid) // keep submit disabled when the whole form is valid
+                            formHelpCtrl.isSubmitDisabled = false;
                         return foundAttempt.result.isValid;
                     };
 
-                    helpCtrl.isServerValidating = true; // do this in case first attempt is blocking it
+                    modelHelpCtrl.isServerValidating = true; // do this in case first attempt is blocking it
                     formInterval = $interval((): void => {
                         foundAttempt = validateCtrl.getAttempt(modelCtrl.$viewValue);
                         if (foundAttempt && foundAttempt.result) {
                             $interval.cancel(formInterval);
-                            helpCtrl.isServerValidating = false;
+                            modelHelpCtrl.isServerValidating = false;
                             form.submit();
                         }
                     }, 10);
@@ -126,11 +133,13 @@ var directiveFactory = (): any[]=> {
                         // if this value has already been attempted and returned a result, skip promise
                         var attempt = validateCtrl.getAttempt(value);
                         if (attempt && attempt.result) { // when the attempt has a server result
+                            lastAttempt = attempt;
+                            modelHelpCtrl.isServerValidating = false;
                             // the first attempt may have been pre-evaluated, but may not be ready for display
                             if (attempt.result.isValid || attempt == validateCtrl.attempts[0]) { // and the attempt was valid
                                 validateCtrl.setError(null); // clear the server error
-                                if (attempt == validateCtrl.attempts[0] && !attempt.result.isValid) {
-                                    helpCtrl.isNoSuccess = true;
+                                if (attempt == validateCtrl.attempts[0] && !attempt.result.isValid && validateNoSuccessAttr) {
+                                    modelHelpCtrl.isNoSuccess = true;
                                 }
                             } else { // but when the attempt was not valid
                                 validateCtrl.setError(attempt); // set the server error
@@ -163,9 +172,9 @@ var directiveFactory = (): any[]=> {
                         }
 
                         // if there is any other validator on this field that has an error, yield to it
-                        var previousServerMessage = helpCtrl.serverError; // stash any current server error
+                        var previousServerMessage = modelHelpCtrl.serverError; // stash any current server error
                         modelCtrl.$setValidity('server', true);
-                        helpCtrl.serverError = null;
+                        modelHelpCtrl.serverError = null;
                         if (!modelCtrl.$valid) {
                             if (!validateCtrl.attempts.length) {
                                 validateCtrl.attempts.push({
@@ -179,12 +188,13 @@ var directiveFactory = (): any[]=> {
                             return; // another validator is telling us the field is invalid, yield to it
                         } else { // restore the stash
                             modelCtrl.$setValidity('server', previousServerMessage ? false : true);
-                            helpCtrl.serverError = previousServerMessage;
+                            modelHelpCtrl.serverError = previousServerMessage;
                         }
 
                         // tell the help controller that there is no success, don't want to fool/confuse the user
                         // by showing a checkmark if we are going to display the spinner immediately after
-                        helpCtrl.isNoSuccess = true;
+                        if (validateNoSuccessAttr)
+                            modelHelpCtrl.isNoSuccess = true;
 
                         throttlePromise = $timeout((): void => {
 
@@ -205,7 +215,7 @@ var directiveFactory = (): any[]=> {
                             var spinnerTimeoutPromise = $timeout((): void => {
                                 // don't want to show a spinner when this runs the first time
                                 if (attempt != validateCtrl.attempts[0]) {
-                                    helpCtrl.isServerValidating = true;
+                                    modelHelpCtrl.isServerValidating = true;
                                 }
                             }, 20);
 
@@ -233,7 +243,7 @@ var directiveFactory = (): any[]=> {
                                         return;
                                     }
 
-                                    helpCtrl.isServerValidating = false;
+                                    modelHelpCtrl.isServerValidating = false;
                                     if (attempt.result.isValid) {
                                         validateCtrl.setError(null);
                                     }
@@ -243,7 +253,7 @@ var directiveFactory = (): any[]=> {
                                 })
                                 .error((data: any, status: number): void => {
                                     $timeout.cancel(spinnerTimeoutPromise);
-                                    helpCtrl.isServerValidating = false;
+                                    modelHelpCtrl.isServerValidating = false;
 
                                     // when status is zero, user probably refreshed before this returned
                                     if (status === 0) return;

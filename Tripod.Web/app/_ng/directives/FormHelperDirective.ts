@@ -7,6 +7,8 @@ export class FormHelperController {
     // tells us whether or not a form submit has been attempted
     submitAttempted = false;
 
+    isSubmitDisabled = false;
+
     // keep a reference to the angular form controller
     formController: ng.IFormController;
 

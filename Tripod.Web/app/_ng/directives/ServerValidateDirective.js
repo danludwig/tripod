@@ -17,7 +17,6 @@ define(["require", "exports"], function(require, exports) {
         };
 
         ServerValidateController.prototype.setError = function (validateAttempt) {
-            //this.modelController.$setValidity('server', hasResult ? validateAttempt.result.isValid : true);
             if (!validateAttempt) {
                 this.helpController.isNoSuccess = false;
                 this.helpController.serverError = null;
@@ -52,19 +51,22 @@ define(["require", "exports"], function(require, exports) {
                 var directive = {
                     name: exports.directiveName,
                     restrict: 'A',
-                    require: [exports.directiveName, 'modelHelper', 'ngModel'],
+                    require: [exports.directiveName, 'modelHelper', 'ngModel', '^formHelper', '^form'],
                     controller: ServerValidateController,
                     link: function (scope, element, attr, ctrls) {
                         // unload controllers from array and wire dependencies to validation controller
                         var validateCtrl = ctrls[0];
-                        var helpCtrl = ctrls[1];
+                        var modelHelpCtrl = ctrls[1];
                         var modelCtrl = ctrls[2];
-                        validateCtrl.helpController = helpCtrl;
+                        var formHelpCtrl = ctrls[3];
+                        var formCtrl = ctrls[4];
+                        validateCtrl.helpController = modelHelpCtrl;
                         validateCtrl.modelController = modelCtrl;
 
                         // get configuration attributes
                         var validateUrl = attr[exports.directiveName];
                         var validateThrottleAttr = attr['serverValidateThrottle'];
+                        var validateNoSuccessAttr = attr['serverValidateNoSuccess'];
                         var throttle = isNaN(parseInt(validateThrottleAttr)) ? 0 : parseInt(validateThrottleAttr);
                         var validateDataAttr = attr['serverValidateData'];
 
@@ -76,6 +78,8 @@ define(["require", "exports"], function(require, exports) {
                             if (formInterval)
                                 $interval.cancel(formInterval);
 
+                            formHelpCtrl.isSubmitDisabled = true;
+
                             // make sure the value is valid
                             foundAttempt = validateCtrl.getAttempt(modelCtrl.$viewValue);
                             if (foundAttempt && foundAttempt.result) {
@@ -85,16 +89,18 @@ define(["require", "exports"], function(require, exports) {
                                 if (!foundAttempt.result.isValid) {
                                     e.preventDefault();
                                 }
+                                if (formCtrl.$invalid)
+                                    formHelpCtrl.isSubmitDisabled = false;
                                 return foundAttempt.result.isValid;
                             }
                             ;
 
-                            helpCtrl.isServerValidating = true; // do this in case first attempt is blocking it
+                            modelHelpCtrl.isServerValidating = true; // do this in case first attempt is blocking it
                             formInterval = $interval(function () {
                                 foundAttempt = validateCtrl.getAttempt(modelCtrl.$viewValue);
                                 if (foundAttempt && foundAttempt.result) {
                                     $interval.cancel(formInterval);
-                                    helpCtrl.isServerValidating = false;
+                                    modelHelpCtrl.isServerValidating = false;
                                     form.submit();
                                 }
                             }, 10);
@@ -113,11 +119,14 @@ define(["require", "exports"], function(require, exports) {
                             // if this value has already been attempted and returned a result, skip promise
                             var attempt = validateCtrl.getAttempt(value);
                             if (attempt && attempt.result) {
+                                lastAttempt = attempt;
+                                modelHelpCtrl.isServerValidating = false;
+
                                 // the first attempt may have been pre-evaluated, but may not be ready for display
                                 if (attempt.result.isValid || attempt == validateCtrl.attempts[0]) {
                                     validateCtrl.setError(null); // clear the server error
-                                    if (attempt == validateCtrl.attempts[0] && !attempt.result.isValid) {
-                                        helpCtrl.isNoSuccess = true;
+                                    if (attempt == validateCtrl.attempts[0] && !attempt.result.isValid && validateNoSuccessAttr) {
+                                        modelHelpCtrl.isNoSuccess = true;
                                     }
                                 } else {
                                     validateCtrl.setError(attempt); // set the server error
@@ -150,9 +159,9 @@ define(["require", "exports"], function(require, exports) {
                             }
 
                             // if there is any other validator on this field that has an error, yield to it
-                            var previousServerMessage = helpCtrl.serverError;
+                            var previousServerMessage = modelHelpCtrl.serverError;
                             modelCtrl.$setValidity('server', true);
-                            helpCtrl.serverError = null;
+                            modelHelpCtrl.serverError = null;
                             if (!modelCtrl.$valid) {
                                 if (!validateCtrl.attempts.length) {
                                     validateCtrl.attempts.push({
@@ -166,12 +175,13 @@ define(["require", "exports"], function(require, exports) {
                                 return;
                             } else {
                                 modelCtrl.$setValidity('server', previousServerMessage ? false : true);
-                                helpCtrl.serverError = previousServerMessage;
+                                modelHelpCtrl.serverError = previousServerMessage;
                             }
 
                             // tell the help controller that there is no success, don't want to fool/confuse the user
                             // by showing a checkmark if we are going to display the spinner immediately after
-                            helpCtrl.isNoSuccess = true;
+                            if (validateNoSuccessAttr)
+                                modelHelpCtrl.isNoSuccess = true;
 
                             throttlePromise = $timeout(function () {
                                 // this will run the very first time the directive is loaded
@@ -190,7 +200,7 @@ define(["require", "exports"], function(require, exports) {
                                 var spinnerTimeoutPromise = $timeout(function () {
                                     // don't want to show a spinner when this runs the first time
                                     if (attempt != validateCtrl.attempts[0]) {
-                                        helpCtrl.isServerValidating = true;
+                                        modelHelpCtrl.isServerValidating = true;
                                     }
                                 }, 20);
 
@@ -215,7 +225,7 @@ define(["require", "exports"], function(require, exports) {
                                         return;
                                     }
 
-                                    helpCtrl.isServerValidating = false;
+                                    modelHelpCtrl.isServerValidating = false;
                                     if (attempt.result.isValid) {
                                         validateCtrl.setError(null);
                                     } else {
@@ -223,7 +233,7 @@ define(["require", "exports"], function(require, exports) {
                                     }
                                 }).error(function (data, status) {
                                     $timeout.cancel(spinnerTimeoutPromise);
-                                    helpCtrl.isServerValidating = false;
+                                    modelHelpCtrl.isServerValidating = false;
 
                                     // when status is zero, user probably refreshed before this returned
                                     if (status === 0)
