@@ -275,35 +275,35 @@
     <Content Include="app\security\sign-in\FormModule.js">
       <DependentUpon>FormModule.ts</DependentUpon>
     </Content>
-    <Content Include="app\_ng\directives\BootstrapPopover.js">
-      <DependentUpon>BootstrapPopover.ts</DependentUpon>
-    </Content>
-    <Content Include="app\_ng\directives\FormHelperDirective.js">
-      <DependentUpon>FormHelperDirective.ts</DependentUpon>
-    </Content>
-    <Content Include="app\_ng\directives\InputPreFormatterDirective.js">
-      <DependentUpon>InputPreFormatterDirective.ts</DependentUpon>
-    </Content>
-    <Content Include="app\_ng\directives\ModelHelperDirective.js">
-      <DependentUpon>ModelHelperDirective.ts</DependentUpon>
-    </Content>
-    <Content Include="app\_ng\directives\RemoveCssClassDirective.js">
-      <DependentUpon>RemoveCssClassDirective.ts</DependentUpon>
-    </Content>
-    <Content Include="app\_ng\directives\ServerErrorDirective.js">
-      <DependentUpon>ServerErrorDirective.ts</DependentUpon>
-    </Content>
-    <Content Include="app\_ng\directives\ServerValidateDirective.js">
-      <DependentUpon>ServerValidateDirective.ts</DependentUpon>
-    </Content>
-    <Content Include="app\_ng\directives\SubmitActionDirective.js">
-      <DependentUpon>SubmitActionDirective.ts</DependentUpon>
-    </Content>
     <Content Include="app\security\confirm-email-address\FormController.js">
       <DependentUpon>FormController.ts</DependentUpon>
     </Content>
     <Content Include="app\security\confirm-email-address\FormModule.js">
       <DependentUpon>FormModule.ts</DependentUpon>
+    </Content>
+    <Content Include="app\_ng\directives\FormHelper.js">
+      <DependentUpon>FormHelper.ts</DependentUpon>
+    </Content>
+    <Content Include="app\_ng\directives\InputPreFormatter.js">
+      <DependentUpon>InputPreFormatter.ts</DependentUpon>
+    </Content>
+    <Content Include="app\_ng\directives\ModelHelper.js">
+      <DependentUpon>ModelHelper.ts</DependentUpon>
+    </Content>
+    <Content Include="app\_ng\directives\Popover.js">
+      <DependentUpon>Popover.ts</DependentUpon>
+    </Content>
+    <Content Include="app\_ng\directives\RemoveCssClass.js">
+      <DependentUpon>RemoveCssClass.ts</DependentUpon>
+    </Content>
+    <Content Include="app\_ng\directives\ServerError.js">
+      <DependentUpon>ServerError.ts</DependentUpon>
+    </Content>
+    <Content Include="app\_ng\directives\ServerValidate.js">
+      <DependentUpon>ServerValidate.ts</DependentUpon>
+    </Content>
+    <Content Include="app\_ng\directives\SubmitAction.js">
+      <DependentUpon>SubmitAction.ts</DependentUpon>
     </Content>
     <Content Include="app\_ng\modules\Tripod.js">
       <DependentUpon>Tripod.ts</DependentUpon>
@@ -720,14 +720,14 @@
     <TypeScriptCompile Include="app\security\sign-in\FormModule.ts" />
     <TypeScriptCompile Include="app\_common\IModelScope.d.ts" />
     <TypeScriptCompile Include="app\_common\ValidationModels.d.ts" />
-    <TypeScriptCompile Include="app\_ng\directives\BootstrapPopover.ts" />
-    <TypeScriptCompile Include="app\_ng\directives\FormHelperDirective.ts" />
-    <TypeScriptCompile Include="app\_ng\directives\ModelHelperDirective.ts" />
-    <TypeScriptCompile Include="app\_ng\directives\RemoveCssClassDirective.ts" />
-    <TypeScriptCompile Include="app\_ng\directives\InputPreFormatterDirective.ts" />
-    <TypeScriptCompile Include="app\_ng\directives\ServerErrorDirective.ts" />
-    <TypeScriptCompile Include="app\_ng\directives\ServerValidateDirective.ts" />
-    <TypeScriptCompile Include="app\_ng\directives\SubmitActionDirective.ts" />
+    <TypeScriptCompile Include="app\_ng\directives\Popover.ts" />
+    <TypeScriptCompile Include="app\_ng\directives\FormHelper.ts" />
+    <TypeScriptCompile Include="app\_ng\directives\ModelHelper.ts" />
+    <TypeScriptCompile Include="app\_ng\directives\RemoveCssClass.ts" />
+    <TypeScriptCompile Include="app\_ng\directives\InputPreFormatter.ts" />
+    <TypeScriptCompile Include="app\_ng\directives\ServerError.ts" />
+    <TypeScriptCompile Include="app\_ng\directives\ServerValidate.ts" />
+    <TypeScriptCompile Include="app\_ng\directives\SubmitAction.ts" />
     <TypeScriptCompile Include="app\security\confirm-email-address\FormController.ts" />
     <TypeScriptCompile Include="app\security\confirm-email-address\FormModule.ts" />
     <TypeScriptCompile Include="app\_ng\modules\Tripod.ts" />

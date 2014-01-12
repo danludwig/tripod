@@ -5,7 +5,7 @@ module App.Modules.Tripod {
     export var moduleName = 'tripod';
 
     export var ngModule = angular.module(moduleName, [])
-        .directive(Directives.Input.directiveName, Directives.Input.directive)
+        .directive(Directives.InputPreFormatter.directiveName, Directives.InputPreFormatter.directive)
         .directive(Directives.RemoveCssClass.directiveName, Directives.RemoveCssClass.directive)
         .directive(Directives.Popover.directiveName, Directives.Popover.directive)
         .directive(Directives.FormHelper.directiveName, Directives.FormHelper.directive)

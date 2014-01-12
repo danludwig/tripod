@@ -1,6 +1,6 @@
 'use strict';
 
-module App.Directives.Input {
+module App.Directives.InputPreFormatter {
 
     export var directiveName = 'input';
 

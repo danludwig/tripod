@@ -2,8 +2,8 @@
 var App;
 (function (App) {
     (function (Directives) {
-        (function (Input) {
-            Input.directiveName = 'input';
+        (function (InputPreFormatter) {
+            InputPreFormatter.directiveName = 'input';
 
             var directiveFactory = function () {
                 return function () {
@@ -29,9 +29,9 @@ var App;
                 };
             };
 
-            Input.directive = directiveFactory();
-        })(Directives.Input || (Directives.Input = {}));
-        var Input = Directives.Input;
+            InputPreFormatter.directive = directiveFactory();
+        })(Directives.InputPreFormatter || (Directives.InputPreFormatter = {}));
+        var InputPreFormatter = Directives.InputPreFormatter;
     })(App.Directives || (App.Directives = {}));
     var Directives = App.Directives;
 })(App || (App = {}));
