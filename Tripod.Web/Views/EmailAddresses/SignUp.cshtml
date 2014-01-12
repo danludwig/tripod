@@ -135,17 +135,12 @@
 </div>
 
 @section scripts {
-    @*<script src="~/scripts/require.js" data-main="@Url.Content("~/app/security/confirm-email-address/FormMain.js")"></script>*@
-    <script src="~/scripts/angular.js"></script>
-    <script src="~/app/_ng/directives/InputPreFormatter.js"></script>
-    <script src="~/app/_ng/directives/RemoveCssClass.js"></script>
-    <script src="~/app/_ng/directives/Popover.js"></script>
-    <script src="~/app/_ng/directives/FormHelper.js"></script>
-    <script src="~/app/_ng/directives/ModelHelper.js"></script>
-    <script src="~/app/_ng/directives/ServerError.js"></script>
-    <script src="~/app/_ng/directives/ServerValidate.js"></script>
-    <script src="~/app/_ng/directives/SubmitAction.js"></script>
-    <script src="~/app/_ng/modules/Tripod.js"></script>
-    <script src="~/app/security/confirm-email-address/FormModule.js"></script>
-    <script src="~/app/security/confirm-email-address/FormController.js"></script>
+    @if (BundleTable.EnableOptimizations)
+    {
+        <script src="~/app/security/confirm-email-address/form.min.js"></script>
+    }
+    else
+    {
+        <script src="~/app/security/confirm-email-address/form.js"></script>
+    }
 }

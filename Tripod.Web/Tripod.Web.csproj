@@ -269,6 +269,18 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="app\security\confirm-email-address\form.js">
+      <DependentUpon>form.js.bundle</DependentUpon>
+    </Content>
+    <Content Include="app\security\confirm-email-address\form.min.js">
+      <DependentUpon>form.js.bundle</DependentUpon>
+    </Content>
+    <Content Include="app\security\sign-in\form.js">
+      <DependentUpon>form.js.bundle</DependentUpon>
+    </Content>
+    <Content Include="app\security\sign-in\form.min.js">
+      <DependentUpon>form.js.bundle</DependentUpon>
+    </Content>
     <Content Include="app\security\sign-in\FormController.js">
       <DependentUpon>FormController.ts</DependentUpon>
     </Content>
@@ -304,6 +316,12 @@
     </Content>
     <Content Include="app\_ng\directives\SubmitAction.js">
       <DependentUpon>SubmitAction.ts</DependentUpon>
+    </Content>
+    <Content Include="app\_ng\modules\tripod-module.js">
+      <DependentUpon>tripod-module.js.bundle</DependentUpon>
+    </Content>
+    <Content Include="app\_ng\modules\tripod-module.min.js">
+      <DependentUpon>tripod-module.js.bundle</DependentUpon>
     </Content>
     <Content Include="app\_ng\modules\Tripod.js">
       <DependentUpon>Tripod.ts</DependentUpon>
@@ -359,6 +377,9 @@
     <Content Include="fonts\fontawesome-webfont.eot" />
     <Content Include="fonts\FontAwesome.otf" />
     <Content Include="compass\_global-variables.scss" />
+    <None Include="app\security\confirm-email-address\form.js.bundle" />
+    <None Include="app\security\sign-in\form.js.bundle" />
+    <None Include="app\_ng\modules\tripod-module.js.bundle" />
     <None Include="config.rb" />
     <None Include="compass\compass-defaults\ie.scss">
       <Compile>True</Compile>
