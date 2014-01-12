@@ -21,7 +21,7 @@ export class ModelHelperController {
     }
 
     hasSuccess(): boolean {
-        return !this.isServerValidating && !this.hasError() && this.modelController.$valid &&
+        return !this.isNoSuccess && !this.isServerValidating && !this.hasError() && this.modelController.$valid &&
             (this.modelController.$dirty || this.formController.submitAttempted);
     }
 
@@ -34,6 +34,7 @@ export class ModelHelperController {
     }
 
     isServerValidating = false;
+    isNoSuccess = false;
 
     serverError: string;
 }

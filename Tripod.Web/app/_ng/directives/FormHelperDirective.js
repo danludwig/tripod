@@ -45,8 +45,8 @@ define(["require", "exports"], function(require, exports) {
                                 var helpCtrl = ctrls[0];
                                 var formCtrl = ctrls[1];
 
-                                var fn = $parse(attr[exports.directiveName]);
-
+                                // this is in case the attribute has a submit action
+                                //var fn = $parse(attr[directiveName]);
                                 element.bind('submit', function () {
                                     // record the fact that a form submission was attempted
                                     helpCtrl.submitAttempted = true;
@@ -57,9 +57,10 @@ define(["require", "exports"], function(require, exports) {
                                     if (!formCtrl.$valid)
                                         return false;
 
-                                    scope.$apply(function () {
-                                        fn(scope, { $event: event });
-                                    });
+                                    //scope.$apply((): void => {
+                                    //    // invoke the submit action on the scope
+                                    //    fn(scope, { $event: event });
+                                    //});
                                     return true;
                                 });
                             }

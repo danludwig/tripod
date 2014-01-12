@@ -47,7 +47,8 @@ var directiveFactory = (): any[] => {
                         var helpCtrl: FormHelperController = ctrls[0];
                         var formCtrl: ng.IFormController = ctrls[1];
 
-                        var fn = $parse(attr[directiveName]);
+                        // this is in case the attribute has a submit action
+                        //var fn = $parse(attr[directiveName]);
 
                         element.bind('submit', (): boolean => {
 
@@ -58,9 +59,10 @@ var directiveFactory = (): any[] => {
                             // prevent the form from being submitted if not valid
                             if (!formCtrl.$valid) return false;
 
-                            scope.$apply((): void => {
-                                fn(scope, { $event: event });
-                            });
+                            //scope.$apply((): void => {
+                            //    // invoke the submit action on the scope
+                            //    fn(scope, { $event: event });
+                            //});
                             return true;
                         });
                     },

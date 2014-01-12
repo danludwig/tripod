@@ -5,13 +5,14 @@ define(["require", "exports"], function(require, exports) {
     var ModelHelperController = (function () {
         function ModelHelperController(scope) {
             this.isServerValidating = false;
+            this.isNoSuccess = false;
         }
         ModelHelperController.prototype.hasError = function () {
             return !this.isServerValidating && this.modelController.$invalid && (this.modelController.$dirty || this.formController.submitAttempted);
         };
 
         ModelHelperController.prototype.hasSuccess = function () {
-            return !this.isServerValidating && !this.hasError() && this.modelController.$valid && (this.modelController.$dirty || this.formController.submitAttempted);
+            return !this.isNoSuccess && !this.isServerValidating && !this.hasError() && this.modelController.$valid && (this.modelController.$dirty || this.formController.submitAttempted);
         };
 
         ModelHelperController.prototype.hasFeedback = function () {

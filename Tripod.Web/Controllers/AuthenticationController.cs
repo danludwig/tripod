@@ -45,7 +45,7 @@ namespace Tripod.Web.Controllers
         [HttpPost, Route("sign-in/validate/{fieldName?}")]
         public virtual ActionResult SignInValidate(SignIn command, string fieldName = null)
         {
-            //System.Threading.Thread.Sleep(new Random().Next(0, 5000));
+            //System.Threading.Thread.Sleep(new Random().Next(2000, 5000));
 
             var result = new ValidatedFields(ModelState, fieldName);
             return new CamelCaseJsonResult(result);
