@@ -94,14 +94,18 @@
                         <div class="@Html.CssClassWhenInvalidFor(x => x.UserName, inputGroupCss)"
                              ng-t3-remove-class="@inputGroupCss"
                              ng-class="{ '@inputGroupCss': h.userName.hasFeedback() }">
-                            <input type="text" class="form-control @inputCss" placeholder="@UserConstraints.NameLabel or @EmailAddress.Constraints.Label"
-                                   id="@Html.IdFor(x => x.UserName)" name="userName" value="@Html.ValueFor(x => x.UserName)"
+                            <input type="text"
+                                   class="form-control @inputCss"
+                                   placeholder="@UserConstraints.NameLabel or @EmailAddress.Constraints.Label"
+                                   id="@Html.IdFor(x => x.UserName)"
+                                   name="userName"
+                                   value="@Html.ValueFor(x => x.UserName)"
+                                   ng-init="m.userName='@Html.ValueFor(x => x.UserName)'"
                                    ng-model="m.userName" required
                                    model-helper
                                    server-validate="@Url.Action(MVC.Authentication.SignInValidate(null, "userName"))"
                                    server-validate-throttle="200"
                                    server-validate-no-success="@(!IsPost)"
-                                   ng-init="m.userName='@Html.ValueFor(x => x.UserName)'"
                                    server-error="@Html.ValidationMessageTextFor(x => x.UserName)" />
 
                             <span class="input-group-addon validation @Html.CssClassWhenValidFor(x => x.UserName, "hide")"
