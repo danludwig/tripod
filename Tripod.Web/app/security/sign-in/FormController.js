@@ -11,6 +11,9 @@ var App;
                         this.isPersistent = false;
                         $scope.vm = this;
                     }
+                    Controller.prototype.someMethod = function () {
+                        alert('doing some method');
+                    };
                     Controller.$inject = ['$scope'];
                     return Controller;
                 })();

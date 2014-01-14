@@ -143,7 +143,7 @@ var App;
                         var directive = {
                             name: ServerValidate.directiveName,
                             restrict: 'A',
-                            require: [ServerValidate.directiveName, 'modelHelper', 'ngModel', '^formHelper', '^form'],
+                            require: [ServerValidate.directiveName, 'modelHelper', 'ngModel', '^formContrib', '^form'],
                             controller: ServerValidateController,
                             link: function (scope, element, attr, ctrls) {
                                 var validateCtrl = ctrls[0];
@@ -167,7 +167,7 @@ var App;
                                     if (formInterval)
                                         $interval.cancel(formInterval);
 
-                                    formHelpCtrl.isSubmitDisabled = true;
+                                    formHelpCtrl.isSubmitWaiting = true;
 
                                     foundAttempt = validateCtrl.getAttempt(modelCtrl.$viewValue);
                                     if (foundAttempt && foundAttempt.result) {
@@ -178,7 +178,7 @@ var App;
                                             e.preventDefault();
                                         }
                                         if (formCtrl.$invalid)
-                                            formHelpCtrl.isSubmitDisabled = false;
+                                            formHelpCtrl.isSubmitWaiting = false;
                                         return foundAttempt.result.isValid;
                                     }
                                     ;
@@ -490,11 +490,11 @@ var App;
                     this.isNoSuccess = false;
                 }
                 Controller.prototype.hasError = function () {
-                    return !this.isServerValidating && this.modelController.$invalid && (this.modelController.$dirty || this.formController.submitAttempted);
+                    return !this.isServerValidating && this.modelController.$invalid && (this.modelController.$dirty || this.formController.isSubmitAttempted);
                 };
 
                 Controller.prototype.hasSuccess = function () {
-                    return !this.isNoSuccess && !this.isServerValidating && !this.hasError() && this.modelController.$valid && (this.modelController.$dirty || this.formController.submitAttempted);
+                    return !this.isNoSuccess && !this.isServerValidating && !this.hasError() && this.modelController.$valid && (this.modelController.$dirty || this.formController.isSubmitAttempted);
                 };
 
                 Controller.prototype.hasFeedback = function () {
@@ -514,7 +514,7 @@ var App;
                     var directive = {
                         name: ModelHelper.directiveName,
                         restrict: 'A',
-                        require: [ModelHelper.directiveName, 'ngModel', '^formHelper'],
+                        require: [ModelHelper.directiveName, 'ngModel', '^formContrib'],
                         controller: Controller,
                         link: function (scope, element, attr, ctrls) {
                             var helpCtrl = ctrls[0];
@@ -582,55 +582,58 @@ var App;
 var App;
 (function (App) {
     (function (Directives) {
-        (function (FormHelper) {
-            FormHelper.directiveName = 'formHelper';
+        (function (FormContrib) {
+            FormContrib.directiveName = 'formContrib';
 
             var Controller = (function () {
                 function Controller() {
-                    this.submitAttempted = false;
-                    this.isSubmitDisabled = false;
+                    this.isSubmitAttempted = false;
+                    this.isSubmitWaiting = false;
                 }
                 return Controller;
             })();
-            FormHelper.Controller = Controller;
+            FormContrib.Controller = Controller;
 
             var directiveFactory = function () {
                 return [
                     '$parse', function ($parse) {
                         var directive = {
-                            name: FormHelper.directiveName,
+                            name: FormContrib.directiveName,
                             restrict: 'A',
-                            require: [FormHelper.directiveName, 'form'],
+                            require: [FormContrib.directiveName, 'form'],
                             controller: Controller,
                             compile: function () {
                                 return {
                                     pre: function (scope, element, attr, ctrls) {
-                                        var helpCtrl = ctrls[0];
-                                        var formCtrl = ctrls[1];
+                                        var contribCtrl = ctrls[0];
 
-                                        helpCtrl.formController = formCtrl;
+                                        if (attr['formSubmitted'])
+                                            contribCtrl.isSubmitAttempted = true;
 
-                                        if (attr['submitAttempted'])
-                                            helpCtrl.submitAttempted = true;
-
-                                        var alias = $.trim(attr[FormHelper.directiveName]);
+                                        var alias = $.trim(attr[FormContrib.directiveName]);
                                         if (alias)
-                                            scope[alias] = helpCtrl;
+                                            scope[alias] = contribCtrl;
                                     },
                                     post: function (scope, element, attr, ctrls) {
-                                        var helpCtrl = ctrls[0];
+                                        var contribCtrl = ctrls[0];
                                         var formCtrl = ctrls[1];
 
+                                        var fn = $parse(attr['formSubmit']);
+
                                         element.bind('submit', function () {
-                                            helpCtrl.submitAttempted = true;
+                                            contribCtrl.isSubmitAttempted = true;
+
                                             if (formCtrl.$valid)
-                                                helpCtrl.isSubmitDisabled = true;
+                                                contribCtrl.isSubmitWaiting = true;
                                             if (!scope.$$phase)
                                                 scope.$apply();
 
                                             if (!formCtrl.$valid)
                                                 return false;
 
+                                            scope.$apply(function () {
+                                                fn(scope, { $event: event });
+                                            });
                                             return true;
                                         });
                                     }
@@ -641,9 +644,9 @@ var App;
                     }];
             };
 
-            FormHelper.directive = directiveFactory();
-        })(Directives.FormHelper || (Directives.FormHelper = {}));
-        var FormHelper = Directives.FormHelper;
+            FormContrib.directive = directiveFactory();
+        })(Directives.FormContrib || (Directives.FormContrib = {}));
+        var FormContrib = Directives.FormContrib;
     })(App.Directives || (App.Directives = {}));
     var Directives = App.Directives;
 })(App || (App = {}));
@@ -655,7 +658,7 @@ var App;
         (function (Tripod) {
             Tripod.moduleName = 'tripod';
 
-            Tripod.ngModule = angular.module(Tripod.moduleName, []).directive(App.Directives.InputPreFormatter.directiveName, App.Directives.InputPreFormatter.directive).directive(App.Directives.RemoveCssClass.directiveName, App.Directives.RemoveCssClass.directive).directive(App.Directives.Popover.directiveName, App.Directives.Popover.directive).directive(App.Directives.FormHelper.directiveName, App.Directives.FormHelper.directive).directive(App.Directives.ModelHelper.directiveName, App.Directives.ModelHelper.directive).directive(App.Directives.ServerError.directiveName, App.Directives.ServerError.directive).directive(App.Directives.ServerValidate.directiveName, App.Directives.ServerValidate.directive).directive(App.Directives.SubmitAction.directiveName, App.Directives.SubmitAction.directive);
+            Tripod.ngModule = angular.module(Tripod.moduleName, []).directive(App.Directives.InputPreFormatter.directiveName, App.Directives.InputPreFormatter.directive).directive(App.Directives.RemoveCssClass.directiveName, App.Directives.RemoveCssClass.directive).directive(App.Directives.Popover.directiveName, App.Directives.Popover.directive).directive(App.Directives.FormContrib.directiveName, App.Directives.FormContrib.directive).directive(App.Directives.ModelHelper.directiveName, App.Directives.ModelHelper.directive).directive(App.Directives.ServerError.directiveName, App.Directives.ServerError.directive).directive(App.Directives.ServerValidate.directiveName, App.Directives.ServerValidate.directive).directive(App.Directives.SubmitAction.directiveName, App.Directives.SubmitAction.directive);
         })(Modules.Tripod || (Modules.Tripod = {}));
         var Tripod = Modules.Tripod;
     })(App.Modules || (App.Modules = {}));

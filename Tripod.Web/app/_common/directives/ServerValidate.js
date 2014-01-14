@@ -52,7 +52,7 @@ var App;
                         var directive = {
                             name: ServerValidate.directiveName,
                             restrict: 'A',
-                            require: [ServerValidate.directiveName, 'modelHelper', 'ngModel', '^formHelper', '^form'],
+                            require: [ServerValidate.directiveName, 'modelHelper', 'ngModel', '^formContrib', '^form'],
                             controller: ServerValidateController,
                             link: function (scope, element, attr, ctrls) {
                                 var validateCtrl = ctrls[0];
@@ -76,7 +76,7 @@ var App;
                                     if (formInterval)
                                         $interval.cancel(formInterval);
 
-                                    formHelpCtrl.isSubmitDisabled = true;
+                                    formHelpCtrl.isSubmitWaiting = true;
 
                                     foundAttempt = validateCtrl.getAttempt(modelCtrl.$viewValue);
                                     if (foundAttempt && foundAttempt.result) {
@@ -87,7 +87,7 @@ var App;
                                             e.preventDefault();
                                         }
                                         if (formCtrl.$invalid)
-                                            formHelpCtrl.isSubmitDisabled = false;
+                                            formHelpCtrl.isSubmitWaiting = false;
                                         return foundAttempt.result.isValid;
                                     }
                                     ;

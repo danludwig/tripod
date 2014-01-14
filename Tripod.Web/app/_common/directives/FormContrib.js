@@ -2,55 +2,58 @@
 var App;
 (function (App) {
     (function (Directives) {
-        (function (FormHelper) {
-            FormHelper.directiveName = 'formHelper';
+        (function (FormContrib) {
+            FormContrib.directiveName = 'formContrib';
 
             var Controller = (function () {
                 function Controller() {
-                    this.submitAttempted = false;
-                    this.isSubmitDisabled = false;
+                    this.isSubmitAttempted = false;
+                    this.isSubmitWaiting = false;
                 }
                 return Controller;
             })();
-            FormHelper.Controller = Controller;
+            FormContrib.Controller = Controller;
 
             var directiveFactory = function () {
                 return [
                     '$parse', function ($parse) {
                         var directive = {
-                            name: FormHelper.directiveName,
+                            name: FormContrib.directiveName,
                             restrict: 'A',
-                            require: [FormHelper.directiveName, 'form'],
+                            require: [FormContrib.directiveName, 'form'],
                             controller: Controller,
                             compile: function () {
                                 return {
                                     pre: function (scope, element, attr, ctrls) {
-                                        var helpCtrl = ctrls[0];
-                                        var formCtrl = ctrls[1];
+                                        var contribCtrl = ctrls[0];
 
-                                        helpCtrl.formController = formCtrl;
+                                        if (attr['formSubmitted'])
+                                            contribCtrl.isSubmitAttempted = true;
 
-                                        if (attr['submitAttempted'])
-                                            helpCtrl.submitAttempted = true;
-
-                                        var alias = $.trim(attr[FormHelper.directiveName]);
+                                        var alias = $.trim(attr[FormContrib.directiveName]);
                                         if (alias)
-                                            scope[alias] = helpCtrl;
+                                            scope[alias] = contribCtrl;
                                     },
                                     post: function (scope, element, attr, ctrls) {
-                                        var helpCtrl = ctrls[0];
+                                        var contribCtrl = ctrls[0];
                                         var formCtrl = ctrls[1];
 
+                                        var fn = $parse(attr['formSubmit']);
+
                                         element.bind('submit', function () {
-                                            helpCtrl.submitAttempted = true;
+                                            contribCtrl.isSubmitAttempted = true;
+
                                             if (formCtrl.$valid)
-                                                helpCtrl.isSubmitDisabled = true;
+                                                contribCtrl.isSubmitWaiting = true;
                                             if (!scope.$$phase)
                                                 scope.$apply();
 
                                             if (!formCtrl.$valid)
                                                 return false;
 
+                                            scope.$apply(function () {
+                                                fn(scope, { $event: event });
+                                            });
                                             return true;
                                         });
                                     }
@@ -61,9 +64,9 @@ var App;
                     }];
             };
 
-            FormHelper.directive = directiveFactory();
-        })(Directives.FormHelper || (Directives.FormHelper = {}));
-        var FormHelper = Directives.FormHelper;
+            FormContrib.directive = directiveFactory();
+        })(Directives.FormContrib || (Directives.FormContrib = {}));
+        var FormContrib = Directives.FormContrib;
     })(App.Directives || (App.Directives = {}));
     var Directives = App.Directives;
 })(App || (App = {}));

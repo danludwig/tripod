@@ -12,5 +12,9 @@ module App.Security.SignIn.Form {
         constructor($scope: ViewModelScope<Model>) {
             $scope.vm = this;
         }
+
+        someMethod(): void {
+            alert('doing some method');
+        }
     }
 }

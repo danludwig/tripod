@@ -1,20 +1,16 @@
 'use strict';
 
-module App.Directives.FormHelper {
+module App.Directives.FormContrib {
 
-    export var directiveName = 'formHelper';
+    export var directiveName = 'formContrib';
 
     export class Controller {
 
-        // tells us whether or not a form submit has been attempted
-        submitAttempted = false;
+        // tells us whether or not a form submit has been attempted, even though it may be pristine
+        isSubmitAttempted = false;
 
-        isSubmitDisabled = false;
-
-        // keep a reference to the angular form controller
-        formController: ng.IFormController;
-
-        constructor() { }
+        // tells us whether the submit is waiting on something, and should not be clickable in the meantime
+        isSubmitWaiting = false;
     }
 
     //#region Directive
@@ -32,43 +28,41 @@ module App.Directives.FormHelper {
                         pre: (scope: ng.IScope, element: JQuery, attr: ng.IAttributes, ctrls: any[]): void => {
 
                             // get the required controllers based on directive order
-                            var helpCtrl: Controller = ctrls[0];
-                            var formCtrl: ng.IFormController = ctrls[1];
+                            var contribCtrl: Controller = ctrls[0];
 
-                            // give the helper controller access to the form controller
-                            helpCtrl.formController = formCtrl;
+                            // form may tell us that a submit has been attempted (rendered after full postback)
+                            if (attr['formSubmitted']) contribCtrl.isSubmitAttempted = true;
 
-                            // initialize the form submission
-                            if (attr['submitAttempted']) helpCtrl.submitAttempted = true;
-
-                            // put the helper controller on the scope
+                            // put the contrib controller on the scope
                             var alias = $.trim(attr[directiveName]);
-                            if (alias) scope[alias] = helpCtrl;
+                            if (alias) scope[alias] = contribCtrl;
                         },
                         post: (scope: ng.IScope, element: JQuery, attr: ng.IAttributes, ctrls: any[]): void => {
 
                             // get the required controllers based on directive order
-                            var helpCtrl: Controller = ctrls[0];
+                            var contribCtrl: Controller = ctrls[0];
                             var formCtrl: ng.IFormController = ctrls[1];
 
                             // this is in case the attribute has an angular method attached
-                            //var fn = $parse(attr[directiveName]);
+                            var fn = $parse(attr['formSubmit']);
 
                             element.bind('submit', (): boolean => {
 
                                 // record the fact that a form submission was attempted
-                                helpCtrl.submitAttempted = true;
+                                contribCtrl.isSubmitAttempted = true;
+
+                                // this submit may cause a full postback, in which case the button should be disabled
                                 if (formCtrl.$valid)
-                                    helpCtrl.isSubmitDisabled = true;
+                                    contribCtrl.isSubmitWaiting = true;
                                 if (!scope.$$phase) scope.$apply();
 
                                 // prevent the form from being submitted if not valid
                                 if (!formCtrl.$valid) return false;
 
-                                //scope.$apply((): void => {
-                                //    // invoke the submit action on the scope
-                                //    fn(scope, { $event: event });
-                                //});
+                                scope.$apply((): void => {
+                                    // invoke the submit action on the scope
+                                    fn(scope, { $event: event });
+                                });
                                 return true;
                             });
                         },

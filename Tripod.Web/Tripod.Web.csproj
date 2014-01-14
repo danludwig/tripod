@@ -293,8 +293,8 @@
     <Content Include="app\security\confirm-email-address\FormModule.js">
       <DependentUpon>FormModule.ts</DependentUpon>
     </Content>
-    <Content Include="app\_common\directives\FormHelper.js">
-      <DependentUpon>FormHelper.ts</DependentUpon>
+    <Content Include="app\_common\directives\FormContrib.js">
+      <DependentUpon>FormContrib.ts</DependentUpon>
     </Content>
     <Content Include="app\_common\directives\InputPreFormatter.js">
       <DependentUpon>InputPreFormatter.ts</DependentUpon>
@@ -744,7 +744,7 @@
     <TypeScriptCompile Include="app\_common\api\ViewModelScope.d.ts" />
     <TypeScriptCompile Include="app\_common\api\ValidationModels.d.ts" />
     <TypeScriptCompile Include="app\_common\directives\Popover.ts" />
-    <TypeScriptCompile Include="app\_common\directives\FormHelper.ts" />
+    <TypeScriptCompile Include="app\_common\directives\FormContrib.ts" />
     <TypeScriptCompile Include="app\_common\directives\ModelHelper.ts" />
     <TypeScriptCompile Include="app\_common\directives\RemoveCssClass.ts" />
     <TypeScriptCompile Include="app\_common\directives\InputPreFormatter.ts" />

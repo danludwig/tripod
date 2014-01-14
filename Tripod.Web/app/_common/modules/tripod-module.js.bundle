@@ -8,6 +8,6 @@
   <file>/app/_common/directives/Popover.js</file>
   <file>/app/_common/directives/ModelHelper.js</file>
   <file>/app/_common/directives/InputPreFormatter.js</file>
-  <file>/app/_common/directives/FormHelper.js</file>
+  <file>/app/_common/directives/FormContrib.js</file>
   <file>/app/_common/modules/Tripod.js</file>
 </bundle>

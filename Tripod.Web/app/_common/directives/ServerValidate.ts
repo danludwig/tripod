@@ -63,7 +63,7 @@ module App.Directives.ServerValidate {
             var directive: ng.IDirective = {
                 name: directiveName,
                 restrict: 'A', // attribute only
-                require: [directiveName, 'modelHelper', 'ngModel', '^formHelper', '^form'],
+                require: [directiveName, 'modelHelper', 'ngModel', '^formContrib', '^form'],
                 controller: ServerValidateController,
                 link: (scope: ng.IScope, element: JQuery, attr: ng.IAttributes, ctrls: any[]): void => {
 
@@ -71,7 +71,7 @@ module App.Directives.ServerValidate {
                     var validateCtrl: ServerValidateController = ctrls[0];
                     var modelHelpCtrl: ModelHelper.Controller = ctrls[1];
                     var modelCtrl: ng.INgModelController = ctrls[2];
-                    var formHelpCtrl: FormHelper.Controller = ctrls[3];
+                    var formHelpCtrl: FormContrib.Controller = ctrls[3];
                     var formCtrl: ng.IFormController = ctrls[4];
                     validateCtrl.helpController = modelHelpCtrl;
                     validateCtrl.modelController = modelCtrl;
@@ -91,7 +91,7 @@ module App.Directives.ServerValidate {
 
                         if (formInterval) $interval.cancel(formInterval);
 
-                        formHelpCtrl.isSubmitDisabled = true;
+                        formHelpCtrl.isSubmitWaiting = true;
 
                         // make sure the value is valid
                         foundAttempt = validateCtrl.getAttempt(modelCtrl.$viewValue);
@@ -102,7 +102,7 @@ module App.Directives.ServerValidate {
                                 e.preventDefault();
                             }
                             if (formCtrl.$invalid) // keep submit disabled when the whole form is valid
-                                formHelpCtrl.isSubmitDisabled = false;
+                                formHelpCtrl.isSubmitWaiting = false;
                             return foundAttempt.result.isValid;
                         };
 

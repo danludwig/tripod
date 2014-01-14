@@ -11,11 +11,11 @@ var App;
                     this.isNoSuccess = false;
                 }
                 Controller.prototype.hasError = function () {
-                    return !this.isServerValidating && this.modelController.$invalid && (this.modelController.$dirty || this.formController.submitAttempted);
+                    return !this.isServerValidating && this.modelController.$invalid && (this.modelController.$dirty || this.formController.isSubmitAttempted);
                 };
 
                 Controller.prototype.hasSuccess = function () {
-                    return !this.isNoSuccess && !this.isServerValidating && !this.hasError() && this.modelController.$valid && (this.modelController.$dirty || this.formController.submitAttempted);
+                    return !this.isNoSuccess && !this.isServerValidating && !this.hasError() && this.modelController.$valid && (this.modelController.$dirty || this.formController.isSubmitAttempted);
                 };
 
                 Controller.prototype.hasFeedback = function () {
@@ -35,7 +35,7 @@ var App;
                     var directive = {
                         name: ModelHelper.directiveName,
                         restrict: 'A',
-                        require: [ModelHelper.directiveName, 'ngModel', '^formHelper'],
+                        require: [ModelHelper.directiveName, 'ngModel', '^formContrib'],
                         controller: Controller,
                         link: function (scope, element, attr, ctrls) {
                             var helpCtrl = ctrls[0];

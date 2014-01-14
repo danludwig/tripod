@@ -10,19 +10,19 @@ module App.Directives.ModelHelper {
         modelController: ng.INgModelController;
 
         // keep a reference to the form helper controller
-        formController: FormHelper.Controller;
+        formController: FormContrib.Controller;
 
         static $inject = ['$scope'];
         constructor(scope: ng.IScope) { }
 
         hasError(): boolean {
             return !this.isServerValidating && this.modelController.$invalid &&
-                (this.modelController.$dirty || this.formController.submitAttempted);
+                (this.modelController.$dirty || this.formController.isSubmitAttempted);
         }
 
         hasSuccess(): boolean {
             return !this.isNoSuccess && !this.isServerValidating && !this.hasError() && this.modelController.$valid &&
-                (this.modelController.$dirty || this.formController.submitAttempted);
+                (this.modelController.$dirty || this.formController.isSubmitAttempted);
         }
 
         hasFeedback(): boolean {
@@ -46,14 +46,14 @@ module App.Directives.ModelHelper {
             var directive: ng.IDirective = {
                 name: directiveName,
                 restrict: 'A', // attribute only
-                require: [directiveName, 'ngModel', '^formHelper'],
+                require: [directiveName, 'ngModel', '^formContrib'],
                 controller: Controller,
                 link: (scope: ng.IScope, element: JQuery, attr: ng.IAttributes, ctrls: any[]): void => {
 
                     // get the required controllers based on directive order
                     var helpCtrl: Controller = ctrls[0];
                     var modelCtrl: ng.INgModelController = ctrls[1];
-                    var formCtrl: FormHelper.Controller = ctrls[2];
+                    var formCtrl: FormContrib.Controller = ctrls[2];
 
                     // give the helper controller access to the other controllers
                     helpCtrl.modelController = modelCtrl;
