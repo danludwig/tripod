@@ -32,14 +32,16 @@ module App.Directives.ServerValidate {
 
             if (!validateAttempt) {
                 //this.helpController.isNoSuccess = false;
-                this.helpController.serverError = null;
-                this.modelController.$setValidity('server', true);
+                //this.helpController.serverError = null;
+                //this.modelController.$setValidity('server', true);
+                this.helpController.setValidity('server', null);
             }
             else {
                 var hasMessage = validateAttempt.result && validateAttempt.result.errors && validateAttempt.result.errors.length && validateAttempt.result.errors[0];
                 var message = hasMessage ? validateAttempt.result.errors[0].message : ServerValidateController.unexpectedError;
-                this.helpController.serverError = message;
-                this.modelController.$setValidity('server', false);
+                //this.helpController.serverError = message;
+                //this.modelController.$setValidity('server', false);
+                this.helpController.setValidity('server', message);
             }
         }
 
@@ -171,24 +173,24 @@ module App.Directives.ServerValidate {
                             }
 
                             // if there is any other validator on this field that has an error, yield to it
-                            var previousServerMessage = modelHelpCtrl.serverError; // stash any current server error
-                            modelCtrl.$setValidity('server', true);
-                            modelHelpCtrl.serverError = null;
-                            if (!modelCtrl.$valid) {
-                                if (!validateCtrl.attempts.length) {
-                                    validateCtrl.attempts.push({
-                                        value: value,
-                                        result: {
-                                            isValid: true,
-                                            errors: [],
-                                        },
-                                    });
-                                }
-                                return; // another validator is telling us the field is invalid, yield to it
-                            } else { // restore the stash
-                                modelCtrl.$setValidity('server', previousServerMessage ? false : true);
-                                modelHelpCtrl.serverError = previousServerMessage;
-                            }
+                            //var previousServerMessage = modelHelpCtrl.serverError; // stash any current server error
+                            //modelCtrl.$setValidity('server', true);
+                            //modelHelpCtrl.serverError = null;
+                            //if (!modelCtrl.$valid) {
+                            //    if (!validateCtrl.attempts.length) {
+                            //        validateCtrl.attempts.push({
+                            //            value: value,
+                            //            result: {
+                            //                isValid: true,
+                            //                errors: [],
+                            //            },
+                            //        });
+                            //    }
+                            //    return; // another validator is telling us the field is invalid, yield to it
+                            //} else { // restore the stash
+                            //    modelCtrl.$setValidity('server', previousServerMessage ? false : true);
+                            //    modelHelpCtrl.serverError = previousServerMessage;
+                            //}
 
                             // tell the help controller that there is no success, don't want to fool/confuse the user
                             // by showing a checkmark if we are going to display the spinner immediately after

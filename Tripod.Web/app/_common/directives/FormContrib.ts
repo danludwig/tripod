@@ -63,6 +63,7 @@ module App.Directives.FormContrib {
                                     // invoke the submit action on the scope
                                     fn(scope, { $event: event });
                                 });
+
                                 return true;
                             });
                         },

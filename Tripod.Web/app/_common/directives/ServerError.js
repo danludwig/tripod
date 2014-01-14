@@ -12,27 +12,39 @@ var App;
                         restrict: 'A',
                         require: ['ngModel', 'modelContrib'],
                         link: function (scope, element, attr, ctrls) {
-                            var serverError = attr['serverError'];
-                            if (!serverError)
+                            if (!attr[ServerError.directiveName])
                                 return;
 
                             var inputType = attr['type'];
                             var isPassword = inputType && inputType.toLowerCase() == 'password';
 
                             var modelCtrl = ctrls[0];
-                            var helpCtrl = ctrls[1];
+                            var modelContribCtrl = ctrls[1];
 
-                            helpCtrl.serverError = serverError;
+                            modelContribCtrl.setValidity('server', attr[ServerError.directiveName]);
+
+                            var setValidity = function (error) {
+                                if (!error) {
+                                    modelContribCtrl.setValidity('server', null);
+                                } else {
+                                    modelContribCtrl.setValidity('server', error);
+
+                                    for (var validationErrorKey in modelCtrl.$error) {
+                                        if (validationErrorKey === 'server')
+                                            continue;
+                                        if (!modelCtrl.$error.hasOwnProperty(validationErrorKey))
+                                            continue;
+                                        modelCtrl.$setValidity(validationErrorKey, true);
+                                    }
+                                }
+                            };
 
                             var initialValue;
                             var initWatch = scope.$watch(function () {
-                                return modelCtrl.$error;
+                                return modelCtrl.$viewValue;
                             }, function (value) {
-                                initialValue = modelCtrl.$viewValue;
-                                if (value.required && isPassword) {
-                                    modelCtrl.$setValidity('required', true);
-                                }
-                                modelCtrl.$setValidity('server', false);
+                                initialValue = value;
+                                setValidity(attr[ServerError.directiveName]);
                                 initWatch();
                             });
 
@@ -40,11 +52,11 @@ var App;
                                 return modelCtrl.$viewValue;
                             }, function (value) {
                                 if (modelCtrl.$dirty) {
-                                    modelCtrl.$setValidity('server', true);
+                                    setValidity(null);
                                 }
 
                                 if (!isPassword && value === initialValue) {
-                                    modelCtrl.$setValidity('server', false);
+                                    setValidity(attr[ServerError.directiveName]);
                                 }
                             });
                         }

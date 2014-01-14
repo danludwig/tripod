@@ -54,6 +54,7 @@ var App;
                                             scope.$apply(function () {
                                                 fn(scope, { $event: event });
                                             });
+
                                             return true;
                                         });
                                     }

@@ -21,13 +21,12 @@ var App;
 
                 ServerValidateController.prototype.setError = function (validateAttempt) {
                     if (!validateAttempt) {
-                        this.helpController.serverError = null;
-                        this.modelController.$setValidity('server', true);
+                        this.helpController.setValidity('server', null);
                     } else {
                         var hasMessage = validateAttempt.result && validateAttempt.result.errors && validateAttempt.result.errors.length && validateAttempt.result.errors[0];
                         var message = hasMessage ? validateAttempt.result.errors[0].message : ServerValidateController.unexpectedError;
-                        this.helpController.serverError = message;
-                        this.modelController.$setValidity('server', false);
+
+                        this.helpController.setValidity('server', message);
                     }
                 };
 
@@ -138,25 +137,6 @@ var App;
                                     if (fieldName && (!validateDataAttr || validateDataAttr.indexOf(fieldName + ':') < 0)) {
                                         postData = postData || {};
                                         postData[fieldName] = value;
-                                    }
-
-                                    var previousServerMessage = modelHelpCtrl.serverError;
-                                    modelCtrl.$setValidity('server', true);
-                                    modelHelpCtrl.serverError = null;
-                                    if (!modelCtrl.$valid) {
-                                        if (!validateCtrl.attempts.length) {
-                                            validateCtrl.attempts.push({
-                                                value: value,
-                                                result: {
-                                                    isValid: true,
-                                                    errors: []
-                                                }
-                                            });
-                                        }
-                                        return;
-                                    } else {
-                                        modelCtrl.$setValidity('server', previousServerMessage ? false : true);
-                                        modelHelpCtrl.serverError = previousServerMessage;
                                     }
 
                                     throttlePromise = $timeout(function () {
