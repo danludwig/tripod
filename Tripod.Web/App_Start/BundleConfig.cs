@@ -31,7 +31,7 @@ namespace Tripod.Web
             bundles.Add(new ScriptBundle("~/bundles/stack").Include(
                       "~/scripts/bootstrap.js",
                       "~/scripts/respond.js",
-                      "~/app/_ng/modules/tripod-module.js"));
+                      "~/app/_common/modules/tripod-module.js"));
 
             bundles.Add(new StyleBundle("~/content/css").Include(
                       "~/content/bootstrap.css",
