@@ -31,6 +31,7 @@ namespace Tripod.Web
             bundles.Add(new ScriptBundle("~/bundles/stack").Include(
                       "~/scripts/bootstrap.js",
                       "~/scripts/respond.js",
+                      "~/scripts/ui-bootstrap-tpls-{version}.js",
                       "~/app/_common/directives/InputPreFormatter.js",
                       "~/app/_common/directives/RemoveCssClass.js",
                       "~/app/_common/directives/Popover.js",

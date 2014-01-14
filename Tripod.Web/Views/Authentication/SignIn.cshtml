@@ -110,7 +110,7 @@
                                    ng-init="vm.userName='@Html.ValueForJavaScriptString(x => x.UserName)'"
                                    ng-model="vm.userName" required
                                    model-contrib
-                                   server-validate="@Url.Action(MVC.Authentication.SignInValidate(null, "userName"))"
+                                   xserver-validate="@Url.Action(MVC.Authentication.SignInValidate(null, "userName"))"
                                    server-validate-throttle="200"
                                    xserver-validate-no-success="@(!IsPost)"
                                    server-error="@Html.ValidationMessageTextFor(x => x.UserName)" />
@@ -129,14 +129,16 @@
 
                     @* VALIDATION MESSAGES COLUMNS *@
                     <div class="col-md-4 validation help-block help-block-horizontal-md hidden-sm hidden-xs">
-                        <span t3-popover="'@Resources.notempty_error.Replace("{PropertyName}", string.Format("{0} or {1}", UserConstraints.NameLabel, EmailAddress.Constraints.Label))'"
-                              t3-popover-switch="signInCtrb.userName.hasError && signInForm.userName.$error.required"
-                              t3-popover-animation="false"
+                        <span popover="@Resources.notempty_error.Replace("{PropertyName}", string.Format("{0} or {1}", UserConstraints.NameLabel, EmailAddress.Constraints.Label))"
+                              popover-toggle="signInForm.userName.$error.required"
+                              popover-animation="false"
+                              popover-placement="right"
                               class="validation-popover"></span>
 
-                        <span t3-popover="signInCtrb.userName.error.server"
-                              t3-popover-switch="signInCtrb.userName.hasError && signInForm.userName.$error.server"
-                              t3-popover-animation="false"
+                        <span popover="{{ signInCtrb.userName.error.server }}"
+                              popover-toggle="signInForm.userName.$error.server"
+                              popover-animation="false"
+                              popover-placement="right"
                               class="validation-popover"></span>
 
                         <span ng-class="{ hide: true }">@Html.ValidationMessageFor(x => x.UserName)</span>
@@ -191,14 +193,16 @@
 
                     @* VALIDATION MESSAGES COLUMNS *@
                     <div class="col-md-4 validation help-block help-block-horizontal-md hidden-sm hidden-xs">
-                        <span t3-popover="signInCtrb.password.error.server"
-                              t3-popover-switch="signInCtrb.password.hasError && signInForm.password.$error.server"
-                              t3-popover-animation="false"
+                        <span popover="{{ signInCtrb.password.error.server }}"
+                              popover-toggle="signInForm.password.$error.server"
+                              popover-animation="false"
+                              popover-placement="right"
                               class="validation-popover"></span>
 
-                        <span t3-popover="'@Resources.notempty_error.Replace("{PropertyName}", LocalMembership.Constraints.PasswordLabel)'"
-                              t3-popover-switch="signInCtrb.password.hasError && signInForm.password.$error.required"
-                              t3-popover-animation="false"
+                        <span popover="@Resources.notempty_error.Replace("{PropertyName}", LocalMembership.Constraints.PasswordLabel)"
+                              popover-toggle="signInForm.password.$error.required"
+                              popover-animation="false"
+                              popover-placement="right"
                               class="validation-popover"></span>
 
                         <span ng-class="{ hide: true }">@Html.ValidationMessageFor(x => x.Password)</span>
@@ -240,7 +244,8 @@
                 @* FORM SUBMIT BUTTON *@
                 <div class="form-group">
                     <div class="col-md-4">
-                        <input type="submit" class="btn btn-primary btn-lg btn-block" value="Sign In" ng-disabled="signInCtrb.isSubmitDisabled" />
+                        <input type="submit" class="btn btn-primary btn-lg btn-block" value="Sign In"
+                               ng-disabled="signInCtrb.isSubmitDisabled" popover="My popover" popover-toggle="signInCtrb.userName.hasError" />
                     </div>
                 </div>
             </form>

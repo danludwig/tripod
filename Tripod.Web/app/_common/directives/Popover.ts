@@ -2,62 +2,45 @@
 
 module App.Directives.Popover {
 
-    export var directiveName = 't3Popover';
+    export var directiveName = 'popover';
 
-    var directiveFactory = (): any[]=> {
-        return ['$parse', '$timeout', ($parse: ng.IParseService, $timeout: ng.ITimeoutService): ng.IDirective => {
+    export var directiveConfig = ['$tooltipProvider', ($tooltipProvider: ng.ui.bootstrap.ITooltipProvider): void => {
+        $tooltipProvider.setTriggers({
+            'show-popover': 'hide-popover'
+        });
+    }];
+
+    var directiveFactory = (): any[] => {
+        return ['$timeout', ($timeout: ng.ITimeoutService): ng.IDirective => {
             var directive: ng.IDirective = {
                 name: directiveName,
                 restrict: 'A',
-                link: (scope: ng.IScope, element: JQuery, attrs: ng.IAttributes) => {
+                link: (scope: ng.IScope, element: JQuery, attr: ng.IAttributes) => {
 
-                    var options: PopoverOptions = {
-                        content: $parse(attrs[directiveName])(scope),
-                        trigger: 'manual',
-                        animation: typeof attrs['t3PopoverAnimation'] === 'string'
-                        ? attrs['t3PopoverAnimation'].toLowerCase() !== 'false'
-                        : true,
-                    };
-
-                    var initPopup = (): void => {
-                        var data = element.data(directiveName);
-                        if (data) {
-                            element.popover('destroy');
-                        }
-                        element.popover(options);
-                        element.data(directiveName, true);
-                    };
-
-                    initPopup();
-
-                    var isVisible = false;
-                    scope.$watch(attrs[directiveName], (value: string): void => {
-                        if (value != options.content) {
-                            options.content = value;
-                            initPopup();
-                            if (isVisible) element.popover('show');
-                        }
-                    });
+                    attr[directiveName + 'Trigger'] = 'show-popover';
 
                     var redrawPromise: ng.IPromise<void>;
                     $(window).on('resize', (): void => {
                         if (redrawPromise) $timeout.cancel(redrawPromise);
                         redrawPromise = $timeout((): void => {
-                            if (!isVisible) return;
-                            element.popover('hide');
-                            element.popover('show');
+                            if (!scope['tt_isOpen']) return;
+                            element.triggerHandler('hide-popover');
+                            element.triggerHandler('show-popover');
 
                         }, 100);
                     });
 
-                    scope.$watch(attrs['t3PopoverSwitch'], (value: boolean): void => {
-
-                        if (value) {
-                            isVisible = true;
-                            element.popover('show');
-                        } else {
-                            isVisible = false;
-                            element.popover('hide');
+                    scope.$watch(attr[directiveName + 'Toggle'], (value: boolean): void => {
+                        if (value && !scope['tt_isOpen']) {
+                            // tooltip provider will call scope.$apply, so need to get out of this digest cycle first
+                            $timeout((): void => {
+                                element.triggerHandler('show-popover');
+                            });
+                        }
+                        else if (!value && scope['tt_isOpen']) {
+                            $timeout((): void => {
+                                element.triggerHandler('hide-popover');
+                            });
                         }
                     });
                 }

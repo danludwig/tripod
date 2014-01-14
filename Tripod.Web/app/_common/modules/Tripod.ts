@@ -4,10 +4,10 @@ module App.Modules.Tripod {
 
     export var moduleName = 'tripod';
 
-    export var ngModule = angular.module(moduleName, [])
+    export var ngModule = angular.module(moduleName, ['ui.bootstrap.popover', 'ui.bootstrap.tpls'])
         .directive(Directives.InputPreFormatter.directiveName, Directives.InputPreFormatter.directive)
         .directive(Directives.RemoveCssClass.directiveName, Directives.RemoveCssClass.directive)
-        .directive(Directives.Popover.directiveName, Directives.Popover.directive)
+        .directive(Directives.Popover.directiveName, Directives.Popover.directive).config(Directives.Popover.directiveConfig)
         .directive(Directives.FormContrib.directiveName, Directives.FormContrib.directive)
         .directive(Directives.ModelContrib.directiveName, Directives.ModelContrib.directive)
         .directive(Directives.ServerError.directiveName, Directives.ServerError.directive)
