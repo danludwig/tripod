@@ -2,6 +2,11 @@
 
 module App.Security.SignUp.Form {
 
+    export interface Model {
+        emailAddress?: string;
+        isExpectingEmail?: boolean;
+    }
+
     export class Controller implements Model {
 
         emailAddress: string = '';
@@ -28,4 +33,8 @@ module App.Security.SignUp.Form {
             return field && field.$valid && field.$dirty;
         }
     }
+
+    export var moduleName = 'sign-up-form';
+
+    export var ngModule = angular.module(moduleName, [Modules.Tripod.moduleName]);
 }

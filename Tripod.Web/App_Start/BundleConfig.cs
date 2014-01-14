@@ -31,7 +31,15 @@ namespace Tripod.Web
             bundles.Add(new ScriptBundle("~/bundles/stack").Include(
                       "~/scripts/bootstrap.js",
                       "~/scripts/respond.js",
-                      "~/app/_common/modules/tripod-module.js"));
+                      "~/app/_common/directives/InputPreFormatter.js",
+                      "~/app/_common/directives/RemoveCssClass.js",
+                      "~/app/_common/directives/Popover.js",
+                      "~/app/_common/directives/FormContrib.js",
+                      "~/app/_common/directives/ModelContrib.js",
+                      "~/app/_common/directives/ServerError.js",
+                      "~/app/_common/directives/ServerValidate.js",
+                      "~/app/_common/directives/SubmitAction.js",
+                      "~/app/_common/modules/Tripod.js"));
 
             bundles.Add(new StyleBundle("~/content/css").Include(
                       "~/content/bootstrap.css",

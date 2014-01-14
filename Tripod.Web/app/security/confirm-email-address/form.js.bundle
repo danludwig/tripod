@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<bundle minify="true" runOnBuild="true" output="form.js">
-  <!--The order of the <file> elements determines the order of the file contents when bundled.-->
-  <file>/app/security/confirm-email-address/FormModule.js</file>
-  <file>/app/security/confirm-email-address/FormController.js</file>
-</bundle>

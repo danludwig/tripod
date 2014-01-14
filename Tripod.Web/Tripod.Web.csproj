@@ -270,29 +270,11 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="app\security\confirm-email-address\form.js">
-      <DependentUpon>form.js.bundle</DependentUpon>
+    <Content Include="app\security\confirm-email-address\Form.js">
+      <DependentUpon>Form.ts</DependentUpon>
     </Content>
-    <Content Include="app\security\confirm-email-address\form.min.js">
-      <DependentUpon>form.js.bundle</DependentUpon>
-    </Content>
-    <Content Include="app\security\sign-in\form.js">
-      <DependentUpon>form.js.bundle</DependentUpon>
-    </Content>
-    <Content Include="app\security\sign-in\form.min.js">
-      <DependentUpon>form.js.bundle</DependentUpon>
-    </Content>
-    <Content Include="app\security\sign-in\FormController.js">
-      <DependentUpon>FormController.ts</DependentUpon>
-    </Content>
-    <Content Include="app\security\sign-in\FormModule.js">
-      <DependentUpon>FormModule.ts</DependentUpon>
-    </Content>
-    <Content Include="app\security\confirm-email-address\FormController.js">
-      <DependentUpon>FormController.ts</DependentUpon>
-    </Content>
-    <Content Include="app\security\confirm-email-address\FormModule.js">
-      <DependentUpon>FormModule.ts</DependentUpon>
+    <Content Include="app\security\sign-in\Form.js">
+      <DependentUpon>Form.ts</DependentUpon>
     </Content>
     <Content Include="app\_common\directives\FormContrib.js">
       <DependentUpon>FormContrib.ts</DependentUpon>
@@ -317,12 +299,6 @@
     </Content>
     <Content Include="app\_common\directives\SubmitAction.js">
       <DependentUpon>SubmitAction.ts</DependentUpon>
-    </Content>
-    <Content Include="app\_common\modules\tripod-module.js">
-      <DependentUpon>tripod-module.js.bundle</DependentUpon>
-    </Content>
-    <Content Include="app\_common\modules\tripod-module.min.js">
-      <DependentUpon>tripod-module.js.bundle</DependentUpon>
     </Content>
     <Content Include="app\_common\modules\Tripod.js">
       <DependentUpon>Tripod.ts</DependentUpon>
@@ -378,11 +354,6 @@
     <Content Include="fonts\fontawesome-webfont.eot" />
     <Content Include="fonts\FontAwesome.otf" />
     <Content Include="compass\_global-variables.scss" />
-    <None Include="app\security\confirm-email-address\form.js.bundle" />
-    <None Include="app\security\sign-in\form.js.bundle" />
-    <None Include="app\_common\modules\tripod-module.js.bundle">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="config.rb" />
     <None Include="compass\compass-defaults\ie.scss">
       <Compile>True</Compile>
@@ -738,10 +709,7 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <TypeScriptCompile Include="app\security\confirm-email-address\FormModel.d.ts" />
-    <TypeScriptCompile Include="app\security\sign-in\FormController.ts" />
-    <TypeScriptCompile Include="app\security\sign-in\FormModel.d.ts" />
-    <TypeScriptCompile Include="app\security\sign-in\FormModule.ts" />
+    <TypeScriptCompile Include="app\security\sign-in\Form.ts" />
     <TypeScriptCompile Include="app\_common\api\ViewModelScope.d.ts" />
     <TypeScriptCompile Include="app\_common\api\ValidationModels.d.ts" />
     <TypeScriptCompile Include="app\_common\directives\Popover.ts" />
@@ -752,8 +720,7 @@
     <TypeScriptCompile Include="app\_common\directives\ServerError.ts" />
     <TypeScriptCompile Include="app\_common\directives\ServerValidate.ts" />
     <TypeScriptCompile Include="app\_common\directives\SubmitAction.ts" />
-    <TypeScriptCompile Include="app\security\confirm-email-address\FormController.ts" />
-    <TypeScriptCompile Include="app\security\confirm-email-address\FormModule.ts" />
+    <TypeScriptCompile Include="app\security\confirm-email-address\Form.ts" />
     <TypeScriptCompile Include="app\_common\modules\Tripod.ts" />
     <TypeScriptCompile Include="scripts\typings\angularjs\angular-cookies.d.ts" />
     <TypeScriptCompile Include="scripts\typings\angularjs\angular-mocks.d.ts" />
