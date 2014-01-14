@@ -112,7 +112,6 @@ var App;
 
                 ServerValidateController.prototype.setError = function (validateAttempt) {
                     if (!validateAttempt) {
-                        this.helpController.isNoSuccess = false;
                         this.helpController.serverError = null;
                         this.modelController.$setValidity('server', true);
                     } else {
@@ -143,7 +142,7 @@ var App;
                         var directive = {
                             name: ServerValidate.directiveName,
                             restrict: 'A',
-                            require: [ServerValidate.directiveName, 'modelHelper', 'ngModel', '^formContrib', '^form'],
+                            require: [ServerValidate.directiveName, 'modelContrib', 'ngModel', '^formContrib', '^form'],
                             controller: ServerValidateController,
                             link: function (scope, element, attr, ctrls) {
                                 var validateCtrl = ctrls[0];
@@ -183,12 +182,12 @@ var App;
                                     }
                                     ;
 
-                                    modelHelpCtrl.isServerValidating = true;
+                                    modelHelpCtrl.hasSpinner = true;
                                     formInterval = $interval(function () {
                                         foundAttempt = validateCtrl.getAttempt(modelCtrl.$viewValue);
                                         if (foundAttempt && foundAttempt.result) {
                                             $interval.cancel(formInterval);
-                                            modelHelpCtrl.isServerValidating = false;
+                                            modelHelpCtrl.hasSpinner = false;
                                             form.submit();
                                         }
                                     }, 10);
@@ -206,13 +205,10 @@ var App;
                                     var attempt = validateCtrl.getAttempt(value);
                                     if (attempt && attempt.result) {
                                         lastAttempt = attempt;
-                                        modelHelpCtrl.isServerValidating = false;
+                                        modelHelpCtrl.hasSpinner = false;
 
                                         if (attempt.result.isValid || attempt == validateCtrl.attempts[0]) {
                                             validateCtrl.setError(null);
-                                            if (attempt == validateCtrl.attempts[0] && !attempt.result.isValid && validateNoSuccessAttr) {
-                                                modelHelpCtrl.isNoSuccess = true;
-                                            }
                                         } else {
                                             validateCtrl.setError(attempt);
                                         }
@@ -254,9 +250,6 @@ var App;
                                         modelHelpCtrl.serverError = previousServerMessage;
                                     }
 
-                                    if (validateNoSuccessAttr)
-                                        modelHelpCtrl.isNoSuccess = true;
-
                                     throttlePromise = $timeout(function () {
                                         if (!attempt) {
                                             attempt = { value: value };
@@ -266,7 +259,7 @@ var App;
 
                                         var spinnerTimeoutPromise = $timeout(function () {
                                             if (attempt != validateCtrl.attempts[0]) {
-                                                modelHelpCtrl.isServerValidating = true;
+                                                modelHelpCtrl.hasSpinner = true;
                                             }
                                         }, 20);
 
@@ -284,7 +277,7 @@ var App;
                                                 return;
                                             }
 
-                                            modelHelpCtrl.isServerValidating = false;
+                                            modelHelpCtrl.hasSpinner = false;
                                             if (attempt.result.isValid) {
                                                 validateCtrl.setError(null);
                                             } else {
@@ -292,7 +285,7 @@ var App;
                                             }
                                         }).error(function (data, status) {
                                             $timeout.cancel(spinnerTimeoutPromise);
-                                            modelHelpCtrl.isServerValidating = false;
+                                            modelHelpCtrl.hasSpinner = false;
 
                                             if (status === 0)
                                                 return;
@@ -326,7 +319,7 @@ var App;
                     var directive = {
                         name: ServerError.directiveName,
                         restrict: 'A',
-                        require: ['ngModel', 'modelHelper'],
+                        require: ['ngModel', 'modelContrib'],
                         link: function (scope, element, attr, ctrls) {
                             var serverError = attr['serverError'];
                             if (!serverError)
@@ -481,61 +474,87 @@ var App;
 var App;
 (function (App) {
     (function (Directives) {
-        (function (ModelHelper) {
-            ModelHelper.directiveName = 'modelHelper';
+        (function (ModelContrib) {
+            ModelContrib.directiveName = 'modelContrib';
 
             var Controller = (function () {
                 function Controller(scope) {
-                    this.isServerValidating = false;
-                    this.isNoSuccess = false;
+                    this.hasError = false;
+                    this.hasSuccess = false;
+                    this.hasSpinner = false;
+                    this.serverError = '';
                 }
-                Controller.prototype.hasError = function () {
-                    return !this.isServerValidating && this.modelController.$invalid && (this.modelController.$dirty || this.formController.isSubmitAttempted);
+                Controller.prototype.spinnerCssClass = function () {
+                    return this.hasSpinner ? 'has-spinner' : null;
                 };
 
-                Controller.prototype.hasSuccess = function () {
-                    return !this.isNoSuccess && !this.isServerValidating && !this.hasError() && this.modelController.$valid && (this.modelController.$dirty || this.formController.isSubmitAttempted);
+                Controller.prototype.errorCssClass = function () {
+                    return this.hasError ? 'has-error' : null;
+                };
+
+                Controller.prototype.successCssClass = function () {
+                    return this.hasSuccess ? 'has-success' : null;
                 };
 
                 Controller.prototype.hasFeedback = function () {
-                    return this.hasError() || this.hasSuccess() || this.hasSpinner();
+                    return this.hasError || this.hasSuccess || this.hasSpinner;
                 };
 
-                Controller.prototype.hasSpinner = function () {
-                    return this.isServerValidating;
+                Controller.prototype.feedbackCssClass = function () {
+                    if (this.hasSpinner)
+                        return this.spinnerCssClass();
+                    if (this.hasError)
+                        return this.errorCssClass();
+                    if (this.hasSuccess)
+                        return this.successCssClass();
+                    return null;
+                };
+
+                Controller.prototype.inputGroupCssClass = function (size) {
+                    if (!this.hasFeedback())
+                        return null;
+                    var cssClass = 'input-group';
+                    if (size)
+                        cssClass += ' input-group-' + size;
+                    return cssClass;
                 };
                 Controller.$inject = ['$scope'];
                 return Controller;
             })();
-            ModelHelper.Controller = Controller;
+            ModelContrib.Controller = Controller;
 
             var directiveFactory = function () {
                 return function () {
                     var directive = {
-                        name: ModelHelper.directiveName,
+                        name: ModelContrib.directiveName,
                         restrict: 'A',
-                        require: [ModelHelper.directiveName, 'ngModel', '^formContrib'],
+                        require: [ModelContrib.directiveName, 'ngModel', '^formContrib'],
                         controller: Controller,
                         link: function (scope, element, attr, ctrls) {
-                            var helpCtrl = ctrls[0];
+                            var modelContribCtrl = ctrls[0];
                             var modelCtrl = ctrls[1];
-                            var formCtrl = ctrls[2];
-
-                            helpCtrl.modelController = modelCtrl;
-                            helpCtrl.formController = formCtrl;
+                            var formContribCtrl = ctrls[2];
 
                             var alias = $.trim(attr['name']);
                             if (alias)
-                                formCtrl[alias] = helpCtrl;
+                                formContribCtrl[alias] = modelContribCtrl;
+
+                            scope.$watch(function () {
+                                return [modelCtrl.$valid, modelCtrl.$dirty, formContribCtrl.isSubmitAttempted, modelContribCtrl.hasSpinner];
+                            }, function () {
+                                var isDirtyOrSubmitAttempted = modelCtrl.$dirty || formContribCtrl.isSubmitAttempted;
+                                modelContribCtrl.hasError = !modelContribCtrl.hasSpinner && modelCtrl.$invalid && isDirtyOrSubmitAttempted;
+                                modelContribCtrl.hasSuccess = !modelContribCtrl.hasSpinner && modelCtrl.$valid && isDirtyOrSubmitAttempted;
+                            }, true);
                         }
                     };
                     return directive;
                 };
             };
 
-            ModelHelper.directive = directiveFactory();
-        })(Directives.ModelHelper || (Directives.ModelHelper = {}));
-        var ModelHelper = Directives.ModelHelper;
+            ModelContrib.directive = directiveFactory();
+        })(Directives.ModelContrib || (Directives.ModelContrib = {}));
+        var ModelContrib = Directives.ModelContrib;
     })(App.Directives || (App.Directives = {}));
     var Directives = App.Directives;
 })(App || (App = {}));
@@ -658,7 +677,7 @@ var App;
         (function (Tripod) {
             Tripod.moduleName = 'tripod';
 
-            Tripod.ngModule = angular.module(Tripod.moduleName, []).directive(App.Directives.InputPreFormatter.directiveName, App.Directives.InputPreFormatter.directive).directive(App.Directives.RemoveCssClass.directiveName, App.Directives.RemoveCssClass.directive).directive(App.Directives.Popover.directiveName, App.Directives.Popover.directive).directive(App.Directives.FormContrib.directiveName, App.Directives.FormContrib.directive).directive(App.Directives.ModelHelper.directiveName, App.Directives.ModelHelper.directive).directive(App.Directives.ServerError.directiveName, App.Directives.ServerError.directive).directive(App.Directives.ServerValidate.directiveName, App.Directives.ServerValidate.directive).directive(App.Directives.SubmitAction.directiveName, App.Directives.SubmitAction.directive);
+            Tripod.ngModule = angular.module(Tripod.moduleName, []).directive(App.Directives.InputPreFormatter.directiveName, App.Directives.InputPreFormatter.directive).directive(App.Directives.RemoveCssClass.directiveName, App.Directives.RemoveCssClass.directive).directive(App.Directives.Popover.directiveName, App.Directives.Popover.directive).directive(App.Directives.FormContrib.directiveName, App.Directives.FormContrib.directive).directive(App.Directives.ModelContrib.directiveName, App.Directives.ModelContrib.directive).directive(App.Directives.ServerError.directiveName, App.Directives.ServerError.directive).directive(App.Directives.ServerValidate.directiveName, App.Directives.ServerValidate.directive).directive(App.Directives.SubmitAction.directiveName, App.Directives.SubmitAction.directive);
         })(Modules.Tripod || (Modules.Tripod = {}));
         var Tripod = Modules.Tripod;
     })(App.Modules || (App.Modules = {}));

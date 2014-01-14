@@ -28,6 +28,7 @@
     <TypeScriptSourceMap>False</TypeScriptSourceMap>
     <IsCompassProject>True</IsCompassProject>
     <TypeScriptRemoveComments>True</TypeScriptRemoveComments>
+    <TypeScriptCompileOnSaveEnabled>True</TypeScriptCompileOnSaveEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -299,8 +300,8 @@
     <Content Include="app\_common\directives\InputPreFormatter.js">
       <DependentUpon>InputPreFormatter.ts</DependentUpon>
     </Content>
-    <Content Include="app\_common\directives\ModelHelper.js">
-      <DependentUpon>ModelHelper.ts</DependentUpon>
+    <Content Include="app\_common\directives\ModelContrib.js">
+      <DependentUpon>ModelContrib.ts</DependentUpon>
     </Content>
     <Content Include="app\_common\directives\Popover.js">
       <DependentUpon>Popover.ts</DependentUpon>
@@ -745,7 +746,7 @@
     <TypeScriptCompile Include="app\_common\api\ValidationModels.d.ts" />
     <TypeScriptCompile Include="app\_common\directives\Popover.ts" />
     <TypeScriptCompile Include="app\_common\directives\FormContrib.ts" />
-    <TypeScriptCompile Include="app\_common\directives\ModelHelper.ts" />
+    <TypeScriptCompile Include="app\_common\directives\ModelContrib.ts" />
     <TypeScriptCompile Include="app\_common\directives\RemoveCssClass.ts" />
     <TypeScriptCompile Include="app\_common\directives\InputPreFormatter.ts" />
     <TypeScriptCompile Include="app\_common\directives\ServerError.ts" />

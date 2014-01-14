@@ -74,7 +74,7 @@
                   action="@Url.Action(MVC.Authentication.SignIn(null, null))"
                   novalidate
                   name="signInForm"
-                  form-contrib="signInHelp"
+                  form-contrib="signInContrib"
                   form-submitted="@IsPost"
                   class="form-horizontal">
 
@@ -90,7 +90,7 @@
                 @* EMAIL ADDRESS INPUT *@
                 <div class="form-group form-group-lg @Html.BootstrapValidationCssClassFor(x => x.UserName)"
                      remove-class="has-success has-error"
-                     ng-class="{ 'has-success': signInHelp.userName.hasSuccess(), 'has-error': signInHelp.userName.hasError(), 'has-spinner': signInHelp.userName.hasSpinner() }">
+                     ng-class="signInContrib.userName.feedbackCssClass()">
 
                     @* INPUT GROUP COLUMN *@
                     <div class="col-md-8">
@@ -100,24 +100,24 @@
                         </label>
                         <div class="@Html.CssClassWhenInvalidFor(x => x.UserName, inputGroupCss)"
                              remove-class="@inputGroupCss"
-                             ng-class="{ '@inputGroupCss': signInHelp.userName.hasFeedback() }">
+                             ng-class="signInContrib.userName.inputGroupCssClass('lg')">
                             <input type="text"
                                    class="form-control @inputCss"
                                    placeholder="@UserConstraints.NameLabel or @EmailAddress.Constraints.Label"
                                    id="@Html.IdFor(x => x.UserName)"
                                    name="userName"
                                    value="@Html.ValueFor(x => x.UserName)"
-                                   ng-init="vm.userName='@Html.ValueFor(x => x.UserName)'"
+                                   ng-init="vm.userName='@Html.ValueForJavaScriptString(x => x.UserName)'"
                                    ng-model="vm.userName" required
-                                   model-helper
-                                   xserver-validate="@Url.Action(MVC.Authentication.SignInValidate(null, "userName"))"
+                                   model-contrib
+                                   server-validate="@Url.Action(MVC.Authentication.SignInValidate(null, "userName"))"
                                    server-validate-throttle="200"
-                                   server-validate-no-success="@(!IsPost)"
+                                   xserver-validate-no-success="@(!IsPost)"
                                    server-error="@Html.ValidationMessageTextFor(x => x.UserName)" />
 
                             <span class="input-group-addon validation @Html.CssClassWhenValidFor(x => x.UserName, "hide")"
                                   remove-class="hide"
-                                  ng-class="{ 'hide':  !signInHelp.userName.hasFeedback() }">
+                                  ng-class="{ 'hide':  !signInContrib.userName.hasFeedback() }">
                                 <i class="fa fa-fw fa-asterisk default" title="This is a required field"></i>
                                 <i class="fa fa-fw fa-times error"></i>
                                 <i class="fa fa-fw fa-spinner fa-spin spin-fast spinner"></i>
@@ -130,24 +130,24 @@
                     @* VALIDATION MESSAGES COLUMNS *@
                     <div class="col-md-4 validation help-block help-block-horizontal-md hidden-sm hidden-xs">
                         <span t3-popover="'@Resources.notempty_error.Replace("{PropertyName}", string.Format("{0} or {1}", UserConstraints.NameLabel, EmailAddress.Constraints.Label))'"
-                              t3-popover-switch="signInHelp.userName.hasError() && signInForm.userName.$error.required"
+                              t3-popover-switch="signInContrib.userName.hasError && signInForm.userName.$error.required"
                               t3-popover-animation="false"
                               class="validation-popover"></span>
 
-                        <span t3-popover="signInHelp.userName.serverError"
-                              t3-popover-switch="signInHelp.userName.hasError() && signInForm.userName.$error.server"
+                        <span t3-popover="signInContrib.userName.serverError"
+                              t3-popover-switch="signInContrib.userName.hasError && signInForm.userName.$error.server"
                               t3-popover-animation="false"
                               class="validation-popover"></span>
 
                         <span ng-class="{ hide: true }">@Html.ValidationMessageFor(x => x.UserName)</span>
                     </div>
                     <div class="col-md-4 validation help-block hidden-md hidden-lg">
-                        <span ng-show="signInHelp.userName.hasError()" ng-cloak>
+                        <span ng-show="signInContrib.userName.hasError" ng-cloak>
                             <span ng-show="signInForm.userName.$error.required && !signInForm.userName.$viewValue">
                                 @Resources.notempty_error.Replace("{PropertyName}", string.Format("{0} or {1}", UserConstraints.NameLabel, EmailAddress.Constraints.Label))
                             </span>
                             <span ng-show="signInForm.userName.$error.server">
-                                {{ signInHelp.userName.serverError }}
+                                {{ signInContrib.userName.serverError }}
                             </span>
                         </span>
                         <span ng-class="{ hide: true }">
@@ -159,7 +159,7 @@
                 @* PASSWORD INPUT *@
                 <div class="form-group form-group-lg @Html.BootstrapValidationCssClassFor(x => x.Password)"
                      remove-class="has-success has-error"
-                     ng-class="{ 'has-error': signInHelp.password.hasError() }">
+                     ng-class="signInContrib.password.errorCssClass()">
 
                     @* INPUT GROUP COLUMN *@
                     <div class="col-md-8">
@@ -169,15 +169,15 @@
                         </label>
                         <div class="@Html.CssClassWhenInvalidFor(x => x.Password, inputGroupCss)"
                              remove-class="@inputGroupCss"
-                             ng-class="{ '@inputGroupCss': signInHelp.password.hasError() }">
+                             ng-class="{ '@inputGroupCss': signInContrib.password.hasError }">
                             <input type="password" class="form-control @inputCss" placeholder="@LocalMembership.Constraints.PasswordLabel"
                                    id="@Html.IdFor(x => x.Password)" name="password"
-                                   ng-model="vm.password" required model-helper
+                                   ng-model="vm.password" required model-contrib
                                    server-error="@Html.ValidationMessageTextFor(x => x.Password)" />
 
                             <span class="input-group-addon validation @Html.CssClassWhenValidFor(x => x.Password, "hide")"
                                   remove-class="hide"
-                                  ng-class="{ 'hide':  !signInHelp.password.hasError() }">
+                                  ng-class="{ 'hide':  !signInContrib.password.hasError }">
                                 <i class="fa fa-fw fa-asterisk default" title="This is a required field"></i>
                                 <i class="fa fa-fw fa-times error"></i>
                                 <i class="fa fa-fw fa-exclamation-triangle warning"></i>
@@ -191,25 +191,25 @@
 
                     @* VALIDATION MESSAGES COLUMNS *@
                     <div class="col-md-4 validation help-block help-block-horizontal-md hidden-sm hidden-xs">
-                        <span t3-popover="signInHelp.password.serverError"
-                              t3-popover-switch="signInHelp.password.hasError() && signInForm.password.$error.server"
+                        <span t3-popover="signInContrib.password.serverError"
+                              t3-popover-switch="signInContrib.password.hasError && signInForm.password.$error.server"
                               t3-popover-animation="false"
                               class="validation-popover"></span>
 
                         <span t3-popover="'@Resources.notempty_error.Replace("{PropertyName}", LocalMembership.Constraints.PasswordLabel)'"
-                              t3-popover-switch="signInHelp.password.hasError() && signInForm.password.$error.required"
+                              t3-popover-switch="signInContrib.password.hasError && signInForm.password.$error.required"
                               t3-popover-animation="false"
                               class="validation-popover"></span>
 
                         <span ng-class="{ hide: true }">@Html.ValidationMessageFor(x => x.Password)</span>
                     </div>
                     <div class="col-md-4 validation help-block hidden-md hidden-lg">
-                        <span ng-show="signInHelp.password.hasError()" ng-cloak>
+                        <span ng-show="signInContrib.password.hasError" ng-cloak>
                             <span ng-show="signInForm.password.$error.required">
                                 @Resources.notempty_error.Replace("{PropertyName}", LocalMembership.Constraints.PasswordLabel)
                             </span>
                             <span ng-show="signInForm.password.$error.server">
-                                {{ signInHelp.password.serverError }}
+                                {{ signInContrib.password.serverError }}
                             </span>
                         </span>
                         <span ng-class="{ hide: true }">
@@ -240,7 +240,7 @@
                 @* FORM SUBMIT BUTTON *@
                 <div class="form-group">
                     <div class="col-md-4">
-                        <input type="submit" class="btn btn-primary btn-lg btn-block" value="Sign In" ng-disabled="signInHelp.isSubmitDisabled" />
+                        <input type="submit" class="btn btn-primary btn-lg btn-block" value="Sign In" ng-disabled="signInContrib.isSubmitDisabled" />
                     </div>
                 </div>
             </form>
@@ -249,14 +249,14 @@
 
             <pre>
 vm = {{vm | json}}
-signInHelp.isSubmitAttempted = {{ signInHelp.isSubmitAttempted }}
-signInHelp.userName.hasError() = {{ signInHelp.userName.hasError() }}
-signInHelp.userName.hasSuccess() = {{ signInHelp.userName.hasSuccess() }}
-signInHelp.userName.hasSpinner() = {{ signInHelp.userName.hasSpinner() }}
-signInHelp.userName.serverError = {{ signInHelp.userName.serverError }}
+signInContrib.isSubmitAttempted = {{ signInContrib.isSubmitAttempted }}
+signInContrib.userName.hasError = {{ signInContrib.userName.hasError }}
+signInContrib.userName.hasSuccess = {{ signInContrib.userName.hasSuccess }}
+signInContrib.userName.hasSpinner = {{ signInContrib.userName.hasSpinner }}
+signInContrib.userName.serverError = {{ signInContrib.userName.serverError }}
 signInForm.userName.$error.required = {{ signInForm.userName.$error.required }}
 signInForm.userName.$error.server = {{ signInForm.userName.$error.server }}
-signInHelp.password.serverError = {{ signInHelp.password.serverError }}
+signInContrib.password.serverError = {{ signInContrib.password.serverError }}
 </pre>
         </div>
     </div>

@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Linq.Expressions;
 using System.Web.Mvc;
+using System.Web.Mvc.Html;
 
 namespace Tripod.Web
 {
@@ -69,6 +70,26 @@ namespace Tripod.Web
                 : modelErrorCollection.FirstOrDefault(m => !string.IsNullOrEmpty(m.ErrorMessage))
                 ?? modelErrorCollection[0];
             return error != null ? MvcHtmlString.Create(error.ErrorMessage) : null;
+        }
+
+        public static MvcHtmlString ValueForJavaScriptString<TModel, TProperty>(this HtmlHelper<TModel> html, Expression<Func<TModel, TProperty>> expression, char escapeQuote = '\'')
+        {
+            var valueFor = html.ValueFor(expression);
+            if (valueFor == null) return null;
+
+            var valueForRaw = valueFor.ToString();
+            valueForRaw = valueForRaw.Replace(@"\", @"\\");
+            switch (escapeQuote)
+            {
+                case '\'':
+                    valueForRaw = valueForRaw.Replace("'", @"\'").Replace("&#39;", @"\'");
+                    break;
+                case '"':
+                    valueForRaw = valueForRaw.Replace(@"""", @"\""");
+                    break;
+            }
+
+            return MvcHtmlString.Create(valueForRaw);
         }
     }
 }

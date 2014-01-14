@@ -48,6 +48,11 @@ namespace Tripod.Web.Controllers
         public virtual ActionResult SignInValidate(SignIn command, string fieldName = null)
         {
             //System.Threading.Thread.Sleep(new Random().Next(5000, 5001));
+            if (command == null || command.PropertyName(x => x.Password).Equals(fieldName, StringComparison.OrdinalIgnoreCase))
+            {
+                Response.StatusCode = 400;
+                return Json(null);
+            }
 
             var result = new ValidatedFields(ModelState, fieldName);
             return new CamelCaseJsonResult(result);

@@ -13,7 +13,7 @@ module App.Directives.ServerValidate {
 
         static unexpectedError = 'An unexpected validation error has occurred.';
         modelController: ng.INgModelController;
-        helpController: ModelHelper.Controller;
+        helpController: ModelContrib.Controller;
 
         constructor() { }
 
@@ -31,7 +31,7 @@ module App.Directives.ServerValidate {
         setError(validateAttempt: ServerValidateAttempt): void {
 
             if (!validateAttempt) {
-                this.helpController.isNoSuccess = false;
+                //this.helpController.isNoSuccess = false;
                 this.helpController.serverError = null;
                 this.modelController.$setValidity('server', true);
             }
@@ -63,13 +63,13 @@ module App.Directives.ServerValidate {
             var directive: ng.IDirective = {
                 name: directiveName,
                 restrict: 'A', // attribute only
-                require: [directiveName, 'modelHelper', 'ngModel', '^formContrib', '^form'],
+                require: [directiveName, 'modelContrib', 'ngModel', '^formContrib', '^form'],
                 controller: ServerValidateController,
                 link: (scope: ng.IScope, element: JQuery, attr: ng.IAttributes, ctrls: any[]): void => {
 
                     // unload controllers from array and wire dependencies to validation controller
                     var validateCtrl: ServerValidateController = ctrls[0];
-                    var modelHelpCtrl: ModelHelper.Controller = ctrls[1];
+                    var modelHelpCtrl: ModelContrib.Controller = ctrls[1];
                     var modelCtrl: ng.INgModelController = ctrls[2];
                     var formHelpCtrl: FormContrib.Controller = ctrls[3];
                     var formCtrl: ng.IFormController = ctrls[4];
@@ -106,12 +106,12 @@ module App.Directives.ServerValidate {
                             return foundAttempt.result.isValid;
                         };
 
-                        modelHelpCtrl.isServerValidating = true; // do this in case first attempt is blocking it
+                        modelHelpCtrl.hasSpinner = true; // do this in case first attempt is blocking it
                         formInterval = $interval((): void => {
                             foundAttempt = validateCtrl.getAttempt(modelCtrl.$viewValue);
                             if (foundAttempt && foundAttempt.result) {
                                 $interval.cancel(formInterval);
-                                modelHelpCtrl.isServerValidating = false;
+                                modelHelpCtrl.hasSpinner = false;
                                 form.submit();
                             }
                         }, 10);
@@ -133,13 +133,13 @@ module App.Directives.ServerValidate {
                             var attempt = validateCtrl.getAttempt(value);
                             if (attempt && attempt.result) { // when the attempt has a server result
                                 lastAttempt = attempt;
-                                modelHelpCtrl.isServerValidating = false;
+                                modelHelpCtrl.hasSpinner = false;
                                 // the first attempt may have been pre-evaluated, but may not be ready for display
                                 if (attempt.result.isValid || attempt == validateCtrl.attempts[0]) { // and the attempt was valid
                                     validateCtrl.setError(null); // clear the server error
-                                    if (attempt == validateCtrl.attempts[0] && !attempt.result.isValid && validateNoSuccessAttr) {
-                                        modelHelpCtrl.isNoSuccess = true;
-                                    }
+                                    //if (attempt == validateCtrl.attempts[0] && !attempt.result.isValid && validateNoSuccessAttr) {
+                                    //    modelHelpCtrl.isNoSuccess = true;
+                                    //}
                                 } else { // but when the attempt was not valid
                                     validateCtrl.setError(attempt); // set the server error
                                 }
@@ -192,8 +192,8 @@ module App.Directives.ServerValidate {
 
                             // tell the help controller that there is no success, don't want to fool/confuse the user
                             // by showing a checkmark if we are going to display the spinner immediately after
-                            if (validateNoSuccessAttr)
-                                modelHelpCtrl.isNoSuccess = true;
+                            //if (validateNoSuccessAttr)
+                            //    modelHelpCtrl.isNoSuccess = true;
 
                             throttlePromise = $timeout((): void => {
 
@@ -214,7 +214,7 @@ module App.Directives.ServerValidate {
                                 var spinnerTimeoutPromise = $timeout((): void => {
                                     // don't want to show a spinner when this runs the first time
                                     if (attempt != validateCtrl.attempts[0]) {
-                                        modelHelpCtrl.isServerValidating = true;
+                                        modelHelpCtrl.hasSpinner = true;
                                     }
                                 }, 20);
 
@@ -242,7 +242,7 @@ module App.Directives.ServerValidate {
                                             return;
                                         }
 
-                                        modelHelpCtrl.isServerValidating = false;
+                                        modelHelpCtrl.hasSpinner = false;
                                         if (attempt.result.isValid) {
                                             validateCtrl.setError(null);
                                         }
@@ -252,7 +252,7 @@ module App.Directives.ServerValidate {
                                     })
                                     .error((data: any, status: number): void => {
                                         $timeout.cancel(spinnerTimeoutPromise);
-                                        modelHelpCtrl.isServerValidating = false;
+                                        modelHelpCtrl.hasSpinner = false;
 
                                         // when status is zero, user probably refreshed before this returned
                                         if (status === 0) return;

@@ -10,7 +10,7 @@ var App;
                     var directive = {
                         name: ServerError.directiveName,
                         restrict: 'A',
-                        require: ['ngModel', 'modelHelper'],
+                        require: ['ngModel', 'modelContrib'],
                         link: function (scope, element, attr, ctrls) {
                             var serverError = attr['serverError'];
                             if (!serverError)

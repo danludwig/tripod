@@ -71,7 +71,6 @@ module App.Directives.FormContrib {
             };
             return directive;
         }];
-
     };
 
     //#endregion

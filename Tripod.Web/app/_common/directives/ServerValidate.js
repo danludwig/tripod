@@ -21,7 +21,6 @@ var App;
 
                 ServerValidateController.prototype.setError = function (validateAttempt) {
                     if (!validateAttempt) {
-                        this.helpController.isNoSuccess = false;
                         this.helpController.serverError = null;
                         this.modelController.$setValidity('server', true);
                     } else {
@@ -52,7 +51,7 @@ var App;
                         var directive = {
                             name: ServerValidate.directiveName,
                             restrict: 'A',
-                            require: [ServerValidate.directiveName, 'modelHelper', 'ngModel', '^formContrib', '^form'],
+                            require: [ServerValidate.directiveName, 'modelContrib', 'ngModel', '^formContrib', '^form'],
                             controller: ServerValidateController,
                             link: function (scope, element, attr, ctrls) {
                                 var validateCtrl = ctrls[0];
@@ -92,12 +91,12 @@ var App;
                                     }
                                     ;
 
-                                    modelHelpCtrl.isServerValidating = true;
+                                    modelHelpCtrl.hasSpinner = true;
                                     formInterval = $interval(function () {
                                         foundAttempt = validateCtrl.getAttempt(modelCtrl.$viewValue);
                                         if (foundAttempt && foundAttempt.result) {
                                             $interval.cancel(formInterval);
-                                            modelHelpCtrl.isServerValidating = false;
+                                            modelHelpCtrl.hasSpinner = false;
                                             form.submit();
                                         }
                                     }, 10);
@@ -115,13 +114,10 @@ var App;
                                     var attempt = validateCtrl.getAttempt(value);
                                     if (attempt && attempt.result) {
                                         lastAttempt = attempt;
-                                        modelHelpCtrl.isServerValidating = false;
+                                        modelHelpCtrl.hasSpinner = false;
 
                                         if (attempt.result.isValid || attempt == validateCtrl.attempts[0]) {
                                             validateCtrl.setError(null);
-                                            if (attempt == validateCtrl.attempts[0] && !attempt.result.isValid && validateNoSuccessAttr) {
-                                                modelHelpCtrl.isNoSuccess = true;
-                                            }
                                         } else {
                                             validateCtrl.setError(attempt);
                                         }
@@ -163,9 +159,6 @@ var App;
                                         modelHelpCtrl.serverError = previousServerMessage;
                                     }
 
-                                    if (validateNoSuccessAttr)
-                                        modelHelpCtrl.isNoSuccess = true;
-
                                     throttlePromise = $timeout(function () {
                                         if (!attempt) {
                                             attempt = { value: value };
@@ -175,7 +168,7 @@ var App;
 
                                         var spinnerTimeoutPromise = $timeout(function () {
                                             if (attempt != validateCtrl.attempts[0]) {
-                                                modelHelpCtrl.isServerValidating = true;
+                                                modelHelpCtrl.hasSpinner = true;
                                             }
                                         }, 20);
 
@@ -193,7 +186,7 @@ var App;
                                                 return;
                                             }
 
-                                            modelHelpCtrl.isServerValidating = false;
+                                            modelHelpCtrl.hasSpinner = false;
                                             if (attempt.result.isValid) {
                                                 validateCtrl.setError(null);
                                             } else {
@@ -201,7 +194,7 @@ var App;
                                             }
                                         }).error(function (data, status) {
                                             $timeout.cancel(spinnerTimeoutPromise);
-                                            modelHelpCtrl.isServerValidating = false;
+                                            modelHelpCtrl.hasSpinner = false;
 
                                             if (status === 0)
                                                 return;

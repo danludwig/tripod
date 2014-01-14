@@ -10,7 +10,7 @@ module App.Directives.ServerError {
             var directive: ng.IDirective = {
                 name: directiveName,
                 restrict: 'A', // attribute only
-                require: ['ngModel', 'modelHelper'],
+                require: ['ngModel', 'modelContrib'],
                 link: (scope: ng.IScope, element: JQuery, attr: ng.IAttributes, ctrls: any[]): void => {
                     // don't initialize this unless there is a value in the attribute
                     var serverError = attr['serverError'];
@@ -21,7 +21,7 @@ module App.Directives.ServerError {
                     var isPassword = inputType && inputType.toLowerCase() == 'password';
 
                     var modelCtrl: ng.INgModelController = ctrls[0];
-                    var helpCtrl: ModelHelper.Controller = ctrls[1];
+                    var helpCtrl: ModelContrib.Controller = ctrls[1];
 
                     // set the server error text on the model helper controller
                     helpCtrl.serverError = serverError;

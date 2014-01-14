@@ -9,7 +9,7 @@ module App.Modules.Tripod {
         .directive(Directives.RemoveCssClass.directiveName, Directives.RemoveCssClass.directive)
         .directive(Directives.Popover.directiveName, Directives.Popover.directive)
         .directive(Directives.FormContrib.directiveName, Directives.FormContrib.directive)
-        .directive(Directives.ModelHelper.directiveName, Directives.ModelHelper.directive)
+        .directive(Directives.ModelContrib.directiveName, Directives.ModelContrib.directive)
         .directive(Directives.ServerError.directiveName, Directives.ServerError.directive)
         .directive(Directives.ServerValidate.directiveName, Directives.ServerValidate.directive)
         .directive(Directives.SubmitAction.directiveName, Directives.SubmitAction.directive)
