@@ -26,7 +26,7 @@ var App;
                         this.userName = '';
                         this.password = '';
                         this.isPersistent = false;
-                        $scope.m = this;
+                        $scope.vm = this;
                     }
                     Controller.$inject = ['$scope'];
                     return Controller;

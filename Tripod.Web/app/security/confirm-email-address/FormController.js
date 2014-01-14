@@ -8,7 +8,7 @@ var App;
                     function Controller($scope) {
                         this.emailAddress = '';
                         this.isExpectingEmail = false;
-                        $scope.m = this;
+                        $scope.vm = this;
                     }
                     Controller.prototype.submit = function (arg1) {
                         alert('submit');

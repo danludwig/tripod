@@ -36,8 +36,8 @@
                 <div class="input-group">
                     <input type="email" placeholder="[example@somewhere.com]" class="form-control"
                            id="@Html.IdFor(x => x.EmailAddress)" name="@Html.NameFor(x => x.EmailAddress)" value="@Html.ValueFor(x => x.EmailAddress)"
-                           ng-model="m.emailAddress" required
-                           ng-init="m.emailAddress='@Html.ValueFor(x => x.EmailAddress)'" />
+                           ng-model="vm.emailAddress" required
+                           ng-init="vm.emailAddress='@Html.ValueFor(x => x.EmailAddress)'" />
                     <span class="input-group-addon validation">
                         <i class="fa fa-fw fa-asterisk default" title="This is a required field"></i>
                         <i class="fa fa-fw fa-times error"></i>
@@ -79,8 +79,8 @@
                             <label>
                                 <input type="checkbox" id="@Html.IdFor(x => x.IsExpectingEmail)" name="@Html.NameFor(x => x.IsExpectingEmail)" value="true"
                                        checked="@(Model != null && Model.IsExpectingEmail ? "checked" : null)"
-                                       ng-model="m.isExpectingEmail" required
-                                       ng-init="m.isExpectingEmail=@(Model != null ? Html.ValueFor(x => x.IsExpectingEmail) : MvcHtmlString.Create("false"))" />
+                                       ng-model="vm.isExpectingEmail" required
+                                       ng-init="vm.isExpectingEmail=@(Model != null ? Html.ValueFor(x => x.IsExpectingEmail) : MvcHtmlString.Create("false"))" />
                                 <input type="hidden" name="@Html.NameFor(x => x.IsExpectingEmail)" value="false" />
                                 Send an email to the above address so that I can confirm access to it.
                             </label>
@@ -111,27 +111,27 @@
         @* FORM SUBMIT BUTTON *@
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" class="btn btn-default btn-primary" value="Send confirmation email" ng-click="m.click()" ng-disabled="f.$invalid && t3.f.attempted" />
+                <input type="submit" class="btn btn-default btn-primary" value="Send confirmation email" ng-click="vm.click()" ng-disabled="f.$invalid && t3.f.attempted" />
                 <a href="@Url.Action(MVC.EmailAddresses.SignUp())">Reload</a>
             </div>
         </div>
     </form>
-    @*<pre ng-cloak>
-        m = {{m | json}}
+    <pre ng-cloak>
+        vm = {{vm | json}}
         f = {{f | json}}
         f.EmailAddress.$viewValue = {{f.EmailAddress.$viewValue | json}}
         f.EmailAddress.$pristine = {{f.EmailAddress.$pristine | json}}
         f.IsExpectingEmail.$viewValue = {{f.IsExpectingEmail.$viewValue | json}}
         f.valid = {{ f.$valid | json}}
-        m.hasSuccess(f.EmailAddress) = {{ m.hasSuccess(f.EmailAddress) }}
-        m.hasError(f.EmailAddress) = {{ m.hasError(f.EmailAddress) }}
+        vm.hasSuccess(f.EmailAddress) = {{ vm.hasSuccess(f.EmailAddress) }}
+        vm.hasError(f.EmailAddress) = {{ vm.hasError(f.EmailAddress) }}
         f.EmailAddress.$invalid = {{ f.EmailAddress.$invalid }}
         f.EmailAddress.$dirty = {{ f.EmailAddress.$dirty }}
         t3.f.needsAttention(f.EmailAddress) = {{ t3.f.needsAttention(f.EmailAddress) }}
         f.IsExpectingEmail = {{ f.IsExpectingEmail }}
         t3.f.needsAttention(f.IsExpectingEmail) = {{ t3.f.needsAttention(f.IsExpectingEmail) }}
         t3.f.isGoodToGo(f.IsExpectingEmail) = {{ t3.f.needsAttention(f.IsExpectingEmail) }}
-            </pre>*@
+            </pre>
 </div>
 
 @section scripts {

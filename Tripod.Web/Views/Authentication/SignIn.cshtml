@@ -100,8 +100,8 @@
                                    id="@Html.IdFor(x => x.UserName)"
                                    name="userName"
                                    value="@Html.ValueFor(x => x.UserName)"
-                                   ng-init="m.userName='@Html.ValueFor(x => x.UserName)'"
-                                   ng-model="m.userName" required
+                                   ng-init="vm.userName='@Html.ValueFor(x => x.UserName)'"
+                                   ng-model="vm.userName" required
                                    model-helper
                                    server-validate="@Url.Action(MVC.Authentication.SignInValidate(null, "userName"))"
                                    server-validate-throttle="200"
@@ -165,7 +165,7 @@
                              ng-class="{ '@inputGroupCss': h.password.hasError() }">
                             <input type="password" class="form-control @inputCss" placeholder="@LocalMembership.Constraints.PasswordLabel"
                                    id="@Html.IdFor(x => x.Password)" name="password"
-                                   ng-model="m.password" required model-helper
+                                   ng-model="vm.password" required model-helper
                                    server-error="@Html.ValidationMessageTextFor(x => x.Password)" />
 
                             <span class="input-group-addon validation @Html.CssClassWhenValidFor(x => x.Password, "hide")"
@@ -221,8 +221,8 @@
                             <label>
                                 <input type="checkbox" id="@Html.IdFor(x => x.IsPersistent)" name="isPersistent" value="true"
                                        checked="@(Model != null && Model.IsPersistent ? "checked" : null)"
-                                       ng-model="m.isPersistent"
-                                       ng-init="m.isPersistent=@(Model != null ? Html.ValueFor(x => x.IsPersistent) : MvcHtmlString.Create("false"))" />
+                                       ng-model="vm.isPersistent"
+                                       ng-init="vm.isPersistent=@(Model != null ? Html.ValueFor(x => x.IsPersistent) : MvcHtmlString.Create("false"))" />
                                 <input type="hidden" name="isPersistent" value="false" />
                                 Keep me signed in after I close my browser
                             </label>

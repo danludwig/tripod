@@ -1,6 +1,6 @@
 declare module App.Security.SignUp.Form {
 
-    export interface IFormModel {
+    export interface Model {
         emailAddress?: string;
         isExpectingEmail?: boolean;
     }

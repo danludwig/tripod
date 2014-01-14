@@ -739,7 +739,7 @@
     <TypeScriptCompile Include="app\security\sign-in\FormController.ts" />
     <TypeScriptCompile Include="app\security\sign-in\FormModel.d.ts" />
     <TypeScriptCompile Include="app\security\sign-in\FormModule.ts" />
-    <TypeScriptCompile Include="app\_common\IModelScope.d.ts" />
+    <TypeScriptCompile Include="app\_common\ViewModelScope.d.ts" />
     <TypeScriptCompile Include="app\_common\ValidationModels.d.ts" />
     <TypeScriptCompile Include="app\_ng\directives\Popover.ts" />
     <TypeScriptCompile Include="app\_ng\directives\FormHelper.ts" />

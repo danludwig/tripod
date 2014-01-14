@@ -2,16 +2,14 @@
 
 module App.Security.SignUp.Form {
 
-    export interface IFormScope extends IModelScope<IFormModel> { }
-
-    export class Controller implements IFormModel {
+    export class Controller implements Model {
 
         emailAddress: string = '';
         isExpectingEmail: boolean = false;
 
         static $inject = ['$scope'];
-        constructor($scope: IFormScope) {
-            $scope.m = this;
+        constructor($scope: ViewModelScope<Model>) {
+            $scope.vm = this;
         }
 
         submit(arg1: any): boolean {

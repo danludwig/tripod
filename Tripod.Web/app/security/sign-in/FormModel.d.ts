@@ -1,6 +1,6 @@
 declare module App.Security.SignIn.Form {
 
-    export interface IFormModel {
+    export interface Model {
         userName?: string;
         password?: string;
         isPersistent?: boolean;
