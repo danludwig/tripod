@@ -18,6 +18,7 @@ module App.Directives.ModelContrib {
         setValidity(validationErrorKey: string, validationErrorMessage: string): void {
             this.ngModelController.$setValidity(validationErrorKey, validationErrorMessage ? false : true);
             this.error[validationErrorKey] = validationErrorMessage;
+            this.hasSpinner = false;
         }
 
         spinnerCssClass(): string {

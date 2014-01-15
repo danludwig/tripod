@@ -15,6 +15,7 @@ var App;
                 Controller.prototype.setValidity = function (validationErrorKey, validationErrorMessage) {
                     this.ngModelController.$setValidity(validationErrorKey, validationErrorMessage ? false : true);
                     this.error[validationErrorKey] = validationErrorMessage;
+                    this.hasSpinner = false;
                 };
 
                 Controller.prototype.spinnerCssClass = function () {

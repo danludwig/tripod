@@ -294,6 +294,9 @@
     <Content Include="app\_common\directives\ServerValidate.js">
       <DependentUpon>ServerValidate.ts</DependentUpon>
     </Content>
+    <Content Include="app\_common\directives\ServerValidate1.js">
+      <DependentUpon>ServerValidate1.ts</DependentUpon>
+    </Content>
     <Content Include="app\_common\directives\SubmitAction.js">
       <DependentUpon>SubmitAction.ts</DependentUpon>
     </Content>
@@ -713,6 +716,7 @@
     <TypeScriptCompile Include="app\_common\api\ViewModelScope.d.ts" />
     <TypeScriptCompile Include="app\_common\api\ValidationModels.d.ts" />
     <TypeScriptCompile Include="app\_common\directives\DirectiveSettings.d.ts" />
+    <TypeScriptCompile Include="app\_common\directives\ServerValidate1.ts" />
     <TypeScriptCompile Include="app\_common\directives\TooltipToggle.ts" />
     <TypeScriptCompile Include="app\_common\directives\FormContrib.ts" />
     <TypeScriptCompile Include="app\_common\directives\ModelContrib.ts" />

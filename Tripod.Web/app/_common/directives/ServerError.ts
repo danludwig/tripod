@@ -41,7 +41,6 @@ module App.Directives.ServerError {
                                 modelCtrl.$setValidity(validationErrorKey, true);
                             }
                         }
-
                     };
 
                     // initial watch to remove required error and set server error
@@ -60,7 +59,7 @@ module App.Directives.ServerError {
                         (): any => { return modelCtrl.$viewValue; },
                         (value: any): void => {
                             // always remove the error message when input becomes dirty
-                            if (modelCtrl.$dirty) {
+                            if (modelCtrl.$dirty && modelContribCtrl.error.server == attr[directiveName]) {
                                 setValidity(null);
                             }
 

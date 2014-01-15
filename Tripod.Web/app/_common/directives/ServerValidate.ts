@@ -9,54 +9,6 @@ module App.Directives.ServerValidate {
         result?: ValidatedField;
     }
 
-    export class ServerValidateController {
-
-        static unexpectedError = 'An unexpected validation error has occurred.';
-        modelController: ng.INgModelController;
-        helpController: ModelContrib.Controller;
-
-        constructor() { }
-
-        attempts: ServerValidateAttempt[] = [];
-
-        getAttempt(value: string): ServerValidateAttempt {
-            if (!this.attempts.length) return null;
-
-            for (var i = 0; i < this.attempts.length; i++)
-                if (this.attempts[i].value === value)
-                    return this.attempts[i];
-            return null;
-        }
-
-        setError(validateAttempt: ServerValidateAttempt): void {
-
-            if (!validateAttempt) {
-                //this.helpController.isNoSuccess = false;
-                //this.helpController.serverError = null;
-                //this.modelController.$setValidity('server', true);
-                this.helpController.setValidity('server', null);
-            }
-            else {
-                var hasMessage = validateAttempt.result && validateAttempt.result.errors && validateAttempt.result.errors.length && validateAttempt.result.errors[0];
-                var message = hasMessage ? validateAttempt.result.errors[0].message : ServerValidateController.unexpectedError;
-                //this.helpController.serverError = message;
-                //this.modelController.$setValidity('server', false);
-                this.helpController.setValidity('server', message);
-            }
-        }
-
-        setUnexpectedError(): void {
-            this.setError({
-                result: {
-                    errors: [{
-                        message: ServerValidateController.unexpectedError,
-                    }],
-                }
-            });
-        }
-
-    }
-
     //#region Directive
 
     var directiveFactory = (): any[]=> {
@@ -65,55 +17,121 @@ module App.Directives.ServerValidate {
             var directive: ng.IDirective = {
                 name: directiveName,
                 restrict: 'A', // attribute only
-                require: [directiveName, 'modelContrib', 'ngModel', '^formContrib', '^form'],
-                controller: ServerValidateController,
+                require: ['modelContrib', 'ngModel', '^formContrib', '^form'],
                 link: (scope: ng.IScope, element: JQuery, attr: ng.IAttributes, ctrls: any[]): void => {
 
-                    // unload controllers from array and wire dependencies to validation controller
-                    var validateCtrl: ServerValidateController = ctrls[0];
-                    var modelHelpCtrl: ModelContrib.Controller = ctrls[1];
-                    var modelCtrl: ng.INgModelController = ctrls[2];
-                    var formHelpCtrl: FormContrib.Controller = ctrls[3];
-                    var formCtrl: ng.IFormController = ctrls[4];
-                    validateCtrl.helpController = modelHelpCtrl;
-                    validateCtrl.modelController = modelCtrl;
+                    //var validateCtrl: Controller = ctrls[0];
+                    var modelContribCtrl: ModelContrib.Controller = ctrls[0];
+                    var modelCtrl: ng.INgModelController = ctrls[1];
+                    var formContribCtrl: FormContrib.Controller = ctrls[2];
+                    var formCtrl: ng.IFormController = ctrls[3];
 
                     // get configuration attributes
                     var validateUrl = attr[directiveName];
-                    var validateThrottleAttr: string = attr['serverValidateThrottle'];
-                    var validateNoSuccessAttr: string = attr['serverValidateNoSuccess'];
+                    var validateThrottleAttr: string = attr[directiveName + 'Throttle'];
+                    var validateDataAttr: string = attr[directiveName + 'Data'];
+                    var fieldName = attr['name'];
+
+                    // set up variables
                     var throttle = isNaN(parseInt(validateThrottleAttr)) ? 0 : parseInt(validateThrottleAttr);
-                    var validateDataAttr: string = attr['serverValidateData'];
+                    var throttlePromise: ng.IPromise<void>;
+                    var lastAttempt: ServerValidateAttempt;
+                    var initialValue: string;
 
-                    var throttlePromise: ng.IPromise<void>, lastAttempt: ServerValidateAttempt;
+                    var unexpectedError = 'An unexpected validation error has occurred.';
+                    var configurationError = 'This field\'s remote validation is not properly configured.';
+                    var attempts: ServerValidateAttempt[] = [];
 
-                    // find parent form to prevent submissions
-                    var form = element.parents('form'), foundAttempt: ServerValidateAttempt, formInterval: ng.IPromise<void>;
+                    //#region Helper Functions
+
+                    var hasOtherError = (): boolean => {
+                        for (var validationErrorKey in modelCtrl.$error) {
+                            if (validationErrorKey != 'server' &&
+                                modelCtrl.hasOwnProperty(validationErrorKey) &&
+                                modelCtrl[validationErrorKey] === false)
+                                return true;
+                        }
+                        return false;
+                    };
+
+                    var isInitialValue = (value: string): boolean => {
+                        return initialValue === value;
+                    };
+
+                    var buildPostData = (value: string): any => {
+                        var postData: any = null;
+
+                        // when the field has no name and no data attribute, there is nothing to build
+                        if (!validateDataAttr && !fieldName) {
+                            return null;
+                        }
+
+                        // initialize the data with what is in the data attribute
+                        if (validateDataAttr) {
+                            postData = $parse(validateDataAttr)(scope);
+                        }
+
+                        // overlay the field name when it exists and not in data attribute
+                        if (fieldName && (!validateDataAttr || validateDataAttr.indexOf(fieldName + ':') < 0)) {
+                            postData = postData || {};
+                            postData[fieldName] = value;
+                        }
+
+                        return postData;
+                    };
+
+                    var getAttempt = (value: string): ServerValidateAttempt => {
+                        if (!attempts.length) return null;
+
+                        for (var i = 0; i < attempts.length; i++)
+                            if (attempts[i].value === value)
+                                return attempts[i];
+                        return null;
+                    };
+
+                    var setValidity = (attempt: ServerValidateAttempt): void => {
+                        if (attempt && !attempt.result) return;
+                        if (!attempt || attempt.result.isValid) {
+                            modelContribCtrl.setValidity('server', null);
+                        }
+                        else {
+                            var hasMessage = attempt.result && attempt.result.errors && attempt.result.errors.length && attempt.result.errors[0];
+                            var message = hasMessage ? attempt.result.errors[0].message : unexpectedError;
+                            modelContribCtrl.setValidity('server', message);
+                        }
+                    };
+
+                    //#endregion
+                    //#region Form Submission
+
+                    var form = element.parents('form');
+                    var foundAttempt: ServerValidateAttempt;
+                    var formInterval: ng.IPromise <void>;
                     form.bind('submit', (e: JQueryEventObject): boolean => {
 
                         if (formInterval) $interval.cancel(formInterval);
 
-                        formHelpCtrl.isSubmitWaiting = true;
+                        formContribCtrl.isSubmitWaiting = true;
 
                         // make sure the value is valid
-                        foundAttempt = validateCtrl.getAttempt(modelCtrl.$viewValue);
+                        foundAttempt = getAttempt(modelCtrl.$viewValue);
                         if (foundAttempt && foundAttempt.result) {
-                            validateCtrl.setError(foundAttempt.result.isValid ? null : foundAttempt);
+                            setValidity(foundAttempt);
                             if (!scope.$$phase) scope.$apply();
                             if (!foundAttempt.result.isValid) {
                                 e.preventDefault();
                             }
                             if (formCtrl.$invalid) // keep submit disabled when the whole form is valid
-                                formHelpCtrl.isSubmitWaiting = false;
+                                formContribCtrl.isSubmitWaiting = false;
                             return foundAttempt.result.isValid;
                         };
 
-                        modelHelpCtrl.hasSpinner = true; // do this in case first attempt is blocking it
+                        modelContribCtrl.hasSpinner = true; // do this in case first attempt is blocking it
                         formInterval = $interval((): void => {
-                            foundAttempt = validateCtrl.getAttempt(modelCtrl.$viewValue);
+                            foundAttempt = getAttempt(modelCtrl.$viewValue);
                             if (foundAttempt && foundAttempt.result) {
                                 $interval.cancel(formInterval);
-                                modelHelpCtrl.hasSpinner = false;
+                                formInterval = null;
                                 form.submit();
                             }
                         }, 10);
@@ -122,82 +140,44 @@ module App.Directives.ServerValidate {
                         return false;
                     });
 
+                    //#endregion
+
                     scope.$watch(
                         (): any => {
+                            if (angular.isUndefined(initialValue))
+                                initialValue = modelCtrl.$viewValue;
                             return modelCtrl.$viewValue;
-                        }, // watch the ngModel $viewValue
+                        },
                         (value: string): void => {
 
-                            // cancel any previous promises to process because we will process anew now
+                            // cancel any previous promises to process
                             if (throttlePromise) $timeout.cancel(throttlePromise);
 
+                            // if there is another validation error, yield to it
+                            if (hasOtherError()) {
+                                modelContribCtrl.setValidity('server', null);
+                                return;
+                            }
+
                             // if this value has already been attempted and returned a result, skip promise
-                            var attempt = validateCtrl.getAttempt(value);
+                            var attempt = getAttempt(value);
                             if (attempt && attempt.result) { // when the attempt has a server result
                                 lastAttempt = attempt;
-                                modelHelpCtrl.hasSpinner = false;
-                                // the first attempt may have been pre-evaluated, but may not be ready for display
-                                if (attempt.result.isValid || attempt == validateCtrl.attempts[0]) { // and the attempt was valid
-                                    validateCtrl.setError(null); // clear the server error
-                                    //if (attempt == validateCtrl.attempts[0] && !attempt.result.isValid && validateNoSuccessAttr) {
-                                    //    modelHelpCtrl.isNoSuccess = true;
-                                    //}
-                                } else { // but when the attempt was not valid
-                                    validateCtrl.setError(attempt); // set the server error
-                                }
+                                setValidity(attempt);
                                 return;
                             }
 
-                            // will not be able to do anything unless there is data to send
-                            // we handle 3 different cases here
-                            // 1.) the element has a name attribute, which is used for the value being sent
-                            // 2.) the element has a server-validate-data attribute which can be parsed
-                            // 3.) the element has both a name and a server-validate-data attribute
-                            var fieldName = attr['name'], postData: any;
-
-                            // when the field has no name and no data attribute, fail with unexpected error
-                            if (!validateDataAttr && !fieldName) {
-                                validateCtrl.setUnexpectedError();
-                                return;
-                            }
-
-                            // initialize the data with what is in the data attribute
-                            if (validateDataAttr) {
-                                postData = $parse(validateDataAttr)(scope);
-                            }
-
-                            // overlay the field name when it exists and not in data attribute
-                            if (fieldName && (!validateDataAttr || validateDataAttr.indexOf(fieldName + ':') < 0)) {
-                                postData = postData || {};
-                                postData[fieldName] = value;
-                            }
-
-                            // if there is any other validator on this field that has an error, yield to it
-                            //var previousServerMessage = modelHelpCtrl.serverError; // stash any current server error
-                            //modelCtrl.$setValidity('server', true);
-                            //modelHelpCtrl.serverError = null;
-                            //if (!modelCtrl.$valid) {
-                            //    if (!validateCtrl.attempts.length) {
-                            //        validateCtrl.attempts.push({
-                            //            value: value,
-                            //            result: {
-                            //                isValid: true,
-                            //                errors: [],
-                            //            },
-                            //        });
-                            //    }
-                            //    return; // another validator is telling us the field is invalid, yield to it
-                            //} else { // restore the stash
-                            //    modelCtrl.$setValidity('server', previousServerMessage ? false : true);
-                            //    modelHelpCtrl.serverError = previousServerMessage;
-                            //}
-
-                            // tell the help controller that there is no success, don't want to fool/confuse the user
-                            // by showing a checkmark if we are going to display the spinner immediately after
-                            //if (validateNoSuccessAttr)
-                            //    modelHelpCtrl.isNoSuccess = true;
+                            // we want to pre-validate the initial value,
+                            // but don't want to display the spinner when doing so
+                            if (!isInitialValue(value)) modelContribCtrl.hasSpinner = true;
 
                             throttlePromise = $timeout((): void => {
+
+                                var postData = buildPostData(value);
+                                if (!validateUrl || !postData) {
+                                    modelContribCtrl.setValidity('server', configurationError);
+                                    return;
+                                }
 
                                 // this will run the very first time the directive is loaded
                                 // many times this will mean that the field is empty, but not always
@@ -207,18 +187,9 @@ module App.Directives.ServerValidate {
                                 // record this attempt as we are about to send it to the server
                                 if (!attempt) { // if it hasn't, stash the attempt
                                     attempt = { value: value, };
-                                    validateCtrl.attempts.push(attempt);
+                                    attempts.push(attempt);
                                 }
                                 lastAttempt = attempt; // store this as the last attempt
-
-                                // tell the controller there is validation progress
-                                // this should be throttled for cases when the server returns very quickly
-                                var spinnerTimeoutPromise = $timeout((): void => {
-                                    // don't want to show a spinner when this runs the first time
-                                    if (attempt != validateCtrl.attempts[0]) {
-                                        modelHelpCtrl.hasSpinner = true;
-                                    }
-                                }, 20);
 
                                 $http.post(validateUrl, postData)
                                     .success((response: any): void => {
@@ -228,11 +199,9 @@ module App.Directives.ServerValidate {
                                         // user could have accidentlly typed something at the end, then deleted it
                                         // in those cases, the last attempt will not be at the end of the attempts array
 
-                                        $timeout.cancel(spinnerTimeoutPromise); // skip showing a spinner
-
                                         // expect the result to have a property with the same name as the validated field
                                         if (!response || !response[fieldName]) {
-                                            validateCtrl.setUnexpectedError();
+                                            modelContribCtrl.setValidity('server', unexpectedError);
                                             return;
                                         }
 
@@ -240,29 +209,23 @@ module App.Directives.ServerValidate {
                                         attempt.result = response[fieldName];
 
                                         // if this is not the last attempt, just record the result and skip
-                                        if (attempt !== lastAttempt || attempt === validateCtrl.attempts[0]) {
+                                        // also do this when model is pristine, avoids swapping model feedback
+                                        if (attempt !== lastAttempt || modelCtrl.$pristine) {
                                             return;
                                         }
 
-                                        modelHelpCtrl.hasSpinner = false;
-                                        if (attempt.result.isValid) {
-                                            validateCtrl.setError(null);
-                                        }
-                                        else {
-                                            validateCtrl.setError(attempt);
-                                        }
+                                        setValidity(attempt);
                                     })
-                                    .error((data: any, status: number): void => {
-                                        $timeout.cancel(spinnerTimeoutPromise);
-                                        modelHelpCtrl.hasSpinner = false;
+                                    .error((response: any, status: number): void => {
 
                                         // when status is zero, user probably refreshed before this returned
                                         if (status === 0) return;
 
                                         // otherwise, something went wrong that we weren't expecting
-                                        validateCtrl.setUnexpectedError();
+                                        modelContribCtrl.setValidity('server', unexpectedError);
                                     });
 
+                                throttlePromise = null;
                             }, throttle);
                         });
                 },

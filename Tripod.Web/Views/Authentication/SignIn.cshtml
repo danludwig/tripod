@@ -110,10 +110,9 @@
                                    ng-init="vm.userName='@Html.ValueForJavaScriptString(x => x.UserName)'"
                                    ng-model="vm.userName" required
                                    model-contrib
+                                   server-error="@Html.ValidationMessageTextFor(x => x.UserName)"
                                    server-validate="@Url.Action(MVC.Authentication.SignInValidate(null, "userName"))"
-                                   server-validate-throttle="200"
-                                   xserver-validate-no-success="@(!IsPost)"
-                                   server-error="@Html.ValidationMessageTextFor(x => x.UserName)" />
+                                   server-validate-throttle="400" />
 
                             <span class="input-group-addon validation @Html.CssClassWhenValidFor(x => x.UserName, "hide")"
                                   remove-class="hide"
@@ -130,13 +129,13 @@
                     @* VALIDATION MESSAGES COLUMNS *@
                     <div class="col-md-4 validation help-block help-block-horizontal-md hidden-sm hidden-xs">
                         <span tooltip="@Resources.notempty_error.Replace("{PropertyName}", string.Format("{0} or {1}", UserConstraints.NameLabel, EmailAddress.Constraints.Label))"
-                              tooltip-toggle="signInForm.userName.$error.required"
+                              tooltip-toggle="signInForm.userName.$error.required && signInCtrb.userName.hasError"
                               tooltip-animation="false"
                               tooltip-placement="right"
                               class="validation-tooltip"></span>
 
                         <span tooltip="{{ signInCtrb.userName.error.server }}"
-                              tooltip-toggle="signInForm.userName.$error.server"
+                              tooltip-toggle="signInForm.userName.$error.server && signInCtrb.userName.hasError"
                               tooltip-animation="false"
                               tooltip-placement="right"
                               class="validation-tooltip"></span>
@@ -194,13 +193,13 @@
                     @* VALIDATION MESSAGES COLUMNS *@
                     <div class="col-md-4 validation help-block help-block-horizontal-md hidden-sm hidden-xs">
                         <span tooltip="{{ signInCtrb.password.error.server }}"
-                              tooltip-toggle="signInForm.password.$error.server"
+                              tooltip-toggle="signInForm.password.$error.server && signInCtrb.password.hasError"
                               tooltip-animation="false"
                               tooltip-placement="right"
                               class="validation-tooltip"></span>
 
                         <span tooltip="@Resources.notempty_error.Replace("{PropertyName}", LocalMembership.Constraints.PasswordLabel)"
-                              tooltip-toggle="signInForm.password.$error.required"
+                              tooltip-toggle="signInForm.password.$error.required && signInCtrb.password.hasError"
                               tooltip-animation="false"
                               tooltip-placement="right"
                               class="validation-tooltip"></span>
@@ -245,7 +244,7 @@
                 <div class="form-group">
                     <div class="col-md-4">
                         <input type="submit" class="btn btn-primary btn-lg btn-block" value="Sign In"
-                               ng-disabled="signInCtrb.isSubmitDisabled" />
+                               ng-disabled="signInCtrb.isSubmitWaiting" />
                     </div>
                 </div>
             </form>
