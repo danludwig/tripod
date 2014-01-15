@@ -111,6 +111,12 @@ module App.Directives.ServerValidate {
 
                         if (formInterval) $interval.cancel(formInterval);
 
+                        // if the server error directive set an error, yield to it
+                        if (isInitialValue(modelCtrl.$viewValue) && attr['serverError']) {
+                            e.preventDefault();
+                            return false;
+                        }
+
                         formContribCtrl.isSubmitWaiting = true;
 
                         // make sure the value is valid
@@ -158,6 +164,9 @@ module App.Directives.ServerValidate {
                                 modelContribCtrl.setValidity('server', null);
                                 return;
                             }
+
+                            // if the server error directive set an error, yield to it
+                            if (isInitialValue(value) && attr['serverError']) return;
 
                             // if this value has already been attempted and returned a result, skip promise
                             var attempt = getAttempt(value);

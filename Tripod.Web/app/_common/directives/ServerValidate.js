@@ -92,6 +92,11 @@ var App;
                                     if (formInterval)
                                         $interval.cancel(formInterval);
 
+                                    if (isInitialValue(modelCtrl.$viewValue) && attr['serverError']) {
+                                        e.preventDefault();
+                                        return false;
+                                    }
+
                                     formContribCtrl.isSubmitWaiting = true;
 
                                     foundAttempt = getAttempt(modelCtrl.$viewValue);
@@ -134,6 +139,9 @@ var App;
                                         modelContribCtrl.setValidity('server', null);
                                         return;
                                     }
+
+                                    if (isInitialValue(value) && attr['serverError'])
+                                        return;
 
                                     var attempt = getAttempt(value);
                                     if (attempt && attempt.result) {
