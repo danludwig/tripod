@@ -121,27 +121,27 @@
       <Variable x:TypeArguments="mtbc1:BuildParameter[]" Name="TestSpecs" />
     </Sequence.Variables>
     <b:Hello SayHelloTo="{x:Null}" sap2010:WorkflowViewState.IdRef="Hello_1" />
-    <mtbwa:InvokeProcess Arguments="[&quot;install &quot;&quot;C:\a\src\Tripod.Domain\packages.config&quot;&quot;  -Pre -source &quot;&quot;&quot;&quot; -RequireConsent -o &quot;&quot;C:\a\src\packages&quot;&quot;&quot;]" DisplayName="Nuget PreRelease" FileName="C:\a\src\.nuget\NuGet.exe" sap2010:WorkflowViewState.IdRef="InvokeProcess_1">
-      <mtbwa:InvokeProcess.ErrorDataReceived>
-        <ActivityAction x:TypeArguments="x:String">
-          <ActivityAction.Argument>
-            <DelegateInArgument x:TypeArguments="x:String" Name="errOutput" />
-          </ActivityAction.Argument>
-          <mtbwa:WriteBuildWarning sap2010:WorkflowViewState.IdRef="WriteBuildWarning_1" Message="[errOutput]" mva:VisualBasic.Settings="Assembly references and imported namespaces serialized as XML namespaces" />
-        </ActivityAction>
-      </mtbwa:InvokeProcess.ErrorDataReceived>
-      <mtbwa:InvokeProcess.OutputDataReceived>
-        <ActivityAction x:TypeArguments="x:String">
-          <ActivityAction.Argument>
-            <DelegateInArgument x:TypeArguments="x:String" Name="stdOutput" />
-          </ActivityAction.Argument>
-          <mtbwa:WriteBuildMessage sap2010:WorkflowViewState.IdRef="WriteBuildMessage_1" Importance="[Microsoft.TeamFoundation.Build.Client.BuildMessageImportance.High]" Message="[stdOutput]" mva:VisualBasic.Settings="Assembly references and imported namespaces serialized as XML namespaces" />
-        </ActivityAction>
-      </mtbwa:InvokeProcess.OutputDataReceived>
-    </mtbwa:InvokeProcess>
     <mtbac:SetBuildNumber DropLocation="{x:Null}" BuildNumberFormat="[BuildNumberFormat]" DisplayName="Update build number" sap2010:WorkflowViewState.IdRef="SetBuildNumber_1" />
     <mtbwa:AgentScope DataToIgnore="" DisplayName="Run on agent" sap2010:WorkflowViewState.IdRef="AgentScope_1" MaxExecutionTime="[AgentSettings.MaxExecutionTime]" MaxWaitTime="[AgentSettings.MaxWaitTime]" ReservationSpec="[AgentSettings.GetAgentReservationSpec()]" mva:VisualBasic.Settings="Assembly references and imported namespaces serialized as XML namespaces">
       <mtbac:InitializeEnvironment BinariesFolder="bin" DisplayName="Initialize environment" sap2010:WorkflowViewState.IdRef="InitializeEnvironment_1" SourceFolder="src" TestResultsFolder="tst" />
+      <mtbwa:InvokeProcess Arguments="[&quot;install &quot;&quot;C:\a\src\Tripod.Domain\packages.config&quot;&quot;  -Pre -source &quot;&quot;&quot;&quot; -RequireConsent -o &quot;&quot;C:\a\src\packages&quot;&quot;&quot;]" DisplayName="Nuget PreRelease" FileName="C:\a\src\.nuget\nuget.exe" sap2010:WorkflowViewState.IdRef="InvokeProcess_1">
+        <mtbwa:InvokeProcess.ErrorDataReceived>
+          <ActivityAction x:TypeArguments="x:String">
+            <ActivityAction.Argument>
+              <DelegateInArgument x:TypeArguments="x:String" Name="errOutput" />
+            </ActivityAction.Argument>
+            <mtbwa:WriteBuildWarning sap2010:WorkflowViewState.IdRef="WriteBuildWarning_1" Message="[errOutput]" mva:VisualBasic.Settings="Assembly references and imported namespaces serialized as XML namespaces" />
+          </ActivityAction>
+        </mtbwa:InvokeProcess.ErrorDataReceived>
+        <mtbwa:InvokeProcess.OutputDataReceived>
+          <ActivityAction x:TypeArguments="x:String">
+            <ActivityAction.Argument>
+              <DelegateInArgument x:TypeArguments="x:String" Name="stdOutput" />
+            </ActivityAction.Argument>
+            <mtbwa:WriteBuildMessage sap2010:WorkflowViewState.IdRef="WriteBuildMessage_1" Importance="[Microsoft.TeamFoundation.Build.Client.BuildMessageImportance.High]" Message="[stdOutput]" mva:VisualBasic.Settings="Assembly references and imported namespaces serialized as XML namespaces" />
+          </ActivityAction>
+        </mtbwa:InvokeProcess.OutputDataReceived>
+      </mtbwa:InvokeProcess>
       <mtbag:GitPull CleanRepository="[CleanRepository]" DisplayName="Pull sources from Git repo" Enabled="True" sap2010:WorkflowViewState.IdRef="GitPull_1" />
       <TryCatch DisplayName="Try" sap2010:WorkflowViewState.IdRef="TryCatch_1" mtbwt:BuildTrackingParticipant.Importance="Low">
         <TryCatch.Finally>
@@ -158,14 +158,16 @@
         </TryCatch.Try>
       </TryCatch>
     </mtbwa:AgentScope>
-    <sads:DebugSymbol.Symbol>d1FDOlxVc2Vyc1xEYW5cQ29kZVxHaXRIdWJcVHJpcG9kXEJ1aWxkXEJ1aWxkUHJvY2Vzc1NvdXJjZS5UZXN0XEN1c3RvbVRlbXBsYXRlLnhhbWw5Af4FAYUGAQgBngYB3gYBBwHFAgHMAgEGAekCAfgEAQUBlwUB3gUBBAFcAcYBAQMB5wEBpgIBAnUDogEOAgEBewV7UAIBQ3wFjQEbAgE3jgEFjgGyAQIBNI8BBaABGAIBAnwkfN4BAgFBfIcCfKICAgFAggELggHWAQIBPIoBC4oBpwICATiOAUWOAVoCATWPAbEBjwHOAQIBBo8BggGPAaQBAgEFjwHfAY8BigICAQOQAQeQAcUBAgEwkQEHkQGgAQIBLJIBB58BEgIBB4IBYoIBbwIBPooBswGKAcABAgE6igFligGqAQIBOZABpQGQAaoBAgEzkAEzkAE4AgEykAG9AZABwgECATGRASaRATkCAS6RAWuRAXECAS2XAQudARYCAQqUAQuUAW8CAQiYAQ2YAYkCAgEomQENmQHHAQIBI5oBDZoB5AMCARWbAQ2bAd0BAgERnAENnAHWAQIBC5QBZpQBbAIBCZgBswGYAYYCAgErmAGTAZgBrAECASmZAa0BmQHEAQIBJpkBkwGZAaYBAgEkmgHzApoBhgMCASGaAbACmgHEAgIBH5oB2QOaAeEDAgEemgGwA5oBzgMCAR2aATOaAYkBAgEbmgGgAZoBuQECARmaAdQCmgHiAgIBGJoB6QGaAe8BAgEXmgGcA5oBogMCARabAbMBmwHaAQIBFJsBnwGbAawBAgESnAHGAZwB0wECAQ+cAX6cAYQBAgEOnAE7nAFUAgEM</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d1FDOlxVc2Vyc1xEYW5cQ29kZVxHaXRIdWJcVHJpcG9kXEJ1aWxkXEJ1aWxkUHJvY2Vzc1NvdXJjZS5UZXN0XEN1c3RvbVRlbXBsYXRlLnhhbWw5Af4FAYUGAQgBngYB3gYBBwHFAgHMAgEGAekCAfgEAQUBlwUB3gUBBAFcAcYBAQMB5wEBpgIBAnUDogEOAgEBewV7UAIBQ3wFfLIBAgFAfQWgARgCAQJ8RXxaAgFBfbEBfc4BAgEGfYIBfaQBAgEFfd8BfYoCAgEDfgd+xQECATx/B5ABHQIBMJEBB5EBoAECASySAQefARICAQd+pQF+qgECAT9+M344AgE+fr0BfsIBAgE9fyZ/4AECATp/iQJ/pAICATmNAQ2NAakCAgE1hQENhQHYAQIBMZEBJpEBOQIBLpEBa5EBcQIBLZcBC50BFgIBCpQBC5QBbwIBCI0BtQGNAcIBAgE3jQFnjQGsAQIBNoUBZIUBcQIBM5gBDZgBiQICASiZAQ2ZAccBAgEjmgENmgHkAwIBFZsBDZsB3QECARGcAQ2cAdYBAgELlAFmlAFsAgEJmAGzAZgBhgICASuYAZMBmAGsAQIBKZkBrQGZAcQBAgEmmQGTAZkBpgECASSaAfMCmgGGAwIBIZoBsAKaAcQCAgEfmgHZA5oB4QMCAR6aAbADmgHOAwIBHZoBM5oBiQECARuaAaABmgG5AQIBGZoB1AKaAeICAgEYmgHpAZoB7wECAReaAZwDmgGiAwIBFpsBswGbAdoBAgEUmwGfAZsBrAECARKcAcYBnAHTAQIBD5wBfpwBhAECAQ6cATucAVQCAQw=</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
       <sap2010:ViewStateData Id="Hello_1" sap:VirtualizedContainerService.HintSize="440,22" />
+      <sap2010:ViewStateData Id="SetBuildNumber_1" sap:VirtualizedContainerService.HintSize="440,22" />
+      <sap2010:ViewStateData Id="InitializeEnvironment_1" sap:VirtualizedContainerService.HintSize="418,22" />
       <sap2010:ViewStateData Id="WriteBuildWarning_1" sap:VirtualizedContainerService.HintSize="200,22" />
       <sap2010:ViewStateData Id="WriteBuildMessage_1" sap:VirtualizedContainerService.HintSize="200,22" />
-      <sap2010:ViewStateData Id="InvokeProcess_1" sap:VirtualizedContainerService.HintSize="440,270">
+      <sap2010:ViewStateData Id="InvokeProcess_1" sap:VirtualizedContainerService.HintSize="418,270">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -173,8 +175,6 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="SetBuildNumber_1" sap:VirtualizedContainerService.HintSize="440,22" />
-      <sap2010:ViewStateData Id="InitializeEnvironment_1" sap:VirtualizedContainerService.HintSize="418,22" />
       <sap2010:ViewStateData Id="GitPull_1" sap:VirtualizedContainerService.HintSize="418,22" />
       <sap2010:ViewStateData Id="Assign`1_1" sap:VirtualizedContainerService.HintSize="200,22" />
       <sap2010:ViewStateData Id="Assign`1_2" sap:VirtualizedContainerService.HintSize="200,22" />
@@ -188,16 +188,16 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="TryCatch_1" sap:VirtualizedContainerService.HintSize="418,603" />
-      <sap2010:ViewStateData Id="AgentScope_1" sap:VirtualizedContainerService.HintSize="440,851" />
-      <sap2010:ViewStateData Id="Sequence_2" sap:VirtualizedContainerService.HintSize="462,1409">
+      <sap2010:ViewStateData Id="TryCatch_1" sap:VirtualizedContainerService.HintSize="418,599" />
+      <sap2010:ViewStateData Id="AgentScope_1" sap:VirtualizedContainerService.HintSize="440,1157" />
+      <sap2010:ViewStateData Id="Sequence_2" sap:VirtualizedContainerService.HintSize="462,1405">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="TfsBuild.Process_1" sap:VirtualizedContainerService.HintSize="502,1489" />
+      <sap2010:ViewStateData Id="TfsBuild.Process_1" sap:VirtualizedContainerService.HintSize="502,1485" />
     </sap2010:ViewStateManager>
   </sap2010:WorkflowViewState.ViewStateManager>
 </Activity>
