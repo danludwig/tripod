@@ -9,8 +9,8 @@ var App;
                 return function () {
                     var directive = {
                         restrict: 'A',
-                        link: function (scope, element, attrs) {
-                            element.removeClass(attrs[RemoveCssClass.directiveName]);
+                        link: function (scope, element, attr) {
+                            element.removeClass(attr[RemoveCssClass.directiveName]);
                         }
                     };
                     return directive;

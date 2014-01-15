@@ -8,8 +8,8 @@ module App.Directives.RemoveCssClass {
         return (): ng.IDirective => {
             var directive: ng.IDirective = {
                 restrict: 'A',
-                link: (scope: ng.IScope, element: JQuery, attrs: ng.IAttributes) => {
-                    element.removeClass(attrs[directiveName]);
+                link: (scope: ng.IScope, element: JQuery, attr: ng.IAttributes) => {
+                    element.removeClass(attr[directiveName]);
                 }
             };
             return directive;

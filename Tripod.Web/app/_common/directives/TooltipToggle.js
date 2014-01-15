@@ -3,54 +3,69 @@ var App;
 (function (App) {
     (function (Directives) {
         (function (TooltipToggle) {
-            TooltipToggle.directiveName = 'tooltip';
+            function directiveSettings(tooltipOrPopover) {
+                if (typeof tooltipOrPopover === "undefined") { tooltipOrPopover = 'tooltip'; }
+                var directiveName = tooltipOrPopover;
 
-            TooltipToggle.directiveConfig = [
-                '$tooltipProvider', function ($tooltipProvider) {
-                    $tooltipProvider.setTriggers({
-                        'show-tooltip': 'hide-tooltip'
-                    });
-                }];
+                var showEvent = 'show-' + directiveName;
+                var hideEvent = 'hide-' + directiveName;
 
-            var directiveFactory = function () {
-                return [
-                    '$timeout', function ($timeout) {
-                        var directive = {
-                            name: TooltipToggle.directiveName,
-                            restrict: 'A',
-                            link: function (scope, element, attr) {
-                                attr[TooltipToggle.directiveName + 'Trigger'] = 'show-tooltip';
-
-                                var redrawPromise;
-                                $(window).on('resize', function () {
-                                    if (redrawPromise)
-                                        $timeout.cancel(redrawPromise);
-                                    redrawPromise = $timeout(function () {
-                                        if (!scope['tt_isOpen'])
-                                            return;
-                                        element.triggerHandler('hide-tooltip');
-                                        element.triggerHandler('show-tooltip');
-                                    }, 100);
-                                });
-
-                                scope.$watch(attr[TooltipToggle.directiveName + 'Toggle'], function (value) {
-                                    if (value && !scope['tt_isOpen']) {
-                                        $timeout(function () {
-                                            element.triggerHandler('show-tooltip');
-                                        });
-                                    } else if (!value && scope['tt_isOpen']) {
-                                        $timeout(function () {
-                                            element.triggerHandler('hide-tooltip');
-                                        });
-                                    }
-                                });
-                            }
-                        };
-                        return directive;
+                var directiveConfig = [
+                    '$tooltipProvider', function ($tooltipProvider) {
+                        var trigger = {};
+                        trigger[showEvent] = hideEvent;
+                        $tooltipProvider.setTriggers(trigger);
                     }];
-            };
 
-            TooltipToggle.directive = directiveFactory();
+                var directiveFactory = function () {
+                    return [
+                        '$timeout', function ($timeout) {
+                            var directive = {
+                                name: directiveName,
+                                restrict: 'A',
+                                link: function (scope, element, attr) {
+                                    attr[directiveName + 'Trigger'] = showEvent;
+
+                                    var redrawPromise;
+                                    $(window).on('resize', function () {
+                                        if (redrawPromise)
+                                            $timeout.cancel(redrawPromise);
+                                        redrawPromise = $timeout(function () {
+                                            if (!scope['tt_isOpen'])
+                                                return;
+                                            element.triggerHandler(hideEvent);
+                                            element.triggerHandler(showEvent);
+                                        }, 100);
+                                    });
+
+                                    scope.$watch(attr[directiveName + 'Toggle'], function (value) {
+                                        if (value && !scope['tt_isOpen']) {
+                                            $timeout(function () {
+                                                element.triggerHandler(showEvent);
+                                            });
+                                        } else if (!value && scope['tt_isOpen']) {
+                                            $timeout(function () {
+                                                element.triggerHandler(hideEvent);
+                                            });
+                                        }
+                                    });
+                                }
+                            };
+                            return directive;
+                        }];
+                };
+
+                var directive = directiveFactory();
+
+                var directiveSettings = {
+                    directiveName: directiveName,
+                    directive: directive,
+                    directiveConfig: directiveConfig
+                };
+
+                return directiveSettings;
+            }
+            TooltipToggle.directiveSettings = directiveSettings;
         })(Directives.TooltipToggle || (Directives.TooltipToggle = {}));
         var TooltipToggle = Directives.TooltipToggle;
     })(App.Directives || (App.Directives = {}));
