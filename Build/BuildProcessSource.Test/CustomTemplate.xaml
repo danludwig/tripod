@@ -134,7 +134,7 @@
             <Sequence DisplayName="Compile and Test" sap2010:WorkflowViewState.IdRef="Sequence_1">
               <Assign x:TypeArguments="s:String[]" sap2010:WorkflowViewState.IdRef="Assign`1_1" mtbwt:BuildTrackingParticipant.Importance="None" To="[ConfigurationsToBuild]" Value="[{ New PlatformConfiguration(PlatformToBuild, ConfigurationToBuild).ToString() }]" />
               <Assign x:TypeArguments="s:String[]" sap2010:WorkflowViewState.IdRef="Assign`1_2" mtbwt:BuildTrackingParticipant.Importance="None" To="[ProjectsToBuild]" Value="[{ SolutionToBuild }]" />
-              <mtbwa:InvokeProcess Arguments="[&quot;install &quot;&quot;C:\a\src\Tripod.Domain\packages.config&quot;&quot;  -Pre -source &quot;&quot;&quot;&quot; -RequireConsent -o &quot;&quot;C:\a\src\packages&quot;&quot;&quot;]" DisplayName="Nuget PreRelease" FileName="nuget.exe" sap2010:WorkflowViewState.IdRef="InvokeProcess_1" WorkingDirectory="C:\a\src">
+              <mtbwa:InvokeProcess Arguments="[&quot;install &quot;&quot;C:\a\src\Tripod.Domain\packages.config&quot;&quot;  -Prerelease -source &quot;&quot;&quot;&quot; -RequireConsent -NonInteractive -ConfigFile &quot;&quot;C:\a\src\.nuget\NuGet.config&quot;&quot; -o &quot;&quot;C:\a\src\packages&quot;&quot;&quot;]" DisplayName="Nuget PreRelease" FileName="nuget.exe" sap2010:WorkflowViewState.IdRef="InvokeProcess_1" WorkingDirectory="C:\a\src">
                 <mtbwa:InvokeProcess.ErrorDataReceived>
                   <ActivityAction x:TypeArguments="x:String">
                     <ActivityAction.Argument>
@@ -160,7 +160,7 @@
         </TryCatch.Try>
       </TryCatch>
     </mtbwa:AgentScope>
-    <sads:DebugSymbol.Symbol>d1FDOlxVc2Vyc1xEYW5cQ29kZVxHaXRIdWJcVHJpcG9kXEJ1aWxkXEJ1aWxkUHJvY2Vzc1NvdXJjZS5UZXN0XEN1c3RvbVRlbXBsYXRlLnhhbWw7Af4FAYUGAQgBngYB3gYBBwHFAgHMAgEGAekCAfgEAQUBlwUB3gUBBAFcAcYBAQMB5wEBpgIBAnUDpAEOAgEBewV7UAIBRXwFfLIBAgFCfQWiARgCAQJ8RXxaAgFDfbEBfc4BAgEGfYIBfaQBAgEFfd8BfYoCAgEDfgd+xQECAT5/B3+gAQIBOoABB6EBEgIBB36lAX6qAQIBQX4zfjgCAUB+vQF+wgECAT9/Jn85AgE8f2t/cQIBO4UBC58BFgIBCoIBC4IBbwIBCIYBDZ4BGAIBC4IBZoIBbAIBCYcBD4cBiwICATaIAQ+IAckBAgExiQEPmgElAgEkmwEPmwHmAwIBFpwBD5wB3wECARKdAQ+dAdgBAgEMhwG1AYcBiAICATmHAZUBhwGuAQIBN4gBrwGIAcYBAgE0iAGVAYgBqAECATKJAS6JAegBAgEviQGRAokBnAICAS6JAeACiQHqAgIBLZcBFZcBsQICASmPARWPAeABAgElmwH1ApsBiAMCASKbAbICmwHGAgIBIJsB2wObAeMDAgEfmwGyA5sB0AMCAR6bATWbAYsBAgEcmwGiAZsBuwECARqbAdYCmwHkAgIBGZsB6wGbAfEBAgEYmwGeA5sBpAMCARecAbUBnAHcAQIBFZwBoQGcAa4BAgETnQHIAZ0B1QECARCdAYABnQGGAQIBD50BPZ0BVgIBDZcBvQGXAcoBAgErlwFvlwG0AQIBKo8BbI8BeQIBJw==</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d1FDOlxVc2Vyc1xEYW5cQ29kZVxHaXRIdWJcVHJpcG9kXEJ1aWxkXEJ1aWxkUHJvY2Vzc1NvdXJjZS5UZXN0XEN1c3RvbVRlbXBsYXRlLnhhbWw7Af4FAYUGAQgBngYB3gYBBwHFAgHMAgEGAekCAfgEAQUBlwUB3gUBBAFcAcYBAQMB5wEBpgIBAnUDpAEOAgEBewV7UAIBRXwFfLIBAgFCfQWiARgCAQJ8RXxaAgFDfbEBfc4BAgEGfYIBfaQBAgEFfd8BfYoCAgEDfgd+xQECAT5/B3+gAQIBOoABB6EBEgIBB36lAX6qAQIBQX4zfjgCAUB+vQF+wgECAT9/Jn85AgE8f2t/cQIBO4UBC58BFgIBCoIBC4IBbwIBCIYBDZ4BGAIBC4IBZoIBbAIBCYcBD4cBiwICATaIAQ+IAckBAgExiQEPmgElAgEkmwEPmwHmAwIBFpwBD5wB3wECARKdAQ+dAdgBAgEMhwG1AYcBiAICATmHAZUBhwGuAQIBN4gBrwGIAcYBAgE0iAGVAYgBqAECATKJAS6JAcACAgEviQHpAokB9AICAS6JAbgDiQHCAwIBLZcBFZcBsQICASmPARWPAeABAgElmwH1ApsBiAMCASKbAbICmwHGAgIBIJsB2wObAeMDAgEfmwGyA5sB0AMCAR6bATWbAYsBAgEcmwGiAZsBuwECARqbAdYCmwHkAgIBGZsB6wGbAfEBAgEYmwGeA5sBpAMCARecAbUBnAHcAQIBFZwBoQGcAa4BAgETnQHIAZ0B1QECARCdAYABnQGGAQIBD50BPZ0BVgIBDZcBvQGXAcoBAgErlwFvlwG0AQIBKo8BbI8BeQIBJw==</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
