@@ -59,7 +59,7 @@ module App.Directives.ServerError {
                         (): any => { return modelCtrl.$viewValue; },
                         (value: any): void => {
                             // always remove the error message when input becomes dirty
-                            if (modelCtrl.$dirty && modelContribCtrl.error.server == attr[directiveName]) {
+                            if (modelCtrl.$dirty && modelContribCtrl.error.server == attr[directiveName] && !modelContribCtrl.hasSpinner) {
                                 setValidity(null);
                             }
 

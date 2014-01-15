@@ -51,7 +51,7 @@ var App;
                             scope.$watch(function () {
                                 return modelCtrl.$viewValue;
                             }, function (value) {
-                                if (modelCtrl.$dirty && modelContribCtrl.error.server == attr[ServerError.directiveName]) {
+                                if (modelCtrl.$dirty && modelContribCtrl.error.server == attr[ServerError.directiveName] && !modelContribCtrl.hasSpinner) {
                                     setValidity(null);
                                 }
 

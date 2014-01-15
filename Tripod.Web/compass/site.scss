@@ -38,7 +38,7 @@ html {
 }
 
 /* angular ng-cloak directive */
-[ng-cloak] {
+[ng-cloak], .ng-cloak {
     display: none !important;
 }
 
@@ -74,6 +74,16 @@ body {
                 padding: 14px;
             }
         }
+    }
+}
+
+/* font-awesome treatments */
+body {
+    .fa-spin.spin-fast {
+        -webkit-animation: spin 1s infinite linear;
+        -moz-animation: spin 1s infinite linear;
+        -o-animation: spin 1s infinite linear;
+        animation: spin 1s infinite linear;
     }
 }
 
@@ -125,12 +135,6 @@ body {
                 &.fa-spinner {
                     /* size for green checkmark icons */
                     font-size: 18px;
-                }
-                &.spin-fast {
-                    -webkit-animation: spin 1s infinite linear;
-                    -moz-animation: spin 1s infinite linear;
-                    -o-animation: spin 1s infinite linear;
-                    animation: spin 1s infinite linear;
                 }
             }
         }

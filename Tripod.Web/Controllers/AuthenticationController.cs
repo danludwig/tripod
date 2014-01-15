@@ -55,6 +55,10 @@ namespace Tripod.Web.Controllers
             }
 
             var result = new ValidatedFields(ModelState, fieldName);
+
+            //ModelState["UserName"].Errors.Clear();
+            //result = new ValidatedFields(ModelState, fieldName);
+
             return new CamelCaseJsonResult(result);
         }
 

@@ -47,8 +47,8 @@ module App.Directives.ServerValidate {
                     var hasOtherError = (): boolean => {
                         for (var validationErrorKey in modelCtrl.$error) {
                             if (validationErrorKey != 'server' &&
-                                modelCtrl.hasOwnProperty(validationErrorKey) &&
-                                modelCtrl[validationErrorKey] === false)
+                                modelCtrl.$error.hasOwnProperty(validationErrorKey) &&
+                                modelCtrl.$error[validationErrorKey] === true)
                                 return true;
                         }
                         return false;
@@ -115,6 +115,12 @@ module App.Directives.ServerValidate {
                         if (isInitialValue(modelCtrl.$viewValue) && attr['serverError']) {
                             e.preventDefault();
                             return false;
+                        }
+
+                        // if there is another validation error, yield to it
+                        if (hasOtherError()) {
+                            modelContribCtrl.setValidity('server', null);
+                            return true;
                         }
 
                         formContribCtrl.isSubmitWaiting = true;

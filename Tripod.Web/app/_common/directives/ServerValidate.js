@@ -34,7 +34,7 @@ var App;
 
                                 var hasOtherError = function () {
                                     for (var validationErrorKey in modelCtrl.$error) {
-                                        if (validationErrorKey != 'server' && modelCtrl.hasOwnProperty(validationErrorKey) && modelCtrl[validationErrorKey] === false)
+                                        if (validationErrorKey != 'server' && modelCtrl.$error.hasOwnProperty(validationErrorKey) && modelCtrl.$error[validationErrorKey] === true)
                                             return true;
                                     }
                                     return false;
@@ -95,6 +95,11 @@ var App;
                                     if (isInitialValue(modelCtrl.$viewValue) && attr['serverError']) {
                                         e.preventDefault();
                                         return false;
+                                    }
+
+                                    if (hasOtherError()) {
+                                        modelContribCtrl.setValidity('server', null);
+                                        return true;
                                     }
 
                                     formContribCtrl.isSubmitWaiting = true;

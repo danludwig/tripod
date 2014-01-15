@@ -9,6 +9,7 @@ var App;
                 function Controller() {
                     this.isSubmitAttempted = false;
                     this.isSubmitWaiting = false;
+                    this.hasError = false;
                 }
                 return Controller;
             })();
@@ -37,6 +38,16 @@ var App;
                                     post: function (scope, element, attr, ctrls) {
                                         var contribCtrl = ctrls[0];
                                         var formCtrl = ctrls[1];
+
+                                        scope.$watch(function () {
+                                            return [formCtrl.$valid, formCtrl.$dirty, contribCtrl.isSubmitAttempted];
+                                        }, function () {
+                                            if (contribCtrl.isSubmitWaiting || formCtrl.$valid) {
+                                                contribCtrl.hasError = false;
+                                            } else if (formCtrl.$invalid && contribCtrl.isSubmitAttempted) {
+                                                contribCtrl.hasError = true;
+                                            }
+                                        }, true);
 
                                         var fn = $parse(attr['formSubmit']);
 

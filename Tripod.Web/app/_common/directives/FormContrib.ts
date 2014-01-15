@@ -11,6 +11,8 @@ module App.Directives.FormContrib {
 
         // tells us whether the submit is waiting on something, and should not be clickable in the meantime
         isSubmitWaiting = false;
+
+        hasError = false;
     }
 
     //#region Directive
@@ -42,6 +44,20 @@ module App.Directives.FormContrib {
                             // get the required controllers based on directive order
                             var contribCtrl: Controller = ctrls[0];
                             var formCtrl: ng.IFormController = ctrls[1];
+
+                            scope.$watch(
+                                (): any[]=> {
+                                    return [formCtrl.$valid, formCtrl.$dirty, contribCtrl.isSubmitAttempted];
+                                },
+                                (): void => {
+                                    if (contribCtrl.isSubmitWaiting || formCtrl.$valid) {
+                                        contribCtrl.hasError = false;
+                                    }
+                                    else if (formCtrl.$invalid && contribCtrl.isSubmitAttempted) {
+                                        contribCtrl.hasError = true;
+                                    }
+
+                                }, true);
 
                             // this is in case the attribute has an angular method attached
                             var fn = $parse(attr['formSubmit']);

@@ -64,6 +64,11 @@
 
         <hr class="hr-md hr-space" />
         <h4>
+            Don't have any of the above acounts? <a href="">Sign up</a> with your email address
+        </h4>
+
+        <hr class="hr-md hr-space" />
+        <h4>
             Have an account? Sign in with your username or email address.
         </h4>
 
@@ -243,26 +248,48 @@
                 @* FORM SUBMIT BUTTON *@
                 <div class="form-group">
                     <div class="col-md-4">
-                        <input type="submit" class="btn btn-primary btn-lg btn-block" value="Sign In"
-                               ng-disabled="signInCtrb.isSubmitWaiting" />
+                        @{
+                            var buttonClass = ViewData.ModelState.IsValid ? null : "btn-warning";
+                            var defaultClass = ViewData.ModelState.IsValid ? null : "hide";
+                            var warningClass = ViewData.ModelState.IsValid ? "hide" : null;
+                            var messageClass = ViewData.ModelState.IsValid ? "hide" : null;
+                        }
+                        <button type="submit" class="btn btn-primary btn-lg btn-block @buttonClass"
+                                ng-class="{ 'btn-warning': signInCtrb.hasError && !signInCtrb.isSubmitWaiting }"
+                                ng-disabled="signInCtrb.isSubmitWaiting"
+                                remove-class="@buttonClass">
+                            <i class="fa fa-fw fa-sign-in @defaultClass"
+                               remove-class="@defaultClass"
+                               ng-show="!signInCtrb.isSubmitWaiting && !signInCtrb.hasError"></i>
+                            <i class="fa fa-fw fa-exclamation-triangle @warningClass"
+                               remove-class="@warningClass"
+                               ng-show="!signInCtrb.isSubmitWaiting && signInCtrb.hasError"></i>
+                            <i class="fa fa-fw fa-spinner fa-spin spin-fast" ng-show="signInCtrb.isSubmitWaiting" ng-cloak></i>
+                            Sign in
+                        </button>
+                    </div>
+                    <div class="col-md-8 has-error @messageClass" remove-class="@messageClass" ng-show="!signInCtrb.isSubmitWaiting && signInCtrb.hasError">
+                        <div class="help-block">
+                            Could not sign in due to the errors above.
+                        </div>
                     </div>
                 </div>
             </form>
 
             @*<a href="@Url.Action(MVC.Authentication.SignIn())">Reload</a>
 
-            <pre>
-vm = {{vm | json}}
-signInCtrb.isSubmitAttempted = {{ signInCtrb.isSubmitAttempted }}
-signInCtrb.userName.hasError = {{ signInCtrb.userName.hasError }}
-signInCtrb.userName.hasSuccess = {{ signInCtrb.userName.hasSuccess }}
-signInCtrb.userName.hasSpinner = {{ signInCtrb.userName.hasSpinner }}
-signInCtrb.userName.error.server = {{ signInCtrb.userName.error.server }}
-signInForm.userName.$error.required = {{ signInForm.userName.$error.required }}
-signInForm.userName.$error.server = {{ signInForm.userName.$error.server }}
-signInForm.userName.$pristine = {{ signInForm.userName.$pristine }}
-signInCtrb.password.error.server = {{ signInCtrb.password.error.server }}
-</pre>*@
+                            <pre>
+                vm = {{vm | json}}
+                signInCtrb.isSubmitAttempted = {{ signInCtrb.isSubmitAttempted }}
+                signInCtrb.userName.hasError = {{ signInCtrb.userName.hasError }}
+                signInCtrb.userName.hasSuccess = {{ signInCtrb.userName.hasSuccess }}
+                signInCtrb.userName.hasSpinner = {{ signInCtrb.userName.hasSpinner }}
+                signInCtrb.userName.error.server = {{ signInCtrb.userName.error.server }}
+                signInForm.userName.$error.required = {{ signInForm.userName.$error.required }}
+                signInForm.userName.$error.server = {{ signInForm.userName.$error.server }}
+                signInForm.userName.$pristine = {{ signInForm.userName.$pristine }}
+                signInCtrb.password.error.server = {{ signInCtrb.password.error.server }}
+                </pre>*@
         </div>
     </div>
 </div>
