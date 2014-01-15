@@ -53,7 +53,6 @@ Global
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{E1BA1D96-1242-4196-85C1-0034447A4106}.Debug Integration Tests|Any CPU.ActiveCfg = Debug|Any CPU
-		{E1BA1D96-1242-4196-85C1-0034447A4106}.Debug Integration Tests|Any CPU.Build.0 = Debug|Any CPU
 		{E1BA1D96-1242-4196-85C1-0034447A4106}.Debug Unit Tests|Any CPU.ActiveCfg = Debug|Any CPU
 		{E1BA1D96-1242-4196-85C1-0034447A4106}.Debug Unit Tests|Any CPU.Build.0 = Debug|Any CPU
 		{E1BA1D96-1242-4196-85C1-0034447A4106}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -61,14 +60,12 @@ Global
 		{E1BA1D96-1242-4196-85C1-0034447A4106}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E1BA1D96-1242-4196-85C1-0034447A4106}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D217070F-C4C0-46FA-9040-E0EEDF4C673F}.Debug Integration Tests|Any CPU.ActiveCfg = Debug|Any CPU
-		{D217070F-C4C0-46FA-9040-E0EEDF4C673F}.Debug Integration Tests|Any CPU.Build.0 = Debug|Any CPU
 		{D217070F-C4C0-46FA-9040-E0EEDF4C673F}.Debug Unit Tests|Any CPU.ActiveCfg = Debug|Any CPU
 		{D217070F-C4C0-46FA-9040-E0EEDF4C673F}.Debug Unit Tests|Any CPU.Build.0 = Debug|Any CPU
 		{D217070F-C4C0-46FA-9040-E0EEDF4C673F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D217070F-C4C0-46FA-9040-E0EEDF4C673F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D217070F-C4C0-46FA-9040-E0EEDF4C673F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{DF8036D8-F370-49FD-9C85-14D95AD68139}.Debug Integration Tests|Any CPU.ActiveCfg = Debug|Any CPU
-		{DF8036D8-F370-49FD-9C85-14D95AD68139}.Debug Integration Tests|Any CPU.Build.0 = Debug|Any CPU
 		{DF8036D8-F370-49FD-9C85-14D95AD68139}.Debug Unit Tests|Any CPU.ActiveCfg = Debug|Any CPU
 		{DF8036D8-F370-49FD-9C85-14D95AD68139}.Debug Unit Tests|Any CPU.Build.0 = Debug|Any CPU
 		{DF8036D8-F370-49FD-9C85-14D95AD68139}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -76,20 +73,17 @@ Global
 		{DF8036D8-F370-49FD-9C85-14D95AD68139}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DF8036D8-F370-49FD-9C85-14D95AD68139}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D8C8221F-89B0-4707-B0F7-6762872BDA14}.Debug Integration Tests|Any CPU.ActiveCfg = Debug|Any CPU
-		{D8C8221F-89B0-4707-B0F7-6762872BDA14}.Debug Integration Tests|Any CPU.Build.0 = Debug|Any CPU
 		{D8C8221F-89B0-4707-B0F7-6762872BDA14}.Debug Unit Tests|Any CPU.ActiveCfg = Debug|Any CPU
 		{D8C8221F-89B0-4707-B0F7-6762872BDA14}.Debug Unit Tests|Any CPU.Build.0 = Debug|Any CPU
 		{D8C8221F-89B0-4707-B0F7-6762872BDA14}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D8C8221F-89B0-4707-B0F7-6762872BDA14}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D8C8221F-89B0-4707-B0F7-6762872BDA14}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7A69DC6A-46C7-4AF2-90A7-EE3C3E0A57E7}.Debug Integration Tests|Any CPU.ActiveCfg = Debug|Any CPU
-		{7A69DC6A-46C7-4AF2-90A7-EE3C3E0A57E7}.Debug Integration Tests|Any CPU.Build.0 = Debug|Any CPU
 		{7A69DC6A-46C7-4AF2-90A7-EE3C3E0A57E7}.Debug Unit Tests|Any CPU.ActiveCfg = Debug|Any CPU
 		{7A69DC6A-46C7-4AF2-90A7-EE3C3E0A57E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7A69DC6A-46C7-4AF2-90A7-EE3C3E0A57E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7A69DC6A-46C7-4AF2-90A7-EE3C3E0A57E7}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5058F80F-C633-433B-A381-55A8A3F2BAA0}.Debug Integration Tests|Any CPU.ActiveCfg = Debug|Any CPU
-		{5058F80F-C633-433B-A381-55A8A3F2BAA0}.Debug Integration Tests|Any CPU.Build.0 = Debug|Any CPU
 		{5058F80F-C633-433B-A381-55A8A3F2BAA0}.Debug Unit Tests|Any CPU.ActiveCfg = Debug|Any CPU
 		{5058F80F-C633-433B-A381-55A8A3F2BAA0}.Debug Unit Tests|Any CPU.Build.0 = Debug|Any CPU
 		{5058F80F-C633-433B-A381-55A8A3F2BAA0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
