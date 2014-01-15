@@ -111,6 +111,7 @@
       <AssemblyReference>PresentationCore</AssemblyReference>
       <AssemblyReference>System.Xaml</AssemblyReference>
       <AssemblyReference>BuildProcessSource.Test</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
   <Sequence DisplayName="Overall build process" sap2010:WorkflowViewState.IdRef="Sequence_2">
@@ -120,7 +121,7 @@
       <Variable x:TypeArguments="mtbc1:BuildParameter[]" Name="TestSpecs" />
     </Sequence.Variables>
     <b:Hello SayHelloTo="{x:Null}" sap2010:WorkflowViewState.IdRef="Hello_1" />
-    <mtbwa:InvokeProcess Arguments="[install &quot;C:\a\src\Tripod.Domain\packages.config&quot; -Pre -source &quot;&quot;  -RequireConsent -o &quot;C:\a\src\packages&quot;]" DisplayName="Nuget PreRelease" FileName="C:\a\src\.nuget\NuGet.exe" sap2010:WorkflowViewState.IdRef="InvokeProcess_1">
+    <mtbwa:InvokeProcess Arguments="[&quot;install &quot;&quot;C:\a\src\Tripod.Domain\packages.config&quot;&quot;  -Pre -source &quot;&quot;&quot;&quot; -RequireConsent -o &quot;&quot;C:\a\src\packages&quot;&quot;&quot;]" DisplayName="Nuget PreRelease" FileName="C:\a\src\.nuget\NuGet.exe" sap2010:WorkflowViewState.IdRef="InvokeProcess_1">
       <mtbwa:InvokeProcess.ErrorDataReceived>
         <ActivityAction x:TypeArguments="x:String">
           <ActivityAction.Argument>
@@ -157,14 +158,14 @@
         </TryCatch.Try>
       </TryCatch>
     </mtbwa:AgentScope>
-    <sads:DebugSymbol.Symbol>d1FDOlxVc2Vyc1xEYW5cQ29kZVxHaXRIdWJcVHJpcG9kXEJ1aWxkXEJ1aWxkUHJvY2Vzc1NvdXJjZS5UZXN0XEN1c3RvbVRlbXBsYXRlLnhhbWw5Af4FAYUGAQgBngYB3gYBBwHFAgHMAgEGAekCAfgEAQUBlwUB3gUBBAFcAcYBAQMB5wEBpgIBAnQDoQEOAgEBegV6UAIBQ3sFjAEbAgE3jQEFjQGyAQIBNI4BBZ8BGAIBAnske64BAgFBe9cBe/IBAgFAiQELiQGnAgIBPIEBC4EB1gECATiNAUWNAVoCATWOAbEBjgHOAQIBBo4BggGOAaQBAgEFjgHfAY4BigICAQOPAQePAcUBAgEwkAEHkAGgAQIBLJEBB54BEgIBB4kBswGJAcABAgE+iQFliQGqAQIBPYEBYoEBbwIBOo8BpQGPAaoBAgEzjwEzjwE4AgEyjwG9AY8BwgECATGQASaQATkCAS6QAWuQAXECAS2WAQucARYCAQqTAQuTAW8CAQiXAQ2XAYkCAgEomAENmAHHAQIBI5kBDZkB5AMCARWaAQ2aAd0BAgERmwENmwHWAQIBC5MBZpMBbAIBCZcBswGXAYYCAgErlwGTAZcBrAECASmYAa0BmAHEAQIBJpgBkwGYAaYBAgEkmQHzApkBhgMCASGZAbACmQHEAgIBH5kB2QOZAeEDAgEemQGwA5kBzgMCAR2ZATOZAYkBAgEbmQGgAZkBuQECARmZAdQCmQHiAgIBGJkB6QGZAe8BAgEXmQGcA5kBogMCARaaAbMBmgHaAQIBFJoBnwGaAawBAgESmwHGAZsB0wECAQ+bAX6bAYQBAgEOmwE7mwFUAgEM</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d1FDOlxVc2Vyc1xEYW5cQ29kZVxHaXRIdWJcVHJpcG9kXEJ1aWxkXEJ1aWxkUHJvY2Vzc1NvdXJjZS5UZXN0XEN1c3RvbVRlbXBsYXRlLnhhbWw5Af4FAYUGAQgBngYB3gYBBwHFAgHMAgEGAekCAfgEAQUBlwUB3gUBBAFcAcYBAQMB5wEBpgIBAnUDogEOAgEBewV7UAIBQ3wFjQEbAgE3jgEFjgGyAQIBNI8BBaABGAIBAnwkfN4BAgFBfIcCfKICAgFAggELggHWAQIBPIoBC4oBpwICATiOAUWOAVoCATWPAbEBjwHOAQIBBo8BggGPAaQBAgEFjwHfAY8BigICAQOQAQeQAcUBAgEwkQEHkQGgAQIBLJIBB58BEgIBB4IBYoIBbwIBPooBswGKAcABAgE6igFligGqAQIBOZABpQGQAaoBAgEzkAEzkAE4AgEykAG9AZABwgECATGRASaRATkCAS6RAWuRAXECAS2XAQudARYCAQqUAQuUAW8CAQiYAQ2YAYkCAgEomQENmQHHAQIBI5oBDZoB5AMCARWbAQ2bAd0BAgERnAENnAHWAQIBC5QBZpQBbAIBCZgBswGYAYYCAgErmAGTAZgBrAECASmZAa0BmQHEAQIBJpkBkwGZAaYBAgEkmgHzApoBhgMCASGaAbACmgHEAgIBH5oB2QOaAeEDAgEemgGwA5oBzgMCAR2aATOaAYkBAgEbmgGgAZoBuQECARmaAdQCmgHiAgIBGJoB6QGaAe8BAgEXmgGcA5oBogMCARabAbMBmwHaAQIBFJsBnwGbAawBAgESnAHGAZwB0wECAQ+cAX6cAYQBAgEOnAE7nAFUAgEM</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
       <sap2010:ViewStateData Id="Hello_1" sap:VirtualizedContainerService.HintSize="440,22" />
       <sap2010:ViewStateData Id="WriteBuildWarning_1" sap:VirtualizedContainerService.HintSize="200,22" />
       <sap2010:ViewStateData Id="WriteBuildMessage_1" sap:VirtualizedContainerService.HintSize="200,22" />
-      <sap2010:ViewStateData Id="InvokeProcess_1" sap:VirtualizedContainerService.HintSize="440,274">
+      <sap2010:ViewStateData Id="InvokeProcess_1" sap:VirtualizedContainerService.HintSize="440,270">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -189,14 +190,14 @@
       </sap2010:ViewStateData>
       <sap2010:ViewStateData Id="TryCatch_1" sap:VirtualizedContainerService.HintSize="418,603" />
       <sap2010:ViewStateData Id="AgentScope_1" sap:VirtualizedContainerService.HintSize="440,851" />
-      <sap2010:ViewStateData Id="Sequence_2" sap:VirtualizedContainerService.HintSize="462,1413">
+      <sap2010:ViewStateData Id="Sequence_2" sap:VirtualizedContainerService.HintSize="462,1409">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="TfsBuild.Process_1" sap:VirtualizedContainerService.HintSize="502,1266" />
+      <sap2010:ViewStateData Id="TfsBuild.Process_1" sap:VirtualizedContainerService.HintSize="502,1489" />
     </sap2010:ViewStateManager>
   </sap2010:WorkflowViewState.ViewStateManager>
 </Activity>
