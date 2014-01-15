@@ -25,17 +25,17 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tripod.Ioc.UnitTests", "Tes
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tripod.Ioc.IntegrationTests", "Tests\Tripod.Ioc.IntegrationTests\Tripod.Ioc.IntegrationTests.csproj", "{7A69DC6A-46C7-4AF2-90A7-EE3C3E0A57E7}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{95AD01CB-A5D5-495B-A079-49F045C783C9}"
-	ProjectSection(SolutionItems) = preProject
-		.nuget\NuGet.Config = .nuget\NuGet.Config
-		.nuget\NuGet.exe = .nuget\NuGet.exe
-		.nuget\NuGet.targets = .nuget\NuGet.targets
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tripod.Web", "Tripod.Web\Tripod.Web.csproj", "{5058F80F-C633-433B-A381-55A8A3F2BAA0}"
 	ProjectSection(ProjectDependencies) = postProject
 		{E1BA1D96-1242-4196-85C1-0034447A4106} = {E1BA1D96-1242-4196-85C1-0034447A4106}
 		{DF8036D8-F370-49FD-9C85-14D95AD68139} = {DF8036D8-F370-49FD-9C85-14D95AD68139}
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{03E3C739-7CCC-4C00-976D-F16338E37108}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
 EndProject
 Global
