@@ -110,7 +110,7 @@
                                    ng-init="vm.userName='@Html.ValueForJavaScriptString(x => x.UserName)'"
                                    ng-model="vm.userName" required
                                    model-contrib
-                                   xserver-validate="@Url.Action(MVC.Authentication.SignInValidate(null, "userName"))"
+                                   server-validate="@Url.Action(MVC.Authentication.SignInValidate(null, "userName"))"
                                    server-validate-throttle="200"
                                    xserver-validate-no-success="@(!IsPost)"
                                    server-error="@Html.ValidationMessageTextFor(x => x.UserName)" />
@@ -129,17 +129,17 @@
 
                     @* VALIDATION MESSAGES COLUMNS *@
                     <div class="col-md-4 validation help-block help-block-horizontal-md hidden-sm hidden-xs">
-                        <span popover="@Resources.notempty_error.Replace("{PropertyName}", string.Format("{0} or {1}", UserConstraints.NameLabel, EmailAddress.Constraints.Label))"
-                              popover-toggle="signInForm.userName.$error.required"
-                              popover-animation="false"
-                              popover-placement="right"
-                              class="validation-popover"></span>
+                        <span tooltip="@Resources.notempty_error.Replace("{PropertyName}", string.Format("{0} or {1}", UserConstraints.NameLabel, EmailAddress.Constraints.Label))"
+                              tooltip-toggle="signInForm.userName.$error.required"
+                              tooltip-animation="false"
+                              tooltip-placement="right"
+                              class="validation-tooltip"></span>
 
-                        <span popover="{{ signInCtrb.userName.error.server }}"
-                              popover-toggle="signInForm.userName.$error.server"
-                              popover-animation="false"
-                              popover-placement="right"
-                              class="validation-popover"></span>
+                        <span tooltip="{{ signInCtrb.userName.error.server }}"
+                              tooltip-toggle="signInForm.userName.$error.server"
+                              tooltip-animation="false"
+                              tooltip-placement="right"
+                              class="validation-tooltip"></span>
 
                         <span ng-class="{ hide: true }">@Html.ValidationMessageFor(x => x.UserName)</span>
                     </div>
@@ -193,17 +193,17 @@
 
                     @* VALIDATION MESSAGES COLUMNS *@
                     <div class="col-md-4 validation help-block help-block-horizontal-md hidden-sm hidden-xs">
-                        <span popover="{{ signInCtrb.password.error.server }}"
-                              popover-toggle="signInForm.password.$error.server"
-                              popover-animation="false"
-                              popover-placement="right"
-                              class="validation-popover"></span>
+                        <span tooltip="{{ signInCtrb.password.error.server }}"
+                              tooltip-toggle="signInForm.password.$error.server"
+                              tooltip-animation="false"
+                              tooltip-placement="right"
+                              class="validation-tooltip"></span>
 
-                        <span popover="@Resources.notempty_error.Replace("{PropertyName}", LocalMembership.Constraints.PasswordLabel)"
-                              popover-toggle="signInForm.password.$error.required"
-                              popover-animation="false"
-                              popover-placement="right"
-                              class="validation-popover"></span>
+                        <span tooltip="@Resources.notempty_error.Replace("{PropertyName}", LocalMembership.Constraints.PasswordLabel)"
+                              tooltip-toggle="signInForm.password.$error.required"
+                              tooltip-animation="false"
+                              tooltip-placement="right"
+                              class="validation-tooltip"></span>
 
                         <span ng-class="{ hide: true }">@Html.ValidationMessageFor(x => x.Password)</span>
                     </div>

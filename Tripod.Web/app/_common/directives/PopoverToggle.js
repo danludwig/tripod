@@ -2,10 +2,10 @@
 var App;
 (function (App) {
     (function (Directives) {
-        (function (Popover) {
-            Popover.directiveName = 'popover';
+        (function (PopoverToggle) {
+            PopoverToggle.directiveName = 'popover';
 
-            Popover.directiveConfig = [
+            PopoverToggle.directiveConfig = [
                 '$tooltipProvider', function ($tooltipProvider) {
                     $tooltipProvider.setTriggers({
                         'show-popover': 'hide-popover'
@@ -16,10 +16,10 @@ var App;
                 return [
                     '$timeout', function ($timeout) {
                         var directive = {
-                            name: Popover.directiveName,
+                            name: PopoverToggle.directiveName,
                             restrict: 'A',
                             link: function (scope, element, attr) {
-                                attr[Popover.directiveName + 'Trigger'] = 'show-popover';
+                                attr[PopoverToggle.directiveName + 'Trigger'] = 'show-popover';
 
                                 var redrawPromise;
                                 $(window).on('resize', function () {
@@ -33,7 +33,7 @@ var App;
                                     }, 100);
                                 });
 
-                                scope.$watch(attr[Popover.directiveName + 'Toggle'], function (value) {
+                                scope.$watch(attr[PopoverToggle.directiveName + 'Toggle'], function (value) {
                                     if (value && !scope['tt_isOpen']) {
                                         $timeout(function () {
                                             element.triggerHandler('show-popover');
@@ -50,9 +50,9 @@ var App;
                     }];
             };
 
-            Popover.directive = directiveFactory();
-        })(Directives.Popover || (Directives.Popover = {}));
-        var Popover = Directives.Popover;
+            PopoverToggle.directive = directiveFactory();
+        })(Directives.PopoverToggle || (Directives.PopoverToggle = {}));
+        var PopoverToggle = Directives.PopoverToggle;
     })(App.Directives || (App.Directives = {}));
     var Directives = App.Directives;
 })(App || (App = {}));

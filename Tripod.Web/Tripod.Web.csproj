@@ -285,11 +285,8 @@
     <Content Include="app\_common\directives\ModelContrib.js">
       <DependentUpon>ModelContrib.ts</DependentUpon>
     </Content>
-    <Content Include="app\_common\directives\Popover.js">
-      <DependentUpon>Popover.ts</DependentUpon>
-    </Content>
-    <Content Include="app\_common\directives\Popover1.js">
-      <DependentUpon>Popover1.ts</DependentUpon>
+    <Content Include="app\_common\directives\PopoverToggle.js">
+      <DependentUpon>PopoverToggle.ts</DependentUpon>
     </Content>
     <Content Include="app\_common\directives\RemoveCssClass.js">
       <DependentUpon>RemoveCssClass.ts</DependentUpon>
@@ -302,6 +299,9 @@
     </Content>
     <Content Include="app\_common\directives\SubmitAction.js">
       <DependentUpon>SubmitAction.ts</DependentUpon>
+    </Content>
+    <Content Include="app\_common\directives\TooltipToggle.js">
+      <DependentUpon>TooltipToggle.ts</DependentUpon>
     </Content>
     <Content Include="app\_common\modules\Tripod.js">
       <DependentUpon>Tripod.ts</DependentUpon>
@@ -715,8 +715,8 @@
     <TypeScriptCompile Include="app\security\sign-in\Form.ts" />
     <TypeScriptCompile Include="app\_common\api\ViewModelScope.d.ts" />
     <TypeScriptCompile Include="app\_common\api\ValidationModels.d.ts" />
-    <TypeScriptCompile Include="app\_common\directives\Popover.ts" />
-    <TypeScriptCompile Include="app\_common\directives\Popover1.ts" />
+    <TypeScriptCompile Include="app\_common\directives\TooltipToggle.ts" />
+    <TypeScriptCompile Include="app\_common\directives\PopoverToggle.ts" />
     <TypeScriptCompile Include="app\_common\directives\FormContrib.ts" />
     <TypeScriptCompile Include="app\_common\directives\ModelContrib.ts" />
     <TypeScriptCompile Include="app\_common\directives\RemoveCssClass.ts" />

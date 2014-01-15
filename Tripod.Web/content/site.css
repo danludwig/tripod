@@ -161,61 +161,68 @@ body {
 
 /* validation popover positioning */
 /* line 184, ../compass/site.scss */
-body .validation-popover {
+body .validation-popover, body .validation-tooltip {
   width: 0;
   height: 0;
   margin-left: -12px;
   margin-right: 12px;
   position: relative;
   top: 6px; }
-/* line 193, ../compass/site.scss */
-body .form-group-lg .validation-popover {
+/* line 194, ../compass/site.scss */
+body .form-group-lg .validation-popover, body .form-group-lg .validation-tooltip {
   top: 12px; }
-/* line 197, ../compass/site.scss */
-body .form-group-sm .validation-popover {
+/* line 200, ../compass/site.scss */
+body .form-group-sm .validation-popover, body .form-group-sm .validation-tooltip {
   top: 5px; }
-/* line 201, ../compass/site.scss */
+/* line 205, ../compass/site.scss */
 body .validation.help-block .popover-content {
   padding: 4px 12px;
   word-wrap: break-word; }
+/* line 211, ../compass/site.scss */
+body .validation.help-block .tooltip-inner {
+  text-align: left;
+  background-color: #b94a48; }
+/* line 215, ../compass/site.scss */
+body .validation.help-block .tooltip.right .tooltip-arrow {
+  border-right-color: #b94a48; }
 
 /* form elements */
-/* line 208, ../compass/site.scss */
+/* line 222, ../compass/site.scss */
 body {
   /* checkbox treatments */
   /* show not-allowed cursor on disabled elements */
   /* hide padding on image buttons */ }
-  /* line 210, ../compass/site.scss */
+  /* line 224, ../compass/site.scss */
   body .form-control .checkbox {
     /* when a checkbox is nested within a form-control (which is also probably nested within an input-group),
     remove the top padding, since the form-control provides padding already */
     padding-top: 0; }
-  /* line 215, ../compass/site.scss */
+  /* line 229, ../compass/site.scss */
   body input[type=checkbox] {
     /* make checkboxes use pointer cursor to match up with their labels */
     cursor: pointer; }
-  /* line 221, ../compass/site.scss */
+  /* line 235, ../compass/site.scss */
   body [disabled], body .btn[disabled] {
     pointer-events: auto;
     cursor: not-allowed; }
-  /* line 227, ../compass/site.scss */
+  /* line 241, ../compass/site.scss */
   body input[type=image].btn {
     padding: 0;
     border: 0; }
 
 /* VS starter template styles */
-/* line 235, ../compass/site.scss */
+/* line 249, ../compass/site.scss */
 body .validation-summary-errors {
   color: #b94a48; }
-/* line 239, ../compass/site.scss */
+/* line 253, ../compass/site.scss */
 body .validation-summary-valid {
   display: none; }
-/* line 243, ../compass/site.scss */
+/* line 257, ../compass/site.scss */
 body hr {
   border-top-color: #ccc; }
 
 /* deprecated VS starter template styles */
-/* line 249, ../compass/site.scss */
+/* line 263, ../compass/site.scss */
 body {
   /* This was included by the VS starter template, but we don't want it.
   Instead, we want to let bootstrap size the form elements at 100% and

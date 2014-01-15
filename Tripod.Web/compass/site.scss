@@ -181,7 +181,7 @@ body {
 
 /* validation popover positioning */
 body {
-    .validation-popover {
+    .validation-popover, .validation-tooltip {
         width: 0;
         height: 0;
         margin-left: -12px;
@@ -190,17 +190,31 @@ body {
         top: 6px;
     }
 
-    .form-group-lg .validation-popover {
-        top: 12px;
+    .form-group-lg {
+        .validation-popover, .validation-tooltip {
+            top: 12px;
+        }
     }
 
-    .form-group-sm .validation-popover {
-        top: 5px;
+    .form-group-sm {
+        .validation-popover, .validation-tooltip {
+            top: 5px;
+        }
     }
 
     .validation.help-block .popover-content {
         padding: 4px 12px;
         word-wrap: break-word;
+    }
+
+    .validation.help-block {
+        .tooltip-inner {
+            text-align: left;
+            background-color: $danger-color;
+        }
+        .tooltip.right .tooltip-arrow {
+            border-right-color: $danger-color;
+        }
     }
 }
 

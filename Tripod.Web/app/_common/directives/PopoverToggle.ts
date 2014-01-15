@@ -1,6 +1,6 @@
 'use strict';
 
-module App.Directives.Popover {
+module App.Directives.PopoverToggle {
 
     export var directiveName = 'popover';
 
