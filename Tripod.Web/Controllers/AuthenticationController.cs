@@ -36,7 +36,7 @@ namespace Tripod.Web.Controllers
         [HttpPost, Route("sign-in")]
         public virtual async Task<ActionResult> SignIn(SignIn command, string returnUrl)
         {
-            System.Threading.Thread.Sleep(new Random().Next(5000, 5001));
+            //System.Threading.Thread.Sleep(new Random().Next(5000, 5001));
 
             if (!ModelState.IsValid) return View(Views.SignIn, command);
             await _commands.Execute(command);
@@ -47,7 +47,7 @@ namespace Tripod.Web.Controllers
         [HttpPost, Route("sign-in/validate/{fieldName?}")]
         public virtual ActionResult SignInValidate(SignIn command, string fieldName = null)
         {
-            System.Threading.Thread.Sleep(new Random().Next(5000, 5001));
+            //System.Threading.Thread.Sleep(new Random().Next(5000, 5001));
             if (command == null || command.PropertyName(x => x.Password).Equals(fieldName, StringComparison.OrdinalIgnoreCase))
             {
                 Response.StatusCode = 400;
