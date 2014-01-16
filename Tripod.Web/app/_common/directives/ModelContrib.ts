@@ -56,7 +56,7 @@ module App.Directives.ModelContrib {
 
     var directiveFactory = (): () => ng.IDirective => {
         return (): ng.IDirective => {
-            var directive: ng.IDirective = {
+            var d: ng.IDirective = {
                 name: directiveName,
                 restrict: 'A', // attribute only
                 require: [directiveName, 'ngModel', '^formContrib'],
@@ -97,7 +97,7 @@ module App.Directives.ModelContrib {
                     };
                 },
             };
-            return directive;
+            return d;
         };
     };
 

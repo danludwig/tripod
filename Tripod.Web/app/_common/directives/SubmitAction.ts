@@ -36,7 +36,7 @@ module App.Directives.SubmitAction {
     var directiveFactory = (): any[]=> {
         // inject services
         return ['$parse', ($parse: ng.IParseService): ng.IDirective => {
-            var directive: ng.IDirective = {
+            var d: ng.IDirective = {
                 name: directiveName,
                 restrict: 'A',
                 require: ['ngT3SubmitAction', '?form'],
@@ -80,7 +80,7 @@ module App.Directives.SubmitAction {
                     };
                 }
             };
-            return directive;
+            return d;
         }];
     };
 

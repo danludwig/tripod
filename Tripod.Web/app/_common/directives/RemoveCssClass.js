@@ -7,13 +7,13 @@ var App;
 
             var directiveFactory = function () {
                 return function () {
-                    var directive = {
+                    var d = {
                         restrict: 'A',
                         link: function (scope, element, attr) {
                             element.removeClass(attr[RemoveCssClass.directiveName]);
                         }
                     };
-                    return directive;
+                    return d;
                 };
             };
 

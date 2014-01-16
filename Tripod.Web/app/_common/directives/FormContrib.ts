@@ -20,7 +20,7 @@ module App.Directives.FormContrib {
     var directiveFactory = (): any[]=> {
         // inject parse service
         return ['$parse', ($parse: ng.IParseService): ng.IDirective => {
-            var directive: ng.IDirective = {
+            var d: ng.IDirective = {
                 name: directiveName,
                 restrict: 'A', // attribute only
                 require: [directiveName, 'form'], // need both controllers when compiling
@@ -86,7 +86,7 @@ module App.Directives.FormContrib {
                     };
                 },
             };
-            return directive;
+            return d;
         }];
     };
 

@@ -5,14 +5,47 @@ var App;
         (function (SignIn) {
             (function (Form) {
                 var Controller = (function () {
-                    function Controller($scope) {
+                    function Controller(scope) {
+                        this.scope = scope;
                         this.userName = '';
                         this.password = '';
                         this.isPersistent = false;
-                        $scope.vm = this;
+                        scope.vm = this;
                     }
-                    Controller.prototype.someMethod = function () {
-                        alert('doing some method');
+                    Controller.prototype.userNameInputGroupValidationAddOnCssClass = function () {
+                        return this.scope.signInCtrb.userName.hasFeedback() ? null : 'hide';
+                    };
+
+                    Controller.prototype.isUserNameRequiredError = function () {
+                        return this.scope.signInForm.userName.$error.required && this.scope.signInCtrb.userName.hasError;
+                    };
+
+                    Controller.prototype.isUserNameServerError = function () {
+                        return this.scope.signInForm.userName.$error.server && this.scope.signInCtrb.userName.hasError;
+                    };
+
+                    Controller.prototype.isPasswordError = function () {
+                        return this.scope.signInCtrb.password.hasError && !this.scope.signInCtrb.userName.hasError;
+                    };
+
+                    Controller.prototype.passwordCssClass = function () {
+                        return this.isPasswordError() ? 'has-error' : null;
+                    };
+
+                    Controller.prototype.passwordInputGroupCssClass = function (cssClass) {
+                        return this.isPasswordError() ? cssClass : null;
+                    };
+
+                    Controller.prototype.passwordInputGroupValidationAddOnCssClass = function () {
+                        return this.isPasswordError() ? null : 'hide';
+                    };
+
+                    Controller.prototype.isPasswordRequiredError = function () {
+                        return this.scope.signInForm.password.$error.required && this.isPasswordError();
+                    };
+
+                    Controller.prototype.isPasswordServerError = function () {
+                        return this.scope.signInForm.password.$error.server && this.isPasswordError();
                     };
                     Controller.$inject = ['$scope'];
                     return Controller;

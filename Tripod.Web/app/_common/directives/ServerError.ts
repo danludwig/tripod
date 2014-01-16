@@ -9,7 +9,7 @@ module App.Directives.ServerError {
 
     var directiveFactory = (): () => ng.IDirective => {
         return (): ng.IDirective => {
-            var directive: ng.IDirective = {
+            var d: ng.IDirective = {
                 name: directiveName,
                 restrict: 'A', // attribute only
                 require: ['ngModel', 'modelContrib'],
@@ -71,7 +71,7 @@ module App.Directives.ServerError {
                         });
                 },
             };
-            return directive;
+            return d;
         };
     };
 

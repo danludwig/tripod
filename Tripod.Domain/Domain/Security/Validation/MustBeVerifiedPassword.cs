@@ -10,7 +10,7 @@ namespace Tripod.Domain.Security
         private readonly Func<T, string> _userName;
 
         internal MustBeVerifiedPassword(IProcessQueries queries, Func<T, string> userName)
-            : base(() => Resources.Validation_InvalidUsernameOrPassword)
+            : base(() => Resources.Validation_InvalidPassword)
         {
             if (queries == null) throw new ArgumentNullException("queries");
             if (userName == null) throw new ArgumentNullException("userName");

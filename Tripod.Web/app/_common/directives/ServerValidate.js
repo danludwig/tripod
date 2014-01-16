@@ -8,7 +8,7 @@ var App;
             var directiveFactory = function () {
                 return [
                     '$http', '$timeout', '$interval', '$parse', function ($http, $timeout, $interval, $parse) {
-                        var directive = {
+                        var d = {
                             name: ServerValidate.directiveName,
                             restrict: 'A',
                             require: ['modelContrib', 'ngModel', '^formContrib', '^form'],
@@ -196,7 +196,7 @@ var App;
                                 });
                             }
                         };
-                        return directive;
+                        return d;
                     }];
             };
 

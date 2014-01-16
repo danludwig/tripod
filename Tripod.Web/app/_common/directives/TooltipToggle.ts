@@ -19,7 +19,7 @@ module App.Directives.TooltipToggle {
 
         var directiveFactory = (): any[] => {
             return ['$timeout', ($timeout: ng.ITimeoutService): ng.IDirective => {
-                var directive: ng.IDirective = {
+                var d: ng.IDirective = {
                     name: directiveName,
                     restrict: 'A',
                     link: (scope: ng.IScope, element: JQuery, attr: ng.IAttributes) => {
@@ -54,7 +54,7 @@ module App.Directives.TooltipToggle {
                         });
                     }
                 };
-                return directive;
+                return d;
             }];
         };
 

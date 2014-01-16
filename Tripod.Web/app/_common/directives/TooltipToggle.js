@@ -20,7 +20,7 @@ var App;
                 var directiveFactory = function () {
                     return [
                         '$timeout', function ($timeout) {
-                            var directive = {
+                            var d = {
                                 name: directiveName,
                                 restrict: 'A',
                                 link: function (scope, element, attr) {
@@ -51,7 +51,7 @@ var App;
                                     });
                                 }
                             };
-                            return directive;
+                            return d;
                         }];
                 };
 

@@ -36,7 +36,7 @@ var App;
             var directiveFactory = function () {
                 return [
                     '$parse', function ($parse) {
-                        var directive = {
+                        var d = {
                             name: SubmitAction.directiveName,
                             restrict: 'A',
                             require: ['ngT3SubmitAction', '?form'],
@@ -78,7 +78,7 @@ var App;
                                 };
                             }
                         };
-                        return directive;
+                        return d;
                     }];
             };
 

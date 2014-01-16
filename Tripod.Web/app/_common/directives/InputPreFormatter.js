@@ -7,7 +7,7 @@ var App;
 
             var directiveFactory = function () {
                 return function () {
-                    var directive = {
+                    var d = {
                         restrict: 'E',
                         require: '?ngModel',
                         link: function (scope, element, attr, ctrl) {
@@ -25,7 +25,7 @@ var App;
                             });
                         }
                     };
-                    return directive;
+                    return d;
                 };
             };
 

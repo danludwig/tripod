@@ -71,7 +71,30 @@ namespace Tripod.Domain.Security
         }
 
         [Fact]
-        public void IsInvalid_WhenPassword_IsNotVerified()
+        public void IsInvalid_WhenPassword_IsNotVerified_AndUserExists()
+        {
+            const string userName = "username";
+            const string password = "wrong password";
+            var queries = new Mock<IProcessQueries>(MockBehavior.Strict);
+            var validator = new ValidateSignInCommand(queries.Object);
+            var command = new SignIn { UserName = userName, Password = password, };
+            Expression<Func<IsPasswordVerified, bool>> expectedQuery = x =>
+                x.UserName == command.UserName && x.Password == command.Password;
+            queries.Setup(x => x.Execute(It.Is(expectedQuery))).Returns(Task.FromResult(false));
+            Expression<Func<UserBy, bool>> userQuery = x => x.Name == command.UserName;
+            queries.Setup(x => x.Execute(It.Is(userQuery))).Returns(Task.FromResult(new User()));
+
+            var result = validator.Validate(command);
+
+            result.IsValid.ShouldBeFalse();
+            Func<ValidationFailure, bool> targetError = x => x.PropertyName == command.PropertyName(y => y.Password);
+            result.Errors.Count(targetError).ShouldEqual(1);
+            result.Errors.Single(targetError).ErrorMessage.ShouldEqual(Resources.Validation_InvalidPassword);
+            queries.Verify(x => x.Execute(It.Is(expectedQuery)), Times.Once);
+        }
+
+        [Fact]
+        public void PasswordIsValid_WhenNoUserExists()
         {
             const string userName = "username";
             const string password = "wrong password";
@@ -88,9 +111,8 @@ namespace Tripod.Domain.Security
 
             result.IsValid.ShouldBeFalse();
             Func<ValidationFailure, bool> targetError = x => x.PropertyName == command.PropertyName(y => y.Password);
-            result.Errors.Count(targetError).ShouldEqual(1);
-            result.Errors.Single(targetError).ErrorMessage.ShouldEqual(Resources.Validation_InvalidUsernameOrPassword);
-            queries.Verify(x => x.Execute(It.Is(expectedQuery)), Times.Once);
+            result.Errors.Count(targetError).ShouldEqual(0);
+            queries.Verify(x => x.Execute(It.Is(expectedQuery)), Times.Never);
         }
 
         [Fact]
@@ -111,7 +133,7 @@ namespace Tripod.Domain.Security
 
             result.IsValid.ShouldBeTrue();
             queries.Verify(x => x.Execute(It.Is(passwordQuery)), Times.Once);
-            queries.Verify(x => x.Execute(It.Is(userQuery)), Times.Once);
+            queries.Verify(x => x.Execute(It.Is(userQuery)), Times.AtLeastOnce);
         }
     }
 }

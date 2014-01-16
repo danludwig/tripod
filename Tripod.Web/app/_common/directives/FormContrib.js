@@ -18,7 +18,7 @@ var App;
             var directiveFactory = function () {
                 return [
                     '$parse', function ($parse) {
-                        var directive = {
+                        var d = {
                             name: FormContrib.directiveName,
                             restrict: 'A',
                             require: [FormContrib.directiveName, 'form'],
@@ -72,7 +72,7 @@ var App;
                                 };
                             }
                         };
-                        return directive;
+                        return d;
                     }];
             };
 

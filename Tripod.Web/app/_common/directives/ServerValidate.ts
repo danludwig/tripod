@@ -14,7 +14,7 @@ module App.Directives.ServerValidate {
     var directiveFactory = (): any[]=> {
         // inject services
         return ['$http', '$timeout', '$interval', '$parse', ($http: ng.IHttpService, $timeout: ng.ITimeoutService, $interval: ng.IIntervalService, $parse: ng.IParseService): ng.IDirective => {
-            var directive: ng.IDirective = {
+            var d: ng.IDirective = {
                 name: directiveName,
                 restrict: 'A', // attribute only
                 require: ['modelContrib', 'ngModel', '^formContrib', '^form'],
@@ -245,7 +245,7 @@ module App.Directives.ServerValidate {
                         });
                 },
             };
-            return directive;
+            return d;
         }];
 
     };

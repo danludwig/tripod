@@ -59,7 +59,7 @@ var App;
 
             var directiveFactory = function () {
                 return function () {
-                    var directive = {
+                    var d = {
                         name: ModelContrib.directiveName,
                         restrict: 'A',
                         require: [ModelContrib.directiveName, 'ngModel', '^formContrib'],
@@ -92,7 +92,7 @@ var App;
                             };
                         }
                     };
-                    return directive;
+                    return d;
                 };
             };
 

@@ -7,7 +7,7 @@ var App;
 
             var directiveFactory = function () {
                 return function () {
-                    var directive = {
+                    var d = {
                         name: ServerError.directiveName,
                         restrict: 'A',
                         require: ['ngModel', 'modelContrib'],
@@ -61,7 +61,7 @@ var App;
                             });
                         }
                     };
-                    return directive;
+                    return d;
                 };
             };
 

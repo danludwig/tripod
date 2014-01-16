@@ -6,7 +6,7 @@ module App.Directives.InputPreFormatter {
 
     var directiveFactory = (): () => ng.IDirective => {
         return (): ng.IDirective => {
-            var directive: ng.IDirective = {
+            var d: ng.IDirective = {
                 restrict: 'E',
                 require: '?ngModel',
                 link: (scope: ng.IScope, element: JQuery, attr: ng.IAttributes, ctrl: ng.INgModelController): any => {
@@ -25,7 +25,7 @@ module App.Directives.InputPreFormatter {
                     });
                 }
             };
-            return directive;
+            return d;
         };
     };
 

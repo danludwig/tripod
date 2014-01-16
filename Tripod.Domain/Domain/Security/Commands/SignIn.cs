@@ -26,7 +26,8 @@ namespace Tripod.Domain.Security
             RuleFor(x => x.Password)
                 .NotEmpty().WithName(LocalMembership.Constraints.PasswordLabel)
                 .MustBeVerifiedPassword(queries, x => x.UserName)
-                    .When(x => !string.IsNullOrWhiteSpace(x.UserName), ApplyConditionTo.CurrentValidator);
+                    .When(x => queries.Execute(new UserBy(x.UserName)).Result != null, ApplyConditionTo.CurrentValidator)
+            ;
         }
     }
 
