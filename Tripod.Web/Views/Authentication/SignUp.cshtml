@@ -8,6 +8,15 @@
     ViewBag.Title = "SignUp";
 }
 
+@section styles
+{
+    <style>
+        .provider-alert {
+            margin-top: 20px; /* alert needs more vertical space at top, h2 only has 10px margin-bottom */
+        }
+    </style>
+}
+
 <hr class="hr-md hr-space" />
 <div class="row" ng-app="sign-up-form" ng-controller="App.Security.SignUp.Form.Controller">
     <div class="col-sm-8 col-sm-offset-2">
@@ -16,7 +25,7 @@
         <h2>@ViewBag.Title.</h2>
 
         @* OAUTH PROVIDERS INFO ALERT *@
-        <div class="alert alert-info alert-dismissable">
+        <div class="alert alert-info alert-dismissable provider-alert">
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
             <strong>Note:</strong> You can sign up using one of the accounts below. Have more than one?
             Just pick one to sign up with, and you can add the others later.
@@ -25,11 +34,6 @@
         @* OAUTH PROVIDER BUTTONS FORM *@
         @{ Html.RenderPartial(MVC.Authentication.Views._OAuthSignInForm);}
 
-        <h4>
-            Did you create a password when you signed up? <a href="@Url.Action(MVC.Authentication.SignIn())">Sign in here</a>.
-        </h4>
-
-        <hr class="hr-md hr-space" />
         <h4>
             Create a new account with us using your email address.
         </h4>
@@ -223,6 +227,10 @@
             </div>
         </form>
 
+        <hr class="hr-md hr-space" />
+        <h4>
+            Already have an account with us? <a href="@Url.Action(MVC.Authentication.SignIn())">Sign in here</a>.
+        </h4>
     </div>
 </div>
 
