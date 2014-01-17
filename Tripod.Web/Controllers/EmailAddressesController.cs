@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 using Tripod.Domain.Security;
 using Tripod.Web.Models;
 
@@ -6,6 +7,13 @@ namespace Tripod.Web.Controllers
 {
     public partial class EmailAddressesController : Controller
     {
+        private readonly UserManager<User, int> _userManager;
+
+        public EmailAddressesController(UserManager<User, int> userManager)
+        {
+            _userManager = userManager;
+        }
+
         [HttpGet, Route("sign-up")]
         public virtual ViewResult SignUp()
         {

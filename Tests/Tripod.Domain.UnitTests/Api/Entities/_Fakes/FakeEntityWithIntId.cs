@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Tripod
+﻿namespace Tripod
 {
     internal class FakeEntityWithIntId : EntityWithId<int>
     {

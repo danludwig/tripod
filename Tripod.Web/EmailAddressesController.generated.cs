@@ -25,9 +25,6 @@ namespace Tripod.Web.Controllers
     public partial class EmailAddressesController
     {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public EmailAddressesController() { }
-
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         protected EmailAddressesController(Dummy d) { }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]

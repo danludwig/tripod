@@ -69,7 +69,7 @@
     </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.1.0.0\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.0.0-alpha1\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Owin, Version=2.0.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -293,9 +293,6 @@
     </Content>
     <Content Include="app\_common\directives\ServerValidate.js">
       <DependentUpon>ServerValidate.ts</DependentUpon>
-    </Content>
-    <Content Include="app\_common\directives\SubmitAction.js">
-      <DependentUpon>SubmitAction.ts</DependentUpon>
     </Content>
     <Content Include="app\_common\directives\TooltipToggle.js">
       <DependentUpon>TooltipToggle.ts</DependentUpon>
@@ -720,7 +717,6 @@
     <TypeScriptCompile Include="app\_common\directives\InputPreFormatter.ts" />
     <TypeScriptCompile Include="app\_common\directives\ServerError.ts" />
     <TypeScriptCompile Include="app\_common\directives\ServerValidate.ts" />
-    <TypeScriptCompile Include="app\_common\directives\SubmitAction.ts" />
     <TypeScriptCompile Include="app\_common\modules\Tripod.ts" />
     <TypeScriptCompile Include="scripts\typings\angular-ui-bootstrap\angular-ui-bootstrap.d.ts" />
     <TypeScriptCompile Include="scripts\typings\angularjs\angular-cookies.d.ts" />
