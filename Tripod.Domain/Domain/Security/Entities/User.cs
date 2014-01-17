@@ -42,6 +42,7 @@ namespace Tripod.Domain.Security
             public const string NameLabel = "User name";
             public const int NameMinLength = 2;
             public const int NameMaxLength = 50;
+            public const int SecurityStampMaxLength = 250;
         }
     }
 }

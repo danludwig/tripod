@@ -99,6 +99,8 @@
     <Compile Include="Domain\Security\Commands\SignOn.cs" />
     <Compile Include="Domain\Security\Commands\SignIn.cs" />
     <Compile Include="Domain\Security\Entities\EmailAddress.cs" />
+    <Compile Include="Domain\Security\Entities\EmailConfirmation.cs" />
+    <Compile Include="Domain\Security\Entities\EmailConfirmationPurpose.cs" />
     <Compile Include="Domain\Security\Entities\LocalMembership.cs" />
     <Compile Include="Domain\Security\Entities\Permission.cs" />
     <Compile Include="Domain\Security\Entities\Claim.cs" />

@@ -11,7 +11,7 @@ using System.Data.Entity.Infrastructure.MappingViews;
 
 [assembly: DbMappingViewCacheTypeAttribute(
     typeof(Tripod.Ioc.EntityFramework.EntityDbContext),
-    typeof(Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySets7327a0e3bd37817e4b85c7e51ec87452191aff7ca187632415e8d9315b3aa679))]
+    typeof(Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySets80ae15777d5ffc4a0ffb9ad1bb26c9e5b8085e90da9b7611efeef3f78f62ce84))]
 
 namespace Edm_EntityMappingGeneratedViews
 {
@@ -23,14 +23,14 @@ namespace Edm_EntityMappingGeneratedViews
     /// Implements a mapping view cache.
     /// </summary>
     [GeneratedCode("Entity Framework Power Tools", "0.9.0.0")]
-    internal sealed class ViewsForBaseEntitySets7327a0e3bd37817e4b85c7e51ec87452191aff7ca187632415e8d9315b3aa679 : DbMappingViewCache
+    internal sealed class ViewsForBaseEntitySets80ae15777d5ffc4a0ffb9ad1bb26c9e5b8085e90da9b7611efeef3f78f62ce84 : DbMappingViewCache
     {
         /// <summary>
         /// Gets a hash value computed over the mapping closure.
         /// </summary>
         public override string MappingHashValue
         {
-            get { return "7327a0e3bd37817e4b85c7e51ec87452191aff7ca187632415e8d9315b3aa679"; }
+            get { return "80ae15777d5ffc4a0ffb9ad1bb26c9e5b8085e90da9b7611efeef3f78f62ce84"; }
         }
 
         /// <summary>
@@ -77,44 +77,54 @@ namespace Edm_EntityMappingGeneratedViews
                 return GetView5();
             }
 
-            if (extentName == "CodeFirstDatabase.UserPermission")
+            if (extentName == "CodeFirstDatabase.EmailConfirmation")
             {
                 return GetView6();
             }
 
-            if (extentName == "EntityDbContext.Users")
+            if (extentName == "CodeFirstDatabase.UserPermission")
             {
                 return GetView7();
             }
 
-            if (extentName == "EntityDbContext.Claims")
+            if (extentName == "EntityDbContext.Users")
             {
                 return GetView8();
             }
 
-            if (extentName == "EntityDbContext.EmailAddresses")
+            if (extentName == "EntityDbContext.Claims")
             {
                 return GetView9();
             }
 
-            if (extentName == "EntityDbContext.LocalMemberships")
+            if (extentName == "EntityDbContext.EmailAddresses")
             {
                 return GetView10();
             }
 
-            if (extentName == "EntityDbContext.Permissions")
+            if (extentName == "EntityDbContext.LocalMemberships")
             {
                 return GetView11();
             }
 
-            if (extentName == "EntityDbContext.RemoteMemberships")
+            if (extentName == "EntityDbContext.Permissions")
             {
                 return GetView12();
             }
 
-            if (extentName == "EntityDbContext.User_Permissions")
+            if (extentName == "EntityDbContext.RemoteMemberships")
             {
                 return GetView13();
+            }
+
+            if (extentName == "EntityDbContext.EmailConfirmations")
+            {
+                return GetView14();
+            }
+
+            if (extentName == "EntityDbContext.User_Permissions")
+            {
+                return GetView15();
             }
 
             return null;
@@ -238,10 +248,35 @@ namespace Edm_EntityMappingGeneratedViews
         }
 
         /// <summary>
-        /// Gets the view for CodeFirstDatabase.UserPermission.
+        /// Gets the view for CodeFirstDatabase.EmailConfirmation.
         /// </summary>
         /// <returns>The mapping view.</returns>
         private static DbMappingView GetView6()
+        {
+            return new DbMappingView(@"
+    SELECT VALUE -- Constructing EmailConfirmation
+        [CodeFirstDatabaseSchema.EmailConfirmation](T1.EmailConfirmation_Id, T1.EmailConfirmation_OwnerId, T1.EmailConfirmation_Token, T1.EmailConfirmation_Stamp, T1.EmailConfirmation_Ticket, T1.EmailConfirmation_Code, T1.EmailConfirmation_ExpiresOnUtc, T1.EmailConfirmation_RedeemedOnUtc, T1.EmailConfirmation_Purpose)
+    FROM (
+        SELECT 
+            T.Id AS EmailConfirmation_Id, 
+            T.OwnerId AS EmailConfirmation_OwnerId, 
+            T.Token AS EmailConfirmation_Token, 
+            T.Stamp AS EmailConfirmation_Stamp, 
+            T.Ticket AS EmailConfirmation_Ticket, 
+            T.Code AS EmailConfirmation_Code, 
+            T.ExpiresOnUtc AS EmailConfirmation_ExpiresOnUtc, 
+            T.RedeemedOnUtc AS EmailConfirmation_RedeemedOnUtc, 
+            CAST(T.Purpose AS [Edm.Int32]) AS EmailConfirmation_Purpose, 
+            True AS _from0
+        FROM EntityDbContext.EmailConfirmations AS T
+    ) AS T1");
+        }
+
+        /// <summary>
+        /// Gets the view for CodeFirstDatabase.UserPermission.
+        /// </summary>
+        /// <returns>The mapping view.</returns>
+        private static DbMappingView GetView7()
         {
             return new DbMappingView(@"
     SELECT VALUE -- Constructing UserPermission
@@ -259,7 +294,7 @@ namespace Edm_EntityMappingGeneratedViews
         /// Gets the view for EntityDbContext.Users.
         /// </summary>
         /// <returns>The mapping view.</returns>
-        private static DbMappingView GetView7()
+        private static DbMappingView GetView8()
         {
             return new DbMappingView(@"
     SELECT VALUE -- Constructing Users
@@ -278,7 +313,7 @@ namespace Edm_EntityMappingGeneratedViews
         /// Gets the view for EntityDbContext.Claims.
         /// </summary>
         /// <returns>The mapping view.</returns>
-        private static DbMappingView GetView8()
+        private static DbMappingView GetView9()
         {
             return new DbMappingView(@"
     SELECT VALUE -- Constructing Claims
@@ -298,7 +333,7 @@ namespace Edm_EntityMappingGeneratedViews
         /// Gets the view for EntityDbContext.EmailAddresses.
         /// </summary>
         /// <returns>The mapping view.</returns>
-        private static DbMappingView GetView9()
+        private static DbMappingView GetView10()
         {
             return new DbMappingView(@"
     SELECT VALUE -- Constructing EmailAddresses
@@ -319,7 +354,7 @@ namespace Edm_EntityMappingGeneratedViews
         /// Gets the view for EntityDbContext.LocalMemberships.
         /// </summary>
         /// <returns>The mapping view.</returns>
-        private static DbMappingView GetView10()
+        private static DbMappingView GetView11()
         {
             return new DbMappingView(@"
     SELECT VALUE -- Constructing LocalMemberships
@@ -338,7 +373,7 @@ namespace Edm_EntityMappingGeneratedViews
         /// Gets the view for EntityDbContext.Permissions.
         /// </summary>
         /// <returns>The mapping view.</returns>
-        private static DbMappingView GetView11()
+        private static DbMappingView GetView12()
         {
             return new DbMappingView(@"
     SELECT VALUE -- Constructing Permissions
@@ -357,7 +392,7 @@ namespace Edm_EntityMappingGeneratedViews
         /// Gets the view for EntityDbContext.RemoteMemberships.
         /// </summary>
         /// <returns>The mapping view.</returns>
-        private static DbMappingView GetView12()
+        private static DbMappingView GetView13()
         {
             return new DbMappingView(@"
     SELECT VALUE -- Constructing RemoteMemberships
@@ -373,10 +408,35 @@ namespace Edm_EntityMappingGeneratedViews
         }
 
         /// <summary>
+        /// Gets the view for EntityDbContext.EmailConfirmations.
+        /// </summary>
+        /// <returns>The mapping view.</returns>
+        private static DbMappingView GetView14()
+        {
+            return new DbMappingView(@"
+    SELECT VALUE -- Constructing EmailConfirmations
+        [Tripod.Ioc.EntityFramework.EmailConfirmation](T1.EmailConfirmation_Id, T1.EmailConfirmation_OwnerId, T1.EmailConfirmation_Token, T1.EmailConfirmation_Stamp, T1.EmailConfirmation_Ticket, T1.EmailConfirmation_Code, T1.EmailConfirmation_ExpiresOnUtc, T1.EmailConfirmation_RedeemedOnUtc, T1.EmailConfirmation_Purpose)
+    FROM (
+        SELECT 
+            T.Id AS EmailConfirmation_Id, 
+            T.OwnerId AS EmailConfirmation_OwnerId, 
+            T.Token AS EmailConfirmation_Token, 
+            T.Stamp AS EmailConfirmation_Stamp, 
+            T.Ticket AS EmailConfirmation_Ticket, 
+            T.Code AS EmailConfirmation_Code, 
+            T.ExpiresOnUtc AS EmailConfirmation_ExpiresOnUtc, 
+            T.RedeemedOnUtc AS EmailConfirmation_RedeemedOnUtc, 
+            CAST(T.Purpose AS [Tripod.Ioc.EntityFramework.EmailConfirmationPurpose]) AS EmailConfirmation_Purpose, 
+            True AS _from0
+        FROM CodeFirstDatabase.EmailConfirmation AS T
+    ) AS T1");
+        }
+
+        /// <summary>
         /// Gets the view for EntityDbContext.User_Permissions.
         /// </summary>
         /// <returns>The mapping view.</returns>
-        private static DbMappingView GetView13()
+        private static DbMappingView GetView15()
         {
             return new DbMappingView(@"
     SELECT VALUE -- Constructing User_Permissions

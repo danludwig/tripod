@@ -81,6 +81,7 @@ namespace Tripod.Web.Controllers
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionParamsClass_SignUp
         {
+            public readonly string token = "token";
             public readonly string command = "command";
         }
         static readonly ActionParamsClass_SignUpValidate s_params_SignUpValidate = new ActionParamsClass_SignUpValidate();
@@ -111,12 +112,13 @@ namespace Tripod.Web.Controllers
     {
         public T4MVC_EmailAddressesController() : base(Dummy.Instance) { }
 
-        partial void SignUpOverride(T4MVC_System_Web_Mvc_ViewResult callInfo);
+        partial void SignUpOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string token);
 
-        public override System.Web.Mvc.ViewResult SignUp()
+        public override System.Web.Mvc.ActionResult SignUp(string token)
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ViewResult(Area, Name, ActionNames.SignUp);
-            SignUpOverride(callInfo);
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SignUp);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "token", token);
+            SignUpOverride(callInfo, token);
             return callInfo;
         }
 

@@ -16,6 +16,7 @@ namespace Tripod.Ioc.EntityFramework
             HasKey(x => x.Id);
 
             Property(x => x.Name).IsRequired().HasMaxLength(User.Constraints.NameMaxLength);
+            Property(x => x.SecurityStamp).HasMaxLength(User.Constraints.SecurityStampMaxLength);
 
             HasMany(x => x.Permissions).WithMany(x => x.Users)
                 .Map(x => x.ToTable("UserGivenPermission", SchemaName).MapLeftKey("UserId").MapRightKey("PermissionId"));
@@ -49,6 +50,20 @@ namespace Tripod.Ioc.EntityFramework
             Property(x => x.Value).IsRequired().HasMaxLength(EmailAddress.Constraints.ValueMaxLength);
 
             HasOptional(x => x.Owner).WithMany(x => x.EmailAddresses).HasForeignKey(x => x.OwnerId).WillCascadeOnDelete();
+        }
+    }
+
+    [UsedImplicitly]
+    public class EmailConfirmationDb : EntityTypeConfiguration<EmailConfirmation>
+    {
+        public EmailConfirmationDb()
+        {
+            ToTable(typeof(EmailConfirmation).Name, UserDb.SchemaName);
+
+            HasKey(x => x.Id);
+            Property(x => x.Stamp).HasMaxLength(User.Constraints.SecurityStampMaxLength);
+
+            HasRequired(x => x.Owner).WithMany().HasForeignKey(x => x.OwnerId).WillCascadeOnDelete();
         }
     }
 
