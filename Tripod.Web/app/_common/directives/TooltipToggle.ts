@@ -24,6 +24,8 @@ module App.Directives.TooltipToggle {
                     restrict: 'A',
                     link: (scope: ng.IScope, element: JQuery, attr: ng.IAttributes) => {
 
+                        if (angular.isUndefined(attr[directiveName + 'Toggle'])) return;
+
                         // set the trigger to the custom show trigger
                         attr[directiveName + 'Trigger'] = showEvent;
 
@@ -35,10 +37,10 @@ module App.Directives.TooltipToggle {
                                 if (!scope['tt_isOpen']) return;
                                 element.triggerHandler(hideEvent);
                                 element.triggerHandler(showEvent);
-
                             }, 100);
                         });
 
+                        // show / hide the widget
                         scope.$watch(attr[directiveName + 'Toggle'], (value: boolean): void => {
                             if (value && !scope['tt_isOpen']) {
                                 // tooltip provider will call scope.$apply, so need to get out of this digest cycle first
@@ -49,6 +51,16 @@ module App.Directives.TooltipToggle {
                             else if (!value && scope['tt_isOpen']) {
                                 $timeout((): void => {
                                     element.triggerHandler(hideEvent);
+                                });
+                            }
+                        });
+
+                        // reposition in case content makes it taller / shorter
+                        attr.$observe(directiveName, (value?: string): void => {
+                            if (value && scope['tt_isOpen']) {
+                                $timeout((): void => {
+                                    element.triggerHandler(hideEvent);
+                                    element.triggerHandler(showEvent);
                                 });
                             }
                         });

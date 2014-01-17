@@ -1,0 +1,40 @@
+﻿<form action="@Url.Action(MVC.Authentication.ExternalLogin())" method="POST" class="providers row">
+
+    @Html.AntiForgeryToken()
+
+    <input type="hidden" name="returnUrl" value="@ViewBag.ReturnUrl" />
+
+    @* GOOGLE *@
+    <div class="col-sm-4">
+        <p>
+            <button type="submit" name="provider" value="Google" title="Sign in with Google" class="google btn btn-lg">
+                <i></i>
+                <span class="hidden-md hidden-sm">Sign in with <strong>Google</strong></span>
+                <strong class="hidden-lg hidden-xs">Google</strong>
+            </button>
+        </p>
+    </div>
+
+    @* FACEBOOK *@
+    <div class="col-sm-4">
+        <p>
+            <button type="submit" name="provider" value="Facebook" title="Sign in with Facebook" class="facebook btn btn-lg">
+                <i></i>
+                <span class="hidden-md hidden-sm">Sign in with <strong>Facebook</strong></span>
+                <strong class="hidden-lg hidden-xs">Facebook</strong>
+            </button>
+        </p>
+    </div>
+
+    @* TWITTER *@
+    <div class="col-sm-4">
+        <p>
+            <button type="submit" name="provider" value="Twitter" title="Sign in with Twitter" class="twitter btn btn-lg">
+                <i></i>
+                <span class="hidden-md hidden-sm">Sign in with <strong>Twitter</strong></span>
+                <strong class="hidden-lg hidden-xs">Twitter</strong>
+            </button>
+        </p>
+    </div>
+</form>
+

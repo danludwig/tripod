@@ -25,7 +25,7 @@ var App;
                     };
 
                     Controller.prototype.isPasswordError = function () {
-                        return this.scope.signInCtrb.password.hasError && !this.scope.signInCtrb.userName.hasError;
+                        return this.scope.signInCtrb.password.hasError && (!this.scope.signInCtrb.userName.hasError || this.scope.signInForm.userName.$error.required);
                     };
 
                     Controller.prototype.passwordCssClass = function () {

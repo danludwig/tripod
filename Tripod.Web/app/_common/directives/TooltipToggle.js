@@ -24,6 +24,9 @@ var App;
                                 name: directiveName,
                                 restrict: 'A',
                                 link: function (scope, element, attr) {
+                                    if (angular.isUndefined(attr[directiveName + 'Toggle']))
+                                        return;
+
                                     attr[directiveName + 'Trigger'] = showEvent;
 
                                     var redrawPromise;
@@ -46,6 +49,15 @@ var App;
                                         } else if (!value && scope['tt_isOpen']) {
                                             $timeout(function () {
                                                 element.triggerHandler(hideEvent);
+                                            });
+                                        }
+                                    });
+
+                                    attr.$observe(directiveName, function (value) {
+                                        if (value && scope['tt_isOpen']) {
+                                            $timeout(function () {
+                                                element.triggerHandler(hideEvent);
+                                                element.triggerHandler(showEvent);
                                             });
                                         }
                                     });

@@ -1,0 +1,232 @@
+﻿@using Tripod
+@using Tripod.Domain.Security
+@using UserConstraints = Tripod.Domain.Security.User.Constraints
+
+@model SendConfirmationEmail
+
+@{
+    ViewBag.Title = "SignUp";
+}
+
+<hr class="hr-md hr-space" />
+<div class="row" ng-app="sign-up-form" ng-controller="App.Security.SignUp.Form.Controller">
+    <div class="col-sm-8 col-sm-offset-2">
+
+        @* HEADING *@
+        <h2>@ViewBag.Title.</h2>
+
+        @* OAUTH PROVIDERS INFO ALERT *@
+        <div class="alert alert-info alert-dismissable">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <strong>Note:</strong> You can sign up using one of the accounts below. Have more than one?
+            Just pick one to sign up with, and you can add the others later.
+        </div>
+
+        @* OAUTH PROVIDER BUTTONS FORM *@
+        @{ Html.RenderPartial(MVC.Authentication.Views._OAuthSignInForm);}
+
+        <h4>
+            Did you create a password when you signed up? <a href="@Url.Action(MVC.Authentication.SignIn())">Sign in here</a>.
+        </h4>
+
+        <hr class="hr-md hr-space" />
+        <h4>
+            Create a new account with us using your email address.
+        </h4>
+
+        <form role="form"
+              method="POST"
+              action="@Url.Action(MVC.EmailAddresses.SignUp())"
+              novalidate
+              name="signUpForm"
+              form-contrib="signUpCtrb"
+              form-submitted="@IsPost"
+              class="form-horizontal">
+
+            @Html.AntiForgeryToken()
+
+            @Html.ValidationSummary(true)
+            @{
+                const string inputCss = "input-lg";
+                const string inputGroupCss = "input-group input-group-lg";
+            }
+
+            @* EMAIL ADDRESS INPUT *@
+            <div class="form-group form-group-lg @Html.BootstrapValidationCssClassFor(x => x.EmailAddress)"
+                 remove-class="has-success has-error"
+                 ng-class="signUpCtrb.emailAddress.feedbackCssClass()">
+
+                @* INPUT GROUP COLUMN *@
+                <div class="col-md-8">
+                    @* SR LABEL *@
+                    <label for="@Html.IdFor(x => x.EmailAddress)" class="control-label sr-only">
+                        @EmailAddress.Constraints.Label
+                    </label>
+                    <div class="@Html.CssClassWhenInvalidFor(x => x.EmailAddress, inputGroupCss)"
+                         remove-class="@inputGroupCss"
+                         ng-class="signUpCtrb.emailAddress.inputGroupCssClass('lg')">
+                        <input type="email"
+                               class="form-control @inputCss"
+                               placeholder="@EmailAddress.Constraints.Label"
+                               id="@Html.IdFor(x => x.EmailAddress)"
+                               name="emailAddress"
+                               value="@Html.ValueFor(x => x.EmailAddress)"
+                               ng-init="vm.emailAddress='@Html.ValueForJavaScriptString(x => x.EmailAddress)'"
+                               ng-model="vm.emailAddress"
+                               required
+                               model-contrib
+                               server-error="@Html.ValidationMessageTextFor(x => x.EmailAddress)"
+                               server-validate="@Url.Action(MVC.EmailAddresses.SignUpValidate(null, "emailAddress"))"
+                               server-validate-throttle="400" />
+
+                        <span class="input-group-addon validation @Html.CssClassWhenValidFor(x => x.EmailAddress, "hide")"
+                              remove-class="hide"
+                              ng-class="vm.emailAddressInputGroupValidationAddOnCssClass()">
+                            <i class="fa fa-fw fa-asterisk default" title="This is a required field"></i>
+                            <i class="fa fa-fw fa-times error"></i>
+                            <i class="fa fa-fw fa-spinner fa-spin spin-fast spinner"></i>
+                            <i class="fa fa-fw fa-exclamation-triangle warning"></i>
+                            <i class="fa fa-fw fa-check success"></i>
+                        </span>
+                    </div>
+                </div>
+
+                @* VALIDATION MESSAGES COLUMNS *@
+                <div class="col-md-4 validation help-block help-block-horizontal-md hidden-sm hidden-xs">
+                    <span tooltip="@Resources.notempty_error.Replace("{PropertyName}", EmailAddress.Constraints.Label)"
+                          tooltip-toggle="vm.isEmailAddressRequiredError()"
+                          tooltip-animation="false"
+                          tooltip-placement="right"
+                          class="validation-tooltip"></span>
+
+                    <span tooltip="@Resources.email_error.Replace("{PropertyValue}", "{{ signUpForm.emailAddress.$viewValue }}")"
+                          tooltip-toggle="vm.isEmailAddressPatternError()"
+                          tooltip-animation="false"
+                          tooltip-placement="right"
+                          class="validation-tooltip"></span>
+
+                    <span tooltip="{{ signUpCtrb.emailAddress.error.server }}"
+                          tooltip-toggle="vm.isEmailAddressServerError()"
+                          tooltip-animation="false"
+                          tooltip-placement="right"
+                          class="validation-tooltip"></span>
+
+                    <span ng-class="{ hide: true }">@Html.ValidationMessageFor(x => x.EmailAddress)</span>
+                </div>
+                <div class="col-md-4 validation help-block hidden-md hidden-lg">
+                    <span ng-show="vm.isEmailAddressRequiredError()" ng-cloak>
+                        @Resources.notempty_error.Replace("{PropertyName}", EmailAddress.Constraints.Label)
+                    </span>
+                    <span ng-show="vm.isEmailAddressServerError()" ng-cloak>
+                        {{ signUpCtrb.emailAddress.error.server }}
+                    </span>
+                    <span ng-class="{ hide: true }">
+                        @Html.ValidationMessageFor(x => x.EmailAddress)
+                    </span>
+                </div>
+            </div>
+
+            @* DISCLAIMER CHECKBOX INPUT *@
+            <div class="form-group form-group-lg @Html.BootstrapValidationCssClassFor(x => x.IsExpectingEmail)"
+                 remove-class="has-success has-error"
+                 ng-class="signUpCtrb.isExpectingEmail.feedbackCssClass()">
+
+                @* INPUT GROUP COLUMN (OFFSET WITHOUT LABEL COLUMN) *@
+                <div class="col-md-8">
+                    <div class="input-group form-control-lg">
+                        <div class="form-control">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox"
+                                           id="@Html.IdFor(x => x.IsExpectingEmail)"
+                                           name="isExpectingEmail"
+                                           checked="@(Model != null && Model.IsExpectingEmail ? "checked" : null)"
+                                           value="true"
+                                           ng-init="vm.isExpectingEmail=@(Model != null ? Html.ValueFor(x => x.IsExpectingEmail) : MvcHtmlString.Create("false"))"
+                                           ng-model="vm.isExpectingEmail"
+                                           required
+                                           model-contrib
+                                           server-error="@Html.ValidationMessageTextFor(x => x.IsExpectingEmail)"
+                                           server-validate="@Url.Action(MVC.EmailAddresses.SignUpValidate(null, "isExpectingEmail"))" />
+                                    <input type="hidden" name="isExpectingEmail" value="false" />
+                                    Send an email to the above address so that I can confirm it does not belong to someone else.
+                                </label>
+                            </div>
+                        </div>
+                        <span class="input-group-addon validation">
+                            <i class="fa fa-fw fa-asterisk default" title="This is a required field"></i>
+                            <i class="fa fa-fw fa-times error"></i>
+                            <i class="fa fa-fw fa-spinner fa-spin spin-fast spinner"></i>
+                            <i class="fa fa-fw fa-exclamation-triangle warning"></i>
+                            <i class="fa fa-fw fa-check success"></i>
+                        </span>
+                    </div>
+                </div>
+
+                @* VALIDATION MESSAGES COLUMNS *@
+                <div class="col-md-4 validation help-block help-block-horizontal-md hidden-sm hidden-xs">
+                    <span tooltip="@Resources.Validation_SendConfirmationEmail_IsExpectingEmail.Replace("{PropertyName}", @EmailAddress.Constraints.Label.ToLower())"
+                          tooltip-toggle="vm.isExpectingEmailRequiredError()"
+                          tooltip-animation="false"
+                          tooltip-placement="right"
+                          class="validation-tooltip"></span>
+
+                    <span tooltip="{{ signUpCtrb.isExpectingEmail.error.server }}"
+                          tooltip-toggle="vm.isExpectingEmailServerError()"
+                          tooltip-animation="false"
+                          tooltip-placement="right"
+                          class="validation-tooltip"></span>
+
+                    <span ng-class="{ hide: true }">@Html.ValidationMessageFor(x => x.IsExpectingEmail)</span>
+                </div>
+                <div class="col-md-4 validation help-block hidden-md hidden-lg">
+                    <span ng-show="vm.isExpectingEmailRequiredError()" ng-cloak>
+                        @Resources.Validation_SendConfirmationEmail_IsExpectingEmail.Replace("{PropertyName}", @EmailAddress.Constraints.Label.ToLower())
+                    </span>
+                    <span ng-show="vm.isExpectingEmailServerError()" ng-cloak>
+                        {{ signUpCtrb.isExpectingEmail.error.server }}
+                    </span>
+                    <span ng-class="{ hide: true }">
+                        @Html.ValidationMessageFor(x => x.IsExpectingEmail)
+                    </span>
+                </div>
+            </div>
+
+            @* FORM SUBMIT BUTTON *@
+            <div class="form-group">
+                <div class="col-md-4">
+                    @{
+                        var buttonClass = ViewData.ModelState.IsValid ? null : "btn-warning";
+                        var defaultClass = ViewData.ModelState.IsValid ? null : "hide";
+                        var warningClass = ViewData.ModelState.IsValid ? "hide" : null;
+                        var messageClass = ViewData.ModelState.IsValid ? "hide" : null;
+                    }
+                    <button type="submit" class="btn btn-primary btn-lg btn-block @buttonClass"
+                            ng-class="{ 'btn-warning': signUpCtrb.hasError && !signUpCtrb.isSubmitWaiting }"
+                            ng-disabled="signUpCtrb.isSubmitWaiting"
+                            remove-class="@buttonClass">
+                        <i class="fa fa-fw fa-user @defaultClass"
+                           remove-class="@defaultClass"
+                           ng-show="!signUpCtrb.isSubmitWaiting && !signUpCtrb.hasError"></i>
+                        <i class="fa fa-fw fa-exclamation-triangle @warningClass"
+                           remove-class="@warningClass"
+                           ng-show="!signUpCtrb.isSubmitWaiting && signUpCtrb.hasError"></i>
+                        <i class="fa fa-fw fa-spinner fa-spin spin-fast" ng-show="signUpCtrb.isSubmitWaiting" ng-cloak></i>
+                        Sign Up
+                    </button>
+                </div>
+                <div class="col-md-8 has-error @messageClass" remove-class="@messageClass" ng-show="!signUpCtrb.isSubmitWaiting && signUpCtrb.hasError">
+                    <div class="help-block">
+                        Could not sign up due to above error(s).
+                    </div>
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>
+
+@section scripts
+{
+    <script src="~/app/security/sign-up/Form.js"></script>
+}

@@ -387,6 +387,14 @@ namespace Links
             public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
             public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
             [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+            public static class angular_ui_bootstrap {
+                private const string URLPATH = "~/scripts/typings/angular-ui-bootstrap";
+                public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+                public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+                public static readonly string angular_ui_bootstrap_d_ts = Url("angular-ui-bootstrap.d.ts");
+            }
+        
+            [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
             public static class angularjs {
                 private const string URLPATH = "~/scripts/typings/angularjs";
                 public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
@@ -448,15 +456,6 @@ namespace Links
         public static readonly string font_awesome_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/font-awesome.min.css") ? Url("font-awesome.min.css") : Url("font-awesome.css");
              
         public static readonly string font_awesome_min_css = Url("font-awesome.min.css");
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public static class security {
-            private const string URLPATH = "~/content/security";
-            public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
-            public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-            public static readonly string sign_in_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/sign-in.min.css") ? Url("sign-in.min.css") : Url("sign-in.css");
-                 
-        }
-    
         public static readonly string site_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/site.min.css") ? Url("site.min.css") : Url("site.css");
              
     }

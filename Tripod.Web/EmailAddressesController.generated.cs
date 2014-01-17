@@ -46,9 +46,9 @@ namespace Tripod.Web.Controllers
 
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult ValidateSignUp()
+        public virtual System.Web.Mvc.ActionResult SignUpValidate()
         {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ValidateSignUp);
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SignUpValidate);
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -67,14 +67,14 @@ namespace Tripod.Web.Controllers
         public class ActionNamesClass
         {
             public readonly string SignUp = "SignUp";
-            public readonly string ValidateSignUp = "ValidateSignUp";
+            public readonly string SignUpValidate = "SignUpValidate";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNameConstants
         {
             public const string SignUp = "SignUp";
-            public const string ValidateSignUp = "ValidateSignUp";
+            public const string SignUpValidate = "SignUpValidate";
         }
 
 
@@ -86,13 +86,14 @@ namespace Tripod.Web.Controllers
         {
             public readonly string command = "command";
         }
-        static readonly ActionParamsClass_ValidateSignUp s_params_ValidateSignUp = new ActionParamsClass_ValidateSignUp();
+        static readonly ActionParamsClass_SignUpValidate s_params_SignUpValidate = new ActionParamsClass_SignUpValidate();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_ValidateSignUp ValidateSignUpParams { get { return s_params_ValidateSignUp; } }
+        public ActionParamsClass_SignUpValidate SignUpValidateParams { get { return s_params_SignUpValidate; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_ValidateSignUp
+        public class ActionParamsClass_SignUpValidate
         {
             public readonly string command = "command";
+            public readonly string fieldName = "fieldName";
         }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -104,9 +105,7 @@ namespace Tripod.Web.Controllers
             public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
             public class _ViewNamesClass
             {
-                public readonly string SignUp = "SignUp";
             }
-            public readonly string SignUp = "~/Views/EmailAddresses/SignUp.cshtml";
         }
     }
 
@@ -134,13 +133,14 @@ namespace Tripod.Web.Controllers
             return callInfo;
         }
 
-        partial void ValidateSignUpOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Tripod.Domain.Security.SendConfirmationEmail command);
+        partial void SignUpValidateOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Tripod.Domain.Security.SendConfirmationEmail command, string fieldName);
 
-        public override System.Web.Mvc.ActionResult ValidateSignUp(Tripod.Domain.Security.SendConfirmationEmail command)
+        public override System.Web.Mvc.ActionResult SignUpValidate(Tripod.Domain.Security.SendConfirmationEmail command, string fieldName)
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ValidateSignUp);
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SignUpValidate);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "command", command);
-            ValidateSignUpOverride(callInfo, command);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "fieldName", fieldName);
+            SignUpValidateOverride(callInfo, command, fieldName);
             return callInfo;
         }
 

@@ -7,11 +7,6 @@
     ViewBag.Title = "Sign in";
 }
 
-@section styles
-{
-    <link href="~/content/security/sign-in.css" rel="stylesheet" />
-}
-
 <hr class="hr-md hr-space" />
 <div class="row">
     <div class="col-sm-8 col-sm-offset-2">
@@ -20,63 +15,22 @@
         <h2>@ViewBag.Title.</h2>
 
         @* OAUTH PROVIDER BUTTONS FORM *@
-        <div class="providers row">
-            <form action="@Url.Action(MVC.Authentication.ExternalLogin())" method="POST">
+        @{ Html.RenderPartial(MVC.Authentication.Views._OAuthSignInForm);}
 
-                @Html.AntiForgeryToken()
-
-                <input type="hidden" name="returnUrl" value="@ViewBag.ReturnUrl" />
-
-                @* GOOGLE *@
-                <div class="col-sm-4">
-                    <p>
-                        <button type="submit" name="provider" value="Google" title="Sign in with Google" class="google btn btn-lg">
-                            <i></i>
-                            <span class="hidden-md hidden-sm">Sign in with <strong>Google</strong></span>
-                            <strong class="hidden-lg hidden-xs">Google</strong>
-                        </button>
-                    </p>
-                </div>
-
-                @* FACEBOOK *@
-                <div class="col-sm-4">
-                    <p>
-                        <button type="submit" name="provider" value="Facebook" title="Sign in with Facebook" class="facebook btn btn-lg">
-                            <i></i>
-                            <span class="hidden-md hidden-sm">Sign in with <strong>Facebook</strong></span>
-                            <strong class="hidden-lg hidden-xs">Facebook</strong>
-                        </button>
-                    </p>
-                </div>
-
-                @* TWITTER *@
-                <div class="col-sm-4">
-                    <p>
-                        <button type="submit" name="provider" value="Twitter" title="Sign in with Twitter" class="twitter btn btn-lg">
-                            <i></i>
-                            <span class="hidden-md hidden-sm">Sign in with <strong>Twitter</strong></span>
-                            <strong class="hidden-lg hidden-xs">Twitter</strong>
-                        </button>
-                    </p>
-                </div>
-            </form>
-        </div>
-
-        <hr class="hr-md hr-space" />
         <h4>
-            Don't have any of the above acounts? <a href="">Sign up</a> with your email address.
+            Don't have any of the above acounts? <a href="@Url.Action(MVC.EmailAddresses.SignUp())">Sign up</a> with your email address.
         </h4>
 
         <hr class="hr-md hr-space" />
         <h4>
-            Have an account? Sign in with your username or email address.
+            Have an account with us? Sign in with your username or email address.
         </h4>
 
         @* SIGN IN FORM *@
         <div ng-app="sign-in-form" ng-controller="App.Security.SignIn.Form.Controller">
             <form role="form"
                   method="POST"
-                  action="@Url.Action(MVC.Authentication.SignIn(null, null))"
+                  action="@Url.Action(MVC.Authentication.SignIn())"
                   novalidate
                   name="signInForm"
                   form-contrib="signInCtrb"
@@ -92,6 +46,7 @@
                     const string inputCss = "input-lg";
                     const string inputGroupCss = "input-group input-group-lg";
                 }
+
                 @* EMAIL ADDRESS INPUT *@
                 <div class="form-group form-group-lg @Html.BootstrapValidationCssClassFor(x => x.UserName)"
                      remove-class="has-success has-error"

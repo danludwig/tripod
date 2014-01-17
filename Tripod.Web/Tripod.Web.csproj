@@ -270,7 +270,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="app\security\confirm-email-address\Form.js">
+    <Content Include="app\security\sign-up\form.js">
       <DependentUpon>Form.ts</DependentUpon>
     </Content>
     <Content Include="app\security\sign-in\Form.js">
@@ -310,7 +310,6 @@
     <Content Include="content\compass-defaults\screen.css" />
     <Content Include="content\font-awesome.css" />
     <Content Include="content\font-awesome.min.css" />
-    <Content Include="content\security\sign-in.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -376,7 +375,6 @@
       <CompileStyle>Nested</CompileStyle>
       <DebugInfo>False</DebugInfo>
     </None>
-    <None Include="compass\security\sign-in.scss" />
     <None Include="compass\site.scss" />
     <None Include="scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="scripts\i18n\angular-locale_af-na.js" />
@@ -680,8 +678,9 @@
     <Content Include="Views\RemoteMemberships\_SignOnForm.cshtml" />
     <Content Include="Views\RemoteMemberships\_SignOnList.cshtml" />
     <Content Include="Views\RemoteMemberships\_AddForm.cshtml" />
-    <Content Include="Views\EmailAddresses\SignUp.cshtml" />
     <Content Include="Views\Authentication\SignIn.cshtml" />
+    <Content Include="Views\Authentication\SignUp.cshtml" />
+    <Content Include="Views\Authentication\_OAuthSignInForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -709,6 +708,7 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <TypeScriptCompile Include="app\security\sign-up\Form.ts" />
     <TypeScriptCompile Include="app\security\sign-in\Form.ts" />
     <TypeScriptCompile Include="app\_common\api\ViewModelScope.d.ts" />
     <TypeScriptCompile Include="app\_common\api\ValidationModels.d.ts" />
@@ -721,7 +721,6 @@
     <TypeScriptCompile Include="app\_common\directives\ServerError.ts" />
     <TypeScriptCompile Include="app\_common\directives\ServerValidate.ts" />
     <TypeScriptCompile Include="app\_common\directives\SubmitAction.ts" />
-    <TypeScriptCompile Include="app\security\confirm-email-address\Form.ts" />
     <TypeScriptCompile Include="app\_common\modules\Tripod.ts" />
     <TypeScriptCompile Include="scripts\typings\angular-ui-bootstrap\angular-ui-bootstrap.d.ts" />
     <TypeScriptCompile Include="scripts\typings\angularjs\angular-cookies.d.ts" />

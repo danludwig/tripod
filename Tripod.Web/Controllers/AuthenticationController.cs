@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using FluentValidation.Mvc;
 using Microsoft.AspNet.Identity;
 using Tripod.Domain.Security;
 using Tripod.Web.Models;
@@ -23,7 +20,6 @@ namespace Tripod.Web.Controllers
             _validation = validation;
         }
 
-        [AllowAnonymous]
         [HttpGet, Route("sign-in")]
         public virtual ActionResult SignIn(string returnUrl)
         {
@@ -31,7 +27,6 @@ namespace Tripod.Web.Controllers
             return View(Views.SignIn);
         }
 
-        [AllowAnonymous]
         [ValidateAntiForgeryToken]
         [HttpPost, Route("sign-in")]
         public virtual async Task<ActionResult> SignIn(SignIn command, string returnUrl)
@@ -43,7 +38,6 @@ namespace Tripod.Web.Controllers
             return RedirectToLocal(returnUrl);
         }
 
-        [AllowAnonymous]
         [HttpPost, Route("sign-in/validate/{fieldName?}")]
         public virtual ActionResult SignInValidate(SignIn command, string fieldName = null)
         {
@@ -56,13 +50,12 @@ namespace Tripod.Web.Controllers
 
             var result = new ValidatedFields(ModelState, fieldName);
 
-            //ModelState["UserName"].Errors.Clear();
+            //ModelState[command.PropertyName(x => x.UserName)].Errors.Clear();
             //result = new ValidatedFields(ModelState, fieldName);
 
             return new CamelCaseJsonResult(result);
         }
 
-        [AllowAnonymous]
         [ValidateAntiForgeryToken]
         [HttpPost, Route("account/external-login")]
         public virtual ActionResult ExternalLogin(string provider, string returnUrl)
@@ -71,7 +64,6 @@ namespace Tripod.Web.Controllers
             return new ChallengeResult(provider, Url.Action(MVC.Authentication.ExternalLoginCallback(returnUrl)));
         }
 
-        [AllowAnonymous]
         [HttpGet, Route("account/external-login/received")]
         public virtual async Task<ActionResult> ExternalLoginCallback(string returnUrl)
         {
@@ -105,7 +97,6 @@ namespace Tripod.Web.Controllers
             return View(MVC.Account.Views.ExternalLoginConfirmation, model);
         }
 
-        [AllowAnonymous]
         [ValidateAntiForgeryToken]
         [HttpPost, Route("account/external-login/confirm")]
         public virtual async Task<ActionResult> ExternalLoginConfirmation(CreateRemoteMembership command, string returnUrl)
@@ -133,6 +124,7 @@ namespace Tripod.Web.Controllers
             return View(MVC.Account.Views.ExternalLoginConfirmation, command);
         }
 
+        [Authorize]
         [ValidateAntiForgeryToken]
         [HttpPost, Route("account/link-login")]
         public virtual ActionResult LinkLogin(string provider)
@@ -141,6 +133,7 @@ namespace Tripod.Web.Controllers
             return new ChallengeResult(provider, Url.Action(MVC.Authentication.LinkLoginCallback()), User.Identity.GetUserId());
         }
 
+        [Authorize]
         [HttpGet, Route("account/link-login/complete")]
         public virtual async Task<ActionResult> LinkLoginCallback()
         {
@@ -158,6 +151,7 @@ namespace Tripod.Web.Controllers
             return RedirectToAction(await MVC.Account.Manage());
         }
 
+        [Authorize]
         [HttpPost, Route("account/logoff")]
         [ValidateAntiForgeryToken]
         public virtual ActionResult LogOff()
@@ -166,7 +160,6 @@ namespace Tripod.Web.Controllers
             return RedirectToAction(MVC.Home.Index());
         }
 
-        [AllowAnonymous]
         [HttpGet, Route("account/external-login/failed")]
         public virtual ActionResult ExternalLoginFailure()
         {

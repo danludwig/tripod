@@ -1,5 +1,6 @@
 ﻿using System.Web.Mvc;
 using Tripod.Domain.Security;
+using Tripod.Web.Models;
 
 namespace Tripod.Web.Controllers
 {
@@ -8,40 +9,34 @@ namespace Tripod.Web.Controllers
         [HttpGet, Route("sign-up")]
         public virtual ViewResult SignUp()
         {
-            return View();
+            return View(MVC.Authentication.Views.SignUp);
         }
 
         [ValidateAntiForgeryToken]
         [HttpPost, Route("sign-up")]
         public virtual ActionResult SignUp(SendConfirmationEmail command)
         {
+            // todo: what if email matches a user account? error or redirect?
             //var isValid = ModelState.IsValid;
-            return View(MVC.EmailAddresses.Views.SignUp, command);
+            return View(MVC.Authentication.Views.SignUp, command);
         }
 
-        [HttpPost, Route("sign-up/validate")]
-        public virtual ActionResult ValidateSignUp(SendConfirmationEmail command)
+        [HttpPost, Route("sign-up/validate/{fieldName?}")]
+        public virtual ActionResult SignUpValidate(SendConfirmationEmail command, string fieldName = null)
         {
-            Response.StatusCode = 400;
-            return Content("Here is a custom error message for Email address.", "application/json");
-            //return Json(new
-            //{
-            //    Field = "EmailAddy",
-            //    Message = "Here is a custom error message for Email address.",
-            //});
-        }
+            //System.Threading.Thread.Sleep(new Random().Next(5000, 5001));
+            if (command == null)
+            {
+                Response.StatusCode = 400;
+                return Json(null);
+            }
 
-        //[HttpPost, Route("sign-up/validate/{field?}")]
-        //public virtual ActionResult ValidateSendEmail(SendConfirmationEmail command, string field = null)
-        //{
-        //    var key = ModelState.Keys.FirstOrDefault(x => x.Equals(field));
-        //    var isValid = !string.IsNullOrWhiteSpace(key) ? ModelState.IsValidField(key) : ModelState.IsValid;
-        //    if (!isValid)
-        //    {
-        //        Response.StatusCode = 400;
-        //        return Content("Here is a custom error message for Email address.", "application/json");
-        //    }
-        //    return Json(true);
-        //}
+            var result = new ValidatedFields(ModelState, fieldName);
+
+            //ModelState[command.PropertyName(x => x.EmailAddress)].Errors.Clear();
+            //result = new ValidatedFields(ModelState, fieldName);
+
+            return new CamelCaseJsonResult(result);
+        }
     }
 }

@@ -50,7 +50,8 @@ module App.Security.SignIn.Form {
 
         isPasswordError(): boolean {
             return this.scope.signInCtrb.password.hasError
-                && !this.scope.signInCtrb.userName.hasError;
+                && (!this.scope.signInCtrb.userName.hasError
+                || this.scope.signInForm.userName.$error.required);
         }
 
         passwordCssClass(): string {
