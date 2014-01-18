@@ -11,7 +11,7 @@ using System.Data.Entity.Infrastructure.MappingViews;
 
 [assembly: DbMappingViewCacheTypeAttribute(
     typeof(Tripod.Ioc.EntityFramework.EntityDbContext),
-    typeof(Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySets80ae15777d5ffc4a0ffb9ad1bb26c9e5b8085e90da9b7611efeef3f78f62ce84))]
+    typeof(Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySetsf2e342dfd70b8cb597d82f549db6b63a0e44fcca95fc63720cddeef833bda954))]
 
 namespace Edm_EntityMappingGeneratedViews
 {
@@ -23,14 +23,14 @@ namespace Edm_EntityMappingGeneratedViews
     /// Implements a mapping view cache.
     /// </summary>
     [GeneratedCode("Entity Framework Power Tools", "0.9.0.0")]
-    internal sealed class ViewsForBaseEntitySets80ae15777d5ffc4a0ffb9ad1bb26c9e5b8085e90da9b7611efeef3f78f62ce84 : DbMappingViewCache
+    internal sealed class ViewsForBaseEntitySetsf2e342dfd70b8cb597d82f549db6b63a0e44fcca95fc63720cddeef833bda954 : DbMappingViewCache
     {
         /// <summary>
         /// Gets a hash value computed over the mapping closure.
         /// </summary>
         public override string MappingHashValue
         {
-            get { return "80ae15777d5ffc4a0ffb9ad1bb26c9e5b8085e90da9b7611efeef3f78f62ce84"; }
+            get { return "f2e342dfd70b8cb597d82f549db6b63a0e44fcca95fc63720cddeef833bda954"; }
         }
 
         /// <summary>
@@ -255,15 +255,14 @@ namespace Edm_EntityMappingGeneratedViews
         {
             return new DbMappingView(@"
     SELECT VALUE -- Constructing EmailConfirmation
-        [CodeFirstDatabaseSchema.EmailConfirmation](T1.EmailConfirmation_Id, T1.EmailConfirmation_OwnerId, T1.EmailConfirmation_Token, T1.EmailConfirmation_Stamp, T1.EmailConfirmation_Ticket, T1.EmailConfirmation_Code, T1.EmailConfirmation_ExpiresOnUtc, T1.EmailConfirmation_RedeemedOnUtc, T1.EmailConfirmation_Purpose)
+        [CodeFirstDatabaseSchema.EmailConfirmation](T1.EmailConfirmation_Id, T1.EmailConfirmation_OwnerId, T1.EmailConfirmation_Token, T1.EmailConfirmation_Ticket, T1.EmailConfirmation_Secret, T1.EmailConfirmation_ExpiresOnUtc, T1.EmailConfirmation_RedeemedOnUtc, T1.EmailConfirmation_Purpose)
     FROM (
         SELECT 
             T.Id AS EmailConfirmation_Id, 
             T.OwnerId AS EmailConfirmation_OwnerId, 
             T.Token AS EmailConfirmation_Token, 
-            T.Stamp AS EmailConfirmation_Stamp, 
             T.Ticket AS EmailConfirmation_Ticket, 
-            T.Code AS EmailConfirmation_Code, 
+            T.Secret AS EmailConfirmation_Secret, 
             T.ExpiresOnUtc AS EmailConfirmation_ExpiresOnUtc, 
             T.RedeemedOnUtc AS EmailConfirmation_RedeemedOnUtc, 
             CAST(T.Purpose AS [Edm.Int32]) AS EmailConfirmation_Purpose, 
@@ -415,15 +414,14 @@ namespace Edm_EntityMappingGeneratedViews
         {
             return new DbMappingView(@"
     SELECT VALUE -- Constructing EmailConfirmations
-        [Tripod.Ioc.EntityFramework.EmailConfirmation](T1.EmailConfirmation_Id, T1.EmailConfirmation_OwnerId, T1.EmailConfirmation_Token, T1.EmailConfirmation_Stamp, T1.EmailConfirmation_Ticket, T1.EmailConfirmation_Code, T1.EmailConfirmation_ExpiresOnUtc, T1.EmailConfirmation_RedeemedOnUtc, T1.EmailConfirmation_Purpose)
+        [Tripod.Ioc.EntityFramework.EmailConfirmation](T1.EmailConfirmation_Id, T1.EmailConfirmation_OwnerId, T1.EmailConfirmation_Token, T1.EmailConfirmation_Ticket, T1.EmailConfirmation_Secret, T1.EmailConfirmation_ExpiresOnUtc, T1.EmailConfirmation_RedeemedOnUtc, T1.EmailConfirmation_Purpose)
     FROM (
         SELECT 
             T.Id AS EmailConfirmation_Id, 
             T.OwnerId AS EmailConfirmation_OwnerId, 
             T.Token AS EmailConfirmation_Token, 
-            T.Stamp AS EmailConfirmation_Stamp, 
             T.Ticket AS EmailConfirmation_Ticket, 
-            T.Code AS EmailConfirmation_Code, 
+            T.Secret AS EmailConfirmation_Secret, 
             T.ExpiresOnUtc AS EmailConfirmation_ExpiresOnUtc, 
             T.RedeemedOnUtc AS EmailConfirmation_RedeemedOnUtc, 
             CAST(T.Purpose AS [Tripod.Ioc.EntityFramework.EmailConfirmationPurpose]) AS EmailConfirmation_Purpose, 

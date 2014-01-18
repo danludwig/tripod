@@ -61,7 +61,9 @@ namespace Tripod.Ioc.EntityFramework
             ToTable(typeof(EmailConfirmation).Name, UserDb.SchemaName);
 
             HasKey(x => x.Id);
-            Property(x => x.Stamp).HasMaxLength(User.Constraints.SecurityStampMaxLength);
+
+            Property(x => x.Secret).HasMaxLength(EmailConfirmation.Constraints.SecretMaxLength);
+            Property(x => x.Ticket).HasMaxLength(EmailConfirmation.Constraints.TicketMaxLength);
 
             HasRequired(x => x.Owner).WithMany().HasForeignKey(x => x.OwnerId).WillCascadeOnDelete();
         }

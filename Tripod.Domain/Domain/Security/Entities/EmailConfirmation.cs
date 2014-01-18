@@ -10,9 +10,8 @@ namespace Tripod.Domain.Security
         public virtual EmailAddress Owner { get; protected internal set; }
 
         public string Token { get; protected internal set; }
-        public string Stamp { get; protected internal set; }
         public string Ticket { get; protected internal set; }
-        public string Code { get; protected internal set; }
+        public string Secret { get; protected internal set; }
         public DateTime ExpiresOnUtc { get; protected internal set; }
         public DateTime? RedeemedOnUtc { get; protected internal set; }
         public EmailConfirmationPurpose Purpose { get; protected internal set; }
@@ -20,6 +19,8 @@ namespace Tripod.Domain.Security
         public static class Constraints
         {
             public const string Label = "Email confirmation";
+            public const int SecretMaxLength = 50;
+            public const int TicketMaxLength = 100;
         }
     }
 }
