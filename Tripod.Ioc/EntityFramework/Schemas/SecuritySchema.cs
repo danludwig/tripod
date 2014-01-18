@@ -70,6 +70,22 @@ namespace Tripod.Ioc.EntityFramework
     }
 
     [UsedImplicitly]
+    public class EmailMessageDb : EntityTypeConfiguration<EmailMessage>
+    {
+        public EmailMessageDb()
+        {
+            ToTable(typeof(EmailMessage).Name, UserDb.SchemaName);
+
+            HasKey(x => x.Id);
+
+            Property(x => x.From).HasMaxLength(EmailMessage.Constraints.FromMaxLength);
+            Property(x => x.Subject).HasMaxLength(EmailMessage.Constraints.SubjectMaxLength);
+
+            HasRequired(x => x.Owner).WithMany().HasForeignKey(x => x.OwnerId).WillCascadeOnDelete();
+        }
+    }
+
+    [UsedImplicitly]
     public class LocalMembershipDb : EntityTypeConfiguration<LocalMembership>
     {
         public LocalMembershipDb()

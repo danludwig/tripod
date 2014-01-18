@@ -61,6 +61,8 @@
     </Compile>
     <Compile Include="Api\Configuration\AppSettingKey.cs" />
     <Compile Include="Api\Cryptography\ICreateSecrets.cs" />
+    <Compile Include="Api\Net\IDeliverEmailMessage.cs" />
+    <Compile Include="Api\Net\IDeliverMailMessage.cs" />
     <Compile Include="Api\Security\IAuthenticate.cs" />
     <Compile Include="Api\Security\RemoteMembershipTicket.cs" />
     <Compile Include="Api\Transactions\BaseEntitiesQuery.cs" />
@@ -102,6 +104,7 @@
     <Compile Include="Domain\Security\Entities\EmailAddress.cs" />
     <Compile Include="Domain\Security\Entities\EmailConfirmation.cs" />
     <Compile Include="Domain\Security\Entities\EmailConfirmationPurpose.cs" />
+    <Compile Include="Domain\Security\Entities\EmailMessage.cs" />
     <Compile Include="Domain\Security\Entities\LocalMembership.cs" />
     <Compile Include="Domain\Security\Entities\Permission.cs" />
     <Compile Include="Domain\Security\Entities\Claim.cs" />

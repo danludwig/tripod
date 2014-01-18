@@ -153,7 +153,9 @@
     <Compile Include="Transactions\QueryLifetimeScopeDecorator.cs" />
     <Compile Include="Transactions\QueryProcessor.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Net\" />
+  </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
