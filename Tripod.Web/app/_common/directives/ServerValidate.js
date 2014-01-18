@@ -189,6 +189,10 @@ var App;
                                                 return;
 
                                             modelContribCtrl.setValidity('server', unexpectedError);
+                                            attempt.result = {
+                                                isValid: false,
+                                                errors: [{ message: unexpectedError }]
+                                            };
                                         });
 
                                         throttlePromise = null;

@@ -106,7 +106,7 @@ module App.Directives.ServerValidate {
 
                     var form = element.parents('form');
                     var foundAttempt: ServerValidateAttempt;
-                    var formInterval: ng.IPromise <void>;
+                    var formInterval: ng.IPromise<void>;
                     form.bind('submit', (e: JQueryEventObject): boolean => {
 
                         if (formInterval) $interval.cancel(formInterval);
@@ -238,6 +238,10 @@ module App.Directives.ServerValidate {
 
                                         // otherwise, something went wrong that we weren't expecting
                                         modelContribCtrl.setValidity('server', unexpectedError);
+                                        attempt.result = {
+                                            isValid: false,
+                                            errors: [{ message: unexpectedError }],
+                                        };
                                     });
 
                                 throttlePromise = null;
