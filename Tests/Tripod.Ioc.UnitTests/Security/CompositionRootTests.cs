@@ -129,6 +129,28 @@ namespace Tripod.Ioc.Security
         }
 
         [Fact]
+        public void RegistersUserManager_UsingOwinTokenProviders_WhenCurrentHttpContext_HasOwinEnvironment()
+        {
+            HttpContext.Current = new HttpContext(new HttpRequest(null, "http://localhost", null), new HttpResponse(null));
+            var owinEnvironment = new Dictionary<string, object>();
+            var userStore = new Mock<IUserStore<User, int>>();
+            var userManager = new UserManager<User, int>(userStore.Object);
+            var tokenProvider = new Mock<ITokenProvider>(MockBehavior.Strict);
+            userManager.UserConfirmationTokens = tokenProvider.Object;
+            owinEnvironment["AspNet.Identity.Owin:" + userManager.GetType().AssemblyQualifiedName] = userManager;
+            HttpContext.Current.Items.Add("owin.Environment", owinEnvironment);
+            var container = new Container();
+            container.RegisterEntityFramework();
+            container.RegisterSecurity();
+            container.Verify();
+
+            var instance = container.GetInstance<UserManager<User, int>>();
+            instance.ShouldNotBeNull();
+            instance.UserConfirmationTokens.ShouldNotBeNull();
+            instance.UserConfirmationTokens.ShouldEqual(tokenProvider.Object);
+        }
+
+        [Fact]
         public void RegistersIAuthenticationManager_UsingBigFatPhony_WhenCurrentHttpContext_IsNull()
         {
             //var registration = Container.GetRegistration(typeof (IAuthenticationManager));
@@ -169,8 +191,11 @@ namespace Tripod.Ioc.Security
         public void RegistersIAuthenticationManager_UsingOwin_WhenCurrentHttpContext_HasOwinEnvironment()
         {
             HttpContext.Current = new HttpContext(new HttpRequest(null, "http://localhost", null), new HttpResponse(null));
-            var owinEnvironment = new Mock<IDictionary<string, object>>(MockBehavior.Loose);
-            HttpContext.Current.Items.Add("owin.Environment", owinEnvironment.Object);
+            var owinEnvironment = new Dictionary<string, object>();
+            var userStore = new Mock<IUserStore<User, int>>();
+            var userManager = new UserManager<User, int>(userStore.Object);
+            owinEnvironment["AspNet.Identity.Owin:" + userManager.GetType().AssemblyQualifiedName] = userManager;
+            HttpContext.Current.Items.Add("owin.Environment", owinEnvironment);
             var container = new Container();
             container.RegisterEntityFramework();
             container.RegisterSecurity();

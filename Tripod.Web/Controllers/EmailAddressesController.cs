@@ -1,7 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Web.Mvc;
-using Microsoft.AspNet.Identity;
+﻿using System.Web.Mvc;
 using Tripod.Domain.Security;
 using Tripod.Web.Models;
 
@@ -9,34 +6,13 @@ namespace Tripod.Web.Controllers
 {
     public partial class EmailAddressesController : Controller
     {
-        private readonly UserManager<User, int> _userManager;
-        private readonly IReadEntities _entities;
-
-        public EmailAddressesController(UserManager<User, int> userManager, IReadEntities entities)
+        public EmailAddressesController()
         {
-            _userManager = userManager;
-            _entities = entities;
         }
-
-        private static Guid? _stamp;
 
         [HttpGet, Route("sign-up")]
         public virtual ActionResult SignUp(string token = null)
         {
-            if (_stamp == null)
-            {
-                _stamp = Guid.NewGuid();
-                token = _userManager.UserConfirmationTokens.Generate(new UserToken
-                {
-                    CreationDate = DateTime.UtcNow,
-                    UserId = "test",
-                    Value = _stamp.ToString(),
-                });
-                return RedirectToAction(MVC.EmailAddresses.SignUp(token));
-            }
-            var userToken = _userManager.UserConfirmationTokens.Validate(token);
-            var test = userToken.Value == _stamp.ToString();
-
             return View(MVC.Authentication.Views.SignUp);
         }
 
