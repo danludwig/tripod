@@ -124,12 +124,12 @@ namespace Tripod.Web.Controllers
 
         partial void SignUpOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Tripod.Domain.Security.SendConfirmationEmail command);
 
-        public override System.Web.Mvc.ActionResult SignUp(Tripod.Domain.Security.SendConfirmationEmail command)
+        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> SignUp(Tripod.Domain.Security.SendConfirmationEmail command)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SignUp);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "command", command);
             SignUpOverride(callInfo, command);
-            return callInfo;
+            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
         }
 
         partial void SignUpValidateOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Tripod.Domain.Security.SendConfirmationEmail command, string fieldName);

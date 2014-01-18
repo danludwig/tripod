@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System.Threading.Tasks;
+using System.Web.Mvc;
 using Tripod.Domain.Security;
 using Tripod.Web.Models;
 
@@ -6,8 +7,11 @@ namespace Tripod.Web.Controllers
 {
     public partial class EmailAddressesController : Controller
     {
-        public EmailAddressesController()
+        private readonly IProcessCommands _commands;
+
+        public EmailAddressesController(IProcessCommands commands)
         {
+            _commands = commands;
         }
 
         [HttpGet, Route("sign-up")]
@@ -18,8 +22,12 @@ namespace Tripod.Web.Controllers
 
         [ValidateAntiForgeryToken]
         [HttpPost, Route("sign-up")]
-        public virtual ActionResult SignUp(SendConfirmationEmail command)
+        public virtual async Task<ActionResult> SignUp(SendConfirmationEmail command)
         {
+            if (!ModelState.IsValid) return View(MVC.Authentication.Views.SignUp, command);
+
+            await _commands.Execute(command);
+
             // todo: what if email matches a user account? error or redirect?
             //var isValid = ModelState.IsValid;
             return View(MVC.Authentication.Views.SignUp, command);

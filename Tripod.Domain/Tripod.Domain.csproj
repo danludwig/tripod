@@ -128,6 +128,7 @@
     <Compile Include="Domain\Security\Validation\MustNotFindUserByName.cs" />
     <Compile Include="Domain\Security\_Extensions\QueryRemoteMemberships.cs" />
     <Compile Include="Domain\Security\_Extensions\QueryLocalMemberships.cs" />
+    <Compile Include="Domain\Security\_Extensions\QueryEmailAddresses.cs" />
     <Compile Include="Domain\Security\_Extensions\QueryUsers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
