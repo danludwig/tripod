@@ -1,5 +1,6 @@
 ﻿using System;
 using SimpleInjector;
+using Tripod.Ioc.Cryptography;
 using Tripod.Ioc.EntityFramework;
 using Tripod.Ioc.FluentValidation;
 using Tripod.Ioc.Security;
@@ -17,6 +18,7 @@ namespace Tripod.Ioc
 #endif
             container.Options.AllowOverridingRegistrations = true;
             container.Register<IServiceProvider>(() => container, Lifestyle.Singleton);
+            container.RegisterCryptography();
             container.RegisterEntityFramework(settings.IsGreenfield);
             container.RegisterSecurity();
             container.RegisterFluentValidation(settings.FluentValidatorAssemblies);

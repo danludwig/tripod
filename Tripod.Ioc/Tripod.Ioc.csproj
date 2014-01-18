@@ -123,6 +123,8 @@
     </Compile>
     <Compile Include="CompositionRoot\CompositionRoot.cs" />
     <Compile Include="CompositionRoot\RootCompositionSettings.cs" />
+    <Compile Include="Cryptography\CompositionRoot.cs" />
+    <Compile Include="Cryptography\RngCryptoSecretCreator.cs" />
     <Compile Include="EntityFramework\CompositionRoot.cs" />
     <Compile Include="EntityFramework\Customization\VanillaDbCustomizer.cs" />
     <Compile Include="EntityFramework\Customization\ICustomizeDb.cs" />

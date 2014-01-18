@@ -67,7 +67,7 @@ namespace Tripod.Web.Controllers
         [HttpGet, Route("account/external-login/received")]
         public virtual async Task<ActionResult> ExternalLoginCallback(string returnUrl)
         {
-            var loginInfo = await _queries.Execute(new GetRemoteMembershipTicket(User));
+            var loginInfo = await _queries.Execute(new PrincipalRemoteMembershipTicket(User));
             if (loginInfo == null) return RedirectToAction(MVC.Authentication.SignIn());
 
             //var externalIdentity = await HttpContext.GetOwinContext().Authentication
@@ -105,7 +105,7 @@ namespace Tripod.Web.Controllers
                 return RedirectToAction(await MVC.Account.Manage());
 
             // Get the information about the user from the external login provider
-            var info = await _queries.Execute(new GetRemoteMembershipTicket(User));
+            var info = await _queries.Execute(new PrincipalRemoteMembershipTicket(User));
             if (info == null) return RedirectToAction(MVC.Authentication.ExternalLoginFailure());
 
             if (ModelState.IsValid)
@@ -137,7 +137,7 @@ namespace Tripod.Web.Controllers
         [HttpGet, Route("account/link-login/complete")]
         public virtual async Task<ActionResult> LinkLoginCallback()
         {
-            var loginInfo = await _queries.Execute(new GetRemoteMembershipTicket(User));
+            var loginInfo = await _queries.Execute(new PrincipalRemoteMembershipTicket(User));
             if (loginInfo == null) return RedirectToAction(await MVC.Account.Manage(AccountController.ManageMessageId.Error));
 
             var command = new CreateRemoteMembership

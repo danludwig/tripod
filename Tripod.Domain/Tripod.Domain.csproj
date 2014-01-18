@@ -60,6 +60,7 @@
       <Link>Properties\ReSharperAnnotations.cs</Link>
     </Compile>
     <Compile Include="Api\Configuration\AppSettingKey.cs" />
+    <Compile Include="Api\Cryptography\ICreateSecrets.cs" />
     <Compile Include="Api\Security\IAuthenticate.cs" />
     <Compile Include="Api\Security\RemoteMembershipTicket.cs" />
     <Compile Include="Api\Transactions\BaseEntitiesQuery.cs" />
@@ -106,7 +107,8 @@
     <Compile Include="Domain\Security\Entities\Claim.cs" />
     <Compile Include="Domain\Security\Entities\RemoteMembership.cs" />
     <Compile Include="Domain\Security\Entities\User.cs" />
-    <Compile Include="Domain\Security\Queries\GetRemoteMembershipTicket.cs" />
+    <Compile Include="Domain\Security\Queries\RandomSecret.cs" />
+    <Compile Include="Domain\Security\Queries\PrincipalRemoteMembershipTicket.cs" />
     <Compile Include="Domain\Security\Queries\IsPasswordVerified.cs" />
     <Compile Include="Domain\Security\Queries\RemoteMembershipsByUser.cs" />
     <Compile Include="Domain\Security\Queries\RemoteMembershipByUser.cs" />

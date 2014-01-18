@@ -66,7 +66,7 @@ namespace Tripod.Domain.Security
                 user = createUser.Created;
             }
 
-            var ticket = await _queries.Execute(new GetRemoteMembershipTicket(command.Principal));
+            var ticket = await _queries.Execute(new PrincipalRemoteMembershipTicket(command.Principal));
 
             // do not add this login if it already exists
             if (user.RemoteMemberships.ByUserLoginInfo(ticket.Login) != null) return;

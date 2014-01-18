@@ -11,7 +11,7 @@ namespace Tripod
         internal MinLength(int minLength) : base(() => Resources.Validation_MinLength)
         {
             if (minLength < 1) throw new ArgumentOutOfRangeException("minLength",
-                Resources.Exception_ArgumentOutOfRange_CannotBeLessThanOne);
+                string.Format(Resources.Exception_ArgumentOutOfRange_CannotBeLessThan, 1));
             _minLength = minLength;
         }
 

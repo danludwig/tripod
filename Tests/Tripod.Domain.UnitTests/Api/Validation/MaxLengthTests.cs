@@ -16,7 +16,7 @@ namespace Tripod
             var exception = Assert.Throws<ArgumentOutOfRangeException>(() => new MaxLength(0));
             exception.ShouldNotBeNull();
             exception.ParamName.ShouldEqual("maxLength");
-            exception.Message.ShouldStartWith(Resources.Exception_ArgumentOutOfRange_CannotBeLessThanOne);
+            exception.Message.ShouldStartWith(string.Format(Resources.Exception_ArgumentOutOfRange_CannotBeLessThan, 1));
         }
 
         [Fact]

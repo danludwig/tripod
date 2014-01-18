@@ -106,11 +106,11 @@ namespace Tripod {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cannot be less than one..
+        ///   Looks up a localized string similar to Cannot be less than {0}..
         /// </summary>
-        public static string Exception_ArgumentOutOfRange_CannotBeLessThanOne {
+        public static string Exception_ArgumentOutOfRange_CannotBeLessThan {
             get {
-                return ResourceManager.GetString("Exception_ArgumentOutOfRange_CannotBeLessThanOne", resourceCulture);
+                return ResourceManager.GetString("Exception_ArgumentOutOfRange_CannotBeLessThan", resourceCulture);
             }
         }
         

@@ -12,7 +12,7 @@ namespace Tripod
             : base(() => Resources.Validation_MaxLength)
         {
             if (maxLength < 1) throw new ArgumentOutOfRangeException("maxLength",
-                Resources.Exception_ArgumentOutOfRange_CannotBeLessThanOne);
+                string.Format(Resources.Exception_ArgumentOutOfRange_CannotBeLessThan, 1));
             _maxLength = maxLength;
         }
 

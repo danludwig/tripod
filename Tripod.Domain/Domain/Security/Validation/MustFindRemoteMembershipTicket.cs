@@ -21,7 +21,7 @@ namespace Tripod.Domain.Security
             var principal = (IPrincipal)context.PropertyValue;
             if (principal == null) return false;
 
-            var query =  new GetRemoteMembershipTicket(principal);
+            var query =  new PrincipalRemoteMembershipTicket(principal);
             var ticket = _queries.Execute(query).Result;
             return ticket != null;
         }
