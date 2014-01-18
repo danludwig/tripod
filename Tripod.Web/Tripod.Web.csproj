@@ -300,6 +300,7 @@
     <Content Include="app\_common\modules\Tripod.js">
       <DependentUpon>Tripod.ts</DependentUpon>
     </Content>
+    <Content Include="App_Data\mail\pickup\.gitignore" />
     <Content Include="content\bootstrap.css" />
     <Content Include="content\bootstrap.min.css" />
     <Content Include="content\compass-defaults\ie.css" />
@@ -679,9 +680,7 @@
     <Content Include="Views\Authentication\SignUp.cshtml" />
     <Content Include="Views\Authentication\_OAuthSignInForm.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />

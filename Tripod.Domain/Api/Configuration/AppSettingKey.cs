@@ -3,6 +3,8 @@
     public enum AppSettingKey
     {
         XsrfKey,
-        DefaultMailFrom,
+        MailFromDefault,
+        MailPickupDirectory,
+        MailInterceptDefault,
     }
 }

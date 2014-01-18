@@ -1,20 +1,39 @@
-﻿using System.Configuration;
+﻿using System;
+using System.Configuration;
+using System.Linq;
+using System.Net.Configuration;
 using System.Net.Mail;
 
 namespace Tripod
 {
     public static class AppSettings
     {
-        public static MailAddress DefaultMailFrom
+        public static MailAddress MailFromDefault
+        {
+            get { return new MailAddress(ConfigurationManager.AppSettings[AppSettingKey.MailFromDefault.ToString()] ?? "UNCONFIGURED NOREPLY <no-reply@localhost.tld>"); }
+        }
+
+        public static MailAddress[] MailIntercepts
         {
             get
             {
-                var appSetting = ConfigurationManager.AppSettings[AppSettingKey.DefaultMailFrom.ToString()] ??
-                    "UNCONFIGURED NOREPLY <no-reply@localhost.tld>";
+                var setting = ConfigurationManager.AppSettings[AppSettingKey.MailInterceptDefault.ToString()] ?? "UNCONFIGURED INTERCEPT <intercept@localhost.tld>";
+                var intercepts = setting.Split(new []{';'}, StringSplitOptions.RemoveEmptyEntries).Select(x => x.Trim()).Where(x => !string.IsNullOrWhiteSpace(x));
+                return intercepts.Select(x => new MailAddress(x)).ToArray();
+            }
+        }
 
-                var mailAddress = new MailAddress(appSetting);
+        public static string MailPickupDirectory
+        {
+            get { return ConfigurationManager.AppSettings[AppSettingKey.MailPickupDirectory.ToString()] ?? @"App_Data\mail\pickup"; }
+        }
 
-                return mailAddress;
+        public static SmtpDeliveryMethod MailDeliveryMethod
+        {
+            get
+            {
+                var smtp = ConfigurationManager.GetSection("system.net/mailSettings/smtp") as SmtpSection;
+                return smtp == null ? SmtpDeliveryMethod.SpecifiedPickupDirectory : smtp.DeliveryMethod;
             }
         }
     }
