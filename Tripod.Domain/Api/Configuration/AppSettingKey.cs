@@ -3,5 +3,6 @@
     public enum AppSettingKey
     {
         XsrfKey,
+        DefaultMailFrom,
     }
 }

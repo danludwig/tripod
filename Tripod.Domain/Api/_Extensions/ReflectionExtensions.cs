@@ -1,5 +1,8 @@
 ﻿using System;
+using System.IO;
+using System.Linq;
 using System.Linq.Expressions;
+using System.Reflection;
 using System.Text;
 
 namespace Tripod
@@ -49,6 +52,24 @@ namespace Tripod
                 memberExpression = memberExpression.Expression as MemberExpression;
             }
             return builder.ToString();
+        }
+
+        public static string GetManifestResourceText(this Assembly assembly, string resourceName)
+        {
+            using (var stream = assembly.GetManifestResourceStream(resourceName))
+            {
+                if (stream == null) throw new InvalidOperationException(string.Format(
+                    "Unable to get stream for embedded resource '{0}' in assembly '{1}'.",
+                        resourceName, assembly.FullName));
+                using (var reader = new StreamReader(stream))
+                    return reader.ReadToEnd();
+            }
+        }
+
+        public static string GetManifestResourceName(this Assembly assembly, string resourceName)
+        {
+            var allNames = assembly.GetManifestResourceNames();
+            return allNames.Single(x => x.Contains(resourceName));
         }
     }
 }

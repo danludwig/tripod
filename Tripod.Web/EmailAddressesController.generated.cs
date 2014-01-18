@@ -65,6 +65,7 @@ namespace Tripod.Web.Controllers
         {
             public readonly string SignUp = "SignUp";
             public readonly string SignUpValidate = "SignUpValidate";
+            public readonly string Confirm = "Confirm";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -72,6 +73,7 @@ namespace Tripod.Web.Controllers
         {
             public const string SignUp = "SignUp";
             public const string SignUpValidate = "SignUpValidate";
+            public const string Confirm = "Confirm";
         }
 
 
@@ -92,6 +94,15 @@ namespace Tripod.Web.Controllers
         {
             public readonly string command = "command";
             public readonly string fieldName = "fieldName";
+        }
+        static readonly ActionParamsClass_Confirm s_params_Confirm = new ActionParamsClass_Confirm();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_Confirm ConfirmParams { get { return s_params_Confirm; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_Confirm
+        {
+            public readonly string ticket = "ticket";
+            public readonly string token = "token";
         }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -140,6 +151,17 @@ namespace Tripod.Web.Controllers
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "command", command);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "fieldName", fieldName);
             SignUpValidateOverride(callInfo, command, fieldName);
+            return callInfo;
+        }
+
+        partial void ConfirmOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, System.Guid? ticket, string token);
+
+        public override System.Web.Mvc.ActionResult Confirm(System.Guid? ticket, string token)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Confirm);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ticket", ticket);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "token", token);
+            ConfirmOverride(callInfo, ticket, token);
             return callInfo;
         }
 

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Reflection;
 using System.Threading.Tasks;
 using FluentValidation;
 using Microsoft.AspNet.Identity;
@@ -12,6 +14,8 @@ namespace Tripod.Domain.Security
     {
         public string EmailAddress { get; set; }
         public bool IsExpectingEmail { get; set; }
+        public string ConfirmUrlFormat { get; set; }
+        public string SendFromUrl { get; set; }
     }
 
     public class ValidateSendConfirmationEmailCommand : AbstractValidator<SendConfirmationEmail>
@@ -37,25 +41,28 @@ namespace Tripod.Domain.Security
     public class HandleSendConfirmationEmailCommand : IHandleCommand<SendConfirmationEmail>
     {
         private readonly UserManager<User, int> _userManager;
-        private readonly IWriteEntities _entities;
         private readonly IProcessQueries _queries;
+        private readonly IWriteEntities _entities;
+        //private readonly IDeliverMailMessage _mail;
 
-        public HandleSendConfirmationEmailCommand(UserManager<User, int> userManager, IWriteEntities entities, IProcessQueries queries)
+        public HandleSendConfirmationEmailCommand(UserManager<User, int> userManager, IProcessQueries queries, IWriteEntities entities)
         {
             _userManager = userManager;
-            _entities = entities;
             _queries = queries;
+            _entities = entities;
+            //_mail = mail;
         }
 
         public async Task Handle(SendConfirmationEmail command)
         {
-            // first, find or create the email address
+            // find or create the email address
             var emailAddress = await _entities.Get<EmailAddress>().ByValueAsync(command.EmailAddress)
                 ?? new EmailAddress
                 {
                     Value = command.EmailAddress,
                 };
 
+            // create the confirmation
             var secret = _queries.Execute(new RandomSecret(10, 12));
             var token = _userManager.UserConfirmationTokens.Generate(new UserToken
             {
@@ -63,18 +70,45 @@ namespace Tripod.Domain.Security
                 Value = secret,
                 CreationDate = DateTime.UtcNow,
             });
-
             var confirmation = new EmailConfirmation
             {
                 Owner = emailAddress,
                 ExpiresOnUtc = DateTime.UtcNow.AddMinutes(30),
-                Purpose = EmailConfirmationPurpose.SignUp,
+                Purpose = EmailConfirmationPurpose.CreatePassword,
                 Secret = secret,
                 Ticket = Guid.NewGuid().ToString(),
                 Token = token,
             };
-
             _entities.Create(confirmation);
+
+            // load the templates
+            var resourceFormat = string.Format("{0}.{1}.txt", confirmation.Purpose, "{0}");
+            var assembly = Assembly.GetExecutingAssembly();
+            var subjectFormat = assembly.GetManifestResourceText(assembly.GetManifestResourceName(string.Format(resourceFormat, "Subject")));
+            var bodyFormat = assembly.GetManifestResourceText(assembly.GetManifestResourceName(string.Format(resourceFormat, "Body")));
+
+            // format the message body
+            var formatters = new Dictionary<string, string>
+            {
+                { "{EmailAddress}", emailAddress.Value },
+                { "{Secret}", confirmation.Secret },
+                // don't forget to encode + symbols in the ticket to %2b for querystring, otherwise they are space characters
+                { "{ConfirmationUrl}", string.Format(command.ConfirmUrlFormat, confirmation.Token.Replace("+", "%2b")) },
+                { "{SendFromUrl}", command.SendFromUrl }
+            };
+
+            // create the message
+            var message = new EmailMessage
+            {
+                Owner = emailAddress,
+                From = AppSettings.DefaultMailFrom.ToString(),
+                Subject = formatters.Format(subjectFormat),
+                Body = formatters.Format(bodyFormat),
+                IsBodyHtml = false,
+                SendOnUtc = DateTime.UtcNow,
+            };
+            _entities.Create(message);
+
             await _entities.SaveChangesAsync();
         }
     }

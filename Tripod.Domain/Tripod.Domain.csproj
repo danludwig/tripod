@@ -60,8 +60,8 @@
       <Link>Properties\ReSharperAnnotations.cs</Link>
     </Compile>
     <Compile Include="Api\Configuration\AppSettingKey.cs" />
+    <Compile Include="Api\Configuration\AppSettings.cs" />
     <Compile Include="Api\Cryptography\ICreateSecrets.cs" />
-    <Compile Include="Api\Net\IDeliverEmailMessage.cs" />
     <Compile Include="Api\Net\IDeliverMailMessage.cs" />
     <Compile Include="Api\Security\IAuthenticate.cs" />
     <Compile Include="Api\Security\RemoteMembershipTicket.cs" />
@@ -92,6 +92,7 @@
     <Compile Include="Api\_Extensions\ExpressionExtensions.cs" />
     <Compile Include="Api\_Extensions\EntityExtensions.cs" />
     <Compile Include="Api\_Extensions\ReflectionExtensions.cs" />
+    <Compile Include="Api\_Extensions\StringExtensions.cs" />
     <Compile Include="Domain\Security\Commands\CreateRemoteMembership.cs" />
     <Compile Include="Domain\Security\Commands\DeleteRemoteMembership.cs" />
     <Compile Include="Domain\Security\Commands\ChangeLocalPassword.cs" />
@@ -145,6 +146,10 @@
       <CustomToolNamespace>Tripod</CustomToolNamespace>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Domain\Security\MailMessages\CreatePassword.Body.txt" />
+    <EmbeddedResource Include="Domain\Security\MailMessages\CreatePassword.Subject.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

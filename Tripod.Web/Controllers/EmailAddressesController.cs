@@ -1,6 +1,9 @@
-﻿using System.Linq;
+﻿using System;
+using System.Diagnostics;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 using Tripod.Domain.Security;
 using Tripod.Web.Models;
 
@@ -27,10 +30,10 @@ namespace Tripod.Web.Controllers
         {
             if (!ModelState.IsValid) return View(MVC.Authentication.Views.SignUp, command);
 
+            // todo: what if email matches a user account? error or redirect?
+
             await _commands.Execute(command);
 
-            // todo: what if email matches a user account? error or redirect?
-            //var isValid = ModelState.IsValid;
             return View(MVC.Authentication.Views.SignUp, command);
         }
 
@@ -50,6 +53,16 @@ namespace Tripod.Web.Controllers
             //result = new ValidatedFields(ModelState, fieldName);
 
             return new CamelCaseJsonResult(result);
+        }
+
+        [HttpGet]
+        [Route("sign-up/confirm/{ticket:Guid}")]
+        [Route("sign-up/confirm")]
+        public virtual ActionResult Confirm(Guid? ticket = null, string token = null)
+        {
+            var userManager = DependencyResolver.Current.GetService<UserManager<User, int>>();
+            var userToken = userManager.UserConfirmationTokens.Validate(token);
+            return View(MVC.Authentication.Views.SignUp);
         }
     }
 }
