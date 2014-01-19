@@ -300,6 +300,7 @@
     <Content Include="app\_common\modules\Tripod.js">
       <DependentUpon>Tripod.ts</DependentUpon>
     </Content>
+    <Content Include="App_Data\.gitignore" />
     <Content Include="App_Data\mail\pickup\.gitignore" />
     <Content Include="content\bootstrap.css" />
     <Content Include="content\bootstrap.min.css" />
