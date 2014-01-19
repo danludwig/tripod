@@ -7,7 +7,6 @@ namespace Tripod.Ioc.Net
 {
     public class InterceptMailDeliveryDecorator : IDeliverMailMessage
     {
-        //public string Interceptors { get; set; }
         private readonly IDeliverMailMessage _decorated;
 
         public InterceptMailDeliveryDecorator(IDeliverMailMessage decorated)
@@ -15,7 +14,7 @@ namespace Tripod.Ioc.Net
             _decorated = decorated;
         }
 
-        public void Deliver(MailMessage message)
+        public void Deliver(MailMessage message, SendCompletedEventHandler sendCompleted = null, object userState = null)
         {
             const string messageFormat =
 @"
@@ -46,13 +45,13 @@ namespace Tripod.Ioc.Net
             message.CC.Clear();
             message.Bcc.Clear();
 
-            foreach (var interceptor in AppSettings.MailIntercepts)
+            foreach (var interceptor in AppConfiguration.MailInterceptors)
                 message.To.Add(interceptor);
 
             var formattedMessage = string.Format(messageFormat, messageBuilder.ToString().Trim());
             message.Body = string.Format("{0}{1}", formattedMessage, message.Body);
 
-            _decorated.Deliver(message);
+            _decorated.Deliver(message, sendCompleted, userState);
         }
 
         private static void AppendIntendedRecipients(IEnumerable<MailAddress> recipients, StringBuilder messageBuilder)

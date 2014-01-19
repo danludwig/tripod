@@ -15,6 +15,8 @@ namespace Tripod.Domain.Security
         public bool IsBodyHtml { get; protected internal set; }
         public DateTime SendOnUtc { get; protected internal set; }
         public DateTime? SentOnUtc { get; protected internal set; }
+        public DateTime? CancelledOnUtc { get; protected internal set; }
+        public string LastSendError { get; protected internal set; }
 
         public static class Constraints
         {
@@ -23,6 +25,7 @@ namespace Tripod.Domain.Security
             public const string FromLabel = "From";
             public const int FromMaxLength = 250;
             public const int SubjectMaxLength = 150;
+            public const int LastSendErrorMaxLength = 500;
         }
     }
 }

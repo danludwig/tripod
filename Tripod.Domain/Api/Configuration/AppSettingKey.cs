@@ -5,6 +5,6 @@
         XsrfKey,
         MailFromDefault,
         MailPickupDirectory,
-        MailInterceptDefault,
+        MailInterceptors,
     }
 }

@@ -60,8 +60,6 @@ namespace Tripod.Web.Controllers
         [Route("sign-up/confirm")]
         public virtual ActionResult Confirm(Guid? ticket = null, string token = null)
         {
-            var userManager = DependencyResolver.Current.GetService<UserManager<User, int>>();
-            var userToken = userManager.UserConfirmationTokens.Validate(token);
             return View(MVC.Authentication.Views.SignUp);
         }
     }

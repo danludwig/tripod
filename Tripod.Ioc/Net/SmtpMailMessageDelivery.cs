@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net.Mail;
+using System.Threading.Tasks;
 
 namespace Tripod.Ioc.Net
 {
@@ -7,19 +8,20 @@ namespace Tripod.Ioc.Net
     {
         public SmtpMailMessageDelivery()
         {
-            SmtpClient = new SmtpClient();
+            SmtpClientInstance = new SmtpClient();
         }
 
         public void Dispose()
         {
-            SmtpClient.Dispose();
+            SmtpClientInstance.Dispose();
         }
 
-        protected SmtpClient SmtpClient { get; private set; }
+        protected SmtpClient SmtpClientInstance { get; private set; }
 
-        public virtual void Deliver(MailMessage message)
+        public virtual void Deliver(MailMessage message, SendCompletedEventHandler sendCompleted = null, object userState = null)
         {
-            SmtpClient.Send(message);
+            if (sendCompleted != null) SmtpClientInstance.SendCompleted += sendCompleted;
+            Task.Factory.StartNew(() => SmtpClientInstance.SendAsync(message, userState));
         }
     }
 }

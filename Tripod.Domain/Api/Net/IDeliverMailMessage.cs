@@ -4,6 +4,6 @@ namespace Tripod
 {
     public interface IDeliverMailMessage
     {
-        void Deliver(MailMessage mailMessage);
+        void Deliver(MailMessage mailMessage, SendCompletedEventHandler sendCompleted = null, object userState = null);
     }
 }

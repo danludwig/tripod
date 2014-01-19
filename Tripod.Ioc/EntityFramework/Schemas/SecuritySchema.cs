@@ -80,6 +80,7 @@ namespace Tripod.Ioc.EntityFramework
 
             Property(x => x.From).HasMaxLength(EmailMessage.Constraints.FromMaxLength);
             Property(x => x.Subject).HasMaxLength(EmailMessage.Constraints.SubjectMaxLength);
+            Property(x => x.LastSendError).HasMaxLength(EmailMessage.Constraints.LastSendErrorMaxLength);
 
             HasRequired(x => x.Owner).WithMany().HasForeignKey(x => x.OwnerId).WillCascadeOnDelete();
         }

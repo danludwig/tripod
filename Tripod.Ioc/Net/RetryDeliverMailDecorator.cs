@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.ComponentModel;
 using System.Net.Mail;
 using System.Threading;
 
@@ -13,31 +13,46 @@ namespace Tripod.Ioc.Net
             _decorated = decorated;
         }
 
-        public void Deliver(MailMessage message)
+        public void Deliver(MailMessage message, SendCompletedEventHandler sendCompleted = null, object userState = null)
         {
-            Deliver(message, 3);
+            _decorated.Deliver(message, GetOnSendCompleted(message, sendCompleted), new RetryUserState
+            {
+                Handler = sendCompleted,
+                UserState = userState,
+                CountDown = 3,
+            });
         }
 
-        private void Deliver(MailMessage message, int countDown)
+        private class RetryUserState
         {
-            try
-            {
-                _decorated.Deliver(message);
-            }
-            catch (Exception ex)
-            {
-                //// log the exception
-                //var error = new Error(ex);
-                //var log = ErrorLog.GetDefault(HttpContext.Current);
-                //log.Log(error);
+            public SendCompletedEventHandler Handler { get; set; }
+            public object UserState { get; set; }
+            public short CountDown { get; set; }
+        }
 
-                // give up after trying n times
-                if (--countDown >= 0) throw;
+        private SendCompletedEventHandler GetOnSendCompleted(MailMessage message, SendCompletedEventHandler sendCompleted)
+        {
+            SendCompletedEventHandler handler = (sender, e) =>
+            {
+                var retryUserState = (RetryUserState)e.UserState;
+                var countDown = retryUserState.CountDown;
+                if (e.Error != null && --countDown > 0)
+                {
+                    Thread.Sleep(3000);
+                    retryUserState.CountDown = countDown;
+                    _decorated.Deliver(message, null, retryUserState);
+                }
+                else if (sendCompleted != null)
+                {
+                    if (e.Error != null)
+                    {
+                        // todo: log error here if there still is one
+                    }
 
-                // wait 3 seconds and try to send the message again
-                Thread.Sleep(3000);
-                Deliver(message, countDown);
-            }
+                    sendCompleted(sender, new AsyncCompletedEventArgs(e.Error, e.Cancelled, retryUserState.UserState));
+                }
+            };
+            return handler;
         }
     }
 }

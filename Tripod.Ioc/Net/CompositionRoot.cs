@@ -11,7 +11,17 @@ namespace Tripod.Ioc.Net
     {
         public static void RegisterMailDelivery(this Container container)
         {
-            var mailDeliveryMethod = AppSettings.MailDeliveryMethod;
+            // mail delivery is separated into 2 distinct sets of services:
+            // the first is actual MAIL delivery, which deals with objects
+            // like MailMessage and SmtpClient in the system.net namespace.
+            // the second set is EMAIL delivery, which deals with the
+            // EmailMessage application entity, and tracks delivery status.
+            // the app should consume IDeliverEmailMessage, whose implementations
+            // will consume network delivery & status tracking internally
+
+            #region Mail Delivery
+
+            var mailDeliveryMethod = AppConfiguration.MailDeliveryMethod;
 #if DEBUG
             if (mailDeliveryMethod != SmtpDeliveryMethod.Network)
             {
@@ -39,6 +49,7 @@ namespace Tripod.Ioc.Net
             );
 
 #if DEBUG
+            // when sending over the network in debug mode, intercept mail
             if (mailDeliveryMethod == SmtpDeliveryMethod.Network)
             {
                 container.RegisterDecorator(
@@ -47,6 +58,25 @@ namespace Tripod.Ioc.Net
                 );
             }
 #endif
+
+            #endregion
+            #region EmailMessage Delivery
+
+            // send email in a new thread
+            container.Register<IDeliverEmailMessage, ActiveEmailMessageDelivery>();
+            container.RegisterDecorator(
+                typeof(IDeliverEmailMessage),
+                typeof(DeliverEmailAsynchronouslyDecorator)
+            );
+
+            // respond to email delivery result in a new thread
+            container.Register<IDeliveredEmailMessage, OnEmailMessageDelivery>();
+            container.RegisterDecorator(
+                typeof(IDeliveredEmailMessage),
+                typeof(DeliveredEmailAsynchronouslyDecorator)
+            );
+
+            #endregion
         }
     }
 }

@@ -60,8 +60,10 @@
       <Link>Properties\ReSharperAnnotations.cs</Link>
     </Compile>
     <Compile Include="Api\Configuration\AppSettingKey.cs" />
-    <Compile Include="Api\Configuration\AppSettings.cs" />
+    <Compile Include="Api\Configuration\AppConfiguration.cs" />
     <Compile Include="Api\Cryptography\ICreateSecrets.cs" />
+    <Compile Include="Api\Net\IDeliveredEmailMessage.cs" />
+    <Compile Include="Api\Net\IDeliverEmailMessage.cs" />
     <Compile Include="Api\Net\IDeliverMailMessage.cs" />
     <Compile Include="Api\Security\IAuthenticate.cs" />
     <Compile Include="Api\Security\RemoteMembershipTicket.cs" />

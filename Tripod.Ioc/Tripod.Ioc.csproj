@@ -142,11 +142,16 @@
     <Compile Include="FluentValidation\ValidateNothingDecorator.cs" />
     <Compile Include="FluentValidation\ValidateQueryDecorator.cs" />
     <Compile Include="CompositionRoot\WebApiDependencyResolver.cs" />
+    <Compile Include="Net\ActiveEmailMessageDelivery.cs" />
+    <Compile Include="Net\DeliveredEmailAsynchronouslyDecorator.cs" />
+    <Compile Include="Net\DeliverEmailMessageAsynchronouslyDecorator.cs" />
     <Compile Include="Net\InterceptMailDeliveryDecorator.cs" />
+    <Compile Include="Net\PassiveEmailMessageDelivery.cs" />
     <Compile Include="Net\PickupDirectoryMailMessageDelivery.cs" />
     <Compile Include="Net\CompositionRoot.cs" />
     <Compile Include="Net\RetryDeliverMailDecorator.cs" />
     <Compile Include="Net\SmtpMailMessageDelivery.cs" />
+    <Compile Include="Net\OnEmailMessageDelivery.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Security\CompositionRoot.cs" />
     <Compile Include="Security\OwinAuthenticator.cs" />

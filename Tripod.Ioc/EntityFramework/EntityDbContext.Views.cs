@@ -11,7 +11,7 @@ using System.Data.Entity.Infrastructure.MappingViews;
 
 [assembly: DbMappingViewCacheTypeAttribute(
     typeof(Tripod.Ioc.EntityFramework.EntityDbContext),
-    typeof(Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySets75b5c0bd31f4c7fd4b3262851c3fb32496ca5b128164fedf5bf2512783e53644))]
+    typeof(Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySetsd107652e897be0ca6f9e8830b435886b596ce41f5683b55648ba4e631ee659d0))]
 
 namespace Edm_EntityMappingGeneratedViews
 {
@@ -23,14 +23,14 @@ namespace Edm_EntityMappingGeneratedViews
     /// Implements a mapping view cache.
     /// </summary>
     [GeneratedCode("Entity Framework Power Tools", "0.9.0.0")]
-    internal sealed class ViewsForBaseEntitySets75b5c0bd31f4c7fd4b3262851c3fb32496ca5b128164fedf5bf2512783e53644 : DbMappingViewCache
+    internal sealed class ViewsForBaseEntitySetsd107652e897be0ca6f9e8830b435886b596ce41f5683b55648ba4e631ee659d0 : DbMappingViewCache
     {
         /// <summary>
         /// Gets a hash value computed over the mapping closure.
         /// </summary>
         public override string MappingHashValue
         {
-            get { return "75b5c0bd31f4c7fd4b3262851c3fb32496ca5b128164fedf5bf2512783e53644"; }
+            get { return "d107652e897be0ca6f9e8830b435886b596ce41f5683b55648ba4e631ee659d0"; }
         }
 
         /// <summary>
@@ -289,7 +289,7 @@ namespace Edm_EntityMappingGeneratedViews
         {
             return new DbMappingView(@"
     SELECT VALUE -- Constructing EmailMessage
-        [CodeFirstDatabaseSchema.EmailMessage](T1.EmailMessage_Id, T1.EmailMessage_OwnerId, T1.EmailMessage_From, T1.EmailMessage_Subject, T1.EmailMessage_Body, T1.EmailMessage_IsBodyHtml, T1.EmailMessage_SendOnUtc, T1.EmailMessage_SentOnUtc)
+        [CodeFirstDatabaseSchema.EmailMessage](T1.EmailMessage_Id, T1.EmailMessage_OwnerId, T1.EmailMessage_From, T1.EmailMessage_Subject, T1.EmailMessage_Body, T1.EmailMessage_IsBodyHtml, T1.EmailMessage_SendOnUtc, T1.EmailMessage_SentOnUtc, T1.EmailMessage_CancelledOnUtc, T1.EmailMessage_LastSendError)
     FROM (
         SELECT 
             T.Id AS EmailMessage_Id, 
@@ -300,6 +300,8 @@ namespace Edm_EntityMappingGeneratedViews
             T.IsBodyHtml AS EmailMessage_IsBodyHtml, 
             T.SendOnUtc AS EmailMessage_SendOnUtc, 
             T.SentOnUtc AS EmailMessage_SentOnUtc, 
+            T.CancelledOnUtc AS EmailMessage_CancelledOnUtc, 
+            T.LastSendError AS EmailMessage_LastSendError, 
             True AS _from0
         FROM EntityDbContext.EmailMessages AS T
     ) AS T1");
@@ -472,7 +474,7 @@ namespace Edm_EntityMappingGeneratedViews
         {
             return new DbMappingView(@"
     SELECT VALUE -- Constructing EmailMessages
-        [Tripod.Ioc.EntityFramework.EmailMessage](T1.EmailMessage_Id, T1.EmailMessage_OwnerId, T1.EmailMessage_From, T1.EmailMessage_Subject, T1.EmailMessage_Body, T1.EmailMessage_IsBodyHtml, T1.EmailMessage_SendOnUtc, T1.EmailMessage_SentOnUtc)
+        [Tripod.Ioc.EntityFramework.EmailMessage](T1.EmailMessage_Id, T1.EmailMessage_OwnerId, T1.EmailMessage_From, T1.EmailMessage_Subject, T1.EmailMessage_Body, T1.EmailMessage_IsBodyHtml, T1.EmailMessage_SendOnUtc, T1.EmailMessage_SentOnUtc, T1.EmailMessage_CancelledOnUtc, T1.EmailMessage_LastSendError)
     FROM (
         SELECT 
             T.Id AS EmailMessage_Id, 
@@ -483,6 +485,8 @@ namespace Edm_EntityMappingGeneratedViews
             T.IsBodyHtml AS EmailMessage_IsBodyHtml, 
             T.SendOnUtc AS EmailMessage_SendOnUtc, 
             T.SentOnUtc AS EmailMessage_SentOnUtc, 
+            T.CancelledOnUtc AS EmailMessage_CancelledOnUtc, 
+            T.LastSendError AS EmailMessage_LastSendError, 
             True AS _from0
         FROM CodeFirstDatabase.EmailMessage AS T
     ) AS T1");

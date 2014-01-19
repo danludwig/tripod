@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Net.Mail;
 using System.Reflection;
 using System.Threading.Tasks;
 using FluentValidation;
@@ -44,9 +43,9 @@ namespace Tripod.Domain.Security
         private readonly UserManager<User, int> _userManager;
         private readonly IProcessQueries _queries;
         private readonly IWriteEntities _entities;
-        private readonly IDeliverMailMessage _mail;
+        private readonly IDeliverEmailMessage _mail;
 
-        public HandleSendConfirmationEmailCommand(UserManager<User, int> userManager, IProcessQueries queries, IWriteEntities entities, IDeliverMailMessage mail)
+        public HandleSendConfirmationEmailCommand(UserManager<User, int> userManager, IProcessQueries queries, IWriteEntities entities, IDeliverEmailMessage mail)
         {
             _userManager = userManager;
             _queries = queries;
@@ -102,7 +101,7 @@ namespace Tripod.Domain.Security
             var message = new EmailMessage
             {
                 Owner = emailAddress,
-                From = AppSettings.MailFromDefault.ToString(),
+                From = AppConfiguration.MailFromDefault.ToString(),
                 Subject = formatters.Format(subjectFormat),
                 Body = formatters.Format(bodyFormat),
                 IsBodyHtml = false,
@@ -112,15 +111,7 @@ namespace Tripod.Domain.Security
 
             await _entities.SaveChangesAsync();
 
-            var from = new MailAddress(message.From);
-            var to = new MailAddress(emailAddress.Value);
-            var mailMessage = new MailMessage(from, to)
-            {
-                Subject = message.Subject,
-                Body = message.Body,
-                IsBodyHtml = message.IsBodyHtml,
-            };
-            _mail.Deliver(mailMessage);
+            _mail.Deliver(message.Id);
         }
     }
 }

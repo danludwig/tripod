@@ -6,18 +6,18 @@ using System.Net.Mail;
 
 namespace Tripod
 {
-    public static class AppSettings
+    public static class AppConfiguration
     {
         public static MailAddress MailFromDefault
         {
             get { return new MailAddress(ConfigurationManager.AppSettings[AppSettingKey.MailFromDefault.ToString()] ?? "UNCONFIGURED NOREPLY <no-reply@localhost.tld>"); }
         }
 
-        public static MailAddress[] MailIntercepts
+        public static MailAddress[] MailInterceptors
         {
             get
             {
-                var setting = ConfigurationManager.AppSettings[AppSettingKey.MailInterceptDefault.ToString()] ?? "UNCONFIGURED INTERCEPT <intercept@localhost.tld>";
+                var setting = ConfigurationManager.AppSettings[AppSettingKey.MailInterceptors.ToString()] ?? "UNCONFIGURED INTERCEPTORS <intercept@localhost.tld>";
                 var intercepts = setting.Split(new []{';'}, StringSplitOptions.RemoveEmptyEntries).Select(x => x.Trim()).Where(x => !string.IsNullOrWhiteSpace(x));
                 return intercepts.Select(x => new MailAddress(x)).ToArray();
             }
