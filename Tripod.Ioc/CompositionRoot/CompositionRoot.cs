@@ -1,5 +1,6 @@
 ﻿using System;
 using SimpleInjector;
+using Tripod.Ioc.Audit;
 using Tripod.Ioc.Cryptography;
 using Tripod.Ioc.EntityFramework;
 using Tripod.Ioc.FluentValidation;
@@ -20,6 +21,7 @@ namespace Tripod.Ioc
             container.Options.AllowOverridingRegistrations = true;
             container.Register<IServiceProvider>(() => container, Lifestyle.Singleton);
             container.RegisterCryptography();
+            container.RegisterExceptionAuditor();
             container.RegisterMailDelivery();
             container.RegisterEntityFramework(settings.IsGreenfield);
             container.RegisterSecurity();

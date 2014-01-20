@@ -6,5 +6,6 @@
         MailFromDefault,
         MailPickupDirectory,
         MailInterceptors,
+        MailExceptionTo,
     }
 }

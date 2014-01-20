@@ -124,6 +124,8 @@
     <Compile Include="..\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Audit\CompositionRoot.cs" />
+    <Compile Include="Audit\ElmahExceptionAuditor.cs" />
     <Compile Include="CompositionRoot\CompositionRoot.cs" />
     <Compile Include="CompositionRoot\RootCompositionSettings.cs" />
     <Compile Include="Cryptography\CompositionRoot.cs" />

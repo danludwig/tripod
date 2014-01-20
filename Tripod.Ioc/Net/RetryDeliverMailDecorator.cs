@@ -1,6 +1,9 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Net.Mail;
 using System.Threading;
+using System.Web;
+using Elmah;
 
 namespace Tripod.Ioc.Net
 {
@@ -17,7 +20,6 @@ namespace Tripod.Ioc.Net
         {
             _decorated.Deliver(message, GetOnSendCompleted(message, sendCompleted), new RetryUserState
             {
-                Handler = sendCompleted,
                 UserState = userState,
                 CountDown = 3,
             });
@@ -25,7 +27,6 @@ namespace Tripod.Ioc.Net
 
         private class RetryUserState
         {
-            public SendCompletedEventHandler Handler { get; set; }
             public object UserState { get; set; }
             public short CountDown { get; set; }
         }
@@ -46,7 +47,9 @@ namespace Tripod.Ioc.Net
                 {
                     if (e.Error != null)
                     {
-                        // todo: log error here if there still is one
+                        var error = new Error(e.Error);
+                        var log = ErrorLog.GetDefault(HttpContext.Current);
+                        log.Log(error);
                     }
 
                     sendCompleted(sender, new AsyncCompletedEventArgs(e.Error, e.Cancelled, retryUserState.UserState));

@@ -17,9 +17,15 @@ namespace Tripod
         {
             get
             {
-                var setting = ConfigurationManager.AppSettings[AppSettingKey.MailInterceptors.ToString()] ?? "UNCONFIGURED INTERCEPTORS <intercept@localhost.tld>";
-                var intercepts = setting.Split(new []{';'}, StringSplitOptions.RemoveEmptyEntries).Select(x => x.Trim()).Where(x => !string.IsNullOrWhiteSpace(x));
-                return intercepts.Select(x => new MailAddress(x)).ToArray();
+                return ExtractMailAddresses(ConfigurationManager.AppSettings[AppSettingKey.MailInterceptors.ToString()] ?? "UNCONFIGURED INTERCEPTORS <intercept@localhost.tld>");
+            }
+        }
+
+        public static MailAddress[] MailExceptionTo
+        {
+            get
+            {
+                return ExtractMailAddresses(ConfigurationManager.AppSettings[AppSettingKey.MailExceptionTo.ToString()] ?? "UNCONFIGURED EXCEPTION <exceptions@localhost.tld>");
             }
         }
 
@@ -35,6 +41,13 @@ namespace Tripod
                 var smtp = ConfigurationManager.GetSection("system.net/mailSettings/smtp") as SmtpSection;
                 return smtp == null ? SmtpDeliveryMethod.SpecifiedPickupDirectory : smtp.DeliveryMethod;
             }
+        }
+
+        private static MailAddress[] ExtractMailAddresses(string collapsed)
+        {
+            return collapsed.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries)
+                .Select(x => x.Trim()).Where(x => !string.IsNullOrWhiteSpace(x))
+                .Select(x => new MailAddress(x)).ToArray();
         }
     }
 }
