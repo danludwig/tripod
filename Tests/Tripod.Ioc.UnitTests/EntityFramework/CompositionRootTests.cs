@@ -46,7 +46,7 @@ namespace Tripod.Ioc.EntityFramework
         }
 
         [Fact]
-        public void RegistersICustomizeDb_UsingVanillaDbCustomizer_Transiently_WhenSettingIsGreenfield()
+        public void RegistersICustomizeDb_UsingSqlServerDbCustomizer_Transiently_WhenSettingIsGreenfield()
         {
             var container = new Container();
             container.ComposeRoot(new RootCompositionSettings { IsGreenfield = true, });
@@ -54,7 +54,7 @@ namespace Tripod.Ioc.EntityFramework
             var registration = container.GetRegistration(typeof(ICustomizeDb));
 
             instance.ShouldNotBeNull();
-            instance.ShouldBeType<VanillaDbCustomizer>();
+            instance.ShouldBeType<SqlServerScriptsCustomizer>();
             registration.Lifestyle.ShouldEqual(Lifestyle.Transient);
         }
 

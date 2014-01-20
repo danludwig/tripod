@@ -1,0 +1,53 @@
+﻿@{
+    ViewBag.Title = "Bad Request";
+}
+
+<div class="danger jumbotron">
+    <div class="row">
+        <div class="col-md-5">
+            <header>
+                <hgroup>
+                    <h1 class="text-danger">
+                        @ViewBag.Title.
+                    </h1>
+                </hgroup>
+            </header>
+            <p>
+                <button id="haiku_btn" type="button" class="btn btn-danger">
+                    Try a different error haiku &raquo;
+                </button>
+            </p>
+        </div>
+        <div id="haikus" class="col-md-7">
+            <h2 class="text-danger hide">
+                You inquire sweetly,<br />
+                Protocol violation.<br />
+                Bad request, dear friend
+            </h2>
+            <h2 class="text-danger hide">
+                Which of us to blame<br />
+                When we can't communicate<br />
+                We all are, everyone.
+            </h2>
+            <h2 class="text-danger hide">
+                HTTP failed<br />
+                To extract information<br />
+                From generous minds.
+            </h2>
+        </div>
+    </div>
+</div>
+<h2 class="text-danger">
+    The request sent to this page was not valid.
+</h2>
+<p>
+    Developers are working frantically to resolve this issue.
+</p>
+<p>
+    If seeing this page makes you angry, <a href="https://www.google.com/search?q=anger+management+therapy" target="_blank">click here for help</a>.
+</p>
+
+@section scripts
+{
+    <script src="~/app/errors/Haikus.js"></script>
+}

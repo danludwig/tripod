@@ -344,6 +344,14 @@ body {
     }
 }
 
+/* error page styles */
+body {
+    .danger.jumbotron {
+        background-color: #f2dede;
+        border-radius: 0;
+    }
+}
+
 /* VS starter template styles */
 body {
     .validation-summary-errors {

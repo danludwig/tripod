@@ -48,6 +48,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Elmah">
+      <HintPath>..\packages\elmah.corelibrary.1.2.2\lib\Elmah.dll</HintPath>
+    </Reference>
+    <Reference Include="Elmah.Mvc">
+      <HintPath>..\packages\Elmah.MVC.2.1.1\lib\net40\Elmah.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\EntityFramework.6.0.2\lib\net45\EntityFramework.dll</HintPath>
@@ -231,14 +237,19 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AuthenticationController.cs" />
     <Compile Include="Controllers\EmailAddressesController.cs" />
+    <Compile Include="Controllers\ErrorsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LocalMembershipsController.cs" />
     <Compile Include="Controllers\RemoteMembershipsController.cs" />
     <Compile Include="EmailAddressesController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
+    <Compile Include="ErrorsController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+      <SubType>Code</SubType>
     </Compile>
     <Compile Include="Helpers\ChallengeResult.cs" />
     <Compile Include="Helpers\ControllerExtensions.cs" />
@@ -270,6 +281,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="app\errors\Haikus.js">
+      <DependentUpon>Haikus.ts</DependentUpon>
+    </Content>
     <Content Include="app\security\sign-up\form.js">
       <DependentUpon>Form.ts</DependentUpon>
     </Content>
@@ -312,8 +326,8 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
-    <Content Include="Global.asax" />
     <Content Include="content\site.css" />
+    <Content Include="Global.asax" />
     <Content Include="images\oauth-buttons\facebook\f-white-around-transparent.png" />
     <Content Include="images\oauth-buttons\google\Red-signin-Small-transparent-44dp.png" />
     <Content Include="images\oauth-buttons\twitter\bird-white-on-transparent-30-22.png" />
@@ -680,6 +694,9 @@
     <Content Include="Views\Authentication\SignIn.cshtml" />
     <Content Include="Views\Authentication\SignUp.cshtml" />
     <Content Include="Views\Authentication\_OAuthSignInForm.cshtml" />
+    <Content Include="Views\Errors\NotFound.cshtml" />
+    <Content Include="Views\Errors\Forbidden.cshtml" />
+    <Content Include="Views\Errors\BadRequest.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
@@ -705,6 +722,7 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <TypeScriptCompile Include="app\errors\Haikus.ts" />
     <TypeScriptCompile Include="app\security\sign-up\Form.ts" />
     <TypeScriptCompile Include="app\security\sign-in\Form.ts" />
     <TypeScriptCompile Include="app\_common\api\ViewModelScope.d.ts" />

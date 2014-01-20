@@ -12,7 +12,7 @@ namespace Tripod.Ioc.EntityFramework
         {
             if (isGreenfield)
             {
-                container.Register<ICustomizeDb, VanillaDbCustomizer>();
+                container.Register<ICustomizeDb, SqlServerScriptsCustomizer>();
                 container.Register<IDatabaseInitializer<EntityDbContext>, GreenfieldDbInitializer>();
             }
             else

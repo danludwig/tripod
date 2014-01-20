@@ -47,6 +47,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Elmah">
+      <HintPath>..\packages\elmah.corelibrary.1.2.2\lib\Elmah.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\EntityFramework.6.0.2\lib\net45\EntityFramework.dll</HintPath>
@@ -126,6 +129,7 @@
     <Compile Include="Cryptography\CompositionRoot.cs" />
     <Compile Include="Cryptography\RngCryptoSecretCreator.cs" />
     <Compile Include="EntityFramework\CompositionRoot.cs" />
+    <Compile Include="EntityFramework\Customization\SqlServerScriptsCustomizer.cs" />
     <Compile Include="EntityFramework\Customization\VanillaDbCustomizer.cs" />
     <Compile Include="EntityFramework\Customization\ICustomizeDb.cs" />
     <Compile Include="EntityFramework\EntityDbContext.cs" />
@@ -134,6 +138,7 @@
     <Compile Include="EntityFramework\Initialization\GreenfieldDbInitializer.cs" />
     <Compile Include="EntityFramework\ModelCreation\DefaultDbModelCreator.cs" />
     <Compile Include="EntityFramework\ModelCreation\ICreateDbModel.cs" />
+    <Compile Include="EntityFramework\Schemas\AuditSchema.cs" />
     <Compile Include="EntityFramework\Schemas\SecuritySchema.cs" />
     <Compile Include="FluentValidation\CompositionRoot.cs" />
     <Compile Include="FluentValidation\ValidationProcessor.cs" />
@@ -163,7 +168,10 @@
     <Compile Include="Transactions\QueryLifetimeScopeDecorator.cs" />
     <Compile Include="Transactions\QueryProcessor.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="EntityFramework\Customization\SqlServer\EnsureSecurityArtifacts.sql" />
+    <EmbeddedResource Include="EntityFramework\Customization\SqlServer\EnsureElmahArtifacts.sql" />
+  </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />

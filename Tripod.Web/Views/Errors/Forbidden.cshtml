@@ -1,0 +1,78 @@
+﻿@{
+    ViewBag.Title = "Forbidden";
+}
+
+<div class="danger jumbotron">
+    <div class="row">
+        <div class="col-md-5">
+            <header>
+                <hgroup>
+                    <h1 class="text-danger">
+                        @ViewBag.Title.
+                    </h1>
+                </hgroup>
+            </header>
+            <p>
+                <button id="haiku_btn" type="button" class="btn btn-danger">
+                    Try a different error haiku &raquo;
+                </button>
+            </p>
+        </div>
+        <div id="haikus" class="col-md-7">
+            <h2 class="text-danger hide">
+                Mourning and sorrow<br />
+                403 has arrrived here<br />
+                You must try harder.
+            </h2>
+            <h2 class="text-danger hide">
+                Login incorrect<br />
+                Only perfect spellers may<br />
+                Use locked resources
+            </h2>
+            <h2 class="text-danger hide">
+                Chrome megaphone barks<br />
+                It's not possible for you<br />
+                Not yet anyway.
+            </h2>
+            <h2 class="text-danger hide">
+                Rather than a beep<br />
+                Is this rude error message:<br />
+                You are forbidden.
+            </h2>
+            <h2 class="text-danger hide">
+                What you are seeking<br />
+                From your path it is fleeing<br />
+                Site's winter has come.
+            </h2>
+            <h2 class="text-danger hide">
+                There is a chasm<br />
+                Of carbon and silicon<br />
+                This server won't bridge.
+            </h2>
+            <h2 class="text-danger hide">
+                You want far too much<br />
+                We will never reach the sky<br />
+                Access is denied.
+            </h2>
+            <h2 class="text-danger hide">
+                Malicious fingers<br />
+                Hacking at the URL<br />
+                Justice is now served.
+            </h2>
+        </div>
+    </div>
+</div>
+<h2 class="text-danger">
+    Your user account is not authorized to access the content at this location.
+</h2>
+<p>
+    If you reached this page using a bookmark, please remove it.
+</p>
+<p>
+    If you reached this page by manually typing a URL into your browser, don't.
+</p>
+
+@section scripts
+{
+    <script src="~/app/errors/Haikus.js"></script>
+}

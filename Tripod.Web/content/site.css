@@ -295,19 +295,25 @@ body {
     padding: 0;
     border: 0; }
 
-/* VS starter template styles */
+/* error page styles */
 /* line 349, ../compass/site.scss */
+body .danger.jumbotron {
+  background-color: #f2dede;
+  border-radius: 0; }
+
+/* VS starter template styles */
+/* line 357, ../compass/site.scss */
 body .validation-summary-errors {
   color: #b94a48; }
-/* line 353, ../compass/site.scss */
+/* line 361, ../compass/site.scss */
 body .validation-summary-valid {
   display: none; }
-/* line 357, ../compass/site.scss */
+/* line 365, ../compass/site.scss */
 body hr {
   border-top-color: #ccc; }
 
 /* deprecated VS starter template styles */
-/* line 363, ../compass/site.scss */
+/* line 371, ../compass/site.scss */
 body {
   /* This was included by the VS starter template, but we don't want it.
   Instead, we want to let bootstrap size the form elements at 100% and

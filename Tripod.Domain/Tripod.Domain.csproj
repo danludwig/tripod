@@ -59,6 +59,7 @@
     <Compile Include="..\ReSharperAnnotations.cs">
       <Link>Properties\ReSharperAnnotations.cs</Link>
     </Compile>
+    <Compile Include="Api\Audit\IAuditException.cs" />
     <Compile Include="Api\Configuration\AppSettingKey.cs" />
     <Compile Include="Api\Configuration\AppConfiguration.cs" />
     <Compile Include="Api\Cryptography\ICreateSecrets.cs" />
@@ -96,6 +97,7 @@
     <Compile Include="Api\_Extensions\PathExtensions.cs" />
     <Compile Include="Api\_Extensions\ReflectionExtensions.cs" />
     <Compile Include="Api\_Extensions\StringExtensions.cs" />
+    <Compile Include="Domain\Audit\ExceptionAudit.cs" />
     <Compile Include="Domain\Security\Commands\CreateRemoteMembership.cs" />
     <Compile Include="Domain\Security\Commands\DeleteRemoteMembership.cs" />
     <Compile Include="Domain\Security\Commands\ChangeLocalPassword.cs" />

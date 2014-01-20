@@ -1,9 +1,75 @@
 ﻿@model HandleErrorInfo
 
 @{
-    ViewBag.Title = "Error";
+    ViewBag.Title = "Failure";
 }
 
-<h1 class="text-danger">Error.</h1>
-<h2 class="text-danger">An error occurred while processing your request.</h2>
+<div class="danger jumbotron">
+    <div class="row">
+        <div class="col-md-5">
+            <header>
+                <hgroup>
+                    <h1 class="text-danger">
+                        @ViewBag.Title.
+                    </h1>
+                </hgroup>
+            </header>
+            <p>
+                <button id="haiku_btn" type="button" class="btn btn-danger">
+                    Try a different error haiku &raquo;
+                </button>
+            </p>
+        </div>
+        <div id="haikus" class="col-md-7">
+            <h2 class="text-danger hide">
+                Error reduces<br />
+                Your expensive computer<br />
+                To a simple stone.
+            </h2>
+            <h2 class="text-danger hide">
+                Code unwillingly<br />
+                Stepped from weak algorithms<br />
+                Dreaded error afoot.
+            </h2>
+            <h2 class="text-danger hide">
+                Failure occurred.<br />
+                We won't tell you where or why.<br />
+                Lazy programmers.
+            </h2>
+            <h2 class="text-danger hide">
+                To have no errors<br />
+                Would be life without meaning<br />
+                No struggle, no joy
+            </h2>
+            <h2 class="text-danger hide">
+                Yesterday it worked<br />
+                Today it is not working<br />
+                The web is like that.
+            </h2>
+            <h2 class="text-danger hide">
+                Something you entered<br />
+                Transcended parameters.<br />
+                Error is unknown.
+            </h2>
+            <h2 class="text-danger hide">
+                Ephemeral site.<br />
+                I am the Red Screen of Death.<br />
+                No one hears your screams.
+            </h2>
+        </div>
+    </div>
+</div>
+<h2 class="text-danger">
+    An unexpected error has occurred.
+</h2>
+<p>
+    Developers are working frantically to resolve this issue.
+</p>
+<p>
+    If seeing this page makes you angry, <a href="https://www.google.com/search?q=anger+management+therapy" target="_blank">click here for help</a>.
+</p>
 
+@section scripts
+{
+    <script src="~/app/errors/Haikus.js"></script>
+}
