@@ -9,7 +9,7 @@ namespace Tripod.Web
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
-            routes.LowercaseUrls = true;
+            //routes.LowercaseUrls = true; // this makes the parameters lowercase too
             routes.AppendTrailingSlash = true;
 
             routes.MapMvcAttributeRoutes();

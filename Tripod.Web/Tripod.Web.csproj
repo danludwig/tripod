@@ -256,6 +256,7 @@
     <Compile Include="Helpers\HtmlHelpers.cs" />
     <Compile Include="Helpers\JsonNetResult.cs" />
     <Compile Include="Helpers\SecuredCommandModelBinder.cs" />
+    <Compile Include="Helpers\SessionExtensions.cs" />
     <Compile Include="HomeController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
@@ -697,6 +698,7 @@
     <Content Include="Views\Errors\NotFound.cshtml" />
     <Content Include="Views\Errors\Forbidden.cshtml" />
     <Content Include="Views\Errors\BadRequest.cshtml" />
+    <Content Include="Views\Authentication\Confirm.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

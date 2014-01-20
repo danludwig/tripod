@@ -47,6 +47,13 @@ namespace Tripod.Web.Controllers
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SignUpValidate);
         }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Confirm()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Confirm);
+            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
+        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public EmailAddressesController Actions { get { return MVC.EmailAddresses; } }
@@ -83,7 +90,6 @@ namespace Tripod.Web.Controllers
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionParamsClass_SignUp
         {
-            public readonly string token = "token";
             public readonly string command = "command";
         }
         static readonly ActionParamsClass_SignUpValidate s_params_SignUpValidate = new ActionParamsClass_SignUpValidate();
@@ -103,6 +109,7 @@ namespace Tripod.Web.Controllers
         {
             public readonly string ticket = "ticket";
             public readonly string token = "token";
+            public readonly string command = "command";
         }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -123,13 +130,12 @@ namespace Tripod.Web.Controllers
     {
         public T4MVC_EmailAddressesController() : base(Dummy.Instance) { }
 
-        partial void SignUpOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string token);
+        partial void SignUpOverride(T4MVC_System_Web_Mvc_ViewResult callInfo);
 
-        public override System.Web.Mvc.ActionResult SignUp(string token)
+        public override System.Web.Mvc.ViewResult SignUp()
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SignUp);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "token", token);
-            SignUpOverride(callInfo, token);
+            var callInfo = new T4MVC_System_Web_Mvc_ViewResult(Area, Name, ActionNames.SignUp);
+            SignUpOverride(callInfo);
             return callInfo;
         }
 
@@ -154,15 +160,26 @@ namespace Tripod.Web.Controllers
             return callInfo;
         }
 
-        partial void ConfirmOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, System.Guid? ticket, string token);
+        partial void ConfirmOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ticket, string token);
 
-        public override System.Web.Mvc.ActionResult Confirm(System.Guid? ticket, string token)
+        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Confirm(string ticket, string token)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Confirm);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ticket", ticket);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "token", token);
             ConfirmOverride(callInfo, ticket, token);
-            return callInfo;
+            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
+        }
+
+        partial void ConfirmOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ticket, Tripod.Domain.Security.VerifyConfirmEmailSecret command);
+
+        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Confirm(string ticket, Tripod.Domain.Security.VerifyConfirmEmailSecret command)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Confirm);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ticket", ticket);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "command", command);
+            ConfirmOverride(callInfo, ticket, command);
+            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
         }
 
     }

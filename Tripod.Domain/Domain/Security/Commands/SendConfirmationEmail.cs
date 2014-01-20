@@ -16,6 +16,7 @@ namespace Tripod.Domain.Security
         public bool IsExpectingEmail { get; set; }
         public string ConfirmUrlFormat { get; set; }
         public string SendFromUrl { get; set; }
+        public string CreatedTicket { get; internal set; }
     }
 
     public class ValidateSendConfirmationEmailCommand : AbstractValidator<SendConfirmationEmail>
@@ -64,6 +65,9 @@ namespace Tripod.Domain.Security
 
             // create the confirmation
             var secret = _queries.Execute(new RandomSecret(10, 12));
+            var ticket = _queries.Execute(new RandomSecret(20, 25));
+            while (_entities.Query<EmailConfirmation>().ByTicket(ticket) != null)
+                ticket = _queries.Execute(new RandomSecret(20, 25));
             var token = _userManager.UserConfirmationTokens.Generate(new UserToken
             {
                 UserId = command.EmailAddress,
@@ -76,7 +80,7 @@ namespace Tripod.Domain.Security
                 ExpiresOnUtc = DateTime.UtcNow.AddMinutes(30),
                 Purpose = EmailConfirmationPurpose.CreatePassword,
                 Secret = secret,
-                Ticket = Guid.NewGuid().ToString(),
+                Ticket = ticket,
                 Token = token,
             };
             _entities.Create(confirmation);
@@ -92,8 +96,8 @@ namespace Tripod.Domain.Security
             {
                 { "{EmailAddress}", emailAddress.Value },
                 { "{Secret}", confirmation.Secret },
-                // don't forget to encode + symbols in the ticket to %2b for querystring, otherwise they are space characters
-                { "{ConfirmationUrl}", string.Format(command.ConfirmUrlFormat, confirmation.Token.Replace("+", "%2b")) },
+                // don't forget to encode + symbols in the url to %2b for querystring, otherwise they are space characters
+                { "{ConfirmationUrl}", string.Format(command.ConfirmUrlFormat, confirmation.Ticket, confirmation.Token.Replace("+", "%2b")) },
                 { "{SendFromUrl}", command.SendFromUrl }
             };
 
@@ -112,6 +116,7 @@ namespace Tripod.Domain.Security
             await _entities.SaveChangesAsync();
 
             _mail.Deliver(message.Id);
+            command.CreatedTicket = confirmation.Ticket;
         }
     }
 }

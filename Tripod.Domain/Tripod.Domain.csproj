@@ -103,6 +103,7 @@
     <Compile Include="Domain\Security\Commands\ChangeLocalPassword.cs" />
     <Compile Include="Domain\Security\Commands\CreateLocalMembership.cs" />
     <Compile Include="Domain\Security\Commands\CreateUser.cs" />
+    <Compile Include="Domain\Security\Commands\VerifyConfirmEmailSecret.cs" />
     <Compile Include="Domain\Security\Commands\SendConfirmationEmail.cs" />
     <Compile Include="Domain\Security\Commands\SignOut.cs" />
     <Compile Include="Domain\Security\Commands\SignOn.cs" />
@@ -116,6 +117,7 @@
     <Compile Include="Domain\Security\Entities\Claim.cs" />
     <Compile Include="Domain\Security\Entities\RemoteMembership.cs" />
     <Compile Include="Domain\Security\Entities\User.cs" />
+    <Compile Include="Domain\Security\Queries\EmailConfirmationBy.cs" />
     <Compile Include="Domain\Security\Queries\RandomSecret.cs" />
     <Compile Include="Domain\Security\Queries\PrincipalRemoteMembershipTicket.cs" />
     <Compile Include="Domain\Security\Queries\IsPasswordVerified.cs" />
@@ -135,6 +137,7 @@
     <Compile Include="Domain\Security\Validation\MustFindUserByLoginProviderKey.cs" />
     <Compile Include="Domain\Security\Validation\MustBeValidUserName.cs" />
     <Compile Include="Domain\Security\Validation\MustNotFindUserByName.cs" />
+    <Compile Include="Domain\Security\_Extensions\QueryEmailConfirmations.cs" />
     <Compile Include="Domain\Security\_Extensions\QueryRemoteMemberships.cs" />
     <Compile Include="Domain\Security\_Extensions\QueryLocalMemberships.cs" />
     <Compile Include="Domain\Security\_Extensions\QueryEmailAddresses.cs" />

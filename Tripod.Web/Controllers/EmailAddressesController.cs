@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using Tripod.Domain.Security;
@@ -8,15 +10,17 @@ namespace Tripod.Web.Controllers
 {
     public partial class EmailAddressesController : Controller
     {
+        private readonly IProcessQueries _queries;
         private readonly IProcessCommands _commands;
 
-        public EmailAddressesController(IProcessCommands commands)
+        public EmailAddressesController(IProcessQueries queries, IProcessCommands commands)
         {
+            _queries = queries;
             _commands = commands;
         }
 
         [HttpGet, Route("sign-up")]
-        public virtual ActionResult SignUp(string token = null)
+        public virtual ViewResult SignUp()
         {
             return View(MVC.Authentication.Views.SignUp);
         }
@@ -31,7 +35,9 @@ namespace Tripod.Web.Controllers
 
             await _commands.Execute(command);
 
-            return View(MVC.Authentication.Views.SignUp, command);
+            //return View(MVC.Authentication.Views.SignUp, command);
+            Session.AddConfirmEmailTicket(command.CreatedTicket);
+            return RedirectToAction(await MVC.EmailAddresses.Confirm(command.CreatedTicket));
         }
 
         [HttpPost, Route("sign-up/validate/{fieldName?}")]
@@ -52,12 +58,34 @@ namespace Tripod.Web.Controllers
             return new CamelCaseJsonResult(result);
         }
 
-        [HttpGet]
-        [Route("sign-up/confirm/{ticket:Guid}")]
-        [Route("sign-up/confirm")]
-        public virtual ActionResult Confirm(Guid? ticket = null, string token = null)
+        [HttpGet, Route("sign-up/{ticket}")]
+        public virtual async Task<ActionResult> Confirm(string ticket, string token = null)
         {
-            return View(MVC.Authentication.Views.SignUp);
+            var confirmation = await _queries.Execute(new EmailConfirmationBy(ticket, token)
+            {
+                EagerLoad = new Expression<Func<EmailConfirmation, object>>[]
+                {
+                    x => x.Owner,
+                }
+            });
+            if (confirmation == null) return HttpNotFound();
+
+            // todo: confirmation token must not be redeemed, expired, or for different purpose
+
+            ViewBag.Ticket = ticket;
+            if (Session.ConfirmEmailTickets().Contains(ticket))
+                ViewBag.EmailAddress = confirmation.Owner.Value;
+            return View(MVC.Authentication.Views.Confirm);
+        }
+
+        [ValidateAntiForgeryToken]
+        [HttpPost, Route("sign-up/{ticket}")]
+        public virtual async Task<ActionResult> Confirm(string ticket, VerifyConfirmEmailSecret command)
+        {
+            ViewBag.Ticket = ticket;
+            if (!ModelState.IsValid) return View(MVC.Authentication.Views.Confirm, command);
+
+            return View(MVC.Authentication.Views.Confirm);
         }
     }
 }

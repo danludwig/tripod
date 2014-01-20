@@ -19,6 +19,7 @@ namespace Tripod.Domain.Security
         public static class Constraints
         {
             public const string Label = "Email confirmation";
+            public const string SecretLabel = "Secret code";
             public const int SecretMaxLength = 50;
             public const int TicketMaxLength = 100;
         }

@@ -88,8 +88,12 @@ namespace Tripod.Web.Controllers
             public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
             public class _ViewNamesClass
             {
+                public readonly string BadRequest = "BadRequest";
+                public readonly string Forbidden = "Forbidden";
                 public readonly string NotFound = "NotFound";
             }
+            public readonly string BadRequest = "~/Views/Errors/BadRequest.cshtml";
+            public readonly string Forbidden = "~/Views/Errors/Forbidden.cshtml";
             public readonly string NotFound = "~/Views/Errors/NotFound.cshtml";
         }
     }
