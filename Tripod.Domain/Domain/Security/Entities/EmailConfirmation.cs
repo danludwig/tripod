@@ -21,6 +21,7 @@ namespace Tripod.Domain.Security
             public const string Label = "Email confirmation";
             public const string SecretLabel = "Secret code";
             public const int SecretMaxLength = 50;
+            public const string TicketLabel = "Confirmation ticket";
             public const int TicketMaxLength = 100;
         }
     }

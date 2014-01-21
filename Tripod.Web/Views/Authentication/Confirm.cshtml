@@ -1,6 +1,5 @@
 ﻿@using Tripod
 @using Tripod.Domain.Security
-@using Tripod.Web.Controllers
 @model VerifyConfirmEmailSecret
 
 @{
@@ -18,7 +17,7 @@
         }
 
             .wizard .step {
-                padding: 10px 12px;
+                padding: 6px 8px;
                 margin-right: 5px;
                 background-color: #5bc0de;
                 color: #fff;
@@ -30,9 +29,8 @@
                 .wizard .step:before {
                     width: 0;
                     height: 0;
-                    border-top: 20px inset transparent;
-                    border-bottom: 20px inset transparent;
-                    border-left: 20px solid #fff;
+                    border: 16px solid transparent;
+                    border-left-color:#fff;
                     position: absolute;
                     content: "";
                     top: 0;
@@ -42,18 +40,18 @@
                 .wizard .step:after {
                     width: 0;
                     height: 0;
-                    border-top: 20px inset transparent;
-                    border-bottom: 20px inset transparent;
-                    border-left: 20px solid #5bc0de;
+                    right: -16px;
+                    border: 16px solid transparent;
+                    border-left-color: #5bc0de;
+                    border-right-width: 0;
                     position: absolute;
                     content: "";
                     top: 0;
-                    right: -20px;
                     z-index: 2;
                 }
 
                 .wizard .step .badge {
-                    margin: 0 5px 0 18px;
+                    margin: 0 5px 0 16px;
                     position: relative;
                     top: -1px;
                     color: #5bc0de;
@@ -102,19 +100,22 @@
 
 <ul class="wizard">
     <li class="success step completed">
-        <span class="badge">1</span> Submit email address
+        <span class="badge">1</span> Submit email
     </li>
     <li class="current step">
-        <span class="badge">2</span> Confirm email address
+        <span class="badge">2</span> Confirm email
     </li>
     <li class="step">
         <span class="badge">3</span> Create password
     </li>
     <li class="step">
-        <span class="badge">4</span> ???
+        <span class="badge">4</span> Collect underpants
     </li>
     <li class="step">
-        <span class="badge">5</span> Profit
+        <span class="badge">5</span> ???
+    </li>
+    <li class="step">
+        <span class="badge">6</span> Profit
     </li>
 </ul>
 <hr class="hr-space hr-md" />
@@ -128,7 +129,7 @@
     {
         <text>the address you entered on the previous page.</text>
     }
-    You have two options for confirming it.
+    You have two options for confirming it:
 </p>
 <ul class="no-indent">
     <li>
@@ -150,22 +151,39 @@
 <form role="form"
       method="POST"
       action="@Url.Action(MVC.EmailAddresses.Confirm((string)ViewBag.Ticket, null as VerifyConfirmEmailSecret))"
+      class="form-horizontal"
       novalidate
+      ng-app="sign-up-confirm-form"
+      ng-controller="App.Security.SignUp.ConfirmForm.Controller"
       name="confirmForm"
       form-contrib="confirmCtrb"
-      form-submitted="@IsPost"
-      class="form-horizontal">
+      form-submitted="@IsPost">
 
     @Html.AntiForgeryToken()
-    <input type="hidden" name="@Html.NameFor(x => x.Ticket)" value="@ViewBag.Ticket" />
+    <input type="hidden"
+           name="ticket"
+           value="@ViewBag.Ticket"
+           ng-init="vm.ticket='@ViewBag.Ticket'"
+           ng-model="vm.ticket"
+           required
+           model-contrib
+           server-error="@Html.ValidationMessageTextFor(x => x.Ticket)"
+           server-validate="@Url.Action(MVC.EmailAddresses.ConfirmValidate(null, "ticket"))"
+           server-validate-data="{ purpose: vm.purpose }" />
+    <input type="hidden"
+           name="@Html.NameFor(x => x.Purpose)"
+           value="@ViewBag.Purpose"
+           ng-init="vm.purpose='@ViewBag.Purpose'"
+           ng-model="vm.ticket" />
 
     @Html.ValidationSummary(true)
+
     @{
         const string inputCss = "input-lg";
         const string inputGroupCss = "input-group input-group-lg";
     }
 
-    @* EMAIL ADDRESS INPUT *@
+    @* SECRET CODE INPUT *@
     <div class="form-group form-group-lg @Html.BootstrapValidationCssClassFor(x => x.Secret)"
          remove-class="has-success has-error"
          ng-class="confirmCtrb.secret.feedbackCssClass()">
@@ -176,10 +194,10 @@
             <label for="@Html.IdFor(x => x.Secret)" class="control-label sr-only">
                 @EmailConfirmation.Constraints.SecretLabel
             </label>
-            <div class="@Html.CssClassWhenInvalidFor(x => x.Secret, inputGroupCss)"
+            <div class="@Html.CssClassWhenNotNullModel(inputGroupCss)"
                  remove-class="@inputGroupCss"
                  ng-class="confirmCtrb.secret.inputGroupCssClass('lg')">
-                <input type="email"
+                <input type="text"
                        class="form-control @inputCss"
                        placeholder="[Paste or type secret code here]"
                        id="@Html.IdFor(x => x.Secret)"
@@ -190,10 +208,11 @@
                        required
                        model-contrib
                        server-error="@Html.ValidationMessageTextFor(x => x.Secret)"
-                       server-validate="Url.Action(MVC.EmailAddresses.SignUpValidate(null, secret))"
+                       server-validate="@Url.Action(MVC.EmailAddresses.ConfirmValidate(null, "secret"))"
+                       server-validate-data="{ ticket: vm.ticket }"
                        server-validate-throttle="400" />
 
-                <span class="input-group-addon validation @Html.CssClassWhenValidFor(x => x.Secret, "hide")"
+                <span class="input-group-addon validation @Html.CssClassWhenNullModel("hide")"
                       remove-class="hide"
                       ng-class="vm.secretInputGroupValidationAddOnCssClass()">
                     <i class="fa fa-fw fa-asterisk default" title="This is a required field"></i>
@@ -256,11 +275,30 @@
                 <i class="fa fa-fw fa-spinner fa-spin spin-fast" ng-show="confirmCtrb.isSubmitWaiting" ng-cloak></i>
                 Confirm email address
             </button>
-            <span class="has-error pull-left nudge-right @messageClass" remove-class="@messageClass" ng-show="!confirmCtrb.isSubmitWaiting && confirmCtrb.hasError">
+            <span class="has-error pull-left nudge-right @messageClass"
+                  remove-class="@messageClass"
+                  ng-show="!confirmCtrb.isSubmitWaiting && confirmCtrb.hasError">
                 <div class="help-block">
+                    <div ng-show="vm.isTicketRequiredError()" ng-cloak>
+                        @Resources.notempty_error.Replace("{PropertyName}", EmailConfirmation.Constraints.TicketLabel)
+                    </div>
+                    <div ng-show="vm.isTicketServerError()" ng-cloak>
+                        {{ confirmCtrb.ticket.error.server }}
+                    </div>
+                    @if (!Html.ViewData.ModelState.IsValidField(Html.NameFor(x => x.Ticket).ToString()))
+                    {
+                        <div ng-class="{ hide: true }">
+                            @Html.ValidationMessageFor(x => x.Ticket)
+                        </div>
+                    }
                     Could not confirm email address due to above error(s).
                 </div>
             </span>
         </div>
     </div>
 </form>
+
+@section scripts
+{
+    <script src="~/app/security/sign-up/ConfirmForm.js"></script>
+}

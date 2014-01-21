@@ -126,11 +126,16 @@
     <Compile Include="Domain\Security\Queries\UserHasLocalMembership.cs" />
     <Compile Include="Domain\Security\Queries\LocalMembershipByUser.cs" />
     <Compile Include="Domain\Security\Queries\UserBy.cs" />
+    <Compile Include="Domain\Security\Validation\MustBeVerifiedConfirmationSecret.cs" />
     <Compile Include="Domain\Security\Validation\MustBeValidPassword.cs" />
     <Compile Include="Domain\Security\Validation\MustEqualPassword.cs" />
     <Compile Include="Domain\Security\Validation\MustBeVerifiedPassword.cs" />
+    <Compile Include="Domain\Security\Validation\MustBePurposedConfirmationTicket.cs" />
+    <Compile Include="Domain\Security\Validation\MustNotBeRedeemedConfirmationTicket.cs" />
+    <Compile Include="Domain\Security\Validation\MustNotBeExpiredConfirmationTicket.cs" />
     <Compile Include="Domain\Security\Validation\MustFindLocalMembershipByPrincipal.cs" />
     <Compile Include="Domain\Security\Validation\MustFindRemoteMembershipTicket.cs" />
+    <Compile Include="Domain\Security\Validation\MustFindEmailConfirmationByTicket.cs" />
     <Compile Include="Domain\Security\Validation\MustFindUserByNameOrEmail.cs" />
     <Compile Include="Domain\Security\Validation\MustNotFindLocalMembershipByPrincipal.cs" />
     <Compile Include="Domain\Security\Validation\MustFindUserByPrincipal.cs" />

@@ -27,7 +27,8 @@ namespace Tripod.Domain.Security
         {
             var entity = await _entities.Query<EmailConfirmation>()
                 .EagerLoad(query.EagerLoad)
-                .ByTicketAsync(query.Ticket);
+                .ByTicketAsync(query.Ticket)
+                .ConfigureAwait(false);
             if (entity == null) return null;
             if (!string.IsNullOrWhiteSpace(query.Token) && query.Token != entity.Token) return null;
             return entity;

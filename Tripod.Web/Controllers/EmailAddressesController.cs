@@ -73,6 +73,7 @@ namespace Tripod.Web.Controllers
             // todo: confirmation token must not be redeemed, expired, or for different purpose
 
             ViewBag.Ticket = ticket;
+            ViewBag.Purpose = EmailConfirmationPurpose.CreatePassword;
             if (Session.ConfirmEmailTickets().Contains(ticket))
                 ViewBag.EmailAddress = confirmation.Owner.Value;
             return View(MVC.Authentication.Views.Confirm);
@@ -83,9 +84,28 @@ namespace Tripod.Web.Controllers
         public virtual async Task<ActionResult> Confirm(string ticket, VerifyConfirmEmailSecret command)
         {
             ViewBag.Ticket = ticket;
+            ViewBag.Purpose = EmailConfirmationPurpose.CreatePassword;
             if (!ModelState.IsValid) return View(MVC.Authentication.Views.Confirm, command);
 
-            return View(MVC.Authentication.Views.Confirm);
+            return View(MVC.Authentication.Views.Confirm, command);
+        }
+
+        [HttpPost, Route("sign-up/{ticket}/validate/{fieldName?}")]
+        public virtual ActionResult ConfirmValidate(VerifyConfirmEmailSecret command, string fieldName = null)
+        {
+            //System.Threading.Thread.Sleep(new Random().Next(5000, 5001));
+            if (command == null)
+            {
+                Response.StatusCode = 400;
+                return Json(null);
+            }
+
+            var result = new ValidatedFields(ModelState, fieldName);
+
+            //ModelState[command.PropertyName(x => x.EmailAddress)].Errors.Clear();
+            //result = new ValidatedFields(ModelState, fieldName);
+
+            return new CamelCaseJsonResult(result);
         }
     }
 }

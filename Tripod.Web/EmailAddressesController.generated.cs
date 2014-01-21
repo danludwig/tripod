@@ -54,6 +54,12 @@ namespace Tripod.Web.Controllers
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Confirm);
             return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
         }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult ConfirmValidate()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ConfirmValidate);
+        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public EmailAddressesController Actions { get { return MVC.EmailAddresses; } }
@@ -73,6 +79,7 @@ namespace Tripod.Web.Controllers
             public readonly string SignUp = "SignUp";
             public readonly string SignUpValidate = "SignUpValidate";
             public readonly string Confirm = "Confirm";
+            public readonly string ConfirmValidate = "ConfirmValidate";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -81,6 +88,7 @@ namespace Tripod.Web.Controllers
             public const string SignUp = "SignUp";
             public const string SignUpValidate = "SignUpValidate";
             public const string Confirm = "Confirm";
+            public const string ConfirmValidate = "ConfirmValidate";
         }
 
 
@@ -110,6 +118,15 @@ namespace Tripod.Web.Controllers
             public readonly string ticket = "ticket";
             public readonly string token = "token";
             public readonly string command = "command";
+        }
+        static readonly ActionParamsClass_ConfirmValidate s_params_ConfirmValidate = new ActionParamsClass_ConfirmValidate();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_ConfirmValidate ConfirmValidateParams { get { return s_params_ConfirmValidate; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_ConfirmValidate
+        {
+            public readonly string command = "command";
+            public readonly string fieldName = "fieldName";
         }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -180,6 +197,17 @@ namespace Tripod.Web.Controllers
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "command", command);
             ConfirmOverride(callInfo, ticket, command);
             return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
+        }
+
+        partial void ConfirmValidateOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Tripod.Domain.Security.VerifyConfirmEmailSecret command, string fieldName);
+
+        public override System.Web.Mvc.ActionResult ConfirmValidate(Tripod.Domain.Security.VerifyConfirmEmailSecret command, string fieldName)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ConfirmValidate);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "command", command);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "fieldName", fieldName);
+            ConfirmValidateOverride(callInfo, command, fieldName);
+            return callInfo;
         }
 
     }

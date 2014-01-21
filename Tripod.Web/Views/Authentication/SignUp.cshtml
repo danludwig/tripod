@@ -72,7 +72,7 @@
                     <label for="@Html.IdFor(x => x.EmailAddress)" class="control-label sr-only">
                         @EmailAddress.Constraints.Label
                     </label>
-                    <div class="@Html.CssClassWhenInvalidFor(x => x.EmailAddress, inputGroupCss)"
+                    <div class="@Html.CssClassWhenNotNullModel(inputGroupCss)"
                          remove-class="@inputGroupCss"
                          ng-class="signUpCtrb.emailAddress.inputGroupCssClass('lg')">
                         <input type="email"
@@ -89,7 +89,7 @@
                                server-validate="@Url.Action(MVC.EmailAddresses.SignUpValidate(null, "emailAddress"))"
                                server-validate-throttle="400" />
 
-                        <span class="input-group-addon validation @Html.CssClassWhenValidFor(x => x.EmailAddress, "hide")"
+                        <span class="input-group-addon validation @Html.CssClassWhenNullModel("hide")"
                               remove-class="hide"
                               ng-class="vm.emailAddressInputGroupValidationAddOnCssClass()">
                             <i class="fa fa-fw fa-asterisk default" title="This is a required field"></i>

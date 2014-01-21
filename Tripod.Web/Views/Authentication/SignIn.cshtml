@@ -58,7 +58,7 @@
                         <label for="@Html.IdFor(x => x.UserName)" class="control-label sr-only">
                             @UserConstraints.NameLabel or @EmailAddress.Constraints.Label
                         </label>
-                        <div class="@Html.CssClassWhenInvalidFor(x => x.UserName, inputGroupCss)"
+                        <div class="@Html.CssClassWhenNotNullModel(inputGroupCss)"
                              remove-class="@inputGroupCss"
                              ng-class="signInCtrb.userName.inputGroupCssClass('lg')">
                             <input type="text"
@@ -75,7 +75,7 @@
                                    server-validate="@Url.Action(MVC.Authentication.SignInValidate(null, "userName"))"
                                    server-validate-throttle="400" />
 
-                            <span class="input-group-addon validation @Html.CssClassWhenValidFor(x => x.UserName, "hide")"
+                            <span class="input-group-addon validation @Html.CssClassWhenNullModel("hide")"
                                   remove-class="hide"
                                   ng-class="vm.userNameInputGroupValidationAddOnCssClass()">
                                 <i class="fa fa-fw fa-asterisk default" title="This is a required field"></i>

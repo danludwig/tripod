@@ -285,6 +285,9 @@
     <Content Include="app\errors\Haikus.js">
       <DependentUpon>Haikus.ts</DependentUpon>
     </Content>
+    <Content Include="app\security\sign-up\ConfirmForm.js">
+      <DependentUpon>ConfirmForm.ts</DependentUpon>
+    </Content>
     <Content Include="app\security\sign-up\form.js">
       <DependentUpon>Form.ts</DependentUpon>
     </Content>
@@ -725,6 +728,7 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="app\errors\Haikus.ts" />
+    <TypeScriptCompile Include="app\security\sign-up\ConfirmForm.ts" />
     <TypeScriptCompile Include="app\security\sign-up\Form.ts" />
     <TypeScriptCompile Include="app\security\sign-in\Form.ts" />
     <TypeScriptCompile Include="app\_common\api\ViewModelScope.d.ts" />

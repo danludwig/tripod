@@ -286,6 +286,42 @@ namespace Tripod {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &apos;{PropertyValue}&apos; is not the correct secret code. Were you sent multiple emails?.
+        /// </summary>
+        public static string Validation_EmailConfirmationSecret_IsWrong {
+            get {
+                return ResourceManager.GetString("Validation_EmailConfirmationSecret_IsWrong", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This email confirmation code has expired. Please start this process over to try again..
+        /// </summary>
+        public static string Validation_EmailConfirmationTicket_IsExpired {
+            get {
+                return ResourceManager.GetString("Validation_EmailConfirmationTicket_IsExpired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This email confirmation code has already been used. Are you sure you still need to confirm?.
+        /// </summary>
+        public static string Validation_EmailConfirmationTicket_IsRedeemed {
+            get {
+                return ResourceManager.GetString("Validation_EmailConfirmationTicket_IsRedeemed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This email confirmation code cannot be used for this purpose..
+        /// </summary>
+        public static string Validation_EmailConfirmationTicket_IsWrongPurpose {
+            get {
+                return ResourceManager.GetString("Validation_EmailConfirmationTicket_IsWrongPurpose", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Invalid password..
         /// </summary>
         public static string Validation_InvalidPassword {

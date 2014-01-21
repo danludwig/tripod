@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Reflection;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using FluentValidation;
-using Microsoft.AspNet.Identity;
 
 namespace Tripod.Domain.Security
 {
@@ -14,14 +10,24 @@ namespace Tripod.Domain.Security
     {
         public string Ticket { get; set; }
         public string Secret { get; set; }
+        public EmailConfirmationPurpose Purpose { get; set; }
     }
 
     public class ValidateVerifyConfirmEmailSecretCommand : AbstractValidator<VerifyConfirmEmailSecret>
     {
         public ValidateVerifyConfirmEmailSecretCommand(IProcessQueries queries)
         {
+            RuleFor(x => x.Ticket)
+                .NotEmpty()
+                .MustFindEmailConfirmationByTicket(queries)
+                .MustNotBeExpiredConfirmationTicket(queries)
+                .MustNotBeRedeemedConfirmationTicket(queries)
+                .MustBePurposedConfirmationTicket(x => x.Purpose, queries)
+                    .WithName(EmailConfirmation.Constraints.TicketLabel);
+
             RuleFor(x => x.Secret)
                 .NotEmpty()
+                .MustBeVerifiedConfirmationSecret(x => x.Ticket, queries)
                     .WithName(EmailConfirmation.Constraints.SecretLabel);
         }
     }
