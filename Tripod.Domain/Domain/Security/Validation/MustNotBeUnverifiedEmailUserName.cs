@@ -5,12 +5,12 @@ using FluentValidation.Validators;
 
 namespace Tripod.Domain.Security
 {
-    public class MustNotBeUnverifiedEmail<T> : PropertyValidator
+    public class MustNotBeUnverifiedEmailUserName<T> : PropertyValidator
     {
         private readonly Func<T, string> _token;
         private readonly IProcessQueries _queries;
 
-        internal MustNotBeUnverifiedEmail(Func<T, string> token, IProcessQueries queries)
+        internal MustNotBeUnverifiedEmailUserName(Func<T, string> token, IProcessQueries queries)
             : base(() => "You cannot use the email address '{PropertyValue}' for your {PropertyName}.")
         {
             if (token == null) throw new ArgumentNullException("token");
@@ -44,12 +44,12 @@ namespace Tripod.Domain.Security
         }
     }
 
-    public static class MustNotBeUnverifiedEmailExtensions
+    public static class MustNotBeUnverifiedEmailUserNameExtensions
     {
-        public static IRuleBuilderOptions<T, string> MustNotBeUnverifiedEmail<T>
+        public static IRuleBuilderOptions<T, string> MustNotBeUnverifiedEmailUserName<T>
             (this IRuleBuilder<T, string> ruleBuilder, Func<T, string> token, IProcessQueries queries)
         {
-            return ruleBuilder.SetValidator(new MustNotBeUnverifiedEmail<T>(token, queries));
+            return ruleBuilder.SetValidator(new MustNotBeUnverifiedEmailUserName<T>(token, queries));
         }
     }
 }

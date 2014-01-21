@@ -4,12 +4,12 @@ using FluentValidation.Validators;
 
 namespace Tripod.Domain.Security
 {
-    public class MustBePurposedConfirmationToken<T> : PropertyValidator
+    public class MustBePurposedConfirmEmailTicket<T> : PropertyValidator
     {
         private readonly Func<T, EmailConfirmationPurpose> _purpose;
         private readonly IProcessQueries _queries;
 
-        internal MustBePurposedConfirmationToken(Func<T, EmailConfirmationPurpose> purpose, IProcessQueries queries)
+        internal MustBePurposedConfirmEmailTicket(Func<T, EmailConfirmationPurpose> purpose, IProcessQueries queries)
             : base(() => Resources.Validation_EmailConfirmationTicket_IsWrongPurpose)
         {
             if (purpose == null) throw new ArgumentNullException("purpose");
@@ -20,11 +20,7 @@ namespace Tripod.Domain.Security
 
         protected override bool IsValid(PropertyValidatorContext context)
         {
-            var token = (string)context.PropertyValue;
-            var userToken = _queries.Execute(new EmailConfirmationUserToken(token)).Result;
-            if (userToken == null) return true;
-            var ticket = userToken.Value;
-
+            var ticket = (string)context.PropertyValue;
             var purpose = _purpose((T)context.Instance);
             if (string.IsNullOrWhiteSpace(ticket)) return true;
             var entity = _queries.Execute(new EmailConfirmationBy(ticket)).Result;
@@ -36,12 +32,12 @@ namespace Tripod.Domain.Security
         }
     }
 
-    public static class MustBePurposedConfirmationTokenExtensions
+    public static class MustBePurposedConfirmEmailTicketExtensions
     {
-        public static IRuleBuilderOptions<T, string> MustBePurposedConfirmationToken<T>
+        public static IRuleBuilderOptions<T, string> MustBePurposedConfirmEmailTicket<T>
             (this IRuleBuilder<T, string> ruleBuilder, Func<T, EmailConfirmationPurpose> purpose, IProcessQueries queries)
         {
-            return ruleBuilder.SetValidator(new MustBePurposedConfirmationToken<T>(purpose, queries));
+            return ruleBuilder.SetValidator(new MustBePurposedConfirmEmailTicket<T>(purpose, queries));
         }
     }
 }

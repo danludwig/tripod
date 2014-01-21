@@ -4,11 +4,11 @@ using FluentValidation.Validators;
 
 namespace Tripod.Domain.Security
 {
-    public class MustBeValidConfirmationToken : PropertyValidator
+    public class MustBeValidConfirmEmailToken : PropertyValidator
     {
         private readonly IProcessQueries _queries;
 
-        internal MustBeValidConfirmationToken(IProcessQueries queries)
+        internal MustBeValidConfirmEmailToken(IProcessQueries queries)
             : base(() => Resources.Validation_DoesNotExist_NoValue)
         {
             if (queries == null) throw new ArgumentNullException("queries");
@@ -23,12 +23,12 @@ namespace Tripod.Domain.Security
         }
     }
 
-    public static class MustBeValidConfirmationTokenExtensions
+    public static class MustBeValidConfirmEmailTokenExtensions
     {
-        public static IRuleBuilderOptions<T, string> MustBeValidConfirmationToken<T>
+        public static IRuleBuilderOptions<T, string> MustBeValidConfirmEmailToken<T>
             (this IRuleBuilder<T, string> ruleBuilder, IProcessQueries queries)
         {
-            return ruleBuilder.SetValidator(new MustBeValidConfirmationToken(queries));
+            return ruleBuilder.SetValidator(new MustBeValidConfirmEmailToken(queries));
         }
     }
 }

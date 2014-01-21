@@ -31,7 +31,7 @@ namespace Tripod.Domain.Security
             RuleFor(x => x.UserName)
                 .MustBeValidUserName()
                 .MustNotFindUserByName(queries)
-                .MustNotBeUnverifiedEmail(x => x.Token, queries)
+                .MustNotBeUnverifiedEmailUserName(x => x.Token, queries)
                     .WithName(User.Constraints.NameLabel)
                     .When(x => !x.Principal.Identity.IsAuthenticated)
             ;
@@ -49,11 +49,11 @@ namespace Tripod.Domain.Security
 
             RuleFor(x => x.Token)
                 .NotEmpty()
-                .MustBeValidConfirmationToken(queries)
+                .MustBeValidConfirmEmailToken(queries)
                 .MustFindEmailConfirmationByToken(queries)
-                .MustNotBeExpiredConfirmationToken(queries)
-                .MustNotBeRedeemedConfirmationToken(queries)
-                .MustBePurposedConfirmationToken(x => EmailConfirmationPurpose.CreateLocalUser, queries)
+                .MustNotBeExpiredConfirmEmailToken(queries)
+                .MustNotBeRedeemedConfirmEmailToken(queries)
+                .MustBePurposedConfirmEmailToken(x => EmailConfirmationPurpose.CreateLocalUser, queries)
                 .WithName(EmailConfirmation.Constraints.Label)
                     .When(x => !x.Principal.Identity.IsAuthenticated);
         }

@@ -4,12 +4,12 @@ using FluentValidation.Validators;
 
 namespace Tripod.Domain.Security
 {
-    public class MustBeVerifiedConfirmationSecret<T> : PropertyValidator
+    public class MustBeVerifiedConfirmEmailSecret<T> : PropertyValidator
     {
         private readonly Func<T, string> _ticket;
         private readonly IProcessQueries _queries;
 
-        internal MustBeVerifiedConfirmationSecret(Func<T, string> ticket, IProcessQueries queries)
+        internal MustBeVerifiedConfirmEmailSecret(Func<T, string> ticket, IProcessQueries queries)
             : base(() => Resources.Validation_EmailConfirmationSecret_IsWrong)
         {
             if (ticket == null) throw new ArgumentNullException("ticket");
@@ -32,12 +32,12 @@ namespace Tripod.Domain.Security
         }
     }
 
-    public static class MustBeVerifiedConfirmationSecretExtensions
+    public static class MustBeVerifiedConfirmEmailSecretExtensions
     {
-        public static IRuleBuilderOptions<T, string> MustBeVerifiedConfirmationSecret<T>
+        public static IRuleBuilderOptions<T, string> MustBeVerifiedConfirmEmailSecret<T>
             (this IRuleBuilder<T, string> ruleBuilder, Func<T, string> ticket, IProcessQueries queries)
         {
-            return ruleBuilder.SetValidator(new MustBeVerifiedConfirmationSecret<T>(ticket, queries));
+            return ruleBuilder.SetValidator(new MustBeVerifiedConfirmEmailSecret<T>(ticket, queries));
         }
     }
 }

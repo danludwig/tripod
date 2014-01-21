@@ -26,14 +26,14 @@ namespace Tripod.Domain.Security
             RuleFor(x => x.Ticket)
                 .NotEmpty()
                 .MustFindEmailConfirmationByTicket(queries)
-                .MustNotBeExpiredConfirmationTicket(queries)
-                .MustNotBeRedeemedConfirmationTicket(queries)
-                .MustBePurposedConfirmationTicket(x => x.Purpose, queries)
+                .MustNotBeExpiredConfirmEmailTicket(queries)
+                .MustNotBeRedeemedConfirmEmailTicket(queries)
+                .MustBePurposedConfirmEmailTicket(x => x.Purpose, queries)
                     .WithName(EmailConfirmation.Constraints.Label);
 
             RuleFor(x => x.Secret)
                 .NotEmpty()
-                .MustBeVerifiedConfirmationSecret(x => x.Ticket, queries)
+                .MustBeVerifiedConfirmEmailSecret(x => x.Ticket, queries)
                     .WithName(EmailConfirmation.Constraints.SecretLabel);
         }
     }

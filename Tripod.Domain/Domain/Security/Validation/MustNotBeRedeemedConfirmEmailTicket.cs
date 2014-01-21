@@ -4,11 +4,11 @@ using FluentValidation.Validators;
 
 namespace Tripod.Domain.Security
 {
-    public class MustNotBeRedeemedConfirmationTicket : PropertyValidator
+    public class MustNotBeRedeemedConfirmEmailTicket : PropertyValidator
     {
         private readonly IProcessQueries _queries;
 
-        internal MustNotBeRedeemedConfirmationTicket(IProcessQueries queries)
+        internal MustNotBeRedeemedConfirmEmailTicket(IProcessQueries queries)
             : base(() => Resources.Validation_EmailConfirmationTicket_IsRedeemed)
         {
             if (queries == null) throw new ArgumentNullException("queries");
@@ -28,12 +28,12 @@ namespace Tripod.Domain.Security
         }
     }
 
-    public static class MustNotBeRedeemedConfirmationTicketExtensions
+    public static class MustNotBeRedeemedConfirmEmailTicketExtensions
     {
-        public static IRuleBuilderOptions<T, string> MustNotBeRedeemedConfirmationTicket<T>
+        public static IRuleBuilderOptions<T, string> MustNotBeRedeemedConfirmEmailTicket<T>
             (this IRuleBuilder<T, string> ruleBuilder, IProcessQueries queries)
         {
-            return ruleBuilder.SetValidator(new MustNotBeRedeemedConfirmationTicket(queries));
+            return ruleBuilder.SetValidator(new MustNotBeRedeemedConfirmEmailTicket(queries));
         }
     }
 }
