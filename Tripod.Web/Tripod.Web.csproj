@@ -264,9 +264,10 @@
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\ValidatedField.cs" />
-    <Compile Include="Models\ValidatedFieldError.cs" />
-    <Compile Include="Models\ValidatedFields.cs" />
+    <Compile Include="Models\Security\SignUpWizardModel.cs" />
+    <Compile Include="Models\_Common\ValidatedField.cs" />
+    <Compile Include="Models\_Common\ValidatedFieldError.cs" />
+    <Compile Include="Models\_Common\ValidatedFields.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="App_Start\Startup.cs" />
     <Compile Include="RemoteMembershipsController.generated.cs">
@@ -288,11 +289,11 @@
     <Content Include="app\security\sign-up\ConfirmForm.js">
       <DependentUpon>ConfirmForm.ts</DependentUpon>
     </Content>
-    <Content Include="app\security\sign-up\form.js">
-      <DependentUpon>Form.ts</DependentUpon>
-    </Content>
     <Content Include="app\security\sign-in\Form.js">
       <DependentUpon>Form.ts</DependentUpon>
+    </Content>
+    <Content Include="app\security\sign-up\EmailForm.js">
+      <DependentUpon>EmailForm.ts</DependentUpon>
     </Content>
     <Content Include="app\_common\directives\FormContrib.js">
       <DependentUpon>FormContrib.ts</DependentUpon>
@@ -702,8 +703,12 @@
     <Content Include="Views\Errors\Forbidden.cshtml" />
     <Content Include="Views\Errors\BadRequest.cshtml" />
     <Content Include="Views\Authentication\Confirm.cshtml" />
+    <Content Include="Views\Authentication\CreatePassword.cshtml" />
+    <Content Include="Views\Authentication\_SignUpWizard.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Views\EmailAddresses\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
@@ -729,7 +734,7 @@
   <ItemGroup>
     <TypeScriptCompile Include="app\errors\Haikus.ts" />
     <TypeScriptCompile Include="app\security\sign-up\ConfirmForm.ts" />
-    <TypeScriptCompile Include="app\security\sign-up\Form.ts" />
+    <TypeScriptCompile Include="app\security\sign-up\EmailForm.ts" />
     <TypeScriptCompile Include="app\security\sign-in\Form.ts" />
     <TypeScriptCompile Include="app\_common\api\ViewModelScope.d.ts" />
     <TypeScriptCompile Include="app\_common\api\ValidationModels.d.ts" />

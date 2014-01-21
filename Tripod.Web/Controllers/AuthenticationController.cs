@@ -33,6 +33,7 @@ namespace Tripod.Web.Controllers
         {
             //System.Threading.Thread.Sleep(new Random().Next(5000, 5001));
 
+            if (command == null) return View(MVC.Errors.Views.BadRequest);
             if (!ModelState.IsValid) return View(Views.SignIn, command);
             await _commands.Execute(command);
             return RedirectToLocal(returnUrl);
@@ -60,6 +61,8 @@ namespace Tripod.Web.Controllers
         [HttpPost, Route("account/external-login")]
         public virtual ActionResult ExternalLogin(string provider, string returnUrl)
         {
+            if (string.IsNullOrWhiteSpace(provider)) return View(MVC.Errors.Views.BadRequest);
+
             // Request a redirect to the external login provider
             return new ChallengeResult(provider, Url.Action(MVC.Authentication.ExternalLoginCallback(returnUrl)));
         }

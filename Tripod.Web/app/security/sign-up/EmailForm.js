@@ -3,7 +3,7 @@ var App;
 (function (App) {
     (function (Security) {
         (function (SignUp) {
-            (function (Form) {
+            (function (EmailForm) {
                 var Controller = (function () {
                     function Controller(scope) {
                         this.scope = scope;
@@ -61,13 +61,13 @@ var App;
                     Controller.$inject = ['$scope'];
                     return Controller;
                 })();
-                Form.Controller = Controller;
+                EmailForm.Controller = Controller;
 
-                Form.moduleName = 'sign-up-form';
+                EmailForm.moduleName = 'sign-up-form';
 
-                Form.ngModule = angular.module(Form.moduleName, [App.Modules.Tripod.moduleName]);
-            })(SignUp.Form || (SignUp.Form = {}));
-            var Form = SignUp.Form;
+                EmailForm.ngModule = angular.module(EmailForm.moduleName, [App.Modules.Tripod.moduleName]);
+            })(SignUp.EmailForm || (SignUp.EmailForm = {}));
+            var EmailForm = SignUp.EmailForm;
         })(Security.SignUp || (Security.SignUp = {}));
         var SignUp = Security.SignUp;
     })(App.Security || (App.Security = {}));

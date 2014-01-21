@@ -1,0 +1,35 @@
+﻿@using Tripod.Web.Models
+@model SignUpWizardModel
+
+@{
+    Model.StepContents["Submit email"] = null;
+    Model.StepContents["Confirm email"] = null;
+    Model.StepContents["Create password"] = null;
+    Model.StepContents["Collect underpants"] = "http://www.youtube.com/watch?v=tO5sxLapAts";
+    Model.StepContents["???"] = "http://knowyourmeme.com/memes/profit";
+    Model.StepContents["Profit"] = "https://www.google.com/search?q=collect+underpants+profit";
+    var stepTitles = Model.StepContents.Keys.ToList();
+}
+
+<ul class="wizard">
+    @foreach (var stepTitle in stepTitles)
+    {
+        var stepNumber = stepTitles.IndexOf(stepTitle) + 1;
+        var stepClass = stepNumber < Model.StepNumber
+            ? "success step completed"
+            : stepNumber == Model.StepNumber
+                ? "primary step"
+                : "step";
+        <li class="@stepClass">
+            <span class="badge">@stepNumber</span>
+            @if (string.IsNullOrWhiteSpace(Model.StepContents[stepTitle]))
+            {
+                @stepTitle
+            }
+            else
+            {
+                <a href="@Model.StepContents[stepTitle]" target="_blank">@stepTitle</a>
+            }
+        </li>
+    }
+</ul>

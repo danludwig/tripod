@@ -8,9 +8,15 @@ namespace Tripod.Domain.Security
     /// </summary>
     public class VerifyConfirmEmailSecret : IDefineCommand
     {
+        public string Secret
+        {
+            get { return _secret; }
+            set { _secret = value != null ? value.Trim() : null; }
+        }
+        private string _secret;
         public string Ticket { get; set; }
-        public string Secret { get; set; }
         public EmailConfirmationPurpose Purpose { get; set; }
+        public string Token { get; internal set; }
     }
 
     public class ValidateVerifyConfirmEmailSecretCommand : AbstractValidator<VerifyConfirmEmailSecret>
@@ -34,21 +40,17 @@ namespace Tripod.Domain.Security
 
     public class HandleVerifyConfirmEmailSecretCommand : IHandleCommand<VerifyConfirmEmailSecret>
     {
-        //private readonly UserManager<User, int> _userManager;
-        //private readonly IProcessQueries _queries;
         private readonly IReadEntities _entities;
-        //private readonly IDeliverEmailMessage _mail;
 
         public HandleVerifyConfirmEmailSecretCommand(IWriteEntities entities)
         {
-            //_userManager = userManager;
-            //_queries = queries;
             _entities = entities;
-            //_mail = mail;
         }
 
         public async Task Handle(VerifyConfirmEmailSecret command)
         {
+            var entity = await _entities.Query<EmailConfirmation>().ByTicketAsync(command.Ticket);
+            command.Token = entity.Token;
         }
     }
 }

@@ -66,19 +66,23 @@ namespace Tripod.Domain.Security
             // create the confirmation
             var secret = _queries.Execute(new RandomSecret(10, 12));
             var ticket = _queries.Execute(new RandomSecret(20, 25));
-            while (_entities.Query<EmailConfirmation>().ByTicket(ticket) != null)
+
+            // make sure ticket is unique, and does not collide with sibling routes
+            while (_entities.Query<EmailConfirmation>().ByTicket(ticket) != null
+                || "password".Equals(ticket, StringComparison.OrdinalIgnoreCase))
                 ticket = _queries.Execute(new RandomSecret(20, 25));
+
             var token = _userManager.UserConfirmationTokens.Generate(new UserToken
             {
                 UserId = command.EmailAddress,
-                Value = secret,
+                Value = ticket,
                 CreationDate = DateTime.UtcNow,
             });
             var confirmation = new EmailConfirmation
             {
                 Owner = emailAddress,
                 ExpiresOnUtc = DateTime.UtcNow.AddMinutes(30),
-                Purpose = EmailConfirmationPurpose.CreatePassword,
+                Purpose = EmailConfirmationPurpose.CreateLocalUser,
                 Secret = secret,
                 Ticket = ticket,
                 Token = token,
@@ -96,8 +100,8 @@ namespace Tripod.Domain.Security
             {
                 { "{EmailAddress}", emailAddress.Value },
                 { "{Secret}", confirmation.Secret },
-                // don't forget to encode + symbols in the url to %2b for querystring, otherwise they are space characters
-                { "{ConfirmationUrl}", string.Format(command.ConfirmUrlFormat, confirmation.Ticket, confirmation.Token.Replace("+", "%2b")) },
+                // don't forget to encode the token, it contains illegal querystring characters
+                { "{ConfirmationUrl}", string.Format(command.ConfirmUrlFormat, Uri.EscapeDataString(confirmation.Token)) },
                 { "{SendFromUrl}", command.SendFromUrl }
             };
 

@@ -4,14 +4,12 @@ namespace Tripod.Domain.Security
 {
     public class EmailConfirmationBy : BaseEntityQuery<EmailConfirmation>, IDefineQuery<Task<EmailConfirmation>>
     {
-        public EmailConfirmationBy(string ticket, string token = null)
+        public EmailConfirmationBy(string ticket)
         {
             Ticket = ticket;
-            Token = token;
         }
 
         public string Ticket { get; private set; }
-        public string Token { get; private set; }
     }
 
     public class HandleEmailConfirmationByQuery : IHandleQuery<EmailConfirmationBy, Task<EmailConfirmation>>
@@ -29,8 +27,6 @@ namespace Tripod.Domain.Security
                 .EagerLoad(query.EagerLoad)
                 .ByTicketAsync(query.Ticket)
                 .ConfigureAwait(false);
-            if (entity == null) return null;
-            if (!string.IsNullOrWhiteSpace(query.Token) && query.Token != entity.Token) return null;
             return entity;
         }
     }

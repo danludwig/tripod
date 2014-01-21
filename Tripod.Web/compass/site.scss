@@ -191,6 +191,95 @@ body {
     }
 }
 
+/* wziard progress bar */
+body {
+    /* https://github.com/twbs/bootstrap/issues/1982 http://jsfiddle.net/H7J94/5/ */
+    .wizard {
+        padding: 0;
+        margin: 0;
+
+        .step {
+            padding: 6px 8px;
+            margin-right: 5px;
+            background-color: #5bc0de;
+            color: #fff;
+            position: relative;
+            display: inline-block;
+            margin-bottom: 4px;
+
+            &:before, &:after {
+                width: 0;
+                height: 0;
+                border: 16px solid transparent;
+                position: absolute;
+                content: '';
+                top: 0;
+            }
+
+            &:before {
+                border-left-color:#fff;
+                left: 0;
+            }
+
+            &:after {
+                border-left-color: #5bc0de;
+                border-right-width: 0;
+                right: -16px;
+                z-index: 2;
+            }
+
+            .badge {
+                margin: 0 5px 0 16px;
+                position: relative;
+                top: -1px;
+                color: #5bc0de;
+                background-color: #fff;
+            }
+
+            &.primary {
+                background: #007ACC;
+                color: #fff;
+
+                &:after {
+                    border-left-color: #007ACC;
+                }
+
+                .badge {
+                    background-color: #fff;
+                    color: #007ACC;
+                }
+            }
+
+            &.success {
+                background: #468847;
+                color: #dff0d8;
+
+                &:after {
+                    border-left-color: #468847;
+                }
+
+                .badge {
+                    background-color: #dff0d8;
+                    color: #468847;
+                }
+            }
+
+            &.completed {
+                text-decoration: line-through;
+            }
+
+            a {
+                color: #fff;
+                text-decoration: underline;
+
+                &:hover {
+                    text-decoration: none;
+                }
+            }
+        }
+    }
+}
+
 /* validation input group add-on & icon */
 body {
     .input-group-addon.validation {

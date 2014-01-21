@@ -29,6 +29,7 @@ namespace Tripod.Web.Controllers
         [HttpPost, Route("sign-up")]
         public virtual async Task<ActionResult> SignUp(SendConfirmationEmail command)
         {
+            if (command == null) return View(MVC.Errors.Views.BadRequest);
             if (!ModelState.IsValid) return View(MVC.Authentication.Views.SignUp, command);
 
             // todo: what if email matches a user account? error or redirect?
@@ -59,9 +60,9 @@ namespace Tripod.Web.Controllers
         }
 
         [HttpGet, Route("sign-up/{ticket}")]
-        public virtual async Task<ActionResult> Confirm(string ticket, string token = null)
+        public virtual async Task<ActionResult> Confirm(string ticket)
         {
-            var confirmation = await _queries.Execute(new EmailConfirmationBy(ticket, token)
+            var confirmation = await _queries.Execute(new EmailConfirmationBy(ticket)
             {
                 EagerLoad = new Expression<Func<EmailConfirmation, object>>[]
                 {
@@ -73,7 +74,7 @@ namespace Tripod.Web.Controllers
             // todo: confirmation token must not be redeemed, expired, or for different purpose
 
             ViewBag.Ticket = ticket;
-            ViewBag.Purpose = EmailConfirmationPurpose.CreatePassword;
+            ViewBag.Purpose = EmailConfirmationPurpose.CreateLocalUser;
             if (Session.ConfirmEmailTickets().Contains(ticket))
                 ViewBag.EmailAddress = confirmation.Owner.Value;
             return View(MVC.Authentication.Views.Confirm);
@@ -85,13 +86,20 @@ namespace Tripod.Web.Controllers
         {
             //System.Threading.Thread.Sleep(new Random().Next(5000, 5001));
 
-            ViewBag.Ticket = ticket;
-            ViewBag.Purpose = EmailConfirmationPurpose.CreatePassword;
-            if (Session.ConfirmEmailTickets().Contains(ticket))
-                ViewBag.EmailAddress = emailAddress;
-            if (!ModelState.IsValid) return View(MVC.Authentication.Views.Confirm, command);
+            if (command == null) return View(MVC.Errors.Views.BadRequest);
 
-            return View(MVC.Authentication.Views.Confirm, command);
+            if (!ModelState.IsValid)
+            {
+                ViewBag.Ticket = ticket;
+                ViewBag.Purpose = EmailConfirmationPurpose.CreateLocalUser;
+                if (Session.ConfirmEmailTickets().Contains(ticket))
+                    ViewBag.EmailAddress = emailAddress;
+                return View(MVC.Authentication.Views.Confirm, command);
+            }
+
+            await _commands.Execute(command);
+
+            return RedirectToAction(await MVC.EmailAddresses.Password(command.Token));
         }
 
         [HttpPost, Route("sign-up/{ticket}/validate/{fieldName?}")]
@@ -110,6 +118,35 @@ namespace Tripod.Web.Controllers
             //result = new ValidatedFields(ModelState, fieldName);
 
             return new CamelCaseJsonResult(result);
+        }
+
+        [HttpGet, Route("sign-up/password")]
+        public virtual async Task<ActionResult> Password(string token)
+        {
+            var userToken = await _queries.Execute(new EmailConfirmationUserToken(token));
+            if (userToken == null) return HttpNotFound();
+            var confirmation = await _queries.Execute(new EmailConfirmationBy(userToken.Value));
+            if (confirmation == null) return HttpNotFound();
+
+            // todo: confirmation cannot be expired, redeemed, or for different purpose
+
+            ViewBag.EmailAddress = confirmation.Owner.Value;
+            ViewBag.Token = token;
+            return View(MVC.Authentication.Views.CreatePassword);
+        }
+
+        [ValidateAntiForgeryToken]
+        [HttpPost, Route("sign-up/password")]
+        public virtual async Task<ActionResult> Password(CreateLocalMembership command, string emailAddress = null)
+        {
+            //System.Threading.Thread.Sleep(new Random().Next(5000, 5001));
+
+            if (command == null || string.IsNullOrWhiteSpace(emailAddress))
+                return View(MVC.Errors.Views.BadRequest);
+
+            ViewBag.EmailAddress = emailAddress;
+            ViewBag.Token = command.ConfirmationToken;
+            return View(MVC.Authentication.Views.CreatePassword, command);
         }
     }
 }

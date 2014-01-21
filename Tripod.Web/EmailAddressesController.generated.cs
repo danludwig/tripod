@@ -60,6 +60,13 @@ namespace Tripod.Web.Controllers
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ConfirmValidate);
         }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Password()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Password);
+            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
+        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public EmailAddressesController Actions { get { return MVC.EmailAddresses; } }
@@ -80,6 +87,7 @@ namespace Tripod.Web.Controllers
             public readonly string SignUpValidate = "SignUpValidate";
             public readonly string Confirm = "Confirm";
             public readonly string ConfirmValidate = "ConfirmValidate";
+            public readonly string Password = "Password";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -89,6 +97,7 @@ namespace Tripod.Web.Controllers
             public const string SignUpValidate = "SignUpValidate";
             public const string Confirm = "Confirm";
             public const string ConfirmValidate = "ConfirmValidate";
+            public const string Password = "Password";
         }
 
 
@@ -116,7 +125,6 @@ namespace Tripod.Web.Controllers
         public class ActionParamsClass_Confirm
         {
             public readonly string ticket = "ticket";
-            public readonly string token = "token";
             public readonly string command = "command";
             public readonly string emailAddress = "emailAddress";
         }
@@ -128,6 +136,16 @@ namespace Tripod.Web.Controllers
         {
             public readonly string command = "command";
             public readonly string fieldName = "fieldName";
+        }
+        static readonly ActionParamsClass_Password s_params_Password = new ActionParamsClass_Password();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_Password PasswordParams { get { return s_params_Password; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_Password
+        {
+            public readonly string token = "token";
+            public readonly string command = "command";
+            public readonly string emailAddress = "emailAddress";
         }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -178,14 +196,13 @@ namespace Tripod.Web.Controllers
             return callInfo;
         }
 
-        partial void ConfirmOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ticket, string token);
+        partial void ConfirmOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ticket);
 
-        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Confirm(string ticket, string token)
+        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Confirm(string ticket)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Confirm);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ticket", ticket);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "token", token);
-            ConfirmOverride(callInfo, ticket, token);
+            ConfirmOverride(callInfo, ticket);
             return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
         }
 
@@ -210,6 +227,27 @@ namespace Tripod.Web.Controllers
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "fieldName", fieldName);
             ConfirmValidateOverride(callInfo, command, fieldName);
             return callInfo;
+        }
+
+        partial void PasswordOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string token);
+
+        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Password(string token)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Password);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "token", token);
+            PasswordOverride(callInfo, token);
+            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
+        }
+
+        partial void PasswordOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Tripod.Domain.Security.CreateLocalMembership command, string emailAddress);
+
+        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Password(Tripod.Domain.Security.CreateLocalMembership command, string emailAddress)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Password);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "command", command);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "emailAddress", emailAddress);
+            PasswordOverride(callInfo, command, emailAddress);
+            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
         }
 
     }

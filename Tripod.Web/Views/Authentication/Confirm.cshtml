@@ -1,95 +1,10 @@
 ﻿@using Tripod
 @using Tripod.Domain.Security
+@using Tripod.Web.Models
 @model VerifyConfirmEmailSecret
 
 @{
     ViewBag.Title = "Confirm your Email Address";
-}
-
-@section styles
-{
-    <style>
-        /* https://github.com/twbs/bootstrap/issues/1982 http://jsfiddle.net/H7J94/5/ */
-
-        .wizard {
-            padding: 0;
-            margin: 0;
-        }
-
-            .wizard .step {
-                padding: 6px 8px;
-                margin-right: 5px;
-                background-color: #5bc0de;
-                color: #fff;
-                position: relative;
-                display: inline-block;
-                margin-bottom: 4px;
-            }
-
-                .wizard .step:before {
-                    width: 0;
-                    height: 0;
-                    border: 16px solid transparent;
-                    border-left-color:#fff;
-                    position: absolute;
-                    content: "";
-                    top: 0;
-                    left: 0;
-                }
-
-                .wizard .step:after {
-                    width: 0;
-                    height: 0;
-                    right: -16px;
-                    border: 16px solid transparent;
-                    border-left-color: #5bc0de;
-                    border-right-width: 0;
-                    position: absolute;
-                    content: "";
-                    top: 0;
-                    z-index: 2;
-                }
-
-                .wizard .step .badge {
-                    margin: 0 5px 0 16px;
-                    position: relative;
-                    top: -1px;
-                    color: #5bc0de;
-                    background-color: #fff;
-                }
-
-            .wizard .current.step {
-                background: #007ACC;
-                color: #fff;
-            }
-
-                .wizard .current.step:after {
-                    border-left-color: #007ACC;
-                }
-
-                .wizard .current.step .badge {
-                    background-color: #fff;
-                    color: #007ACC;
-                }
-
-            .wizard .success.step {
-                background: #468847;
-                color: #dff0d8;
-            }
-
-                .wizard .success.step:after {
-                    border-left-color: #468847;
-                }
-
-                .wizard .success.step .badge {
-                    background-color: #dff0d8;
-                    color: #468847;
-                }
-
-            .wizard .completed.step {
-                text-decoration: line-through;
-            }
-    </style>
 }
 
 <h2>
@@ -98,26 +13,7 @@
 </h2>
 <hr class="hr-sm hr-space" />
 
-<ul class="wizard">
-    <li class="success step completed">
-        <span class="badge">1</span> Submit email
-    </li>
-    <li class="current step">
-        <span class="badge">2</span> Confirm email
-    </li>
-    <li class="step">
-        <span class="badge">3</span> Create password
-    </li>
-    <li class="step">
-        <span class="badge">4</span> Collect underpants
-    </li>
-    <li class="step">
-        <span class="badge">5</span> ???
-    </li>
-    <li class="step">
-        <span class="badge">6</span> Profit
-    </li>
-</ul>
+@{ Html.RenderPartial(MVC.Authentication.Views._SignUpWizard, new SignUpWizardModel(2)); }
 <hr class="hr-space hr-md" />
 <p>
     An email has been sent to
@@ -279,8 +175,8 @@
                 Confirm email address
             </button>
             <div class="has-error pull-left nudge-right @errorClass"
-                  remove-class="@errorClass"
-                  ng-show="vm.isSubmitError()">
+                 remove-class="@errorClass"
+                 ng-show="vm.isSubmitError()">
                 <div class="help-block">
                     <div ng-show="vm.isTicketRequiredError()" ng-cloak>
                         @Resources.notempty_error.Replace("{PropertyName}", EmailConfirmation.Constraints.TicketLabel)

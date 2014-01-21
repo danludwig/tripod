@@ -1,6 +1,6 @@
 'use strict';
 
-module App.Security.SignUp.Form {
+module App.Security.SignUp.EmailForm {
 
     export interface Model {
         emailAddress?: string;

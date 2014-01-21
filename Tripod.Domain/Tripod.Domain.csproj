@@ -117,6 +117,7 @@
     <Compile Include="Domain\Security\Entities\Claim.cs" />
     <Compile Include="Domain\Security\Entities\RemoteMembership.cs" />
     <Compile Include="Domain\Security\Entities\User.cs" />
+    <Compile Include="Domain\Security\Queries\EmailConfirmationUserToken.cs" />
     <Compile Include="Domain\Security\Queries\EmailConfirmationBy.cs" />
     <Compile Include="Domain\Security\Queries\RandomSecret.cs" />
     <Compile Include="Domain\Security\Queries\PrincipalRemoteMembershipTicket.cs" />
@@ -126,6 +127,7 @@
     <Compile Include="Domain\Security\Queries\UserHasLocalMembership.cs" />
     <Compile Include="Domain\Security\Queries\LocalMembershipByUser.cs" />
     <Compile Include="Domain\Security\Queries\UserBy.cs" />
+    <Compile Include="Domain\Security\Validation\MustNotBeUnverifiedEmail.cs" />
     <Compile Include="Domain\Security\Validation\MustBeVerifiedConfirmationSecret.cs" />
     <Compile Include="Domain\Security\Validation\MustBeValidPassword.cs" />
     <Compile Include="Domain\Security\Validation\MustEqualPassword.cs" />
