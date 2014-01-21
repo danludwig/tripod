@@ -206,26 +206,27 @@
                 <div class="form-group">
                     <div class="col-md-4">
                         @{
-                            var buttonClass = ViewData.ModelState.IsValid ? null : "btn-warning";
-                            var defaultClass = ViewData.ModelState.IsValid ? null : "hide";
-                            var warningClass = ViewData.ModelState.IsValid ? "hide" : null;
-                            var messageClass = ViewData.ModelState.IsValid ? "hide" : null;
+                            var buttonClass = ViewData.ModelState.IsValid ? null : "btn-danger";
+                            var readyClass = ViewData.ModelState.IsValid ? null : "hide";
+                            var errorClass = ViewData.ModelState.IsValid ? "hide" : null;
                         }
                         <button type="submit" class="btn btn-primary btn-lg btn-block @buttonClass"
-                                ng-class="{ 'btn-warning': signInCtrb.hasError && !signInCtrb.isSubmitWaiting }"
-                                ng-disabled="signInCtrb.isSubmitWaiting"
+                                ng-class="vm.submitCssClass()"
+                                ng-disabled="vm.isSubmitDisabled()"
                                 remove-class="@buttonClass">
-                            <i class="fa fa-fw fa-sign-in @defaultClass"
-                               remove-class="@defaultClass"
-                               ng-show="!signInCtrb.isSubmitWaiting && !signInCtrb.hasError"></i>
-                            <i class="fa fa-fw fa-exclamation-triangle @warningClass"
-                               remove-class="@warningClass"
-                               ng-show="!signInCtrb.isSubmitWaiting && signInCtrb.hasError"></i>
-                            <i class="fa fa-fw fa-spinner fa-spin spin-fast" ng-show="signInCtrb.isSubmitWaiting" ng-cloak></i>
+                            <i class="fa fa-fw fa-sign-in @readyClass"
+                               remove-class="@readyClass"
+                               ng-show="vm.isSubmitReady()"></i>
+                            <i class="fa fa-fw fa-exclamation-triangle @errorClass"
+                               remove-class="@errorClass"
+                               ng-show="vm.isSubmitError()"></i>
+                            <i class="fa fa-fw fa-spinner fa-spin spin-fast" ng-show="vm.isSubmitWaiting()" ng-cloak></i>
                             Sign in
                         </button>
                     </div>
-                    <div class="col-md-8 has-error @messageClass" remove-class="@messageClass" ng-show="!signInCtrb.isSubmitWaiting && signInCtrb.hasError">
+                    <div class="col-md-8 has-error @errorClass"
+                         remove-class="@errorClass"
+                         ng-show="vm.isSubmitError()">
                         <div class="help-block">
                             Could not sign in due to above error(s).
                         </div>

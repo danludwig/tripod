@@ -81,10 +81,14 @@ namespace Tripod.Web.Controllers
 
         [ValidateAntiForgeryToken]
         [HttpPost, Route("sign-up/{ticket}")]
-        public virtual async Task<ActionResult> Confirm(string ticket, VerifyConfirmEmailSecret command)
+        public virtual async Task<ActionResult> Confirm(string ticket, VerifyConfirmEmailSecret command, string emailAddress = null)
         {
+            //System.Threading.Thread.Sleep(new Random().Next(5000, 5001));
+
             ViewBag.Ticket = ticket;
             ViewBag.Purpose = EmailConfirmationPurpose.CreatePassword;
+            if (Session.ConfirmEmailTickets().Contains(ticket))
+                ViewBag.EmailAddress = emailAddress;
             if (!ModelState.IsValid) return View(MVC.Authentication.Views.Confirm, command);
 
             return View(MVC.Authentication.Views.Confirm, command);

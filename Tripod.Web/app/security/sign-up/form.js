@@ -38,6 +38,26 @@ var App;
                     Controller.prototype.isExpectingEmailServerError = function () {
                         return this.scope.signUpForm.isExpectingEmail.$error.server && this.isExpectingEmailError();
                     };
+
+                    Controller.prototype.isSubmitWaiting = function () {
+                        return this.scope.signUpCtrb.isSubmitWaiting;
+                    };
+
+                    Controller.prototype.isSubmitError = function () {
+                        return !this.isSubmitWaiting() && this.scope.signUpCtrb.hasError;
+                    };
+
+                    Controller.prototype.isSubmitReady = function () {
+                        return !this.isSubmitWaiting() && !this.isSubmitError();
+                    };
+
+                    Controller.prototype.isSubmitDisabled = function () {
+                        return this.isSubmitWaiting() || this.isSubmitError();
+                    };
+
+                    Controller.prototype.submitCssClass = function () {
+                        return this.isSubmitError() ? 'btn-danger' : null;
+                    };
                     Controller.$inject = ['$scope'];
                     return Controller;
                 })();

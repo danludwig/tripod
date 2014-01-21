@@ -52,9 +52,7 @@ module App.Security.SignUp.Form {
         }
 
         isExpectingEmailError(): boolean {
-            return this.scope.signUpCtrb.isExpectingEmail.hasError
-                //&& !this.scope.signUpCtrb.emailAddress.hasError
-                ;
+            return this.scope.signUpCtrb.isExpectingEmail.hasError;
         }
 
         isExpectingEmailRequiredError(): boolean {
@@ -65,6 +63,26 @@ module App.Security.SignUp.Form {
         isExpectingEmailServerError(): boolean {
             return this.scope.signUpForm.isExpectingEmail.$error.server
                 && this.isExpectingEmailError();
+        }
+
+        isSubmitWaiting(): boolean {
+            return this.scope.signUpCtrb.isSubmitWaiting;
+        }
+
+        isSubmitError(): boolean {
+            return !this.isSubmitWaiting() && this.scope.signUpCtrb.hasError;
+        }
+
+        isSubmitReady(): boolean {
+            return !this.isSubmitWaiting() && !this.isSubmitError();
+        }
+
+        isSubmitDisabled(): boolean {
+            return this.isSubmitWaiting() || this.isSubmitError();
+        }
+
+        submitCssClass(): string {
+            return this.isSubmitError() ? 'btn-danger' : null;
         }
     }
 

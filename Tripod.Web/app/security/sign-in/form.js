@@ -47,6 +47,26 @@ var App;
                     Controller.prototype.isPasswordServerError = function () {
                         return this.scope.signInForm.password.$error.server && this.isPasswordError();
                     };
+
+                    Controller.prototype.isSubmitWaiting = function () {
+                        return this.scope.signInCtrb.isSubmitWaiting;
+                    };
+
+                    Controller.prototype.isSubmitError = function () {
+                        return !this.isSubmitWaiting() && this.scope.signInCtrb.hasError;
+                    };
+
+                    Controller.prototype.isSubmitReady = function () {
+                        return !this.isSubmitWaiting() && !this.isSubmitError();
+                    };
+
+                    Controller.prototype.isSubmitDisabled = function () {
+                        return this.isSubmitWaiting() || this.isSubmitError();
+                    };
+
+                    Controller.prototype.submitCssClass = function () {
+                        return this.isSubmitError() ? 'btn-danger' : null;
+                    };
                     Controller.$inject = ['$scope'];
                     return Controller;
                 })();

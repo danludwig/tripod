@@ -75,6 +75,26 @@ module App.Security.SignIn.Form {
             return this.scope.signInForm.password.$error.server
                 && this.isPasswordError();
         }
+
+        isSubmitWaiting(): boolean {
+            return this.scope.signInCtrb.isSubmitWaiting;
+        }
+
+        isSubmitError(): boolean {
+            return !this.isSubmitWaiting() && this.scope.signInCtrb.hasError;
+        }
+
+        isSubmitReady(): boolean {
+            return !this.isSubmitWaiting() && !this.isSubmitError();
+        }
+
+        isSubmitDisabled(): boolean {
+            return this.isSubmitWaiting() || this.isSubmitError();
+        }
+
+        submitCssClass(): string {
+            return this.isSubmitError() ? 'btn-danger' : null;
+        }
     }
 
     export var moduleName = 'sign-in-form';

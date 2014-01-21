@@ -35,6 +35,26 @@ var App;
                     Controller.prototype.isTicketServerError = function () {
                         return this.scope.confirmForm.ticket.$error.server && this.isTicketError();
                     };
+
+                    Controller.prototype.isSubmitWaiting = function () {
+                        return this.scope.confirmCtrb.isSubmitWaiting;
+                    };
+
+                    Controller.prototype.isSubmitError = function () {
+                        return !this.isSubmitWaiting() && this.scope.confirmCtrb.hasError;
+                    };
+
+                    Controller.prototype.isSubmitReady = function () {
+                        return !this.isSubmitWaiting() && !this.isSubmitError();
+                    };
+
+                    Controller.prototype.isSubmitDisabled = function () {
+                        return this.isSubmitWaiting() || this.isSubmitError();
+                    };
+
+                    Controller.prototype.submitCssClass = function () {
+                        return this.isSubmitError() ? 'btn-danger' : null;
+                    };
                     Controller.$inject = ['$scope'];
                     return Controller;
                 })();

@@ -64,6 +64,26 @@ module App.Security.SignUp.ConfirmForm {
             return this.scope.confirmForm.ticket.$error.server
                 && this.isTicketError();
         }
+
+        isSubmitWaiting(): boolean {
+            return this.scope.confirmCtrb.isSubmitWaiting;
+        }
+
+        isSubmitError(): boolean {
+            return !this.isSubmitWaiting() && this.scope.confirmCtrb.hasError;
+        }
+
+        isSubmitReady(): boolean {
+            return !this.isSubmitWaiting() && !this.isSubmitError();
+        }
+
+        isSubmitDisabled(): boolean {
+            return this.isSubmitWaiting() || this.isSubmitError();
+        }
+
+        submitCssClass(): string {
+            return this.isSubmitError() ? 'btn-danger' : null;
+        }
     }
 
     export var moduleName = 'sign-up-confirm-form';

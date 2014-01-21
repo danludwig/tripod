@@ -175,6 +175,9 @@
            value="@ViewBag.Purpose"
            ng-init="vm.purpose='@ViewBag.Purpose'"
            ng-model="vm.ticket" />
+    <input type="hidden"
+           name="emailAddress"
+           value="@ViewBag.EmailAddress" />
 
     @Html.ValidationSummary(true)
 
@@ -257,27 +260,27 @@
     <div class="form-group">
         <div class="col-md-12 col">
             @{
-                var buttonClass = ViewData.ModelState.IsValid ? null : "btn-warning";
-                var defaultClass = ViewData.ModelState.IsValid ? null : "hide";
-                var warningClass = ViewData.ModelState.IsValid ? "hide" : null;
-                var messageClass = ViewData.ModelState.IsValid ? "hide" : null;
+                var buttonClass = ViewData.ModelState.IsValid ? null : "btn-danger";
+                var readyClass = ViewData.ModelState.IsValid ? null : "hide";
+                var errorClass = ViewData.ModelState.IsValid ? "hide" : null;
             }
             <button type="submit" class="pull-left btn btn-primary btn-lg @buttonClass"
-                    ng-class="{ 'btn-warning': confirmCtrb.hasError && !confirmCtrb.isSubmitWaiting }"
-                    ng-disabled="confirmCtrb.isSubmitWaiting"
+                    ng-class="vm.submitCssClass()"
+                    ng-disabled="vm.isSubmitDisabled()"
                     remove-class="@buttonClass">
-                <i class="fa fa-fw fa-user @defaultClass"
-                   remove-class="@defaultClass"
-                   ng-show="!confirmCtrb.isSubmitWaiting && !confirmCtrb.hasError"></i>
-                <i class="fa fa-fw fa-exclamation-triangle @warningClass"
-                   remove-class="@warningClass"
-                   ng-show="!confirmCtrb.isSubmitWaiting && confirmCtrb.hasError"></i>
-                <i class="fa fa-fw fa-spinner fa-spin spin-fast" ng-show="confirmCtrb.isSubmitWaiting" ng-cloak></i>
+                <i class="fa fa-fw fa-user @readyClass"
+                   remove-class="@readyClass"
+                   ng-show="vm.isSubmitReady()"></i>
+                <i class="fa fa-fw fa-exclamation-triangle @errorClass"
+                   remove-class="@errorClass"
+                   ng-show="vm.isSubmitError()"></i>
+                <i class="fa fa-fw fa-spinner fa-spin spin-fast"
+                   ng-show="vm.isSubmitWaiting()" ng-cloak></i>
                 Confirm email address
             </button>
-            <span class="has-error pull-left nudge-right @messageClass"
-                  remove-class="@messageClass"
-                  ng-show="!confirmCtrb.isSubmitWaiting && confirmCtrb.hasError">
+            <div class="has-error pull-left nudge-right @errorClass"
+                  remove-class="@errorClass"
+                  ng-show="vm.isSubmitError()">
                 <div class="help-block">
                     <div ng-show="vm.isTicketRequiredError()" ng-cloak>
                         @Resources.notempty_error.Replace("{PropertyName}", EmailConfirmation.Constraints.TicketLabel)
@@ -293,7 +296,7 @@
                     }
                     Could not confirm email address due to above error(s).
                 </div>
-            </span>
+            </div>
         </div>
     </div>
 </form>

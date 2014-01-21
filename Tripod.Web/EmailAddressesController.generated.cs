@@ -118,6 +118,7 @@ namespace Tripod.Web.Controllers
             public readonly string ticket = "ticket";
             public readonly string token = "token";
             public readonly string command = "command";
+            public readonly string emailAddress = "emailAddress";
         }
         static readonly ActionParamsClass_ConfirmValidate s_params_ConfirmValidate = new ActionParamsClass_ConfirmValidate();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -188,14 +189,15 @@ namespace Tripod.Web.Controllers
             return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
         }
 
-        partial void ConfirmOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ticket, Tripod.Domain.Security.VerifyConfirmEmailSecret command);
+        partial void ConfirmOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ticket, Tripod.Domain.Security.VerifyConfirmEmailSecret command, string emailAddress);
 
-        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Confirm(string ticket, Tripod.Domain.Security.VerifyConfirmEmailSecret command)
+        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Confirm(string ticket, Tripod.Domain.Security.VerifyConfirmEmailSecret command, string emailAddress)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Confirm);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ticket", ticket);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "command", command);
-            ConfirmOverride(callInfo, ticket, command);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "emailAddress", emailAddress);
+            ConfirmOverride(callInfo, ticket, command, emailAddress);
             return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
         }
 
