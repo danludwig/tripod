@@ -4,11 +4,11 @@ using FluentValidation.Validators;
 
 namespace Tripod.Domain.Security
 {
-    public class MustFindEmailConfirmationByTicket : PropertyValidator
+    public class MustFindEmailConfirmationByToken : PropertyValidator
     {
         private readonly IProcessQueries _queries;
 
-        internal MustFindEmailConfirmationByTicket(IProcessQueries queries)
+        internal MustFindEmailConfirmationByToken(IProcessQueries queries)
             : base(() => Resources.Validation_DoesNotExist_NoValue)
         {
             if (queries == null) throw new ArgumentNullException("queries");
@@ -17,7 +17,10 @@ namespace Tripod.Domain.Security
 
         protected override bool IsValid(PropertyValidatorContext context)
         {
-            var ticket = (string)context.PropertyValue;
+            var token = (string)context.PropertyValue;
+            var userToken = _queries.Execute(new EmailConfirmationUserToken(token)).Result;
+            if (userToken == null) return true;
+            var ticket = userToken.Value;
             if (string.IsNullOrWhiteSpace(ticket)) return false;
 
             var entity = _queries.Execute(new EmailConfirmationBy(ticket)).Result;
@@ -25,12 +28,12 @@ namespace Tripod.Domain.Security
         }
     }
 
-    public static class MustFindEmailConfirmationByTicketExtensions
+    public static class MustFindEmailConfirmationByTokenExtensions
     {
-        public static IRuleBuilderOptions<T, string> MustFindEmailConfirmationByTicket<T>
+        public static IRuleBuilderOptions<T, string> MustFindEmailConfirmationByToken<T>
             (this IRuleBuilder<T, string> ruleBuilder, IProcessQueries queries)
         {
-            return ruleBuilder.SetValidator(new MustFindEmailConfirmationByTicket(queries));
+            return ruleBuilder.SetValidator(new MustFindEmailConfirmationByToken(queries));
         }
     }
 }

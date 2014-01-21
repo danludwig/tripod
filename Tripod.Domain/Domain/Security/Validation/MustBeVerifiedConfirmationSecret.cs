@@ -25,7 +25,10 @@ namespace Tripod.Domain.Security
             if (string.IsNullOrWhiteSpace(secret)) return true;
             var entity = _queries.Execute(new EmailConfirmationBy(ticket)).Result;
             if (entity == null) return true;
-            return entity.Secret == secret;
+            if (entity.Secret == secret) return true;
+
+            context.MessageFormatter.AppendArgument("PropertyName", context.PropertyDescription.ToLower());
+            return false;
         }
     }
 

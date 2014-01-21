@@ -12,7 +12,7 @@ namespace Tripod.Domain.Security
         public string UserName { get; set; }
         public string Password { get; set; }
         public string ConfirmPassword { get; set; }
-        public string ConfirmationToken { get; set; }
+        public string Token { get; set; }
         public LocalMembership Created { get; internal set; }
     }
 
@@ -31,7 +31,7 @@ namespace Tripod.Domain.Security
             RuleFor(x => x.UserName)
                 .MustBeValidUserName()
                 .MustNotFindUserByName(queries)
-                    // todo: username cannot be an email address user has not confirmed
+                .MustNotBeUnverifiedEmail(x => x.Token, queries)
                     .WithName(User.Constraints.NameLabel)
                     .When(x => !x.Principal.Identity.IsAuthenticated)
             ;
@@ -47,9 +47,14 @@ namespace Tripod.Domain.Security
                     .WithName(LocalMembership.Constraints.PasswordConfirmationLabel)
                     .When(x => !string.IsNullOrWhiteSpace(x.Password), ApplyConditionTo.CurrentValidator);
 
-            RuleFor(x => x.ConfirmationToken)
+            RuleFor(x => x.Token)
                 .NotEmpty()
-                .WithName(EmailConfirmation.Constraints.TicketLabel)
+                .MustBeValidConfirmationToken(queries)
+                .MustFindEmailConfirmationByToken(queries)
+                .MustNotBeExpiredConfirmationToken(queries)
+                .MustNotBeRedeemedConfirmationToken(queries)
+                .MustBePurposedConfirmationToken(x => EmailConfirmationPurpose.CreateLocalUser, queries)
+                .WithName(EmailConfirmation.Constraints.Label)
                     .When(x => !x.Principal.Identity.IsAuthenticated);
         }
     }
@@ -77,6 +82,8 @@ namespace Tripod.Domain.Security
                 var createUser = new CreateUser { Name = command.UserName };
                 await _commands.Execute(createUser);
                 user = createUser.Created;
+
+                // todo: confirm & associate email address
             }
 
             user.LocalMembership = new LocalMembership

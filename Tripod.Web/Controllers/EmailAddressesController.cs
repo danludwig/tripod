@@ -144,9 +144,33 @@ namespace Tripod.Web.Controllers
             if (command == null || string.IsNullOrWhiteSpace(emailAddress))
                 return View(MVC.Errors.Views.BadRequest);
 
+            //var userToken = await _queries.Execute(new EmailConfirmationUserToken(command.Token));
+            //if (userToken == null) return HttpNotFound();
+            //var confirmation = await _queries.Execute(new EmailConfirmationBy(userToken.Value));
+            //if (confirmation == null) return HttpNotFound();
+            //command.Token = "Y" + command.Token.Substring(1);
+
             ViewBag.EmailAddress = emailAddress;
-            ViewBag.Token = command.ConfirmationToken;
+            ViewBag.Token = command.Token;
             return View(MVC.Authentication.Views.CreatePassword, command);
+        }
+
+        [HttpPost, Route("sign-up/password/validate/{fieldName?}")]
+        public virtual ActionResult PasswordValidate(CreateLocalMembership command, string fieldName = null)
+        {
+            //System.Threading.Thread.Sleep(new Random().Next(5000, 5001));
+            if (command == null)
+            {
+                Response.StatusCode = 400;
+                return Json(null);
+            }
+
+            var result = new ValidatedFields(ModelState, fieldName);
+
+            //ModelState[command.PropertyName(x => x.EmailAddress)].Errors.Clear();
+            //result = new ValidatedFields(ModelState, fieldName);
+
+            return new CamelCaseJsonResult(result);
         }
     }
 }

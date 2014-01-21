@@ -127,6 +127,11 @@
     <Compile Include="Domain\Security\Queries\UserHasLocalMembership.cs" />
     <Compile Include="Domain\Security\Queries\LocalMembershipByUser.cs" />
     <Compile Include="Domain\Security\Queries\UserBy.cs" />
+    <Compile Include="Domain\Security\Validation\MustBePurposedConfirmationToken.cs" />
+    <Compile Include="Domain\Security\Validation\MustBeValidConfirmationToken.cs" />
+    <Compile Include="Domain\Security\Validation\MustFindEmailConfirmationByToken.cs" />
+    <Compile Include="Domain\Security\Validation\MustNotBeExpiredConfirmationToken.cs" />
+    <Compile Include="Domain\Security\Validation\MustNotBeRedeemedConfirmationToken.cs" />
     <Compile Include="Domain\Security\Validation\MustNotBeUnverifiedEmail.cs" />
     <Compile Include="Domain\Security\Validation\MustBeVerifiedConfirmationSecret.cs" />
     <Compile Include="Domain\Security\Validation\MustBeValidPassword.cs" />
@@ -163,8 +168,8 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Domain\Security\MailMessages\CreatePassword.Body.txt" />
-    <EmbeddedResource Include="Domain\Security\MailMessages\CreatePassword.Subject.txt" />
+    <EmbeddedResource Include="Domain\Security\MailMessages\CreateLocalUser.Body.txt" />
+    <EmbeddedResource Include="Domain\Security\MailMessages\CreateLocalUser.Subject.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

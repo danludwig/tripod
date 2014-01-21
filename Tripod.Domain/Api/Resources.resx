@@ -226,15 +226,18 @@
     <value>Could not find {PropertyName} '{PropertyValue}'.</value>
   </data>
   <data name="Validation_EmailConfirmationSecret_IsWrong" xml:space="preserve">
-    <value>'{PropertyValue}' is not the correct secret code. Were you sent multiple emails?</value>
+    <value>'{PropertyValue}' is not the correct {PropertyName}. Were you sent multiple emails?</value>
   </data>
   <data name="Validation_EmailConfirmationTicket_IsExpired" xml:space="preserve">
-    <value>This email confirmation code has expired. Please start this process over to try again.</value>
+    <value>This {PropertyName} has expired. Please start this process over to try again.</value>
   </data>
   <data name="Validation_EmailConfirmationTicket_IsRedeemed" xml:space="preserve">
-    <value>This email confirmation code has already been used. Are you sure you still need to confirm?</value>
+    <value>This {PropertyName} has already been used. Are you sure you haven't done this already?</value>
   </data>
   <data name="Validation_EmailConfirmationTicket_IsWrongPurpose" xml:space="preserve">
-    <value>This email confirmation code cannot be used for this purpose.</value>
+    <value>This {PropertyName} cannot be used for this purpose.</value>
+  </data>
+  <data name="Validation_DoesNotExist_NoValue" xml:space="preserve">
+    <value>{PropertyName} does not exist.</value>
   </data>
 </root>

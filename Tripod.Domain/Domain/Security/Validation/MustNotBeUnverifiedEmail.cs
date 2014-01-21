@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq.Expressions;
 using FluentValidation;
 using FluentValidation.Validators;
 
@@ -10,7 +11,7 @@ namespace Tripod.Domain.Security
         private readonly IProcessQueries _queries;
 
         internal MustNotBeUnverifiedEmail(Func<T, string> token, IProcessQueries queries)
-            : base(() => Resources.Validation_EmailConfirmationTicket_IsWrongPurpose)
+            : base(() => "You cannot use the email address '{PropertyValue}' for your {PropertyName}.")
         {
             if (token == null) throw new ArgumentNullException("token");
             if (queries == null) throw new ArgumentNullException("queries");
@@ -21,11 +22,24 @@ namespace Tripod.Domain.Security
         protected override bool IsValid(PropertyValidatorContext context)
         {
             var userName = (string)context.PropertyValue;
+            if (string.IsNullOrWhiteSpace(userName)) return true;
+
+            if (!EmailAddress.ValueRegex.IsMatch(userName)) return true;
+
             var token = _token((T)context.Instance);
-            //if (string.IsNullOrWhiteSpace(ticket)) return true;
-            //var entity = _queries.Execute(new EmailConfirmationBy(ticket)).Result;
-            //if (entity == null) return true;
-            //return entity.Purpose == purpose;
+            var userToken = _queries.Execute(new EmailConfirmationUserToken(token)).Result;
+            if (userToken == null) return true;
+            var confirmation = _queries.Execute(new EmailConfirmationBy(userToken.Value)
+            {
+                EagerLoad = new Expression<Func<EmailConfirmation, object>>[]
+                {
+                    x => x.Owner,
+                },
+            }).Result;
+            if (confirmation == null) return true;
+            if (confirmation.Owner.Value.Equals(userName, StringComparison.OrdinalIgnoreCase)) return true;
+
+            context.MessageFormatter.AppendArgument("PropertyName", User.Constraints.NameLabel.ToLower());
             return false;
         }
     }

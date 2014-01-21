@@ -29,7 +29,7 @@ namespace Tripod.Domain.Security
                 .MustNotBeExpiredConfirmationTicket(queries)
                 .MustNotBeRedeemedConfirmationTicket(queries)
                 .MustBePurposedConfirmationTicket(x => x.Purpose, queries)
-                    .WithName(EmailConfirmation.Constraints.TicketLabel);
+                    .WithName(EmailConfirmation.Constraints.Label);
 
             RuleFor(x => x.Secret)
                 .NotEmpty()

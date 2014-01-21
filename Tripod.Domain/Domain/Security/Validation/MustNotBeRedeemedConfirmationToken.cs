@@ -4,12 +4,12 @@ using FluentValidation.Validators;
 
 namespace Tripod.Domain.Security
 {
-    public class MustNotBeExpiredConfirmationTicket : PropertyValidator
+    public class MustNotBeRedeemedConfirmationToken : PropertyValidator
     {
         private readonly IProcessQueries _queries;
 
-        internal MustNotBeExpiredConfirmationTicket(IProcessQueries queries)
-            : base(() => Resources.Validation_EmailConfirmationTicket_IsExpired)
+        internal MustNotBeRedeemedConfirmationToken(IProcessQueries queries)
+            : base(() => Resources.Validation_EmailConfirmationTicket_IsRedeemed)
         {
             if (queries == null) throw new ArgumentNullException("queries");
             _queries = queries;
@@ -17,23 +17,27 @@ namespace Tripod.Domain.Security
 
         protected override bool IsValid(PropertyValidatorContext context)
         {
-            var ticket = (string)context.PropertyValue;
+            var token = (string)context.PropertyValue;
+            var userToken = _queries.Execute(new EmailConfirmationUserToken(token)).Result;
+            if (userToken == null) return true;
+            var ticket = userToken.Value;
+
             if (string.IsNullOrWhiteSpace(ticket)) return true;
             var entity = _queries.Execute(new EmailConfirmationBy(ticket)).Result;
             if (entity == null) return true;
-            if (entity.ExpiresOnUtc >= DateTime.UtcNow) return true;
+            if (!entity.RedeemedOnUtc.HasValue) return true;
 
             context.MessageFormatter.AppendArgument("PropertyName", context.PropertyDescription.ToLower());
             return false;
         }
     }
 
-    public static class MustNotBeExpiredConfirmationTicketExtensions
+    public static class MustNotBeRedeemedConfirmationTokenExtensions
     {
-        public static IRuleBuilderOptions<T, string> MustNotBeExpiredConfirmationTicket<T>
+        public static IRuleBuilderOptions<T, string> MustNotBeRedeemedConfirmationToken<T>
             (this IRuleBuilder<T, string> ruleBuilder, IProcessQueries queries)
         {
-            return ruleBuilder.SetValidator(new MustNotBeExpiredConfirmationTicket(queries));
+            return ruleBuilder.SetValidator(new MustNotBeRedeemedConfirmationToken(queries));
         }
     }
 }

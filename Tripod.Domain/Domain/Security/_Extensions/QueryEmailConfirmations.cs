@@ -33,7 +33,7 @@ namespace Tripod.Domain.Security
 
         private static Expression<Func<EmailConfirmation, bool>> ByTicket(string ticket)
         {
-            return x => x.Ticket == ticket;
+            return x => x.Ticket.Equals(ticket, StringComparison.Ordinal);
         }
 
         #endregion

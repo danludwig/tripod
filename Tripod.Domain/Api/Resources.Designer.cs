@@ -286,7 +286,16 @@ namespace Tripod {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &apos;{PropertyValue}&apos; is not the correct secret code. Were you sent multiple emails?.
+        ///   Looks up a localized string similar to {PropertyName} does not exist..
+        /// </summary>
+        public static string Validation_DoesNotExist_NoValue {
+            get {
+                return ResourceManager.GetString("Validation_DoesNotExist_NoValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &apos;{PropertyValue}&apos; is not the correct {PropertyName}. Were you sent multiple emails?.
         /// </summary>
         public static string Validation_EmailConfirmationSecret_IsWrong {
             get {
@@ -295,7 +304,7 @@ namespace Tripod {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This email confirmation code has expired. Please start this process over to try again..
+        ///   Looks up a localized string similar to This {PropertyName} has expired. Please start this process over to try again..
         /// </summary>
         public static string Validation_EmailConfirmationTicket_IsExpired {
             get {
@@ -304,7 +313,7 @@ namespace Tripod {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This email confirmation code has already been used. Are you sure you still need to confirm?.
+        ///   Looks up a localized string similar to This {PropertyName} has already been used. Are you sure you haven&apos;t done this already?.
         /// </summary>
         public static string Validation_EmailConfirmationTicket_IsRedeemed {
             get {
@@ -313,7 +322,7 @@ namespace Tripod {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This email confirmation code cannot be used for this purpose..
+        ///   Looks up a localized string similar to This {PropertyName} cannot be used for this purpose..
         /// </summary>
         public static string Validation_EmailConfirmationTicket_IsWrongPurpose {
             get {
