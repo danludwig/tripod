@@ -414,6 +414,7 @@ body {
         .tooltip-inner {
             text-align: left;
             background-color: $danger-color;
+            max-width: initial;
         }
         .tooltip.right .tooltip-arrow {
             border-right-color: $danger-color;

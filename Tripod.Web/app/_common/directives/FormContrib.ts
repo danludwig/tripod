@@ -17,7 +17,7 @@ module App.Directives.FormContrib {
 
     //#region Directive
 
-    var directiveFactory = (): any[]=> {
+    var directiveFactory = (): any[] => {
         // inject parse service
         return ['$parse', ($parse: ng.IParseService): ng.IDirective => {
             var d: ng.IDirective = {

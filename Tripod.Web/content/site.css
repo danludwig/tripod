@@ -352,54 +352,55 @@ body .validation.help-block .popover-content {
 /* line 414, ../compass/site.scss */
 body .validation.help-block .tooltip-inner {
   text-align: left;
-  background-color: #b94a48; }
-/* line 418, ../compass/site.scss */
+  background-color: #b94a48;
+  max-width: initial; }
+/* line 419, ../compass/site.scss */
 body .validation.help-block .tooltip.right .tooltip-arrow {
   border-right-color: #b94a48; }
 
 /* form elements */
-/* line 425, ../compass/site.scss */
+/* line 426, ../compass/site.scss */
 body {
   /* checkbox treatments */
   /* show not-allowed cursor on disabled elements */
   /* hide padding on image buttons */ }
-  /* line 427, ../compass/site.scss */
+  /* line 428, ../compass/site.scss */
   body .form-control .checkbox {
     /* when a checkbox is nested within a form-control (which is also probably nested within an input-group),
     remove the top padding, since the form-control provides padding already */
     padding-top: 0; }
-  /* line 432, ../compass/site.scss */
+  /* line 433, ../compass/site.scss */
   body input[type=checkbox] {
     /* make checkboxes use pointer cursor to match up with their labels */
     cursor: pointer; }
-  /* line 438, ../compass/site.scss */
+  /* line 439, ../compass/site.scss */
   body [disabled], body .btn[disabled] {
     pointer-events: auto;
     cursor: not-allowed; }
-  /* line 444, ../compass/site.scss */
+  /* line 445, ../compass/site.scss */
   body input[type=image].btn {
     padding: 0;
     border: 0; }
 
 /* error page styles */
-/* line 452, ../compass/site.scss */
+/* line 453, ../compass/site.scss */
 body .danger.jumbotron {
   background-color: #f2dede;
   border-radius: 0; }
 
 /* VS starter template styles */
-/* line 460, ../compass/site.scss */
+/* line 461, ../compass/site.scss */
 body .validation-summary-errors {
   color: #b94a48; }
-/* line 464, ../compass/site.scss */
+/* line 465, ../compass/site.scss */
 body .validation-summary-valid {
   display: none; }
-/* line 468, ../compass/site.scss */
+/* line 469, ../compass/site.scss */
 body hr {
   border-top-color: #ccc; }
 
 /* deprecated VS starter template styles */
-/* line 474, ../compass/site.scss */
+/* line 475, ../compass/site.scss */
 body {
   /* This was included by the VS starter template, but we don't want it.
   Instead, we want to let bootstrap size the form elements at 100% and

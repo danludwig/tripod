@@ -11,7 +11,7 @@ module App.Directives.ServerValidate {
 
     //#region Directive
 
-    var directiveFactory = (): any[]=> {
+    var directiveFactory = (): any[] => {
         // inject services
         return ['$http', '$timeout', '$interval', '$parse', ($http: ng.IHttpService, $timeout: ng.ITimeoutService, $interval: ng.IIntervalService, $parse: ng.IParseService): ng.IDirective => {
             var d: ng.IDirective = {

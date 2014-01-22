@@ -40,6 +40,7 @@ namespace Tripod.Web
                       "~/app/_common/directives/ServerError.js",
                       "~/app/_common/directives/ServerValidate.js",
                       "~/app/_common/directives/SubmitAction.js",
+                      "~/app/_common/directives/MustEqual.js",
                       "~/app/_common/modules/Tripod.js"));
 
             bundles.Add(new StyleBundle("~/content/css").Include(

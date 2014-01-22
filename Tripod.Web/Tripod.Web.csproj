@@ -295,6 +295,9 @@
     <Content Include="app\security\sign-up\EmailForm.js">
       <DependentUpon>EmailForm.ts</DependentUpon>
     </Content>
+    <Content Include="app\security\sign-up\PasswordForm.js">
+      <DependentUpon>PasswordForm.ts</DependentUpon>
+    </Content>
     <Content Include="app\_common\directives\FormContrib.js">
       <DependentUpon>FormContrib.ts</DependentUpon>
     </Content>
@@ -303,6 +306,9 @@
     </Content>
     <Content Include="app\_common\directives\ModelContrib.js">
       <DependentUpon>ModelContrib.ts</DependentUpon>
+    </Content>
+    <Content Include="app\_common\directives\MustEqual.js">
+      <DependentUpon>MustEqual.ts</DependentUpon>
     </Content>
     <Content Include="app\_common\directives\RemoveCssClass.js">
       <DependentUpon>RemoveCssClass.ts</DependentUpon>
@@ -733,12 +739,14 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="app\errors\Haikus.ts" />
+    <TypeScriptCompile Include="app\security\sign-up\PasswordForm.ts" />
     <TypeScriptCompile Include="app\security\sign-up\ConfirmForm.ts" />
     <TypeScriptCompile Include="app\security\sign-up\EmailForm.ts" />
     <TypeScriptCompile Include="app\security\sign-in\Form.ts" />
     <TypeScriptCompile Include="app\_common\api\ViewModelScope.d.ts" />
     <TypeScriptCompile Include="app\_common\api\ValidationModels.d.ts" />
     <TypeScriptCompile Include="app\_common\directives\DirectiveSettings.d.ts" />
+    <TypeScriptCompile Include="app\_common\directives\MustEqual.ts" />
     <TypeScriptCompile Include="app\_common\directives\TooltipToggle.ts" />
     <TypeScriptCompile Include="app\_common\directives\FormContrib.ts" />
     <TypeScriptCompile Include="app\_common\directives\ModelContrib.ts" />
