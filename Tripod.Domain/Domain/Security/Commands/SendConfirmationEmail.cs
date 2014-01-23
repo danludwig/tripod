@@ -117,6 +117,9 @@ namespace Tripod.Domain.Security
             };
             _entities.Create(message);
 
+            // link the message to the confirmation
+            confirmation.Message = message;
+
             await _entities.SaveChangesAsync();
 
             _mail.Deliver(message.Id);

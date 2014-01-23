@@ -11,7 +11,7 @@ using System.Data.Entity.Infrastructure.MappingViews;
 
 [assembly: DbMappingViewCacheTypeAttribute(
     typeof(Tripod.Ioc.EntityFramework.EntityDbContext),
-    typeof(Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySetsbcdc4fe7a9bee5311e1f0909847026410f308ddd497e0b61b3e36f38b395c560))]
+    typeof(Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySetsad2764c32c08ec3ceaf324636e16256b27c34397777f20c32d756f3bae0cc2c9))]
 
 namespace Edm_EntityMappingGeneratedViews
 {
@@ -23,14 +23,14 @@ namespace Edm_EntityMappingGeneratedViews
     /// Implements a mapping view cache.
     /// </summary>
     [GeneratedCode("Entity Framework Power Tools", "0.9.0.0")]
-    internal sealed class ViewsForBaseEntitySetsbcdc4fe7a9bee5311e1f0909847026410f308ddd497e0b61b3e36f38b395c560 : DbMappingViewCache
+    internal sealed class ViewsForBaseEntitySetsad2764c32c08ec3ceaf324636e16256b27c34397777f20c32d756f3bae0cc2c9 : DbMappingViewCache
     {
         /// <summary>
         /// Gets a hash value computed over the mapping closure.
         /// </summary>
         public override string MappingHashValue
         {
-            get { return "bcdc4fe7a9bee5311e1f0909847026410f308ddd497e0b61b3e36f38b395c560"; }
+            get { return "ad2764c32c08ec3ceaf324636e16256b27c34397777f20c32d756f3bae0cc2c9"; }
         }
 
         /// <summary>

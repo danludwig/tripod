@@ -17,8 +17,10 @@ var App;
                                     return;
 
                                 var other = $parse(attr[MustEqual.directiveName]);
+                                var condition = $parse(attr[MustEqual.directiveName + 'When']);
                                 var validator = function (value) {
-                                    var otherValue = other(scope);
+                                    var conditionTest = condition(scope);
+                                    var otherValue = conditionTest ? other(scope) : value;
                                     var isValid = value === otherValue || ctrl.$error.required;
                                     ctrl.$setValidity('equal', isValid);
                                     return value;
@@ -29,6 +31,9 @@ var App;
                                 attr.$observe(MustEqual.directiveName, function () {
                                     validator(ctrl.$viewValue);
                                 });
+                                scope.$watch(attr[MustEqual.directiveName + 'When'], function (value) {
+                                    validator(ctrl.$viewValue);
+                                }, true);
                             }
                         };
                         return d;

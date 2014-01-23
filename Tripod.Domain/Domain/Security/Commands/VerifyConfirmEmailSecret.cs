@@ -26,8 +26,8 @@ namespace Tripod.Domain.Security
             RuleFor(x => x.Ticket)
                 .NotEmpty()
                 .MustFindEmailConfirmationByTicket(queries)
-                .MustNotBeExpiredConfirmEmailTicket(queries)
                 .MustNotBeRedeemedConfirmEmailTicket(queries)
+                .MustNotBeExpiredConfirmEmailTicket(queries)
                 .MustBePurposedConfirmEmailTicket(x => x.Purpose, queries)
                     .WithName(EmailConfirmation.Constraints.Label);
 

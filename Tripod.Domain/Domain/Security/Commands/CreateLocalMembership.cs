@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Data.Entity;
+using System.Linq;
 using System.Security.Principal;
 using System.Threading.Tasks;
 using FluentValidation;
@@ -51,8 +53,8 @@ namespace Tripod.Domain.Security
                 .NotEmpty()
                 .MustBeValidConfirmEmailToken(queries)
                 .MustFindEmailConfirmationByToken(queries)
-                .MustNotBeExpiredConfirmEmailToken(queries)
                 .MustNotBeRedeemedConfirmEmailToken(queries)
+                .MustNotBeExpiredConfirmEmailToken(queries)
                 .MustBePurposedConfirmEmailToken(x => EmailConfirmationPurpose.CreateLocalUser, queries)
                 .WithName(EmailConfirmation.Constraints.Label)
                     .When(x => !x.Principal.Identity.IsAuthenticated);
@@ -83,7 +85,24 @@ namespace Tripod.Domain.Security
                 await _commands.Execute(createUser);
                 user = createUser.Created;
 
-                // todo: confirm & associate email address
+                // confirm & associate email address
+                var userToken = _userManager.UserConfirmationTokens.Validate(command.Token);
+                var confirmation = await _entities.Get<EmailConfirmation>()
+                    .EagerLoad(x => x.Owner)
+                    .ByTicketAsync(userToken.Value, false);
+                var email = confirmation.Owner;
+                confirmation.RedeemedOnUtc = DateTime.UtcNow;
+                email.IsConfirmed = true;
+                email.IsDefault = true;
+                email.Owner = user;
+
+                // expire unused confirmations
+                var unusedConfirmations = await _entities.Get<EmailConfirmation>()
+                    .ByOwnerValue(email.Value)
+                    .ToArrayAsync()
+                ;
+                foreach (var unusedConfirmation in unusedConfirmations.Except(new[] { confirmation }))
+                    unusedConfirmation.RedeemedOnUtc = unusedConfirmation.ExpiresOnUtc;
             }
 
             user.LocalMembership = new LocalMembership

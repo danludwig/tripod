@@ -21,9 +21,11 @@ var App;
                                 var validateUrl = attr[ServerValidate.directiveName];
                                 var validateThrottleAttr = attr[ServerValidate.directiveName + 'Throttle'];
                                 var validateDataAttr = attr[ServerValidate.directiveName + 'Data'];
+                                var validateCacheAttr = attr[ServerValidate.directiveName + 'Cache'];
                                 var fieldName = attr['name'];
 
                                 var throttle = isNaN(parseInt(validateThrottleAttr)) ? 0 : parseInt(validateThrottleAttr);
+                                var validateCache = angular.lowercase(validateCacheAttr) === 'false' ? false : true;
                                 var throttlePromise;
                                 var lastAttempt;
                                 var initialValue;
@@ -149,7 +151,7 @@ var App;
                                         return;
 
                                     var attempt = getAttempt(value);
-                                    if (attempt && attempt.result) {
+                                    if (attempt && attempt.result && validateCache) {
                                         lastAttempt = attempt;
                                         setValidity(attempt);
                                         return;

@@ -37,5 +37,23 @@ namespace Tripod.Domain.Security
         }
 
         #endregion
+        #region ByOwnerValue
+
+        public static IQueryable<EmailConfirmation> ByOwnerValue(this IQueryable<EmailConfirmation> set, string ownerValue)
+        {
+            return set.Where(ByOwnerValue(ownerValue));
+        }
+
+        public static IEnumerable<EmailConfirmation> ByOwnerValue(this IEnumerable<EmailConfirmation> set, string ownerValue)
+        {
+            return set.AsQueryable().ByOwnerValue(ownerValue);
+        }
+
+        private static Expression<Func<EmailConfirmation, bool>> ByOwnerValue(string ownerValue)
+        {
+            return x => x.Owner.Value.Equals(ownerValue, StringComparison.OrdinalIgnoreCase);
+        }
+
+        #endregion
     }
 }

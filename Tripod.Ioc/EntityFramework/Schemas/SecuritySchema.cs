@@ -66,6 +66,7 @@ namespace Tripod.Ioc.EntityFramework
             Property(x => x.Ticket).HasMaxLength(EmailConfirmation.Constraints.TicketMaxLength);
 
             HasRequired(x => x.Owner).WithMany().HasForeignKey(x => x.OwnerId).WillCascadeOnDelete();
+            HasRequired(x => x.Message).WithOptional().WillCascadeOnDelete(false);
         }
     }
 

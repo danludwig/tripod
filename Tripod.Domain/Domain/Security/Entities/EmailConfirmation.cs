@@ -16,6 +16,8 @@ namespace Tripod.Domain.Security
         public DateTime? RedeemedOnUtc { get; protected internal set; }
         public EmailConfirmationPurpose Purpose { get; protected internal set; }
 
+        public virtual EmailMessage Message { get; protected internal set; }
+
         public static class Constraints
         {
             public const string Label = "Email confirmation";

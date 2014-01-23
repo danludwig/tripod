@@ -14,8 +14,10 @@ module App.Directives.MustEqual {
                     if (!ctrl || !attr[directiveName]) return;
 
                     var other = $parse(attr[directiveName]);
+                    var condition = $parse(attr[directiveName + 'When']);
                     var validator = (value: any): any => {
-                        var otherValue = other(scope);
+                        var conditionTest = condition(scope);
+                        var otherValue = conditionTest ? other(scope) : value;
                         var isValid = value === otherValue || ctrl.$error.required;
                         ctrl.$setValidity('equal', isValid);
                         return value;
@@ -26,6 +28,9 @@ module App.Directives.MustEqual {
                     attr.$observe(directiveName, (): void => {
                         validator(ctrl.$viewValue);
                     });
+                    scope.$watch(attr[directiveName + 'When'], (value: any) => {
+                        validator(ctrl.$viewValue);
+                    }, true);
                 }
             };
             return d;

@@ -144,21 +144,28 @@ namespace Tripod.Web.Controllers
             if (command == null || string.IsNullOrWhiteSpace(emailAddress))
                 return View(MVC.Errors.Views.BadRequest);
 
-            //var userToken = await _queries.Execute(new EmailConfirmationUserToken(command.Token));
-            //if (userToken == null) return HttpNotFound();
-            //var confirmation = await _queries.Execute(new EmailConfirmationBy(userToken.Value));
-            //if (confirmation == null) return HttpNotFound();
-            //command.Token = "Y" + command.Token.Substring(1);
+            if (!ModelState.IsValid)
+            {
+                ViewBag.EmailAddress = emailAddress;
+                ViewBag.Token = command.Token;
+                return View(MVC.Authentication.Views.CreatePassword, command);
+            }
 
-            ViewBag.EmailAddress = emailAddress;
-            ViewBag.Token = command.Token;
-            return View(MVC.Authentication.Views.CreatePassword, command);
+            await _commands.Execute(command);
+
+            await _commands.Execute(new SignIn
+            {
+                UserName = command.UserName,
+                Password = command.Password
+            });
+            return RedirectToAction(MVC.Home.Index());
         }
 
         [HttpPost, Route("sign-up/password/validate/{fieldName?}")]
         public virtual ActionResult PasswordValidate(CreateLocalMembership command, string fieldName = null)
         {
             //System.Threading.Thread.Sleep(new Random().Next(5000, 5001));
+
             if (command == null)
             {
                 Response.StatusCode = 400;
@@ -167,7 +174,7 @@ namespace Tripod.Web.Controllers
 
             var result = new ValidatedFields(ModelState, fieldName);
 
-            //ModelState[command.PropertyName(x => x.EmailAddress)].Errors.Clear();
+            //ModelState[command.PropertyName(x => x.UserName)].Errors.Clear();
             //result = new ValidatedFields(ModelState, fieldName);
 
             return new CamelCaseJsonResult(result);

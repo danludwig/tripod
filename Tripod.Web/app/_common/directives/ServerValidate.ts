@@ -30,10 +30,12 @@ module App.Directives.ServerValidate {
                     var validateUrl = attr[directiveName];
                     var validateThrottleAttr: string = attr[directiveName + 'Throttle'];
                     var validateDataAttr: string = attr[directiveName + 'Data'];
+                    var validateCacheAttr: string = attr[directiveName + 'Cache'];
                     var fieldName = attr['name'];
 
                     // set up variables
                     var throttle = isNaN(parseInt(validateThrottleAttr)) ? 0 : parseInt(validateThrottleAttr);
+                    var validateCache = angular.lowercase(validateCacheAttr) === 'false' ? false : true;
                     var throttlePromise: ng.IPromise<void>;
                     var lastAttempt: ServerValidateAttempt;
                     var initialValue: string;
@@ -176,7 +178,7 @@ module App.Directives.ServerValidate {
 
                             // if this value has already been attempted and returned a result, skip promise
                             var attempt = getAttempt(value);
-                            if (attempt && attempt.result) { // when the attempt has a server result
+                            if (attempt && attempt.result && validateCache) { // when the attempt has a server result
                                 lastAttempt = attempt;
                                 setValidity(attempt);
                                 return;
