@@ -25,5 +25,12 @@ namespace Tripod.Web.Controllers
 
             return View();
         }
+
+        [Permit(Roles = "nooneisinthisrole")]
+        [HttpGet, Route("admin")]
+        public virtual ActionResult Admin()
+        {
+            return View();
+        }
     }
 }

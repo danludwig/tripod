@@ -89,6 +89,7 @@ namespace Tripod.Web.Controllers
         public class ActionParamsClass_Index
         {
             public readonly string ticket = "ticket";
+            public readonly string returnUrl = "returnUrl";
             public readonly string command = "command";
             public readonly string emailAddress = "emailAddress";
         }
@@ -120,25 +121,27 @@ namespace Tripod.Web.Controllers
     {
         public T4MVC_SignUpSecretController() : base(Dummy.Instance) { }
 
-        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ticket);
+        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ticket, string returnUrl);
 
-        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Index(string ticket)
+        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Index(string ticket, string returnUrl)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ticket", ticket);
-            IndexOverride(callInfo, ticket);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "returnUrl", returnUrl);
+            IndexOverride(callInfo, ticket, returnUrl);
             return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
         }
 
-        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ticket, Tripod.Domain.Security.VerifyConfirmEmailSecret command, string emailAddress);
+        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ticket, Tripod.Domain.Security.VerifyConfirmEmailSecret command, string returnUrl, string emailAddress);
 
-        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Index(string ticket, Tripod.Domain.Security.VerifyConfirmEmailSecret command, string emailAddress)
+        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Index(string ticket, Tripod.Domain.Security.VerifyConfirmEmailSecret command, string returnUrl, string emailAddress)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ticket", ticket);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "command", command);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "returnUrl", returnUrl);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "emailAddress", emailAddress);
-            IndexOverride(callInfo, ticket, command, emailAddress);
+            IndexOverride(callInfo, ticket, command, returnUrl, emailAddress);
             return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
         }
 

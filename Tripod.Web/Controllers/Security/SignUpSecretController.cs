@@ -21,7 +21,7 @@ namespace Tripod.Web.Controllers
         }
 
         [HttpGet, Route("sign-up/{ticket}")]
-        public virtual async Task<ActionResult> Index(string ticket)
+        public virtual async Task<ActionResult> Index(string ticket, string returnUrl)
         {
             var confirmation = await _queries.Execute(new EmailConfirmationBy(ticket)
             {
@@ -34,6 +34,7 @@ namespace Tripod.Web.Controllers
 
             // todo: confirmation token must not be redeemed, expired, or for different purpose
 
+            ViewBag.ReturnUrl = returnUrl;
             ViewBag.Ticket = ticket;
             ViewBag.Purpose = EmailConfirmationPurpose.CreateLocalUser;
             if (Session.ConfirmEmailTickets().Contains(ticket))
@@ -43,7 +44,7 @@ namespace Tripod.Web.Controllers
 
         [ValidateAntiForgeryToken]
         [HttpPost, Route("sign-up/{ticket}")]
-        public virtual async Task<ActionResult> Index(string ticket, VerifyConfirmEmailSecret command, string emailAddress = null)
+        public virtual async Task<ActionResult> Index(string ticket, VerifyConfirmEmailSecret command, string returnUrl, string emailAddress)
         {
             //System.Threading.Thread.Sleep(new Random().Next(5000, 5001));
 
@@ -51,6 +52,7 @@ namespace Tripod.Web.Controllers
 
             if (!ModelState.IsValid)
             {
+                ViewBag.ReturnUrl = returnUrl;
                 ViewBag.Ticket = ticket;
                 ViewBag.Purpose = EmailConfirmationPurpose.CreateLocalUser;
                 if (Session.ConfirmEmailTickets().Contains(ticket))
@@ -60,7 +62,7 @@ namespace Tripod.Web.Controllers
 
             await _commands.Execute(command);
 
-            return RedirectToAction(await MVC.SignUpUser.Index(command.Token));
+            return RedirectToAction(await MVC.SignUpUser.Index(command.Token, returnUrl));
         }
 
         [HttpPost, Route("sign-up/{ticket}/validate/{fieldName?}")]

@@ -31,7 +31,7 @@ var App;
                                 attr.$observe(MustEqual.directiveName, function () {
                                     validator(ctrl.$viewValue);
                                 });
-                                scope.$watch(attr[MustEqual.directiveName + 'When'], function (value) {
+                                scope.$watch(attr[MustEqual.directiveName + 'When'], function () {
                                     validator(ctrl.$viewValue);
                                 }, true);
                             }

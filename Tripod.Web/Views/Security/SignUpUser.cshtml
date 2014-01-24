@@ -28,7 +28,7 @@
 
 <form role="form"
       method="POST"
-      action="@Url.Action(MVC.SignUpUser.Index(null as CreateLocalMembership))"
+      action="@Url.Action(MVC.SignUpUser.Index(null, null, null))"
       novalidate
       ng-app="sign-up-password-form"
       ng-controller="App.Security.SignUpUserForm.Controller"
@@ -38,6 +38,8 @@
       class="form-horizontal">
 
     @Html.AntiForgeryToken()
+
+    <input type="hidden" name="returnUrl" value="@ViewBag.ReturnUrl" />
 
     @Html.ValidationSummary(true)
     @{

@@ -28,7 +28,7 @@ var App;
                                 var validateCache = angular.lowercase(validateCacheAttr) === 'false' ? false : true;
                                 var throttlePromise;
                                 var lastAttempt;
-                                var initialValue;
+                                var initialValue, isInitialValueSet = false;
 
                                 var unexpectedError = 'An unexpected validation error has occurred.';
                                 var configurationError = 'This field\'s remote validation is not properly configured.';
@@ -135,8 +135,10 @@ var App;
                                 });
 
                                 scope.$watch(function () {
-                                    if (angular.isUndefined(initialValue))
+                                    if (!isInitialValueSet) {
                                         initialValue = modelCtrl.$viewValue;
+                                        isInitialValueSet = true;
+                                    }
                                     return modelCtrl.$viewValue;
                                 }, function (value) {
                                     if (throttlePromise)

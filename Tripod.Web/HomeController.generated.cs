@@ -63,6 +63,7 @@ namespace Tripod.Web.Controllers
             public readonly string Index = "Index";
             public readonly string About = "About";
             public readonly string Contact = "Contact";
+            public readonly string Admin = "Admin";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -71,6 +72,7 @@ namespace Tripod.Web.Controllers
             public const string Index = "Index";
             public const string About = "About";
             public const string Contact = "Contact";
+            public const string Admin = "Admin";
         }
 
 
@@ -85,10 +87,12 @@ namespace Tripod.Web.Controllers
             public class _ViewNamesClass
             {
                 public readonly string About = "About";
+                public readonly string Admin = "Admin";
                 public readonly string Contact = "Contact";
                 public readonly string Index = "Index";
             }
             public readonly string About = "~/Views/Home/About.cshtml";
+            public readonly string Admin = "~/Views/Home/Admin.cshtml";
             public readonly string Contact = "~/Views/Home/Contact.cshtml";
             public readonly string Index = "~/Views/Home/Index.cshtml";
         }
@@ -123,6 +127,15 @@ namespace Tripod.Web.Controllers
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Contact);
             ContactOverride(callInfo);
+            return callInfo;
+        }
+
+        partial void AdminOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        public override System.Web.Mvc.ActionResult Admin()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Admin);
+            AdminOverride(callInfo);
             return callInfo;
         }
 

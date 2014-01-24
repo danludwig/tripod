@@ -5,7 +5,7 @@
     var columnWidth = Model.EmailProvidersOnly ? "col-sm-6" : "col-sm-4";
 }
 
-<form action="@Url.Action(MVC.Authentication.ExternalLogin())" method="POST" class="providers row">
+<form action="@Url.Action(MVC.SignOn.Index())" method="POST" class="providers row">
 
     @Html.AntiForgeryToken()
 

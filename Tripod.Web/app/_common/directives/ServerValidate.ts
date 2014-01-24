@@ -38,7 +38,7 @@ module App.Directives.ServerValidate {
                     var validateCache = angular.lowercase(validateCacheAttr) === 'false' ? false : true;
                     var throttlePromise: ng.IPromise<void>;
                     var lastAttempt: ServerValidateAttempt;
-                    var initialValue: string;
+                    var initialValue: string, isInitialValueSet = false;
 
                     var unexpectedError = 'An unexpected validation error has occurred.';
                     var configurationError = 'This field\'s remote validation is not properly configured.';
@@ -158,8 +158,10 @@ module App.Directives.ServerValidate {
 
                     scope.$watch(
                         (): any => {
-                            if (angular.isUndefined(initialValue))
+                            if (!isInitialValueSet) {
                                 initialValue = modelCtrl.$viewValue;
+                                isInitialValueSet = true;
+                            }
                             return modelCtrl.$viewValue;
                         },
                         (value: string): void => {

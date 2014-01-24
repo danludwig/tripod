@@ -43,6 +43,12 @@ namespace Tripod.Web.Controllers
 
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ViewResult Index()
+        {
+            return new T4MVC_System_Web_Mvc_ViewResult(Area, Name, ActionNames.Index);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public virtual System.Web.Mvc.ActionResult Validate()
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Validate);
@@ -81,8 +87,8 @@ namespace Tripod.Web.Controllers
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionParamsClass_Index
         {
-            public readonly string command = "command";
             public readonly string returnUrl = "returnUrl";
+            public readonly string command = "command";
             public readonly string loginProvider = "loginProvider";
         }
         static readonly ActionParamsClass_Validate s_params_Validate = new ActionParamsClass_Validate();
@@ -113,12 +119,13 @@ namespace Tripod.Web.Controllers
     {
         public T4MVC_SignUpEmailController() : base(Dummy.Instance) { }
 
-        partial void IndexOverride(T4MVC_System_Web_Mvc_ViewResult callInfo);
+        partial void IndexOverride(T4MVC_System_Web_Mvc_ViewResult callInfo, string returnUrl);
 
-        public override System.Web.Mvc.ViewResult Index()
+        public override System.Web.Mvc.ViewResult Index(string returnUrl)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ViewResult(Area, Name, ActionNames.Index);
-            IndexOverride(callInfo);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "returnUrl", returnUrl);
+            IndexOverride(callInfo, returnUrl);
             return callInfo;
         }
 

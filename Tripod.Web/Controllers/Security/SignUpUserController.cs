@@ -18,7 +18,7 @@ namespace Tripod.Web.Controllers
         }
 
         [HttpGet, Route("sign-up/password")]
-        public virtual async Task<ActionResult> Index(string token)
+        public virtual async Task<ActionResult> Index(string token, string returnUrl)
         {
             var userToken = await _queries.Execute(new EmailConfirmationUserToken(token));
             if (userToken == null) return HttpNotFound();
@@ -27,14 +27,15 @@ namespace Tripod.Web.Controllers
 
             // todo: confirmation cannot be expired, redeemed, or for different purpose
 
-            ViewBag.EmailAddress = confirmation.Owner.Value;
             ViewBag.Token = token;
+            ViewBag.ReturnUrl = returnUrl;
+            ViewBag.EmailAddress = confirmation.Owner.Value;
             return View(MVC.Security.Views.SignUpUser);
         }
 
         [ValidateAntiForgeryToken]
         [HttpPost, Route("sign-up/password")]
-        public virtual async Task<ActionResult> Index(CreateLocalMembership command, string emailAddress = null)
+        public virtual async Task<ActionResult> Index(CreateLocalMembership command, string returnUrl, string emailAddress)
         {
             //System.Threading.Thread.Sleep(new Random().Next(5000, 5001));
 
@@ -43,8 +44,9 @@ namespace Tripod.Web.Controllers
 
             if (!ModelState.IsValid)
             {
-                ViewBag.EmailAddress = emailAddress;
                 ViewBag.Token = command.Token;
+                ViewBag.ReturnUrl = returnUrl;
+                ViewBag.EmailAddress = emailAddress;
                 return View(MVC.Security.Views.SignUpUser, command);
             }
 
@@ -55,7 +57,7 @@ namespace Tripod.Web.Controllers
                 UserName = command.UserName,
                 Password = command.Password
             });
-            return RedirectToAction(MVC.Home.Index());
+            return this.RedirectToLocal(returnUrl);
         }
 
         [HttpPost, Route("sign-up/password/validate/{fieldName?}")]

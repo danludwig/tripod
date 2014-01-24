@@ -237,6 +237,8 @@
     </Compile>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AuthenticationController.cs" />
+    <Compile Include="Controllers\Security\SignOnController.cs" />
+    <Compile Include="Controllers\Security\SignOnEmailController.cs" />
     <Compile Include="Controllers\Security\SignUpUserController.cs" />
     <Compile Include="Controllers\ErrorsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -253,6 +255,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Helpers\ChallengeResult.cs" />
+    <Compile Include="Helpers\PermitAttribute.cs" />
     <Compile Include="Helpers\ControllerExtensions.cs" />
     <Compile Include="Helpers\HtmlHelpers.cs" />
     <Compile Include="Helpers\JsonNetResult.cs" />
@@ -285,6 +288,12 @@
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="SignInController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SignOnController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SignOnEmailController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="SignUpEmailController.generated.cs">
@@ -703,9 +712,10 @@
     <Content Include="Views\Security\SignUpSecret.cshtml" />
     <Content Include="Views\Security\SignUpUser.cshtml" />
     <Content Include="Views\Security\_SignUpWizard.cshtml" />
-    <Content Include="Views\Account\ExternalLoginConfirmation2.cshtml" />
+    <Content Include="Views\Security\SignOnEmail.cshtml" />
     <Content Include="Views\Scripts\Angular.cshtml" />
     <Content Include="Views\Security\_SignUpEmailForm.cshtml" />
+    <Content Include="Views\Home\Admin.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

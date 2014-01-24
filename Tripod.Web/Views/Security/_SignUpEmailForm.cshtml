@@ -7,7 +7,7 @@
 
 <form role="form"
       method="POST"
-      action="@Url.Action(MVC.SignUpEmail.Index())"
+      action="@ViewBag.ActionUrl"
       class="form-horizontal"
       novalidate
       name="signUpEmailForm"
@@ -18,7 +18,7 @@
 
     @Html.AntiForgeryToken()
     <input type="hidden" name="@Html.NameFor(x => x.ConfirmUrlFormat)" value="@string.Format("{0}://{1}{2}",
-        Request.Url.Scheme, Request.Url.Authority, HttpUtility.UrlDecode(Url.Action(MVC.SignUpUser.Index("{0}"))))" />
+        Request.Url.Scheme, Request.Url.Authority, HttpUtility.UrlDecode(Url.Action(MVC.SignUpUser.Index("{0}", (string)ViewBag.ReturnUrl))))" />
     <input type="hidden" name="@Html.NameFor(x => x.SendFromUrl)" value="@string.Format("{0}://{1}{2}",
         Request.Url.Scheme, Request.Url.Authority, Url.Action(MVC.SignUpEmail.Index()))" />
     <input type="hidden" name="returnUrl" value="@ViewBag.ReturnUrl" />
