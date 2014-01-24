@@ -19,7 +19,7 @@ namespace Tripod.Web.Controllers
         public virtual ActionResult Index(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
-            return View(MVC.Authentication.Views.SignIn);
+            return View(MVC.Security.Views.SignIn);
         }
 
         [ValidateAntiForgeryToken]
@@ -29,7 +29,7 @@ namespace Tripod.Web.Controllers
             //System.Threading.Thread.Sleep(new Random().Next(5000, 5001));
 
             if (command == null) return View(MVC.Errors.Views.BadRequest);
-            if (!ModelState.IsValid) return View(MVC.Authentication.Views.SignIn, command);
+            if (!ModelState.IsValid) return View(MVC.Security.Views.SignIn, command);
             await _commands.Execute(command);
             return this.RedirectToLocal(returnUrl);
         }
