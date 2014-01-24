@@ -6,6 +6,7 @@ namespace Tripod.Web
 {
     public partial class Startup
     {
+        [UsedImplicitly]
         public void Configuration(IAppBuilder app)
         {
             ConfigureAuth(app);

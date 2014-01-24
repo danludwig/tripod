@@ -82,6 +82,7 @@ namespace Tripod
         /// is part of.</typeparam>
         /// <param name="entity">Entity instance whose data state will be replaced using the values currently
         /// saved in the underlying relational data store.</param>
+        [UsedImplicitly]
         void Reload<TEntity>(TEntity entity) where TEntity : Entity;
 
         /// <summary>
@@ -93,6 +94,7 @@ namespace Tripod
         /// <param name="entity">Entity instance whose data state will be replaced using the values currently
         /// saved in the underlying relational data store.</param>
         /// <returns>A task that represents the asynchronous operation.</returns>
+        [UsedImplicitly]
         Task ReloadAsync<TEntity>(TEntity entity) where TEntity : Entity;
     }
 }

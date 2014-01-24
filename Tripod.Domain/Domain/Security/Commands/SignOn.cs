@@ -11,9 +11,10 @@ namespace Tripod.Domain.Security
     {
         public string LoginProvider { get; set; }
         public string ProviderKey { get; set; }
-        public bool IsPersistent { get; set; }
+        public bool IsPersistent { get; [UsedImplicitly] set; }
     }
 
+    [UsedImplicitly]
     public class ValidateSignOnCommand : AbstractValidator<SignOn>
     {
         public ValidateSignOnCommand(IProcessQueries queries)
@@ -30,6 +31,7 @@ namespace Tripod.Domain.Security
         }
     }
 
+    [UsedImplicitly]
     public class HandleSignOnCommand : IHandleCommand<SignOn>
     {
         private readonly IReadEntities _entities;

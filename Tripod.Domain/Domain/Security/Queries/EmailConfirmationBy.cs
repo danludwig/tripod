@@ -12,6 +12,7 @@ namespace Tripod.Domain.Security
         public string Ticket { get; private set; }
     }
 
+    [UsedImplicitly]
     public class HandleEmailConfirmationByQuery : IHandleQuery<EmailConfirmationBy, Task<EmailConfirmation>>
     {
         private readonly IReadEntities _entities;

@@ -3,6 +3,7 @@ using Tripod.Domain.Security;
 
 namespace Tripod.Ioc.Net
 {
+    [UsedImplicitly]
     public class OnEmailMessageDelivery : IDeliveredEmailMessage
     {
         private readonly IWriteEntities _entities;

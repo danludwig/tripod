@@ -126,6 +126,7 @@
     <Compile Include="FluentValidation\ValidateQueryDecoratorTests.cs" />
     <Compile Include="FluentValidation\ValidationProcessorTests.cs" />
     <Compile Include="FluentValidation\ValidatorFactoryTests.cs" />
+    <Compile Include="Net\SmtpMailMessageDeliveryTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Security\CompositionRootTests.cs" />
     <Compile Include="Security\OwinAuthenticatorTests.cs" />

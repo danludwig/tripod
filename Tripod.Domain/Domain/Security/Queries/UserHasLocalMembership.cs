@@ -7,15 +7,28 @@ namespace Tripod.Domain.Security
 {
     public class UserHasLocalMembership : IDefineQuery<Task<bool>>
     {
-        public UserHasLocalMembership(int userId) { UserId = userId; }
-        public UserHasLocalMembership(string userName) { UserName = userName; }
-        public UserHasLocalMembership(IPrincipal principal) { Principal = principal; }
+        [UsedImplicitly]
+        public UserHasLocalMembership(int userId)
+        {
+            UserId = userId;
+        }
+
+        public UserHasLocalMembership(string userName)
+        {
+            UserName = userName;
+        }
+
+        public UserHasLocalMembership(IPrincipal principal)
+        {
+            Principal = principal;
+        }
 
         public int? UserId { get; private set; }
         public string UserName { get; private set; }
         public IPrincipal Principal { get; private set; }
     }
 
+    [UsedImplicitly]
     public class HandleUserHasLocalMembershipQuery : IHandleQuery<UserHasLocalMembership, Task<bool>>
     {
         private readonly IReadEntities _entities;

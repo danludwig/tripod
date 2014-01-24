@@ -10,6 +10,7 @@ namespace Tripod.Domain.Security
         internal string Password { get; set; }
     }
 
+    [UsedImplicitly]
     public class HandleIsPasswordVerifiedQuery : IHandleQuery<IsPasswordVerified, Task<bool>>
     {
         private readonly UserManager<User, int> _userManager;

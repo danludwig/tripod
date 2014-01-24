@@ -17,6 +17,7 @@ namespace Tripod.Domain.Security
         public string AuthenticationType { get; private set; }
     }
 
+    [UsedImplicitly]
     public class HandleExternalCookieClaimQuery : IHandleQuery<ExternalCookieClaim, Task<Claim>>
     {
         private readonly IProcessQueries _queries;

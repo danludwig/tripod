@@ -40,11 +40,13 @@ namespace Tripod.Domain.Security
         #endregion
         #region ByUserLoginInfo
 
+        [UsedImplicitly]
         public static User ByUserLoginInfo(this IQueryable<User> set, UserLoginInfo userLoginInfo, bool allowNull = true)
         {
             return allowNull ? set.SingleOrDefault(ByUserLoginInfo(userLoginInfo)) : set.Single(ByUserLoginInfo(userLoginInfo));
         }
 
+        [UsedImplicitly]
         public static User ByUserLoginInfo(this IEnumerable<User> set, UserLoginInfo userLoginInfo, bool allowNull = true)
         {
             return set.AsQueryable().ByUserLoginInfo(userLoginInfo, allowNull);
@@ -55,6 +57,7 @@ namespace Tripod.Domain.Security
             return allowNull ? set.SingleOrDefaultAsync(ByUserLoginInfo(userLoginInfo)) : set.SingleAsync(ByUserLoginInfo(userLoginInfo));
         }
 
+        [UsedImplicitly]
         public static Task<User> ByUserLoginInfoAsync(this IEnumerable<User> set, UserLoginInfo userLoginInfo, bool allowNull = true)
         {
             return set.AsQueryable().ByUserLoginInfoAsync(userLoginInfo, allowNull);

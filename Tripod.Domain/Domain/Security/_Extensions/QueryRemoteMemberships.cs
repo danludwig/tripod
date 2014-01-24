@@ -17,11 +17,13 @@ namespace Tripod.Domain.Security
             return set.Where(ByUserId(userId));
         }
 
+        [UsedImplicitly]
         public static IEnumerable<RemoteMembership> ByUserId(this IEnumerable<RemoteMembership> set, int userId)
         {
             return set.AsQueryable().ByUserId(userId);
         }
 
+        [UsedImplicitly]
         internal static Expression<Func<RemoteMembership, bool>> ByUserId(int userId)
         {
             return x => x.Owner.Id == userId;
@@ -35,11 +37,13 @@ namespace Tripod.Domain.Security
             return set.Where(ByUserName(userName));
         }
 
+        [UsedImplicitly]
         public static IEnumerable<RemoteMembership> ByUserName(this IEnumerable<RemoteMembership> set, string userName)
         {
             return set.AsQueryable().ByUserName(userName);
         }
 
+        [UsedImplicitly]
         internal static Expression<Func<RemoteMembership, bool>> ByUserName(string userName)
         {
             return x => x.Owner.Name.Equals(userName, StringComparison.OrdinalIgnoreCase);
@@ -48,6 +52,7 @@ namespace Tripod.Domain.Security
         #endregion
         #region ByUserLoginInfo
 
+        [UsedImplicitly]
         public static RemoteMembership ByUserLoginInfo(this IQueryable<RemoteMembership> set,
             UserLoginInfo userLoginInfo, bool allowNull = true)
         {
@@ -62,6 +67,7 @@ namespace Tripod.Domain.Security
             return set.AsQueryable().ByUserLoginInfo(userLoginInfo, allowNull);
         }
 
+        [UsedImplicitly]
         public static Task<RemoteMembership> ByUserLoginInfoAsync(this IQueryable<RemoteMembership> set,
             UserLoginInfo userLoginInfo, bool allowNull = true)
         {
@@ -70,12 +76,14 @@ namespace Tripod.Domain.Security
                 : set.SingleAsync(ByUserLoginInfo(userLoginInfo));
         }
 
+        [UsedImplicitly]
         public static Task<RemoteMembership> ByUserLoginInfoAsync(this IEnumerable<RemoteMembership> set,
             UserLoginInfo userLoginInfo, bool allowNull = true)
         {
             return set.AsQueryable().ByUserLoginInfoAsync(userLoginInfo, allowNull);
         }
 
+        [UsedImplicitly]
         internal static Expression<Func<RemoteMembership, bool>> ByUserLoginInfo(UserLoginInfo userLoginInfo)
         {
             return x => x.LoginProvider == userLoginInfo.LoginProvider
@@ -85,6 +93,7 @@ namespace Tripod.Domain.Security
         #endregion
         #region ByUserIdAndLoginInfo
 
+        [UsedImplicitly]
         public static RemoteMembership ByUserIdAndLoginInfo(this IQueryable<RemoteMembership> set,
             int userId, UserLoginInfo userLoginInfo, bool allowNull = true)
         {
@@ -93,6 +102,7 @@ namespace Tripod.Domain.Security
                 : set.Single(ByUserIdAndLoginInfo(userId, userLoginInfo));
         }
 
+        [UsedImplicitly]
         public static RemoteMembership ByUserIdAndLoginInfo(this IEnumerable<RemoteMembership> set,
             int userId, UserLoginInfo userLoginInfo, bool allowNull = true)
         {
@@ -107,12 +117,14 @@ namespace Tripod.Domain.Security
                 : set.SingleAsync(ByUserIdAndLoginInfo(userId, userLoginInfo));
         }
 
+        [UsedImplicitly]
         public static Task<RemoteMembership> ByUserIdAndLoginInfoAsync(this IEnumerable<RemoteMembership> set,
             int userId, UserLoginInfo userLoginInfo, bool allowNull = true)
         {
             return set.AsQueryable().ByUserIdAndLoginInfoAsync(userId, userLoginInfo, allowNull);
         }
 
+        [UsedImplicitly]
         internal static Expression<Func<RemoteMembership, bool>> ByUserIdAndLoginInfo(int userId, UserLoginInfo userLoginInfo)
         {
             return x => x.Owner.Id == userId
@@ -123,6 +135,7 @@ namespace Tripod.Domain.Security
         #endregion
         #region ByUserNameAndLoginInfo
 
+        [UsedImplicitly]
         public static RemoteMembership ByUserNameAndLoginInfo(this IQueryable<RemoteMembership> set,
             string userName, UserLoginInfo userLoginInfo, bool allowNull = true)
         {
@@ -131,6 +144,7 @@ namespace Tripod.Domain.Security
                 : set.Single(ByUserNameAndLoginInfo(userName, userLoginInfo));
         }
 
+        [UsedImplicitly]
         public static RemoteMembership ByUserNameAndLoginInfo(this IEnumerable<RemoteMembership> set,
             string userName, UserLoginInfo userLoginInfo, bool allowNull = true)
         {
@@ -145,12 +159,14 @@ namespace Tripod.Domain.Security
                 : set.SingleAsync(ByUserNameAndLoginInfo(userName, userLoginInfo));
         }
 
+        [UsedImplicitly]
         public static Task<RemoteMembership> ByUserNameAndLoginInfoAsync(this IEnumerable<RemoteMembership> set,
             string userName, UserLoginInfo userLoginInfo, bool allowNull = true)
         {
             return set.AsQueryable().ByUserNameAndLoginInfoAsync(userName, userLoginInfo, allowNull);
         }
 
+        [UsedImplicitly]
         internal static Expression<Func<RemoteMembership, bool>> ByUserNameAndLoginInfo(string userName, UserLoginInfo userLoginInfo)
         {
             return x => x.Owner.Name.Equals(userName, StringComparison.OrdinalIgnoreCase)

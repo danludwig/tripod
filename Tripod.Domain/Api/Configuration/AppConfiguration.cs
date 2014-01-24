@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Net.Configuration;
@@ -13,7 +14,7 @@ namespace Tripod
             get { return new MailAddress(ConfigurationManager.AppSettings[AppSettingKey.MailFromDefault.ToString()] ?? "UNCONFIGURED NOREPLY <no-reply@localhost.tld>"); }
         }
 
-        public static MailAddress[] MailInterceptors
+        public static IEnumerable<MailAddress> MailInterceptors
         {
             get
             {
@@ -21,7 +22,7 @@ namespace Tripod
             }
         }
 
-        public static MailAddress[] MailExceptionTo
+        public static IEnumerable<MailAddress> MailExceptionTo
         {
             get
             {
@@ -43,7 +44,7 @@ namespace Tripod
             }
         }
 
-        private static MailAddress[] ExtractMailAddresses(string collapsed)
+        private static IEnumerable<MailAddress> ExtractMailAddresses(string collapsed)
         {
             return collapsed.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries)
                 .Select(x => x.Trim()).Where(x => !string.IsNullOrWhiteSpace(x))

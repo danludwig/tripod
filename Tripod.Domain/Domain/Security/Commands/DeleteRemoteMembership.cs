@@ -15,6 +15,7 @@ namespace Tripod.Domain.Security
         public string ProviderKey { get; set; }
     }
 
+    [UsedImplicitly]
     public class ValidateDeleteRemoteMembershipCommand : AbstractValidator<DeleteRemoteMembership>
     {
         public ValidateDeleteRemoteMembershipCommand(IProcessQueries queries)
@@ -41,6 +42,7 @@ namespace Tripod.Domain.Security
         }
     }
 
+    [UsedImplicitly]
     public class HandleDeleteRemoteMembershipCommand : IHandleCommand<DeleteRemoteMembership>
     {
         private readonly IWriteEntities _entities;

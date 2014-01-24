@@ -5,9 +5,10 @@ using Tripod.Domain.Security;
 
 namespace Tripod.Ioc.EntityFramework
 {
+    [UsedImplicitly]
     public class ExceptopmAuditDb : EntityTypeConfiguration<ExceptionAudit>
     {
-        public const string SchemaName = "Audit";
+        private const string SchemaName = "Audit";
 
         public ExceptopmAuditDb()
         {

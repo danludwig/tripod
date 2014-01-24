@@ -5,12 +5,14 @@ namespace Tripod.Domain.Security
 {
     public class RemoteMembershipByUser : BaseEntityQuery<RemoteMembership>, IDefineQuery<Task<RemoteMembership>>
     {
+        [UsedImplicitly]
         public RemoteMembershipByUser(int userId, UserLoginInfo userLoginInfo)
         {
             UserId = userId;
             UserLoginInfo = userLoginInfo;
         }
 
+        [UsedImplicitly]
         public RemoteMembershipByUser(string userName, UserLoginInfo userLoginInfo)
         {
             UserName = userName;
@@ -22,6 +24,7 @@ namespace Tripod.Domain.Security
         public UserLoginInfo UserLoginInfo { get; private set; }
     }
 
+    [UsedImplicitly]
     public class HandleRemoteMembershipByUserQuery : IHandleQuery<RemoteMembershipByUser, Task<RemoteMembership>>
     {
         private readonly IReadEntities _entities;

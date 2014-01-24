@@ -10,6 +10,7 @@ namespace Tripod.Domain.Security
             UserId = userId;
         }
 
+        [UsedImplicitly]
         public RemoteMembershipsByUser(string userName)
         {
             UserName = userName;
@@ -19,6 +20,7 @@ namespace Tripod.Domain.Security
         public string UserName { get; private set; }
     }
 
+    [UsedImplicitly]
     public class HandleRemoteMembershipsByUserQuery : IHandleQuery<RemoteMembershipsByUser, Task<IQueryable<RemoteMembership>>>
     {
         private readonly IReadEntities _entities;

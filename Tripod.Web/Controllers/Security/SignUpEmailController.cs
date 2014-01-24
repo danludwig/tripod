@@ -9,6 +9,7 @@ namespace Tripod.Web.Controllers
     {
         private readonly IProcessCommands _commands;
 
+        [UsedImplicitly]
         public SignUpEmailController(IProcessCommands commands)
         {
             _commands = commands;

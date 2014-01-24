@@ -1,6 +1,6 @@
 ﻿namespace Tripod
 {
-    public interface IDefineQuery<TResult>
-    {
-    }
+    // ReSharper disable UnusedTypeParameter
+    public interface IDefineQuery<TResult> { }
+    // ReSharper restore UnusedTypeParameter
 }

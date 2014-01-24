@@ -10,11 +10,12 @@ namespace Tripod.Domain.Security
     public class ChangeLocalPassword : IDefineSecuredCommand
     {
         public IPrincipal Principal { get; set; }
-        public string OldPassword { get; set; }
-        public string NewPassword { get; set; }
-        public string ConfirmPassword { get; set; }
+        public string OldPassword { get; [UsedImplicitly] set; }
+        public string NewPassword { get; [UsedImplicitly] set; }
+        public string ConfirmPassword { get; [UsedImplicitly] set; }
     }
 
+    [UsedImplicitly]
     public class ValidateChangeLocalPasswordCommand : AbstractValidator<ChangeLocalPassword>
     {
         public ValidateChangeLocalPasswordCommand(IProcessQueries queries)
@@ -44,6 +45,7 @@ namespace Tripod.Domain.Security
         }
     }
 
+    [UsedImplicitly]
     public class HandleChangeLocalPasswordCommand : IHandleCommand<ChangeLocalPassword>
     {
         private readonly IWriteEntities _entities;

@@ -28,7 +28,7 @@ module App.Directives.MustEqual {
                     attr.$observe(directiveName, (): void => {
                         validator(ctrl.$viewValue);
                     });
-                    scope.$watch(attr[directiveName + 'When'], (value: any) => {
+                    scope.$watch(attr[directiveName + 'When'], () => {
                         validator(ctrl.$viewValue);
                     }, true);
                 }

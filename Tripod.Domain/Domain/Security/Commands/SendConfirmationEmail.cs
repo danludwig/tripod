@@ -14,8 +14,8 @@ namespace Tripod.Domain.Security
     {
         public string EmailAddress { get; set; }
         public bool IsExpectingEmail { get; set; }
-        public string ConfirmUrlFormat { get; set; }
-        public string SendFromUrl { get; set; }
+        public string ConfirmUrlFormat { get; [UsedImplicitly] set; }
+        public string SendFromUrl { get; [UsedImplicitly] set; }
         public EmailConfirmationPurpose Purpose { get; set; }
         public string CreatedTicket { get; internal set; }
     }
@@ -42,6 +42,7 @@ namespace Tripod.Domain.Security
         }
     }
 
+    [UsedImplicitly]
     public class HandleSendConfirmationEmailCommand : IHandleCommand<SendConfirmationEmail>
     {
         private readonly UserManager<User, int> _userManager;

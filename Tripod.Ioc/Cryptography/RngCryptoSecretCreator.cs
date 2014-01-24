@@ -3,11 +3,12 @@ using System.Security.Cryptography;
 
 namespace Tripod.Ioc.Cryptography
 {
+    [UsedImplicitly]
     public class RngCryptoSecretCreator : ICreateSecrets
     {
-        internal const string DefaultLowercaseChars = "abcdefgijkmnopqrstwxyz";
-        internal const string DefaultUppercaseChars = "ABCDEFGHJKLMNPQRSTWXYZ";
-        internal const string DefaultNumericChars = "23456789";
+        private const string DefaultLowercaseChars = "abcdefgijkmnopqrstwxyz";
+        private const string DefaultUppercaseChars = "ABCDEFGHJKLMNPQRSTWXYZ";
+        private const string DefaultNumericChars = "23456789";
 
         string ICreateSecrets.CreateSecret(int minLength, int maxLength)
         {
@@ -19,7 +20,7 @@ namespace Tripod.Ioc.Cryptography
             return CreateSecret(exactLength, exactLength);
         }
 
-        internal static string CreateSecret(int minLength, int maxLength)
+        private static string CreateSecret(int minLength, int maxLength)
         {
             // code from http://stackoverflow.com/questions/4768712/create-a-12-character-secret
             // Make sure that input parameters are valid.
@@ -93,11 +94,8 @@ namespace Tripod.Ioc.Cryptography
                 // group list. To allow a special character to appear in the
                 // first position, increment the second parameter of the Next
                 // function call by one, i.e. lastLeftGroupsOrderIdx + 1.
-                int nextLeftGroupsOrderIdx;
-                if (lastLeftGroupsOrderIdx == 0)
-                    nextLeftGroupsOrderIdx = 0;
-                else
-                    nextLeftGroupsOrderIdx = random.Next(0, lastLeftGroupsOrderIdx);
+                var nextLeftGroupsOrderIdx = lastLeftGroupsOrderIdx == 0
+                    ? 0 : random.Next(0, lastLeftGroupsOrderIdx);
 
                 // Index of the next character group to be processed.
                 // Get the actual index of the character group, from which we will

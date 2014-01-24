@@ -27,8 +27,11 @@ namespace Tripod.Web
                 {
                     OnCreate = options =>
                     {
-                        var userManager = new UserManager<User, int>(DependencyResolver.Current.GetService<IUserStore<User, int>>());
-                        userManager.UserConfirmationTokens = new DataProtectorTokenProvider(options.DataProtectionProvider.Create("ConfirmEmail"));
+                        var protector = options.DataProtectionProvider.Create("ConfirmEmail");
+                        var userManager = new UserManager<User, int>(DependencyResolver.Current.GetService<IUserStore<User, int>>())
+                        {
+                            UserConfirmationTokens = new DataProtectorTokenProvider(protector)
+                        };
                         return userManager;
                     },
                 }

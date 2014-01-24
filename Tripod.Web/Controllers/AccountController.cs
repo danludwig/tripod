@@ -9,6 +9,7 @@ namespace Tripod.Web.Controllers
     {
         private readonly IProcessQueries _queries;
 
+        [UsedImplicitly]
         public AccountController(IProcessQueries queries)
         {
             _queries = queries;

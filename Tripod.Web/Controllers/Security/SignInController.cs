@@ -10,6 +10,7 @@ namespace Tripod.Web.Controllers
     {
         private readonly IProcessCommands _commands;
 
+        [UsedImplicitly]
         public SignInController(IProcessCommands commands)
         {
             _commands = commands;

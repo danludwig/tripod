@@ -47,6 +47,7 @@ namespace Tripod.Web
             return Equals(html.ViewData.Model, null) ? null : MvcHtmlString.Create(cssClass);
         }
 
+        [UsedImplicitly]
         public static MvcHtmlString CssStyleWhenInvalidFor<TModel, TProperty>(this HtmlHelper<TModel> html, Expression<Func<TModel, TProperty>> expression, string cssStyle)
         {
             if (Equals(html.ViewData.Model, null)) return null;
@@ -56,6 +57,7 @@ namespace Tripod.Web
             return isInvalid ? MvcHtmlString.Create(cssStyle) : null;
         }
 
+        [UsedImplicitly]
         public static MvcHtmlString CssStyleWhenValidFor<TModel, TProperty>(this HtmlHelper<TModel> html, Expression<Func<TModel, TProperty>> expression, string cssStyle)
         {
             // when model is null, assume it is valid

@@ -11,11 +11,13 @@ namespace Tripod.Domain.Security
     {
         #region ByValue
 
+        [UsedImplicitly]
         public static EmailAddress ByValue(this IQueryable<EmailAddress> set, string value, bool allowNull = true)
         {
             return allowNull ? set.SingleOrDefault(ByValue(value)) : set.Single(ByValue(value));
         }
 
+        [UsedImplicitly]
         public static EmailAddress ByValue(this IEnumerable<EmailAddress> set, string value, bool allowNull = true)
         {
             return set.AsQueryable().ByValue(value, allowNull);
@@ -26,6 +28,7 @@ namespace Tripod.Domain.Security
             return allowNull ? set.SingleOrDefaultAsync(ByValue(value)) : set.SingleAsync(ByValue(value));
         }
 
+        [UsedImplicitly]
         public static Task<EmailAddress> ByValueAsync(this IEnumerable<EmailAddress> set, string value, bool allowNull = true)
         {
             return set.AsQueryable().ByValueAsync(value, allowNull);

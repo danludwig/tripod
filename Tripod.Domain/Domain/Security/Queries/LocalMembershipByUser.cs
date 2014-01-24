@@ -5,15 +5,28 @@ namespace Tripod.Domain.Security
 {
     public class LocalMembershipByUser : BaseEntityQuery<LocalMembership>, IDefineQuery<Task<LocalMembership>>
     {
-        public LocalMembershipByUser(int userId) { UserId = userId; }
-        public LocalMembershipByUser(string userName) { UserName = userName; }
-        public LocalMembershipByUser(UserLoginInfo userLoginInfo) { UserLoginInfo = userLoginInfo; }
+        public LocalMembershipByUser(int userId)
+        {
+            UserId = userId;
+        }
+
+        [UsedImplicitly]
+        public LocalMembershipByUser(string userName)
+        {
+            UserName = userName;
+        }
+
+        public LocalMembershipByUser(UserLoginInfo userLoginInfo)
+        {
+            UserLoginInfo = userLoginInfo;
+        }
 
         public int? UserId { get; private set; }
         public string UserName { get; private set; }
         public UserLoginInfo UserLoginInfo { get; private set; }
     }
 
+    [UsedImplicitly]
     public class HandleLocalMembershipByUserQuery : IHandleQuery<LocalMembershipByUser, Task<LocalMembership>>
     {
         private readonly IReadEntities _entities;

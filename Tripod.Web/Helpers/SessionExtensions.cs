@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Web;
 
 namespace Tripod.Web
@@ -14,7 +15,7 @@ namespace Tripod.Web
             session[ConfirmEmailTicketsKey] = tickets.ToArray();
         }
 
-        public static string[] ConfirmEmailTickets(this HttpSessionStateBase session)
+        public static IEnumerable<string> ConfirmEmailTickets(this HttpSessionStateBase session)
         {
             var tickets = session[ConfirmEmailTicketsKey] as string[];
             if (tickets != null) return tickets;

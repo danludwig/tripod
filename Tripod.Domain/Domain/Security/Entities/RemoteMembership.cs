@@ -25,7 +25,7 @@ namespace Tripod.Domain.Security
 
         public static class Constraints
         {
-            public const string Label = "OAuth provider";
+            [UsedImplicitly] public const string Label = "OAuth provider";
 
             public const string ProviderLabel = "OAuth provider name";
             public const int ProviderMaxLength = 130;

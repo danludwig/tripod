@@ -24,11 +24,11 @@ namespace Tripod.Domain.Security
         {
             public const string Label = "Permission";
 
-            public const string NameLabel = "Permission name";
+            [UsedImplicitly] public const string NameLabel = "Permission name";
             public const int NameMaxLength = 256;
 
-            public const string DescriptionLabel = "Permission description";
-            public const int DescriptionMaxLength = 4000;
+            [UsedImplicitly] public const string DescriptionLabel = "Permission description";
+            [UsedImplicitly] public const int DescriptionMaxLength = 4000;
         }
     }
 }

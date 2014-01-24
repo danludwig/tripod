@@ -11,9 +11,10 @@ namespace Tripod.Domain.Security
     {
         public IPrincipal Principal { get; set; }
         public string UserName { get; set; }
-        public RemoteMembership Created { get; internal set; }
+        public RemoteMembership Created { [UsedImplicitly] get; internal set; }
     }
 
+    [UsedImplicitly]
     public class ValidateCreateRemoteMembershipCommand : AbstractValidator<CreateRemoteMembership>
     {
         public ValidateCreateRemoteMembershipCommand(IProcessQueries queries)
@@ -35,6 +36,7 @@ namespace Tripod.Domain.Security
         }
     }
 
+    [UsedImplicitly]
     public class HandleCreateRemoteMembershipCommand : IHandleCommand<CreateRemoteMembership>
     {
         private readonly IProcessQueries _queries;

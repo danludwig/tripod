@@ -6,7 +6,7 @@ namespace Tripod.Domain.Security
     {
         protected internal EmailMessage() { }
 
-        public int OwnerId { get; protected internal set; }
+        public int OwnerId { get; [UsedImplicitly] protected internal set; }
         public virtual EmailAddress Owner { get; protected internal set; }
 
         public string From { get; protected internal set; }
@@ -15,14 +15,14 @@ namespace Tripod.Domain.Security
         public bool IsBodyHtml { get; protected internal set; }
         public DateTime SendOnUtc { get; protected internal set; }
         public DateTime? SentOnUtc { get; protected internal set; }
-        public DateTime? CancelledOnUtc { get; protected internal set; }
+        public DateTime? CancelledOnUtc { [UsedImplicitly] get; protected internal set; }
         public string LastSendError { get; protected internal set; }
 
         public static class Constraints
         {
-            public const string Label = "Email message";
+            [UsedImplicitly] public const string Label = "Email message";
 
-            public const string FromLabel = "From";
+            [UsedImplicitly] public const string FromLabel = "From";
             public const int FromMaxLength = 250;
             public const int SubjectMaxLength = 150;
             public const int LastSendErrorMaxLength = 500;

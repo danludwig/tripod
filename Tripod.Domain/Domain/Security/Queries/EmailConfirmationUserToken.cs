@@ -13,6 +13,7 @@ namespace Tripod.Domain.Security
         public string Token { get; private set; }
     }
 
+    [UsedImplicitly]
     public class HandleEmailConfirmationUserTokenQuery : IHandleQuery<EmailConfirmationUserToken, Task<UserToken>>
     {
         private readonly UserManager<User, int> _userManager;

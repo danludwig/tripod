@@ -4,6 +4,7 @@ namespace Tripod.Domain.Security
 {
     public class EmailAddressBy : BaseEntityQuery<EmailAddress>, IDefineQuery<Task<EmailAddress>>
     {
+        [UsedImplicitly]
         public EmailAddressBy(int id)
         {
             Id = id;
@@ -18,6 +19,7 @@ namespace Tripod.Domain.Security
         public string Value { get; private set; }
     }
 
+    [UsedImplicitly]
     public class HandleEmailAddressByQuery : IHandleQuery<EmailAddressBy, Task<EmailAddress>>
     {
         private readonly IReadEntities _entities;

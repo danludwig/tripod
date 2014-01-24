@@ -5,6 +5,7 @@ using Tripod.Domain.Security;
 
 namespace Tripod.Ioc.Net
 {
+    [UsedImplicitly]
     public class ActiveEmailMessageDelivery : IDeliverEmailMessage
     {
         private readonly IWriteEntities _entities;

@@ -16,6 +16,7 @@ namespace Tripod.Domain.Security
         public IPrincipal Principal { get; private set; }
     }
 
+    [UsedImplicitly]
     public class HandlePrincipalRemoteMembershipTicketQuery : IHandleQuery<PrincipalRemoteMembershipTicket, Task<RemoteMembershipTicket>>
     {
         private readonly IAuthenticate _authenticator;

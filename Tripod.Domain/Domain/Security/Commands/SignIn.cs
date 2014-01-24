@@ -19,13 +19,15 @@ namespace Tripod.Domain.Security
         public ValidateSignInCommand(IProcessQueries queries)
         {
             RuleFor(x => x.UserName)
-                .NotEmpty().WithName(string.Format("{0} or {1}", User.Constraints.NameLabel, EmailAddress.Constraints.Label))
+                .NotEmpty()
                 .MustFindUserByNameOrEmail(queries)
+                    .WithName(string.Format("{0} or {1}", User.Constraints.NameLabel, EmailAddress.Constraints.Label))
             ;
             
             RuleFor(x => x.Password)
-                .NotEmpty().WithName(LocalMembership.Constraints.PasswordLabel)
+                .NotEmpty()
                 .MustBeVerifiedPassword(queries, x => x.UserName)
+                    .WithName(LocalMembership.Constraints.PasswordLabel)
                     .When(x => queries.Execute(new UserBy(x.UserName)).Result != null, ApplyConditionTo.CurrentValidator)
             ;
         }

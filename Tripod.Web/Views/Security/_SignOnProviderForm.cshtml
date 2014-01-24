@@ -2,7 +2,7 @@
 @model SignOnProviderButtonModel
 
 @{
-    var columnWidth = Model.EmailProvidersOnly ? "sm-6" : "sm-4";
+    var columnWidth = Model.EmailProvidersOnly ? "col-sm-6" : "col-sm-4";
 }
 
 <form action="@Url.Action(MVC.Authentication.ExternalLogin())" method="POST" class="providers row">
@@ -12,7 +12,7 @@
     <input type="hidden" name="returnUrl" value="@ViewBag.ReturnUrl" />
 
     @* GOOGLE *@
-    <div class="col-@columnWidth">
+    <div class="@columnWidth">
         <p>
             <button type="submit" name="provider" value="Google" title="Sign in with Google" class="google btn btn-lg">
                 <i></i>
@@ -23,7 +23,7 @@
     </div>
 
     @* FACEBOOK *@
-    <div class="col-@columnWidth">
+    <div class="@columnWidth">
         <p>
             <button type="submit" name="provider" value="Facebook" title="Sign in with Facebook" class="facebook btn btn-lg">
                 <i></i>

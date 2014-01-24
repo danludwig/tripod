@@ -5,6 +5,7 @@ using System.Reflection;
 
 namespace Tripod.Ioc.EntityFramework
 {
+    [UsedImplicitly]
     public class SqlServerScriptsCustomizer : ICustomizeDb
     {
         public void Customize(DbContext db)

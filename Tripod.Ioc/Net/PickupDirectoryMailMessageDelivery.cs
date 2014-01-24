@@ -5,6 +5,7 @@ using System.Net.Mail;
 
 namespace Tripod.Ioc.Net
 {
+    [UsedImplicitly]
     public class PickupDirectoryMailMessageDelivery : SmtpMailMessageDelivery
     {
         public override void Deliver(MailMessage message, SendCompletedEventHandler sendCompleted = null, object userState = null)

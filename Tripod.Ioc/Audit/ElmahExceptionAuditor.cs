@@ -9,6 +9,7 @@ using Elmah;
 
 namespace Tripod.Ioc.Audit
 {
+    [UsedImplicitly]
     public class ElmahExceptionAuditor : IAuditException
     {
         private readonly IDeliverMailMessage _mailMessageSender;
@@ -70,7 +71,7 @@ namespace Tripod.Ioc.Audit
                 builder.AppendLine(exception.StackTrace);
                 body = builder.ToString();
             }
-            var tos = AppConfiguration.MailExceptionTo;
+            var tos = AppConfiguration.MailExceptionTo.ToArray();
             var mailMessage = new MailMessage(AppConfiguration.MailFromDefault, tos.First())
             {
                 Subject = subject,

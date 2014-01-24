@@ -4,6 +4,6 @@ namespace Tripod
 {
     public interface IDefineSecuredCommand : IDefineCommand
     {
-        IPrincipal Principal { get; set; }
+        IPrincipal Principal { [UsedImplicitly] get; set; }
     }
 }

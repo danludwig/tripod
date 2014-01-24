@@ -4,6 +4,7 @@ namespace Tripod.Domain.Security
 {
     public class SignOut : IDefineCommand { }
 
+    [UsedImplicitly]
     public class HandleSignOutCommand : IHandleCommand<SignOut>
     {
         private readonly IAuthenticate _authenticator;

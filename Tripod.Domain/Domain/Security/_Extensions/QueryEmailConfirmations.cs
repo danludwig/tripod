@@ -16,6 +16,7 @@ namespace Tripod.Domain.Security
             return allowNull ? set.SingleOrDefault(ByTicket(ticket)) : set.Single(ByTicket(ticket));
         }
 
+        [UsedImplicitly]
         public static EmailConfirmation ByTicket(this IEnumerable<EmailConfirmation> set, string ticket, bool allowNull = true)
         {
             return set.AsQueryable().ByTicket(ticket, allowNull);
@@ -26,6 +27,7 @@ namespace Tripod.Domain.Security
             return allowNull ? set.SingleOrDefaultAsync(ByTicket(ticket)) : set.SingleAsync(ByTicket(ticket));
         }
 
+        [UsedImplicitly]
         public static Task<EmailConfirmation> ByTicketAsync(this IEnumerable<EmailConfirmation> set, string ticket, bool allowNull = true)
         {
             return set.AsQueryable().ByTicketAsync(ticket, allowNull);
@@ -44,6 +46,7 @@ namespace Tripod.Domain.Security
             return set.Where(ByOwnerValue(ownerValue));
         }
 
+        [UsedImplicitly]
         public static IEnumerable<EmailConfirmation> ByOwnerValue(this IEnumerable<EmailConfirmation> set, string ownerValue)
         {
             return set.AsQueryable().ByOwnerValue(ownerValue);

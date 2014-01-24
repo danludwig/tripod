@@ -5,6 +5,7 @@ namespace Tripod.Web
 {
     public static class ControllerExtensions
     {
+        [UsedImplicitly]
         public static void AddModelErrors(this ModelStateDictionary modelState, ValidationResult validationResult)
         {
             if (modelState == null || validationResult == null || validationResult.IsValid) return;

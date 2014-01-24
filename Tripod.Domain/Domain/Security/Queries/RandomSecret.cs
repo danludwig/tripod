@@ -17,6 +17,7 @@ namespace Tripod.Domain.Security
             MaxLength = maxLength;
         }
 
+        [UsedImplicitly]
         public RandomSecret(int exactLength)
         {
             if (exactLength < 1)
@@ -31,6 +32,7 @@ namespace Tripod.Domain.Security
         public int MaxLength { get; private set; }
     }
 
+    [UsedImplicitly]
     public class HandleRandomSecretQuery : IHandleQuery<RandomSecret, string>
     {
         private readonly ICreateSecrets _secrets;

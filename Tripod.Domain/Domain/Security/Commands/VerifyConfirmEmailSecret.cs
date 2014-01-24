@@ -11,14 +11,15 @@ namespace Tripod.Domain.Security
         public string Secret
         {
             get { return _secret; }
-            set { _secret = value != null ? value.Trim() : null; }
+            [UsedImplicitly] set { _secret = value != null ? value.Trim() : null; }
         }
         private string _secret;
-        public string Ticket { get; set; }
-        public EmailConfirmationPurpose Purpose { get; set; }
+        public string Ticket { get; [UsedImplicitly] set; }
+        public EmailConfirmationPurpose Purpose { get; [UsedImplicitly] set; }
         public string Token { get; internal set; }
     }
 
+    [UsedImplicitly]
     public class ValidateVerifyConfirmEmailSecretCommand : AbstractValidator<VerifyConfirmEmailSecret>
     {
         public ValidateVerifyConfirmEmailSecretCommand(IProcessQueries queries)
@@ -38,6 +39,7 @@ namespace Tripod.Domain.Security
         }
     }
 
+    [UsedImplicitly]
     public class HandleVerifyConfirmEmailSecretCommand : IHandleCommand<VerifyConfirmEmailSecret>
     {
         private readonly IReadEntities _entities;

@@ -12,6 +12,7 @@ namespace Tripod.Web.Controllers
         private readonly IProcessCommands _commands;
         private readonly IProcessValidation _validation;
 
+        [UsedImplicitly]
         public AuthenticationController(IProcessQueries queries, IProcessCommands commands, IProcessValidation validation)
         {
             _queries = queries;

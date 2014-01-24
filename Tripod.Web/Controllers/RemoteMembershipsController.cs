@@ -13,6 +13,7 @@ namespace Tripod.Web.Controllers
         private readonly IProcessQueries _queries;
         private readonly IProcessCommands _commands;
 
+        [UsedImplicitly]
         public RemoteMembershipsController(IProcessQueries queries, IProcessCommands commands)
         {
             _commands = commands;

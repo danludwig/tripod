@@ -8,7 +8,7 @@ namespace Tripod.Web.Models
 {
     public class ValidatedFields : Dictionary<string, ValidatedField>
     {
-        public ValidatedFields(ModelStateDictionary modelState, params string[] fieldNames)
+        public ValidatedFields([UsedImplicitly] ModelStateDictionary modelState, params string[] fieldNames)
         {
             if (modelState == null) return;
             var fieldState = fieldNames.Length > 0
@@ -39,6 +39,7 @@ namespace Tripod.Web.Models
             }
         }
 
+        [UsedImplicitly]
         public ValidatedFields(ValidationResult validationResult, params string[] fieldNames)
         {
             if (validationResult == null) return;

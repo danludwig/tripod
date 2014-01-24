@@ -49,10 +49,10 @@ body {
 
 /* bootstrap warning opacity treatments */
 body {
-    /* default bootstrap warnings are rather opaque on some monitors */
-    /* could override in template and custom-build using compass or less */
-    /* ... or could just manually override below */
     .alert-warning {
+        /* default bootstrap warnings are rather opaque on some monitors */
+        /* could override in template and custom-build using compass or less */
+        /* ... or could just manually override below */
         color: #c09853;
         background-color: #f7eaa7;
         border-color: #dcc968;
@@ -67,8 +67,8 @@ body {
 /* navbar treatments */
 body {
     .navbar-header.pull-right {
-        /* do not collapse right nav links */
         ul.navbar-nav.pull-left.nav {
+            /* do not collapse right nav links */
             margin-right: 0;
             margin-top: 5px;
             margin-bottom: 5px;
@@ -205,8 +205,8 @@ body {
 
 /* wziard progress bar */
 body {
-    /* https://github.com/twbs/bootstrap/issues/1982 http://jsfiddle.net/H7J94/5/ */
     .wizard {
+        /* https://github.com/twbs/bootstrap/issues/1982 http://jsfiddle.net/H7J94/5/ */
         padding: 0;
         margin: 0;
 
@@ -356,7 +356,6 @@ body {
         margin-top: -1px;
     }
 
-    /* show & hide icons during success, error, and warning */
     .has-success .input-group-addon.validation i {
         &.default { display: none; }
         &.success { display: inline-block; }
@@ -436,7 +435,6 @@ body {
 
 /* form elements */
 body {
-    /* checkbox treatments */
     .form-control .checkbox {
         /* when a checkbox is nested within a form-control (which is also probably nested within an input-group),
         remove the top padding, since the form-control provides padding already */
@@ -447,14 +445,14 @@ body {
         cursor: pointer;
     }
 
-    /* show not-allowed cursor on disabled elements */
     [disabled], .btn[disabled] {
+        /* show not-allowed cursor on disabled elements */
         pointer-events: auto;
         cursor: not-allowed;
     }
 
-    /* hide padding on image buttons */
     input[type=image].btn {
+        /* hide padding on image buttons */
         padding: 0;
         border: 0;
     }
@@ -483,8 +481,8 @@ body {
     }
 }
 
-/* deprecated VS starter template styles */
-body {
+/* deprecated VS starter template styles
+body {*/
     /* This was included by the VS starter template, but we don't want it.
     Instead, we want to let bootstrap size the form elements at 100% and
     use containers to provide widths where necessary
@@ -510,4 +508,4 @@ body {
         border: 0 none;
     }
     */
-}
+/*}*/
