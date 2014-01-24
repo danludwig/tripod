@@ -18,7 +18,7 @@
 }
 
 <hr class="hr-md hr-space" />
-<div class="row" ng-app="sign-up-form" ng-controller="App.Security.SignUp.EmailForm.Controller">
+<div class="row">
     <div class="col-sm-8 col-sm-offset-2">
 
         @* HEADING *@
@@ -38,7 +38,7 @@
             Create a new account with us using your email address.
         </h4>
 
-        @{ Html.RenderPartial(MVC.Security.Views._SendConfirmationEmailForm); }
+        @{ Html.RenderPartial(MVC.Security.Views._SignUpEmailForm); }
 
         <hr class="hr-md hr-space" />
         <h4>
@@ -50,5 +50,5 @@
 @section scripts
 {
     @{ Html.RenderPartial(MVC.Scripts.Views.Angular); }
-    <script src="~/app/security/sign-up/EmailForm.js"></script>
+    <script src="~/app/security/SignUpEmailForm.js"></script>
 }

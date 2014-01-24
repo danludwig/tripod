@@ -308,14 +308,14 @@
     <Content Include="app\security\sign-up\ConfirmForm.js">
       <DependentUpon>ConfirmForm.ts</DependentUpon>
     </Content>
-    <Content Include="app\security\sign-up\EmailForm.js">
-      <DependentUpon>EmailForm.ts</DependentUpon>
-    </Content>
     <Content Include="app\security\sign-up\PasswordForm.js">
       <DependentUpon>PasswordForm.ts</DependentUpon>
     </Content>
     <Content Include="app\security\SignInForm.js">
       <DependentUpon>SignInForm.ts</DependentUpon>
+    </Content>
+    <Content Include="app\security\SignUpEmailForm.js">
+      <DependentUpon>SignUpEmailForm.ts</DependentUpon>
     </Content>
     <Content Include="app\_common\directives\FormContrib.js">
       <DependentUpon>FormContrib.ts</DependentUpon>
@@ -732,7 +732,7 @@
     <Content Include="Views\Security\_SignUpWizard.cshtml" />
     <Content Include="Views\Account\ExternalLoginConfirmation2.cshtml" />
     <Content Include="Views\Scripts\Angular.cshtml" />
-    <Content Include="Views\Security\_SendConfirmationEmailForm.cshtml" />
+    <Content Include="Views\Security\_SignUpEmailForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="app-js\" />
@@ -763,7 +763,7 @@
     <TypeScriptCompile Include="app\errors\Haikus.ts" />
     <TypeScriptCompile Include="app\security\sign-up\PasswordForm.ts" />
     <TypeScriptCompile Include="app\security\sign-up\ConfirmForm.ts" />
-    <TypeScriptCompile Include="app\security\sign-up\EmailForm.ts" />
+    <TypeScriptCompile Include="app\security\SignUpEmailForm.ts" />
     <TypeScriptCompile Include="app\security\SignInForm.ts" />
     <TypeScriptCompile Include="app\_common\api\ViewModelScope.d.ts" />
     <TypeScriptCompile Include="app\_common\api\ValidationModels.d.ts" />

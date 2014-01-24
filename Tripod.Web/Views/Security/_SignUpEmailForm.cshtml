@@ -8,11 +8,13 @@
 <form role="form"
       method="POST"
       action="@Url.Action(MVC.SignUpEmail.Index())"
+      class="form-horizontal"
       novalidate
       name="signUpForm"
+      ng-app="sign-up-form"
+      ng-controller="App.Security.SignUpEmailForm.Controller"
       form-contrib="signUpCtrb"
-      form-submitted="@IsPost"
-      class="form-horizontal">
+      form-submitted="@IsPost">
 
     @Html.AntiForgeryToken()
     <input type="hidden" name="@Html.NameFor(x => x.ConfirmUrlFormat)" value="@string.Format("{0}://{1}{2}",

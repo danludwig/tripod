@@ -17,7 +17,7 @@
 }
 
 <hr class="hr-md hr-space" />
-<div class="row" ng-app="sign-up-form" ng-controller="App.Security.SignUp.EmailForm.Controller">
+<div class="row">
     <div class="col-sm-8 col-sm-offset-2">
 
         @* HEADING *@
@@ -42,7 +42,7 @@
             <small>(You won't be required to do this again, it's just a first-time thing when signing in with @ViewBag.LoginProvider.)</small>
         </h4>
 
-        @{ Html.RenderPartial(MVC.Security.Views._SendConfirmationEmailForm); }
+        @{ Html.RenderPartial(MVC.Security.Views._SignUpEmailForm); }
 
     </div>
 </div>
@@ -50,5 +50,5 @@
 @section scripts
 {
     @{ Html.RenderPartial(MVC.Scripts.Views.Angular); }
-    <script src="~/app/security/sign-up/EmailForm.js"></script>
+    <script src="~/app/security/SignUpEmailForm.js"></script>
 }
