@@ -722,7 +722,7 @@
     <Content Include="Views\RemoteMemberships\_SignOnList.cshtml" />
     <Content Include="Views\RemoteMemberships\_AddForm.cshtml" />
     <Content Include="Views\Security\SignIn.cshtml" />
-    <Content Include="Views\Authentication\SignUp.cshtml" />
+    <Content Include="Views\Security\SignUp.cshtml" />
     <Content Include="Views\Authentication\_OAuthSignInForm.cshtml" />
     <Content Include="Views\Errors\NotFound.cshtml" />
     <Content Include="Views\Errors\Forbidden.cshtml" />

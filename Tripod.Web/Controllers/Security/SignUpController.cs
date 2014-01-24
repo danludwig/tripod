@@ -18,7 +18,7 @@ namespace Tripod.Web.Controllers
         public virtual ViewResult Index()
         {
             ViewBag.Purpose = EmailConfirmationPurpose.CreateLocalUser;
-            return View(MVC.Authentication.Views.SignUp);
+            return View(MVC.Security.Views.SignUp);
         }
 
         [ValidateAntiForgeryToken]
@@ -35,7 +35,7 @@ namespace Tripod.Web.Controllers
                 switch (command.Purpose)
                 {
                     case EmailConfirmationPurpose.CreateLocalUser:
-                        return View(MVC.Authentication.Views.SignUp, command);
+                        return View(MVC.Security.Views.SignUp, command);
                     case EmailConfirmationPurpose.CreateRemoteUser:
                         ViewBag.ReturnUrl = returnUrl;
                         ViewBag.LoginProvider = loginProvider;
