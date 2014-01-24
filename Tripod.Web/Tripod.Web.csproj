@@ -727,7 +727,7 @@
     <Content Include="Views\Errors\NotFound.cshtml" />
     <Content Include="Views\Errors\Forbidden.cshtml" />
     <Content Include="Views\Errors\BadRequest.cshtml" />
-    <Content Include="Views\Authentication\Confirm.cshtml" />
+    <Content Include="Views\Security\SignUpStep2.cshtml" />
     <Content Include="Views\Authentication\CreatePassword.cshtml" />
     <Content Include="Views\Authentication\_SignUpWizard.cshtml" />
     <Content Include="Views\Account\ExternalLoginConfirmation2.cshtml" />
