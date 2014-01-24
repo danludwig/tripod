@@ -28,7 +28,7 @@ namespace Tripod.Web.Controllers
 
             ViewBag.EmailAddress = confirmation.Owner.Value;
             ViewBag.Token = token;
-            return View(MVC.Authentication.Views.CreatePassword);
+            return View(MVC.Security.Views.SignUpStep3);
         }
 
         [ValidateAntiForgeryToken]
@@ -44,7 +44,7 @@ namespace Tripod.Web.Controllers
             {
                 ViewBag.EmailAddress = emailAddress;
                 ViewBag.Token = command.Token;
-                return View(MVC.Authentication.Views.CreatePassword, command);
+                return View(MVC.Security.Views.SignUpStep3, command);
             }
 
             await _commands.Execute(command);
