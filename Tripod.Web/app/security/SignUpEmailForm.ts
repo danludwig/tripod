@@ -21,8 +21,8 @@ module App.Security.SignUpEmailForm {
     }
 
     export interface Scope extends ViewModelScope<Model> {
-        signUpForm: Form;
-        signUpCtrb: Contrib;
+        signUpEmailForm: Form;
+        signUpEmailCtrb: Contrib;
     }
 
     export class Controller implements Model {
@@ -37,44 +37,44 @@ module App.Security.SignUpEmailForm {
         }
 
         emailAddressInputGroupValidationAddOnCssClass(): string {
-            return this.scope.signUpCtrb.emailAddress.hasFeedback() ? null : 'hide';
+            return this.scope.signUpEmailCtrb.emailAddress.hasFeedback() ? null : 'hide';
         }
 
         isEmailAddressRequiredError(): boolean {
-            return this.scope.signUpForm.emailAddress.$error.required
-                && this.scope.signUpCtrb.emailAddress.hasError;
+            return this.scope.signUpEmailForm.emailAddress.$error.required
+                && this.scope.signUpEmailCtrb.emailAddress.hasError;
         }
 
         isEmailAddressPatternError(): boolean {
-            return this.scope.signUpForm.emailAddress.$error.email
-                && this.scope.signUpCtrb.emailAddress.hasError;
+            return this.scope.signUpEmailForm.emailAddress.$error.email
+                && this.scope.signUpEmailCtrb.emailAddress.hasError;
         }
 
         isEmailAddressServerError(): boolean {
-            return this.scope.signUpForm.emailAddress.$error.server
-                && this.scope.signUpCtrb.emailAddress.hasError;
+            return this.scope.signUpEmailForm.emailAddress.$error.server
+                && this.scope.signUpEmailCtrb.emailAddress.hasError;
         }
 
         isExpectingEmailError(): boolean {
-            return this.scope.signUpCtrb.isExpectingEmail.hasError;
+            return this.scope.signUpEmailCtrb.isExpectingEmail.hasError;
         }
 
         isExpectingEmailRequiredError(): boolean {
-            return this.scope.signUpForm.isExpectingEmail.$error.required
+            return this.scope.signUpEmailForm.isExpectingEmail.$error.required
                 && this.isExpectingEmailError();
         }
 
         isExpectingEmailServerError(): boolean {
-            return this.scope.signUpForm.isExpectingEmail.$error.server
+            return this.scope.signUpEmailForm.isExpectingEmail.$error.server
                 && this.isExpectingEmailError();
         }
 
         isSubmitWaiting(): boolean {
-            return this.scope.signUpCtrb.isSubmitWaiting;
+            return this.scope.signUpEmailCtrb.isSubmitWaiting;
         }
 
         isSubmitError(): boolean {
-            return !this.isSubmitWaiting() && this.scope.signUpCtrb.hasError;
+            return !this.isSubmitWaiting() && this.scope.signUpEmailCtrb.hasError;
         }
 
         isSubmitReady(): boolean {

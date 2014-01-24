@@ -12,39 +12,39 @@ var App;
                     scope.vm = this;
                 }
                 Controller.prototype.emailAddressInputGroupValidationAddOnCssClass = function () {
-                    return this.scope.signUpCtrb.emailAddress.hasFeedback() ? null : 'hide';
+                    return this.scope.signUpEmailCtrb.emailAddress.hasFeedback() ? null : 'hide';
                 };
 
                 Controller.prototype.isEmailAddressRequiredError = function () {
-                    return this.scope.signUpForm.emailAddress.$error.required && this.scope.signUpCtrb.emailAddress.hasError;
+                    return this.scope.signUpEmailForm.emailAddress.$error.required && this.scope.signUpEmailCtrb.emailAddress.hasError;
                 };
 
                 Controller.prototype.isEmailAddressPatternError = function () {
-                    return this.scope.signUpForm.emailAddress.$error.email && this.scope.signUpCtrb.emailAddress.hasError;
+                    return this.scope.signUpEmailForm.emailAddress.$error.email && this.scope.signUpEmailCtrb.emailAddress.hasError;
                 };
 
                 Controller.prototype.isEmailAddressServerError = function () {
-                    return this.scope.signUpForm.emailAddress.$error.server && this.scope.signUpCtrb.emailAddress.hasError;
+                    return this.scope.signUpEmailForm.emailAddress.$error.server && this.scope.signUpEmailCtrb.emailAddress.hasError;
                 };
 
                 Controller.prototype.isExpectingEmailError = function () {
-                    return this.scope.signUpCtrb.isExpectingEmail.hasError;
+                    return this.scope.signUpEmailCtrb.isExpectingEmail.hasError;
                 };
 
                 Controller.prototype.isExpectingEmailRequiredError = function () {
-                    return this.scope.signUpForm.isExpectingEmail.$error.required && this.isExpectingEmailError();
+                    return this.scope.signUpEmailForm.isExpectingEmail.$error.required && this.isExpectingEmailError();
                 };
 
                 Controller.prototype.isExpectingEmailServerError = function () {
-                    return this.scope.signUpForm.isExpectingEmail.$error.server && this.isExpectingEmailError();
+                    return this.scope.signUpEmailForm.isExpectingEmail.$error.server && this.isExpectingEmailError();
                 };
 
                 Controller.prototype.isSubmitWaiting = function () {
-                    return this.scope.signUpCtrb.isSubmitWaiting;
+                    return this.scope.signUpEmailCtrb.isSubmitWaiting;
                 };
 
                 Controller.prototype.isSubmitError = function () {
-                    return !this.isSubmitWaiting() && this.scope.signUpCtrb.hasError;
+                    return !this.isSubmitWaiting() && this.scope.signUpEmailCtrb.hasError;
                 };
 
                 Controller.prototype.isSubmitReady = function () {

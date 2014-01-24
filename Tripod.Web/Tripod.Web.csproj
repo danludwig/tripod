@@ -305,9 +305,6 @@
     <Content Include="app\errors\Haikus.js">
       <DependentUpon>Haikus.ts</DependentUpon>
     </Content>
-    <Content Include="app\security\sign-up\ConfirmForm.js">
-      <DependentUpon>ConfirmForm.ts</DependentUpon>
-    </Content>
     <Content Include="app\security\sign-up\PasswordForm.js">
       <DependentUpon>PasswordForm.ts</DependentUpon>
     </Content>
@@ -316,6 +313,9 @@
     </Content>
     <Content Include="app\security\SignUpEmailForm.js">
       <DependentUpon>SignUpEmailForm.ts</DependentUpon>
+    </Content>
+    <Content Include="app\security\SignUpSecretForm.js">
+      <DependentUpon>SignUpSecretForm.ts</DependentUpon>
     </Content>
     <Content Include="app\_common\directives\FormContrib.js">
       <DependentUpon>FormContrib.ts</DependentUpon>
@@ -762,7 +762,7 @@
   <ItemGroup>
     <TypeScriptCompile Include="app\errors\Haikus.ts" />
     <TypeScriptCompile Include="app\security\sign-up\PasswordForm.ts" />
-    <TypeScriptCompile Include="app\security\sign-up\ConfirmForm.ts" />
+    <TypeScriptCompile Include="app\security\SignUpSecretForm.ts" />
     <TypeScriptCompile Include="app\security\SignUpEmailForm.ts" />
     <TypeScriptCompile Include="app\security\SignInForm.ts" />
     <TypeScriptCompile Include="app\_common\api\ViewModelScope.d.ts" />

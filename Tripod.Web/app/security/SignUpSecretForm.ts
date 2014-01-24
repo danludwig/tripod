@@ -1,6 +1,6 @@
 'use strict';
 
-module App.Security.SignUp.ConfirmForm {
+module App.Security.SignUpSecretForm {
 
     export interface Model {
         secret?: string;
@@ -21,8 +21,8 @@ module App.Security.SignUp.ConfirmForm {
     }
 
     export interface Scope extends ViewModelScope<Model> {
-        confirmForm: Form;
-        confirmCtrb: Contrib;
+        signUpSecretForm: Form;
+        signUpSecretCtrb: Contrib;
     }
 
     export class Controller implements Model {
@@ -37,40 +37,40 @@ module App.Security.SignUp.ConfirmForm {
         }
 
         secretInputGroupValidationAddOnCssClass(): string {
-            return this.scope.confirmCtrb.secret.hasFeedback() ? null : 'hide';
+            return this.scope.signUpSecretCtrb.secret.hasFeedback() ? null : 'hide';
         }
 
         isSecretRequiredError(): boolean {
-            return this.scope.confirmForm.secret.$error.required
-                && this.scope.confirmCtrb.secret.hasError;
+            return this.scope.signUpSecretForm.secret.$error.required
+                && this.scope.signUpSecretCtrb.secret.hasError;
         }
 
         isSecretServerError(): boolean {
-            return this.scope.confirmForm.secret.$error.server
-                && this.scope.confirmCtrb.secret.hasError;
+            return this.scope.signUpSecretForm.secret.$error.server
+                && this.scope.signUpSecretCtrb.secret.hasError;
         }
 
         isTicketError(): boolean {
-            return this.scope.confirmCtrb.ticket.hasError
-                && !this.scope.confirmCtrb.secret.hasError;
+            return this.scope.signUpSecretCtrb.ticket.hasError
+                && !this.scope.signUpSecretCtrb.secret.hasError;
         }
 
         isTicketRequiredError(): boolean {
-            return this.scope.confirmForm.ticket.$error.required
+            return this.scope.signUpSecretForm.ticket.$error.required
                 && this.isTicketError();
         }
 
         isTicketServerError(): boolean {
-            return this.scope.confirmForm.ticket.$error.server
+            return this.scope.signUpSecretForm.ticket.$error.server
                 && this.isTicketError();
         }
 
         isSubmitWaiting(): boolean {
-            return this.scope.confirmCtrb.isSubmitWaiting;
+            return this.scope.signUpSecretCtrb.isSubmitWaiting;
         }
 
         isSubmitError(): boolean {
-            return !this.isSubmitWaiting() && this.scope.confirmCtrb.hasError;
+            return !this.isSubmitWaiting() && this.scope.signUpSecretCtrb.hasError;
         }
 
         isSubmitReady(): boolean {

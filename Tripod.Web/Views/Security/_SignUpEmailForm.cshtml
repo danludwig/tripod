@@ -10,10 +10,10 @@
       action="@Url.Action(MVC.SignUpEmail.Index())"
       class="form-horizontal"
       novalidate
-      name="signUpForm"
+      name="signUpEmailForm"
       ng-app="sign-up-form"
       ng-controller="App.Security.SignUpEmailForm.Controller"
-      form-contrib="signUpCtrb"
+      form-contrib="signUpEmailCtrb"
       form-submitted="@IsPost">
 
     @Html.AntiForgeryToken()
@@ -33,7 +33,7 @@
     @* EMAIL ADDRESS INPUT *@
     <div class="form-group form-group-lg @Html.BootstrapValidationCssClassFor(x => x.EmailAddress)"
          remove-class="has-success has-error"
-         ng-class="signUpCtrb.emailAddress.feedbackCssClass()">
+         ng-class="signUpEmailCtrb.emailAddress.feedbackCssClass()">
 
         @* INPUT GROUP COLUMN *@
         <div class="col-md-8">
@@ -43,7 +43,7 @@
             </label>
             <div class="@Html.CssClassWhenNotNullModel(inputGroupCss)"
                  remove-class="@inputGroupCss"
-                 ng-class="signUpCtrb.emailAddress.inputGroupCssClass('lg')">
+                 ng-class="signUpEmailCtrb.emailAddress.inputGroupCssClass('lg')">
                 <input type="email"
                        class="form-control @inputCss"
                        placeholder="@EmailAddress.Constraints.Label"
@@ -78,13 +78,13 @@
                   tooltip-placement="right"
                   class="validation-tooltip"></span>
 
-            <span tooltip="@Resources.email_error.Replace("{PropertyValue}", "{{ signUpForm.emailAddress.$viewValue }}")"
+            <span tooltip="@Resources.email_error.Replace("{PropertyValue}", "{{ signUpEmailForm.emailAddress.$viewValue }}")"
                   tooltip-toggle="vm.isEmailAddressPatternError()"
                   tooltip-animation="false"
                   tooltip-placement="right"
                   class="validation-tooltip"></span>
 
-            <span tooltip="{{ signUpCtrb.emailAddress.error.server }}"
+            <span tooltip="{{ signUpEmailCtrb.emailAddress.error.server }}"
                   tooltip-toggle="vm.isEmailAddressServerError()"
                   tooltip-animation="false"
                   tooltip-placement="right"
@@ -97,7 +97,7 @@
                 @Resources.notempty_error.Replace("{PropertyName}", EmailAddress.Constraints.Label)
             </span>
             <span ng-show="vm.isEmailAddressServerError()" ng-cloak>
-                {{ signUpCtrb.emailAddress.error.server }}
+                {{ signUpEmailCtrb.emailAddress.error.server }}
             </span>
             <span ng-class="{ hide: true }">
                 @Html.ValidationMessageFor(x => x.EmailAddress)
@@ -108,7 +108,7 @@
     @* DISCLAIMER CHECKBOX INPUT *@
     <div class="form-group form-group-lg @Html.BootstrapValidationCssClassFor(x => x.IsExpectingEmail)"
          remove-class="has-success has-error"
-         ng-class="signUpCtrb.isExpectingEmail.feedbackCssClass()">
+         ng-class="signUpEmailCtrb.isExpectingEmail.feedbackCssClass()">
 
         @* INPUT GROUP COLUMN (OFFSET WITHOUT LABEL COLUMN) *@
         <div class="col-md-8">
@@ -152,7 +152,7 @@
                   tooltip-placement="right"
                   class="validation-tooltip"></span>
 
-            <span tooltip="{{ signUpCtrb.isExpectingEmail.error.server }}"
+            <span tooltip="{{ signUpEmailCtrb.isExpectingEmail.error.server }}"
                   tooltip-toggle="vm.isExpectingEmailServerError()"
                   tooltip-animation="false"
                   tooltip-placement="right"
@@ -165,7 +165,7 @@
                 @Resources.Validation_SendConfirmationEmail_IsExpectingEmail.Replace("{PropertyName}", @EmailAddress.Constraints.Label.ToLower())
             </span>
             <span ng-show="vm.isExpectingEmailServerError()" ng-cloak>
-                {{ signUpCtrb.isExpectingEmail.error.server }}
+                {{ signUpEmailCtrb.isExpectingEmail.error.server }}
             </span>
             <span ng-class="{ hide: true }">
                 @Html.ValidationMessageFor(x => x.IsExpectingEmail)
