@@ -1,6 +1,6 @@
 'use strict';
 
-module App.Security.SignUp.PasswordForm {
+module App.Security.SignUpUserForm {
 
     export interface Model {
         password?: string;
@@ -24,8 +24,8 @@ module App.Security.SignUp.PasswordForm {
     }
 
     export interface Scope extends ViewModelScope<Model> {
-        createLocalForm: Form;
-        createLocalCtrb: Contrib;
+        signUpUserForm: Form;
+        signUpUserCtrb: Contrib;
     }
 
     export class Controller implements Model {
@@ -41,84 +41,84 @@ module App.Security.SignUp.PasswordForm {
         }
 
         passwordInputGroupValidationAddOnCssClass(): string {
-            return this.scope.createLocalCtrb.password.hasFeedback() ? null : 'hide';
+            return this.scope.signUpUserCtrb.password.hasFeedback() ? null : 'hide';
         }
 
         isPasswordRequiredError(): boolean {
-            return this.scope.createLocalForm.password.$error.required
-                && this.scope.createLocalCtrb.password.hasError;
+            return this.scope.signUpUserForm.password.$error.required
+                && this.scope.signUpUserCtrb.password.hasError;
         }
 
         isPasswordMinLengthError(): boolean {
-            return this.scope.createLocalForm.password.$error.minlength
-                && this.scope.createLocalCtrb.password.hasError;
+            return this.scope.signUpUserForm.password.$error.minlength
+                && this.scope.signUpUserCtrb.password.hasError;
         }
 
         isPasswordMaxLengthError(): boolean {
-            return this.scope.createLocalForm.password.$error.maxlength
-                && this.scope.createLocalCtrb.password.hasError;
+            return this.scope.signUpUserForm.password.$error.maxlength
+                && this.scope.signUpUserCtrb.password.hasError;
         }
 
         isPasswordServerError(): boolean {
-            return this.scope.createLocalForm.password.$error.server
-                && this.scope.createLocalCtrb.password.hasError;
+            return this.scope.signUpUserForm.password.$error.server
+                && this.scope.signUpUserCtrb.password.hasError;
         }
 
         confirmPasswordInputGroupValidationAddOnCssClass(): string {
-            return this.scope.createLocalCtrb.confirmPassword.hasFeedback() ? null : 'hide';
+            return this.scope.signUpUserCtrb.confirmPassword.hasFeedback() ? null : 'hide';
         }
 
         isConfirmPasswordRequiredError(): boolean {
-            return this.scope.createLocalForm.confirmPassword.$error.required
-                && this.scope.createLocalCtrb.confirmPassword.hasError;
+            return this.scope.signUpUserForm.confirmPassword.$error.required
+                && this.scope.signUpUserCtrb.confirmPassword.hasError;
         }
 
         isConfirmPasswordEqualError(): boolean {
-            return this.scope.createLocalForm.confirmPassword.$error.equal
-                && !this.scope.createLocalForm.confirmPassword.$error.required
-                && !this.scope.createLocalForm.confirmPassword.$error.server
-                && this.scope.createLocalCtrb.confirmPassword.hasError;
+            return this.scope.signUpUserForm.confirmPassword.$error.equal
+                && !this.scope.signUpUserForm.confirmPassword.$error.required
+                && !this.scope.signUpUserForm.confirmPassword.$error.server
+                && this.scope.signUpUserCtrb.confirmPassword.hasError;
         }
 
         isConfirmPasswordServerError(): boolean {
-            return this.scope.createLocalForm.confirmPassword.$error.server
-                && this.scope.createLocalCtrb.confirmPassword.hasError;
+            return this.scope.signUpUserForm.confirmPassword.$error.server
+                && this.scope.signUpUserCtrb.confirmPassword.hasError;
         }
 
         userNameInputGroupValidationAddOnCssClass(): string {
-            return this.scope.createLocalCtrb.userName.hasFeedback() ? null : 'hide';
+            return this.scope.signUpUserCtrb.userName.hasFeedback() ? null : 'hide';
         }
 
         isUserNameRequiredError(): boolean {
-            return this.scope.createLocalForm.userName.$error.required
-                && this.scope.createLocalCtrb.userName.hasError;
+            return this.scope.signUpUserForm.userName.$error.required
+                && this.scope.signUpUserCtrb.userName.hasError;
         }
 
         isUserNameServerError(): boolean {
-            return this.scope.createLocalForm.userName.$error.server
-                && this.scope.createLocalCtrb.userName.hasError;
+            return this.scope.signUpUserForm.userName.$error.server
+                && this.scope.signUpUserCtrb.userName.hasError;
         }
 
         tokenInputGroupValidationAddOnCssClass(): string {
-            return this.scope.createLocalCtrb.token.hasFeedback() ? null : 'hide';
+            return this.scope.signUpUserCtrb.token.hasFeedback() ? null : 'hide';
         }
 
         isTokenRequiredError(): boolean {
-            return this.scope.createLocalForm.token.$error.required
-                && this.scope.createLocalCtrb.token.hasError;
+            return this.scope.signUpUserForm.token.$error.required
+                && this.scope.signUpUserCtrb.token.hasError;
         }
 
         isTokenServerError(): boolean {
-            return this.scope.createLocalForm.token.$error.server
-                && this.scope.createLocalCtrb.token.hasError;
+            return this.scope.signUpUserForm.token.$error.server
+                && this.scope.signUpUserCtrb.token.hasError;
         }
 
         isSubmitWaiting(): boolean {
-            return this.scope.createLocalCtrb.isSubmitWaiting;
+            return this.scope.signUpUserCtrb.isSubmitWaiting;
         }
 
         isSubmitError(): boolean {
-            return !this.isSubmitWaiting() && this.scope.createLocalCtrb.hasError;
+            return !this.isSubmitWaiting() && this.scope.signUpUserCtrb.hasError;
         }
 
         isSubmitReady(): boolean {

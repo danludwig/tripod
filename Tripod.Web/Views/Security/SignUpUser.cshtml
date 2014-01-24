@@ -31,9 +31,9 @@
       action="@Url.Action(MVC.SignUpUser.Index(null as CreateLocalMembership))"
       novalidate
       ng-app="sign-up-password-form"
-      ng-controller="App.Security.SignUp.PasswordForm.Controller"
-      name="createLocalForm"
-      form-contrib="createLocalCtrb"
+      ng-controller="App.Security.SignUpUserForm.Controller"
+      name="signUpUserForm"
+      form-contrib="signUpUserCtrb"
       form-submitted="@IsPost"
       class="form-horizontal">
 
@@ -48,7 +48,7 @@
     @* PASSWORD INPUT *@
     <div class="form-group form-group-lg @Html.BootstrapValidationCssClassFor(x => x.Password)"
          remove-class="has-success has-error"
-         ng-class="createLocalCtrb.password.feedbackCssClass()">
+         ng-class="signUpUserCtrb.password.feedbackCssClass()">
 
         @* INPUT GROUP COLUMN *@
         <div class="col-md-6">
@@ -59,7 +59,7 @@
             @* INPUT GROUP *@
             <div class="@Html.CssClassWhenNotNullModel(inputGroupCss)"
                  remove-class="@inputGroupCss"
-                 ng-class="createLocalCtrb.password.inputGroupCssClass('lg')">
+                 ng-class="signUpUserCtrb.password.inputGroupCssClass('lg')">
                 <input type="password"
                        class="form-control @inputCss"
                        placeholder="@LocalMembership.Constraints.PasswordLabel"
@@ -97,8 +97,8 @@
 
             <span tooltip="@(Resources.Validation_MinLength.Replace("{PropertyName}", LocalMembership.Constraints.PasswordLabel)
                     .Replace("{MinLength}", LocalMembership.Constraints.PasswordMinLength.ToString(CultureInfo.InvariantCulture))
-                    .Replace("{TotalLength}", "{{ createLocalForm.password.$viewValue.length }}")
-                    .Replace("{Characters}", "character{{ createLocalForm.password.$viewValue.length != 1 ? 's' : null }}"))"
+                    .Replace("{TotalLength}", "{{ signUpUserForm.password.$viewValue.length }}")
+                    .Replace("{Characters}", "character{{ signUpUserForm.password.$viewValue.length != 1 ? 's' : null }}"))"
                   tooltip-toggle="vm.isPasswordMinLengthError()"
                   tooltip-animation="false"
                   tooltip-placement="right"
@@ -106,13 +106,13 @@
 
             <span tooltip="@(Resources.Validation_MaxLength.Replace("{PropertyName}", LocalMembership.Constraints.PasswordLabel)
                     .Replace("{MaxLength}", LocalMembership.Constraints.PasswordMaxLength.ToString(CultureInfo.InvariantCulture))
-                    .Replace("{TotalLength}", "{{ createLocalForm.password.$viewValue.length }}"))"
+                    .Replace("{TotalLength}", "{{ signUpUserForm.password.$viewValue.length }}"))"
                   tooltip-toggle="vm.isPasswordMaxLengthError()"
                   tooltip-animation="false"
                   tooltip-placement="right"
                   class="validation-tooltip"></span>
 
-            <span tooltip="{{ createLocalCtrb.password.error.server }}"
+            <span tooltip="{{ signUpUserCtrb.password.error.server }}"
                   tooltip-toggle="vm.isPasswordServerError()"
                   tooltip-animation="false"
                   tooltip-placement="right"
@@ -127,16 +127,16 @@
             <span ng-show="vm.isPasswordMinLengthError()" ng-cloak>
                 @(Resources.Validation_MinLength.Replace("{PropertyName}", LocalMembership.Constraints.PasswordLabel)
                     .Replace("{MinLength}", LocalMembership.Constraints.PasswordMinLength.ToString(CultureInfo.InvariantCulture))
-                    .Replace("{TotalLength}", "{{ createLocalForm.password.$viewValue.length }}")
-                    .Replace("{Characters}", "character{{ createLocalForm.password.$viewValue.length != 1 ? 's' : null }}"))
+                    .Replace("{TotalLength}", "{{ signUpUserForm.password.$viewValue.length }}")
+                    .Replace("{Characters}", "character{{ signUpUserForm.password.$viewValue.length != 1 ? 's' : null }}"))
             </span>
             <span ng-show="vm.isPasswordMaxLengthError()" ng-cloak>
                 @(Resources.Validation_MaxLength.Replace("{PropertyName}", LocalMembership.Constraints.PasswordLabel)
                     .Replace("{MaxLength}", LocalMembership.Constraints.PasswordMaxLength.ToString(CultureInfo.InvariantCulture))
-                    .Replace("{TotalLength}", "{{ createLocalForm.password.$viewValue.length }}"))
+                    .Replace("{TotalLength}", "{{ signUpUserForm.password.$viewValue.length }}"))
             </span>
             <span ng-show="vm.isPasswordServerError()" ng-cloak>
-                {{ createLocalCtrb.password.error.server }}
+                {{ signUpUserCtrb.password.error.server }}
             </span>
             <span ng-class="{ hide: true }">
                 @Html.ValidationMessageFor(x => x.Password)
@@ -147,7 +147,7 @@
     @* CONFIRM PASSWORD INPUT *@
     <div class="form-group form-group-lg @Html.BootstrapValidationCssClassFor(x => x.ConfirmPassword)"
          remove-class="has-success has-error"
-         ng-class="createLocalCtrb.confirmPassword.feedbackCssClass()">
+         ng-class="signUpUserCtrb.confirmPassword.feedbackCssClass()">
 
         @* INPUT GROUP COLUMN *@
         <div class="col-md-6">
@@ -158,7 +158,7 @@
             @* INPUT GROUP *@
             <div class="@Html.CssClassWhenNotNullModel(inputGroupCss)"
                  remove-class="@inputGroupCss"
-                 ng-class="createLocalCtrb.confirmPassword.inputGroupCssClass('lg')">
+                 ng-class="signUpUserCtrb.confirmPassword.inputGroupCssClass('lg')">
                 <input type="password"
                        class="form-control @inputCss"
                        placeholder="Enter same password as above"
@@ -167,7 +167,7 @@
                        ng-model="vm.confirmPassword"
                        required
                        must-equal="vm.password"
-                       must-equal-when="createLocalForm.password.$viewValue"
+                       must-equal-when="signUpUserForm.password.$viewValue"
                        model-contrib
                        server-error="@Html.ValidationMessageTextFor(x => x.ConfirmPassword)"
                        server-validate="@Url.Action(MVC.SignUpUser.Validate(null, "confirmPassword"))"
@@ -203,7 +203,7 @@
                   tooltip-placement="right"
                   class="validation-tooltip"></span>
 
-            <span tooltip="{{ createLocalCtrb.confirmPassword.error.server }}"
+            <span tooltip="{{ signUpUserCtrb.confirmPassword.error.server }}"
                   tooltip-toggle="vm.isConfirmPasswordServerError()"
                   tooltip-animation="false"
                   tooltip-placement="right"
@@ -221,7 +221,7 @@
                     .Replace("{PasswordLabel}", LocalMembership.Constraints.PasswordLabel.ToLower()))
             </span>
             <span ng-show="vm.isConfirmPasswordServerError()" ng-cloak>
-                {{ createLocalCtrb.confirmPassword.error.server }}
+                {{ signUpUserCtrb.confirmPassword.error.server }}
             </span>
             <span ng-class="{ hide: true }">
                 @Html.ValidationMessageFor(x => x.ConfirmPassword)
@@ -238,7 +238,7 @@
     @* USERNAME INPUT *@
     <div class="form-group form-group-lg @Html.BootstrapValidationCssClassFor(x => x.UserName)"
          remove-class="has-success has-error"
-         ng-class="createLocalCtrb.userName.feedbackCssClass()">
+         ng-class="signUpUserCtrb.userName.feedbackCssClass()">
 
         @* INPUT GROUP COLUMN *@
         <div class="col-md-6">
@@ -248,7 +248,7 @@
             </label>
             <div class="@Html.CssClassWhenNotNullModel(inputGroupCss)"
                  remove-class="@inputGroupCss"
-                 ng-class="createLocalCtrb.userName.inputGroupCssClass('lg')">
+                 ng-class="signUpUserCtrb.userName.inputGroupCssClass('lg')">
                 <input type="text"
                        class="form-control @inputCss"
                        placeholder="Enter @UserConstraints.NameLabel.ToLower() here"
@@ -284,7 +284,7 @@
                   tooltip-placement="right"
                   class="validation-tooltip"></span>
 
-            <span tooltip="{{ createLocalCtrb.userName.error.server }}"
+            <span tooltip="{{ signUpUserCtrb.userName.error.server }}"
                   tooltip-toggle="vm.isUserNameServerError()"
                   tooltip-animation="false"
                   tooltip-placement="right"
@@ -297,7 +297,7 @@
                 @Resources.notempty_error.Replace("{PropertyName}", UserConstraints.NameLabel)
             </span>
             <span ng-show="vm.isUserNameServerError()" ng-cloak>
-                {{ createLocalCtrb.userName.error.server }}
+                {{ signUpUserCtrb.userName.error.server }}
             </span>
             <span ng-class="{ hide: true }">
                 @Html.ValidationMessageFor(x => x.UserName)
@@ -308,7 +308,7 @@
     @* EMAIL INPUT *@
     <div class="form-group form-group-lg @Html.BootstrapValidationCssClassFor(x => x.Token)"
          remove-class="has-success has-error"
-         ng-class="createLocalCtrb.token.feedbackCssClass()">
+         ng-class="signUpUserCtrb.token.feedbackCssClass()">
 
         @* INPUT GROUP COLUMN *@
         <div class="col-md-6">
@@ -319,7 +319,7 @@
             <small>(You can't change this now, but you can add &amp; remove emails after you sign in)</small>
             <div class="@Html.CssClassWhenNotNullModel(inputGroupCss)"
                  remove-class="@inputGroupCss"
-                 ng-class="createLocalCtrb.token.inputGroupCssClass('lg')">
+                 ng-class="signUpUserCtrb.token.inputGroupCssClass('lg')">
                 <input type="text"
                        class="form-control @inputCss"
                        id="@Html.IdFor(x => x.Token)"
@@ -358,7 +358,7 @@
                   tooltip-placement="right"
                   class="validation-tooltip"></span>
 
-            <span tooltip="{{ createLocalCtrb.token.error.server }}"
+            <span tooltip="{{ signUpUserCtrb.token.error.server }}"
                   tooltip-toggle="vm.isTokenServerError()"
                   tooltip-animation="false"
                   tooltip-placement="right"
@@ -371,7 +371,7 @@
                 @Resources.notempty_error.Replace("{PropertyName}", EmailConfirmation.Constraints.Label)
             </span>
             <span ng-show="vm.isTokenServerError()" ng-cloak>
-                {{ createLocalCtrb.confirmPassword.error.server }}
+                {{ signUpUserCtrb.confirmPassword.error.server }}
             </span>
             <span ng-class="{ hide: true }">
                 @Html.ValidationMessageFor(x => x.Token)
@@ -417,5 +417,5 @@
 @section scripts
 {
     @{ Html.RenderPartial(MVC.Scripts.Views.Angular); }
-    <script src="~/app/security/sign-up/PasswordForm.js"></script>
+    <script src="~/app/security/SignUpUserForm.js"></script>
 }
