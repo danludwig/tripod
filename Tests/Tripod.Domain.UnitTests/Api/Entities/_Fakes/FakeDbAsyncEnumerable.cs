@@ -21,6 +21,7 @@ namespace Tripod
             return GetAsyncEnumerator();
         }
 
+        [UsedImplicitly]
         public IQueryProvider Provider
         {
             get { return new FakeDbAsyncQueryProvider<T>(this); }

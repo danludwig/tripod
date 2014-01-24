@@ -1,5 +1,6 @@
 ﻿namespace Tripod.Ioc.Net
 {
+    [UsedImplicitly]
     public class PassiveEmailMessageDelivery : IDeliverEmailMessage
     {
         public void Deliver(int emailMessageId)
