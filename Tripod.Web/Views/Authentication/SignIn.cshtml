@@ -31,7 +31,7 @@
         <div ng-app="sign-in-form" ng-controller="App.Security.SignIn.Form.Controller">
             <form role="form"
                   method="POST"
-                  action="@Url.Action(MVC.Authentication.SignIn())"
+                  action="@Url.Action(MVC.SignIn.Index())"
                   novalidate
                   name="signInForm"
                   form-contrib="signInCtrb"
@@ -73,7 +73,7 @@
                                    required
                                    model-contrib
                                    server-error="@Html.ValidationMessageTextFor(x => x.UserName)"
-                                   server-validate="@Url.Action(MVC.Authentication.SignInValidate(null, "userName"))"
+                                   server-validate="@Url.Action(MVC.SignIn.Validate(null, "userName"))"
                                    server-validate-throttle="400" />
 
                             <span class="input-group-addon validation @Html.CssClassWhenNullModel("hide")"
@@ -234,21 +234,6 @@
                     </div>
                 </div>
             </form>
-
-            @*<a href="@Url.Action(MVC.Authentication.SignIn())">Reload</a>
-
-                            <pre>
-                vm = {{vm | json}}
-                signInCtrb.isSubmitAttempted = {{ signInCtrb.isSubmitAttempted }}
-                signInCtrb.userName.hasError = {{ signInCtrb.userName.hasError }}
-                signInCtrb.userName.hasSuccess = {{ signInCtrb.userName.hasSuccess }}
-                signInCtrb.userName.hasSpinner = {{ signInCtrb.userName.hasSpinner }}
-                signInCtrb.userName.error.server = {{ signInCtrb.userName.error.server }}
-                signInForm.userName.$error.required = {{ signInForm.userName.$error.required }}
-                signInForm.userName.$error.server = {{ signInForm.userName.$error.server }}
-                signInForm.userName.$pristine = {{ signInForm.userName.$pristine }}
-                signInCtrb.password.error.server = {{ signInCtrb.password.error.server }}
-                </pre>*@
         </div>
     </div>
 </div>

@@ -43,18 +43,6 @@ namespace Tripod.Web.Controllers
 
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult SignIn()
-        {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SignIn);
-        }
-        [NonAction]
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult SignInValidate()
-        {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SignInValidate);
-        }
-        [NonAction]
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public virtual System.Web.Mvc.ActionResult ExternalLogin()
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ExternalLogin);
@@ -95,8 +83,6 @@ namespace Tripod.Web.Controllers
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNamesClass
         {
-            public readonly string SignIn = "SignIn";
-            public readonly string SignInValidate = "SignInValidate";
             public readonly string ExternalLogin = "ExternalLogin";
             public readonly string ExternalLoginCallback = "ExternalLoginCallback";
             public readonly string ExternalLoginConfirmation = "ExternalLoginConfirmation";
@@ -109,8 +95,6 @@ namespace Tripod.Web.Controllers
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNameConstants
         {
-            public const string SignIn = "SignIn";
-            public const string SignInValidate = "SignInValidate";
             public const string ExternalLogin = "ExternalLogin";
             public const string ExternalLoginCallback = "ExternalLoginCallback";
             public const string ExternalLoginConfirmation = "ExternalLoginConfirmation";
@@ -121,24 +105,6 @@ namespace Tripod.Web.Controllers
         }
 
 
-        static readonly ActionParamsClass_SignIn s_params_SignIn = new ActionParamsClass_SignIn();
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_SignIn SignInParams { get { return s_params_SignIn; } }
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_SignIn
-        {
-            public readonly string returnUrl = "returnUrl";
-            public readonly string command = "command";
-        }
-        static readonly ActionParamsClass_SignInValidate s_params_SignInValidate = new ActionParamsClass_SignInValidate();
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_SignInValidate SignInValidateParams { get { return s_params_SignInValidate; } }
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_SignInValidate
-        {
-            public readonly string command = "command";
-            public readonly string fieldName = "fieldName";
-        }
         static readonly ActionParamsClass_ExternalLogin s_params_ExternalLogin = new ActionParamsClass_ExternalLogin();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_ExternalLogin ExternalLoginParams { get { return s_params_ExternalLogin; } }
@@ -205,38 +171,6 @@ namespace Tripod.Web.Controllers
     public partial class T4MVC_AuthenticationController : Tripod.Web.Controllers.AuthenticationController
     {
         public T4MVC_AuthenticationController() : base(Dummy.Instance) { }
-
-        partial void SignInOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string returnUrl);
-
-        public override System.Web.Mvc.ActionResult SignIn(string returnUrl)
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SignIn);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "returnUrl", returnUrl);
-            SignInOverride(callInfo, returnUrl);
-            return callInfo;
-        }
-
-        partial void SignInOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Tripod.Domain.Security.SignIn command, string returnUrl);
-
-        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> SignIn(Tripod.Domain.Security.SignIn command, string returnUrl)
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SignIn);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "command", command);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "returnUrl", returnUrl);
-            SignInOverride(callInfo, command, returnUrl);
-            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
-        }
-
-        partial void SignInValidateOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Tripod.Domain.Security.SignIn command, string fieldName);
-
-        public override System.Web.Mvc.ActionResult SignInValidate(Tripod.Domain.Security.SignIn command, string fieldName)
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SignInValidate);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "command", command);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "fieldName", fieldName);
-            SignInValidateOverride(callInfo, command, fieldName);
-            return callInfo;
-        }
 
         partial void ExternalLoginOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string provider, string returnUrl);
 

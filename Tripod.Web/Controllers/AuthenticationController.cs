@@ -1,10 +1,8 @@
-﻿using System;
-using System.Security.Claims;
+﻿using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Tripod.Domain.Security;
-using Tripod.Web.Models;
 
 namespace Tripod.Web.Controllers
 {
@@ -19,43 +17,6 @@ namespace Tripod.Web.Controllers
             _queries = queries;
             _commands = commands;
             _validation = validation;
-        }
-
-        [HttpGet, Route("sign-in")]
-        public virtual ActionResult SignIn(string returnUrl)
-        {
-            ViewBag.ReturnUrl = returnUrl;
-            return View(Views.SignIn);
-        }
-
-        [ValidateAntiForgeryToken]
-        [HttpPost, Route("sign-in")]
-        public virtual async Task<ActionResult> SignIn(SignIn command, string returnUrl)
-        {
-            //System.Threading.Thread.Sleep(new Random().Next(5000, 5001));
-
-            if (command == null) return View(MVC.Errors.Views.BadRequest);
-            if (!ModelState.IsValid) return View(Views.SignIn, command);
-            await _commands.Execute(command);
-            return RedirectToLocal(returnUrl);
-        }
-
-        [HttpPost, Route("sign-in/validate/{fieldName?}")]
-        public virtual ActionResult SignInValidate(SignIn command, string fieldName = null)
-        {
-            //System.Threading.Thread.Sleep(new Random().Next(5000, 5001));
-            if (command == null || command.PropertyName(x => x.Password).Equals(fieldName, StringComparison.OrdinalIgnoreCase))
-            {
-                Response.StatusCode = 400;
-                return Json(null);
-            }
-
-            var result = new ValidatedFields(ModelState, fieldName);
-
-            //ModelState[command.PropertyName(x => x.UserName)].Errors.Clear();
-            //result = new ValidatedFields(ModelState, fieldName);
-
-            return new CamelCaseJsonResult(result);
         }
 
         [ValidateAntiForgeryToken]
@@ -73,7 +34,7 @@ namespace Tripod.Web.Controllers
         {
             var loginInfo = await _queries.Execute(new PrincipalRemoteMembershipTicket(User));
             if (loginInfo == null)
-                return RedirectToAction(MVC.Authentication.SignIn());
+                return RedirectToAction(MVC.SignIn.Index());
 
             //var externalIdentity = await HttpContext.GetOwinContext().Authentication
             //    .GetExternalIdentityAsync(DefaultAuthenticationTypes.ExternalCookie);
@@ -89,7 +50,7 @@ namespace Tripod.Web.Controllers
                     LoginProvider = loginInfo.Login.LoginProvider,
                     ProviderKey = loginInfo.Login.ProviderKey,
                 });
-                return RedirectToLocal(returnUrl);
+                return this.RedirectToLocal(returnUrl);
             }
 
             ViewBag.ReturnUrl = returnUrl;
@@ -133,7 +94,7 @@ namespace Tripod.Web.Controllers
                     LoginProvider = info.Login.LoginProvider,
                     ProviderKey = info.Login.ProviderKey,
                 });
-                return RedirectToLocal(returnUrl);
+                return this.RedirectToLocal(returnUrl);
             }
 
             ViewBag.LoginProvider = info.Login.LoginProvider;
@@ -183,13 +144,13 @@ namespace Tripod.Web.Controllers
             return View(MVC.Account.Views.ExternalLoginFailure);
         }
 
-        private ActionResult RedirectToLocal(string returnUrl)
-        {
-            if (Url.IsLocalUrl(returnUrl))
-            {
-                return Redirect(returnUrl);
-            }
-            return RedirectToAction(MVC.Home.Index());
-        }
+        //private ActionResult RedirectToLocal(string returnUrl)
+        //{
+        //    if (Url.IsLocalUrl(returnUrl))
+        //    {
+        //        return Redirect(returnUrl);
+        //    }
+        //    return RedirectToAction(MVC.Home.Index());
+        //}
     }
 }
