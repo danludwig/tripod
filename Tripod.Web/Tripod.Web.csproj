@@ -729,7 +729,7 @@
     <Content Include="Views\Errors\BadRequest.cshtml" />
     <Content Include="Views\Security\SignUpSecret.cshtml" />
     <Content Include="Views\Security\SignUpUser.cshtml" />
-    <Content Include="Views\Authentication\_SignUpWizard.cshtml" />
+    <Content Include="Views\Security\_SignUpWizard.cshtml" />
     <Content Include="Views\Account\ExternalLoginConfirmation2.cshtml" />
     <Content Include="Views\Scripts\Angular.cshtml" />
     <Content Include="Views\Authentication\_SendConfirmEmailForm.cshtml" />

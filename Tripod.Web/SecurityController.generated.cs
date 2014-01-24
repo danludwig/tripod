@@ -36,12 +36,14 @@ namespace T4MVC
             public class _ViewNamesClass
             {
                 public readonly string _SignOnProviderForm = "_SignOnProviderForm";
+                public readonly string _SignUpWizard = "_SignUpWizard";
                 public readonly string SignIn = "SignIn";
                 public readonly string SignUpEmail = "SignUpEmail";
                 public readonly string SignUpSecret = "SignUpSecret";
                 public readonly string SignUpUser = "SignUpUser";
             }
             public readonly string _SignOnProviderForm = "~/Views/Security/_SignOnProviderForm.cshtml";
+            public readonly string _SignUpWizard = "~/Views/Security/_SignUpWizard.cshtml";
             public readonly string SignIn = "~/Views/Security/SignIn.cshtml";
             public readonly string SignUpEmail = "~/Views/Security/SignUpEmail.cshtml";
             public readonly string SignUpSecret = "~/Views/Security/SignUpSecret.cshtml";
