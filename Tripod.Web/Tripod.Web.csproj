@@ -24,11 +24,12 @@
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
     <TypeScriptToolsVersion>0.9</TypeScriptToolsVersion>
-    <TypeScriptModuleKind>amd</TypeScriptModuleKind>
+    <TypeScriptModuleKind>none</TypeScriptModuleKind>
     <TypeScriptSourceMap>False</TypeScriptSourceMap>
     <IsCompassProject>True</IsCompassProject>
     <TypeScriptRemoveComments>True</TypeScriptRemoveComments>
     <TypeScriptCompileOnSaveEnabled>True</TypeScriptCompileOnSaveEnabled>
+    <TypeScriptOutDir>app-js</TypeScriptOutDir>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -302,48 +303,20 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="app\errors\Haikus.js">
-      <DependentUpon>Haikus.ts</DependentUpon>
-    </Content>
-    <Content Include="app\security\SignInForm.js">
-      <DependentUpon>SignInForm.ts</DependentUpon>
-    </Content>
-    <Content Include="app\security\SignUpEmailForm.js">
-      <DependentUpon>SignUpEmailForm.ts</DependentUpon>
-    </Content>
-    <Content Include="app\security\SignUpSecretForm.js">
-      <DependentUpon>SignUpSecretForm.ts</DependentUpon>
-    </Content>
-    <Content Include="app\security\SignUpUserForm.js">
-      <DependentUpon>SignUpUserForm.ts</DependentUpon>
-    </Content>
-    <Content Include="app\_common\directives\FormContrib.js">
-      <DependentUpon>FormContrib.ts</DependentUpon>
-    </Content>
-    <Content Include="app\_common\directives\InputPreFormatter.js">
-      <DependentUpon>InputPreFormatter.ts</DependentUpon>
-    </Content>
-    <Content Include="app\_common\directives\ModelContrib.js">
-      <DependentUpon>ModelContrib.ts</DependentUpon>
-    </Content>
-    <Content Include="app\_common\directives\MustEqual.js">
-      <DependentUpon>MustEqual.ts</DependentUpon>
-    </Content>
-    <Content Include="app\_common\directives\RemoveCssClass.js">
-      <DependentUpon>RemoveCssClass.ts</DependentUpon>
-    </Content>
-    <Content Include="app\_common\directives\ServerError.js">
-      <DependentUpon>ServerError.ts</DependentUpon>
-    </Content>
-    <Content Include="app\_common\directives\ServerValidate.js">
-      <DependentUpon>ServerValidate.ts</DependentUpon>
-    </Content>
-    <Content Include="app\_common\directives\TooltipToggle.js">
-      <DependentUpon>TooltipToggle.ts</DependentUpon>
-    </Content>
-    <Content Include="app\_common\modules\Tripod.js">
-      <DependentUpon>Tripod.ts</DependentUpon>
-    </Content>
+    <Content Include="app-js\errors\Haikus.js" />
+    <Content Include="app-js\security\SignInForm.js" />
+    <Content Include="app-js\security\SignUpEmailForm.js" />
+    <Content Include="app-js\security\SignUpSecretForm.js" />
+    <Content Include="app-js\security\SignUpUserForm.js" />
+    <Content Include="app-js\_common\directives\FormContrib.js" />
+    <Content Include="app-js\_common\directives\InputPreFormatter.js" />
+    <Content Include="app-js\_common\directives\ModelContrib.js" />
+    <Content Include="app-js\_common\directives\MustEqual.js" />
+    <Content Include="app-js\_common\directives\RemoveCssClass.js" />
+    <Content Include="app-js\_common\directives\ServerError.js" />
+    <Content Include="app-js\_common\directives\ServerValidate.js" />
+    <Content Include="app-js\_common\directives\TooltipToggle.js" />
+    <Content Include="app-js\_common\modules\Tripod.js" />
     <Content Include="App_Data\.gitignore" />
     <Content Include="App_Data\mail\pickup\.gitignore" />
     <Content Include="content\bootstrap.css" />
@@ -734,9 +707,7 @@
     <Content Include="Views\Scripts\Angular.cshtml" />
     <Content Include="Views\Security\_SignUpEmailForm.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="app-js\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />

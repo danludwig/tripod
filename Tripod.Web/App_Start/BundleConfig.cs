@@ -32,16 +32,16 @@ namespace Tripod.Web
                       "~/scripts/bootstrap.js",
                       "~/scripts/respond.js",
                       "~/scripts/ui-bootstrap-tpls-{version}.js",
-                      "~/app/_common/directives/InputPreFormatter.js",
-                      "~/app/_common/directives/RemoveCssClass.js",
-                      "~/app/_common/directives/TooltipToggle.js",
-                      "~/app/_common/directives/FormContrib.js",
-                      "~/app/_common/directives/ModelContrib.js",
-                      "~/app/_common/directives/ServerError.js",
-                      "~/app/_common/directives/ServerValidate.js",
-                      "~/app/_common/directives/SubmitAction.js",
-                      "~/app/_common/directives/MustEqual.js",
-                      "~/app/_common/modules/Tripod.js"));
+                      "~/app-js/_common/directives/InputPreFormatter.js",
+                      "~/app-js/_common/directives/RemoveCssClass.js",
+                      "~/app-js/_common/directives/TooltipToggle.js",
+                      "~/app-js/_common/directives/FormContrib.js",
+                      "~/app-js/_common/directives/ModelContrib.js",
+                      "~/app-js/_common/directives/ServerError.js",
+                      "~/app-js/_common/directives/ServerValidate.js",
+                      "~/app-js/_common/directives/SubmitAction.js",
+                      "~/app-js/_common/directives/MustEqual.js",
+                      "~/app-js/_common/modules/Tripod.js"));
 
             bundles.Add(new StyleBundle("~/content/css").Include(
                       "~/content/bootstrap.css",

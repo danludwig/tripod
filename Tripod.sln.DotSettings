@@ -10,9 +10,8 @@
 	<s:Boolean x:Key="/Default/CodeEditing/Intellisense/CodeCompletion/IntellisenseEnabled/VBIntellisenseEnabled/IntellisenseEnabled/@EntryValue">True</s:Boolean>
 	<s:String x:Key="/Default/CodeEditing/Intellisense/CodeCompletion/IntellisenseGloballyEnabled/IntellisenseEnabled/@EntryValue">PerTechnology</s:String>
 	<s:Boolean x:Key="/Default/CodeInspection/CodeAnnotations/NamespacesWithAnnotations/=Tripod/@EntryIndexedValue">True</s:Boolean>
-	
 	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/GeneratedFilesAndFolders/=154E87E2_002DA45A_002D4F51_002DA883_002D0AC4387C7209_002Ff_003AReSharperAnnotations_002Ecs_002Fs_003A_002E_002E_003FReSharperAnnotations_002Ecs/@EntryIndexedValue">154E87E2-A45A-4F51-A883-0AC4387C7209/f:ReSharperAnnotations.cs/s:..?ReSharperAnnotations.cs</s:String>
-	
+	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/GeneratedFilesAndFolders/=5058F80F_002DC633_002D433B_002DA381_002D55A8A3F2BAA0_002Fd_003Aapp_002Djs/@EntryIndexedValue">5058F80F-C633-433B-A381-55A8A3F2BAA0/d:app-js</s:String>
 	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/GeneratedFilesAndFolders/=5058F80F_002DC633_002D433B_002DA381_002D55A8A3F2BAA0_002Fd_003Ascripts_002Ff_003Ajquery_002D1_002E10_002E2_002Eintellisense_002Ejs/@EntryIndexedValue">5058F80F-C633-433B-A381-55A8A3F2BAA0/d:scripts/f:jquery-1.10.2.intellisense.js</s:String>
 	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/GeneratedFilesAndFolders/=5058F80F_002DC633_002D433B_002DA381_002D55A8A3F2BAA0_002Ff_003AT4MVC_002Ecs/@EntryIndexedValue">5058F80F-C633-433B-A381-55A8A3F2BAA0/f:T4MVC.cs</s:String>
 	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/GeneratedFilesAndFolders/=E1BA1D96_002D1242_002D4196_002D85C1_002D0034447A4106_002Fd_003AProperties_002Ff_003AReSharperAnnotations_002Ecs_002Fl_003A_002E_002E_003F_002E_002E_003FReSharperAnnotations_002Ecs/@EntryIndexedValue">E1BA1D96-1242-4196-85C1-0034447A4106/d:Properties/f:ReSharperAnnotations.cs/l:..?..?ReSharperAnnotations.cs</s:String>
@@ -24,7 +23,6 @@
 	<s:String x:Key="/Default/CodeInspection/Highlighting/InspectionSeverities/=RedundantArgumentNameForLiteralExpression/@EntryIndexedValue">DO_NOT_SHOW</s:String>
 	<s:String x:Key="/Default/CodeInspection/Highlighting/InspectionSeverities/=RedundantCommaInArrayInitializer/@EntryIndexedValue">DO_NOT_SHOW</s:String>
 	<s:String x:Key="/Default/CodeInspection/Highlighting/InspectionSeverities/=ReturnTypeCanBeEnumerable_002EGlobal/@EntryIndexedValue">HINT</s:String>
-	
 	<s:Boolean x:Key="/Default/CodeStyle/CodeFormatting/CSharpFormat/ALIGN_MULTILINE_BINARY_EXPRESSIONS_CHAIN/@EntryValue">False</s:Boolean>
 	<s:Boolean x:Key="/Default/CodeStyle/CodeFormatting/CSharpFormat/ALLOW_COMMENT_AFTER_LBRACE/@EntryValue">True</s:Boolean>
 	<s:Int64 x:Key="/Default/CodeStyle/CodeFormatting/CSharpFormat/CONTINUOUS_INDENT_MULTIPLIER/@EntryValue">1</s:Int64>
@@ -33,9 +31,6 @@
 	<s:String x:Key="/Default/CodeStyle/CodeFormatting/CSharpFormat/WRAP_ARRAY_INITIALIZER_STYLE/@EntryValue">CHOP_IF_LONG</s:String>
 	<s:String x:Key="/Default/CodeStyle/CodeFormatting/CSharpFormat/WRAP_OBJECT_AND_COLLECTION_INITIALIZER_STYLE/@EntryValue">CHOP_ALWAYS</s:String>
 	<s:Boolean x:Key="/Default/CodeStyle/CodeFormatting/JavaScriptCodeFormatting/SPACE_BEFORE_ARROW/@EntryValue">True</s:Boolean>
-	
-	
-	
   <s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/UserRules/=e34aaa01_002De182_002D4812_002Daf09_002D48c62f5d7d3d/@EntryIndexedValue">&lt;Policy&gt;&lt;Descriptor Staticness="Instance" AccessRightKinds="Public" Description="UnitTestMethodUnderscoresTolerant"&gt;&lt;ElementKinds&gt;&lt;Kind Name="METHOD" /&gt;&lt;Kind Name="TEST_MEMBER" /&gt;&lt;/ElementKinds&gt;&lt;/Descriptor&gt;&lt;Policy Inspect="True" Prefix="" Suffix="" Style="AaBb_AaBb" /&gt;&lt;/Policy&gt;</s:String>
 	<s:String x:Key="/Default/Environment/Hierarchy/Browsers/Browsers/@EntryValue">C7+,FF4+,IE9+,S5+</s:String>
 	<s:Boolean x:Key="/Default/Environment/SettingsMigration/IsMigratorApplied/=JetBrains_002EReSharper_002EPsi_002ECSharp_002ECodeStyle_002ESettingsUpgrade_002EMigrateBlankLinesAroundFieldToBlankLinesAroundProperty/@EntryIndexedValue">True</s:Boolean></wpf:ResourceDictionary>
