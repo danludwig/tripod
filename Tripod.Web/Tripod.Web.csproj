@@ -264,7 +264,7 @@
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\Security\SignInOAuthButtonModel.cs" />
+    <Compile Include="Models\Security\SignOnProviderButtonModel.cs" />
     <Compile Include="Models\Security\SignUpWizardModel.cs" />
     <Compile Include="Models\_Common\ValidatedField.cs" />
     <Compile Include="Models\_Common\ValidatedFieldError.cs" />
@@ -723,7 +723,7 @@
     <Content Include="Views\RemoteMemberships\_AddForm.cshtml" />
     <Content Include="Views\Security\SignIn.cshtml" />
     <Content Include="Views\Security\SignUpEmail.cshtml" />
-    <Content Include="Views\Authentication\_OAuthSignInForm.cshtml" />
+    <Content Include="Views\Security\_SignOnProviderForm.cshtml" />
     <Content Include="Views\Errors\NotFound.cshtml" />
     <Content Include="Views\Errors\Forbidden.cshtml" />
     <Content Include="Views\Errors\BadRequest.cshtml" />

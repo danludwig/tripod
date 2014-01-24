@@ -1,6 +1,6 @@
 ﻿namespace Tripod.Web.Models
 {
-    public class SignInOAuthButtonModel
+    public class SignOnProviderButtonModel
     {
         public bool EmailProvidersOnly { get; set; }
     }

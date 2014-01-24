@@ -16,7 +16,7 @@
         <h2>@ViewBag.Title.</h2>
 
         @* OAUTH PROVIDER BUTTONS FORM *@
-        @{ Html.RenderPartial(MVC.Authentication.Views._OAuthSignInForm, new SignInOAuthButtonModel()); }
+        @{ Html.RenderPartial(MVC.Security.Views._SignOnProviderForm, new SignOnProviderButtonModel()); }
 
         <h4>
             Don't have any of the above acounts? <a href="@Url.Action(MVC.SignUpEmail.Index())">Sign up</a> to create an account with us.

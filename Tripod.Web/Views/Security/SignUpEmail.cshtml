@@ -32,7 +32,7 @@
         </div>
 
         @* OAUTH PROVIDER BUTTONS FORM *@
-        @{ Html.RenderPartial(MVC.Authentication.Views._OAuthSignInForm, new SignInOAuthButtonModel()); }
+        @{ Html.RenderPartial(MVC.Security.Views._SignOnProviderForm, new SignOnProviderButtonModel()); }
 
         <h4>
             Create a new account with us using your email address.
