@@ -2,13 +2,13 @@
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Security.Claims;
 using Microsoft.AspNet.Identity;
 using Moq;
 using Should;
 using Tripod.Domain.Security;
 using Xunit;
 using Xunit.Extensions;
-using SecurityClaim = System.Security.Claims.Claim;
 
 namespace Tripod.Ioc.Security
 {
@@ -760,9 +760,9 @@ namespace Tripod.Ioc.Security
         {
             var instance = new SecurityStore(null) as IUserClaimStore<User, int>;
             var user = new User();
-            user.Claims.Add(new Claim { ClaimType = "type1", ClaimValue = "value1" });
-            user.Claims.Add(new Claim { ClaimType = "type2", ClaimValue = "value2" });
-            user.Claims.Add(new Claim { ClaimType = "type3", ClaimValue = "value3" });
+            user.Claims.Add(new UserClaim { ClaimType = "type1", ClaimValue = "value1" });
+            user.Claims.Add(new UserClaim { ClaimType = "type2", ClaimValue = "value2" });
+            user.Claims.Add(new UserClaim { ClaimType = "type3", ClaimValue = "value3" });
             var result = instance.GetClaimsAsync(user).Result;
             result.ShouldNotBeNull();
             result.Count.ShouldEqual(3);
@@ -805,7 +805,7 @@ namespace Tripod.Ioc.Security
         {
             var instance = new SecurityStore(null) as IUserClaimStore<User, int>;
             var user = new User();
-            var claim = new SecurityClaim(Guid.NewGuid().ToString(), Guid.NewGuid().ToString());
+            var claim = new Claim(Guid.NewGuid().ToString(), Guid.NewGuid().ToString());
             instance.AddClaimAsync(user, claim).Wait();
             user.Claims.Count.ShouldEqual(1);
             user.Claims.Any(x => x.ClaimType == claim.Type && x.ClaimValue == claim.Value).ShouldBeTrue();
@@ -847,10 +847,10 @@ namespace Tripod.Ioc.Security
         {
             var instance = new SecurityStore(null) as IUserClaimStore<User, int>;
             var user = new User();
-            var securityClaim = new SecurityClaim(Guid.NewGuid().ToString(), Guid.NewGuid().ToString());
-            user.Claims.Add(new Claim { ClaimType = securityClaim.Type, ClaimValue = securityClaim.Value });
-            user.Claims.Add(new Claim { ClaimType = Guid.NewGuid().ToString(), ClaimValue = Guid.NewGuid().ToString() });
-            user.Claims.Add(new Claim { ClaimType = Guid.NewGuid().ToString(), ClaimValue = Guid.NewGuid().ToString() });
+            var securityClaim = new Claim(Guid.NewGuid().ToString(), Guid.NewGuid().ToString());
+            user.Claims.Add(new UserClaim { ClaimType = securityClaim.Type, ClaimValue = securityClaim.Value });
+            user.Claims.Add(new UserClaim { ClaimType = Guid.NewGuid().ToString(), ClaimValue = Guid.NewGuid().ToString() });
+            user.Claims.Add(new UserClaim { ClaimType = Guid.NewGuid().ToString(), ClaimValue = Guid.NewGuid().ToString() });
             instance.RemoveClaimAsync(user, securityClaim);
             user.Claims.Count.ShouldEqual(2);
             user.Claims.Any(x => x.ClaimType == securityClaim.Type && x.ClaimValue == securityClaim.Value).ShouldBeFalse();

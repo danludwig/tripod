@@ -22,6 +22,10 @@ namespace Tripod.Ioc.Transactions
                 typeof(IHandleQuery<,>),
                 typeof(QueryLifetimeScopeDecorator<,>)
             );
+            container.RegisterSingleDecorator(
+                typeof(IHandleQuery<,>),
+                typeof(QueryNotNullDecorator<,>)
+            );
         }
 
         public static void RegisterCommandTransactions(this Container container, params Assembly[] assemblies)
@@ -38,6 +42,10 @@ namespace Tripod.Ioc.Transactions
             container.RegisterSingleDecorator(
                 typeof(IHandleCommand<>),
                 typeof(CommandLifetimeScopeDecorator<>)
+            );
+            container.RegisterSingleDecorator(
+                typeof(IHandleCommand<>),
+                typeof(CommandNotNullDecorator<>)
             );
         }
     }

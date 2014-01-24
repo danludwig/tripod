@@ -3,12 +3,12 @@ using Xunit;
 
 namespace Tripod.Domain.Security
 {
-    public class ClaimTests
+    public class UserClaimTests
     {
         [Fact]
         public void Ctor_InitializesNothing()
         {
-            var entity = new Claim();
+            var entity = new UserClaim();
             entity.Id.ShouldEqual(0);
             entity.Owner.ShouldBeNull();
             entity.UserId.ShouldEqual(0);

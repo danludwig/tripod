@@ -26,8 +26,6 @@ namespace Tripod.Domain.Security
 
         public Task<LocalMembership> Handle(LocalMembershipByUser query)
         {
-            if (query == null) throw new ArgumentNullException("query");
-
             var queryable = _entities.Query<LocalMembership>().EagerLoad(query.EagerLoad);
             if (query.UserId.HasValue) return queryable.ByUserIdAsync(query.UserId.Value);
             if (query.UserLoginInfo != null) return queryable.ByUserLoginInfoAsync(query.UserLoginInfo);

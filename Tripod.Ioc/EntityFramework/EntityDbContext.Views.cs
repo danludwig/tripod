@@ -11,7 +11,7 @@ using System.Data.Entity.Infrastructure.MappingViews;
 
 [assembly: DbMappingViewCacheTypeAttribute(
     typeof(Tripod.Ioc.EntityFramework.EntityDbContext),
-    typeof(Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySetsad2764c32c08ec3ceaf324636e16256b27c34397777f20c32d756f3bae0cc2c9))]
+    typeof(Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySetsc96706db7fdaf7925eef1516e49ea944371c830ca77572855c528cb877dbabee))]
 
 namespace Edm_EntityMappingGeneratedViews
 {
@@ -23,14 +23,14 @@ namespace Edm_EntityMappingGeneratedViews
     /// Implements a mapping view cache.
     /// </summary>
     [GeneratedCode("Entity Framework Power Tools", "0.9.0.0")]
-    internal sealed class ViewsForBaseEntitySetsad2764c32c08ec3ceaf324636e16256b27c34397777f20c32d756f3bae0cc2c9 : DbMappingViewCache
+    internal sealed class ViewsForBaseEntitySetsc96706db7fdaf7925eef1516e49ea944371c830ca77572855c528cb877dbabee : DbMappingViewCache
     {
         /// <summary>
         /// Gets a hash value computed over the mapping closure.
         /// </summary>
         public override string MappingHashValue
         {
-            get { return "ad2764c32c08ec3ceaf324636e16256b27c34397777f20c32d756f3bae0cc2c9"; }
+            get { return "c96706db7fdaf7925eef1516e49ea944371c830ca77572855c528cb877dbabee"; }
         }
 
         /// <summary>
@@ -62,7 +62,7 @@ namespace Edm_EntityMappingGeneratedViews
                 return GetView2();
             }
 
-            if (extentName == "CodeFirstDatabase.Claim")
+            if (extentName == "CodeFirstDatabase.UserClaim")
             {
                 return GetView3();
             }
@@ -107,7 +107,7 @@ namespace Edm_EntityMappingGeneratedViews
                 return GetView11();
             }
 
-            if (extentName == "EntityDbContext.Claims")
+            if (extentName == "EntityDbContext.UserClaims")
             {
                 return GetView12();
             }
@@ -224,22 +224,22 @@ namespace Edm_EntityMappingGeneratedViews
         }
 
         /// <summary>
-        /// Gets the view for CodeFirstDatabase.Claim.
+        /// Gets the view for CodeFirstDatabase.UserClaim.
         /// </summary>
         /// <returns>The mapping view.</returns>
         private static DbMappingView GetView3()
         {
             return new DbMappingView(@"
-    SELECT VALUE -- Constructing Claim
-        [CodeFirstDatabaseSchema.Claim](T1.Claim_Id, T1.Claim_UserId, T1.Claim_ClaimType, T1.Claim_ClaimValue)
+    SELECT VALUE -- Constructing UserClaim
+        [CodeFirstDatabaseSchema.UserClaim](T1.UserClaim_Id, T1.UserClaim_UserId, T1.UserClaim_ClaimType, T1.UserClaim_ClaimValue)
     FROM (
         SELECT 
-            T.Id AS Claim_Id, 
-            T.UserId AS Claim_UserId, 
-            T.ClaimType AS Claim_ClaimType, 
-            T.ClaimValue AS Claim_ClaimValue, 
+            T.Id AS UserClaim_Id, 
+            T.UserId AS UserClaim_UserId, 
+            T.ClaimType AS UserClaim_ClaimType, 
+            T.ClaimValue AS UserClaim_ClaimValue, 
             True AS _from0
-        FROM EntityDbContext.Claims AS T
+        FROM EntityDbContext.UserClaims AS T
     ) AS T1");
         }
 
@@ -409,22 +409,22 @@ namespace Edm_EntityMappingGeneratedViews
         }
 
         /// <summary>
-        /// Gets the view for EntityDbContext.Claims.
+        /// Gets the view for EntityDbContext.UserClaims.
         /// </summary>
         /// <returns>The mapping view.</returns>
         private static DbMappingView GetView12()
         {
             return new DbMappingView(@"
-    SELECT VALUE -- Constructing Claims
-        [Tripod.Ioc.EntityFramework.Claim](T1.Claim_Id, T1.Claim_UserId, T1.Claim_ClaimType, T1.Claim_ClaimValue)
+    SELECT VALUE -- Constructing UserClaims
+        [Tripod.Ioc.EntityFramework.UserClaim](T1.UserClaim_Id, T1.UserClaim_UserId, T1.UserClaim_ClaimType, T1.UserClaim_ClaimValue)
     FROM (
         SELECT 
-            T.Id AS Claim_Id, 
-            T.UserId AS Claim_UserId, 
-            T.ClaimType AS Claim_ClaimType, 
-            T.ClaimValue AS Claim_ClaimValue, 
+            T.Id AS UserClaim_Id, 
+            T.UserId AS UserClaim_UserId, 
+            T.ClaimType AS UserClaim_ClaimType, 
+            T.ClaimValue AS UserClaim_ClaimValue, 
             True AS _from0
-        FROM CodeFirstDatabase.Claim AS T
+        FROM CodeFirstDatabase.UserClaim AS T
     ) AS T1");
         }
 

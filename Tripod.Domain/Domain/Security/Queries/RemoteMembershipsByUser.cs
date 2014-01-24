@@ -31,8 +31,6 @@ namespace Tripod.Domain.Security
 
         public Task<IQueryable<RemoteMembership>> Handle(RemoteMembershipsByUser query)
         {
-            if (query == null) throw new ArgumentNullException("query");
-
             var queryable = _entities.Query<RemoteMembership>().EagerLoad(query.EagerLoad);
             if (query.UserId.HasValue) return Task.FromResult(queryable.ByUserId(query.UserId.Value));
             return Task.FromResult(queryable.ByUserName(query.UserName));

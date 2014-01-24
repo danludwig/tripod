@@ -30,13 +30,13 @@ namespace Tripod.Web.Controllers
         public virtual async Task<ActionResult> SignUp(SendConfirmationEmail command)
         {
             if (command == null) return View(MVC.Errors.Views.BadRequest);
-            if (!ModelState.IsValid) return View(MVC.Authentication.Views.SignUp, command);
-
-            // todo: what if email matches a user account? error or redirect?
+            if (!ModelState.IsValid)
+            {
+                return View(MVC.Authentication.Views.SignUp, command);
+            }
 
             await _commands.Execute(command);
 
-            //return View(MVC.Authentication.Views.SignUp, command);
             Session.AddConfirmEmailTicket(command.CreatedTicket);
             return RedirectToAction(await MVC.EmailAddresses.Confirm(command.CreatedTicket));
         }

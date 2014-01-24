@@ -114,9 +114,12 @@
     <Compile Include="Domain\Security\Entities\EmailMessage.cs" />
     <Compile Include="Domain\Security\Entities\LocalMembership.cs" />
     <Compile Include="Domain\Security\Entities\Permission.cs" />
-    <Compile Include="Domain\Security\Entities\Claim.cs" />
+    <Compile Include="Domain\Security\Entities\UserClaim.cs" />
     <Compile Include="Domain\Security\Entities\RemoteMembership.cs" />
     <Compile Include="Domain\Security\Entities\User.cs" />
+    <Compile Include="Domain\Security\Queries\ExternalCookieClaim.cs" />
+    <Compile Include="Domain\Security\Queries\ExternalCookieClaims.cs" />
+    <Compile Include="Domain\Security\Queries\EmailAddressBy.cs" />
     <Compile Include="Domain\Security\Queries\EmailConfirmationUserToken.cs" />
     <Compile Include="Domain\Security\Queries\EmailConfirmationBy.cs" />
     <Compile Include="Domain\Security\Queries\RandomSecret.cs" />
@@ -128,6 +131,7 @@
     <Compile Include="Domain\Security\Queries\LocalMembershipByUser.cs" />
     <Compile Include="Domain\Security\Queries\UserBy.cs" />
     <Compile Include="Domain\Security\Validation\EmailConfirmation\MustBePurposedConfirmEmailToken.cs" />
+    <Compile Include="Domain\Security\Validation\EmailConfirmation\MustNotBeConfirmedEmailAddress.cs" />
     <Compile Include="Domain\Security\Validation\EmailConfirmation\MustBeValidConfirmEmailToken.cs" />
     <Compile Include="Domain\Security\Validation\EmailConfirmation\MustFindEmailConfirmationByToken.cs" />
     <Compile Include="Domain\Security\Validation\EmailConfirmation\MustNotBeExpiredConfirmEmailToken.cs" />

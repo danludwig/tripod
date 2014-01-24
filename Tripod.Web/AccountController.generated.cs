@@ -95,6 +95,7 @@ namespace Tripod.Web.Controllers
                 public readonly string _ExternalLoginsListPartial = "_ExternalLoginsListPartial";
                 public readonly string _RemoveAccountsPartial = "_RemoveAccountsPartial";
                 public readonly string ExternalLoginConfirmation = "ExternalLoginConfirmation";
+                public readonly string ExternalLoginConfirmation2 = "ExternalLoginConfirmation2";
                 public readonly string ExternalLoginFailure = "ExternalLoginFailure";
                 public readonly string Login = "Login";
                 public readonly string Manage = "Manage";
@@ -103,6 +104,7 @@ namespace Tripod.Web.Controllers
             public readonly string _ExternalLoginsListPartial = "~/Views/Account/_ExternalLoginsListPartial.cshtml";
             public readonly string _RemoveAccountsPartial = "~/Views/Account/_RemoveAccountsPartial.cshtml";
             public readonly string ExternalLoginConfirmation = "~/Views/Account/ExternalLoginConfirmation.cshtml";
+            public readonly string ExternalLoginConfirmation2 = "~/Views/Account/ExternalLoginConfirmation2.cshtml";
             public readonly string ExternalLoginFailure = "~/Views/Account/ExternalLoginFailure.cshtml";
             public readonly string Login = "~/Views/Account/Login.cshtml";
             public readonly string Manage = "~/Views/Account/Manage.cshtml";

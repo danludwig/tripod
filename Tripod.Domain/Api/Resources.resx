@@ -240,4 +240,7 @@
   <data name="Validation_DoesNotExist_NoValue" xml:space="preserve">
     <value>{PropertyName} does not exist.</value>
   </data>
+  <data name="Validation_EmailAddress_IsAlreadyConfirmed" xml:space="preserve">
+    <value>The {PropertyName} '{PropertyValue}' has already been registered.</value>
+  </data>
 </root>

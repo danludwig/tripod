@@ -10,7 +10,7 @@ namespace Tripod.Domain.Security
             // ReSharper disable DoNotCallOverridableMethodsInConstructor
             Permissions = new List<Permission>();
             RemoteMemberships = new List<RemoteMembership>();
-            Claims = new List<Claim>();
+            Claims = new List<UserClaim>();
             EmailAddresses = new List<EmailAddress>();
             // ReSharper restore DoNotCallOverridableMethodsInConstructor
         }
@@ -29,7 +29,7 @@ namespace Tripod.Domain.Security
 
         public virtual ICollection<RemoteMembership> RemoteMemberships { get; private set; }
 
-        public virtual ICollection<Claim> Claims { get; private set; }
+        public virtual ICollection<UserClaim> Claims { get; private set; }
 
         public virtual ICollection<EmailAddress> EmailAddresses { get; private set; }
 

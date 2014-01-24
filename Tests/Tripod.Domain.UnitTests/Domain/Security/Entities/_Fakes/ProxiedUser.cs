@@ -23,7 +23,7 @@ namespace Tripod.Domain.Security
             get { return base.RemoteMemberships.ToArray(); }
         }
 
-        public override ICollection<Claim> Claims
+        public override ICollection<UserClaim> Claims
         {
             get { return base.Claims.ToArray(); }
         }

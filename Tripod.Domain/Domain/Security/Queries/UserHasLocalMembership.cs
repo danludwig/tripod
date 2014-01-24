@@ -28,8 +28,6 @@ namespace Tripod.Domain.Security
 
         public Task<bool> Handle(UserHasLocalMembership query)
         {
-            if (query == null) throw new ArgumentNullException("query");
-
             var queryable = _entities.Query<LocalMembership>();
 
             if (query.UserId.HasValue) return queryable.AnyAsync(QueryLocalMemberships.ByUserId(query.UserId.Value));

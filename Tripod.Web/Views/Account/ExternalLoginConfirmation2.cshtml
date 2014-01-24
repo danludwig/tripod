@@ -1,0 +1,69 @@
+﻿@using Tripod.Domain.Security
+@using Tripod.Web.Models
+
+@{
+    ViewBag.Title = "Register an email address";
+}
+
+@section styles
+{
+    <style>
+        .provider-alert {
+            margin-top: 20px; /* alert needs more vertical space at top, h2 only has 10px margin-bottom */
+        }
+    </style>
+}
+
+<hr class="hr-md hr-space" />
+<div class="row">
+    <div class="col-sm-8 col-sm-offset-2">
+
+        @* HEADING *@
+        <h2>
+            Sign in  &raquo;
+            <small>@ViewBag.Title.</small>
+        </h2>
+
+        @* EMAIL CLAIMS INFO ALERT *@
+        <div class="alert alert-warning provider-alert">
+            You've successfully authenticated with <strong>@ViewBag.LoginProvider</strong>.
+            However, you must confirm an email address before you can sign in.
+            <strong>Alternatively, you can skip email confirmation</strong> by signing in with one of the accounts below
+            and adding your @ViewBag.LoginProvider account later.
+        </div>
+
+        @* OAUTH PROVIDER BUTTONS FORM *@
+        @{ Html.RenderPartial(MVC.Authentication.Views._OAuthSignInForm, new SignInOAuthButtonModel { EmailProvidersOnly = true });}
+    </div>
+</div>
+
+@*<h2>@ViewBag.Title.</h2>
+    <h3>Associate your @ViewBag.LoginProvider account.</h3>
+
+    <form action="@Url.Action(MVC.Authentication.ExternalLoginConfirmation(null, (string)ViewBag.ReturnUrl))" method="POST" class="form-horizontal" role="form">
+        @Html.AntiForgeryToken()
+
+        <h4>Association Form</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+        <p class="text-info">
+            You've successfully authenticated with <strong>@ViewBag.LoginProvider</strong>.
+            However, you will have to confirm an email address before you can sign in.
+        </p>
+        <div class="form-group">
+            @Html.LabelFor(m => m.UserName, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.UserName)
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" class="btn btn-default" value="Register" />
+            </div>
+        </div>
+    </form>
+
+    @section scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }*@

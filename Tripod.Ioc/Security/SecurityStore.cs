@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Tripod.Domain.Security;
-using SecurityClaim = System.Security.Claims.Claim;
 
 namespace Tripod.Ioc.Security
 {
@@ -251,21 +251,21 @@ namespace Tripod.Ioc.Security
         #endregion
         #region IUserClaimStore
 
-        public Task<IList<SecurityClaim>> GetClaimsAsync(User user)
+        public Task<IList<Claim>> GetClaimsAsync(User user)
         {
             ThrowIfDisposed();
             if (user == null) throw new ArgumentNullException("user");
             var result = user.Claims
-                .Select(x => new SecurityClaim(x.ClaimType, x.ClaimValue)).ToArray() as IList<SecurityClaim>;
+                .Select(x => new Claim(x.ClaimType, x.ClaimValue)).ToArray() as IList<Claim>;
             return Task.FromResult(result);
         }
 
-        public Task AddClaimAsync(User user, SecurityClaim claim)
+        public Task AddClaimAsync(User user, Claim claim)
         {
             ThrowIfDisposed();
             if (user == null) throw new ArgumentNullException("user");
             if (claim == null) throw new ArgumentNullException("claim");
-            var entity = new Claim
+            var entity = new UserClaim
             {
                 Owner = user,
                 UserId = user.Id,
@@ -276,7 +276,7 @@ namespace Tripod.Ioc.Security
             return Task.FromResult(0);
         }
 
-        public Task RemoveClaimAsync(User user, SecurityClaim claim)
+        public Task RemoveClaimAsync(User user, Claim claim)
         {
             ThrowIfDisposed();
             if (user == null) throw new ArgumentNullException("user");
@@ -314,12 +314,12 @@ namespace Tripod.Ioc.Security
         //    ThrowIfDisposed();
         //    if (user == null) throw new ArgumentNullException("user");
 
-        //    if (user.EmailAddresses.Any(x => x.Value.Equals(email, StringComparison.OrdinalIgnoreCase)))
+        //    if (user.EmailAddresses.Any(x => x.AuthenticationType.Equals(email, StringComparison.OrdinalIgnoreCase)))
         //        return Task.FromResult(0);
 
         //    var entity = new EmailAddress
         //    {
-        //        Value = email,
+        //        AuthenticationType = email,
         //        IsDefault = !user.EmailAddresses.Any(x => x.IsDefault),
         //    };
         //    user.EmailAddresses.Add(entity);
@@ -335,16 +335,16 @@ namespace Tripod.Ioc.Security
         //        ?? user.EmailAddresses.FirstOrDefault(x => x.IsDefault)
         //        ?? user.EmailAddresses.FirstOrDefault(x => x.IsConfirmed)
         //        ?? user.EmailAddresses.FirstOrDefault();
-        //    return Task.FromResult(entity != null ? entity.Value : null);
+        //    return Task.FromResult(entity != null ? entity.AuthenticationType : null);
         //}
 
         //public Task<User> FindByEmailAsync(string email)
         //{
         //    ThrowIfDisposed();
-        //    return GetUserAggregateAsync(u => u.EmailAddresses.Any(x => x.IsDefault && x.IsConfirmed && x.Value.Equals(email, StringComparison.OrdinalIgnoreCase)))
-        //        ?? GetUserAggregateAsync(u => u.EmailAddresses.Any(x => x.IsDefault && x.Value.Equals(email, StringComparison.OrdinalIgnoreCase)))
-        //        ?? GetUserAggregateAsync(u => u.EmailAddresses.Any(x => x.IsConfirmed && x.Value.Equals(email, StringComparison.OrdinalIgnoreCase)))
-        //        ?? GetUserAggregateAsync(u => u.EmailAddresses.Any(x => x.Value.Equals(email, StringComparison.OrdinalIgnoreCase)));
+        //    return GetUserAggregateAsync(u => u.EmailAddresses.Any(x => x.IsDefault && x.IsConfirmed && x.AuthenticationType.Equals(email, StringComparison.OrdinalIgnoreCase)))
+        //        ?? GetUserAggregateAsync(u => u.EmailAddresses.Any(x => x.IsDefault && x.AuthenticationType.Equals(email, StringComparison.OrdinalIgnoreCase)))
+        //        ?? GetUserAggregateAsync(u => u.EmailAddresses.Any(x => x.IsConfirmed && x.AuthenticationType.Equals(email, StringComparison.OrdinalIgnoreCase)))
+        //        ?? GetUserAggregateAsync(u => u.EmailAddresses.Any(x => x.AuthenticationType.Equals(email, StringComparison.OrdinalIgnoreCase)));
         //}
 
         //#endregion

@@ -47,6 +47,18 @@ body {
     }
 }
 
+/* bootstrap warning opacity treatments */
+body {
+    /* default bootstrap warnings are rather opaque on some monitors */
+    /* could override in template and custom-build using compass or less */
+    /* ... or could just manually override below */
+    .alert-warning {
+        color: #c09853;
+        background-color: #f7eaa7;
+        border-color: #dcc968;
+    }
+}
+
 /* angular ng-cloak directive */
 [ng-cloak], .ng-cloak {
     display: none !important;

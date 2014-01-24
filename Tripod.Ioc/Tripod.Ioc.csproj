@@ -165,9 +165,11 @@
     <Compile Include="Security\SecurityStore.cs" />
     <Compile Include="Security\BigFatPhonyAuthenticationManager.cs" />
     <Compile Include="Transactions\CommandLifetimeScopeDecorator.cs" />
+    <Compile Include="Transactions\CommandNotNullDecorator.cs" />
     <Compile Include="Transactions\CommandProcessor.cs" />
     <Compile Include="Transactions\CompositionRoot.cs" />
     <Compile Include="Transactions\QueryLifetimeScopeDecorator.cs" />
+    <Compile Include="Transactions\QueryNotNullDecorator.cs" />
     <Compile Include="Transactions\QueryProcessor.cs" />
   </ItemGroup>
   <ItemGroup>

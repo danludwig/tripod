@@ -28,15 +28,6 @@ namespace Tripod.Domain.Security
         }
 
         [Fact]
-        public void Handler_ThrowsArgumentNullException_WhenQueryIsNull()
-        {
-            var handler = new HandleUserByQuery(null);
-            var exception = Assert.Throws<ArgumentNullException>(() => handler.Handle(null).GetAwaiter().GetResult());
-            exception.ShouldNotBeNull();
-            exception.ParamName.ShouldEqual("query");
-        }
-
-        [Fact]
         public void Handler_InvokesQueryUser_Once_OnIReadEntities()
         {
             var userName = Guid.NewGuid().ToString();

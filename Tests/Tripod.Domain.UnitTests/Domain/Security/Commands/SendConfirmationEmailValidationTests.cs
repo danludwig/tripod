@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Globalization;
 using System.Linq;
+using System.Linq.Expressions;
+using System.Threading.Tasks;
 using FluentValidation.Results;
 using Moq;
 using Should;
@@ -71,6 +73,30 @@ namespace Tripod.Domain.Security
         }
 
         [Fact]
+        public void IsInvalid_WhenEmailAddress_IsAlreadyConfirmed()
+        {
+            var queries = new Mock<IProcessQueries>(MockBehavior.Strict);
+            var validator = new ValidateSendConfirmationEmailCommand(queries.Object);
+            var command = new SendConfirmationEmail { EmailAddress = "confirmed@domain.com" };
+            Expression<Func<EmailAddressBy, bool>> expectedQuery = x => x.Value == command.EmailAddress;
+            queries.Setup(x => x.Execute(It.Is(expectedQuery))).Returns(Task.FromResult(new EmailAddress
+            {
+                Value = command.EmailAddress,
+                IsConfirmed = true,
+            }));
+
+            var result = validator.Validate(command);
+
+            result.IsValid.ShouldBeFalse();
+            Func<ValidationFailure, bool> targetError = x => x.PropertyName == command.PropertyName(y => y.EmailAddress);
+            result.Errors.Count(targetError).ShouldEqual(1);
+            result.Errors.Single(targetError).ErrorMessage.ShouldEqual(Resources.Validation_EmailAddress_IsAlreadyConfirmed
+                .Replace("{PropertyName}", EmailAddress.Constraints.Label.ToLower())
+                .Replace("{PropertyValue}", command.EmailAddress)
+            );
+        }
+
+        [Fact]
         public void IsInvalid_WhenIsExpectingEmail_IsFalse()
         {
             var queries = new Mock<IProcessQueries>(MockBehavior.Strict);
@@ -97,6 +123,11 @@ namespace Tripod.Domain.Security
                 EmailAddress = "valid@gmail.com",
                 IsExpectingEmail = true,
             };
+            Expression<Func<EmailAddressBy, bool>> expectedQuery = x => x.Value == command.EmailAddress;
+            queries.Setup(x => x.Execute(It.Is(expectedQuery))).Returns(Task.FromResult(new EmailAddress
+            {
+                Value = command.EmailAddress,
+            }));
 
             var result = validator.Validate(command);
 

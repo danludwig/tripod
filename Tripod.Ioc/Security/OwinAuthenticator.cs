@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
+using System.Security.Claims;
 using System.Security.Principal;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
@@ -56,6 +58,12 @@ namespace Tripod.Ioc.Security
                 Login = info.Login,
                 UserName = info.DefaultUserName,
             };
+        }
+
+        public async Task<IEnumerable<Claim>> GetRemoteMembershipClaims(string authenticationType = DefaultAuthenticationTypes.ExternalCookie)
+        {
+            var claimsIdentity = await _authenticationManager.GetExternalIdentityAsync(authenticationType);
+            return claimsIdentity.Claims;
         }
 
         private void ThrowIfNoOwin()

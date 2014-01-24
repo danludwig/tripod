@@ -118,11 +118,11 @@ namespace Tripod.Ioc.EntityFramework
     }
 
     [UsedImplicitly]
-    public class ClaimDb : EntityTypeConfiguration<Claim>
+    public class UserClaimDb : EntityTypeConfiguration<UserClaim>
     {
-        public ClaimDb()
+        public UserClaimDb()
         {
-            ToTable(typeof(Claim).Name, UserDb.SchemaName);
+            ToTable(typeof(UserClaim).Name, UserDb.SchemaName);
 
             HasKey(x => x.Id);
 

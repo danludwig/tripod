@@ -1,8 +1,8 @@
 ﻿namespace Tripod.Domain.Security
 {
-    public class Claim : EntityWithId<int>
+    public class UserClaim : EntityWithId<int>
     {
-        protected internal Claim() { }
+        protected internal UserClaim() { }
 
         public int UserId { get; protected internal set; }
         public virtual User Owner { get; protected internal set; }

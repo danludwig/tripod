@@ -295,6 +295,15 @@ namespace Tripod {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The {PropertyName} &apos;{PropertyValue}&apos; has already been registered..
+        /// </summary>
+        public static string Validation_EmailAddress_IsAlreadyConfirmed {
+            get {
+                return ResourceManager.GetString("Validation_EmailAddress_IsAlreadyConfirmed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &apos;{PropertyValue}&apos; is not the correct {PropertyName}. Were you sent multiple emails?.
         /// </summary>
         public static string Validation_EmailConfirmationSecret_IsWrong {

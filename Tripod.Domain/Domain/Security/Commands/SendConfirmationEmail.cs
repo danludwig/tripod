@@ -27,15 +27,13 @@ namespace Tripod.Domain.Security
                 .NotEmpty()
                 .EmailAddress()
                 .MaxLength(EmailAddress.Constraints.ValueMaxLength)
+                .MustNotBeConfirmedEmailAddress(queries)
                     .WithName(EmailAddress.Constraints.Label);
 
             RuleFor(x => x.IsExpectingEmail)
                 .Equal(true)
                     .WithMessage(Resources.Validation_SendConfirmationEmail_IsExpectingEmail)
                         .WithName(EmailAddress.Constraints.Label.ToLower());
-
-            // todo: email must not be confirmed if it exists
-            // todo: what if the email address belongs to a user?
         }
     }
 

@@ -29,8 +29,6 @@ namespace Tripod.Domain.Security
 
         public Task<User> Handle(UserBy query)
         {
-            if (query == null) throw new ArgumentNullException("query");
-
             var queryable = _entities.Query<User>().EagerLoad(query.EagerLoad);
 
             if (query.Id.HasValue) return queryable.ByIdAsync(query.Id.Value);

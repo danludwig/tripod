@@ -35,11 +35,13 @@ namespace Tripod.Ioc.Transactions
                     x.Lifestyle,
                 })
                 .Reverse().Distinct().ToArray();
-            decoratorChain.Length.ShouldEqual(2);
-            decoratorChain[0].ImplementationType.ShouldEqual(typeof(QueryLifetimeScopeDecorator<FakeQueryWithoutValidator, string>));
+            decoratorChain.Length.ShouldEqual(3);
+            decoratorChain[0].ImplementationType.ShouldEqual(typeof(QueryNotNullDecorator<FakeQueryWithoutValidator, string>));
             decoratorChain[0].Lifestyle.ShouldEqual(Lifestyle.Singleton);
-            decoratorChain[1].ImplementationType.ShouldEqual(typeof(ValidateQueryDecorator<FakeQueryWithoutValidator, string>));
-            decoratorChain[1].Lifestyle.ShouldEqual(Lifestyle.Transient);
+            decoratorChain[1].ImplementationType.ShouldEqual(typeof(QueryLifetimeScopeDecorator<FakeQueryWithoutValidator, string>));
+            decoratorChain[1].Lifestyle.ShouldEqual(Lifestyle.Singleton);
+            decoratorChain[2].ImplementationType.ShouldEqual(typeof(ValidateQueryDecorator<FakeQueryWithoutValidator, string>));
+            decoratorChain[2].Lifestyle.ShouldEqual(Lifestyle.Transient);
         }
 
         [Fact]
@@ -69,11 +71,13 @@ namespace Tripod.Ioc.Transactions
                     x.Lifestyle,
                 })
                 .Reverse().Distinct().ToArray();
-            decoratorChain.Length.ShouldEqual(2);
-            decoratorChain[0].ImplementationType.ShouldEqual(typeof(CommandLifetimeScopeDecorator<FakeCommandWithValidator>));
+            decoratorChain.Length.ShouldEqual(3);
+            decoratorChain[0].ImplementationType.ShouldEqual(typeof(CommandNotNullDecorator<FakeCommandWithValidator>));
             decoratorChain[0].Lifestyle.ShouldEqual(Lifestyle.Singleton);
-            decoratorChain[1].ImplementationType.ShouldEqual(typeof(ValidateCommandDecorator<FakeCommandWithValidator>));
-            decoratorChain[1].Lifestyle.ShouldEqual(Lifestyle.Transient);
+            decoratorChain[1].ImplementationType.ShouldEqual(typeof(CommandLifetimeScopeDecorator<FakeCommandWithValidator>));
+            decoratorChain[1].Lifestyle.ShouldEqual(Lifestyle.Singleton);
+            decoratorChain[2].ImplementationType.ShouldEqual(typeof(ValidateCommandDecorator<FakeCommandWithValidator>));
+            decoratorChain[2].Lifestyle.ShouldEqual(Lifestyle.Transient);
         }
     }
 }

@@ -1,11 +1,19 @@
-﻿<form action="@Url.Action(MVC.Authentication.ExternalLogin())" method="POST" class="providers row">
+﻿@using Tripod.Web.Models
+@model SignInOAuthButtonModel
+
+@{
+    var model = Model ?? new SignInOAuthButtonModel();
+    var columnWidth = model.EmailProvidersOnly ? "sm-6" : "sm-4";
+}
+
+<form action="@Url.Action(MVC.Authentication.ExternalLogin())" method="POST" class="providers row">
 
     @Html.AntiForgeryToken()
 
     <input type="hidden" name="returnUrl" value="@ViewBag.ReturnUrl" />
 
     @* GOOGLE *@
-    <div class="col-sm-4">
+    <div class="col-@columnWidth">
         <p>
             <button type="submit" name="provider" value="Google" title="Sign in with Google" class="google btn btn-lg">
                 <i></i>
@@ -16,7 +24,7 @@
     </div>
 
     @* FACEBOOK *@
-    <div class="col-sm-4">
+    <div class="col-@columnWidth">
         <p>
             <button type="submit" name="provider" value="Facebook" title="Sign in with Facebook" class="facebook btn btn-lg">
                 <i></i>
@@ -27,14 +35,17 @@
     </div>
 
     @* TWITTER *@
-    <div class="col-sm-4">
-        <p>
-            <button type="submit" name="provider" value="Twitter" title="Sign in with Twitter" class="twitter btn btn-lg">
-                <i></i>
-                <span class="hidden-md hidden-sm">Sign in with <strong>Twitter</strong></span>
-                <strong class="hidden-lg hidden-xs">Twitter</strong>
-            </button>
-        </p>
-    </div>
+    @if (!model.EmailProvidersOnly)
+    {
+        <div class="col-sm-4">
+            <p>
+                <button type="submit" name="provider" value="Twitter" title="Sign in with Twitter" class="twitter btn btn-lg">
+                    <i></i>
+                    <span class="hidden-md hidden-sm">Sign in with <strong>Twitter</strong></span>
+                    <strong class="hidden-lg hidden-xs">Twitter</strong>
+                </button>
+            </p>
+        </div>
+    }
 </form>
 

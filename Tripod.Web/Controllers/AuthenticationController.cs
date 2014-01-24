@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
@@ -71,7 +72,8 @@ namespace Tripod.Web.Controllers
         public virtual async Task<ActionResult> ExternalLoginCallback(string returnUrl)
         {
             var loginInfo = await _queries.Execute(new PrincipalRemoteMembershipTicket(User));
-            if (loginInfo == null) return RedirectToAction(MVC.Authentication.SignIn());
+            if (loginInfo == null)
+                return RedirectToAction(MVC.Authentication.SignIn());
 
             //var externalIdentity = await HttpContext.GetOwinContext().Authentication
             //    .GetExternalIdentityAsync(DefaultAuthenticationTypes.ExternalCookie);
@@ -90,9 +92,18 @@ namespace Tripod.Web.Controllers
                 return RedirectToLocal(returnUrl);
             }
 
-            // If the user does not have an account, then prompt the user to create an account
             ViewBag.ReturnUrl = returnUrl;
             ViewBag.LoginProvider = loginInfo.Login.LoginProvider;
+
+            // if user doesn't have an email claim, we need them to confirm an email address
+            var emailClaim = await _queries.Execute(new ExternalCookieClaim(ClaimTypes.Email));
+            if (emailClaim == null)
+            {
+                return View(MVC.Account.Views.ExternalLoginConfirmation2);
+            }
+
+
+            // If the user does not have an account, then prompt the user to create an account
             var model = new CreateRemoteMembership
             {
                 UserName = loginInfo.UserName
@@ -106,6 +117,8 @@ namespace Tripod.Web.Controllers
         {
             if (User.Identity.IsAuthenticated)
                 return RedirectToAction(await MVC.Account.Manage());
+
+            // todo: make sure there is a confirmed email address..?
 
             // Get the information about the user from the external login provider
             var info = await _queries.Execute(new PrincipalRemoteMembershipTicket(User));
