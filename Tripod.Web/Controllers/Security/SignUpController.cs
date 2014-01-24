@@ -52,7 +52,7 @@ namespace Tripod.Web.Controllers
             switch (command.Purpose)
             {
                 case EmailConfirmationPurpose.CreateLocalUser:
-                    return RedirectToAction(await MVC.EmailAddresses.Confirm(command.CreatedTicket));
+                    return RedirectToAction(await MVC.SignUpStep2.Index(command.CreatedTicket));
                 default:
                     return View(MVC.Errors.Views.BadRequest);
             }

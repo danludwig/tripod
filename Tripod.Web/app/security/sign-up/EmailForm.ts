@@ -5,13 +5,13 @@ module App.Security.SignUp.EmailForm {
     export interface Model {
         emailAddress?: string;
         isExpectingEmail?: boolean;
-        purpose?: int;
+        purpose?: number;
     }
 
     export interface Form extends ng.IFormController {
         emailAddress: ng.INgModelController;
         isExpectingEmail: ng.INgModelController;
-        purpose?: boolean;
+        purpose: ng.INgModelController;
     }
 
     export interface Contrib extends Directives.FormContrib.Controller {
