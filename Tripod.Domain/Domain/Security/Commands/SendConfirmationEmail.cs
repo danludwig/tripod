@@ -16,6 +16,7 @@ namespace Tripod.Domain.Security
         public bool IsExpectingEmail { get; set; }
         public string ConfirmUrlFormat { get; set; }
         public string SendFromUrl { get; set; }
+        public EmailConfirmationPurpose Purpose { get; set; }
         public string CreatedTicket { get; internal set; }
     }
 
@@ -29,6 +30,10 @@ namespace Tripod.Domain.Security
                 .MaxLength(EmailAddress.Constraints.ValueMaxLength)
                 .MustNotBeConfirmedEmailAddress(queries)
                     .WithName(EmailAddress.Constraints.Label);
+
+            RuleFor(x => x.Purpose)
+                .MustBeValidConfirmEmailPurpose()
+                    .WithName(EmailConfirmation.Constraints.Label);
 
             RuleFor(x => x.IsExpectingEmail)
                 .Equal(true)

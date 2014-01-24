@@ -22,23 +22,45 @@ namespace Tripod.Web.Controllers
         [HttpGet, Route("sign-up")]
         public virtual ViewResult SignUp()
         {
+            ViewBag.Purpose = EmailConfirmationPurpose.CreateLocalUser;
             return View(MVC.Authentication.Views.SignUp);
         }
 
         [ValidateAntiForgeryToken]
         [HttpPost, Route("sign-up")]
-        public virtual async Task<ActionResult> SignUp(SendConfirmationEmail command)
+        public virtual async Task<ActionResult> SignUp(SendConfirmationEmail command, string returnUrl, string loginProvider)
         {
-            if (command == null) return View(MVC.Errors.Views.BadRequest);
+            if (command == null || (int)command.Purpose == 0)
+            {
+                return View(MVC.Errors.Views.BadRequest);
+            }
+
             if (!ModelState.IsValid)
             {
-                return View(MVC.Authentication.Views.SignUp, command);
+                switch (command.Purpose)
+                {
+                    case EmailConfirmationPurpose.CreateLocalUser:
+                        return View(MVC.Authentication.Views.SignUp, command);
+                    case EmailConfirmationPurpose.CreateRemoteUser:
+                        ViewBag.ReturnUrl = returnUrl;
+                        ViewBag.LoginProvider = loginProvider;
+                        return View(MVC.Account.Views.ExternalLoginConfirmation2, command);
+                    default:
+                        return View(MVC.Errors.Views.BadRequest);
+                }
             }
 
             await _commands.Execute(command);
 
             Session.AddConfirmEmailTicket(command.CreatedTicket);
-            return RedirectToAction(await MVC.EmailAddresses.Confirm(command.CreatedTicket));
+
+            switch (command.Purpose)
+            {
+                case EmailConfirmationPurpose.CreateLocalUser:
+                    return RedirectToAction(await MVC.EmailAddresses.Confirm(command.CreatedTicket));
+                default:
+                    return View(MVC.Errors.Views.BadRequest);
+            }
         }
 
         [HttpPost, Route("sign-up/validate/{fieldName?}")]

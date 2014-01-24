@@ -184,6 +184,7 @@ namespace Tripod.Web.Controllers
             public class _ViewNamesClass
             {
                 public readonly string _OAuthSignInForm = "_OAuthSignInForm";
+                public readonly string _SendConfirmEmailForm = "_SendConfirmEmailForm";
                 public readonly string _SignUpWizard = "_SignUpWizard";
                 public readonly string Confirm = "Confirm";
                 public readonly string CreatePassword = "CreatePassword";
@@ -191,6 +192,7 @@ namespace Tripod.Web.Controllers
                 public readonly string SignUp = "SignUp";
             }
             public readonly string _OAuthSignInForm = "~/Views/Authentication/_OAuthSignInForm.cshtml";
+            public readonly string _SendConfirmEmailForm = "~/Views/Authentication/_SendConfirmEmailForm.cshtml";
             public readonly string _SignUpWizard = "~/Views/Authentication/_SignUpWizard.cshtml";
             public readonly string Confirm = "~/Views/Authentication/Confirm.cshtml";
             public readonly string CreatePassword = "~/Views/Authentication/CreatePassword.cshtml";

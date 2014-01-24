@@ -59,7 +59,7 @@ namespace Tripod.Web.Controllers
         }
 
         [ValidateAntiForgeryToken]
-        [HttpPost, Route("account/external-login")]
+        [HttpPost, Route("sign-on")]
         public virtual ActionResult ExternalLogin(string provider, string returnUrl)
         {
             if (string.IsNullOrWhiteSpace(provider)) return View(MVC.Errors.Views.BadRequest);
@@ -68,7 +68,7 @@ namespace Tripod.Web.Controllers
             return new ChallengeResult(provider, Url.Action(MVC.Authentication.ExternalLoginCallback(returnUrl)));
         }
 
-        [HttpGet, Route("account/external-login/received")]
+        [HttpGet, Route("sign-on")]
         public virtual async Task<ActionResult> ExternalLoginCallback(string returnUrl)
         {
             var loginInfo = await _queries.Execute(new PrincipalRemoteMembershipTicket(User));
@@ -99,6 +99,7 @@ namespace Tripod.Web.Controllers
             var emailClaim = await _queries.Execute(new ExternalCookieClaim(ClaimTypes.Email));
             if (emailClaim == null)
             {
+                ViewBag.Purpose = EmailConfirmationPurpose.CreateRemoteUser;
                 return View(MVC.Account.Views.ExternalLoginConfirmation2);
             }
 

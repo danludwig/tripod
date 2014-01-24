@@ -1,5 +1,6 @@
 ﻿@using Tripod
 @using Tripod.Domain.Security
+@using Tripod.Web.Models
 @using UserConstraints = Tripod.Domain.Security.User.Constraints
 
 @model SignIn
@@ -15,7 +16,7 @@
         <h2>@ViewBag.Title.</h2>
 
         @* OAUTH PROVIDER BUTTONS FORM *@
-        @{ Html.RenderPartial(MVC.Authentication.Views._OAuthSignInForm);}
+        @{ Html.RenderPartial(MVC.Authentication.Views._OAuthSignInForm, new SignInOAuthButtonModel()); }
 
         <h4>
             Don't have any of the above acounts? <a href="@Url.Action(MVC.EmailAddresses.SignUp())">Sign up</a> to create an account with us.
@@ -254,5 +255,6 @@
 
 @section scripts
 {
+    @{ Html.RenderPartial(MVC.Scripts.Views.Angular); }
     <script src="~/app/security/sign-in/Form.js"></script>
 }

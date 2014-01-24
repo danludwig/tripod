@@ -131,6 +131,7 @@
     <Compile Include="Domain\Security\Queries\LocalMembershipByUser.cs" />
     <Compile Include="Domain\Security\Queries\UserBy.cs" />
     <Compile Include="Domain\Security\Validation\EmailConfirmation\MustBePurposedConfirmEmailToken.cs" />
+    <Compile Include="Domain\Security\Validation\EmailConfirmation\MustBeValidConfirmEmailPurpose.cs" />
     <Compile Include="Domain\Security\Validation\EmailConfirmation\MustNotBeConfirmedEmailAddress.cs" />
     <Compile Include="Domain\Security\Validation\EmailConfirmation\MustBeValidConfirmEmailToken.cs" />
     <Compile Include="Domain\Security\Validation\EmailConfirmation\MustFindEmailConfirmationByToken.cs" />

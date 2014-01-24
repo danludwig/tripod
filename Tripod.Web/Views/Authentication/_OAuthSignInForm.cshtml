@@ -2,8 +2,7 @@
 @model SignInOAuthButtonModel
 
 @{
-    var model = Model ?? new SignInOAuthButtonModel();
-    var columnWidth = model.EmailProvidersOnly ? "sm-6" : "sm-4";
+    var columnWidth = Model.EmailProvidersOnly ? "sm-6" : "sm-4";
 }
 
 <form action="@Url.Action(MVC.Authentication.ExternalLogin())" method="POST" class="providers row">
@@ -35,7 +34,7 @@
     </div>
 
     @* TWITTER *@
-    @if (!model.EmailProvidersOnly)
+    @if (!Model.EmailProvidersOnly)
     {
         <div class="col-sm-4">
             <p>

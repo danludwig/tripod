@@ -5,16 +5,19 @@ module App.Security.SignUp.EmailForm {
     export interface Model {
         emailAddress?: string;
         isExpectingEmail?: boolean;
+        purpose?: int;
     }
 
     export interface Form extends ng.IFormController {
         emailAddress: ng.INgModelController;
         isExpectingEmail: ng.INgModelController;
+        purpose?: boolean;
     }
 
     export interface Contrib extends Directives.FormContrib.Controller {
         emailAddress: Directives.ModelContrib.Controller;
         isExpectingEmail: Directives.ModelContrib.Controller;
+        purpose: Directives.ModelContrib.Controller;
     }
 
     export interface Scope extends ViewModelScope<Model> {
@@ -26,6 +29,7 @@ module App.Security.SignUp.EmailForm {
 
         emailAddress: string = '';
         isExpectingEmail: boolean = false;
+        purpose: number = 0;
 
         static $inject = ['$scope'];
         constructor(public scope: Scope) {

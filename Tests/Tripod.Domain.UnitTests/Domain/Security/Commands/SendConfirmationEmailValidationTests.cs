@@ -113,8 +113,29 @@ namespace Tripod.Domain.Security
             );
         }
 
-        [Fact]
-        public void IsValid_WhenAllRulesPass()
+        [Theory, InlineData(null), InlineData(EmailConfirmationPurpose.Invalid)]
+        public void IsInvalid_WhenPurpose_IsZero(EmailConfirmationPurpose? purpose)
+        {
+            var queries = new Mock<IProcessQueries>(MockBehavior.Strict);
+            var validator = new ValidateSendConfirmationEmailCommand(queries.Object);
+            var command = new SendConfirmationEmail();
+            if (purpose.HasValue) command.Purpose = purpose.Value;
+
+            var result = validator.Validate(command);
+
+            result.IsValid.ShouldBeFalse();
+            Func<ValidationFailure, bool> targetError = x => x.PropertyName == command.PropertyName(y => y.Purpose);
+            result.Errors.Count(targetError).ShouldEqual(1);
+            result.Errors.Single(targetError).ErrorMessage.ShouldEqual(Resources.Validation_EmailConfirmationPurpose_IsEmpty
+                .Replace("{PropertyName}", EmailConfirmation.Constraints.Label.ToLower())
+            );
+        }
+
+        [Theory, InlineData(EmailConfirmationPurpose.CreateLocalUser),
+            InlineData(EmailConfirmationPurpose.CreateRemoteUser),
+            InlineData(EmailConfirmationPurpose.ForgotPassword),
+            InlineData(EmailConfirmationPurpose.AddEmail)]
+        public void IsValid_WhenAllRulesPass(EmailConfirmationPurpose purpose)
         {
             var queries = new Mock<IProcessQueries>(MockBehavior.Strict);
             var validator = new ValidateSendConfirmationEmailCommand(queries.Object);
@@ -122,6 +143,7 @@ namespace Tripod.Domain.Security
             {
                 EmailAddress = "valid@gmail.com",
                 IsExpectingEmail = true,
+                Purpose = purpose,
             };
             Expression<Func<EmailAddressBy, bool>> expectedQuery = x => x.Value == command.EmailAddress;
             queries.Setup(x => x.Execute(It.Is(expectedQuery))).Returns(Task.FromResult(new EmailAddress

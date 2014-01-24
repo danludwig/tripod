@@ -9,6 +9,7 @@ var App;
                         this.scope = scope;
                         this.emailAddress = '';
                         this.isExpectingEmail = false;
+                        this.purpose = 0;
                         scope.vm = this;
                     }
                     Controller.prototype.emailAddressInputGroupValidationAddOnCssClass = function () {

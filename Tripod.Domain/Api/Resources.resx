@@ -243,4 +243,7 @@
   <data name="Validation_EmailAddress_IsAlreadyConfirmed" xml:space="preserve">
     <value>The {PropertyName} '{PropertyValue}' has already been registered.</value>
   </data>
+  <data name="Validation_EmailConfirmationPurpose_IsEmpty" xml:space="preserve">
+    <value>Unable to determine the purpose of this {PropertyName}.</value>
+  </data>
 </root>

@@ -274,6 +274,9 @@
     <Compile Include="RemoteMembershipsController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
+    <Compile Include="ScriptsController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
     <Compile Include="SharedController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
@@ -713,6 +716,8 @@
     <Content Include="Views\Authentication\CreatePassword.cshtml" />
     <Content Include="Views\Authentication\_SignUpWizard.cshtml" />
     <Content Include="Views\Account\ExternalLoginConfirmation2.cshtml" />
+    <Content Include="Views\Scripts\Angular.cshtml" />
+    <Content Include="Views\Authentication\_SendConfirmEmailForm.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

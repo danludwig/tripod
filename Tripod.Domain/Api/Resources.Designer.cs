@@ -304,6 +304,15 @@ namespace Tripod {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Unable to determine the purpose of this {PropertyName}..
+        /// </summary>
+        public static string Validation_EmailConfirmationPurpose_IsEmpty {
+            get {
+                return ResourceManager.GetString("Validation_EmailConfirmationPurpose_IsEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &apos;{PropertyValue}&apos; is not the correct {PropertyName}. Were you sent multiple emails?.
         /// </summary>
         public static string Validation_EmailConfirmationSecret_IsWrong {
