@@ -59,7 +59,7 @@ namespace Tripod.Web.Controllers
 
             await _commands.Execute(command);
 
-            return RedirectToAction(await MVC.SignUpStep3.Index(command.Token));
+            return RedirectToAction(await MVC.SignUpUser.Index(command.Token));
         }
 
         [HttpPost, Route("sign-up/{ticket}/validate/{fieldName?}")]

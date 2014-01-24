@@ -236,7 +236,7 @@
     </Compile>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AuthenticationController.cs" />
-    <Compile Include="Controllers\Security\SignUpStep3Controller.cs" />
+    <Compile Include="Controllers\Security\SignUpUserController.cs" />
     <Compile Include="Controllers\ErrorsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LocalMembershipsController.cs" />
@@ -292,7 +292,7 @@
     <Compile Include="SignUpSecretController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
-    <Compile Include="SignUpStep3Controller.generated.cs">
+    <Compile Include="SignUpUserController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="T4MVC.cs">
@@ -728,7 +728,7 @@
     <Content Include="Views\Errors\Forbidden.cshtml" />
     <Content Include="Views\Errors\BadRequest.cshtml" />
     <Content Include="Views\Security\SignUpSecret.cshtml" />
-    <Content Include="Views\Security\SignUpStep3.cshtml" />
+    <Content Include="Views\Security\SignUpUser.cshtml" />
     <Content Include="Views\Authentication\_SignUpWizard.cshtml" />
     <Content Include="Views\Account\ExternalLoginConfirmation2.cshtml" />
     <Content Include="Views\Scripts\Angular.cshtml" />

@@ -22,10 +22,10 @@ using System.Web.Routing;
 using T4MVC;
 namespace Tripod.Web.Controllers
 {
-    public partial class SignUpStep3Controller
+    public partial class SignUpUserController
     {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        protected SignUpStep3Controller(Dummy d) { }
+        protected SignUpUserController(Dummy d) { }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         protected RedirectToRouteResult RedirectToAction(ActionResult result)
@@ -56,13 +56,13 @@ namespace Tripod.Web.Controllers
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public SignUpStep3Controller Actions { get { return MVC.SignUpStep3; } }
+        public SignUpUserController Actions { get { return MVC.SignUpUser; } }
         [GeneratedCode("T4MVC", "2.0")]
         public readonly string Area = "";
         [GeneratedCode("T4MVC", "2.0")]
-        public readonly string Name = "SignUpStep3";
+        public readonly string Name = "SignUpUser";
         [GeneratedCode("T4MVC", "2.0")]
-        public const string NameConst = "SignUpStep3";
+        public const string NameConst = "SignUpUser";
 
         static readonly ActionNamesClass s_actions = new ActionNamesClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -116,9 +116,9 @@ namespace Tripod.Web.Controllers
     }
 
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-    public partial class T4MVC_SignUpStep3Controller : Tripod.Web.Controllers.SignUpStep3Controller
+    public partial class T4MVC_SignUpUserController : Tripod.Web.Controllers.SignUpUserController
     {
-        public T4MVC_SignUpStep3Controller() : base(Dummy.Instance) { }
+        public T4MVC_SignUpUserController() : base(Dummy.Instance) { }
 
         partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string token);
 

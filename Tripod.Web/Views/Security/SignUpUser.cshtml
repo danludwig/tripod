@@ -28,7 +28,7 @@
 
 <form role="form"
       method="POST"
-      action="@Url.Action(MVC.SignUpStep3.Index(null as CreateLocalMembership))"
+      action="@Url.Action(MVC.SignUpUser.Index(null as CreateLocalMembership))"
       novalidate
       ng-app="sign-up-password-form"
       ng-controller="App.Security.SignUp.PasswordForm.Controller"
@@ -72,7 +72,7 @@
                        ng-maxlength="@LocalMembership.Constraints.PasswordMaxLength"
                        model-contrib
                        server-error="@Html.ValidationMessageTextFor(x => x.Password)"
-                       server-validate="@Url.Action(MVC.SignUpStep3.Validate(null, "password"))"
+                       server-validate="@Url.Action(MVC.SignUpUser.Validate(null, "password"))"
                        server-validate-throttle="400" />
 
                 <span class="input-group-addon validation @Html.CssClassWhenNullModel("hide")"
@@ -170,7 +170,7 @@
                        must-equal-when="createLocalForm.password.$viewValue"
                        model-contrib
                        server-error="@Html.ValidationMessageTextFor(x => x.ConfirmPassword)"
-                       server-validate="@Url.Action(MVC.SignUpStep3.Validate(null, "confirmPassword"))"
+                       server-validate="@Url.Action(MVC.SignUpUser.Validate(null, "confirmPassword"))"
                        server-validate-data="{ password: vm.password }"
                        server-validate-throttle="400"
                        server-valdidate-cache="false" />
@@ -260,7 +260,7 @@
                        required
                        model-contrib
                        server-error="@Html.ValidationMessageTextFor(x => x.UserName)"
-                       server-validate="@Url.Action(MVC.SignUpStep3.Validate(null, "userName"))"
+                       server-validate="@Url.Action(MVC.SignUpUser.Validate(null, "userName"))"
                        server-validate-data="{ token: vm.token }"
                        server-validate-throttle="400" />
 
@@ -336,7 +336,7 @@
                        required
                        model-contrib
                        server-error="@Html.ValidationMessageTextFor(x => x.Token)"
-                       server-validate="@Url.Action(MVC.SignUpStep3.Validate(null, "token"))" />
+                       server-validate="@Url.Action(MVC.SignUpUser.Validate(null, "token"))" />
 
                 <span class="input-group-addon validation @Html.CssClassWhenNullModel("hide")"
                       remove-class="hide"
