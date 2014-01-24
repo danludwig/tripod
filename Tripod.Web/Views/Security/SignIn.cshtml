@@ -28,7 +28,7 @@
         </h4>
 
         @* SIGN IN FORM *@
-        <div ng-app="sign-in-form" ng-controller="App.Security.SignIn.Form.Controller">
+        <div ng-app="sign-in-form" ng-controller="App.Security.SignInForm.Controller">
             <form role="form"
                   method="POST"
                   action="@Url.Action(MVC.SignIn.Index())"
@@ -241,5 +241,5 @@
 @section scripts
 {
     @{ Html.RenderPartial(MVC.Scripts.Views.Angular); }
-    <script src="~/app/security/sign-in/Form.js"></script>
+    <script src="~/app/security/SignInForm.js"></script>
 }

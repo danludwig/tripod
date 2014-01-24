@@ -1,6 +1,6 @@
 'use strict';
 
-module App.Security.SignIn.Form {
+module App.Security.SignInForm {
 
     export interface Model {
         userName?: string;
