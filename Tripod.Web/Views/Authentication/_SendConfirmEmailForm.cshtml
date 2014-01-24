@@ -16,7 +16,7 @@
 
     @Html.AntiForgeryToken()
     <input type="hidden" name="@Html.NameFor(x => x.ConfirmUrlFormat)" value="@string.Format("{0}://{1}{2}",
-        Request.Url.Scheme, Request.Url.Authority, HttpUtility.UrlDecode(Url.Action(MVC.EmailAddresses.Password("{0}"))))" />
+        Request.Url.Scheme, Request.Url.Authority, HttpUtility.UrlDecode(Url.Action(MVC.SignUpStep3.Index("{0}"))))" />
     <input type="hidden" name="@Html.NameFor(x => x.SendFromUrl)" value="@string.Format("{0}://{1}{2}",
         Request.Url.Scheme, Request.Url.Authority, Url.Action(MVC.SignUp.Index()))" />
     <input type="hidden" name="returnUrl" value="@ViewBag.ReturnUrl" />

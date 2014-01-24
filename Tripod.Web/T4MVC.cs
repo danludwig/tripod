@@ -26,7 +26,6 @@ public static class MVC
 {
     public static Tripod.Web.Controllers.AccountController Account = new Tripod.Web.Controllers.T4MVC_AccountController();
     public static Tripod.Web.Controllers.AuthenticationController Authentication = new Tripod.Web.Controllers.T4MVC_AuthenticationController();
-    public static Tripod.Web.Controllers.EmailAddressesController EmailAddresses = new Tripod.Web.Controllers.T4MVC_EmailAddressesController();
     public static Tripod.Web.Controllers.ErrorsController Errors = new Tripod.Web.Controllers.T4MVC_ErrorsController();
     public static Tripod.Web.Controllers.HomeController Home = new Tripod.Web.Controllers.T4MVC_HomeController();
     public static Tripod.Web.Controllers.LocalMembershipsController LocalMemberships = new Tripod.Web.Controllers.T4MVC_LocalMembershipsController();
@@ -34,6 +33,7 @@ public static class MVC
     public static Tripod.Web.Controllers.SignInController SignIn = new Tripod.Web.Controllers.T4MVC_SignInController();
     public static Tripod.Web.Controllers.SignUpController SignUp = new Tripod.Web.Controllers.T4MVC_SignUpController();
     public static Tripod.Web.Controllers.SignUpStep2Controller SignUpStep2 = new Tripod.Web.Controllers.T4MVC_SignUpStep2Controller();
+    public static Tripod.Web.Controllers.SignUpStep3Controller SignUpStep3 = new Tripod.Web.Controllers.T4MVC_SignUpStep3Controller();
     public static T4MVC.ScriptsController Scripts = new T4MVC.ScriptsController();
     public static T4MVC.SecurityController Security = new T4MVC.SecurityController();
     public static T4MVC.SharedController Shared = new T4MVC.SharedController();

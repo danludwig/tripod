@@ -5,19 +5,19 @@ using Tripod.Web.Models;
 
 namespace Tripod.Web.Controllers
 {
-    public partial class EmailAddressesController : Controller
+    public partial class SignUpStep3Controller : Controller
     {
         private readonly IProcessQueries _queries;
         private readonly IProcessCommands _commands;
 
-        public EmailAddressesController(IProcessQueries queries, IProcessCommands commands)
+        public SignUpStep3Controller(IProcessQueries queries, IProcessCommands commands)
         {
             _queries = queries;
             _commands = commands;
         }
 
         [HttpGet, Route("sign-up/password")]
-        public virtual async Task<ActionResult> Password(string token)
+        public virtual async Task<ActionResult> Index(string token)
         {
             var userToken = await _queries.Execute(new EmailConfirmationUserToken(token));
             if (userToken == null) return HttpNotFound();
@@ -33,7 +33,7 @@ namespace Tripod.Web.Controllers
 
         [ValidateAntiForgeryToken]
         [HttpPost, Route("sign-up/password")]
-        public virtual async Task<ActionResult> Password(CreateLocalMembership command, string emailAddress = null)
+        public virtual async Task<ActionResult> Index(CreateLocalMembership command, string emailAddress = null)
         {
             //System.Threading.Thread.Sleep(new Random().Next(5000, 5001));
 
@@ -58,7 +58,7 @@ namespace Tripod.Web.Controllers
         }
 
         [HttpPost, Route("sign-up/password/validate/{fieldName?}")]
-        public virtual ActionResult PasswordValidate(CreateLocalMembership command, string fieldName = null)
+        public virtual ActionResult Validate(CreateLocalMembership command, string fieldName = null)
         {
             //System.Threading.Thread.Sleep(new Random().Next(5000, 5001));
 

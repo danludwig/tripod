@@ -22,10 +22,10 @@ using System.Web.Routing;
 using T4MVC;
 namespace Tripod.Web.Controllers
 {
-    public partial class EmailAddressesController
+    public partial class SignUpStep3Controller
     {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        protected EmailAddressesController(Dummy d) { }
+        protected SignUpStep3Controller(Dummy d) { }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         protected RedirectToRouteResult RedirectToAction(ActionResult result)
@@ -43,26 +43,26 @@ namespace Tripod.Web.Controllers
 
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Password()
+        public virtual System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Index()
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Password);
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
             return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult PasswordValidate()
+        public virtual System.Web.Mvc.ActionResult Validate()
         {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.PasswordValidate);
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Validate);
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public EmailAddressesController Actions { get { return MVC.EmailAddresses; } }
+        public SignUpStep3Controller Actions { get { return MVC.SignUpStep3; } }
         [GeneratedCode("T4MVC", "2.0")]
         public readonly string Area = "";
         [GeneratedCode("T4MVC", "2.0")]
-        public readonly string Name = "EmailAddresses";
+        public readonly string Name = "SignUpStep3";
         [GeneratedCode("T4MVC", "2.0")]
-        public const string NameConst = "EmailAddresses";
+        public const string NameConst = "SignUpStep3";
 
         static readonly ActionNamesClass s_actions = new ActionNamesClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -70,33 +70,33 @@ namespace Tripod.Web.Controllers
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNamesClass
         {
-            public readonly string Password = "Password";
-            public readonly string PasswordValidate = "PasswordValidate";
+            public readonly string Index = "Index";
+            public readonly string Validate = "Validate";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNameConstants
         {
-            public const string Password = "Password";
-            public const string PasswordValidate = "PasswordValidate";
+            public const string Index = "Index";
+            public const string Validate = "Validate";
         }
 
 
-        static readonly ActionParamsClass_Password s_params_Password = new ActionParamsClass_Password();
+        static readonly ActionParamsClass_Index s_params_Index = new ActionParamsClass_Index();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_Password PasswordParams { get { return s_params_Password; } }
+        public ActionParamsClass_Index IndexParams { get { return s_params_Index; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_Password
+        public class ActionParamsClass_Index
         {
             public readonly string token = "token";
             public readonly string command = "command";
             public readonly string emailAddress = "emailAddress";
         }
-        static readonly ActionParamsClass_PasswordValidate s_params_PasswordValidate = new ActionParamsClass_PasswordValidate();
+        static readonly ActionParamsClass_Validate s_params_Validate = new ActionParamsClass_Validate();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_PasswordValidate PasswordValidateParams { get { return s_params_PasswordValidate; } }
+        public ActionParamsClass_Validate ValidateParams { get { return s_params_Validate; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_PasswordValidate
+        public class ActionParamsClass_Validate
         {
             public readonly string command = "command";
             public readonly string fieldName = "fieldName";
@@ -116,39 +116,39 @@ namespace Tripod.Web.Controllers
     }
 
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-    public partial class T4MVC_EmailAddressesController : Tripod.Web.Controllers.EmailAddressesController
+    public partial class T4MVC_SignUpStep3Controller : Tripod.Web.Controllers.SignUpStep3Controller
     {
-        public T4MVC_EmailAddressesController() : base(Dummy.Instance) { }
+        public T4MVC_SignUpStep3Controller() : base(Dummy.Instance) { }
 
-        partial void PasswordOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string token);
+        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string token);
 
-        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Password(string token)
+        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Index(string token)
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Password);
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "token", token);
-            PasswordOverride(callInfo, token);
+            IndexOverride(callInfo, token);
             return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
         }
 
-        partial void PasswordOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Tripod.Domain.Security.CreateLocalMembership command, string emailAddress);
+        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Tripod.Domain.Security.CreateLocalMembership command, string emailAddress);
 
-        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Password(Tripod.Domain.Security.CreateLocalMembership command, string emailAddress)
+        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Index(Tripod.Domain.Security.CreateLocalMembership command, string emailAddress)
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Password);
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "command", command);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "emailAddress", emailAddress);
-            PasswordOverride(callInfo, command, emailAddress);
+            IndexOverride(callInfo, command, emailAddress);
             return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
         }
 
-        partial void PasswordValidateOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Tripod.Domain.Security.CreateLocalMembership command, string fieldName);
+        partial void ValidateOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Tripod.Domain.Security.CreateLocalMembership command, string fieldName);
 
-        public override System.Web.Mvc.ActionResult PasswordValidate(Tripod.Domain.Security.CreateLocalMembership command, string fieldName)
+        public override System.Web.Mvc.ActionResult Validate(Tripod.Domain.Security.CreateLocalMembership command, string fieldName)
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.PasswordValidate);
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Validate);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "command", command);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "fieldName", fieldName);
-            PasswordValidateOverride(callInfo, command, fieldName);
+            ValidateOverride(callInfo, command, fieldName);
             return callInfo;
         }
 
