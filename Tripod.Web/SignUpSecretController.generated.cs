@@ -22,10 +22,10 @@ using System.Web.Routing;
 using T4MVC;
 namespace Tripod.Web.Controllers
 {
-    public partial class SignUpStep2Controller
+    public partial class SignUpSecretController
     {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        protected SignUpStep2Controller(Dummy d) { }
+        protected SignUpSecretController(Dummy d) { }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         protected RedirectToRouteResult RedirectToAction(ActionResult result)
@@ -56,13 +56,13 @@ namespace Tripod.Web.Controllers
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public SignUpStep2Controller Actions { get { return MVC.SignUpStep2; } }
+        public SignUpSecretController Actions { get { return MVC.SignUpSecret; } }
         [GeneratedCode("T4MVC", "2.0")]
         public readonly string Area = "";
         [GeneratedCode("T4MVC", "2.0")]
-        public readonly string Name = "SignUpStep2";
+        public readonly string Name = "SignUpSecret";
         [GeneratedCode("T4MVC", "2.0")]
-        public const string NameConst = "SignUpStep2";
+        public const string NameConst = "SignUpSecret";
 
         static readonly ActionNamesClass s_actions = new ActionNamesClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -116,9 +116,9 @@ namespace Tripod.Web.Controllers
     }
 
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-    public partial class T4MVC_SignUpStep2Controller : Tripod.Web.Controllers.SignUpStep2Controller
+    public partial class T4MVC_SignUpSecretController : Tripod.Web.Controllers.SignUpSecretController
     {
-        public T4MVC_SignUpStep2Controller() : base(Dummy.Instance) { }
+        public T4MVC_SignUpSecretController() : base(Dummy.Instance) { }
 
         partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ticket);
 

@@ -37,12 +37,12 @@ namespace T4MVC
             {
                 public readonly string SignIn = "SignIn";
                 public readonly string SignUpEmail = "SignUpEmail";
-                public readonly string SignUpStep2 = "SignUpStep2";
+                public readonly string SignUpSecret = "SignUpSecret";
                 public readonly string SignUpStep3 = "SignUpStep3";
             }
             public readonly string SignIn = "~/Views/Security/SignIn.cshtml";
             public readonly string SignUpEmail = "~/Views/Security/SignUpEmail.cshtml";
-            public readonly string SignUpStep2 = "~/Views/Security/SignUpStep2.cshtml";
+            public readonly string SignUpSecret = "~/Views/Security/SignUpSecret.cshtml";
             public readonly string SignUpStep3 = "~/Views/Security/SignUpStep3.cshtml";
         }
     }

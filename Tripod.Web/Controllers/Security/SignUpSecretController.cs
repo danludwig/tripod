@@ -8,12 +8,12 @@ using Tripod.Web.Models;
 
 namespace Tripod.Web.Controllers
 {
-    public partial class SignUpStep2Controller : Controller
+    public partial class SignUpSecretController : Controller
     {
         private readonly IProcessQueries _queries;
         private readonly IProcessCommands _commands;
 
-        public SignUpStep2Controller(IProcessQueries queries, IProcessCommands commands)
+        public SignUpSecretController(IProcessQueries queries, IProcessCommands commands)
         {
             _queries = queries;
             _commands = commands;
@@ -37,7 +37,7 @@ namespace Tripod.Web.Controllers
             ViewBag.Purpose = EmailConfirmationPurpose.CreateLocalUser;
             if (Session.ConfirmEmailTickets().Contains(ticket))
                 ViewBag.EmailAddress = confirmation.Owner.Value;
-            return View(MVC.Security.Views.SignUpStep2);
+            return View(MVC.Security.Views.SignUpSecret);
         }
 
         [ValidateAntiForgeryToken]
@@ -54,7 +54,7 @@ namespace Tripod.Web.Controllers
                 ViewBag.Purpose = EmailConfirmationPurpose.CreateLocalUser;
                 if (Session.ConfirmEmailTickets().Contains(ticket))
                     ViewBag.EmailAddress = emailAddress;
-                return View(MVC.Security.Views.SignUpStep2, command);
+                return View(MVC.Security.Views.SignUpSecret, command);
             }
 
             await _commands.Execute(command);

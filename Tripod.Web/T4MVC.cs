@@ -32,7 +32,7 @@ public static class MVC
     public static Tripod.Web.Controllers.RemoteMembershipsController RemoteMemberships = new Tripod.Web.Controllers.T4MVC_RemoteMembershipsController();
     public static Tripod.Web.Controllers.SignInController SignIn = new Tripod.Web.Controllers.T4MVC_SignInController();
     public static Tripod.Web.Controllers.SignUpEmailController SignUpEmail = new Tripod.Web.Controllers.T4MVC_SignUpEmailController();
-    public static Tripod.Web.Controllers.SignUpStep2Controller SignUpStep2 = new Tripod.Web.Controllers.T4MVC_SignUpStep2Controller();
+    public static Tripod.Web.Controllers.SignUpSecretController SignUpSecret = new Tripod.Web.Controllers.T4MVC_SignUpSecretController();
     public static Tripod.Web.Controllers.SignUpStep3Controller SignUpStep3 = new Tripod.Web.Controllers.T4MVC_SignUpStep3Controller();
     public static T4MVC.ScriptsController Scripts = new T4MVC.ScriptsController();
     public static T4MVC.SecurityController Security = new T4MVC.SecurityController();
