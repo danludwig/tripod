@@ -242,7 +242,7 @@
     <Compile Include="Controllers\LocalMembershipsController.cs" />
     <Compile Include="Controllers\RemoteMembershipsController.cs" />
     <Compile Include="Controllers\Security\SignUpStep2Controller.cs" />
-    <Compile Include="Controllers\Security\SignUpController.cs" />
+    <Compile Include="Controllers\Security\SignUpEmailController.cs" />
     <Compile Include="Controllers\Security\SignInController.cs" />
     <Compile Include="ErrorsController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
@@ -286,7 +286,7 @@
     <Compile Include="SignInController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
-    <Compile Include="SignUpController.generated.cs">
+    <Compile Include="SignUpEmailController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="SignUpStep2Controller.generated.cs">
@@ -722,7 +722,7 @@
     <Content Include="Views\RemoteMemberships\_SignOnList.cshtml" />
     <Content Include="Views\RemoteMemberships\_AddForm.cshtml" />
     <Content Include="Views\Security\SignIn.cshtml" />
-    <Content Include="Views\Security\SignUp.cshtml" />
+    <Content Include="Views\Security\SignUpEmail.cshtml" />
     <Content Include="Views\Authentication\_OAuthSignInForm.cshtml" />
     <Content Include="Views\Errors\NotFound.cshtml" />
     <Content Include="Views\Errors\Forbidden.cshtml" />

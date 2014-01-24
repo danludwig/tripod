@@ -5,11 +5,11 @@ using Tripod.Web.Models;
 
 namespace Tripod.Web.Controllers
 {
-    public partial class SignUpController : Controller
+    public partial class SignUpEmailController : Controller
     {
         private readonly IProcessCommands _commands;
 
-        public SignUpController(IProcessCommands commands)
+        public SignUpEmailController(IProcessCommands commands)
         {
             _commands = commands;
         }
@@ -18,7 +18,7 @@ namespace Tripod.Web.Controllers
         public virtual ViewResult Index()
         {
             ViewBag.Purpose = EmailConfirmationPurpose.CreateLocalUser;
-            return View(MVC.Security.Views.SignUp);
+            return View(MVC.Security.Views.SignUpEmail);
         }
 
         [ValidateAntiForgeryToken]
@@ -35,7 +35,7 @@ namespace Tripod.Web.Controllers
                 switch (command.Purpose)
                 {
                     case EmailConfirmationPurpose.CreateLocalUser:
-                        return View(MVC.Security.Views.SignUp, command);
+                        return View(MVC.Security.Views.SignUpEmail, command);
                     case EmailConfirmationPurpose.CreateRemoteUser:
                         ViewBag.ReturnUrl = returnUrl;
                         ViewBag.LoginProvider = loginProvider;

@@ -22,10 +22,10 @@ using System.Web.Routing;
 using T4MVC;
 namespace Tripod.Web.Controllers
 {
-    public partial class SignUpController
+    public partial class SignUpEmailController
     {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        protected SignUpController(Dummy d) { }
+        protected SignUpEmailController(Dummy d) { }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         protected RedirectToRouteResult RedirectToAction(ActionResult result)
@@ -49,13 +49,13 @@ namespace Tripod.Web.Controllers
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public SignUpController Actions { get { return MVC.SignUp; } }
+        public SignUpEmailController Actions { get { return MVC.SignUpEmail; } }
         [GeneratedCode("T4MVC", "2.0")]
         public readonly string Area = "";
         [GeneratedCode("T4MVC", "2.0")]
-        public readonly string Name = "SignUp";
+        public readonly string Name = "SignUpEmail";
         [GeneratedCode("T4MVC", "2.0")]
-        public const string NameConst = "SignUp";
+        public const string NameConst = "SignUpEmail";
 
         static readonly ActionNamesClass s_actions = new ActionNamesClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -109,9 +109,9 @@ namespace Tripod.Web.Controllers
     }
 
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-    public partial class T4MVC_SignUpController : Tripod.Web.Controllers.SignUpController
+    public partial class T4MVC_SignUpEmailController : Tripod.Web.Controllers.SignUpEmailController
     {
-        public T4MVC_SignUpController() : base(Dummy.Instance) { }
+        public T4MVC_SignUpEmailController() : base(Dummy.Instance) { }
 
         partial void IndexOverride(T4MVC_System_Web_Mvc_ViewResult callInfo);
 
