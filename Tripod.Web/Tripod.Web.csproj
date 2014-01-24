@@ -241,6 +241,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LocalMembershipsController.cs" />
     <Compile Include="Controllers\RemoteMembershipsController.cs" />
+    <Compile Include="Controllers\Security\SignUpController.cs" />
     <Compile Include="Controllers\Security\SignInController.cs" />
     <Compile Include="EmailAddressesController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
@@ -285,6 +286,9 @@
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="SignInController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SignUpController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="T4MVC.cs">
