@@ -35,6 +35,7 @@ namespace T4MVC
             public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
             public class _ViewNamesClass
             {
+                public readonly string _SendConfirmationEmailForm = "_SendConfirmationEmailForm";
                 public readonly string _SignOnProviderForm = "_SignOnProviderForm";
                 public readonly string _SignUpWizard = "_SignUpWizard";
                 public readonly string SignIn = "SignIn";
@@ -42,6 +43,7 @@ namespace T4MVC
                 public readonly string SignUpSecret = "SignUpSecret";
                 public readonly string SignUpUser = "SignUpUser";
             }
+            public readonly string _SendConfirmationEmailForm = "~/Views/Security/_SendConfirmationEmailForm.cshtml";
             public readonly string _SignOnProviderForm = "~/Views/Security/_SignOnProviderForm.cshtml";
             public readonly string _SignUpWizard = "~/Views/Security/_SignUpWizard.cshtml";
             public readonly string SignIn = "~/Views/Security/SignIn.cshtml";

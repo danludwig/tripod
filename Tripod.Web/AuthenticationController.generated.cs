@@ -149,9 +149,7 @@ namespace Tripod.Web.Controllers
             public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
             public class _ViewNamesClass
             {
-                public readonly string _SendConfirmEmailForm = "_SendConfirmEmailForm";
             }
-            public readonly string _SendConfirmEmailForm = "~/Views/Authentication/_SendConfirmEmailForm.cshtml";
         }
     }
 

@@ -732,7 +732,7 @@
     <Content Include="Views\Security\_SignUpWizard.cshtml" />
     <Content Include="Views\Account\ExternalLoginConfirmation2.cshtml" />
     <Content Include="Views\Scripts\Angular.cshtml" />
-    <Content Include="Views\Authentication\_SendConfirmEmailForm.cshtml" />
+    <Content Include="Views\Security\_SendConfirmationEmailForm.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
