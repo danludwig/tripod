@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using FluentValidation;
 using FluentValidation.Validators;
 
@@ -6,16 +7,16 @@ namespace Tripod.Domain.Security
 {
     public class MustBePurposedConfirmEmailToken<T> : PropertyValidator
     {
-        private readonly Func<T, EmailConfirmationPurpose> _purpose;
         private readonly IProcessQueries _queries;
+        private readonly Func<T, EmailConfirmationPurpose>[] _purposes;
 
-        internal MustBePurposedConfirmEmailToken(Func<T, EmailConfirmationPurpose> purpose, IProcessQueries queries)
+        internal MustBePurposedConfirmEmailToken(IProcessQueries queries, params Func<T, EmailConfirmationPurpose>[] purposes)
             : base(() => Resources.Validation_EmailConfirmationTicket_IsWrongPurpose)
         {
-            if (purpose == null) throw new ArgumentNullException("purpose");
             if (queries == null) throw new ArgumentNullException("queries");
-            _purpose = purpose;
+            if (purposes == null) throw new ArgumentNullException("purposes");
             _queries = queries;
+            _purposes = purposes;
         }
 
         protected override bool IsValid(PropertyValidatorContext context)
@@ -25,11 +26,11 @@ namespace Tripod.Domain.Security
             if (userToken == null) return true;
             var ticket = userToken.Value;
 
-            var purpose = _purpose((T)context.Instance);
+            var purposes = _purposes.Select(x => x((T)context.Instance)).ToArray();
             if (string.IsNullOrWhiteSpace(ticket)) return true;
             var entity = _queries.Execute(new EmailConfirmationBy(ticket)).Result;
             if (entity == null) return true;
-            if (entity.Purpose == purpose) return true;
+            if (purposes.Contains(entity.Purpose)) return true;
 
             context.MessageFormatter.AppendArgument("PropertyName", context.PropertyDescription.ToLower());
             return false;
@@ -39,9 +40,9 @@ namespace Tripod.Domain.Security
     public static class MustBePurposedConfirmEmailTokenExtensions
     {
         public static IRuleBuilderOptions<T, string> MustBePurposedConfirmEmailToken<T>
-            (this IRuleBuilder<T, string> ruleBuilder, Func<T, EmailConfirmationPurpose> purpose, IProcessQueries queries)
+            (this IRuleBuilder<T, string> ruleBuilder, IProcessQueries queries, params Func<T, EmailConfirmationPurpose>[] purposes)
         {
-            return ruleBuilder.SetValidator(new MustBePurposedConfirmEmailToken<T>(purpose, queries));
+            return ruleBuilder.SetValidator(new MustBePurposedConfirmEmailToken<T>(queries, purposes));
         }
     }
 }

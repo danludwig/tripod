@@ -43,7 +43,7 @@ namespace Tripod.Domain.Security
                 .MustFindEmailConfirmationByToken(queries)
                 .MustNotBeRedeemedConfirmEmailToken(queries)
                 .MustNotBeExpiredConfirmEmailToken(queries)
-                .MustBePurposedConfirmEmailToken(x => EmailConfirmationPurpose.CreateRemoteUser, queries)
+                .MustBePurposedConfirmEmailToken(queries, x => EmailConfirmationPurpose.CreateRemoteUser)
                 .WithName(EmailConfirmation.Constraints.Label)
                     .When(x => !x.Principal.Identity.IsAuthenticated);
         }
@@ -80,24 +80,7 @@ namespace Tripod.Domain.Security
                 user = createUser.Created;
 
                 // confirm & associate email address
-                //userToken = _userManager.UserConfirmationTokens.Validate(command.Token);
-                var userToken = await _queries.Execute(new EmailConfirmationUserToken(command.Token));
-                var confirmation = await _entities.Get<EmailConfirmation>()
-                    .EagerLoad(x => x.Owner)
-                    .ByTicketAsync(userToken.Value, false);
-                var email = confirmation.Owner;
-                confirmation.RedeemedOnUtc = DateTime.UtcNow;
-                email.IsConfirmed = true;
-                email.IsDefault = true;
-                email.Owner = user;
-
-                // expire unused confirmations
-                var unusedConfirmations = await _entities.Get<EmailConfirmation>()
-                    .ByOwnerValue(email.Value)
-                    .ToArrayAsync()
-                ;
-                foreach (var unusedConfirmation in unusedConfirmations.Except(new[] { confirmation }))
-                    unusedConfirmation.RedeemedOnUtc = unusedConfirmation.ExpiresOnUtc;
+                await _commands.Execute(new RedeemEmailConfirmation(command.Token, user));
             }
 
             var ticket = await _queries.Execute(new PrincipalRemoteMembershipTicket(command.Principal));

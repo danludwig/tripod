@@ -41,6 +41,12 @@ else
     Choose a user name for your account and click the button below to finish signing in.
 </div>
 
+<p>
+    By default, we have chosen the user name that @ViewBag.LoginProvider suggested. You have the option of choosing a different username below.<br />
+    No matter which username you choose, you also be able to sign on using the email address below.<br />
+    If you don't want to choose a different username now, you can do it after you sign in.
+</p>
+
 <form role="form"
       method="POST"
       action="@Url.Action(MVC.SignOnUser.Index(null, null, null))"
@@ -61,12 +67,6 @@ else
         const string inputCss = "input-lg";
         const string inputGroupCss = "input-group input-group-lg";
     }
-
-    <p>
-        By default, we have chosen the user name that @ViewBag.LoginProvider suggested. You have the option of choosing a different username below.<br />
-        No matter which username you choose, you also be able to sign on using the email address below.<br />
-        If you don't want to choose a different username now, you can do it after you sign in.
-    </p>
 
     @* USERNAME INPUT *@
     <div class="form-group form-group-lg @Html.BootstrapValidationCssClassFor(x => x.UserName)"
@@ -169,7 +169,7 @@ else
                        required
                        model-contrib
                        server-error="@Html.ValidationMessageTextFor(x => x.Token)"
-                       server-validate="@Url.Action(MVC.SignUpUser.Validate(null, "token"))" />
+                       server-validate="@Url.Action(MVC.SignOnUser.Validate(null, "token"))" />
 
                 <span class="input-group-addon validation @Html.CssClassWhenNullModel("hide")"
                       remove-class="hide"
@@ -249,6 +249,6 @@ else
 
 @section scripts
 {
-    @*@{ Html.RenderPartial(MVC.Scripts.Views.Angular); }
-    <script src="~/app/security/SignOnUserForm.js"></script>*@
+    @{ Html.RenderPartial(MVC.Scripts.Views.Angular); }
+    <script src="~/app/security/SignOnUserForm.js"></script>
 }
