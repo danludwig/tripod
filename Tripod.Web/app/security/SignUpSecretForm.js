@@ -59,7 +59,7 @@ var App;
             })();
             SignUpSecretForm.Controller = Controller;
 
-            SignUpSecretForm.moduleName = 'sign-up-confirm-form';
+            SignUpSecretForm.moduleName = 'sign-up-secret-form';
 
             SignUpSecretForm.ngModule = angular.module(SignUpSecretForm.moduleName, [App.Modules.Tripod.moduleName]);
         })(Security.SignUpSecretForm || (Security.SignUpSecretForm = {}));

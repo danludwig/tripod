@@ -65,15 +65,15 @@ namespace Tripod.Domain.Security
     [UsedImplicitly]
     public class HandleCreateLocalMembershipCommand : IHandleCommand<CreateLocalMembership>
     {
+        private readonly IProcessQueries _queries;
         private readonly IProcessCommands _commands;
         private readonly IWriteEntities _entities;
-        private readonly UserManager<User, int> _userManager;
 
-        public HandleCreateLocalMembershipCommand(IProcessCommands commands, IWriteEntities entities, UserManager<User, int> userManager)
+        public HandleCreateLocalMembershipCommand(IProcessQueries queries, IProcessCommands commands, IWriteEntities entities)
         {
+            _queries = queries;
             _commands = commands;
             _entities = entities;
-            _userManager = userManager;
         }
 
         public async Task Handle(CreateLocalMembership command)
@@ -88,7 +88,7 @@ namespace Tripod.Domain.Security
                 user = createUser.Created;
 
                 // confirm & associate email address
-                var userToken = _userManager.UserConfirmationTokens.Validate(command.Token);
+                var userToken = await _queries.Execute(new EmailConfirmationUserToken(command.Token));
                 var confirmation = await _entities.Get<EmailConfirmation>()
                     .EagerLoad(x => x.Owner)
                     .ByTicketAsync(userToken.Value, false);
@@ -110,7 +110,7 @@ namespace Tripod.Domain.Security
             user.LocalMembership = new LocalMembership
             {
                 Owner = user,
-                PasswordHash = _userManager.PasswordHasher.HashPassword(command.Password),
+                PasswordHash = await _queries.Execute(new HashedPassword(command.Password)),
                 IsConfirmed = true,
             };
             user.SecurityStamp = Guid.NewGuid().ToString();

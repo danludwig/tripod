@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using Tripod.Domain.Security;
+using Tripod.Web.Models;
 
 namespace Tripod.Web.Controllers
 {
@@ -80,23 +81,23 @@ namespace Tripod.Web.Controllers
             return this.RedirectToLocal(returnUrl);
         }
 
-        //[HttpPost, Route("sign-up/password/validate/{fieldName?}")]
-        //public virtual ActionResult Validate(CreateLocalMembership command, string fieldName = null)
-        //{
-        //    //System.Threading.Thread.Sleep(new Random().Next(5000, 5001));
+        [HttpPost, Route("sign-on/register/validate/{fieldName?}")]
+        public virtual ActionResult Validate(CreateRemoteMembership command, string fieldName = null)
+        {
+            //System.Threading.Thread.Sleep(new Random().Next(5000, 5001));
 
-        //    if (command == null)
-        //    {
-        //        Response.StatusCode = 400;
-        //        return Json(null);
-        //    }
+            if (command == null)
+            {
+                Response.StatusCode = 400;
+                return Json(null);
+            }
 
-        //    var result = new ValidatedFields(ModelState, fieldName);
+            var result = new ValidatedFields(ModelState, fieldName);
 
-        //    //ModelState[command.PropertyName(x => x.UserName)].Errors.Clear();
-        //    //result = new ValidatedFields(ModelState, fieldName);
+            //ModelState[command.PropertyName(x => x.UserName)].Errors.Clear();
+            //result = new ValidatedFields(ModelState, fieldName);
 
-        //    return new CamelCaseJsonResult(result);
-        //}
+            return new CamelCaseJsonResult(result);
+        }
     }
 }

@@ -86,7 +86,7 @@ module App.Security.SignUpSecretForm {
         }
     }
 
-    export var moduleName = 'sign-up-confirm-form';
+    export var moduleName = 'sign-up-secret-form';
 
     export var ngModule = angular.module(moduleName, [Modules.Tripod.moduleName]);
 }

@@ -120,6 +120,7 @@
     <Compile Include="Domain\Security\Entities\UserClaim.cs" />
     <Compile Include="Domain\Security\Entities\RemoteMembership.cs" />
     <Compile Include="Domain\Security\Entities\User.cs" />
+    <Compile Include="Domain\Security\Queries\HashedPassword.cs" />
     <Compile Include="Domain\Security\Queries\ExternalCookieClaim.cs" />
     <Compile Include="Domain\Security\Queries\ExternalCookieClaims.cs" />
     <Compile Include="Domain\Security\Queries\EmailAddressBy.cs" />

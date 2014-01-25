@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Data.Entity;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Security.Principal;
 using System.Threading.Tasks;
@@ -30,9 +32,20 @@ namespace Tripod.Domain.Security
             RuleFor(x => x.UserName)
                 .MustBeValidUserName()
                 .MustNotFindUserByName(queries)
+                .MustNotBeUnverifiedEmailUserName(x => x.Token, queries)
                     .WithName(User.Constraints.NameLabel)
                     .When(x => !x.Principal.Identity.IsAuthenticated)
             ;
+
+            RuleFor(x => x.Token)
+                .NotEmpty()
+                .MustBeValidConfirmEmailToken(queries)
+                .MustFindEmailConfirmationByToken(queries)
+                .MustNotBeRedeemedConfirmEmailToken(queries)
+                .MustNotBeExpiredConfirmEmailToken(queries)
+                .MustBePurposedConfirmEmailToken(x => EmailConfirmationPurpose.CreateRemoteUser, queries)
+                .WithName(EmailConfirmation.Constraints.Label)
+                    .When(x => !x.Principal.Identity.IsAuthenticated);
         }
     }
 
@@ -47,7 +60,6 @@ namespace Tripod.Domain.Security
         {
             _commands = commands;
             _entities = entities;
-            _queries = queries;
             _queries = queries;
         }
 
@@ -66,6 +78,26 @@ namespace Tripod.Domain.Security
                 var createUser = new CreateUser { Name = command.UserName };
                 await _commands.Execute(createUser);
                 user = createUser.Created;
+
+                // confirm & associate email address
+                //userToken = _userManager.UserConfirmationTokens.Validate(command.Token);
+                var userToken = await _queries.Execute(new EmailConfirmationUserToken(command.Token));
+                var confirmation = await _entities.Get<EmailConfirmation>()
+                    .EagerLoad(x => x.Owner)
+                    .ByTicketAsync(userToken.Value, false);
+                var email = confirmation.Owner;
+                confirmation.RedeemedOnUtc = DateTime.UtcNow;
+                email.IsConfirmed = true;
+                email.IsDefault = true;
+                email.Owner = user;
+
+                // expire unused confirmations
+                var unusedConfirmations = await _entities.Get<EmailConfirmation>()
+                    .ByOwnerValue(email.Value)
+                    .ToArrayAsync()
+                ;
+                foreach (var unusedConfirmation in unusedConfirmations.Except(new[] { confirmation }))
+                    unusedConfirmation.RedeemedOnUtc = unusedConfirmation.ExpiresOnUtc;
             }
 
             var ticket = await _queries.Execute(new PrincipalRemoteMembershipTicket(command.Principal));

@@ -96,7 +96,7 @@ var App;
             })();
             SignUpUserForm.Controller = Controller;
 
-            SignUpUserForm.moduleName = 'sign-up-password-form';
+            SignUpUserForm.moduleName = 'sign-up-register-form';
 
             SignUpUserForm.ngModule = angular.module(SignUpUserForm.moduleName, [App.Modules.Tripod.moduleName]);
         })(Security.SignUpUserForm || (Security.SignUpUserForm = {}));

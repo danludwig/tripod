@@ -60,7 +60,7 @@ namespace Tripod.Web.Controllers
             return this.RedirectToLocal(returnUrl);
         }
 
-        [HttpPost, Route("sign-up/password/validate/{fieldName?}")]
+        [HttpPost, Route("sign-up/register/validate/{fieldName?}")]
         public virtual ActionResult Validate(CreateLocalMembership command, string fieldName = null)
         {
             //System.Threading.Thread.Sleep(new Random().Next(5000, 5001));

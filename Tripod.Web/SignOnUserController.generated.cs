@@ -48,6 +48,12 @@ namespace Tripod.Web.Controllers
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
             return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
         }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult Validate()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Validate);
+        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public SignOnUserController Actions { get { return MVC.SignOnUser; } }
@@ -65,12 +71,14 @@ namespace Tripod.Web.Controllers
         public class ActionNamesClass
         {
             public readonly string Index = "Index";
+            public readonly string Validate = "Validate";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNameConstants
         {
             public const string Index = "Index";
+            public const string Validate = "Validate";
         }
 
 
@@ -84,6 +92,15 @@ namespace Tripod.Web.Controllers
             public readonly string returnUrl = "returnUrl";
             public readonly string command = "command";
             public readonly string emailAddress = "emailAddress";
+        }
+        static readonly ActionParamsClass_Validate s_params_Validate = new ActionParamsClass_Validate();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_Validate ValidateParams { get { return s_params_Validate; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_Validate
+        {
+            public readonly string command = "command";
+            public readonly string fieldName = "fieldName";
         }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -125,6 +142,17 @@ namespace Tripod.Web.Controllers
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "emailAddress", emailAddress);
             IndexOverride(callInfo, command, returnUrl, emailAddress);
             return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
+        }
+
+        partial void ValidateOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Tripod.Domain.Security.CreateRemoteMembership command, string fieldName);
+
+        public override System.Web.Mvc.ActionResult Validate(Tripod.Domain.Security.CreateRemoteMembership command, string fieldName)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Validate);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "command", command);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "fieldName", fieldName);
+            ValidateOverride(callInfo, command, fieldName);
+            return callInfo;
         }
 
     }

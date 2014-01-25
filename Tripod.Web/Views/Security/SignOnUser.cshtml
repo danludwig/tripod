@@ -43,12 +43,12 @@ else
 
 <form role="form"
       method="POST"
-      action="@Url.Action(MVC.SignUpUser.Index(null, null, null))"
+      action="@Url.Action(MVC.SignOnUser.Index(null, null, null))"
       novalidate
-      ng-app="sign-up-password-form"
-      ng-controller="App.Security.SignUpUserForm.Controller"
-      name="signUpUserForm"
-      form-contrib="signUpUserCtrb"
+      ng-app="sign-on-register-form"
+      ng-controller="App.Security.SignOnUserForm.Controller"
+      name="signOnUserForm"
+      form-contrib="signOnUserCtrb"
       form-submitted="@IsPost"
       class="form-horizontal">
 
@@ -71,7 +71,7 @@ else
     @* USERNAME INPUT *@
     <div class="form-group form-group-lg @Html.BootstrapValidationCssClassFor(x => x.UserName)"
          remove-class="has-success has-error"
-         ng-class="signUpUserCtrb.userName.feedbackCssClass()">
+         ng-class="signOnUserCtrb.userName.feedbackCssClass()">
 
         @* INPUT GROUP COLUMN *@
         <div class="col-md-6">
@@ -81,7 +81,7 @@ else
             </label>
             <div class="@Html.CssClassWhenNotNullModel(inputGroupCss)"
                  remove-class="@inputGroupCss"
-                 ng-class="signUpUserCtrb.userName.inputGroupCssClass('lg')">
+                 ng-class="signOnUserCtrb.userName.inputGroupCssClass('lg')">
                 <input type="text"
                        class="form-control @inputCss"
                        placeholder="Enter @UserConstraints.NameLabel.ToLower() here"
@@ -93,7 +93,7 @@ else
                        required
                        model-contrib
                        server-error="@Html.ValidationMessageTextFor(x => x.UserName)"
-                       server-validate="@Url.Action(MVC.SignUpUser.Validate(null, "userName"))"
+                       server-validate="@Url.Action(MVC.SignOnUser.Validate(null, "userName"))"
                        server-validate-data="{ token: vm.token }"
                        server-validate-throttle="400" />
 
@@ -117,7 +117,7 @@ else
                   tooltip-placement="right"
                   class="validation-tooltip"></span>
 
-            <span tooltip="{{ signUpUserCtrb.userName.error.server }}"
+            <span tooltip="{{ signOnUserCtrb.userName.error.server }}"
                   tooltip-toggle="vm.isUserNameServerError()"
                   tooltip-animation="false"
                   tooltip-placement="right"
@@ -130,7 +130,7 @@ else
                 @Resources.notempty_error.Replace("{PropertyName}", UserConstraints.NameLabel)
             </span>
             <span ng-show="vm.isUserNameServerError()" ng-cloak>
-                {{ signUpUserCtrb.userName.error.server }}
+                {{ signOnUserCtrb.userName.error.server }}
             </span>
             <span ng-class="{ hide: true }">
                 @Html.ValidationMessageFor(x => x.UserName)
@@ -141,7 +141,7 @@ else
     @* EMAIL INPUT *@
     <div class="form-group form-group-lg @Html.BootstrapValidationCssClassFor(x => x.Token)"
          remove-class="has-success has-error"
-         ng-class="signUpUserCtrb.token.feedbackCssClass()">
+         ng-class="signOnUserCtrb.token.feedbackCssClass()">
 
         @* INPUT GROUP COLUMN *@
         <div class="col-md-6">
@@ -152,7 +152,7 @@ else
             <small>(You can't change this now, but you can add &amp; remove emails after you sign in)</small>
             <div class="@Html.CssClassWhenNotNullModel(inputGroupCss)"
                  remove-class="@inputGroupCss"
-                 ng-class="signUpUserCtrb.token.inputGroupCssClass('lg')">
+                 ng-class="signOnUserCtrb.token.inputGroupCssClass('lg')">
                 <input type="text"
                        class="form-control @inputCss"
                        id="@Html.IdFor(x => x.Token)"
@@ -191,7 +191,7 @@ else
                   tooltip-placement="right"
                   class="validation-tooltip"></span>
 
-            <span tooltip="{{ signUpUserCtrb.token.error.server }}"
+            <span tooltip="{{ signOnUserCtrb.token.error.server }}"
                   tooltip-toggle="vm.isTokenServerError()"
                   tooltip-animation="false"
                   tooltip-placement="right"
@@ -204,7 +204,7 @@ else
                 @Resources.notempty_error.Replace("{PropertyName}", EmailConfirmation.Constraints.Label)
             </span>
             <span ng-show="vm.isTokenServerError()" ng-cloak>
-                {{ signUpUserCtrb.confirmPassword.error.server }}
+                {{ signOnUserCtrb.confirmPassword.error.server }}
             </span>
             <span ng-class="{ hide: true }">
                 @Html.ValidationMessageFor(x => x.Token)
@@ -250,5 +250,5 @@ else
 @section scripts
 {
     @*@{ Html.RenderPartial(MVC.Scripts.Views.Angular); }
-        <script src="~/app/security/SignUpUserForm.js"></script>*@
+    <script src="~/app/security/SignOnUserForm.js"></script>*@
 }

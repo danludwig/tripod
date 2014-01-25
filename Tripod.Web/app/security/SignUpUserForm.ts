@@ -134,7 +134,7 @@ module App.Security.SignUpUserForm {
         }
     }
 
-    export var moduleName = 'sign-up-password-form';
+    export var moduleName = 'sign-up-register-form';
 
     export var ngModule = angular.module(moduleName, [Modules.Tripod.moduleName]);
 }
