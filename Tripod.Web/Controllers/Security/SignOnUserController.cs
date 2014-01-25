@@ -47,7 +47,7 @@ namespace Tripod.Web.Controllers
 
         [ValidateAntiForgeryToken]
         [HttpPost, Route("sign-on/register")]
-        public virtual async Task<ActionResult> Index(CreateLocalMembership command, string returnUrl, string emailAddress)
+        public virtual async Task<ActionResult> Index(CreateRemoteMembership command, string returnUrl, string emailAddress)
         {
             //System.Threading.Thread.Sleep(new Random().Next(5000, 5001));
 
@@ -61,18 +61,21 @@ namespace Tripod.Web.Controllers
 
             if (!ModelState.IsValid)
             {
+                var emailClaim = await _queries.Execute(new ExternalCookieClaim(ClaimTypes.Email));
                 ViewBag.Token = command.Token;
                 ViewBag.ReturnUrl = returnUrl;
                 ViewBag.EmailAddress = emailAddress;
+                ViewBag.LoginProvider = loginInfo.Login.LoginProvider;
+                ViewBag.HasClaimsEmail = emailClaim != null;
                 return View(MVC.Security.Views.SignOnUser, command);
             }
 
             await _commands.Execute(command);
 
-            await _commands.Execute(new SignIn
+            await _commands.Execute(new SignOn
             {
-                UserName = command.UserName,
-                Password = command.Password
+                LoginProvider = loginInfo.Login.LoginProvider,
+                ProviderKey = loginInfo.Login.ProviderKey,
             });
             return this.RedirectToLocal(returnUrl);
         }
