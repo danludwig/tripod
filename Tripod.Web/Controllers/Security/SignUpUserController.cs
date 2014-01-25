@@ -17,7 +17,7 @@ namespace Tripod.Web.Controllers
             _commands = commands;
         }
 
-        [HttpGet, Route("sign-up/password")]
+        [HttpGet, Route("sign-up/register")]
         public virtual async Task<ActionResult> Index(string token, string returnUrl)
         {
             var userToken = await _queries.Execute(new EmailConfirmationUserToken(token));
@@ -34,7 +34,7 @@ namespace Tripod.Web.Controllers
         }
 
         [ValidateAntiForgeryToken]
-        [HttpPost, Route("sign-up/password")]
+        [HttpPost, Route("sign-up/register")]
         public virtual async Task<ActionResult> Index(CreateLocalMembership command, string returnUrl, string emailAddress)
         {
             //System.Threading.Thread.Sleep(new Random().Next(5000, 5001));

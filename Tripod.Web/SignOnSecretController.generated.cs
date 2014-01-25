@@ -22,10 +22,10 @@ using System.Web.Routing;
 using T4MVC;
 namespace Tripod.Web.Controllers
 {
-    public partial class SignOnEmailController
+    public partial class SignOnSecretController
     {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        protected SignOnEmailController(Dummy d) { }
+        protected SignOnSecretController(Dummy d) { }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         protected RedirectToRouteResult RedirectToAction(ActionResult result)
@@ -50,13 +50,13 @@ namespace Tripod.Web.Controllers
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public SignOnEmailController Actions { get { return MVC.SignOnEmail; } }
+        public SignOnSecretController Actions { get { return MVC.SignOnSecret; } }
         [GeneratedCode("T4MVC", "2.0")]
         public readonly string Area = "";
         [GeneratedCode("T4MVC", "2.0")]
-        public readonly string Name = "SignOnEmail";
+        public readonly string Name = "SignOnSecret";
         [GeneratedCode("T4MVC", "2.0")]
-        public const string NameConst = "SignOnEmail";
+        public const string NameConst = "SignOnSecret";
 
         static readonly ActionNamesClass s_actions = new ActionNamesClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -80,9 +80,10 @@ namespace Tripod.Web.Controllers
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionParamsClass_Index
         {
+            public readonly string ticket = "ticket";
             public readonly string returnUrl = "returnUrl";
             public readonly string command = "command";
-            public readonly string loginProvider = "loginProvider";
+            public readonly string emailAddress = "emailAddress";
         }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -99,29 +100,31 @@ namespace Tripod.Web.Controllers
     }
 
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-    public partial class T4MVC_SignOnEmailController : Tripod.Web.Controllers.SignOnEmailController
+    public partial class T4MVC_SignOnSecretController : Tripod.Web.Controllers.SignOnSecretController
     {
-        public T4MVC_SignOnEmailController() : base(Dummy.Instance) { }
+        public T4MVC_SignOnSecretController() : base(Dummy.Instance) { }
 
-        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string returnUrl);
+        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ticket, string returnUrl);
 
-        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Index(string returnUrl)
+        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Index(string ticket, string returnUrl)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ticket", ticket);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "returnUrl", returnUrl);
-            IndexOverride(callInfo, returnUrl);
+            IndexOverride(callInfo, ticket, returnUrl);
             return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
         }
 
-        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Tripod.Domain.Security.SendConfirmationEmail command, string returnUrl, string loginProvider);
+        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ticket, Tripod.Domain.Security.VerifyConfirmEmailSecret command, string returnUrl, string emailAddress);
 
-        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Index(Tripod.Domain.Security.SendConfirmationEmail command, string returnUrl, string loginProvider)
+        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Index(string ticket, Tripod.Domain.Security.VerifyConfirmEmailSecret command, string returnUrl, string emailAddress)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ticket", ticket);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "command", command);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "returnUrl", returnUrl);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "loginProvider", loginProvider);
-            IndexOverride(callInfo, command, returnUrl, loginProvider);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "emailAddress", emailAddress);
+            IndexOverride(callInfo, ticket, command, returnUrl, emailAddress);
             return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
         }
 

@@ -37,18 +37,22 @@ namespace T4MVC
             {
                 public readonly string _SignOnProviderForm = "_SignOnProviderForm";
                 public readonly string _SignUpEmailForm = "_SignUpEmailForm";
+                public readonly string _SignUpSecretForm = "_SignUpSecretForm";
                 public readonly string _SignUpWizard = "_SignUpWizard";
                 public readonly string SignIn = "SignIn";
                 public readonly string SignOnEmail = "SignOnEmail";
+                public readonly string SignOnSecret = "SignOnSecret";
                 public readonly string SignUpEmail = "SignUpEmail";
                 public readonly string SignUpSecret = "SignUpSecret";
                 public readonly string SignUpUser = "SignUpUser";
             }
             public readonly string _SignOnProviderForm = "~/Views/Security/_SignOnProviderForm.cshtml";
             public readonly string _SignUpEmailForm = "~/Views/Security/_SignUpEmailForm.cshtml";
+            public readonly string _SignUpSecretForm = "~/Views/Security/_SignUpSecretForm.cshtml";
             public readonly string _SignUpWizard = "~/Views/Security/_SignUpWizard.cshtml";
             public readonly string SignIn = "~/Views/Security/SignIn.cshtml";
             public readonly string SignOnEmail = "~/Views/Security/SignOnEmail.cshtml";
+            public readonly string SignOnSecret = "~/Views/Security/SignOnSecret.cshtml";
             public readonly string SignUpEmail = "~/Views/Security/SignUpEmail.cshtml";
             public readonly string SignUpSecret = "~/Views/Security/SignUpSecret.cshtml";
             public readonly string SignUpUser = "~/Views/Security/SignUpUser.cshtml";

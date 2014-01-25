@@ -1,13 +1,8 @@
 ﻿@using Tripod.Web.Models
+
 @model SignUpWizardModel
 
 @{
-    Model.StepContents["Submit email"] = null;
-    Model.StepContents["Confirm email"] = null;
-    Model.StepContents["Create password"] = null;
-    Model.StepContents["Collect underpants"] = "http://www.youtube.com/watch?v=tO5sxLapAts";
-    Model.StepContents["???"] = "http://knowyourmeme.com/memes/profit";
-    Model.StepContents["Profit"] = "https://www.google.com/search?q=collect+underpants+profit";
     var stepTitles = Model.StepContents.Keys.ToList();
 }
 

@@ -10,12 +10,12 @@
 }
 
 <h2>
-    Sign Up  &raquo;
+    Sign up  &raquo;
     <small>Create your password.</small>
 </h2>
 <hr class="hr-sm hr-space" />
 
-@{ Html.RenderPartial(MVC.Security.Views._SignUpWizard, new SignUpWizardModel(3)); }
+@{ Html.RenderPartial(MVC.Security.Views._SignUpWizard, new SignUpWizardModel(3, "Create password")); }
 <hr class="hr-space hr-md" />
 
 <h3>

@@ -17,6 +17,8 @@
       form-submitted="@IsPost">
 
     @Html.AntiForgeryToken()
+    <input type="hidden" name="@Html.NameFor(x => x.ConfirmUrlFormat)" value="@(Model != null ? Model.ConfirmUrlFormat : ViewBag.ConfirmUrlFormat)">
+    <input type="hidden" name="@Html.NameFor(x => x.SendFromUrl)" value="@(Model != null ? Model.SendFromUrl : ViewBag.SendFromUrl)">
     <input type="hidden" name="returnUrl" value="@ViewBag.ReturnUrl" />
     <input type="hidden" name="loginProvider" value="@ViewBag.LoginProvider" />
 

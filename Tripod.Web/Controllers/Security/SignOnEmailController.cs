@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using Tripod.Domain.Security;
-using Tripod.Web.Models;
 
 namespace Tripod.Web.Controllers
 {
@@ -21,6 +20,7 @@ namespace Tripod.Web.Controllers
         [HttpGet, Route("sign-on/email")]
         public virtual async Task<ActionResult> Index(string returnUrl)
         {
+            // make sure we still have a remote login
             var loginInfo = await _queries.Execute(new PrincipalRemoteMembershipTicket(User));
             if (loginInfo == null)
                 return RedirectToAction(MVC.SignIn.Index());
@@ -37,6 +37,8 @@ namespace Tripod.Web.Controllers
         [HttpPost, Route("sign-on/email")]
         public virtual async Task<ActionResult> Index(SendConfirmationEmail command, string returnUrl, string loginProvider)
         {
+            // todo: make sure we still have a remote login
+
             if (command == null || command.Purpose == EmailConfirmationPurpose.Invalid)
             {
                 return View(MVC.Errors.Views.BadRequest);
@@ -55,25 +57,7 @@ namespace Tripod.Web.Controllers
 
             Session.AddConfirmEmailTicket(command.CreatedTicket);
 
-            return View(MVC.Errors.Views.BadRequest);
-        }
-
-        [HttpPost, Route("sign-up/validate/{fieldName?}")]
-        public virtual ActionResult Validate(SendConfirmationEmail command, string fieldName = null)
-        {
-            //System.Threading.Thread.Sleep(new Random().Next(5000, 5001));
-            if (command == null)
-            {
-                Response.StatusCode = 400;
-                return Json(null);
-            }
-
-            var result = new ValidatedFields(ModelState, fieldName);
-
-            //ModelState[command.PropertyName(x => x.EmailAddress)].Errors.Clear();
-            //result = new ValidatedFields(ModelState, fieldName);
-
-            return new CamelCaseJsonResult(result);
+            return RedirectToAction(await MVC.SignOnSecret.Index(command.CreatedTicket, returnUrl));
         }
 
         private string SendFromUrl(string returnUrl)
