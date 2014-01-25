@@ -25,11 +25,7 @@ namespace Tripod.Domain.Security
         public ValidateRedeemEmailConfirmationCommand(IProcessQueries queries)
         {
             RuleFor(x => x.Token)
-                .NotEmpty()
-                .MustBeValidConfirmEmailToken(queries)
-                .MustFindEmailConfirmationByToken(queries)
-                .MustNotBeRedeemedConfirmEmailToken(queries)
-                .MustNotBeExpiredConfirmEmailToken(queries)
+                .MustBeRedeemableConfirmEmailToken(queries)
                 .MustBePurposedConfirmEmailToken(queries,
                     x => EmailConfirmationPurpose.CreateRemoteUser,
                     x => EmailConfirmationPurpose.CreateLocalUser

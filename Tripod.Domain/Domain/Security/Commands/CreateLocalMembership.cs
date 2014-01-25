@@ -51,11 +51,7 @@ namespace Tripod.Domain.Security
                     .When(x => !string.IsNullOrWhiteSpace(x.Password), ApplyConditionTo.CurrentValidator);
 
             RuleFor(x => x.Token)
-                .NotEmpty()
-                .MustBeValidConfirmEmailToken(queries)
-                .MustFindEmailConfirmationByToken(queries)
-                .MustNotBeRedeemedConfirmEmailToken(queries)
-                .MustNotBeExpiredConfirmEmailToken(queries)
+                .MustBeRedeemableConfirmEmailToken(queries)
                 .MustBePurposedConfirmEmailToken(queries, x => EmailConfirmationPurpose.CreateLocalUser)
                 .WithName(EmailConfirmation.Constraints.Label)
                     .When(x => !x.Principal.Identity.IsAuthenticated);

@@ -38,11 +38,7 @@ namespace Tripod.Domain.Security
             ;
 
             RuleFor(x => x.Token)
-                .NotEmpty()
-                .MustBeValidConfirmEmailToken(queries)
-                .MustFindEmailConfirmationByToken(queries)
-                .MustNotBeRedeemedConfirmEmailToken(queries)
-                .MustNotBeExpiredConfirmEmailToken(queries)
+                .MustBeRedeemableConfirmEmailToken(queries)
                 .MustBePurposedConfirmEmailToken(queries, x => EmailConfirmationPurpose.CreateRemoteUser)
                 .WithName(EmailConfirmation.Constraints.Label)
                     .When(x => !x.Principal.Identity.IsAuthenticated);
