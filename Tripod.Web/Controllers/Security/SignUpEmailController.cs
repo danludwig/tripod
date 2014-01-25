@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System.Diagnostics;
+using System.Threading.Tasks;
+using System.Web;
 using System.Web.Mvc;
 using Tripod.Domain.Security;
 using Tripod.Web.Models;
@@ -21,6 +23,8 @@ namespace Tripod.Web.Controllers
             ViewBag.ReturnUrl = returnUrl;
             ViewBag.ActionUrl = Url.Action(MVC.SignUpEmail.Index());
             ViewBag.Purpose = EmailConfirmationPurpose.CreateLocalUser;
+            ViewBag.ConfirmUrlFormat = ConfirmUrlFormat(returnUrl);
+            ViewBag.SendFromUrl = SendFromUrl(returnUrl);
             return View(MVC.Security.Views.SignUpEmail);
         }
 
@@ -28,7 +32,7 @@ namespace Tripod.Web.Controllers
         [HttpPost, Route("sign-up")]
         public virtual async Task<ActionResult> Index(SendConfirmationEmail command, string returnUrl, string loginProvider)
         {
-            if (command == null || (int)command.Purpose == 0)
+            if (command == null || command.Purpose == EmailConfirmationPurpose.Invalid)
             {
                 return View(MVC.Errors.Views.BadRequest);
             }
@@ -40,6 +44,8 @@ namespace Tripod.Web.Controllers
                 return View(MVC.Security.Views.SignUpEmail, command);
             }
 
+            command.ConfirmUrlFormat = ConfirmUrlFormat(returnUrl);
+            command.SendFromUrl = SendFromUrl(returnUrl);
             await _commands.Execute(command);
 
             Session.AddConfirmEmailTicket(command.CreatedTicket);
@@ -63,6 +69,22 @@ namespace Tripod.Web.Controllers
             //result = new ValidatedFields(ModelState, fieldName);
 
             return new CamelCaseJsonResult(result);
+        }
+
+        private string ConfirmUrlFormat(string returnUrl)
+        {
+            Debug.Assert(Request.Url != null);
+            var encodedUrlFormat = Url.Action(MVC.SignUpUser.Index("{0}", "{1}"));
+            var decodedUrlFormat = HttpUtility.UrlDecode(encodedUrlFormat);
+            var formattedUrl = string.Format(decodedUrlFormat, "{0}", returnUrl);
+            return string.Format("{0}://{1}{2}", Request.Url.Scheme, Request.Url.Authority, formattedUrl);
+        }
+
+        private string SendFromUrl(string returnUrl)
+        {
+            Debug.Assert(Request.Url != null);
+            var url = Url.Action(MVC.SignUpEmail.Index(returnUrl));
+            return string.Format("{0}://{1}{2}", Request.Url.Scheme, Request.Url.Authority, url);
         }
     }
 }

@@ -14,9 +14,9 @@ namespace Tripod.Domain.Security
     {
         public string EmailAddress { get; set; }
         public bool IsExpectingEmail { get; set; }
+        public EmailConfirmationPurpose Purpose { get; set; }
         public string ConfirmUrlFormat { get; [UsedImplicitly] set; }
         public string SendFromUrl { get; [UsedImplicitly] set; }
-        public EmailConfirmationPurpose Purpose { get; set; }
         public string CreatedTicket { get; internal set; }
     }
 
@@ -31,14 +31,23 @@ namespace Tripod.Domain.Security
                 .MustNotBeConfirmedEmailAddress(queries)
                     .WithName(EmailAddress.Constraints.Label);
 
-            RuleFor(x => x.Purpose)
-                .MustBeValidConfirmEmailPurpose()
-                    .WithName(EmailConfirmation.Constraints.Label);
-
             RuleFor(x => x.IsExpectingEmail)
                 .Equal(true)
                     .WithMessage(Resources.Validation_SendConfirmationEmail_IsExpectingEmail)
                         .WithName(EmailAddress.Constraints.Label.ToLower());
+
+            RuleFor(x => x.Purpose)
+                .MustBeValidConfirmEmailPurpose()
+                    .WithName(EmailConfirmation.Constraints.Label);
+
+            RuleFor(x => x.ConfirmUrlFormat)
+                .NotEmpty()
+                    .WithMessage(Resources.Validation_EmailConfirmation_MissingMessageFormatter)
+                    .When(x => x.Purpose == EmailConfirmationPurpose.CreateLocalUser);
+
+            RuleFor(x => x.SendFromUrl)
+                .NotEmpty()
+                    .WithMessage(Resources.Validation_EmailConfirmation_MissingMessageFormatter);
         }
     }
 
@@ -71,9 +80,8 @@ namespace Tripod.Domain.Security
             var secret = _queries.Execute(new RandomSecret(10, 12));
             var ticket = _queries.Execute(new RandomSecret(20, 25));
 
-            // make sure ticket is unique, and does not collide with sibling routes
-            while (_entities.Query<EmailConfirmation>().ByTicket(ticket) != null
-                || "password".Equals(ticket, StringComparison.OrdinalIgnoreCase))
+            // make sure ticket is unique
+            while (_entities.Query<EmailConfirmation>().ByTicket(ticket) != null)
                 ticket = _queries.Execute(new RandomSecret(20, 25));
 
             var token = _userManager.UserConfirmationTokens.Generate(new UserToken
@@ -85,11 +93,13 @@ namespace Tripod.Domain.Security
             var confirmation = new EmailConfirmation
             {
                 Owner = emailAddress,
-                ExpiresOnUtc = DateTime.UtcNow.AddMinutes(30),
-                Purpose = EmailConfirmationPurpose.CreateLocalUser,
+                Purpose = command.Purpose,
                 Secret = secret,
                 Ticket = ticket,
                 Token = token,
+
+                // change this, and you have to change the content of the email messages to reflect new expiration
+                ExpiresOnUtc = DateTime.UtcNow.AddHours(2),
             };
             _entities.Create(confirmation);
 
@@ -105,7 +115,7 @@ namespace Tripod.Domain.Security
                 { "{EmailAddress}", emailAddress.Value },
                 { "{Secret}", confirmation.Secret },
                 // don't forget to encode the token, it contains illegal querystring characters
-                { "{ConfirmationUrl}", string.Format(command.ConfirmUrlFormat, Uri.EscapeDataString(confirmation.Token)) },
+                { "{ConfirmationUrl}", string.Format(command.ConfirmUrlFormat ?? "", Uri.EscapeDataString(confirmation.Token)) },
                 { "{SendFromUrl}", command.SendFromUrl }
             };
 

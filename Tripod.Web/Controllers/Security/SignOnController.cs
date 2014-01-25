@@ -46,20 +46,16 @@ namespace Tripod.Web.Controllers
                 return this.RedirectToLocal(returnUrl);
             }
 
-            ViewBag.ReturnUrl = returnUrl;
-            ViewBag.LoginProvider = loginInfo.Login.LoginProvider;
-
             // if user doesn't have an email claim, we need them to confirm an email address
             var emailClaim = await _queries.Execute(new ExternalCookieClaim(ClaimTypes.Email));
             if (emailClaim == null)
             {
-                ViewBag.Purpose = EmailConfirmationPurpose.CreateRemoteUser;
-                //return View(MVC.Account.Views.ExternalLoginConfirmation2);
-                return RedirectToAction(MVC.SignOnEmail.Index(returnUrl));
+                return RedirectToAction(await MVC.SignOnEmail.Index(returnUrl));
             }
 
-
-            // If the user does not have an account, then prompt the user to create an account
+            // if the user does not have an account, then prompt the user to create an account
+            ViewBag.ReturnUrl = returnUrl;
+            ViewBag.LoginProvider = loginInfo.Login.LoginProvider;
             var model = new CreateRemoteMembership
             {
                 UserName = loginInfo.UserName

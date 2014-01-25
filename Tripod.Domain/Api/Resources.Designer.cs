@@ -304,6 +304,15 @@ namespace Tripod {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to There is a missing message parameter..
+        /// </summary>
+        public static string Validation_EmailConfirmation_MissingMessageFormatter {
+            get {
+                return ResourceManager.GetString("Validation_EmailConfirmation_MissingMessageFormatter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unable to determine the purpose of this {PropertyName}..
         /// </summary>
         public static string Validation_EmailConfirmationPurpose_IsEmpty {

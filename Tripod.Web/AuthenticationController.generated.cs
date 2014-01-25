@@ -73,7 +73,6 @@ namespace Tripod.Web.Controllers
             public readonly string ExternalLoginConfirmation = "ExternalLoginConfirmation";
             public readonly string LinkLogin = "LinkLogin";
             public readonly string LinkLoginCallback = "LinkLoginCallback";
-            public readonly string LogOff = "LogOff";
             public readonly string ExternalLoginFailure = "ExternalLoginFailure";
         }
 
@@ -83,7 +82,6 @@ namespace Tripod.Web.Controllers
             public const string ExternalLoginConfirmation = "ExternalLoginConfirmation";
             public const string LinkLogin = "LinkLogin";
             public const string LinkLoginCallback = "LinkLoginCallback";
-            public const string LogOff = "LogOff";
             public const string ExternalLoginFailure = "ExternalLoginFailure";
         }
 
@@ -152,15 +150,6 @@ namespace Tripod.Web.Controllers
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.LinkLoginCallback);
             LinkLoginCallbackOverride(callInfo);
             return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
-        }
-
-        partial void LogOffOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
-
-        public override System.Web.Mvc.ActionResult LogOff()
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.LogOff);
-            LogOffOverride(callInfo);
-            return callInfo;
         }
 
         partial void ExternalLoginFailureOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);

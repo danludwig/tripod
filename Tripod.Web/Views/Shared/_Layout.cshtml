@@ -20,7 +20,7 @@
                 <div class="navbar-header pull-right">
                     @if (Request.IsAuthenticated)
                     {
-                        <form class="pull-left" method="POST" action="@Url.Action(MVC.Authentication.LogOff())">
+                        <form class="pull-left" method="POST" action="@Url.Action(MVC.SignOut.Index())">
                             @Html.AntiForgeryToken()
 
                             <ul class="nav navbar-nav pull-left">

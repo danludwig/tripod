@@ -144,6 +144,8 @@ namespace Tripod.Domain.Security
                 EmailAddress = "valid@gmail.com",
                 IsExpectingEmail = true,
                 Purpose = purpose,
+                SendFromUrl = "[send from this url]",
+                ConfirmUrlFormat = "[here is the token:' {0}']",
             };
             Expression<Func<EmailAddressBy, bool>> expectedQuery = x => x.Value == command.EmailAddress;
             queries.Setup(x => x.Execute(It.Is(expectedQuery))).Returns(Task.FromResult(new EmailAddress

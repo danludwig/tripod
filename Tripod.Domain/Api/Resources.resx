@@ -246,4 +246,7 @@
   <data name="Validation_EmailConfirmationPurpose_IsEmpty" xml:space="preserve">
     <value>Unable to determine the purpose of this {PropertyName}.</value>
   </data>
+  <data name="Validation_EmailConfirmation_MissingMessageFormatter" xml:space="preserve">
+    <value>There is a missing message parameter.</value>
+  </data>
 </root>

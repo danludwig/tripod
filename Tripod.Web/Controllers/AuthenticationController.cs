@@ -75,28 +75,10 @@ namespace Tripod.Web.Controllers
             return RedirectToAction(await MVC.Account.Manage());
         }
 
-        [Authorize]
-        [HttpPost, Route("account/logoff")]
-        [ValidateAntiForgeryToken]
-        public virtual ActionResult LogOff()
-        {
-            _commands.Execute(new SignOut());
-            return RedirectToAction(MVC.Home.Index());
-        }
-
         [HttpGet, Route("account/external-login/failed")]
         public virtual ActionResult ExternalLoginFailure()
         {
             return View(MVC.Account.Views.ExternalLoginFailure);
         }
-
-        //private ActionResult RedirectToLocal(string returnUrl)
-        //{
-        //    if (Url.IsLocalUrl(returnUrl))
-        //    {
-        //        return Redirect(returnUrl);
-        //    }
-        //    return RedirectToAction(MVC.Home.Index());
-        //}
     }
 }

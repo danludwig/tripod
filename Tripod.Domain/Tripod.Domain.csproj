@@ -176,6 +176,12 @@
     <EmbeddedResource Include="Domain\Security\MailMessages\CreateLocalUser.Body.txt" />
     <EmbeddedResource Include="Domain\Security\MailMessages\CreateLocalUser.Subject.txt" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Domain\Security\MailMessages\CreateRemoteUser.Subject.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Domain\Security\MailMessages\CreateRemoteUser.Body.txt" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

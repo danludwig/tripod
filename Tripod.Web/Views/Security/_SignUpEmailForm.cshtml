@@ -17,10 +17,6 @@
       form-submitted="@IsPost">
 
     @Html.AntiForgeryToken()
-    <input type="hidden" name="@Html.NameFor(x => x.ConfirmUrlFormat)" value="@string.Format("{0}://{1}{2}",
-        Request.Url.Scheme, Request.Url.Authority, HttpUtility.UrlDecode(Url.Action(MVC.SignUpUser.Index("{0}", (string)ViewBag.ReturnUrl))))" />
-    <input type="hidden" name="@Html.NameFor(x => x.SendFromUrl)" value="@string.Format("{0}://{1}{2}",
-        Request.Url.Scheme, Request.Url.Authority, Url.Action(MVC.SignUpEmail.Index()))" />
     <input type="hidden" name="returnUrl" value="@ViewBag.ReturnUrl" />
     <input type="hidden" name="loginProvider" value="@ViewBag.LoginProvider" />
 
@@ -208,7 +204,7 @@
                 <div class="help-block">
                     @if (!Html.ViewData.ModelState.IsValidField(Html.NameFor(x => x.Purpose).ToString()))
                     {
-                        <div @*ng-class="{ hide: true }"*@>
+                        <div>
                             @Html.ValidationMessageFor(x => x.Purpose)
                         </div>
                     }
