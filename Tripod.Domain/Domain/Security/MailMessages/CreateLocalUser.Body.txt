@@ -8,6 +8,6 @@ If you have closed your browser, click the link below or copy and paste the URL 
 {ConfirmationUrl}
 ^ click or copy the URL above ^
 
-The code and URL above will expire in 2 hours. If you to not confirm by then, you must return to {SendFromUrl} to generate a new confirmation email.
+The code and URL above will expire in 30 minutes. If you to not confirm by then, you must return to {SendFromUrl} to generate a new confirmation email.
 
 If you did NOT request access to localhost.com using the above email address, please reply to this email to tell us.

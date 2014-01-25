@@ -4,6 +4,6 @@ Copy the following secret code and paste it into the text box in your browser:
 {Secret}
 ^ copy the secret code above ^
 
-The code and URL above will expire in 2 hours. If you to not confirm by then, or if you closed your browser window with the secret code text box, you must return to {SendFromUrl} to generate a new confirmation email.
+The code and URL above will expire in 30 minutes. If you to not confirm by then, or if you closed your browser window with the secret code text box, you must return to {SendFromUrl} to generate a new confirmation email.
 
 If you did NOT request access to localhost.com using the above email address, please reply to this email to tell us.

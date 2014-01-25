@@ -7,9 +7,6 @@ using Microsoft.AspNet.Identity;
 
 namespace Tripod.Domain.Security
 {
-    /// <summary>
-    /// Authenticate user's local membership.
-    /// </summary>
     public class SendConfirmationEmail : IDefineCommand
     {
         public string EmailAddress { get; set; }
@@ -25,10 +22,7 @@ namespace Tripod.Domain.Security
         public ValidateSendConfirmationEmailCommand(IProcessQueries queries)
         {
             RuleFor(x => x.EmailAddress)
-                .NotEmpty()
-                .EmailAddress()
-                .MaxLength(EmailAddress.Constraints.ValueMaxLength)
-                .MustNotBeConfirmedEmailAddress(queries)
+                .MustBeConfirmableEmailAddress(queries)
                     .WithName(EmailAddress.Constraints.Label);
 
             RuleFor(x => x.IsExpectingEmail)
@@ -54,14 +48,14 @@ namespace Tripod.Domain.Security
     [UsedImplicitly]
     public class HandleSendConfirmationEmailCommand : IHandleCommand<SendConfirmationEmail>
     {
-        private readonly UserManager<User, int> _userManager;
+        private readonly IProcessCommands _commands;
         private readonly IProcessQueries _queries;
         private readonly IWriteEntities _entities;
         private readonly IDeliverEmailMessage _mail;
 
-        public HandleSendConfirmationEmailCommand(UserManager<User, int> userManager, IProcessQueries queries, IWriteEntities entities, IDeliverEmailMessage mail)
+        public HandleSendConfirmationEmailCommand(IProcessCommands commands, IProcessQueries queries, IWriteEntities entities, IDeliverEmailMessage mail)
         {
-            _userManager = userManager;
+            _commands = commands;
             _queries = queries;
             _entities = entities;
             _mail = mail;
@@ -69,39 +63,15 @@ namespace Tripod.Domain.Security
 
         public async Task Handle(SendConfirmationEmail command)
         {
-            // find or create the email address
-            var emailAddress = await _entities.Get<EmailAddress>().ByValueAsync(command.EmailAddress)
-                ?? new EmailAddress
-                {
-                    Value = command.EmailAddress,
-                };
-
-            // create the confirmation
-            var secret = _queries.Execute(new RandomSecret(10, 12));
-            var ticket = _queries.Execute(new RandomSecret(20, 25));
-
-            // make sure ticket is unique
-            while (_entities.Query<EmailConfirmation>().ByTicket(ticket) != null)
-                ticket = _queries.Execute(new RandomSecret(20, 25));
-
-            var token = _userManager.UserConfirmationTokens.Generate(new UserToken
+            // create the email confirmation
+            var createEmailConfirmation = new CreateEmailConfirmation
             {
-                UserId = command.EmailAddress,
-                Value = ticket,
-                CreationDate = DateTime.UtcNow,
-            });
-            var confirmation = new EmailConfirmation
-            {
-                Owner = emailAddress,
+                Commit = false,
+                EmailAddress = command.EmailAddress,
                 Purpose = command.Purpose,
-                Secret = secret,
-                Ticket = ticket,
-                Token = token,
-
-                // change this, and you have to change the content of the email messages to reflect new expiration
-                ExpiresOnUtc = DateTime.UtcNow.AddHours(2),
             };
-            _entities.Create(confirmation);
+            await _commands.Execute(createEmailConfirmation);
+            var confirmation = createEmailConfirmation.CreatedEntity;
 
             // load the templates
             var resourceFormat = string.Format("{0}.{1}.txt", confirmation.Purpose, "{0}");
@@ -112,7 +82,7 @@ namespace Tripod.Domain.Security
             // format the message body
             var formatters = new Dictionary<string, string>
             {
-                { "{EmailAddress}", emailAddress.Value },
+                { "{EmailAddress}", confirmation.Owner.Value },
                 { "{Secret}", confirmation.Secret },
                 // don't forget to encode the token, it contains illegal querystring characters
                 { "{ConfirmationUrl}", string.Format(command.ConfirmUrlFormat ?? "", Uri.EscapeDataString(confirmation.Token)) },
@@ -122,7 +92,7 @@ namespace Tripod.Domain.Security
             // create the message
             var message = new EmailMessage
             {
-                Owner = emailAddress,
+                Owner = confirmation.Owner,
                 From = AppConfiguration.MailFromDefault.ToString(),
                 Subject = formatters.Format(subjectFormat),
                 Body = formatters.Format(bodyFormat),

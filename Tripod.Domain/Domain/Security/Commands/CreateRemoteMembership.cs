@@ -7,11 +7,11 @@ using Microsoft.AspNet.Identity;
 
 namespace Tripod.Domain.Security
 {
-    public class CreateRemoteMembership : IDefineSecuredCommand
+    public class CreateRemoteMembership : BaseCreateEntityCommand<RemoteMembership>, IDefineSecuredCommand
     {
         public IPrincipal Principal { get; set; }
-        public string UserName { get; set; }
-        public RemoteMembership Created { [UsedImplicitly] get; internal set; }
+        public string UserName { get; [UsedImplicitly] set; }
+        public string Token { get; [UsedImplicitly] set; }
     }
 
     [UsedImplicitly]
@@ -85,8 +85,9 @@ namespace Tripod.Domain.Security
             };
             user.RemoteMemberships.Add(entity);
             user.SecurityStamp = Guid.NewGuid().ToString();
-            await _entities.SaveChangesAsync();
-            command.Created = entity;
+
+            if (command.Commit) await _entities.SaveChangesAsync();
+            command.CreatedEntity = entity;
         }
     }
 }

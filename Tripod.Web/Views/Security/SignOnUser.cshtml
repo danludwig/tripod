@@ -16,16 +16,30 @@
 </h2>
 <hr class="hr-sm hr-space" />
 
-@{ Html.RenderPartial(MVC.Security.Views._SignUpWizard, new SignUpWizardModel(3)); }
-<hr class="hr-space hr-md" />
+@if (!ViewBag.HasClaimsEmail)
+{
+    Html.RenderPartial(MVC.Security.Views._SignUpWizard, new SignUpWizardModel(3));
+    <hr class="hr-space hr-md" />
+}
+else
+{
+    // this helps when formatting the document (CTRL + K + D), it has no functional purpose
+}
 
-@*<h3>
-    Thanks for confirming your email address! <small>We're almost ready to sign you in.</small>
-</h3>
-<p>
-    Choose a password that is at least 8 characters long (but no more than 100 characters).<br />
-    Enter the same password in both fields. You know the drill.
-</p>*@
+@* PROVIDER ALERT *@
+<div class="alert alert-info alert-inline">
+    You've successfully authenticated with
+    @if (ViewBag.HasClaimsEmail)
+    {
+        <strong>@ViewBag.LoginProvider</strong><text>.</text>
+    }
+    else
+    {
+        <strong>@ViewBag.LoginProvider</strong><text> and confirmed an email address.</text>
+    }
+    <br />
+    Choose a user name for your account and click the button below to finish signing in.
+</div>
 
 <form role="form"
       method="POST"
@@ -49,8 +63,8 @@
     }
 
     <p>
-        By default, we use your email address as your username. You have the option of choosing a different username below.<br />
-        If you choose a username other than your email address, you will be able to sign in using either.<br />
+        By default, we have chosen the user name that @ViewBag.LoginProvider suggested. You have the option of choosing a different username below.<br />
+        No matter which username you choose, you also be able to sign on using the email address below.<br />
         If you don't want to choose a different username now, you can do it after you sign in.
     </p>
 
@@ -73,8 +87,8 @@
                        placeholder="Enter @UserConstraints.NameLabel.ToLower() here"
                        id="@Html.IdFor(x => x.UserName)"
                        name="userName"
-                       value="@(Html.ValueFor(x => x.UserName).ToString() != "" ? Html.ValueFor(x => x.UserName) : ViewBag.EmailAddress)"
-                       ng-init="vm.userName='@(Html.ValueFor(x => x.UserName).ToString() != "" ? Html.ValueForJavaScriptString(x => x.UserName) : ViewBag.EmailAddress)'"
+                       value="@(Html.ValueFor(x => x.UserName).ToString() != "" ? Html.ValueFor(x => x.UserName) : ViewBag.UserName)"
+                       ng-init="vm.userName='@(Html.ValueFor(x => x.UserName).ToString() != "" ? Html.ValueForJavaScriptString(x => x.UserName) : ViewBag.UserName)'"
                        ng-model="vm.userName"
                        required
                        model-contrib
@@ -219,7 +233,7 @@
                    ng-show="vm.isSubmitError()"></i>
                 <i class="fa fa-fw fa-spinner fa-spin spin-fast"
                    ng-show="vm.isSubmitWaiting()" ng-cloak></i>
-                Create password &amp; sign in
+                Register &amp; sign in
             </button>
             <div class="has-error pull-left nudge-right @errorClass"
                  remove-class="@errorClass"
@@ -236,5 +250,5 @@
 @section scripts
 {
     @*@{ Html.RenderPartial(MVC.Scripts.Views.Angular); }
-    <script src="~/app/security/SignUpUserForm.js"></script>*@
+        <script src="~/app/security/SignUpUserForm.js"></script>*@
 }

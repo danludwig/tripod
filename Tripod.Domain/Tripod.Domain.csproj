@@ -68,7 +68,9 @@
     <Compile Include="Api\Net\IDeliverMailMessage.cs" />
     <Compile Include="Api\Security\IAuthenticate.cs" />
     <Compile Include="Api\Security\RemoteMembershipTicket.cs" />
+    <Compile Include="Api\Transactions\BaseCreateEntityCommand.cs" />
     <Compile Include="Api\Transactions\BaseEntitiesQuery.cs" />
+    <Compile Include="Api\Transactions\BaseEntityCommand.cs" />
     <Compile Include="Api\Transactions\BaseEntityQuery.cs" />
     <Compile Include="Api\Entities\EntitySet.cs" />
     <Compile Include="Api\Entities\EntityWithId.cs" />
@@ -103,6 +105,7 @@
     <Compile Include="Domain\Security\Commands\ChangeLocalPassword.cs" />
     <Compile Include="Domain\Security\Commands\CreateLocalMembership.cs" />
     <Compile Include="Domain\Security\Commands\CreateUser.cs" />
+    <Compile Include="Domain\Security\Commands\CreateEmailConfirmation.cs" />
     <Compile Include="Domain\Security\Commands\VerifyConfirmEmailSecret.cs" />
     <Compile Include="Domain\Security\Commands\SendConfirmationEmail.cs" />
     <Compile Include="Domain\Security\Commands\SignOut.cs" />
@@ -132,6 +135,7 @@
     <Compile Include="Domain\Security\Queries\UserBy.cs" />
     <Compile Include="Domain\Security\Validation\EmailConfirmation\MustBePurposedConfirmEmailToken.cs" />
     <Compile Include="Domain\Security\Validation\EmailConfirmation\MustBeValidConfirmEmailPurpose.cs" />
+    <Compile Include="Domain\Security\Validation\EmailConfirmation\MustBeConfirmableEmailAddress.cs" />
     <Compile Include="Domain\Security\Validation\EmailConfirmation\MustNotBeConfirmedEmailAddress.cs" />
     <Compile Include="Domain\Security\Validation\EmailConfirmation\MustBeValidConfirmEmailToken.cs" />
     <Compile Include="Domain\Security\Validation\EmailConfirmation\MustFindEmailConfirmationByToken.cs" />

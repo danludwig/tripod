@@ -3,9 +3,6 @@ using FluentValidation;
 
 namespace Tripod.Domain.Security
 {
-    /// <summary>
-    /// Authenticate user's local membership.
-    /// </summary>
     public class VerifyConfirmEmailSecret : IDefineCommand
     {
         public string Secret

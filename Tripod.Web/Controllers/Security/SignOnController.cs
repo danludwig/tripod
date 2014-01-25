@@ -35,6 +35,7 @@ namespace Tripod.Web.Controllers
                 return RedirectToAction(MVC.SignIn.Index());
 
             // sign in the user with this external login provider if the user already has this login
+            // todo: also look up the user by email claim & link login if it is found
             var user = await _queries.Execute(new UserBy(loginInfo.Login));
             if (user != null)
             {
@@ -53,14 +54,23 @@ namespace Tripod.Web.Controllers
                 return RedirectToAction(await MVC.SignOnEmail.Index(returnUrl));
             }
 
-            // if the user does not have an account, then prompt the user to create an account
-            ViewBag.ReturnUrl = returnUrl;
-            ViewBag.LoginProvider = loginInfo.Login.LoginProvider;
-            var model = new CreateRemoteMembership
+            // if user does have an email claim, create a confirmation against it
+            var createEmailConfirmation = new CreateEmailConfirmation
             {
-                UserName = loginInfo.UserName
+                Purpose = EmailConfirmationPurpose.CreateRemoteUser,
+                EmailAddress = emailClaim.Value,
             };
-            return View(MVC.Account.Views.ExternalLoginConfirmation, model);
+            await _commands.Execute(createEmailConfirmation);
+            return RedirectToAction(await MVC.SignOnUser.Index(createEmailConfirmation.CreatedEntity.Token, returnUrl));
+
+            // if the user does not have an account, then prompt the user to create an account
+            //ViewBag.ReturnUrl = returnUrl;
+            //ViewBag.LoginProvider = loginInfo.Login.LoginProvider;
+            //var model = new CreateRemoteMembership
+            //{
+            //    UserName = loginInfo.UserName
+            //};
+            //return View(MVC.Account.Views.ExternalLoginConfirmation, model);
         }
 	}
 }
