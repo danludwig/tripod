@@ -240,6 +240,7 @@
     <Compile Include="Controllers\Security\SignOnEmailController.cs" />
     <Compile Include="Controllers\Security\SignOutController.cs" />
     <Compile Include="Controllers\Security\SignOnSecretController.cs" />
+    <Compile Include="Controllers\Security\SignOnUserController.cs" />
     <Compile Include="Controllers\Security\SignUpUserController.cs" />
     <Compile Include="Controllers\ErrorsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -298,6 +299,9 @@
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="SignOnSecretController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SignOnUserController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="SignOutController.generated.cs">
@@ -753,6 +757,7 @@
     <Content Include="Views\Home\Admin.cshtml" />
     <Content Include="Views\Security\SignOnSecret.cshtml" />
     <Content Include="Views\Security\_SignUpSecretForm.cshtml" />
+    <Content Include="Views\Security\SignOnUser.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

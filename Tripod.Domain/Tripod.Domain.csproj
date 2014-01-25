@@ -72,7 +72,7 @@
     <Compile Include="Api\Transactions\BaseEntityQuery.cs" />
     <Compile Include="Api\Entities\EntitySet.cs" />
     <Compile Include="Api\Entities\EntityWithId.cs" />
-    <Compile Include="Api\Entities\ICommandEntities.cs" />
+    <Compile Include="Api\Entities\IWriteEntities.cs" />
     <Compile Include="Api\Entities\Entity.cs" />
     <Compile Include="Api\Entities\IReadEntities.cs" />
     <Compile Include="Api\Entities\IUnitOfWork.cs" />

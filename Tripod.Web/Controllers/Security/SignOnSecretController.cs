@@ -67,8 +67,7 @@ namespace Tripod.Web.Controllers
 
             await _commands.Execute(command);
 
-            return HttpNotFound();
-            //return RedirectToAction(await MVC.SignUpUser.Index(command.Token, returnUrl));
+            return RedirectToAction(await MVC.SignOnUser.Index(command.Token, returnUrl));
         }
     }
 }

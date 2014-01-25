@@ -6,16 +6,16 @@
 @model CreateLocalMembership
 
 @{
-    ViewBag.Title = "Create your password";
+    ViewBag.Title = "Complete your registration";
 }
 
 <h2>
     Sign up  &raquo;
-    <small>Create your password.</small>
+    <small>@ViewBag.Title.</small>
 </h2>
 <hr class="hr-sm hr-space" />
 
-@{ Html.RenderPartial(MVC.Security.Views._SignUpWizard, new SignUpWizardModel(3, "Create password")); }
+@{ Html.RenderPartial(MVC.Security.Views._SignUpWizard, new SignUpWizardModel(3)); }
 <hr class="hr-space hr-md" />
 
 <h3>
