@@ -249,6 +249,7 @@
     <Compile Include="Controllers\Security\SignUpSecretController.cs" />
     <Compile Include="Controllers\Security\SignUpEmailController.cs" />
     <Compile Include="Controllers\Security\SignInController.cs" />
+    <Compile Include="Controllers\Security\UserController.cs" />
     <Compile Include="ErrorsController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
@@ -319,6 +320,9 @@
     <Compile Include="T4MVC.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UserController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
   </ItemGroup>
@@ -761,8 +765,11 @@
     <Content Include="Views\Security\SignOnSecret.cshtml" />
     <Content Include="Views\Security\_SignUpSecretForm.cshtml" />
     <Content Include="Views\Security\SignOnUser.cshtml" />
+    <Content Include="Views\Security\User.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Views\User\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />

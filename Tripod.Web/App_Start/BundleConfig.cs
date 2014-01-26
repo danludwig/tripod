@@ -28,9 +28,11 @@ namespace Tripod.Web
             //          "~/scripts/bootstrap.js",
             //          "~/scripts/respond.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/ng").Include(
+            bundles.Add(new ScriptBundle("~/bundles/bs").Include(
                       "~/scripts/bootstrap.js",
-                      "~/scripts/respond.js",
+                      "~/scripts/respond.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/ng").Include(
                       "~/scripts/ui-bootstrap-tpls-{version}.js",
                       "~/app/_common/directives/InputPreFormatter.js",
                       "~/app/_common/directives/RemoveCssClass.js",

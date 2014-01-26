@@ -46,6 +46,7 @@ namespace T4MVC
                 public readonly string SignUpEmail = "SignUpEmail";
                 public readonly string SignUpSecret = "SignUpSecret";
                 public readonly string SignUpUser = "SignUpUser";
+                public readonly string User = "User";
             }
             public readonly string _SignOnProviderForm = "~/Views/Security/_SignOnProviderForm.cshtml";
             public readonly string _SignUpEmailForm = "~/Views/Security/_SignUpEmailForm.cshtml";
@@ -58,6 +59,7 @@ namespace T4MVC
             public readonly string SignUpEmail = "~/Views/Security/SignUpEmail.cshtml";
             public readonly string SignUpSecret = "~/Views/Security/SignUpSecret.cshtml";
             public readonly string SignUpUser = "~/Views/Security/SignUpUser.cshtml";
+            public readonly string User = "~/Views/Security/User.cshtml";
         }
     }
 

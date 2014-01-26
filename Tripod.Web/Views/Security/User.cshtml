@@ -1,0 +1,138 @@
+﻿@using System.Security.Cryptography
+@using System.Text
+@{
+    ViewBag.Title = "User";
+}
+
+@{
+    var emailAddress = "mail@danludwig.com";
+    MD5 md5 = MD5.Create();
+    byte[] inputBytes = Encoding.ASCII.GetBytes(emailAddress);
+    byte[] hash = md5.ComputeHash(inputBytes);
+    StringBuilder sb = new StringBuilder();
+    for (int i = 0; i < hash.Length; i++)
+    {
+        sb.Append(hash[i].ToString("x2"));
+    }
+    var gravatar = sb.ToString();
+    var test = 6;
+}
+
+@section styles
+{
+    <style>
+
+        .user.jumbotron h1 {
+            margin: 0;
+            white-space: nowrap;
+            -ms-text-overflow: ellipsis;
+            -o-text-overflow: ellipsis;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            max-width: 100%;
+            display: block;
+        }
+
+        .user.jumbotron p.lead {
+            margin-bottom: 0;
+        }
+
+        .jumbotron img.gravatar {
+            width: 64px;
+            margin-right: 16px;
+        }
+
+        @@media (min-width: 768px) {
+            .jumbotron img.gravatar {
+                width: 100px;
+                margin-right: 20px;
+            }
+        }
+
+        .nav-header a, .nav > li.nav-header a {
+            margin-bottom: 2px;
+            border-radius: 5px 5px 0 0;
+            border: solid 1px #ddd;
+            padding: 4px;
+            background-color: #f5f5f5;
+            white-space: nowrap;
+            -ms-text-overflow: ellipsis;
+            -o-text-overflow: ellipsis;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            display: block;
+            color: #333;
+        }
+
+        .nav-header a:hover, .nav > li.nav-header a:hover {
+            background-color: #e7e7e7;
+            text-decoration: none;
+        }
+
+        .nav-header img.gravatar {
+            margin-right: 4px;
+        }
+    </style>
+}
+
+
+<div class="user jumbotron clearfix">
+    <img src="http://www.gravatar.com/avatar/@(gravatar).jpg?s=128&d=wavatar&r=PG" alt="" class="gravatar pull-left" />
+    <h1>
+        username @*what haopoens when this is really klng*@
+    </h1>
+    <p class="lead">
+        <a href="#">
+            email@domain.tld
+        </a>
+    </p>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <nav>
+            @*<header class="nav-header">
+                    <a href="#">
+                        <img src="http://www.gravatar.com/avatar/@(gravatar).jpg?s=32&d=wavatar&r=PG" alt="" class="gravatar" />
+                        <strong>username</strong>
+                    </a>
+                </header>*@
+            <ul class="nav nav-pills nav-stacked" role="navigation">
+                <li class="nav-header">
+                    <a href="#">
+                        <img src="http://www.gravatar.com/avatar/@(gravatar).jpg?s=32&d=retro&r=PG" alt="" class="gravatar" />
+                        <strong>username</strong>
+                    </a>
+                </li>
+                <li class="active">
+                    <a href="#">Emails</a>
+                </li>
+                <li>
+                    <a href="#">Logins</a>
+                </li>
+                <li>
+                    <a href="#">Password</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    <div class="col-md-8" role="main">
+        @*<div class="well">
+                <h1>More Content</h1>
+            </div>*@
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Manage your logins
+            </div>
+            <div class="panel-body">
+                <h1>More Content</h1>
+            </div>
+        </div>
+        @*<h2>Manage your social logins</h2>*@
+    </div>
+</div>
+
+@section scripts
+{
+    <script></script>
+}
