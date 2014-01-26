@@ -1,0 +1,76 @@
+﻿@using Microsoft.AspNet.Identity
+
+<header class="navbar navbar-inverse navbar-fixed-top tripod-navbar">
+    <div class="container">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a href="@Url.Action(MVC.Home.Index())" class="navbar-brand">
+            Tripod
+        </a>
+        @if (Request.IsAuthenticated)
+        {
+            <nav class="user pull-right">
+                <div class="btn-group">
+                    <a href="#" class="navbar-link dropdown-toggle" data-toggle="dropdown">
+                        <span class="display-name">@User.Identity.GetUserName()</span>
+                        <i class="caret"></i>
+                    </a>
+                    <ul class="dropdown-menu pull-right" data-no-collapse="true">
+                        <li>
+                            <a href="@Url.Action(MVC.Account.Manage())">My Account</a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action(MVC.Account.Manage())">Emails</a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action(MVC.Home.About())">Logins</a>
+                        </li>
+                        <li>
+                            <a href="#">Password</a>
+                        </li>
+                        <li>
+                            <form method="POST" action="@Url.Action(MVC.SignOut.Index())">
+                                @Html.AntiForgeryToken()
+                                <button type="submit">
+                                    Sign out
+                                </button>
+                            </form>
+                        </li>
+                        <li>
+                            <a href="#">Password</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        }
+        else
+        {
+            <div class="pull-right">
+                <div class="btn-group">
+                    <a href="@Url.Action(MVC.SignIn.Index())" class="navbar-link">Sign in</a>
+                    <a href="@Url.Action(MVC.SignUpEmail.Index())" class="navbar-link">Sign up</a>
+                </div>
+            </div>
+        }
+        <nav class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li>
+                    <a href="@Url.Action(MVC.Home.Index())">Home</a>
+                </li>
+                <li>
+                    <a href="@Url.Action(MVC.Home.About())">About</a>
+                </li>
+                <li>
+                    <a href="@Url.Action(MVC.Home.Contact())">Contact</a>
+                </li>
+                <li>
+                    <a href="@Url.Action(MVC.Home.Admin())">Admin</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</header>
+

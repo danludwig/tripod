@@ -766,6 +766,7 @@
     <Content Include="Views\Security\_SignUpSecretForm.cshtml" />
     <Content Include="Views\Security\SignOnUser.cshtml" />
     <Content Include="Views\Security\User.cshtml" />
+    <Content Include="Views\Shared\_LayoutNavbar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\User\" />
