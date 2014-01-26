@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Data.Entity;
-using System.Linq;
 using System.Linq.Expressions;
 using System.Security.Principal;
 using System.Threading.Tasks;
@@ -14,6 +12,7 @@ namespace Tripod.Domain.Security
         public IPrincipal Principal { get; set; }
         public string UserName { get; [UsedImplicitly] set; }
         public string Token { get; [UsedImplicitly] set; }
+        internal User User { get; set; }
     }
 
     [UsedImplicitly]
@@ -34,14 +33,15 @@ namespace Tripod.Domain.Security
                 .MustNotFindUserByName(queries)
                 .MustNotBeUnverifiedEmailUserName(x => x.Token, queries)
                     .WithName(User.Constraints.NameLabel)
-                    .When(x => !x.Principal.Identity.IsAuthenticated)
+                    .When(x => !x.Principal.Identity.IsAuthenticated && x.User == null)
             ;
 
             RuleFor(x => x.Token)
                 .MustBeRedeemableConfirmEmailToken(queries)
                 .MustBePurposedConfirmEmailToken(queries, x => EmailConfirmationPurpose.CreateRemoteUser)
                 .WithName(EmailConfirmation.Constraints.Label)
-                    .When(x => !x.Principal.Identity.IsAuthenticated);
+                    .When(x => !x.Principal.Identity.IsAuthenticated && x.User == null)
+            ;
         }
     }
 
@@ -68,8 +68,9 @@ namespace Tripod.Domain.Security
                 {
                     x => x.RemoteMemberships,
                 })
-                .ByIdAsync(int.Parse(userId)) : null;
-            if (userId == null)
+                .ByIdAsync(int.Parse(userId)) : command.User;
+
+            if (user == null)
             {
                 var createUser = new CreateUser { Name = command.UserName };
                 await _commands.Execute(createUser);

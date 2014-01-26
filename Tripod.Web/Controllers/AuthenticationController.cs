@@ -19,35 +19,6 @@ namespace Tripod.Web.Controllers
             _validation = validation;
         }
 
-        [ValidateAntiForgeryToken]
-        [HttpPost, Route("account/external-login/confirm")]
-        public virtual async Task<ActionResult> ExternalLoginConfirmation(CreateRemoteMembership command, string returnUrl)
-        {
-            if (User.Identity.IsAuthenticated)
-                return RedirectToAction(await MVC.Account.Manage());
-
-            // todo: make sure there is a confirmed email address..?
-
-            // Get the information about the user from the external login provider
-            var info = await _queries.Execute(new PrincipalRemoteMembershipTicket(User));
-            if (info == null) return RedirectToAction(MVC.Authentication.ExternalLoginFailure());
-
-            if (ModelState.IsValid)
-            {
-                await _commands.Execute(command);
-                await _commands.Execute(new SignOn
-                {
-                    LoginProvider = info.Login.LoginProvider,
-                    ProviderKey = info.Login.ProviderKey,
-                });
-                return this.RedirectToLocal(returnUrl);
-            }
-
-            ViewBag.LoginProvider = info.Login.LoginProvider;
-            ViewBag.ReturnUrl = returnUrl;
-            return View(MVC.Account.Views.ExternalLoginConfirmation, command);
-        }
-
         [Authorize]
         [ValidateAntiForgeryToken]
         [HttpPost, Route("account/link-login")]

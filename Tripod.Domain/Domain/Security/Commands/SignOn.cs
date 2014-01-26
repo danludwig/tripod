@@ -1,6 +1,8 @@
-﻿using System.Threading.Tasks;
-using FluentValidation;
-using Microsoft.AspNet.Identity;
+﻿using System;
+using System.Linq.Expressions;
+using System.Security.Claims;
+using System.Security.Principal;
+using System.Threading.Tasks;
 
 namespace Tripod.Domain.Security
 {
@@ -9,46 +11,75 @@ namespace Tripod.Domain.Security
     /// </summary>
     public class SignOn : IDefineCommand
     {
-        public string LoginProvider { get; set; }
-        public string ProviderKey { get; set; }
+        public IPrincipal Principal { get; set; }
         public bool IsPersistent { get; [UsedImplicitly] set; }
-    }
-
-    [UsedImplicitly]
-    public class ValidateSignOnCommand : AbstractValidator<SignOn>
-    {
-        public ValidateSignOnCommand(IProcessQueries queries)
-        {
-            RuleFor(x => x.LoginProvider)
-                .NotEmpty().WithName(RemoteMembership.Constraints.ProviderLabel)
-            ;
-
-            RuleFor(x => x.ProviderKey)
-                .NotEmpty()
-                .MustFindUserByLoginProviderKey(queries, x => x.LoginProvider)
-                    .WithName(RemoteMembership.Constraints.ProviderUserIdLabel)
-            ;
-        }
+        public User SignedOn { get; internal set; }
     }
 
     [UsedImplicitly]
     public class HandleSignOnCommand : IHandleCommand<SignOn>
     {
-        private readonly IReadEntities _entities;
+        private readonly IProcessQueries _queries;
+        private readonly IProcessCommands _commands;
+        private readonly IWriteEntities _entities;
         private readonly IAuthenticate _authenticator;
 
-        public HandleSignOnCommand(IReadEntities entities, IAuthenticate authenticator)
+        public HandleSignOnCommand(IProcessQueries queries, IProcessCommands commands, IWriteEntities entities, IAuthenticate authenticator)
         {
+            _queries = queries;
+            _commands = commands;
             _entities = entities;
             _authenticator = authenticator;
         }
 
         public async Task Handle(SignOn command)
         {
-            var userLoginInfo = new UserLoginInfo(command.LoginProvider, command.ProviderKey);
-            var user = await _entities.Query<User>()
-                .ByUserLoginInfoAsync(userLoginInfo, false);
-            await _authenticator.SignOn(user, command.IsPersistent);
+            if (command.Principal.Identity.IsAuthenticated)
+            {
+                command.SignedOn = await _queries.Execute(new UserBy(command.Principal));
+                return;
+            }
+
+            // first try to find user by external login credentials
+            var externalLogin = await _queries.Execute(new PrincipalRemoteMembershipTicket(command.Principal));
+            if (externalLogin == null)
+                return;
+
+            var user = await _queries.Execute(new UserBy(externalLogin.Login));
+            if (user != null)
+            {
+                await _authenticator.SignOn(user, command.IsPersistent);
+                command.SignedOn = user;
+                return;
+            }
+
+            // if they don't exist, check with email claim
+            var emailClaim = await _queries.Execute(new ExternalCookieClaim(ClaimTypes.Email));
+            if (emailClaim != null)
+            {
+                var emailAddress = await _queries.Execute(new EmailAddressBy(emailClaim)
+                {
+                    IsConfirmed =  true,
+                    EagerLoad = new Expression<Func<EmailAddress, object>>[]
+                    {
+                        x => x.Owner,
+                    },
+                });
+                if (emailAddress != null)
+                {
+                    // need to add the external login credentials
+                    user = emailAddress.Owner;
+                    _entities.Update(user); // make sure it is attached to the context
+                    await _commands.Execute(new CreateRemoteMembership
+                    {
+                        Principal = command.Principal,
+                        User = user,
+                    });
+
+                    await _authenticator.SignOn(user, command.IsPersistent);
+                    command.SignedOn = user;
+                }
+            }
         }
     }
 }

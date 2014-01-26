@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace Tripod.Domain.Security
 {
@@ -15,8 +16,15 @@ namespace Tripod.Domain.Security
             Value = value;
         }
 
+        public EmailAddressBy(Claim claim)
+        {
+            Claim = claim;
+        }
+
         public int? Id { get; private set; }
         public string Value { get; private set; }
+        public Claim Claim { get; private set; }
+        public bool? IsConfirmed { get; set; }
     }
 
     [UsedImplicitly]
@@ -29,14 +37,31 @@ namespace Tripod.Domain.Security
             _entities = entities;
         }
 
-        public Task<EmailAddress> Handle(EmailAddressBy query)
+        public async Task<EmailAddress> Handle(EmailAddressBy query)
         {
             var queryable = _entities.Query<EmailAddress>()
                 .EagerLoad(query.EagerLoad);
 
-            if (query.Id.HasValue) return queryable.ByIdAsync(query.Id.Value);
+            Task<EmailAddress> entityTask;
+            if (query.Id.HasValue)
+            {
+                entityTask = queryable.ByIdAsync(query.Id.Value);
+            }
+            else if (query.Claim != null && query.Claim.Type == ClaimTypes.Email)
+            {
+                entityTask = queryable.ByValueAsync(query.Claim.Value);
+            }
+            else
+            {
+                entityTask = queryable.ByValueAsync(query.Value);
+            }
 
-            return queryable.ByValueAsync(query.Value);
+            var entity = await entityTask.ConfigureAwait(false);
+
+            if (entity != null && query.IsConfirmed.HasValue && query.IsConfirmed.Value != entity.IsConfirmed)
+                entity = null;
+
+            return entity;
         }
     }
 }

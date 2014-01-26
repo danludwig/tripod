@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Threading.Tasks;
 using FluentValidation;
-using Microsoft.AspNet.Identity;
 
 namespace Tripod.Domain.Security
 {

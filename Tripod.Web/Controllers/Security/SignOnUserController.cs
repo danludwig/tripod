@@ -75,8 +75,7 @@ namespace Tripod.Web.Controllers
 
             await _commands.Execute(new SignOn
             {
-                LoginProvider = loginInfo.Login.LoginProvider,
-                ProviderKey = loginInfo.Login.ProviderKey,
+                Principal = User,
             });
             return this.RedirectToLocal(returnUrl);
         }
