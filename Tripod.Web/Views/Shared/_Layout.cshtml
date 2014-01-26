@@ -20,18 +20,17 @@
                 <div class="navbar-header pull-right">
                     @if (Request.IsAuthenticated)
                     {
-                        <form class="pull-left" method="POST" action="@Url.Action(MVC.SignOut.Index())">
-                            @Html.AntiForgeryToken()
-
-                            <ul class="nav navbar-nav pull-left">
-                                <li>
-                                    <a href="@Url.Action(MVC.Account.Manage())" title="Manage">Hello @User.Identity.GetUserName()!</a>
-                                </li>
-                                <li>
+                        <ul class="nav navbar-nav pull-left">
+                            <li>
+                                <a href="@Url.Action(MVC.Account.Manage())" title="Manage">Hello @User.Identity.GetUserName()!</a>
+                            </li>
+                            <li>
+                                <form method="POST" action="@Url.Action(MVC.SignOut.Index())">
+                                    @Html.AntiForgeryToken()
                                     <input type="submit" value="Sign out" class="btn btn-link navbar-btn navbar-link" />
-                                </li>
-                            </ul>
-                        </form>
+                                </form>
+                            </li>
+                        </ul>
                     }
                     else
                     {
