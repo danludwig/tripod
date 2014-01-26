@@ -132,6 +132,7 @@
     <Compile Include="Domain\Security\Queries\IsPasswordVerified.cs" />
     <Compile Include="Domain\Security\Queries\RemoteMembershipsByUser.cs" />
     <Compile Include="Domain\Security\Queries\RemoteMembershipByUser.cs" />
+    <Compile Include="Domain\Security\Queries\UserByNameOrConfirmedEmail.cs" />
     <Compile Include="Domain\Security\Queries\UserHasLocalMembership.cs" />
     <Compile Include="Domain\Security\Queries\LocalMembershipByUser.cs" />
     <Compile Include="Domain\Security\Queries\UserBy.cs" />

@@ -13,16 +13,23 @@ namespace Tripod.Domain.Security
     [UsedImplicitly]
     public class HandleIsPasswordVerifiedQuery : IHandleQuery<IsPasswordVerified, Task<bool>>
     {
+        private readonly IProcessQueries _queries;
         private readonly UserManager<User, int> _userManager;
 
-        public HandleIsPasswordVerifiedQuery(UserManager<User, int> userManager)
+        public HandleIsPasswordVerifiedQuery(IProcessQueries queries, UserManager<User, int> userManager)
         {
+            _queries = queries;
             _userManager = userManager;
         }
 
         public async Task<bool> Handle(IsPasswordVerified query)
         {
-            var entity = await _userManager.FindAsync(query.UserName, query.Password)
+            // match password with either a username or a confirmed email address
+            var user = await _queries.Execute(new UserByNameOrConfirmedEmail(query.UserName))
+                .ConfigureAwait(false);
+            if (user == null) return false;
+
+            var entity = await _userManager.FindAsync(user.Name, query.Password)
                 .ConfigureAwait(false);
             return entity != null;
         }

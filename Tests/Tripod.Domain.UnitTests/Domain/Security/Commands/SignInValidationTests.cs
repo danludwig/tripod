@@ -37,9 +37,10 @@ namespace Tripod.Domain.Security
             var queries = new Mock<IProcessQueries>(MockBehavior.Strict);
             var validator = new ValidateSignInCommand(queries.Object);
             var command = new SignIn { UserName = userName };
-            Expression<Func<UserBy, bool>> expectedQuery = x =>
-                x.Name == command.UserName;
-            queries.Setup(x => x.Execute(It.Is(expectedQuery))).Returns(Task.FromResult(null as User));
+            Expression<Func<UserBy, bool>> userByName = x => x.Name == command.UserName;
+            Expression<Func<EmailAddressBy, bool>> emailByValue = x => x.Value == command.UserName;
+            queries.Setup(x => x.Execute(It.Is(userByName))).Returns(Task.FromResult(null as User));
+            queries.Setup(x => x.Execute(It.Is(emailByValue))).Returns(Task.FromResult(null as EmailAddress));
 
             var result = validator.Validate(command);
 
@@ -50,7 +51,8 @@ namespace Tripod.Domain.Security
                 .ShouldEqual(Resources.Validation_CouldNotFind
                     .Replace("{PropertyName}", string.Format("{0} or {1}", User.Constraints.NameLabel, EmailAddress.Constraints.Label))
                     .Replace("{PropertyValue}", command.UserName));
-            queries.Verify(x => x.Execute(It.Is(expectedQuery)), Times.Once);
+            queries.Verify(x => x.Execute(It.Is(userByName)), Times.Once);
+            queries.Verify(x => x.Execute(It.Is(emailByValue)), Times.Once);
         }
 
         [Theory, InlineData(null), InlineData(""), InlineData("\t  \r\n")]
@@ -103,9 +105,11 @@ namespace Tripod.Domain.Security
             var command = new SignIn { UserName = userName, Password = password, };
             Expression<Func<IsPasswordVerified, bool>> expectedQuery = x =>
                 x.UserName == command.UserName && x.Password == command.Password;
+            Expression<Func<UserBy, bool>> userByName = x => x.Name == command.UserName;
+            Expression<Func<EmailAddressBy, bool>> emailByValue = x => x.Value == command.UserName;
             queries.Setup(x => x.Execute(It.Is(expectedQuery))).Returns(Task.FromResult(false));
-            Expression<Func<UserBy, bool>> userQuery = x => x.Name == command.UserName;
-            queries.Setup(x => x.Execute(It.Is(userQuery))).Returns(Task.FromResult(null as User));
+            queries.Setup(x => x.Execute(It.Is(userByName))).Returns(Task.FromResult(null as User));
+            queries.Setup(x => x.Execute(It.Is(emailByValue))).Returns(Task.FromResult(null as EmailAddress));
 
             var result = validator.Validate(command);
 

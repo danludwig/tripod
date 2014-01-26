@@ -35,18 +35,24 @@ namespace Tripod.Domain.Security
 
     public class HandleSignInCommand : IHandleCommand<SignIn>
     {
+        private readonly IProcessQueries _queries;
         private readonly UserManager<User, int> _userManager;
         private readonly IAuthenticate _authenticator;
 
-        public HandleSignInCommand(UserManager<User, int> userManager, IAuthenticate authenticator)
+        public HandleSignInCommand(IProcessQueries queries, UserManager<User, int> userManager, IAuthenticate authenticator)
         {
+            _queries = queries;
             _userManager = userManager;
             _authenticator = authenticator;
         }
 
         public async Task Handle(SignIn command)
         {
-            var user = await _userManager.FindAsync(command.UserName, command.Password);
+            // match password with either a username or a confirmed email address
+            var user = await _queries.Execute(new UserByNameOrConfirmedEmail(command.UserName));
+            if (user == null) return;
+
+            user = await _userManager.FindAsync(user.Name, command.Password);
             await _authenticator.SignOn(user, command.IsPersistent);
         }
     }
