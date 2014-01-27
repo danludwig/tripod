@@ -218,7 +218,7 @@
                                required
                                model-contrib
                                server-error="@Html.ValidationMessageTextFor(x => x.UserName)"
-                               server-validate="@Url.Action(MVC.SignOnUser.Validate(null, "userName"))"
+                               server-validate="@Url.Action(MVC.User.ValidateChangeName())"
                                server-validate-data="{ token: vm.token }"
                                server-validate-throttle="400" />
 

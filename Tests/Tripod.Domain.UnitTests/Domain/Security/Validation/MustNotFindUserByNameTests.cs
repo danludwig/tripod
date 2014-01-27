@@ -16,7 +16,7 @@ namespace Tripod.Domain.Security
         public void Ctor_ThrowsArgumentNullException_WhenQueryProcessor_IsNull()
         {
             //var queries = new Mock<IProcessQueries>(MockBehavior.Strict);
-            var exception = Assert.Throws<ArgumentNullException>(() => new MustNotFindUserByName(null));
+            var exception = Assert.Throws<ArgumentNullException>(() => new MustNotFindUserByName<object>(null));
             exception.ShouldNotBeNull();
             exception.ParamName.ShouldEqual("queries");
         }

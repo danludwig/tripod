@@ -100,6 +100,7 @@
     <Compile Include="Api\_Extensions\ReflectionExtensions.cs" />
     <Compile Include="Api\_Extensions\StringExtensions.cs" />
     <Compile Include="Domain\Audit\ExceptionAudit.cs" />
+    <Compile Include="Domain\Security\Commands\ChangeUserName.cs" />
     <Compile Include="Domain\Security\Commands\RedeemEmailConfirmation.cs" />
     <Compile Include="Domain\Security\Commands\CreateRemoteMembership.cs" />
     <Compile Include="Domain\Security\Commands\DeleteRemoteMembership.cs" />
@@ -155,6 +156,7 @@
     <Compile Include="Domain\Security\Validation\EmailConfirmation\MustBePurposedConfirmEmailTicket.cs" />
     <Compile Include="Domain\Security\Validation\EmailConfirmation\MustNotBeRedeemedConfirmEmailTicket.cs" />
     <Compile Include="Domain\Security\Validation\EmailConfirmation\MustNotBeExpiredConfirmEmailTicket.cs" />
+    <Compile Include="Domain\Security\Validation\MustFindUserById.cs" />
     <Compile Include="Domain\Security\Validation\MustNotContainInvalidUserNameText.cs" />
     <Compile Include="Domain\Security\Validation\MustFindLocalMembershipByPrincipal.cs" />
     <Compile Include="Domain\Security\Validation\MustFindRemoteMembershipTicket.cs" />
@@ -164,6 +166,7 @@
     <Compile Include="Domain\Security\Validation\MustFindUserByPrincipal.cs" />
     <Compile Include="Domain\Security\Validation\MustFindUserByLoginProviderKey.cs" />
     <Compile Include="Domain\Security\Validation\MustBeValidUserName.cs" />
+    <Compile Include="Domain\Security\Validation\MustBePrincipalWithUserId.cs" />
     <Compile Include="Domain\Security\Validation\MustNotFindUserByName.cs" />
     <Compile Include="Domain\Security\Views\UserView.cs" />
     <Compile Include="Domain\Security\_Extensions\QueryEmailConfirmations.cs" />

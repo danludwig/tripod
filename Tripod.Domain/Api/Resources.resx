@@ -252,4 +252,7 @@
   <data name="Validation_UserName_AllowedCharacters" xml:space="preserve">
     <value>{PropertyName} can only contain letters, numbers, and the following characters: @ . - _</value>
   </data>
+  <data name="Validation_DoesNotExist_IntIdValue" xml:space="preserve">
+    <value>{PropertyName} #{PropertyValue} does not exist.</value>
+  </data>
 </root>

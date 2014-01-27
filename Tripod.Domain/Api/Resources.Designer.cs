@@ -286,6 +286,15 @@ namespace Tripod {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {PropertyName} #{PropertyValue} does not exist..
+        /// </summary>
+        public static string Validation_DoesNotExist_IntIdValue {
+            get {
+                return ResourceManager.GetString("Validation_DoesNotExist_IntIdValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {PropertyName} does not exist..
         /// </summary>
         public static string Validation_DoesNotExist_NoValue {

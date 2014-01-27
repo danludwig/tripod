@@ -16,8 +16,9 @@ namespace Tripod.Domain.Security
         public ValidateCreateUserCommand(IProcessQueries queries)
         {
             RuleFor(x => x.Name)
-                .MustBeValidUserName().WithName(User.Constraints.NameLabel)
+                .MustBeValidUserName()
                 .MustNotFindUserByName(queries)
+                    .WithName(User.Constraints.NameLabel)
             ;
         }
     }
