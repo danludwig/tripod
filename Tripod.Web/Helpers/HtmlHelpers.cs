@@ -103,5 +103,16 @@ namespace Tripod.Web
 
             return MvcHtmlString.Create(valueForRaw);
         }
+
+        private static T ViewBagged<T>(object value)
+        {
+            if (value == null) return default(T);
+            return (T)value;
+        }
+
+        public static int AuthenticatedUserId(this HtmlHelper html)
+        {
+            return ViewBagged<int>(html.ViewBag.AuthenticatedUserId);
+        }
     }
 }

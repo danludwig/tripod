@@ -20,27 +20,38 @@
                     </a>
                     <ul class="dropdown-menu pull-right" data-no-collapse="true">
                         <li>
-                            <a href="@Url.Action(MVC.Account.Manage())">My Account</a>
+                            <a href="@Url.Action(MVC.User.ById(Html.AuthenticatedUserId()))">
+                                <i class="fa fa-user"></i>
+                                My Account
+                            </a>
                         </li>
                         <li>
-                            <a href="@Url.Action(MVC.Account.Manage())">Emails</a>
+                            <a href="@Url.Action(MVC.Account.Manage())">
+                                <i class="fa fa-envelope"></i>
+                                Email Addresses
+                            </a>
                         </li>
                         <li>
-                            <a href="@Url.Action(MVC.Home.About())">Logins</a>
+                            <a href="@Url.Action(MVC.Home.About())">
+                                <i class="fa fa-sign-in"></i>
+                                Logins
+                            </a>
                         </li>
                         <li>
-                            <a href="#">Password</a>
+                            <a href="#">
+                                <i class="fa fa-key"></i>
+                                Password
+                            </a>
                         </li>
+                        <li class="divider"></li>
                         <li>
                             <form method="POST" action="@Url.Action(MVC.SignOut.Index())">
                                 @Html.AntiForgeryToken()
                                 <button type="submit">
+                                    <i class="fa fa-sign-out"></i>
                                     Sign out
                                 </button>
                             </form>
-                        </li>
-                        <li>
-                            <a href="#">Password</a>
                         </li>
                     </ul>
                 </div>

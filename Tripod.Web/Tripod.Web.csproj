@@ -264,6 +264,7 @@
     <Compile Include="Helpers\JsonNetResult.cs" />
     <Compile Include="Helpers\SecuredCommandModelBinder.cs" />
     <Compile Include="Helpers\SessionExtensions.cs" />
+    <Compile Include="Helpers\AuthenticatedUserIdAttribute.cs" />
     <Compile Include="HomeController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>

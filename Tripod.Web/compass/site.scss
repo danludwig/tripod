@@ -167,6 +167,13 @@ body .tripod-navbar {
         }
     }
 }
+body nav {
+    ul, ol {
+        > li > a > i {
+            margin-right: 8px;
+        }
+    }
+}
 
 /* font-awesome treatments */
 body {
