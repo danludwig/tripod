@@ -29,9 +29,10 @@
             -ms-text-overflow: ellipsis;
             -o-text-overflow: ellipsis;
             text-overflow: ellipsis;
-            overflow: hidden;
-            max-width: 100%;
+            overflow-x: hidden;
+            overflow-y: visible;
             display: block;
+            line-height: normal;
         }
 
         .user.jumbotron p.lead {
@@ -45,7 +46,7 @@
 
         @@media (min-width: 768px) {
             .jumbotron img.gravatar {
-                width: 100px;
+                width: 108px;
                 margin-right: 20px;
             }
         }
@@ -74,6 +75,14 @@
             margin-right: 4px;
         }
 
+        nav.user ul > li > a > i {
+            color: #000;
+        }
+
+        nav.user ul > li.active > a > i {
+            color: #fff;
+        }
+
     </style>
 }
 
@@ -81,7 +90,7 @@
 <div class="user jumbotron clearfix">
     <img src="http://www.gravatar.com/avatar/@(gravatar).jpg?s=128&d=wavatar&r=PG" alt="" class="gravatar pull-left" />
     <h1>
-        username @*what haopoens when this is really klng*@
+        @User.Identity.Name
     </h1>
     <p class="lead">
         <a href="#">
@@ -92,7 +101,7 @@
 
 <div class="row">
     <div class="col-md-4 hidden-xs hidden-sm">
-        <nav>
+        <nav class="user">
             @*<header class="nav-header">
                     <a href="#">
                         <img src="http://www.gravatar.com/avatar/@(gravatar).jpg?s=32&d=wavatar&r=PG" alt="" class="gravatar" />

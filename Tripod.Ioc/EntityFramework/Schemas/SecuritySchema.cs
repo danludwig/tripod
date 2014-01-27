@@ -48,6 +48,7 @@ namespace Tripod.Ioc.EntityFramework
 
             HasKey(x => x.Id);
             Property(x => x.Value).IsRequired().HasMaxLength(EmailAddress.Constraints.ValueMaxLength);
+            Property(x => x.HashedValue).IsRequired().HasMaxLength(EmailAddress.Constraints.HashedValueMaxLength);
 
             HasOptional(x => x.Owner).WithMany(x => x.EmailAddresses).HasForeignKey(x => x.OwnerId).WillCascadeOnDelete();
         }

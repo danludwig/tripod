@@ -46,6 +46,7 @@ namespace Tripod.Domain.Security
                 ?? new EmailAddress
                 {
                     Value = command.EmailAddress,
+                    HashedValue = await _queries.Execute(new HashedEmailAddress(command.EmailAddress)),
                 };
 
             // create random secret and ticket

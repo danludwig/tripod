@@ -11,7 +11,7 @@ using System.Data.Entity.Infrastructure.MappingViews;
 
 [assembly: DbMappingViewCacheTypeAttribute(
     typeof(Tripod.Ioc.EntityFramework.EntityDbContext),
-    typeof(Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySets2f8175af614106cd1a985cca79f59ee93fae78316f25949af2ec92f89399dcc1))]
+    typeof(Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySets02b91df49dc455a6c9d9a3e5182a1202427cae2783b63edc80f82c5a00e624fb))]
 
 namespace Edm_EntityMappingGeneratedViews
 {
@@ -23,14 +23,14 @@ namespace Edm_EntityMappingGeneratedViews
     /// Implements a mapping view cache.
     /// </summary>
     [GeneratedCode("Entity Framework Power Tools", "0.9.0.0")]
-    internal sealed class ViewsForBaseEntitySets2f8175af614106cd1a985cca79f59ee93fae78316f25949af2ec92f89399dcc1 : DbMappingViewCache
+    internal sealed class ViewsForBaseEntitySets02b91df49dc455a6c9d9a3e5182a1202427cae2783b63edc80f82c5a00e624fb : DbMappingViewCache
     {
         /// <summary>
         /// Gets a hash value computed over the mapping closure.
         /// </summary>
         public override string MappingHashValue
         {
-            get { return "2f8175af614106cd1a985cca79f59ee93fae78316f25949af2ec92f89399dcc1"; }
+            get { return "02b91df49dc455a6c9d9a3e5182a1202427cae2783b63edc80f82c5a00e624fb"; }
         }
 
         /// <summary>
@@ -256,12 +256,13 @@ namespace Edm_EntityMappingGeneratedViews
         {
             return new DbMappingView(@"
     SELECT VALUE -- Constructing EmailAddress
-        [CodeFirstDatabaseSchema.EmailAddress](T1.EmailAddress_Id, T1.EmailAddress_OwnerId, T1.EmailAddress_Value, T1.EmailAddress_IsDefault, T1.EmailAddress_IsConfirmed)
+        [CodeFirstDatabaseSchema.EmailAddress](T1.EmailAddress_Id, T1.EmailAddress_OwnerId, T1.EmailAddress_Value, T1.EmailAddress_HashedValue, T1.EmailAddress_IsDefault, T1.EmailAddress_IsConfirmed)
     FROM (
         SELECT 
             T.Id AS EmailAddress_Id, 
             T.OwnerId AS EmailAddress_OwnerId, 
             T.[Value] AS EmailAddress_Value, 
+            T.HashedValue AS EmailAddress_HashedValue, 
             T.IsDefault AS EmailAddress_IsDefault, 
             T.IsConfirmed AS EmailAddress_IsConfirmed, 
             True AS _from0
@@ -450,12 +451,13 @@ namespace Edm_EntityMappingGeneratedViews
         {
             return new DbMappingView(@"
     SELECT VALUE -- Constructing EmailAddresses
-        [Tripod.Ioc.EntityFramework.EmailAddress](T1.EmailAddress_Id, T1.EmailAddress_OwnerId, T1.EmailAddress_Value, T1.EmailAddress_IsDefault, T1.EmailAddress_IsConfirmed)
+        [Tripod.Ioc.EntityFramework.EmailAddress](T1.EmailAddress_Id, T1.EmailAddress_OwnerId, T1.EmailAddress_Value, T1.EmailAddress_HashedValue, T1.EmailAddress_IsDefault, T1.EmailAddress_IsConfirmed)
     FROM (
         SELECT 
             T.Id AS EmailAddress_Id, 
             T.OwnerId AS EmailAddress_OwnerId, 
             T.[Value] AS EmailAddress_Value, 
+            T.HashedValue AS EmailAddress_HashedValue, 
             T.IsDefault AS EmailAddress_IsDefault, 
             T.IsConfirmed AS EmailAddress_IsConfirmed, 
             True AS _from0

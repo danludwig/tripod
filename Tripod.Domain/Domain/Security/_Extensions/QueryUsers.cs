@@ -32,7 +32,7 @@ namespace Tripod.Domain.Security
             return set.AsQueryable().ByNameAsync(name, allowNull);
         }
 
-        private static Expression<Func<User, bool>> ByName(string name)
+        internal static Expression<Func<User, bool>> ByName(string name)
         {
             return x => x.Name.Equals(name, StringComparison.OrdinalIgnoreCase);
         }

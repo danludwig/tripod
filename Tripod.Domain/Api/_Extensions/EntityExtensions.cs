@@ -166,7 +166,7 @@ namespace Tripod
             return set.AsQueryable().ByIdAsync(id, allowNull);
         }
 
-        private static Expression<Func<TEntity, bool>> ById<TEntity>(int id) where TEntity : EntityWithId<int>
+        internal static Expression<Func<TEntity, bool>> ById<TEntity>(int id) where TEntity : EntityWithId<int>
         {
             return x => x.Id == id;
         }

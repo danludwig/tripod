@@ -25,9 +25,6 @@ namespace Tripod.Web.Controllers
     public partial class UserController
     {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public UserController() { }
-
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         protected UserController(Dummy d) { }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -46,9 +43,10 @@ namespace Tripod.Web.Controllers
 
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult ById()
+        public virtual System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> ById()
         {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ById);
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ById);
+            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -105,12 +103,12 @@ namespace Tripod.Web.Controllers
 
         partial void ByIdOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int userId);
 
-        public override System.Web.Mvc.ActionResult ById(int userId)
+        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> ById(int userId)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ById);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "userId", userId);
             ByIdOverride(callInfo, userId);
-            return callInfo;
+            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
         }
 
     }
