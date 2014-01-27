@@ -78,6 +78,7 @@ else
             <label for="@Html.IdFor(x => x.UserName)" class="control-label">
                 @UserConstraints.NameLabel
             </label>
+            <small>@Resources.Validation_UserName_AllowedCharacters.Replace("{PropertyName}", "-")</small>
             <div class="@Html.CssClassWhenNotNullModel(inputGroupCss)"
                  remove-class="@inputGroupCss"
                  ng-class="signOnUserCtrb.userName.inputGroupCssClass('lg')">

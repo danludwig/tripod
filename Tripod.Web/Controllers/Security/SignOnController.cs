@@ -41,7 +41,7 @@ namespace Tripod.Web.Controllers
             };
             await _commands.Execute(signOn);
             if (signOn.SignedOn != null)
-                return this.RedirectToLocal(returnUrl);
+                return this.RedirectToLocal(returnUrl, await MVC.User.ById(signOn.SignedOn.Id));
 
             // if user doesn't have an email claim, we need them to confirm an email address
             var emailClaim = await _queries.Execute(new ExternalCookieClaim(ClaimTypes.Email));

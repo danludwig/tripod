@@ -457,7 +457,7 @@ namespace Tripod {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {PropertyName} can only contain letters, numbers, and the following symbols: @ . - _.
+        ///   Looks up a localized string similar to {PropertyName} can only contain letters, numbers, and the following characters: @ . - _.
         /// </summary>
         public static string Validation_UserName_AllowedCharacters {
             get {

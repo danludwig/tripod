@@ -73,11 +73,12 @@ namespace Tripod.Web.Controllers
 
             await _commands.Execute(command);
 
-            await _commands.Execute(new SignOn
+            var signOn = new SignOn
             {
                 Principal = User,
-            });
-            return this.RedirectToLocal(returnUrl);
+            };
+            await _commands.Execute(signOn);
+            return this.RedirectToLocal(returnUrl, await MVC.User.ById(signOn.SignedOn.Id));
         }
 
         [HttpPost, Route("sign-on/register/validate/{fieldName?}")]

@@ -12,6 +12,7 @@ namespace Tripod.Domain.Security
         public string UserName { get; set; }
         public string Password { get; set; }
         public bool IsPersistent { get; set; }
+        public User SignedIn { get; internal set; }
     }
 
     public class ValidateSignInCommand : AbstractValidator<SignIn>
@@ -54,6 +55,7 @@ namespace Tripod.Domain.Security
 
             user = await _userManager.FindAsync(user.Name, command.Password);
             await _authenticator.SignOn(user, command.IsPersistent);
+            command.SignedIn = user;
         }
     }
 }

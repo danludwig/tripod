@@ -112,7 +112,7 @@
                 <li class="nav-header">
                     <a href="@Url.Action(MVC.User.ById(Html.AuthenticatedUserId()))">
                         <img src="http://www.gravatar.com/avatar/@(gravatar).jpg?s=32&d=retro&r=PG" alt="" class="gravatar" />
-                        <strong>username</strong>
+                        <strong>@User.Identity.Name</strong>
                     </a>
                 </li>
                 <li class="active">

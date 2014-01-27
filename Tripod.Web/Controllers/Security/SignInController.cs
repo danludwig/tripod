@@ -32,7 +32,7 @@ namespace Tripod.Web.Controllers
             if (command == null) return View(MVC.Errors.Views.BadRequest);
             if (!ModelState.IsValid) return View(MVC.Security.Views.SignIn, command);
             await _commands.Execute(command);
-            return this.RedirectToLocal(returnUrl);
+            return this.RedirectToLocal(returnUrl, await MVC.User.ById(command.SignedIn.Id));
         }
 
         [HttpPost, Route("sign-in/validate/{fieldName?}")]
