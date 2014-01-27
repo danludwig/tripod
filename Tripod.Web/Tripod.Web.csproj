@@ -331,6 +331,9 @@
     <Content Include="app\errors\Haikus.js">
       <DependentUpon>Haikus.ts</DependentUpon>
     </Content>
+    <Content Include="app\security\ChangeUserNameForm.js">
+      <DependentUpon>ChangeUserNameForm.ts</DependentUpon>
+    </Content>
     <Content Include="app\security\SignInForm.js">
       <DependentUpon>SignInForm.ts</DependentUpon>
     </Content>
@@ -796,6 +799,7 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="app\errors\Haikus.ts" />
+    <TypeScriptCompile Include="app\security\ChangeUserNameForm.ts" />
     <TypeScriptCompile Include="app\security\SignOnUserForm.ts" />
     <TypeScriptCompile Include="app\security\SignUpUserForm.ts" />
     <TypeScriptCompile Include="app\security\SignUpSecretForm.ts" />

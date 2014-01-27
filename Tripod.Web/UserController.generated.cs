@@ -48,6 +48,13 @@ namespace Tripod.Web.Controllers
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ById);
             return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
         }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> ChangeName()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ChangeName);
+            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
+        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public UserController Actions { get { return MVC.User; } }
@@ -65,12 +72,14 @@ namespace Tripod.Web.Controllers
         public class ActionNamesClass
         {
             public readonly string ById = "ById";
+            public readonly string ChangeName = "ChangeName";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNameConstants
         {
             public const string ById = "ById";
+            public const string ChangeName = "ChangeName";
         }
 
 
@@ -79,6 +88,14 @@ namespace Tripod.Web.Controllers
         public ActionParamsClass_ById ByIdParams { get { return s_params_ById; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionParamsClass_ById
+        {
+            public readonly string userId = "userId";
+        }
+        static readonly ActionParamsClass_ChangeName s_params_ChangeName = new ActionParamsClass_ChangeName();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_ChangeName ChangeNameParams { get { return s_params_ChangeName; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_ChangeName
         {
             public readonly string userId = "userId";
         }
@@ -108,6 +125,16 @@ namespace Tripod.Web.Controllers
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ById);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "userId", userId);
             ByIdOverride(callInfo, userId);
+            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
+        }
+
+        partial void ChangeNameOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int userId);
+
+        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> ChangeName(int userId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ChangeName);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "userId", userId);
+            ChangeNameOverride(callInfo, userId);
             return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
         }
 

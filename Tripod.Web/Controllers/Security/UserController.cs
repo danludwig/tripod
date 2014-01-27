@@ -19,5 +19,11 @@ namespace Tripod.Web.Controllers
             var view = await _queries.Execute(new UserViewBy(userId));
             return View(MVC.Security.Views.User);
         }
+
+        [HttpPut, Route("users/{userId:int}/name")]
+        public virtual async Task<ActionResult> ChangeName(int userId)
+        {
+            return View(MVC.Security.Views.User);
+        }
     }
 }
