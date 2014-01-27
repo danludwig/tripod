@@ -455,5 +455,14 @@ namespace Tripod {
                 return ResourceManager.GetString("Validation_SendConfirmationEmail_IsExpectingEmail", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {PropertyName} can only contain letters, numbers, and the following symbols: @ . - _.
+        /// </summary>
+        public static string Validation_UserName_AllowedCharacters {
+            get {
+                return ResourceManager.GetString("Validation_UserName_AllowedCharacters", resourceCulture);
+            }
+        }
     }
 }

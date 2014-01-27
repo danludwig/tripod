@@ -11,6 +11,7 @@ namespace Tripod.Domain.Security
                 .NotEmpty()
                 .MinLength(User.Constraints.NameMinLength)
                 .MaxLength(User.Constraints.NameMaxLength)
+                .MustNotContainInvalidUserNameText()
             ;
         }
     }

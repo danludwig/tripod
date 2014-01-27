@@ -249,4 +249,7 @@
   <data name="Validation_EmailConfirmation_MissingMessageFormatter" xml:space="preserve">
     <value>There is a missing message parameter.</value>
   </data>
+  <data name="Validation_UserName_AllowedCharacters" xml:space="preserve">
+    <value>{PropertyName} can only contain letters, numbers, and the following symbols: @ . - _</value>
+  </data>
 </root>

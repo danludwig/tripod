@@ -155,6 +155,7 @@
     <Compile Include="Domain\Security\Validation\EmailConfirmation\MustBePurposedConfirmEmailTicket.cs" />
     <Compile Include="Domain\Security\Validation\EmailConfirmation\MustNotBeRedeemedConfirmEmailTicket.cs" />
     <Compile Include="Domain\Security\Validation\EmailConfirmation\MustNotBeExpiredConfirmEmailTicket.cs" />
+    <Compile Include="Domain\Security\Validation\MustNotContainInvalidUserNameText.cs" />
     <Compile Include="Domain\Security\Validation\MustFindLocalMembershipByPrincipal.cs" />
     <Compile Include="Domain\Security\Validation\MustFindRemoteMembershipTicket.cs" />
     <Compile Include="Domain\Security\Validation\EmailConfirmation\MustFindEmailConfirmationByTicket.cs" />
