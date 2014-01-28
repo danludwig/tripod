@@ -752,10 +752,10 @@
     <Content Include="Views\Security\SignOnCreateRemoteMembership.cshtml" />
     <Content Include="Views\Security\User.cshtml" />
     <Content Include="Views\Shared\_LayoutNavbar.cshtml" />
+    <Content Include="Views\Security\_UserJumbotron.cshtml" />
+    <Content Include="Views\Security\_ChangeUserNameForm.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\User\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />

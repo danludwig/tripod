@@ -61,6 +61,12 @@ namespace Tripod.Web.Controllers
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ValidateChangeName);
         }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.PartialViewResult JumbotronById()
+        {
+            return new T4MVC_System_Web_Mvc_PartialViewResult(Area, Name, ActionNames.JumbotronById);
+        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public UserController Actions { get { return MVC.User; } }
@@ -80,6 +86,7 @@ namespace Tripod.Web.Controllers
             public readonly string ById = "ById";
             public readonly string ChangeName = "ChangeName";
             public readonly string ValidateChangeName = "ValidateChangeName";
+            public readonly string JumbotronById = "JumbotronById";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -88,6 +95,7 @@ namespace Tripod.Web.Controllers
             public const string ById = "ById";
             public const string ChangeName = "ChangeName";
             public const string ValidateChangeName = "ValidateChangeName";
+            public const string JumbotronById = "JumbotronById";
         }
 
 
@@ -114,6 +122,14 @@ namespace Tripod.Web.Controllers
         public class ActionParamsClass_ValidateChangeName
         {
             public readonly string command = "command";
+        }
+        static readonly ActionParamsClass_JumbotronById s_params_JumbotronById = new ActionParamsClass_JumbotronById();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_JumbotronById JumbotronByIdParams { get { return s_params_JumbotronById; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_JumbotronById
+        {
+            public readonly string userId = "userId";
         }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -161,6 +177,16 @@ namespace Tripod.Web.Controllers
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ValidateChangeName);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "command", command);
             ValidateChangeNameOverride(callInfo, command);
+            return callInfo;
+        }
+
+        partial void JumbotronByIdOverride(T4MVC_System_Web_Mvc_PartialViewResult callInfo, int userId);
+
+        public override System.Web.Mvc.PartialViewResult JumbotronById(int userId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_PartialViewResult(Area, Name, ActionNames.JumbotronById);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "userId", userId);
+            JumbotronByIdOverride(callInfo, userId);
             return callInfo;
         }
 

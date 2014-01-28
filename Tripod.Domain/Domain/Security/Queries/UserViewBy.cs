@@ -53,7 +53,7 @@ namespace Tripod.Domain.Security
                     y.HashedValue,
                 }).FirstOrDefault(),
             })
-            .SingleOrDefaultAsync();
+            .SingleOrDefaultAsync().ConfigureAwait(false);
             if (projection == null) return null;
 
             var view = new UserView

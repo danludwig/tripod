@@ -1,0 +1,15 @@
+﻿@using Tripod.Domain.Security
+
+@model UserView
+
+<div class="user jumbotron clearfix">
+    @Html.Gravatar(Model.DefaultEmailHash, 128, "pull-left")
+    <h1>
+        @Model.UserName
+    </h1>
+    <p class="lead">
+        <a href="mailto:@Model.DefaultEmailAddress">
+            @Model.DefaultEmailAddress
+        </a>
+    </p>
+</div>

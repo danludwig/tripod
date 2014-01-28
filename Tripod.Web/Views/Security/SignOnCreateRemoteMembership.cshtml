@@ -20,10 +20,12 @@
     Html.RenderPartial(MVC.Security.Views._ConfirmEmailWizardSteps, new ConfirmEmailWizardModel(3));
     <hr class="hr-space hr-md" />
 }
+@* ReSharper disable RedundantIfElseBlock *@
 else
 {
     // this helps when formatting the document (CTRL + K + D), it has no functional purpose
 }
+@* ReSharper restore RedundantIfElseBlock *@
 
 @* PROVIDER ALERT *@
 <div class="alert alert-info alert-inline">

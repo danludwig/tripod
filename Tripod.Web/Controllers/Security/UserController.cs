@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Globalization;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using Tripod.Domain.Security;
 using Tripod.Web.Models;
@@ -66,6 +68,17 @@ namespace Tripod.Web.Controllers
             //result = new ValidatedFields(ModelState, command.PropertyName(x => x.UserName));
 
             return new CamelCaseJsonResult(result);
+        }
+
+        [ChildActionOnly]
+        [HttpGet, Route("users/{userId:int}/jumbotron")]
+        public virtual PartialViewResult JumbotronById(int userId)
+        {
+            var view = _queries.Execute(new UserViewBy(userId)).Result;
+            if (view == null) throw new InvalidOperationException(Resources.Validation_DoesNotExist_IntIdValue
+                .Replace("{PropertyName}", Domain.Security.User.Constraints.NameLabel)
+                .Replace("{PropertyValue}", userId.ToString(CultureInfo.InvariantCulture)));
+            return PartialView(MVC.Security.Views._UserJumbotron, view);
         }
     }
 }

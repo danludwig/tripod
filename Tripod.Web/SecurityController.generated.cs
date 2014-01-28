@@ -35,9 +35,11 @@ namespace T4MVC
             public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
             public class _ViewNamesClass
             {
+                public readonly string _ChangeUserNameForm = "_ChangeUserNameForm";
                 public readonly string _ConfirmEmailWizardSteps = "_ConfirmEmailWizardSteps";
                 public readonly string _SendConfirmationEmailForm = "_SendConfirmationEmailForm";
                 public readonly string _SignOnForm = "_SignOnForm";
+                public readonly string _UserJumbotron = "_UserJumbotron";
                 public readonly string _VerifyConfirmEmailSecretForm = "_VerifyConfirmEmailSecretForm";
                 public readonly string SignIn = "SignIn";
                 public readonly string SignOnCreateRemoteMembership = "SignOnCreateRemoteMembership";
@@ -48,9 +50,11 @@ namespace T4MVC
                 public readonly string SignUpVerifyConfirmEmailSecret = "SignUpVerifyConfirmEmailSecret";
                 public readonly string User = "User";
             }
+            public readonly string _ChangeUserNameForm = "~/Views/Security/_ChangeUserNameForm.cshtml";
             public readonly string _ConfirmEmailWizardSteps = "~/Views/Security/_ConfirmEmailWizardSteps.cshtml";
             public readonly string _SendConfirmationEmailForm = "~/Views/Security/_SendConfirmationEmailForm.cshtml";
             public readonly string _SignOnForm = "~/Views/Security/_SignOnForm.cshtml";
+            public readonly string _UserJumbotron = "~/Views/Security/_UserJumbotron.cshtml";
             public readonly string _VerifyConfirmEmailSecretForm = "~/Views/Security/_VerifyConfirmEmailSecretForm.cshtml";
             public readonly string SignIn = "~/Views/Security/SignIn.cshtml";
             public readonly string SignOnCreateRemoteMembership = "~/Views/Security/SignOnCreateRemoteMembership.cshtml";
