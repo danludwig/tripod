@@ -17,7 +17,7 @@
 
 @if (!ViewBag.HasClaimsEmail)
 {
-    Html.RenderPartial(MVC.Security.Views._SignUpWizard, new SignUpWizardModel(3));
+    Html.RenderPartial(MVC.Security.Views._ConfirmEmailWizardSteps, new ConfirmEmailWizardModel(3));
     <hr class="hr-space hr-md" />
 }
 else
@@ -48,7 +48,7 @@ else
 
 <form role="form"
       method="POST"
-      action="@Url.Action(MVC.SignOnUser.Index(null, null, null))"
+      action="@Url.Action(MVC.SignOn.CreateRemoteMembership(null, null, null))"
       novalidate
       ng-app="sign-on-register-form"
       ng-controller="App.Security.SignOnUserForm.Controller"
@@ -93,7 +93,7 @@ else
                        required
                        model-contrib
                        server-error="@Html.ValidationMessageTextFor(x => x.UserName)"
-                       server-validate="@Url.Action(MVC.SignOnUser.Validate(null, "userName"))"
+                       server-validate="@Url.Action(MVC.SignOn.ValidateCreateRemoteMembership(null, "userName"))"
                        server-validate-data="{ token: vm.token }"
                        server-validate-throttle="400" />
 
@@ -169,7 +169,7 @@ else
                        required
                        model-contrib
                        server-error="@Html.ValidationMessageTextFor(x => x.Token)"
-                       server-validate="@Url.Action(MVC.SignOnUser.Validate(null, "token"))" />
+                       server-validate="@Url.Action(MVC.SignOn.ValidateCreateRemoteMembership(null, "token"))" />
 
                 <span class="input-group-addon validation @Html.CssClassWhenNullModel("hide")"
                       remove-class="hide"

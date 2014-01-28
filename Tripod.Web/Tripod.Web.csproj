@@ -237,17 +237,12 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AuthenticationController.cs" />
     <Compile Include="Controllers\Security\SignOnController.cs" />
-    <Compile Include="Controllers\Security\SignOnEmailController.cs" />
     <Compile Include="Controllers\Security\SignOutController.cs" />
-    <Compile Include="Controllers\Security\SignOnSecretController.cs" />
-    <Compile Include="Controllers\Security\SignOnUserController.cs" />
-    <Compile Include="Controllers\Security\SignUpUserController.cs" />
     <Compile Include="Controllers\ErrorsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LocalMembershipsController.cs" />
     <Compile Include="Controllers\RemoteMembershipsController.cs" />
-    <Compile Include="Controllers\Security\SignUpSecretController.cs" />
-    <Compile Include="Controllers\Security\SignUpEmailController.cs" />
+    <Compile Include="Controllers\Security\SignUpController.cs" />
     <Compile Include="Controllers\Security\SignInController.cs" />
     <Compile Include="Controllers\Security\UserController.cs" />
     <Compile Include="ErrorsController.generated.cs">
@@ -273,8 +268,8 @@
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\Security\SignOnProviderButtonModel.cs" />
-    <Compile Include="Models\Security\SignUpWizardModel.cs" />
+    <Compile Include="Models\Security\SignOnFormModel.cs" />
+    <Compile Include="Models\Security\ConfirmEmailWizardModel.cs" />
     <Compile Include="Models\_Common\ValidatedField.cs" />
     <Compile Include="Models\_Common\ValidatedFieldError.cs" />
     <Compile Include="Models\_Common\ValidatedFields.cs" />
@@ -298,25 +293,10 @@
     <Compile Include="SignOnController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
-    <Compile Include="SignOnEmailController.generated.cs">
-      <DependentUpon>T4MVC.tt</DependentUpon>
-    </Compile>
-    <Compile Include="SignOnSecretController.generated.cs">
-      <DependentUpon>T4MVC.tt</DependentUpon>
-    </Compile>
-    <Compile Include="SignOnUserController.generated.cs">
-      <DependentUpon>T4MVC.tt</DependentUpon>
-    </Compile>
     <Compile Include="SignOutController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
-    <Compile Include="SignUpEmailController.generated.cs">
-      <DependentUpon>T4MVC.tt</DependentUpon>
-    </Compile>
-    <Compile Include="SignUpSecretController.generated.cs">
-      <DependentUpon>T4MVC.tt</DependentUpon>
-    </Compile>
-    <Compile Include="SignUpUserController.generated.cs">
+    <Compile Include="SignUpController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="T4MVC.cs">
@@ -755,21 +735,21 @@
     <Content Include="Views\RemoteMemberships\_SignOnList.cshtml" />
     <Content Include="Views\RemoteMemberships\_AddForm.cshtml" />
     <Content Include="Views\Security\SignIn.cshtml" />
-    <Content Include="Views\Security\SignUpEmail.cshtml" />
-    <Content Include="Views\Security\_SignOnProviderForm.cshtml" />
+    <Content Include="Views\Security\SignUpSendConfirmationEmail.cshtml" />
+    <Content Include="Views\Security\_SignOnForm.cshtml" />
     <Content Include="Views\Errors\NotFound.cshtml" />
     <Content Include="Views\Errors\Forbidden.cshtml" />
     <Content Include="Views\Errors\BadRequest.cshtml" />
-    <Content Include="Views\Security\SignUpSecret.cshtml" />
-    <Content Include="Views\Security\SignUpUser.cshtml" />
-    <Content Include="Views\Security\_SignUpWizard.cshtml" />
-    <Content Include="Views\Security\SignOnEmail.cshtml" />
+    <Content Include="Views\Security\SignUpVerifyConfirmEmailSecret.cshtml" />
+    <Content Include="Views\Security\SignUpCreateLocalMembership.cshtml" />
+    <Content Include="Views\Security\_ConfirmEmailWizardSteps.cshtml" />
+    <Content Include="Views\Security\SignOnSendConfirmationEmail.cshtml" />
     <Content Include="Views\Scripts\Angular.cshtml" />
-    <Content Include="Views\Security\_SignUpEmailForm.cshtml" />
+    <Content Include="Views\Security\_SendConfirmationEmailForm.cshtml" />
     <Content Include="Views\Home\Admin.cshtml" />
-    <Content Include="Views\Security\SignOnSecret.cshtml" />
-    <Content Include="Views\Security\_SignUpSecretForm.cshtml" />
-    <Content Include="Views\Security\SignOnUser.cshtml" />
+    <Content Include="Views\Security\SignOnVerifyConfirmEmailSecret.cshtml" />
+    <Content Include="Views\Security\_VerifyConfirmEmailSecretForm.cshtml" />
+    <Content Include="Views\Security\SignOnCreateRemoteMembership.cshtml" />
     <Content Include="Views\Security\User.cshtml" />
     <Content Include="Views\Shared\_LayoutNavbar.cshtml" />
   </ItemGroup>

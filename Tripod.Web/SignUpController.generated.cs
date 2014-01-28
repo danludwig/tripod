@@ -22,10 +22,10 @@ using System.Web.Routing;
 using T4MVC;
 namespace Tripod.Web.Controllers
 {
-    public partial class SignOnController
+    public partial class SignUpController
     {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        protected SignOnController(Dummy d) { }
+        protected SignUpController(Dummy d) { }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         protected RedirectToRouteResult RedirectToAction(ActionResult result)
@@ -43,16 +43,15 @@ namespace Tripod.Web.Controllers
 
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult Index()
+        public virtual System.Web.Mvc.ViewResult SendConfirmationEmail()
         {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
+            return new T4MVC_System_Web_Mvc_ViewResult(Area, Name, ActionNames.SendConfirmationEmail);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> SendConfirmationEmail()
+        public virtual System.Web.Mvc.ActionResult ValidateSendConfirmationEmail()
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SendConfirmationEmail);
-            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ValidateSendConfirmationEmail);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -63,26 +62,32 @@ namespace Tripod.Web.Controllers
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> CreateRemoteMembership()
+        public virtual System.Web.Mvc.ActionResult ValidateVerifyConfirmEmailSecret()
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.CreateRemoteMembership);
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ValidateVerifyConfirmEmailSecret);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> CreateLocalMembership()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.CreateLocalMembership);
             return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult ValidateCreateRemoteMembership()
+        public virtual System.Web.Mvc.ActionResult ValidateCreateLocalMembership()
         {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ValidateCreateRemoteMembership);
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ValidateCreateLocalMembership);
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public SignOnController Actions { get { return MVC.SignOn; } }
+        public SignUpController Actions { get { return MVC.SignUp; } }
         [GeneratedCode("T4MVC", "2.0")]
         public readonly string Area = "";
         [GeneratedCode("T4MVC", "2.0")]
-        public readonly string Name = "SignOn";
+        public readonly string Name = "SignUp";
         [GeneratedCode("T4MVC", "2.0")]
-        public const string NameConst = "SignOn";
+        public const string NameConst = "SignUp";
 
         static readonly ActionNamesClass s_actions = new ActionNamesClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -90,33 +95,26 @@ namespace Tripod.Web.Controllers
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNamesClass
         {
-            public readonly string Index = "Index";
             public readonly string SendConfirmationEmail = "SendConfirmationEmail";
+            public readonly string ValidateSendConfirmationEmail = "ValidateSendConfirmationEmail";
             public readonly string VerifyConfirmEmailSecret = "VerifyConfirmEmailSecret";
-            public readonly string CreateRemoteMembership = "CreateRemoteMembership";
-            public readonly string ValidateCreateRemoteMembership = "ValidateCreateRemoteMembership";
+            public readonly string ValidateVerifyConfirmEmailSecret = "ValidateVerifyConfirmEmailSecret";
+            public readonly string CreateLocalMembership = "CreateLocalMembership";
+            public readonly string ValidateCreateLocalMembership = "ValidateCreateLocalMembership";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNameConstants
         {
-            public const string Index = "Index";
             public const string SendConfirmationEmail = "SendConfirmationEmail";
+            public const string ValidateSendConfirmationEmail = "ValidateSendConfirmationEmail";
             public const string VerifyConfirmEmailSecret = "VerifyConfirmEmailSecret";
-            public const string CreateRemoteMembership = "CreateRemoteMembership";
-            public const string ValidateCreateRemoteMembership = "ValidateCreateRemoteMembership";
+            public const string ValidateVerifyConfirmEmailSecret = "ValidateVerifyConfirmEmailSecret";
+            public const string CreateLocalMembership = "CreateLocalMembership";
+            public const string ValidateCreateLocalMembership = "ValidateCreateLocalMembership";
         }
 
 
-        static readonly ActionParamsClass_Index s_params_Index = new ActionParamsClass_Index();
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_Index IndexParams { get { return s_params_Index; } }
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_Index
-        {
-            public readonly string provider = "provider";
-            public readonly string returnUrl = "returnUrl";
-        }
         static readonly ActionParamsClass_SendConfirmationEmail s_params_SendConfirmationEmail = new ActionParamsClass_SendConfirmationEmail();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_SendConfirmationEmail SendConfirmationEmailParams { get { return s_params_SendConfirmationEmail; } }
@@ -126,6 +124,15 @@ namespace Tripod.Web.Controllers
             public readonly string returnUrl = "returnUrl";
             public readonly string command = "command";
             public readonly string loginProvider = "loginProvider";
+        }
+        static readonly ActionParamsClass_ValidateSendConfirmationEmail s_params_ValidateSendConfirmationEmail = new ActionParamsClass_ValidateSendConfirmationEmail();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_ValidateSendConfirmationEmail ValidateSendConfirmationEmailParams { get { return s_params_ValidateSendConfirmationEmail; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_ValidateSendConfirmationEmail
+        {
+            public readonly string command = "command";
+            public readonly string fieldName = "fieldName";
         }
         static readonly ActionParamsClass_VerifyConfirmEmailSecret s_params_VerifyConfirmEmailSecret = new ActionParamsClass_VerifyConfirmEmailSecret();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -138,22 +145,31 @@ namespace Tripod.Web.Controllers
             public readonly string command = "command";
             public readonly string emailAddress = "emailAddress";
         }
-        static readonly ActionParamsClass_CreateRemoteMembership s_params_CreateRemoteMembership = new ActionParamsClass_CreateRemoteMembership();
+        static readonly ActionParamsClass_ValidateVerifyConfirmEmailSecret s_params_ValidateVerifyConfirmEmailSecret = new ActionParamsClass_ValidateVerifyConfirmEmailSecret();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_CreateRemoteMembership CreateRemoteMembershipParams { get { return s_params_CreateRemoteMembership; } }
+        public ActionParamsClass_ValidateVerifyConfirmEmailSecret ValidateVerifyConfirmEmailSecretParams { get { return s_params_ValidateVerifyConfirmEmailSecret; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_CreateRemoteMembership
+        public class ActionParamsClass_ValidateVerifyConfirmEmailSecret
+        {
+            public readonly string command = "command";
+            public readonly string fieldName = "fieldName";
+        }
+        static readonly ActionParamsClass_CreateLocalMembership s_params_CreateLocalMembership = new ActionParamsClass_CreateLocalMembership();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_CreateLocalMembership CreateLocalMembershipParams { get { return s_params_CreateLocalMembership; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_CreateLocalMembership
         {
             public readonly string token = "token";
             public readonly string returnUrl = "returnUrl";
             public readonly string command = "command";
             public readonly string emailAddress = "emailAddress";
         }
-        static readonly ActionParamsClass_ValidateCreateRemoteMembership s_params_ValidateCreateRemoteMembership = new ActionParamsClass_ValidateCreateRemoteMembership();
+        static readonly ActionParamsClass_ValidateCreateLocalMembership s_params_ValidateCreateLocalMembership = new ActionParamsClass_ValidateCreateLocalMembership();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_ValidateCreateRemoteMembership ValidateCreateRemoteMembershipParams { get { return s_params_ValidateCreateRemoteMembership; } }
+        public ActionParamsClass_ValidateCreateLocalMembership ValidateCreateLocalMembershipParams { get { return s_params_ValidateCreateLocalMembership; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_ValidateCreateRemoteMembership
+        public class ActionParamsClass_ValidateCreateLocalMembership
         {
             public readonly string command = "command";
             public readonly string fieldName = "fieldName";
@@ -173,39 +189,18 @@ namespace Tripod.Web.Controllers
     }
 
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-    public partial class T4MVC_SignOnController : Tripod.Web.Controllers.SignOnController
+    public partial class T4MVC_SignUpController : Tripod.Web.Controllers.SignUpController
     {
-        public T4MVC_SignOnController() : base(Dummy.Instance) { }
+        public T4MVC_SignUpController() : base(Dummy.Instance) { }
 
-        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string provider, string returnUrl);
+        partial void SendConfirmationEmailOverride(T4MVC_System_Web_Mvc_ViewResult callInfo, string returnUrl);
 
-        public override System.Web.Mvc.ActionResult Index(string provider, string returnUrl)
+        public override System.Web.Mvc.ViewResult SendConfirmationEmail(string returnUrl)
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "provider", provider);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "returnUrl", returnUrl);
-            IndexOverride(callInfo, provider, returnUrl);
-            return callInfo;
-        }
-
-        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string returnUrl);
-
-        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Index(string returnUrl)
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "returnUrl", returnUrl);
-            IndexOverride(callInfo, returnUrl);
-            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
-        }
-
-        partial void SendConfirmationEmailOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string returnUrl);
-
-        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> SendConfirmationEmail(string returnUrl)
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SendConfirmationEmail);
+            var callInfo = new T4MVC_System_Web_Mvc_ViewResult(Area, Name, ActionNames.SendConfirmationEmail);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "returnUrl", returnUrl);
             SendConfirmationEmailOverride(callInfo, returnUrl);
-            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
+            return callInfo;
         }
 
         partial void SendConfirmationEmailOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Tripod.Domain.Security.SendConfirmationEmail command, string returnUrl, string loginProvider);
@@ -218,6 +213,17 @@ namespace Tripod.Web.Controllers
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "loginProvider", loginProvider);
             SendConfirmationEmailOverride(callInfo, command, returnUrl, loginProvider);
             return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
+        }
+
+        partial void ValidateSendConfirmationEmailOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Tripod.Domain.Security.SendConfirmationEmail command, string fieldName);
+
+        public override System.Web.Mvc.ActionResult ValidateSendConfirmationEmail(Tripod.Domain.Security.SendConfirmationEmail command, string fieldName)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ValidateSendConfirmationEmail);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "command", command);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "fieldName", fieldName);
+            ValidateSendConfirmationEmailOverride(callInfo, command, fieldName);
+            return callInfo;
         }
 
         partial void VerifyConfirmEmailSecretOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ticket, string returnUrl);
@@ -244,37 +250,48 @@ namespace Tripod.Web.Controllers
             return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
         }
 
-        partial void CreateRemoteMembershipOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string token, string returnUrl);
+        partial void ValidateVerifyConfirmEmailSecretOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Tripod.Domain.Security.VerifyConfirmEmailSecret command, string fieldName);
 
-        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> CreateRemoteMembership(string token, string returnUrl)
+        public override System.Web.Mvc.ActionResult ValidateVerifyConfirmEmailSecret(Tripod.Domain.Security.VerifyConfirmEmailSecret command, string fieldName)
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.CreateRemoteMembership);
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ValidateVerifyConfirmEmailSecret);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "command", command);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "fieldName", fieldName);
+            ValidateVerifyConfirmEmailSecretOverride(callInfo, command, fieldName);
+            return callInfo;
+        }
+
+        partial void CreateLocalMembershipOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string token, string returnUrl);
+
+        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> CreateLocalMembership(string token, string returnUrl)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.CreateLocalMembership);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "token", token);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "returnUrl", returnUrl);
-            CreateRemoteMembershipOverride(callInfo, token, returnUrl);
+            CreateLocalMembershipOverride(callInfo, token, returnUrl);
             return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
         }
 
-        partial void CreateRemoteMembershipOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Tripod.Domain.Security.CreateRemoteMembership command, string returnUrl, string emailAddress);
+        partial void CreateLocalMembershipOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Tripod.Domain.Security.CreateLocalMembership command, string returnUrl, string emailAddress);
 
-        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> CreateRemoteMembership(Tripod.Domain.Security.CreateRemoteMembership command, string returnUrl, string emailAddress)
+        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> CreateLocalMembership(Tripod.Domain.Security.CreateLocalMembership command, string returnUrl, string emailAddress)
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.CreateRemoteMembership);
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.CreateLocalMembership);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "command", command);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "returnUrl", returnUrl);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "emailAddress", emailAddress);
-            CreateRemoteMembershipOverride(callInfo, command, returnUrl, emailAddress);
+            CreateLocalMembershipOverride(callInfo, command, returnUrl, emailAddress);
             return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
         }
 
-        partial void ValidateCreateRemoteMembershipOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Tripod.Domain.Security.CreateRemoteMembership command, string fieldName);
+        partial void ValidateCreateLocalMembershipOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Tripod.Domain.Security.CreateLocalMembership command, string fieldName);
 
-        public override System.Web.Mvc.ActionResult ValidateCreateRemoteMembership(Tripod.Domain.Security.CreateRemoteMembership command, string fieldName)
+        public override System.Web.Mvc.ActionResult ValidateCreateLocalMembership(Tripod.Domain.Security.CreateLocalMembership command, string fieldName)
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ValidateCreateRemoteMembership);
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ValidateCreateLocalMembership);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "command", command);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "fieldName", fieldName);
-            ValidateCreateRemoteMembershipOverride(callInfo, command, fieldName);
+            ValidateCreateLocalMembershipOverride(callInfo, command, fieldName);
             return callInfo;
         }
 

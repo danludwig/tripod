@@ -53,7 +53,7 @@
                        required
                        model-contrib
                        server-error="@Html.ValidationMessageTextFor(x => x.EmailAddress)"
-                       server-validate="@Url.Action(MVC.SignUpEmail.Validate(null, "emailAddress"))"
+                       server-validate="@Url.Action(MVC.SignUp.ValidateSendConfirmationEmail(null, "emailAddress"))"
                        server-validate-throttle="400" />
 
                 <span class="input-group-addon validation @Html.CssClassWhenNullModel("hide")"
@@ -124,7 +124,7 @@
                                    required
                                    model-contrib
                                    server-error="@Html.ValidationMessageTextFor(x => x.IsExpectingEmail)"
-                                   server-validate="@Url.Action(MVC.SignUpEmail.Validate(null, "isExpectingEmail"))" />
+                                   server-validate="@Url.Action(MVC.SignUp.ValidateSendConfirmationEmail(null, "isExpectingEmail"))" />
                             <input type="hidden" name="isExpectingEmail" value="false" />
                             <div>
                                 Send an email to the above address so that I can confirm it does not belong to someone else.

@@ -2,9 +2,9 @@
 
 namespace Tripod.Web.Models
 {
-    public class SignUpWizardModel
+    public class ConfirmEmailWizardModel
     {
-        public SignUpWizardModel(int stepNumber)
+        public ConfirmEmailWizardModel(int stepNumber)
         {
             StepNumber = stepNumber;
             StepContents = new Dictionary<string, string>

@@ -35,14 +35,14 @@
         </div>
 
         @* OAUTH PROVIDER BUTTONS FORM *@
-        @{ Html.RenderPartial(MVC.Security.Views._SignOnProviderForm, new SignOnProviderButtonModel { EmailProvidersOnly = true }); }
+        @{ Html.RenderPartial(MVC.Security.Views._SignOnForm, new SignOnFormModel { EmailProvidersOnly = true }); }
 
         <h4>
             Provide an email address to continue your @ViewBag.LoginProvider sign in.<br />
             <small>(You won't be required to do this again, it's just a first-time thing when signing in with @ViewBag.LoginProvider.)</small>
         </h4>
 
-        @{ Html.RenderPartial(MVC.Security.Views._SignUpEmailForm); }
+        @{ Html.RenderPartial(MVC.Security.Views._SendConfirmationEmailForm); }
 
     </div>
 </div>
