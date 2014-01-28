@@ -176,7 +176,7 @@
               ng-controller="App.Security.ChangeUserNameForm.Controller"
               name="changeUserNameForm"
               form-contrib="changeUserNameCtrb"
-              form-submitted="@IsPost"
+              form-submitted="true"
               class="form-horizontal">
 
             @Html.AntiForgeryToken()
@@ -283,16 +283,17 @@
                                ng-show="vm.isSubmitWaiting()" ng-cloak></i>
                             Change @UserConstraints.NameLabel.ToLower()
                         </button>
-                        <button type="button" class="btn btn-link" ng-click="vm.restoreOrigialUserName()"
-                                ng-init="vm.originalUserName='@(Html.ValueFor(x => x.UserName).ToString() != "" ? Html.ValueForJavaScriptString(x => x.UserName) : MvcHtmlString.Create(User.Identity.Name))'">
+                        <a href="@Url.Action(MVC.User.ById())" class="nudge-right"
+                           ng-click="vm.restoreOrigialUserName($event)"
+                           ng-init="vm.originalUserName='@(Html.ValueFor(x => x.UserName).ToString() != "" ? Html.ValueForJavaScriptString(x => x.UserName) : MvcHtmlString.Create(User.Identity.Name))'">
                             Cancel
-                        </button>
+                        </a>
                     </div>
                     <div class="has-error pull-left nudge-right @errorClass"
                          remove-class="@errorClass"
                          ng-show="vm.isSubmitError()">
                         <div class="help-block">
-                            Could not confirm email address due to above error(s).
+                            Could not change @UserConstraints.NameLabel.ToLower() due to above error(s).
                         </div>
                     </div>
                 </div>

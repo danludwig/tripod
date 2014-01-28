@@ -36,7 +36,14 @@ namespace Tripod.Web.Controllers
         public virtual async Task<ActionResult> ChangeName(ChangeUserName command)
         {
             if (command == null) return View(MVC.Errors.BadRequest());
-            if (!ModelState.IsValid) return View(MVC.Security.Views.User);
+
+            var view = await _queries.Execute(new UserViewBy(command.UserId));
+            if (view == null) return HttpNotFound();
+
+            if (!ModelState.IsValid)
+            {
+                return View(MVC.Security.Views.User, command);
+            }
 
             await _commands.Execute(command);
 

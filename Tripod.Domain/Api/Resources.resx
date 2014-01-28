@@ -255,4 +255,13 @@
   <data name="Validation_DoesNotExist_IntIdValue" xml:space="preserve">
     <value>{PropertyName} #{PropertyValue} does not exist.</value>
   </data>
+  <data name="Validation_RemoteMembership_NoTicket" xml:space="preserve">
+    <value>There is no external login information to process.</value>
+  </data>
+  <data name="Validation_UserCommand_NotAuthorized" xml:space="preserve">
+    <value>'{PropertyValue}' is not authorized to perform this action on {PropertyName} #{UserId}</value>
+  </data>
+  <data name="Validation_UserName_AllowedEmailAddress" xml:space="preserve">
+    <value>You cannot use the email address '{PropertyValue}' for your {PropertyName}.</value>
+  </data>
 </root>

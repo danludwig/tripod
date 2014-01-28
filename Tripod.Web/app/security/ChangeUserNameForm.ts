@@ -29,8 +29,9 @@ module App.Security.ChangeUserNameForm {
             scope.vm = this;
         }
 
-        restoreOrigialUserName(): boolean {
+        restoreOrigialUserName(e: ng.IAngularEvent): boolean {
             this.userName = this.originalUserName;
+            e.preventDefault();
             return false;
         }
 

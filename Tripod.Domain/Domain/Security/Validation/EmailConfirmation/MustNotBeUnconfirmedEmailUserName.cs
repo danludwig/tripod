@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Linq;
-using System.Linq.Expressions;
 using FluentValidation;
 using FluentValidation.Validators;
 
@@ -12,7 +10,7 @@ namespace Tripod.Domain.Security
         private readonly IProcessQueries _queries;
 
         internal MustNotBeUnconfirmedEmailUserName(Func<T, int> userId, IProcessQueries queries)
-            : base(() => "You cannot use the email address '{PropertyValue}' for your {PropertyName}.")
+            : base(() => Resources.Validation_UserName_AllowedEmailAddress)
         {
             if (userId == null) throw new ArgumentNullException("userId");
             if (queries == null) throw new ArgumentNullException("queries");

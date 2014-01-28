@@ -10,8 +10,9 @@ var App;
                     this.originalUserName = '';
                     scope.vm = this;
                 }
-                Controller.prototype.restoreOrigialUserName = function () {
+                Controller.prototype.restoreOrigialUserName = function (e) {
                     this.userName = this.originalUserName;
+                    e.preventDefault();
                     return false;
                 };
 

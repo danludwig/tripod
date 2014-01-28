@@ -10,7 +10,7 @@ namespace Tripod.Domain.Security
         private readonly IProcessQueries _queries;
 
         internal MustFindRemoteMembershipTicket(IProcessQueries queries)
-            : base(() => "There is no external login information to process.")
+            : base(() => Resources.Validation_RemoteMembership_NoTicket)
         {
             if (queries == null) throw new ArgumentNullException("queries");
             _queries = queries;

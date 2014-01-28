@@ -11,7 +11,7 @@ namespace Tripod.Domain.Security
         private readonly IProcessQueries _queries;
 
         internal MustNotBeUnverifiedEmailUserName(Func<T, string> token, IProcessQueries queries)
-            : base(() => "You cannot use the email address '{PropertyValue}' for your {PropertyName}.")
+            : base(() => Resources.Validation_UserName_AllowedEmailAddress)
         {
             if (token == null) throw new ArgumentNullException("token");
             if (queries == null) throw new ArgumentNullException("queries");

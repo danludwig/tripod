@@ -439,6 +439,15 @@ namespace Tripod {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to There is no external login information to process..
+        /// </summary>
+        public static string Validation_RemoteMembership_NoTicket {
+            get {
+                return ResourceManager.GetString("Validation_RemoteMembership_NoTicket", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {PropertyName} &apos;{PropertyValue}&apos; does not own this &apos;{ProviderName}&apos; login..
         /// </summary>
         public static string Validation_RemoteMembershipByUser_DoesNotExist {
@@ -466,11 +475,29 @@ namespace Tripod {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &apos;{PropertyValue}&apos; is not authorized to perform this action on {PropertyName} #{UserId}.
+        /// </summary>
+        public static string Validation_UserCommand_NotAuthorized {
+            get {
+                return ResourceManager.GetString("Validation_UserCommand_NotAuthorized", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {PropertyName} can only contain letters, numbers, and the following characters: @ . - _.
         /// </summary>
         public static string Validation_UserName_AllowedCharacters {
             get {
                 return ResourceManager.GetString("Validation_UserName_AllowedCharacters", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You cannot use the email address &apos;{PropertyValue}&apos; for your {PropertyName}..
+        /// </summary>
+        public static string Validation_UserName_AllowedEmailAddress {
+            get {
+                return ResourceManager.GetString("Validation_UserName_AllowedEmailAddress", resourceCulture);
             }
         }
     }

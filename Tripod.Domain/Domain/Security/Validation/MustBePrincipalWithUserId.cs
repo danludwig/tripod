@@ -12,7 +12,7 @@ namespace Tripod.Domain.Security
         private readonly Func<T, int> _userId;
 
         internal MustBePrincipalWithUserId(IProcessQueries queries, Func<T, int> userId)
-            : base(() => "'{PropertyValue}' is not authorized to perform this action on {PropertyName} #{UserId}")
+            : base(() => Resources.Validation_UserCommand_NotAuthorized)
         {
             if (queries == null) throw new ArgumentNullException("queries");
             if (userId == null) throw new ArgumentNullException("userId");
