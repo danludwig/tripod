@@ -105,11 +105,16 @@ body .tripod-navbar {
     }
     nav.user {
         a.dropdown-toggle {
+            img.gravatar {
+                float: left;
+                height: 20px;
+                margin-right: 8px;
+            }
             .display-name {
                 /* set max width & ellipsis overflow in case data is too long */
                 float: left;
                 display: inline-block;
-                max-width: 150px;
+                max-width: 130px;
                 white-space: nowrap;
                 -ms-text-overflow: ellipsis;
                 -o-text-overflow: ellipsis;
@@ -123,7 +128,7 @@ body .tripod-navbar {
             }
             @media(min-width: 542px) {
                 .display-name {
-                    max-width: 310px;
+                    max-width: 290px;
                 }
             }
         }

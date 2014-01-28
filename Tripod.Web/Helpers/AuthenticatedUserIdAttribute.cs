@@ -7,18 +7,15 @@ namespace Tripod.Web
     {
         public override void OnResultExecuting(ResultExecutingContext filterContext)
         {
-            if (filterContext.HttpContext.Request.IsAuthenticated)
-            {
-                var userIdString = filterContext.HttpContext.User.Identity.GetUserId();
-                int userIdInt;
-                if (int.TryParse(userIdString, out userIdInt))
-                {
-                    if (userIdInt > 0)
-                    {
-                        filterContext.Controller.ViewBag.AuthenticatedUserId = userIdInt;
-                    }
-                }
-            }
+            if (!filterContext.HttpContext.Request.IsAuthenticated || filterContext.IsChildAction)
+                return;
+
+            var userIdString = filterContext.HttpContext.User.Identity.GetUserId();
+            int userIdInt;
+            if (!int.TryParse(userIdString, out userIdInt)) return;
+
+            if (userIdInt > 0)
+                filterContext.Controller.ViewBag.AuthenticatedUserId = userIdInt;
         }
     }
 }

@@ -257,6 +257,7 @@
       <DependentUpon>Global.asax</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Helpers\AuthenticatedUserGravatarAttribute.cs" />
     <Compile Include="Helpers\ChallengeResult.cs" />
     <Compile Include="Helpers\PermitAttribute.cs" />
     <Compile Include="Helpers\ControllerExtensions.cs" />

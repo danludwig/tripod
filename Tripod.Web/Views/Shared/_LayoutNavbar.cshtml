@@ -13,7 +13,11 @@
             <nav class="user pull-right">
                 <div class="btn-group">
                     <a href="#" class="navbar-link dropdown-toggle" data-toggle="dropdown">
-                        <span class="display-name">@User.Identity.Name</span>
+                        @Html.Gravatar(32)
+                        <span class="display-name">
+                            @User.Identity.Name
+                            @*here is what happens when this gets really really really really really long*@
+                        </span>
                         <i class="caret"></i>
                     </a>
                     <ul class="dropdown-menu pull-right" data-no-collapse="true">

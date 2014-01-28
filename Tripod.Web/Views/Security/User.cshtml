@@ -10,19 +10,6 @@
     ViewBag.Title = "User";
 }
 
-@{
-    var emailAddress = "mail@danludwig.com";
-    MD5 md5 = MD5.Create();
-    byte[] inputBytes = Encoding.ASCII.GetBytes(emailAddress);
-    byte[] hash = md5.ComputeHash(inputBytes);
-    StringBuilder sb = new StringBuilder();
-    for (int i = 0; i < hash.Length; i++)
-    {
-        sb.Append(hash[i].ToString("x2"));
-    }
-    var gravatar = sb.ToString();
-}
-
 @section styles
 {
     <style>
@@ -90,7 +77,7 @@
 
 
 <div class="user jumbotron clearfix">
-    <img src="http://www.gravatar.com/avatar/@(gravatar).jpg?s=128&d=wavatar&r=PG" alt="" class="gravatar pull-left" />
+    @Html.Gravatar(128, "pull-left")
     <h1>
         @User.Identity.Name
     </h1>
@@ -104,16 +91,10 @@
 <div class="row">
     <div class="col-md-4 hidden-xs hidden-sm">
         <nav class="user">
-            @*<header class="nav-header">
-                    <a href="#">
-                        <img src="http://www.gravatar.com/avatar/@(gravatar).jpg?s=32&d=wavatar&r=PG" alt="" class="gravatar" />
-                        <strong>username</strong>
-                    </a>
-                </header>*@
             <ul class="nav nav-pills nav-stacked" role="navigation">
                 <li class="nav-header">
                     <a href="@Url.Action(MVC.User.ById(Html.AuthenticatedUserId()))">
-                        <img src="http://www.gravatar.com/avatar/@(gravatar).jpg?s=32&d=retro&r=PG" alt="" class="gravatar" />
+                        @Html.Gravatar(32)
                         <strong>@User.Identity.Name</strong>
                     </a>
                 </li>
@@ -147,26 +128,9 @@
     </div>
     <div class="col-md-8" role="main">
 
-        @*<h2 class="scalp">
-                Change your user name.
-            </h2>*@
-
         <p>
             If you would like to change your @UserConstraints.NameLabel.ToLower(), you can use the text box below to do so.
         </p>
-
-        @*<div class="well">
-                <h1>More Content</h1>
-            </div>*@
-        @*<div class="panel panel-default">
-                <div class="panel-heading">
-                    Manage your logins
-                </div>
-                <div class="panel-body">
-                    <h1>More Content</h1>
-                </div>
-            </div>*@
-        @*<h2>Manage your social logins</h2>*@
 
         <form role="form"
               method="POST"
