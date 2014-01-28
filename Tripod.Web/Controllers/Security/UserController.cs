@@ -24,10 +24,14 @@ namespace Tripod.Web.Controllers
             var view = await _queries.Execute(new UserViewBy(userId));
             if (view == null) return HttpNotFound();
 
-            var model = new ChangeUserName
+            var model = new ChangeUserNameModel
             {
-                UserId = userId,
-                UserName = User.Identity.Name,
+                UserView = view,
+                Command = new ChangeUserName
+                {
+                    UserId = userId,
+                    UserName = User.Identity.Name,
+                },
             };
 
             return View(MVC.Security.Views.User, model);
@@ -44,7 +48,13 @@ namespace Tripod.Web.Controllers
 
             if (!ModelState.IsValid)
             {
-                return View(MVC.Security.Views.User, command);
+                var model = new ChangeUserNameModel
+                {
+                    UserView = view,
+                    Command = command,
+                };
+
+                return View(MVC.Security.Views.User, model);
             }
 
             await _commands.Execute(command);
@@ -68,17 +78,6 @@ namespace Tripod.Web.Controllers
             //result = new ValidatedFields(ModelState, command.PropertyName(x => x.UserName));
 
             return new CamelCaseJsonResult(result);
-        }
-
-        [ChildActionOnly]
-        [HttpGet, Route("users/{userId:int}/jumbotron")]
-        public virtual PartialViewResult JumbotronById(int userId)
-        {
-            var view = _queries.Execute(new UserViewBy(userId)).Result;
-            if (view == null) throw new InvalidOperationException(Resources.Validation_DoesNotExist_IntIdValue
-                .Replace("{PropertyName}", Domain.Security.User.Constraints.NameLabel)
-                .Replace("{PropertyValue}", userId.ToString(CultureInfo.InvariantCulture)));
-            return PartialView(MVC.Security.Views._UserJumbotron, view);
         }
     }
 }

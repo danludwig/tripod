@@ -1,9 +1,10 @@
 ﻿@using System.Globalization
 @using Microsoft.AspNet.Identity
 @using Tripod.Domain.Security
+@using Tripod.Web.Models
 @using UserConstraints = Tripod.Domain.Security.User.Constraints
 
-@model ChangeUserName
+@model ChangeUserNameModel
 
 @{
     ViewBag.Title = "User";
@@ -75,9 +76,9 @@
 }
 
 
-@{ Html.RenderAction(MVC.User.JumbotronById()); }
+@{ Html.RenderPartial(MVC.Security.Views._UserJumbotron, Model.UserView); }
 
-@if (Model.UserId.ToString(CultureInfo.InvariantCulture) == User.Identity.GetUserId())
+@if (Model.UserView.UserId.ToString(CultureInfo.InvariantCulture) == User.Identity.GetUserId())
 {
     <div class="row">
         <div class="col-md-4 hidden-xs hidden-sm">
@@ -123,13 +124,13 @@
                 If you would like to change your @UserConstraints.NameLabel.ToLower(), you can use the text box below to do so.
             </p>
 
-            @{ Html.RenderPartial(MVC.Security.Views._ChangeUserNameForm); }
+            @{ Html.RenderPartial(MVC.Security.Views._ChangeUserNameForm, Model.Command); }
         </div>
     </div>
 }
 
 @section scripts
 {
-    @{ Html.RenderPartial(MVC.Scripts.Views.Angular); }
-    <script src="~/app/security/ChangeUserNameForm.js"></script>
+    @*@{ Html.RenderPartial(MVC.Scripts.Views.Angular); }
+    <script src="~/app/security/ChangeUserNameForm.js"></script>*@
 }

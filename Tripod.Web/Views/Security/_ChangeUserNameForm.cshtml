@@ -11,13 +11,11 @@
       ng-controller="App.Security.ChangeUserNameForm.Controller"
       name="changeUserNameForm"
       form-contrib="changeUserNameCtrb"
-      form-submitted="true"
+      form-submitted="@IsPost"
       class="form-horizontal">
 
     @Html.AntiForgeryToken()
     @Html.HttpMethodOverride(HttpVerbs.Put)
-
-    <input type="hidden" name="returnUrl" value="@ViewBag.ReturnUrl" />
 
     @Html.ValidationSummary(true)
     @{
@@ -26,7 +24,7 @@
     }
 
     @* USERNAME INPUT *@
-    <div class="form-group form-group-lg @Html.BootstrapValidationCssClassFor(x => x.UserName)"
+    <div class="form-group form-group-lg @Html.BootstrapValidationCssClassFor(x => x.UserName, true)"
          remove-class="has-success has-error"
          ng-class="changeUserNameCtrb.userName.feedbackCssClass()">
 
@@ -37,7 +35,7 @@
                 @Tripod.Domain.Security.User.Constraints.NameLabel
             </label>
             <small>@Resources.Validation_UserName_AllowedCharacters.Replace("{PropertyName}", "-")</small>
-            <div class="@Html.CssClassWhenNotNullModel(inputGroupCss)"
+            <div class="@Html.CssClassWhenInvalidFor(x => x.UserName, inputGroupCss)"
                  remove-class="@inputGroupCss"
                  ng-class="changeUserNameCtrb.userName.inputGroupCssClass('lg')">
                 <input type="text"
@@ -45,8 +43,8 @@
                        placeholder="Enter @Tripod.Domain.Security.User.Constraints.NameLabel.ToLower() here"
                        id="@Html.IdFor(x => x.UserName)"
                        name="userName"
-                       value="@(Html.ValueFor(x => x.UserName).ToString() != "" ? Html.ValueFor(x => x.UserName) : MvcHtmlString.Create(User.Identity.Name))"
-                       ng-init="vm.userName='@(Html.ValueFor(x => x.UserName).ToString() != "" ? Html.ValueForJavaScriptString(x => x.UserName) : MvcHtmlString.Create(User.Identity.Name))'"
+                       value="@Html.ValueFor(x => x.UserName)"
+                       ng-init="vm.userName='@Html.ValueForJavaScriptString(x => x.UserName)'"
                        ng-model="vm.userName"
                        required
                        model-contrib
@@ -55,7 +53,7 @@
                        server-validate-data="{ token: vm.token }"
                        server-validate-throttle="400" />
 
-                <span class="input-group-addon validation @Html.CssClassWhenNullModel("hide")"
+                <span class="input-group-addon validation @Html.CssClassWhenIsNotPost("hide")"
                       remove-class="hide"
                       ng-class="vm.userNameInputGroupValidationAddOnCssClass()">
                     <i class="fa fa-fw fa-asterisk default" title="This is a required field"></i>

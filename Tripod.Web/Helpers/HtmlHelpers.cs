@@ -8,9 +8,11 @@ namespace Tripod.Web
 {
     public static class HtmlHelpers
     {
-        public static MvcHtmlString BootstrapValidationCssClassFor<TModel, TProperty>(this HtmlHelper<TModel> html, Expression<Func<TModel, TProperty>> expression)
+        public static MvcHtmlString BootstrapValidationCssClassFor<TModel, TProperty>(this HtmlHelper<TModel> html, Expression<Func<TModel, TProperty>> expression, bool ignoreUnlessPost = false)
         {
             if (Equals(html.ViewData.Model, null)) return null;
+            if (ignoreUnlessPost && !html.ViewContext.HttpContext.Request.HttpMethod.ToUpper().Equals("POST"))
+                return null;
 
             var fieldName = ExpressionHelper.GetExpressionText(expression);
             var isValid = html.ViewData.ModelState.IsValidField(fieldName);
@@ -45,6 +47,16 @@ namespace Tripod.Web
         public static MvcHtmlString CssClassWhenNotNullModel(this HtmlHelper html, string cssClass)
         {
             return Equals(html.ViewData.Model, null) ? null : MvcHtmlString.Create(cssClass);
+        }
+
+        public static MvcHtmlString CssClassWhenIsPost(this HtmlHelper html, string cssClass)
+        {
+            return html.ViewContext.HttpContext.Request.HttpMethod.ToUpper().Equals("POST") ? MvcHtmlString.Create(cssClass) : null;
+        }
+
+        public static MvcHtmlString CssClassWhenIsNotPost(this HtmlHelper html, string cssClass)
+        {
+            return html.ViewContext.HttpContext.Request.HttpMethod.ToUpper().Equals("POST") ? null : MvcHtmlString.Create(cssClass);
         }
 
         [UsedImplicitly]
