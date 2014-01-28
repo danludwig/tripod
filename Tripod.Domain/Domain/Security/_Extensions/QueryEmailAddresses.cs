@@ -40,5 +40,25 @@ namespace Tripod.Domain.Security
         }
 
         #endregion
+        #region ByUserId
+
+        [UsedImplicitly]
+        public static IQueryable<EmailAddress> ByUserId(this IQueryable<EmailAddress> set, int userId)
+        {
+            return set.Where(ByUserId(userId));
+        }
+
+        [UsedImplicitly]
+        public static IEnumerable<EmailAddress> ByUserId(this IEnumerable<EmailAddress> set, int userId)
+        {
+            return set.AsQueryable().ByUserId(userId);
+        }
+
+        private static Expression<Func<EmailAddress, bool>> ByUserId(int userId)
+        {
+            return x => x.OwnerId == userId;
+        }
+
+        #endregion
     }
 }

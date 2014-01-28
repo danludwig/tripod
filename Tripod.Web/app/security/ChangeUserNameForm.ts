@@ -22,10 +22,16 @@ module App.Security.ChangeUserNameForm {
     export class Controller implements Model {
 
         userName: string = '';
+        originalUserName: string = '';
 
         static $inject = ['$scope'];
         constructor(public scope: Scope) {
             scope.vm = this;
+        }
+
+        restoreOrigialUserName(): boolean {
+            this.userName = this.originalUserName;
+            return false;
         }
 
         userNameInputGroupValidationAddOnCssClass(): string {

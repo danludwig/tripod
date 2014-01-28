@@ -65,6 +65,19 @@ body {
     }
 }
 
+/* bootstrap .btn-link outlining */
+body {
+    .btn-link {
+        &:focus {
+            outline: 0;
+            text-decoration: none;
+        }
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}
+
 /* angular ng-cloak directive */
 [ng-cloak], .ng-cloak {
     display: none !important;

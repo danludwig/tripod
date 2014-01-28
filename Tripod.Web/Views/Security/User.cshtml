@@ -4,7 +4,7 @@
 @using Tripod.Domain.Security
 @using UserConstraints = Tripod.Domain.Security.User.Constraints
 
-@model CreateRemoteMembership
+@model ChangeUserName
 
 @{
     ViewBag.Title = "User";
@@ -26,7 +26,6 @@
 @section styles
 {
     <style>
-
         .user.jumbotron h1 {
             margin: 0;
             white-space: nowrap;
@@ -70,10 +69,10 @@
             color: #333;
         }
 
-        .nav-header a:hover, .nav > li.nav-header a:hover {
-            background-color: #e7e7e7;
-            text-decoration: none;
-        }
+            .nav-header a:hover, .nav > li.nav-header a:hover {
+                background-color: #e7e7e7;
+                text-decoration: none;
+            }
 
         .nav-header img.gravatar {
             margin-right: 4px;
@@ -86,7 +85,6 @@
         nav.user ul > li.active > a > i {
             color: #fff;
         }
-
     </style>
 }
 
@@ -269,29 +267,34 @@
                         var readyClass = ViewData.ModelState.IsValid ? null : "hide";
                         var errorClass = ViewData.ModelState.IsValid ? "hide" : null;
                     }
-                    <button type="submit"
-                            class="btn btn-primary btn-lg @buttonClass"
-                            ng-class="vm.submitCssClass()"
-                            ng-disabled="vm.isSubmitDisabled()"
-                            remove-class="@buttonClass">
-                        <i class="fa fa-fw fa-user @readyClass"
-                           remove-class="@readyClass"
-                           ng-show="vm.isSubmitReady()"></i>
-                        <i class="fa fa-fw fa-exclamation-triangle @errorClass"
-                           remove-class="@errorClass"
-                           ng-show="vm.isSubmitError()"></i>
-                        <i class="fa fa-fw fa-spinner fa-spin spin-fast"
-                           ng-show="vm.isSubmitWaiting()" ng-cloak></i>
-                        Change @UserConstraints.NameLabel.ToLower()
-                    </button>
-                    <button type="button" class="btn-link">Cancel</button>
-                    @*<div class="has-error pull-left nudge-right @errorClass"
-                             remove-class="@errorClass"
-                             ng-show="vm.isSubmitError()">
-                            <div class="help-block">
-                                Could not confirm email address due to above error(s).
-                            </div>
-                        </div>*@
+                    <div class="pull-left">
+                        <button type="submit"
+                                class="btn btn-primary btn-lg @buttonClass"
+                                ng-class="vm.submitCssClass()"
+                                ng-disabled="vm.isSubmitDisabled()"
+                                remove-class="@buttonClass">
+                            <i class="fa fa-fw fa-user @readyClass"
+                               remove-class="@readyClass"
+                               ng-show="vm.isSubmitReady()"></i>
+                            <i class="fa fa-fw fa-exclamation-triangle @errorClass"
+                               remove-class="@errorClass"
+                               ng-show="vm.isSubmitError()"></i>
+                            <i class="fa fa-fw fa-spinner fa-spin spin-fast"
+                               ng-show="vm.isSubmitWaiting()" ng-cloak></i>
+                            Change @UserConstraints.NameLabel.ToLower()
+                        </button>
+                        <button type="button" class="btn btn-link" ng-click="vm.restoreOrigialUserName()"
+                                ng-init="vm.originalUserName='@(Html.ValueFor(x => x.UserName).ToString() != "" ? Html.ValueForJavaScriptString(x => x.UserName) : MvcHtmlString.Create(User.Identity.Name))'">
+                            Cancel
+                        </button>
+                    </div>
+                    <div class="has-error pull-left nudge-right @errorClass"
+                         remove-class="@errorClass"
+                         ng-show="vm.isSubmitError()">
+                        <div class="help-block">
+                            Could not confirm email address due to above error(s).
+                        </div>
+                    </div>
                 </div>
             </div>
 

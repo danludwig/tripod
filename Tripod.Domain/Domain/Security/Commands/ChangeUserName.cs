@@ -28,6 +28,7 @@ namespace Tripod.Domain.Security
 
             RuleFor(x => x.UserName)
                 .MustBeValidUserName()
+                .MustNotBeUnconfirmedEmailUserName(x => x.UserId, queries)
                 .MustNotFindUserByName(queries, x => x.UserId)
                     .WithName(User.Constraints.NameLabel);
         }

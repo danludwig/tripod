@@ -7,8 +7,14 @@ var App;
                 function Controller(scope) {
                     this.scope = scope;
                     this.userName = '';
+                    this.originalUserName = '';
                     scope.vm = this;
                 }
+                Controller.prototype.restoreOrigialUserName = function () {
+                    this.userName = this.originalUserName;
+                    return false;
+                };
+
                 Controller.prototype.userNameInputGroupValidationAddOnCssClass = function () {
                     return this.scope.changeUserNameCtrb.userName.hasFeedback() ? null : 'hide';
                 };

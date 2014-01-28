@@ -122,6 +122,7 @@
     <Compile Include="Domain\Security\Entities\UserClaim.cs" />
     <Compile Include="Domain\Security\Entities\RemoteMembership.cs" />
     <Compile Include="Domain\Security\Entities\User.cs" />
+    <Compile Include="Domain\Security\Queries\EmailAddressesBy.cs" />
     <Compile Include="Domain\Security\Queries\HashedEmailAddress.cs" />
     <Compile Include="Domain\Security\Queries\HashedPassword.cs" />
     <Compile Include="Domain\Security\Queries\ExternalCookieClaim.cs" />
@@ -148,6 +149,7 @@
     <Compile Include="Domain\Security\Validation\EmailConfirmation\MustFindEmailConfirmationByToken.cs" />
     <Compile Include="Domain\Security\Validation\EmailConfirmation\MustNotBeExpiredConfirmEmailToken.cs" />
     <Compile Include="Domain\Security\Validation\EmailConfirmation\MustNotBeRedeemedConfirmEmailToken.cs" />
+    <Compile Include="Domain\Security\Validation\EmailConfirmation\MustNotBeUnconfirmedEmailUserName.cs" />
     <Compile Include="Domain\Security\Validation\EmailConfirmation\MustNotBeUnverifiedEmailUserName.cs" />
     <Compile Include="Domain\Security\Validation\EmailConfirmation\MustBeVerifiedConfirmEmailSecret.cs" />
     <Compile Include="Domain\Security\Validation\MustBeValidPassword.cs" />

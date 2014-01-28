@@ -20,7 +20,15 @@ namespace Tripod.Web.Controllers
         public virtual async Task<ActionResult> ById(int userId)
         {
             var view = await _queries.Execute(new UserViewBy(userId));
-            return View(MVC.Security.Views.User);
+            if (view == null) return HttpNotFound();
+
+            var model = new ChangeUserName
+            {
+                UserId = userId,
+                UserName = User.Identity.Name,
+            };
+
+            return View(MVC.Security.Views.User, model);
         }
 
         [ValidateAntiForgeryToken]
