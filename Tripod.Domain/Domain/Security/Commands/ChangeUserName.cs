@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Security.Cryptography.X509Certificates;
 using System.Security.Principal;
 using System.Threading.Tasks;
 using FluentValidation;
@@ -37,23 +36,22 @@ namespace Tripod.Domain.Security
     public class HandleChangeUserNameCommand : IHandleCommand<ChangeUserName>
     {
         private readonly IWriteEntities _entities;
+        private readonly IAuthenticate _authenticator;
 
-        public HandleChangeUserNameCommand(IWriteEntities entities)
+        public HandleChangeUserNameCommand(IWriteEntities entities, IAuthenticate authenticator)
         {
             _entities = entities;
+            _authenticator = authenticator;
         }
 
         public async Task Handle(ChangeUserName command)
         {
-            //var entity = new User
-            //{
-            //    Name = command.Name,
-            //    SecurityStamp = Guid.NewGuid().ToString(),
-            //};
-            //_entities.Create(entity);
-
-            //command.Created = entity;
-            //return Task.FromResult(0);
+            var entity = await _entities.GetAsync<User>(command.UserId);
+            entity.Name = command.UserName;
+            entity.SecurityStamp = Guid.NewGuid().ToString();
+            await _entities.SaveChangesAsync();
+            await _authenticator.SignOut();
+            await _authenticator.SignOn(entity);
         }
     }
 }

@@ -11,6 +11,7 @@ namespace Tripod.Domain.Security
     /// </summary>
     public class SignOn : IDefineCommand
     {
+        public SignOn() { }
         public IPrincipal Principal { get; set; }
         public bool IsPersistent { get; [UsedImplicitly] set; }
         public User SignedOn { get; internal set; }
@@ -40,7 +41,7 @@ namespace Tripod.Domain.Security
                 return;
             }
 
-            // first try to find user by external login credentials
+            // try to find user by external login credentials
             var externalLogin = await _queries.Execute(new PrincipalRemoteMembershipTicket(command.Principal));
             if (externalLogin == null)
                 return;

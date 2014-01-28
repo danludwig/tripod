@@ -8,10 +8,12 @@ namespace Tripod.Web.Controllers
     public partial class UserController : Controller
     {
         private readonly IProcessQueries _queries;
+        private readonly IProcessCommands _commands;
 
-        public UserController(IProcessQueries queries)
+        public UserController(IProcessQueries queries, IProcessCommands commands)
         {
             _queries = queries;
+            _commands = commands;
         }
 
         [HttpGet, Route("users/{userId:int}")]
@@ -21,10 +23,16 @@ namespace Tripod.Web.Controllers
             return View(MVC.Security.Views.User);
         }
 
+        [ValidateAntiForgeryToken]
         [HttpPut, Route("users/{userId:int}/name")]
         public virtual async Task<ActionResult> ChangeName(ChangeUserName command)
         {
-            return View(MVC.Security.Views.User);
+            if (command == null) return View(MVC.Errors.BadRequest());
+            if (!ModelState.IsValid) return View(MVC.Security.Views.User);
+
+            await _commands.Execute(command);
+
+            return RedirectToAction(await MVC.User.ById(command.UserId));
         }
 
         [HttpPost, Route("users/{userId:int}/name/validate")]
