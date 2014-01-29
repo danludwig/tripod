@@ -1,4 +1,4 @@
-'use strict';
+﻿'use strict';
 var App;
 (function (App) {
     (function (Directives) {
@@ -60,6 +60,11 @@ var App;
                                     if (fieldName && (!validateDataAttr || validateDataAttr.indexOf(fieldName + ':') < 0)) {
                                         postData = postData || {};
                                         postData[fieldName] = value;
+                                    }
+
+                                    var antiForgeryToken = element.parents('form').find('input[type=hidden][name=__RequestVerificationToken]');
+                                    if (antiForgeryToken.length) {
+                                        postData['__RequestVerificationToken'] = antiForgeryToken.val();
                                     }
 
                                     return postData;
@@ -175,7 +180,20 @@ var App;
                                         }
                                         lastAttempt = attempt;
 
-                                        $http.post(validateUrl, postData).success(function (response) {
+                                        var requestConfig = {
+                                            method: 'POST',
+                                            url: validateUrl,
+                                            data: postData,
+                                            withCredentials: true,
+                                            headers: {
+                                                'Content-Type': 'application/x-www-form-urlencoded'
+                                            },
+                                            transformRequest: function (data) {
+                                                return $.param(data);
+                                            }
+                                        };
+
+                                        $http(requestConfig).success(function (response) {
                                             if (!response || !response[fieldName]) {
                                                 modelContribCtrl.setValidity('server', unexpectedError);
                                                 return;

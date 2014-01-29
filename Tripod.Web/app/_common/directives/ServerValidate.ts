@@ -11,7 +11,7 @@ module App.Directives.ServerValidate {
 
     //#region Directive
 
-    var directiveFactory = (): any[] => {
+    var directiveFactory = (): any[]=> {
         // inject services
         return ['$http', '$timeout', '$interval', '$parse', ($http: ng.IHttpService, $timeout: ng.ITimeoutService, $interval: ng.IIntervalService, $parse: ng.IParseService): ng.IDirective => {
             var d: ng.IDirective = {
@@ -77,6 +77,12 @@ module App.Directives.ServerValidate {
                         if (fieldName && (!validateDataAttr || validateDataAttr.indexOf(fieldName + ':') < 0)) {
                             postData = postData || {};
                             postData[fieldName] = value;
+                        }
+
+                        // append anti-forgery token to the request if one exists
+                        var antiForgeryToken = element.parents('form').find('input[type=hidden][name=__RequestVerificationToken]');
+                        if (antiForgeryToken.length) {
+                            postData['__RequestVerificationToken'] = antiForgeryToken.val();
                         }
 
                         return postData;
@@ -210,7 +216,18 @@ module App.Directives.ServerValidate {
                                 }
                                 lastAttempt = attempt; // store this as the last attempt
 
-                                $http.post(validateUrl, postData)
+                                var requestConfig: ng.IRequestConfig = {
+                                    method: 'POST',
+                                    url: validateUrl,
+                                    data: postData,
+                                    withCredentials: true,
+                                    headers: {
+                                        'Content-Type': 'application/x-www-form-urlencoded',
+                                    },
+                                    transformRequest: (data: any) => $.param(data),
+                                };
+
+                                $http(requestConfig)
                                     .success((response: any): void => {
 
                                         // many different attempts can be initiated and returned in different orders

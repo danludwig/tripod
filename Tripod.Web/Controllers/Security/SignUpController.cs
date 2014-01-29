@@ -60,6 +60,7 @@ namespace Tripod.Web.Controllers
             return RedirectToAction(await MVC.SignUp.VerifyConfirmEmailSecret(command.CreatedTicket, returnUrl));
         }
 
+        [ValidateAntiForgeryToken]
         [HttpPost, Route("sign-up/validate/{fieldName?}", Order = 1)]
         public virtual ActionResult ValidateSendConfirmationEmail(SendConfirmationEmail command, string fieldName = null)
         {
@@ -145,6 +146,7 @@ namespace Tripod.Web.Controllers
             return RedirectToAction(await MVC.SignUp.CreateLocalMembership(command.Token, returnUrl));
         }
 
+        [ValidateAntiForgeryToken]
         [HttpPost, Route("sign-up/{ticket}/validate/{fieldName?}", Order = 2)]
         public virtual ActionResult ValidateVerifyConfirmEmailSecret(VerifyConfirmEmailSecret command, string fieldName = null)
         {
@@ -212,6 +214,7 @@ namespace Tripod.Web.Controllers
             return this.RedirectToLocal(returnUrl, await MVC.User.ById(signIn.SignedIn.Id));
         }
 
+        [ValidateAntiForgeryToken]
         [HttpPost, Route("sign-up/register/validate/{fieldName?}", Order = 1)]
         public virtual ActionResult ValidateCreateLocalMembership(CreateLocalMembership command, string fieldName = null)
         {

@@ -16,8 +16,8 @@ namespace Tripod.Web.Controllers
         }
 
         [Authorize]
-        [HttpPost, Route("sign-out")]
         [ValidateAntiForgeryToken]
+        [HttpPost, Route("sign-out")]
         public virtual ActionResult Index()
         {
             _commands.Execute(new SignOut());

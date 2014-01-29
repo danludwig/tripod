@@ -60,6 +60,7 @@ namespace Tripod.Web.Controllers
             return RedirectToAction(await MVC.User.ById(command.UserId));
         }
 
+        [ValidateAntiForgeryToken]
         [HttpPost, Route("users/{userId:int}/name/validate")]
         public virtual ActionResult ValidateChangeName(ChangeUserName command)
         {

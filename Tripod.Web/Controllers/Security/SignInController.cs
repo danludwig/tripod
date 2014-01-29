@@ -38,6 +38,7 @@ namespace Tripod.Web.Controllers
             return this.RedirectToLocal(returnUrl, await MVC.User.ById(command.SignedIn.Id));
         }
 
+        [ValidateAntiForgeryToken]
         [HttpPost, Route("sign-in/validate/{fieldName?}")]
         public virtual ActionResult Validate(SignIn command, string fieldName = null)
         {

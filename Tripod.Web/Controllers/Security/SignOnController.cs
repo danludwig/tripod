@@ -244,6 +244,7 @@ namespace Tripod.Web.Controllers
             return this.RedirectToLocal(returnUrl, await MVC.User.ById(signOn.SignedOn.Id));
         }
 
+        [ValidateAntiForgeryToken]
         [HttpPost, Route("sign-on/register/validate/{fieldName?}", Order = 1)]
         public virtual ActionResult ValidateCreateRemoteMembership(CreateRemoteMembership command, string fieldName = null)
         {
