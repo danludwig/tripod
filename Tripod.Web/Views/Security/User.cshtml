@@ -77,7 +77,7 @@
 
 @{ Html.RenderPartial(MVC.Security.Views._UserJumbotron, Model.UserView); }
 
-@if (Model.UserView.UserId.ToString(CultureInfo.InvariantCulture) == User.Identity.GetUserId())
+@if (Model.UserView.UserId == User.Identity.GetAppUserId())
 {
     <div class="row">
         <div class="col-md-4 hidden-xs hidden-sm">

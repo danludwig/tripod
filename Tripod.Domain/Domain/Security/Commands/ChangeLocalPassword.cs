@@ -59,10 +59,10 @@ namespace Tripod.Domain.Security
 
         public async Task Handle(ChangeLocalPassword command)
         {
-            var userId = command.Principal.Identity.GetUserId();
+            var userId = command.Principal.Identity.GetAppUserId();
             var user = await _entities.Get<User>()
                 .EagerLoad(new Expression<Func<User, object>>[] { x => x.LocalMembership, })
-                .ByIdAsync(int.Parse(userId));
+                .ByIdAsync(userId);
 
             user.LocalMembership.PasswordHash = _userManager.PasswordHasher.HashPassword(command.NewPassword);
             user.SecurityStamp = Guid.NewGuid().ToString();

@@ -2,7 +2,6 @@
 using System.Security.Principal;
 using FluentValidation;
 using FluentValidation.Validators;
-using Microsoft.AspNet.Identity;
 
 namespace Tripod.Domain.Security
 {
@@ -22,10 +21,9 @@ namespace Tripod.Domain.Security
             var principal = (IPrincipal)context.PropertyValue;
             if (principal != null)
             {
-                var userId = principal.Identity.GetUserId();
-                if (userId != null)
+                if (principal.Identity.HasAppUserId())
                 {
-                    var entity = _queries.Execute(new LocalMembershipByUser(int.Parse(userId))).Result;
+                    var entity = _queries.Execute(new LocalMembershipByUser(principal.Identity.GetAppUserId())).Result;
                     if (entity != null) return true;
                 }
             }

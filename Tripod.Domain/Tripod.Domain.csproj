@@ -97,6 +97,7 @@
     </Compile>
     <Compile Include="Api\_Extensions\ExpressionExtensions.cs" />
     <Compile Include="Api\_Extensions\EntityExtensions.cs" />
+    <Compile Include="Api\_Extensions\IdentityExtensions.cs" />
     <Compile Include="Api\_Extensions\PathExtensions.cs" />
     <Compile Include="Api\_Extensions\ReflectionExtensions.cs" />
     <Compile Include="Api\_Extensions\StringExtensions.cs" />

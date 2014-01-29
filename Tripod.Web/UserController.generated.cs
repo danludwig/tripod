@@ -61,6 +61,13 @@ namespace Tripod.Web.Controllers
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ValidateChangeName);
         }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> EmailsById()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.EmailsById);
+            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
+        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public UserController Actions { get { return MVC.User; } }
@@ -80,6 +87,7 @@ namespace Tripod.Web.Controllers
             public readonly string ById = "ById";
             public readonly string ChangeName = "ChangeName";
             public readonly string ValidateChangeName = "ValidateChangeName";
+            public readonly string EmailsById = "EmailsById";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -88,6 +96,7 @@ namespace Tripod.Web.Controllers
             public const string ById = "ById";
             public const string ChangeName = "ChangeName";
             public const string ValidateChangeName = "ValidateChangeName";
+            public const string EmailsById = "EmailsById";
         }
 
 
@@ -114,6 +123,14 @@ namespace Tripod.Web.Controllers
         public class ActionParamsClass_ValidateChangeName
         {
             public readonly string command = "command";
+        }
+        static readonly ActionParamsClass_EmailsById s_params_EmailsById = new ActionParamsClass_EmailsById();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_EmailsById EmailsByIdParams { get { return s_params_EmailsById; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_EmailsById
+        {
+            public readonly string userId = "userId";
         }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -162,6 +179,16 @@ namespace Tripod.Web.Controllers
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "command", command);
             ValidateChangeNameOverride(callInfo, command);
             return callInfo;
+        }
+
+        partial void EmailsByIdOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int userId);
+
+        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> EmailsById(int userId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.EmailsById);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "userId", userId);
+            EmailsByIdOverride(callInfo, userId);
+            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
         }
 
     }

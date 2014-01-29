@@ -2,7 +2,6 @@
 using System.Security.Principal;
 using System.Threading.Tasks;
 using FluentValidation;
-using Microsoft.AspNet.Identity;
 
 namespace Tripod.Domain.Security
 {
@@ -73,9 +72,9 @@ namespace Tripod.Domain.Security
         public async Task Handle(CreateLocalMembership command)
         {
             // does user already exist?
-            var userId = command.Principal.Identity.GetUserId();
-            var user = userId != null ? await _entities.GetAsync<User>(int.Parse(userId)) : null;
-            if (userId == null)
+            var hasUserId = command.Principal.Identity.HasAppUserId();
+            var user = hasUserId ? await _entities.GetAsync<User>(command.Principal.Identity.GetAppUserId()) : null;
+            if (!hasUserId)
             {
                 var createUser = new CreateUser { Name = command.UserName };
                 await _commands.Execute(createUser);

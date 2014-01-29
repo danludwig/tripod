@@ -24,7 +24,7 @@ namespace Tripod.Domain.Security
             RuleFor(x => x.Principal)
                 .NotNull()
                 .MustFindUserByPrincipal(queries)
-                .MustBePrincipalWithUserId(queries, x => x.UserId)
+                .MustBePrincipalWithUserId(x => x.UserId)
                     .WithName(User.Constraints.Label);
 
             RuleFor(x => x.UserName)

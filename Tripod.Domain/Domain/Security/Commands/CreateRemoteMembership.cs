@@ -3,7 +3,6 @@ using System.Linq.Expressions;
 using System.Security.Principal;
 using System.Threading.Tasks;
 using FluentValidation;
-using Microsoft.AspNet.Identity;
 
 namespace Tripod.Domain.Security
 {
@@ -62,13 +61,13 @@ namespace Tripod.Domain.Security
         public async Task Handle(CreateRemoteMembership command)
         {
             // does user already exist?
-            var userId = command.Principal.Identity.GetUserId();
-            var user = userId != null ? await _entities.Get<User>()
+            var hasUserId = command.Principal.Identity.HasAppUserId();
+            var user = hasUserId ? await _entities.Get<User>()
                 .EagerLoad(new Expression<Func<User, object>>[]
                 {
                     x => x.RemoteMemberships,
                 })
-                .ByIdAsync(int.Parse(userId)) : command.User;
+                .ByIdAsync(command.Principal.Identity.GetAppUserId()) : command.User;
 
             if (user == null)
             {

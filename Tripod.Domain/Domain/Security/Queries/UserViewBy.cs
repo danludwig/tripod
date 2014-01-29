@@ -36,7 +36,7 @@ namespace Tripod.Domain.Security
             }
             else if (query.Principal != null && query.Principal.Identity.IsAuthenticated)
             {
-                queryable = queryable.Where(EntityExtensions.ById<User>(int.Parse(query.Principal.Identity.GetUserId())));
+                queryable = queryable.Where(EntityExtensions.ById<User>(query.Principal.Identity.GetAppUserId()));
             }
             else
             {

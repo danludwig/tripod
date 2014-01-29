@@ -41,7 +41,6 @@ namespace Tripod.Web
                     UserId = userId,
                 };
                 var cookieValue = cookieTokens.Generate(userToken);
-                //var cookieValue = queries.Execute(new ProtectedCookieToken(data.UserId, json)).Result;
                 cookie.Values[ClientCookieKey] = cookieValue;
                 cookie.Expires = DateTime.UtcNow.AddDays(60);
             }
@@ -52,7 +51,6 @@ namespace Tripod.Web
         public static ClientCookie ClientCookie(this HttpRequestBase request)
         {
             if (request == null) throw new ArgumentNullException("request");
-            //if (queries == null) throw new ArgumentNullException("queries");
 
             var json = "{}";
             var cookie = request.Cookies.Get(CookieName);
@@ -60,7 +58,6 @@ namespace Tripod.Web
             {
                 var protectedValue = cookie.Values[ClientCookieKey];
                 var cookieTokens = DependencyResolver.Current.GetService<IProvideTokenizers>().CookieEncryptionTokens;
-                //var userToken = queries.Execute(new UnprotectedCookieToken(protectedValue)).Result;
                 var userToken = cookieTokens.Validate(protectedValue);
                 if (userToken != null)
                 {

@@ -2,21 +2,17 @@
 using System.Security.Principal;
 using FluentValidation;
 using FluentValidation.Validators;
-using Microsoft.AspNet.Identity;
 
 namespace Tripod.Domain.Security
 {
     public class MustBePrincipalWithUserId<T> : PropertyValidator
     {
-        private readonly IProcessQueries _queries;
         private readonly Func<T, int> _userId;
 
-        internal MustBePrincipalWithUserId(IProcessQueries queries, Func<T, int> userId)
+        internal MustBePrincipalWithUserId(Func<T, int> userId)
             : base(() => Resources.Validation_UserCommand_NotAuthorized)
         {
-            if (queries == null) throw new ArgumentNullException("queries");
             if (userId == null) throw new ArgumentNullException("userId");
-            _queries = queries;
             _userId = userId;
         }
 
@@ -24,7 +20,7 @@ namespace Tripod.Domain.Security
         {
             var principal = (IPrincipal)context.PropertyValue;
             var userId = _userId((T)context.Instance);
-            if (int.Parse(principal.Identity.GetUserId()) == userId) return true;
+            if (principal.Identity.GetAppUserId() == userId) return true;
 
             context.MessageFormatter.AppendArgument("PropertyValue", principal.Identity.Name);
             context.MessageFormatter.AppendArgument("PropertyName", context.PropertyDescription.ToLower());
@@ -36,9 +32,9 @@ namespace Tripod.Domain.Security
     public static class MustBePrincipalWithUserIdExtensions
     {
         public static IRuleBuilderOptions<T, IPrincipal> MustBePrincipalWithUserId<T>
-            (this IRuleBuilder<T, IPrincipal> ruleBuilder, IProcessQueries queries, Func<T, int> userId)
+            (this IRuleBuilder<T, IPrincipal> ruleBuilder, Func<T, int> userId)
         {
-            return ruleBuilder.SetValidator(new MustBePrincipalWithUserId<T>(queries, userId));
+            return ruleBuilder.SetValidator(new MustBePrincipalWithUserId<T>(userId));
         }
     }
 }

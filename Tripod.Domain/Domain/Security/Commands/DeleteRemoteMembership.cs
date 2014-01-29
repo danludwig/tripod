@@ -26,7 +26,7 @@ namespace Tripod.Domain.Security
 
                 // to delete this remote membership, user must either have a local password or a different external login
                 .MustFindLocalMembershipByPrincipal(queries)
-                    .When(x => !queries.Execute(new RemoteMembershipsByUser(int.Parse(x.Principal.Identity.GetUserId())))
+                    .When(x => !queries.Execute(new RemoteMembershipsByUser(x.Principal.Identity.GetAppUserId()))
                         .Result.Any(y => y.LoginProvider != x.LoginProvider && y.ProviderKey != x.ProviderKey),
                             ApplyConditionTo.CurrentValidator)
                     .WithMessage(Resources.Validation_RemoteMembershipByUser_IsOnlyLogin)
@@ -54,11 +54,11 @@ namespace Tripod.Domain.Security
 
         public async Task Handle(DeleteRemoteMembership command)
         {
-            var userId = command.Principal.Identity.GetUserId();
+            var userId = command.Principal.Identity.GetAppUserId();
             var userLoginInfo = new UserLoginInfo(command.LoginProvider, command.ProviderKey);
             var remoteMembership = await _entities.Get<RemoteMembership>()
                 .EagerLoad(new Expression<Func<RemoteMembership, object>>[] { x => x.Owner, })
-                .ByUserIdAndLoginInfoAsync(int.Parse(userId), userLoginInfo);
+                .ByUserIdAndLoginInfoAsync(userId, userLoginInfo);
             if (remoteMembership == null) return;
 
             _entities.Delete(remoteMembership);

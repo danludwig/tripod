@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 using Tripod.Domain.Security;
 using Tripod.Web.Models;
 
@@ -15,6 +16,8 @@ namespace Tripod.Web.Controllers
             _queries = queries;
             _commands = commands;
         }
+
+        #region ChangeUserName (default form)
 
         [HttpGet, Route("users/{userId:int}")]
         public virtual async Task<ActionResult> ById(int userId)
@@ -35,6 +38,7 @@ namespace Tripod.Web.Controllers
             return View(MVC.Security.Views.User, model);
         }
 
+        [Authorize]
         [ValidateAntiForgeryToken]
         [HttpPut, Route("users/{userId:int}/name")]
         public virtual async Task<ActionResult> ChangeName(ChangeUserName command)
@@ -60,6 +64,7 @@ namespace Tripod.Web.Controllers
             return RedirectToAction(await MVC.User.ById(command.UserId));
         }
 
+        [Authorize]
         [ValidateAntiForgeryToken]
         [HttpPost, Route("users/{userId:int}/name/validate")]
         public virtual ActionResult ValidateChangeName(ChangeUserName command)
@@ -78,5 +83,32 @@ namespace Tripod.Web.Controllers
 
             return new CamelCaseJsonResult(result);
         }
+
+        #endregion
+        #region ChangeUserName (default form)
+
+        [HttpGet, Route("users/{userId:int}/emails")]
+        public virtual async Task<ActionResult> EmailsById(int userId)
+        {
+            // user must be authorized to view this data
+            //var userId = User.Identity.GetUserId();
+
+            var view = await _queries.Execute(new UserViewBy(userId));
+            if (view == null) return HttpNotFound();
+
+            var model = new ChangeUserNameModel
+            {
+                UserView = view,
+                Command = new ChangeUserName
+                {
+                    UserId = userId,
+                    UserName = User.Identity.Name,
+                },
+            };
+
+            return View(MVC.Security.Views.User, model);
+        }
+
+        #endregion
     }
 }
