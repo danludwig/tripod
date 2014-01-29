@@ -1,0 +1,37 @@
+@import "compass/css3";
+@import "../global-variables";
+@import "compass/typography/text/ellipsis";
+
+body {
+    nav.user {
+
+        ul > li > a > i {
+            /* color user nav icons black when not active */
+            color: #000;
+        }
+        ul > li.active > a > i {
+            /* color user nav icons white when active */
+            color: #fff;
+        }
+
+        li.nav-header {
+            a {
+                margin-bottom: 2px;
+                border-radius: 5px 5px 0 0;
+                border: solid 1px #ddd;
+                padding: 4px;
+                background-color: #f5f5f5;
+                @include ellipsis();
+                display: block;
+                color: #333;
+                &:hover {
+                    background-color: #e7e7e7;
+                    text-decoration: none;
+                }
+            }
+            img.gravatar {
+                margin-right: 4px;
+            }
+        }
+    }
+}

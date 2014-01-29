@@ -35,7 +35,7 @@ namespace Tripod.Web.Controllers
             if (!ModelState.IsValid) return View(MVC.Security.Views.SignIn, command);
             await _commands.Execute(command);
             Response.ClientCookie(command.SignedIn.Id, _queries);
-            return this.RedirectToLocal(returnUrl, await MVC.User.ById(command.SignedIn.Id));
+            return this.RedirectToLocal(returnUrl, await MVC.User.SettingsIndex());
         }
 
         [ValidateAntiForgeryToken]

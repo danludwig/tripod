@@ -1,11 +1,12 @@
-﻿@using Tripod
+﻿@using Microsoft.AspNet.Identity
 @using Tripod.Domain.Security
+@using UserConstraints = Tripod.Domain.Security.User.Constraints
 
 @model ChangeUserName
 
 <form role="form"
       method="POST"
-      action="@Url.Action(MVC.User.ChangeName())"
+      action="@Url.Action(MVC.User.ChangeUserName())"
       novalidate
       ng-app="change-username-form"
       ng-controller="App.Security.ChangeUserNameForm.Controller"
@@ -16,6 +17,7 @@
 
     @Html.AntiForgeryToken()
     @Html.HttpMethodOverride(HttpVerbs.Put)
+    <input type="hidden" name="userId" value="@User.Identity.GetUserId()" />
 
     @Html.ValidationSummary(true)
     @{
@@ -32,7 +34,7 @@
         <div class="col-md-8">
             @* LABEL *@
             <label for="@Html.IdFor(x => x.UserName)" class="control-label">
-                @Tripod.Domain.Security.User.Constraints.NameLabel
+                @UserConstraints.NameLabel
             </label>
             <small>@Resources.Validation_UserName_AllowedCharacters.Replace("{PropertyName}", "-")</small>
             <div class="@Html.CssClassWhenInvalidFor(x => x.UserName, inputGroupCss)"
@@ -40,7 +42,7 @@
                  ng-class="changeUserNameCtrb.userName.inputGroupCssClass('lg')">
                 <input type="text"
                        class="form-control @inputCss"
-                       placeholder="Enter @Tripod.Domain.Security.User.Constraints.NameLabel.ToLower() here"
+                       placeholder="Enter @UserConstraints.NameLabel.ToLower() here"
                        id="@Html.IdFor(x => x.UserName)"
                        name="userName"
                        value="@Html.ValueFor(x => x.UserName)"
@@ -49,7 +51,7 @@
                        required
                        model-contrib
                        server-error="@Html.ValidationMessageTextFor(x => x.UserName)"
-                       server-validate="@Url.Action(MVC.User.ValidateChangeName())"
+                       server-validate="@Url.Action(MVC.User.ValidateChangeUserName())"
                        server-validate-data="{ token: vm.token }"
                        server-validate-throttle="400" />
 
@@ -67,7 +69,7 @@
 
         @* VALIDATION MESSAGES COLUMNS *@
         <div class="col-md-4 validation help-block help-block-horizontal-md under-label hidden-sm hidden-xs">
-            <span tooltip="@Resources.notempty_error.Replace("{PropertyName}", Tripod.Domain.Security.User.Constraints.NameLabel)"
+            <span tooltip="@Resources.notempty_error.Replace("{PropertyName}", UserConstraints.NameLabel)"
                   tooltip-toggle="vm.isUserNameRequiredError()"
                   tooltip-animation="false"
                   tooltip-placement="right"
@@ -81,7 +83,7 @@
         </div>
         <div class="col-md-4 validation help-block hidden-md hidden-lg">
             <span ng-show="vm.isUserNameRequiredError()" ng-cloak>
-                @Resources.notempty_error.Replace("{PropertyName}", Tripod.Domain.Security.User.Constraints.NameLabel)
+                @Resources.notempty_error.Replace("{PropertyName}", UserConstraints.NameLabel)
             </span>
             <span ng-show="vm.isUserNameServerError()" ng-cloak>
                 {{ changeUserNameCtrb.userName.error.server }}
@@ -114,9 +116,9 @@
                        ng-show="vm.isSubmitError()"></i>
                     <i class="fa fa-fw fa-spinner fa-spin spin-fast"
                        ng-show="vm.isSubmitWaiting()" ng-cloak></i>
-                    Change @Tripod.Domain.Security.User.Constraints.NameLabel.ToLower()
+                    Change @UserConstraints.NameLabel.ToLower()
                 </button>
-                <a href="@Url.Action(MVC.User.ById())" class="nudge-right"
+                <a href="@Url.Action(MVC.User.ChangeUserName())" class="nudge-right"
                    ng-click="vm.restoreOrigialUserName($event)"
                    ng-init="vm.originalUserName='@(Html.ValueFor(x => x.UserName).ToString() != "" ? Html.ValueForJavaScriptString(x => x.UserName) : MvcHtmlString.Create(User.Identity.Name))'">
                     Cancel
@@ -126,7 +128,7 @@
                  remove-class="@errorClass"
                  ng-show="vm.isSubmitError()">
                 <div class="help-block">
-                    Could not change @Tripod.Domain.Security.User.Constraints.NameLabel.ToLower() due to above error(s).
+                    Could not change @UserConstraints.NameLabel.ToLower() due to above error(s).
                 </div>
             </div>
         </div>

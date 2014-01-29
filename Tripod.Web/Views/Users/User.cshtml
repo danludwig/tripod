@@ -1,0 +1,24 @@
+﻿@using Tripod.Domain.Security
+
+@model UserView
+
+@{
+    ViewBag.Title = User.Identity.Name;
+    var isMyPage = User.Identity.HasAppUserId() && User.Identity.GetAppUserId() == Model.UserId;
+}
+
+@{ Html.RenderPartial(MVC.Users.Views._UserJumbotron); }
+
+@if (isMyPage)
+{
+    <ol class="breadcrumb">
+        <li class="active">
+            <a href="@Url.Action(MVC.User.SettingsIndex())">
+                General settings
+            </a>
+        </li>
+        <li class="active">
+            My public page
+        </li>
+    </ol>
+}

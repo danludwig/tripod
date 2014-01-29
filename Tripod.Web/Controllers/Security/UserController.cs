@@ -1,6 +1,5 @@
 ﻿using System.Threading.Tasks;
 using System.Web.Mvc;
-using Microsoft.AspNet.Identity;
 using Tripod.Domain.Security;
 using Tripod.Web.Models;
 
@@ -19,10 +18,10 @@ namespace Tripod.Web.Controllers
 
         #region ChangeUserName (default form)
 
-        [HttpGet, Route("users/{userId:int}")]
-        public virtual async Task<ActionResult> ById(int userId)
+        [HttpGet, Route("settings")]
+        public virtual async Task<ActionResult> SettingsIndex()
         {
-            var view = await _queries.Execute(new UserViewBy(userId));
+            var view = await _queries.Execute(new UserViewBy(User.Identity.GetAppUserId()));
             if (view == null) return HttpNotFound();
 
             var model = new ChangeUserNameModel
@@ -30,8 +29,8 @@ namespace Tripod.Web.Controllers
                 UserView = view,
                 Command = new ChangeUserName
                 {
-                    UserId = userId,
-                    UserName = User.Identity.Name,
+                    UserId = view.UserId,
+                    UserName = view.UserName,
                 },
             };
 
@@ -40,8 +39,8 @@ namespace Tripod.Web.Controllers
 
         [Authorize]
         [ValidateAntiForgeryToken]
-        [HttpPut, Route("users/{userId:int}/name")]
-        public virtual async Task<ActionResult> ChangeName(ChangeUserName command)
+        [HttpPut, Route("settings/username")]
+        public virtual async Task<ActionResult> ChangeUserName(ChangeUserName command)
         {
             if (command == null) return View(MVC.Errors.BadRequest());
 
@@ -61,13 +60,13 @@ namespace Tripod.Web.Controllers
 
             await _commands.Execute(command);
             Response.ClientCookie(command.SignedIn.Id, _queries);
-            return RedirectToAction(await MVC.User.ById(command.UserId));
+            return RedirectToAction(await MVC.User.SettingsIndex());
         }
 
         [Authorize]
         [ValidateAntiForgeryToken]
-        [HttpPost, Route("users/{userId:int}/name/validate")]
-        public virtual ActionResult ValidateChangeName(ChangeUserName command)
+        [HttpPost, Route("settings/username/validate")]
+        public virtual ActionResult ValidateChangeUserName(ChangeUserName command)
         {
             //System.Threading.Thread.Sleep(new Random().Next(5000, 5001));
             if (command == null)
@@ -85,15 +84,17 @@ namespace Tripod.Web.Controllers
         }
 
         #endregion
-        #region ChangeUserName (default form)
+        #region EmailAddresses
 
-        [HttpGet, Route("users/{userId:int}/emails")]
-        public virtual async Task<ActionResult> EmailsById(int userId)
+        [Authorize]
+        [HttpGet, Route("settings/emails")]
+        public virtual async Task<ActionResult> Emails()
         {
             // user must be authorized to view this data
-            //var userId = User.Identity.GetUserId();
+            //if (userId != User.Identity.GetAppUserId())
+            //    return View(MVC.Errors.Views.Forbidden);
 
-            var view = await _queries.Execute(new UserViewBy(userId));
+            var view = await _queries.Execute(new UserViewBy(User.Identity.GetAppUserId()));
             if (view == null) return HttpNotFound();
 
             var model = new ChangeUserNameModel
@@ -101,8 +102,8 @@ namespace Tripod.Web.Controllers
                 UserView = view,
                 Command = new ChangeUserName
                 {
-                    UserId = userId,
-                    UserName = User.Identity.Name,
+                    UserId = view.UserId,
+                    UserName = view.UserName,
                 },
             };
 

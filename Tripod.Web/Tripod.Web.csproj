@@ -245,6 +245,7 @@
     <Compile Include="Controllers\Security\SignUpController.cs" />
     <Compile Include="Controllers\Security\SignInController.cs" />
     <Compile Include="Controllers\Security\UserController.cs" />
+    <Compile Include="Controllers\Users\UsersController.cs" />
     <Compile Include="ErrorsController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
@@ -308,6 +309,9 @@
     <Compile Include="UserController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
+    <Compile Include="UsersController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="app\errors\Haikus.js">
@@ -367,6 +371,7 @@
     <Content Include="content\compass-defaults\screen.css" />
     <Content Include="content\font-awesome.css" />
     <Content Include="content\font-awesome.min.css" />
+    <Content Include="content\security\user-settings.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -410,6 +415,7 @@
     <Content Include="fonts\fontawesome-webfont.eot" />
     <Content Include="fonts\FontAwesome.otf" />
     <Content Include="compass\_global-variables.scss" />
+    <Content Include="compass\security\user-settings.scss" />
     <None Include="config.rb" />
     <None Include="compass\compass-defaults\ie.scss">
       <Compile>True</Compile>
@@ -753,8 +759,9 @@
     <Content Include="Views\Security\SignOnCreateRemoteMembership.cshtml" />
     <Content Include="Views\Security\User.cshtml" />
     <Content Include="Views\Shared\_LayoutNavbar.cshtml" />
-    <Content Include="Views\Security\_UserJumbotron.cshtml" />
+    <Content Include="Views\Users\_UserJumbotron.cshtml" />
     <Content Include="Views\Security\_ChangeUserNameForm.cshtml" />
+    <Content Include="Views\Users\User.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

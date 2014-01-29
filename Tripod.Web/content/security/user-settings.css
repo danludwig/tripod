@@ -1,0 +1,29 @@
+/* line 8, ../../compass/security/user-settings.scss */
+body nav.user ul > li > a > i {
+  /* color user nav icons black when not active */
+  color: #000; }
+/* line 12, ../../compass/security/user-settings.scss */
+body nav.user ul > li.active > a > i {
+  /* color user nav icons white when active */
+  color: #fff; }
+/* line 18, ../../compass/security/user-settings.scss */
+body nav.user li.nav-header a {
+  margin-bottom: 2px;
+  border-radius: 5px 5px 0 0;
+  border: solid 1px #ddd;
+  padding: 4px;
+  background-color: #f5f5f5;
+  white-space: nowrap;
+  overflow: hidden;
+  -ms-text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+  display: block;
+  color: #333; }
+  /* line 27, ../../compass/security/user-settings.scss */
+  body nav.user li.nav-header a:hover {
+    background-color: #e7e7e7;
+    text-decoration: none; }
+/* line 32, ../../compass/security/user-settings.scss */
+body nav.user li.nav-header img.gravatar {
+  margin-right: 4px; }

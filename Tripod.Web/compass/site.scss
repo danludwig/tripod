@@ -1,5 +1,6 @@
 @import "compass/css3";
 @import "global-variables";
+@import "compass/typography/text/ellipsis";
 
 /* Primary layout styles */
 html {
@@ -210,185 +211,6 @@ body {
     }
 }
 
-/* oauth sign in buttons */
-body {
-    .providers.row {
-
-        margin-top: 20px;
-        margin-bottom: 20px;
-
-        button {
-            text-align: left;
-            width: 100%;
-            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-            font-size: 15px;
-            color: #fff;
-
-            i {
-                display: block;
-                float: left;
-            }
-
-            &.btn-lg {
-                padding: 0 8px;
-                height: 42px; /* this may need to change if there is no btn-lg */
-                line-height: 40px;
-
-                i {
-                    height: 42px;
-                    line-height: 40px;
-                    width: 32px;
-                }
-            }
-
-            &.google {
-                background-color: #dd4b39;
-
-                &:hover {
-                    background-color: #e94a2f;
-                }
-
-                &:active {
-                    background-color: #be3e2e;
-                }
-
-                i {
-                    background-image: url(../images/oauth-buttons/google/Red-signin-Small-transparent-44dp.png);
-                    @include background-size(auto 36px);
-                    background-repeat: no-repeat;
-                    background-position: -4px 2px;
-                }
-            }
-
-            &.facebook {
-                background-color: #3b5998;
-
-                &:hover {
-                    background-color: #4c69a3;
-                }
-
-                &:active {
-                    background-color: #2f477a;
-                }
-
-                i {
-                    background-image: url(../images/oauth-buttons/facebook/f-white-around-transparent.png);
-                    @include background-size(auto 24px);
-                    background-repeat: no-repeat;
-                    background-position: 1px 8px;
-                }
-            }
-
-            &.twitter {
-                background-color: #1daee3;
-
-                &:hover {
-                    background-color: #00bbff;
-                }
-
-                &:active {
-                    background-color: #2b93b9;
-                }
-
-                i {
-                    background-image: url(../images/oauth-buttons/twitter/bird-white-on-transparent-30-22.png);
-                    background-repeat: no-repeat;
-                    background-position: -1px 10px;
-                }
-            }
-        }
-    }
-}
-
-/* wziard progress bar */
-body {
-    .wizard {
-        /* https://github.com/twbs/bootstrap/issues/1982 http://jsfiddle.net/H7J94/5/ */
-        padding: 0;
-        margin: 0;
-
-        .step {
-            padding: 6px 8px;
-            margin-right: 5px;
-            background-color: #5bc0de;
-            color: #fff;
-            position: relative;
-            display: inline-block;
-            margin-bottom: 4px;
-
-            &:before, &:after {
-                width: 0;
-                height: 0;
-                border: 16px solid transparent;
-                position: absolute;
-                content: '';
-                top: 0;
-            }
-
-            &:before {
-                border-left-color:#fff;
-                left: 0;
-            }
-
-            &:after {
-                border-left-color: #5bc0de;
-                border-right-width: 0;
-                right: -16px;
-                z-index: 2;
-            }
-
-            .badge {
-                margin: 0 5px 0 16px;
-                position: relative;
-                top: -1px;
-                color: #5bc0de;
-                background-color: #fff;
-            }
-
-            &.primary {
-                background: #007ACC;
-                color: #fff;
-
-                &:after {
-                    border-left-color: #007ACC;
-                }
-
-                .badge {
-                    background-color: #fff;
-                    color: #007ACC;
-                }
-            }
-
-            &.success {
-                background: #468847;
-                color: #dff0d8;
-
-                &:after {
-                    border-left-color: #468847;
-                }
-
-                .badge {
-                    background-color: #dff0d8;
-                    color: #468847;
-                }
-            }
-
-            &.completed {
-                text-decoration: line-through;
-            }
-
-            a {
-                color: #fff;
-                text-decoration: underline;
-
-                &:hover {
-                    text-decoration: none;
-                }
-            }
-        }
-    }
-}
-
 /* validation input group add-on & icon */
 body {
     .input-group-addon.validation {
@@ -552,6 +374,214 @@ body {
         /* hide padding on image buttons */
         padding: 0;
         border: 0;
+    }
+}
+
+/* wziard progress bar */
+body {
+    .wizard {
+        /* https://github.com/twbs/bootstrap/issues/1982 http://jsfiddle.net/H7J94/5/ */
+        padding: 0;
+        margin: 0;
+
+        .step {
+            padding: 6px 8px;
+            margin-right: 5px;
+            background-color: #5bc0de;
+            color: #fff;
+            position: relative;
+            display: inline-block;
+            margin-bottom: 4px;
+
+            &:before, &:after {
+                width: 0;
+                height: 0;
+                border: 16px solid transparent;
+                position: absolute;
+                content: '';
+                top: 0;
+            }
+
+            &:before {
+                border-left-color:#fff;
+                left: 0;
+            }
+
+            &:after {
+                border-left-color: #5bc0de;
+                border-right-width: 0;
+                right: -16px;
+                z-index: 2;
+            }
+
+            .badge {
+                margin: 0 5px 0 16px;
+                position: relative;
+                top: -1px;
+                color: #5bc0de;
+                background-color: #fff;
+            }
+
+            &.primary {
+                background: #007ACC;
+                color: #fff;
+
+                &:after {
+                    border-left-color: #007ACC;
+                }
+
+                .badge {
+                    background-color: #fff;
+                    color: #007ACC;
+                }
+            }
+
+            &.success {
+                background: #468847;
+                color: #dff0d8;
+
+                &:after {
+                    border-left-color: #468847;
+                }
+
+                .badge {
+                    background-color: #dff0d8;
+                    color: #468847;
+                }
+            }
+
+            &.completed {
+                text-decoration: line-through;
+            }
+
+            a {
+                color: #fff;
+                text-decoration: underline;
+
+                &:hover {
+                    text-decoration: none;
+                }
+            }
+        }
+    }
+}
+
+/* oauth sign in buttons */
+body {
+    .providers.row {
+
+        margin-top: 20px;
+        margin-bottom: 20px;
+
+        button {
+            text-align: left;
+            width: 100%;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-size: 15px;
+            color: #fff;
+
+            i {
+                display: block;
+                float: left;
+            }
+
+            &.btn-lg {
+                padding: 0 8px;
+                height: 42px; /* this may need to change if there is no btn-lg */
+                line-height: 40px;
+
+                i {
+                    height: 42px;
+                    line-height: 40px;
+                    width: 32px;
+                }
+            }
+
+            &.google {
+                background-color: #dd4b39;
+
+                &:hover {
+                    background-color: #e94a2f;
+                }
+
+                &:active {
+                    background-color: #be3e2e;
+                }
+
+                i {
+                    background-image: url(../images/oauth-buttons/google/Red-signin-Small-transparent-44dp.png);
+                    @include background-size(auto 36px);
+                    background-repeat: no-repeat;
+                    background-position: -4px 2px;
+                }
+            }
+
+            &.facebook {
+                background-color: #3b5998;
+
+                &:hover {
+                    background-color: #4c69a3;
+                }
+
+                &:active {
+                    background-color: #2f477a;
+                }
+
+                i {
+                    background-image: url(../images/oauth-buttons/facebook/f-white-around-transparent.png);
+                    @include background-size(auto 24px);
+                    background-repeat: no-repeat;
+                    background-position: 1px 8px;
+                }
+            }
+
+            &.twitter {
+                background-color: #1daee3;
+
+                &:hover {
+                    background-color: #00bbff;
+                }
+
+                &:active {
+                    background-color: #2b93b9;
+                }
+
+                i {
+                    background-image: url(../images/oauth-buttons/twitter/bird-white-on-transparent-30-22.png);
+                    background-repeat: no-repeat;
+                    background-position: -1px 10px;
+                }
+            }
+        }
+    }
+}
+
+/* user jumbotron */
+body {
+    .user.jumbotron {
+        margin-bottom: 12px;
+        h1 {
+            margin: 0;
+            @include ellipsis();
+            overflow-y: visible;
+            display: block;
+            line-height: normal;
+        }
+        p.lead {
+            margin-bottom: 0;
+            @include ellipsis();
+            overflow-y: visible;
+        }
+        img.gravatar {
+            width: 64px;
+            margin-right: 16px;
+        }
+        @media (min-width: $screen-sm-min) {
+            img.gravatar {
+                width: 108px;
+                margin-right: 20px;
+            }
+        }
     }
 }
 

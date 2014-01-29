@@ -1,53 +1,53 @@
 /* Primary layout styles */
-/* line 5, ../compass/site.scss */
+/* line 6, ../compass/site.scss */
 html {
   /* height:100% is necessary on both html and body for the sticky footer to work */
   height: 100%; }
-  /* line 8, ../compass/site.scss */
+  /* line 9, ../compass/site.scss */
   html body {
     height: 100%;
     padding-top: 50px;
     padding-bottom: 20px;
     /* Set padding to keep content from hitting the edges */ }
-    /* line 13, ../compass/site.scss */
+    /* line 14, ../compass/site.scss */
     html body #wrap {
       /* styles used for the sticky footer */
       min-height: 100%;
       height: auto !important;
       margin: 0 auto -80px;
       padding: 0 0 80px; }
-    /* line 20, ../compass/site.scss */
+    /* line 21, ../compass/site.scss */
     html body #footer {
       /* footer height should be padded by other sticky footer styles */
       height: 80px; }
-    /* line 26, ../compass/site.scss */
+    /* line 27, ../compass/site.scss */
     html body .body-content {
       /* give the main content block some left & right spacing */
       padding-left: 15px;
       padding-right: 15px; }
-    /* line 33, ../compass/site.scss */
+    /* line 34, ../compass/site.scss */
     html body hr.hr-space {
       border-color: transparent; }
-    /* line 34, ../compass/site.scss */
+    /* line 35, ../compass/site.scss */
     html body hr.hr-md {
       margin: 12px 0; }
-    /* line 35, ../compass/site.scss */
+    /* line 36, ../compass/site.scss */
     html body hr.hr-sm {
       margin: 4px 0; }
 
 /* useful classes */
-/* line 42, ../compass/site.scss */
+/* line 43, ../compass/site.scss */
 body ol.no-indent, body ul.no-indent {
   padding-left: 15px; }
-/* line 45, ../compass/site.scss */
+/* line 46, ../compass/site.scss */
 body .nudge-right {
   margin-left: 12px; }
-/* line 48, ../compass/site.scss */
+/* line 49, ../compass/site.scss */
 body .scalp {
   margin-top: 0; }
 
 /* bootstrap warning opacity treatments */
-/* line 55, ../compass/site.scss */
+/* line 56, ../compass/site.scss */
 body .alert-warning {
   /* default bootstrap warnings are rather opaque on some monitors */
   /* could override in template and custom-build using compass or less */
@@ -55,48 +55,48 @@ body .alert-warning {
   color: #c09853;
   background-color: #f7eaa7;
   border-color: #dcc968; }
-/* line 63, ../compass/site.scss */
+/* line 64, ../compass/site.scss */
 body .alert-inline {
   display: inline-block; }
 
 /* bootstrap .btn-link outlining */
-/* line 71, ../compass/site.scss */
+/* line 72, ../compass/site.scss */
 body .btn-link:focus {
   outline: 0;
   text-decoration: none; }
-/* line 75, ../compass/site.scss */
+/* line 76, ../compass/site.scss */
 body .btn-link:hover {
   text-decoration: underline; }
 
 /* angular ng-cloak directive */
-/* line 82, ../compass/site.scss */
+/* line 83, ../compass/site.scss */
 [ng-cloak], .ng-cloak {
   display: none !important; }
 
 /* navbar treatments */
-/* line 88, ../compass/site.scss */
+/* line 89, ../compass/site.scss */
 body .tripod-navbar .navbar-collapse {
   clear: both; }
 @media (min-width: 768px) {
-  /* line 92, ../compass/site.scss */
+  /* line 93, ../compass/site.scss */
   body .tripod-navbar .navbar-collapse {
     clear: none; } }
-/* line 96, ../compass/site.scss */
+/* line 97, ../compass/site.scss */
 body .tripod-navbar a.navbar-link {
   display: inline-block;
   float: left;
   margin: 0;
   border: 0;
   padding: 15px; }
-  /* line 102, ../compass/site.scss */
+  /* line 103, ../compass/site.scss */
   body .tripod-navbar a.navbar-link:hover, body .tripod-navbar a.navbar-link:focus {
     text-decoration: none; }
-/* line 108, ../compass/site.scss */
+/* line 109, ../compass/site.scss */
 body .tripod-navbar nav.user a.dropdown-toggle img.gravatar {
   float: left;
   height: 20px;
   margin-right: 8px; }
-/* line 113, ../compass/site.scss */
+/* line 114, ../compass/site.scss */
 body .tripod-navbar nav.user a.dropdown-toggle .display-name {
   /* set max width & ellipsis overflow in case data is too long */
   float: left;
@@ -107,19 +107,19 @@ body .tripod-navbar nav.user a.dropdown-toggle .display-name {
   -o-text-overflow: ellipsis;
   text-overflow: ellipsis;
   overflow: hidden; }
-/* line 124, ../compass/site.scss */
+/* line 125, ../compass/site.scss */
 body .tripod-navbar nav.user a.dropdown-toggle i.caret {
   /* position icon vertically with data text */
   display: inline-block;
   margin-left: 8px; }
 @media (min-width: 542px) {
-  /* line 130, ../compass/site.scss */
+  /* line 131, ../compass/site.scss */
   body .tripod-navbar nav.user a.dropdown-toggle .display-name {
     max-width: 290px; } }
-/* line 136, ../compass/site.scss */
+/* line 137, ../compass/site.scss */
 body .tripod-navbar nav.user .open.btn-group a.dropdown-toggle {
   color: #000; }
-/* line 143, ../compass/site.scss */
+/* line 144, ../compass/site.scss */
 body .tripod-navbar nav.user ul.dropdown-menu > li > form > button {
   display: block;
   padding: 3px 20px;
@@ -133,267 +133,116 @@ body .tripod-navbar nav.user ul.dropdown-menu > li > form > button {
   border: 0;
   background-color: transparent;
   outline: none; }
-  /* line 157, ../compass/site.scss */
+  /* line 158, ../compass/site.scss */
   body .tripod-navbar nav.user ul.dropdown-menu > li > form > button:hover, body .tripod-navbar nav.user ul.dropdown-menu > li > form > button:focus {
     color: #ffffff;
     text-decoration: none;
     background-color: #428bca; }
-/* line 170, ../compass/site.scss */
+/* line 171, ../compass/site.scss */
 body .tripod-navbar.navbar-inverse nav.user .open.btn-group a.dropdown-toggle {
   /* color the dropdown caret along with the rest of the link state */
   color: #fff; }
-  /* line 173, ../compass/site.scss */
+  /* line 174, ../compass/site.scss */
   body .tripod-navbar.navbar-inverse nav.user .open.btn-group a.dropdown-toggle i.caret {
     border-top-color: #fff; }
-/* line 180, ../compass/site.scss */
+/* line 181, ../compass/site.scss */
 body .tripod-navbar.navbar-inverse nav.user .btn-group a.dropdown-toggle i.caret {
   border-top-color: #999; }
-/* line 183, ../compass/site.scss */
+/* line 184, ../compass/site.scss */
 body .tripod-navbar.navbar-inverse nav.user .btn-group a.dropdown-toggle:hover i.caret {
   border-top-color: #fff; }
 
-/* line 193, ../compass/site.scss */
+/* line 194, ../compass/site.scss */
 body nav ul > li > a > i, body nav ol > li > a > i {
   margin-right: 8px; }
 
 /* font-awesome treatments */
-/* line 201, ../compass/site.scss */
+/* line 202, ../compass/site.scss */
 body .fa-spin.spin-fast {
   -webkit-filter: blur(0); }
-  /* line 204, ../compass/site.scss */
+  /* line 205, ../compass/site.scss */
   body .fa-spin.spin-fast.spin-fast {
     -webkit-animation: spin 1s infinite linear;
     -moz-animation: spin 1s infinite linear;
     -o-animation: spin 1s infinite linear;
     animation: spin 1s infinite linear; }
 
-/* oauth sign in buttons */
-/* line 215, ../compass/site.scss */
-body .providers.row {
-  margin-top: 20px;
-  margin-bottom: 20px; }
-  /* line 220, ../compass/site.scss */
-  body .providers.row button {
-    text-align: left;
-    width: 100%;
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    font-size: 15px;
-    color: #fff; }
-    /* line 227, ../compass/site.scss */
-    body .providers.row button i {
-      display: block;
-      float: left; }
-    /* line 232, ../compass/site.scss */
-    body .providers.row button.btn-lg {
-      padding: 0 8px;
-      height: 42px;
-      /* this may need to change if there is no btn-lg */
-      line-height: 40px; }
-      /* line 237, ../compass/site.scss */
-      body .providers.row button.btn-lg i {
-        height: 42px;
-        line-height: 40px;
-        width: 32px; }
-    /* line 244, ../compass/site.scss */
-    body .providers.row button.google {
-      background-color: #dd4b39; }
-      /* line 247, ../compass/site.scss */
-      body .providers.row button.google:hover {
-        background-color: #e94a2f; }
-      /* line 251, ../compass/site.scss */
-      body .providers.row button.google:active {
-        background-color: #be3e2e; }
-      /* line 255, ../compass/site.scss */
-      body .providers.row button.google i {
-        background-image: url(../images/oauth-buttons/google/Red-signin-Small-transparent-44dp.png);
-        -webkit-background-size: auto 36px;
-        -moz-background-size: auto 36px;
-        -o-background-size: auto 36px;
-        background-size: auto 36px;
-        background-repeat: no-repeat;
-        background-position: -4px 2px; }
-    /* line 263, ../compass/site.scss */
-    body .providers.row button.facebook {
-      background-color: #3b5998; }
-      /* line 266, ../compass/site.scss */
-      body .providers.row button.facebook:hover {
-        background-color: #4c69a3; }
-      /* line 270, ../compass/site.scss */
-      body .providers.row button.facebook:active {
-        background-color: #2f477a; }
-      /* line 274, ../compass/site.scss */
-      body .providers.row button.facebook i {
-        background-image: url(../images/oauth-buttons/facebook/f-white-around-transparent.png);
-        -webkit-background-size: auto 24px;
-        -moz-background-size: auto 24px;
-        -o-background-size: auto 24px;
-        background-size: auto 24px;
-        background-repeat: no-repeat;
-        background-position: 1px 8px; }
-    /* line 282, ../compass/site.scss */
-    body .providers.row button.twitter {
-      background-color: #1daee3; }
-      /* line 285, ../compass/site.scss */
-      body .providers.row button.twitter:hover {
-        background-color: #00bbff; }
-      /* line 289, ../compass/site.scss */
-      body .providers.row button.twitter:active {
-        background-color: #2b93b9; }
-      /* line 293, ../compass/site.scss */
-      body .providers.row button.twitter i {
-        background-image: url(../images/oauth-buttons/twitter/bird-white-on-transparent-30-22.png);
-        background-repeat: no-repeat;
-        background-position: -1px 10px; }
-
-/* wziard progress bar */
-/* line 305, ../compass/site.scss */
-body .wizard {
-  /* https://github.com/twbs/bootstrap/issues/1982 http://jsfiddle.net/H7J94/5/ */
-  padding: 0;
-  margin: 0; }
-  /* line 310, ../compass/site.scss */
-  body .wizard .step {
-    padding: 6px 8px;
-    margin-right: 5px;
-    background-color: #5bc0de;
-    color: #fff;
-    position: relative;
-    display: inline-block;
-    margin-bottom: 4px; }
-    /* line 319, ../compass/site.scss */
-    body .wizard .step:before, body .wizard .step:after {
-      width: 0;
-      height: 0;
-      border: 16px solid transparent;
-      position: absolute;
-      content: '';
-      top: 0; }
-    /* line 328, ../compass/site.scss */
-    body .wizard .step:before {
-      border-left-color: #fff;
-      left: 0; }
-    /* line 333, ../compass/site.scss */
-    body .wizard .step:after {
-      border-left-color: #5bc0de;
-      border-right-width: 0;
-      right: -16px;
-      z-index: 2; }
-    /* line 340, ../compass/site.scss */
-    body .wizard .step .badge {
-      margin: 0 5px 0 16px;
-      position: relative;
-      top: -1px;
-      color: #5bc0de;
-      background-color: #fff; }
-    /* line 348, ../compass/site.scss */
-    body .wizard .step.primary {
-      background: #007ACC;
-      color: #fff; }
-      /* line 352, ../compass/site.scss */
-      body .wizard .step.primary:after {
-        border-left-color: #007ACC; }
-      /* line 356, ../compass/site.scss */
-      body .wizard .step.primary .badge {
-        background-color: #fff;
-        color: #007ACC; }
-    /* line 362, ../compass/site.scss */
-    body .wizard .step.success {
-      background: #468847;
-      color: #dff0d8; }
-      /* line 366, ../compass/site.scss */
-      body .wizard .step.success:after {
-        border-left-color: #468847; }
-      /* line 370, ../compass/site.scss */
-      body .wizard .step.success .badge {
-        background-color: #dff0d8;
-        color: #468847; }
-    /* line 376, ../compass/site.scss */
-    body .wizard .step.completed {
-      text-decoration: line-through; }
-    /* line 380, ../compass/site.scss */
-    body .wizard .step a {
-      color: #fff;
-      text-decoration: underline; }
-      /* line 384, ../compass/site.scss */
-      body .wizard .step a:hover {
-        text-decoration: none; }
-
 /* validation input group add-on & icon */
-/* line 394, ../compass/site.scss */
+/* line 216, ../compass/site.scss */
 body .input-group-addon.validation {
   /* position the icon(s) within this container */
   vertical-align: top;
   padding: 6px 6px 0 6px; }
-  /* line 399, ../compass/site.scss */
+  /* line 221, ../compass/site.scss */
   body .input-group-addon.validation i {
     width: 18px;
     /* fix width for all validation icons (has no effect when display:none) */
     display: none; }
-    /* line 403, ../compass/site.scss */
+    /* line 225, ../compass/site.scss */
     body .input-group-addon.validation i.default {
       color: #555;
       /* make this a little softer than black */
       display: inline-block;
       /* without a default icon, add-on will shrink */ }
-      /* line 407, ../compass/site.scss */
+      /* line 229, ../compass/site.scss */
       body .input-group-addon.validation i.default.fa-asterisk {
         /* make default asterisks smaller */
         font-size: 12px;
         line-height: 20px; }
-    /* line 415, ../compass/site.scss */
+    /* line 237, ../compass/site.scss */
     body .input-group-addon.validation i.error.fa-times {
       /* size for red error X icons */
       font-size: 18px; }
-    /* line 422, ../compass/site.scss */
+    /* line 244, ../compass/site.scss */
     body .input-group-addon.validation i.success.fa-check {
       /* size for green checkmark icons */
       font-size: 18px; }
-    /* line 429, ../compass/site.scss */
+    /* line 251, ../compass/site.scss */
     body .input-group-addon.validation i.warning.fa-exclamation-triangle {
       /* size for yellow exclamation warning triangle */
       font-size: 16px;
       line-height: 20px; }
-    /* line 437, ../compass/site.scss */
+    /* line 259, ../compass/site.scss */
     body .input-group-addon.validation i.spinner.fa-spinner {
       /* size for green checkmark icons */
       font-size: 18px; }
-/* line 445, ../compass/site.scss */
+/* line 267, ../compass/site.scss */
 body .input-group-lg .input-group-addon.validation i {
   margin-top: 6px; }
-/* line 448, ../compass/site.scss */
+/* line 270, ../compass/site.scss */
 body .form-control-lg .input-group-addon.validation i {
   margin-top: 6px; }
-/* line 452, ../compass/site.scss */
+/* line 274, ../compass/site.scss */
 body .input-group-sm .input-group-addon.validation i {
   margin-top: -1px; }
-/* line 457, ../compass/site.scss */
+/* line 279, ../compass/site.scss */
 body .has-success .input-group-addon.validation i.default {
   display: none; }
-/* line 458, ../compass/site.scss */
+/* line 280, ../compass/site.scss */
 body .has-success .input-group-addon.validation i.success {
   display: inline-block; }
-/* line 461, ../compass/site.scss */
+/* line 283, ../compass/site.scss */
 body .has-error .input-group-addon.validation i.default {
   display: none; }
-/* line 462, ../compass/site.scss */
+/* line 284, ../compass/site.scss */
 body .has-error .input-group-addon.validation i.error {
   display: inline-block; }
-/* line 465, ../compass/site.scss */
+/* line 287, ../compass/site.scss */
 body .has-warning .input-group-addon.validation i.default {
   display: none; }
-/* line 466, ../compass/site.scss */
+/* line 288, ../compass/site.scss */
 body .has-warning .input-group-addon.validation i.warning {
   display: inline-block; }
-/* line 469, ../compass/site.scss */
+/* line 291, ../compass/site.scss */
 body .has-spinner .input-group-addon.validation i.default {
   display: none; }
-/* line 470, ../compass/site.scss */
+/* line 292, ../compass/site.scss */
 body .has-spinner .input-group-addon.validation i.spinner {
   display: inline-block; }
 
 /* validation help block horizontal positioning */
 @media (min-width: 992px) {
-  /* line 477, ../compass/site.scss */
+  /* line 299, ../compass/site.scss */
   body .help-block-horizontal-md {
     /* get rid of the margin-bottom on this when it is displayed to the side
         so that it does not change height of overall field when disappearing */
@@ -403,72 +252,257 @@ body .has-spinner .input-group-addon.validation i.spinner {
     /* bring the validation message closer to the field */
     margin-left: 0;
     padding-left: 0; }
-    /* line 487, ../compass/site.scss */
+    /* line 309, ../compass/site.scss */
     body .help-block-horizontal-md.under-label {
       margin-top: 27px; } }
 
 /* validation popover positioning */
-/* line 496, ../compass/site.scss */
+/* line 318, ../compass/site.scss */
 body .validation-popover, body .validation-tooltip {
   width: 0;
   height: 0;
   margin-left: -12px;
   position: absolute;
   top: 16px; }
-/* line 505, ../compass/site.scss */
+/* line 327, ../compass/site.scss */
 body .form-group-lg .validation-popover, body .form-group-lg .validation-tooltip {
   top: 20px; }
-/* line 511, ../compass/site.scss */
+/* line 333, ../compass/site.scss */
 body .form-group-sm .validation-popover, body .form-group-sm .validation-tooltip {
   top: 12px; }
-/* line 516, ../compass/site.scss */
+/* line 338, ../compass/site.scss */
 body .validation.help-block .popover-content {
   padding: 4px 12px;
   word-wrap: break-word; }
-/* line 522, ../compass/site.scss */
+/* line 344, ../compass/site.scss */
 body .validation.help-block .tooltip-inner {
   text-align: left;
   background-color: #b94a48;
   max-width: initial; }
-/* line 527, ../compass/site.scss */
+/* line 349, ../compass/site.scss */
 body .validation.help-block .tooltip.right .tooltip-arrow {
   border-right-color: #b94a48; }
 
 /* form elements */
-/* line 535, ../compass/site.scss */
+/* line 357, ../compass/site.scss */
 body .form-control .checkbox {
   /* when a checkbox is nested within a form-control (which is also probably nested within an input-group),
   remove the top padding, since the form-control provides padding already */
   padding-top: 0; }
-/* line 540, ../compass/site.scss */
+/* line 362, ../compass/site.scss */
 body input[type=checkbox] {
   /* make checkboxes use pointer cursor to match up with their labels */
   cursor: pointer; }
-/* line 545, ../compass/site.scss */
+/* line 367, ../compass/site.scss */
 body [disabled], body .btn[disabled] {
   /* show not-allowed cursor on disabled elements */
   pointer-events: auto;
   cursor: not-allowed; }
-/* line 551, ../compass/site.scss */
+/* line 373, ../compass/site.scss */
 body input[type=image].btn {
   /* hide padding on image buttons */
   padding: 0;
   border: 0; }
 
+/* wziard progress bar */
+/* line 382, ../compass/site.scss */
+body .wizard {
+  /* https://github.com/twbs/bootstrap/issues/1982 http://jsfiddle.net/H7J94/5/ */
+  padding: 0;
+  margin: 0; }
+  /* line 387, ../compass/site.scss */
+  body .wizard .step {
+    padding: 6px 8px;
+    margin-right: 5px;
+    background-color: #5bc0de;
+    color: #fff;
+    position: relative;
+    display: inline-block;
+    margin-bottom: 4px; }
+    /* line 396, ../compass/site.scss */
+    body .wizard .step:before, body .wizard .step:after {
+      width: 0;
+      height: 0;
+      border: 16px solid transparent;
+      position: absolute;
+      content: '';
+      top: 0; }
+    /* line 405, ../compass/site.scss */
+    body .wizard .step:before {
+      border-left-color: #fff;
+      left: 0; }
+    /* line 410, ../compass/site.scss */
+    body .wizard .step:after {
+      border-left-color: #5bc0de;
+      border-right-width: 0;
+      right: -16px;
+      z-index: 2; }
+    /* line 417, ../compass/site.scss */
+    body .wizard .step .badge {
+      margin: 0 5px 0 16px;
+      position: relative;
+      top: -1px;
+      color: #5bc0de;
+      background-color: #fff; }
+    /* line 425, ../compass/site.scss */
+    body .wizard .step.primary {
+      background: #007ACC;
+      color: #fff; }
+      /* line 429, ../compass/site.scss */
+      body .wizard .step.primary:after {
+        border-left-color: #007ACC; }
+      /* line 433, ../compass/site.scss */
+      body .wizard .step.primary .badge {
+        background-color: #fff;
+        color: #007ACC; }
+    /* line 439, ../compass/site.scss */
+    body .wizard .step.success {
+      background: #468847;
+      color: #dff0d8; }
+      /* line 443, ../compass/site.scss */
+      body .wizard .step.success:after {
+        border-left-color: #468847; }
+      /* line 447, ../compass/site.scss */
+      body .wizard .step.success .badge {
+        background-color: #dff0d8;
+        color: #468847; }
+    /* line 453, ../compass/site.scss */
+    body .wizard .step.completed {
+      text-decoration: line-through; }
+    /* line 457, ../compass/site.scss */
+    body .wizard .step a {
+      color: #fff;
+      text-decoration: underline; }
+      /* line 461, ../compass/site.scss */
+      body .wizard .step a:hover {
+        text-decoration: none; }
+
+/* oauth sign in buttons */
+/* line 471, ../compass/site.scss */
+body .providers.row {
+  margin-top: 20px;
+  margin-bottom: 20px; }
+  /* line 476, ../compass/site.scss */
+  body .providers.row button {
+    text-align: left;
+    width: 100%;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 15px;
+    color: #fff; }
+    /* line 483, ../compass/site.scss */
+    body .providers.row button i {
+      display: block;
+      float: left; }
+    /* line 488, ../compass/site.scss */
+    body .providers.row button.btn-lg {
+      padding: 0 8px;
+      height: 42px;
+      /* this may need to change if there is no btn-lg */
+      line-height: 40px; }
+      /* line 493, ../compass/site.scss */
+      body .providers.row button.btn-lg i {
+        height: 42px;
+        line-height: 40px;
+        width: 32px; }
+    /* line 500, ../compass/site.scss */
+    body .providers.row button.google {
+      background-color: #dd4b39; }
+      /* line 503, ../compass/site.scss */
+      body .providers.row button.google:hover {
+        background-color: #e94a2f; }
+      /* line 507, ../compass/site.scss */
+      body .providers.row button.google:active {
+        background-color: #be3e2e; }
+      /* line 511, ../compass/site.scss */
+      body .providers.row button.google i {
+        background-image: url(../images/oauth-buttons/google/Red-signin-Small-transparent-44dp.png);
+        -webkit-background-size: auto 36px;
+        -moz-background-size: auto 36px;
+        -o-background-size: auto 36px;
+        background-size: auto 36px;
+        background-repeat: no-repeat;
+        background-position: -4px 2px; }
+    /* line 519, ../compass/site.scss */
+    body .providers.row button.facebook {
+      background-color: #3b5998; }
+      /* line 522, ../compass/site.scss */
+      body .providers.row button.facebook:hover {
+        background-color: #4c69a3; }
+      /* line 526, ../compass/site.scss */
+      body .providers.row button.facebook:active {
+        background-color: #2f477a; }
+      /* line 530, ../compass/site.scss */
+      body .providers.row button.facebook i {
+        background-image: url(../images/oauth-buttons/facebook/f-white-around-transparent.png);
+        -webkit-background-size: auto 24px;
+        -moz-background-size: auto 24px;
+        -o-background-size: auto 24px;
+        background-size: auto 24px;
+        background-repeat: no-repeat;
+        background-position: 1px 8px; }
+    /* line 538, ../compass/site.scss */
+    body .providers.row button.twitter {
+      background-color: #1daee3; }
+      /* line 541, ../compass/site.scss */
+      body .providers.row button.twitter:hover {
+        background-color: #00bbff; }
+      /* line 545, ../compass/site.scss */
+      body .providers.row button.twitter:active {
+        background-color: #2b93b9; }
+      /* line 549, ../compass/site.scss */
+      body .providers.row button.twitter i {
+        background-image: url(../images/oauth-buttons/twitter/bird-white-on-transparent-30-22.png);
+        background-repeat: no-repeat;
+        background-position: -1px 10px; }
+
+/* user jumbotron */
+/* line 561, ../compass/site.scss */
+body .user.jumbotron {
+  margin-bottom: 12px; }
+  /* line 563, ../compass/site.scss */
+  body .user.jumbotron h1 {
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    -ms-text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    overflow-y: visible;
+    display: block;
+    line-height: normal; }
+  /* line 570, ../compass/site.scss */
+  body .user.jumbotron p.lead {
+    margin-bottom: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    -ms-text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    overflow-y: visible; }
+  /* line 575, ../compass/site.scss */
+  body .user.jumbotron img.gravatar {
+    width: 64px;
+    margin-right: 16px; }
+  @media (min-width: 768px) {
+    /* line 580, ../compass/site.scss */
+    body .user.jumbotron img.gravatar {
+      width: 108px;
+      margin-right: 20px; } }
+
 /* error page styles */
-/* line 560, ../compass/site.scss */
+/* line 590, ../compass/site.scss */
 body .danger.jumbotron {
   background-color: #f2dede;
   border-radius: 0; }
 
 /* VS starter template styles */
-/* line 568, ../compass/site.scss */
+/* line 598, ../compass/site.scss */
 body .validation-summary-errors {
   color: #b94a48; }
-/* line 572, ../compass/site.scss */
+/* line 602, ../compass/site.scss */
 body .validation-summary-valid {
   display: none; }
-/* line 576, ../compass/site.scss */
+/* line 606, ../compass/site.scss */
 body hr {
   border-top-color: #ccc; }
 
