@@ -8,10 +8,11 @@ namespace Tripod.Web
     {
         private const string ConfirmEmailTicketsKey = "EmailConfirmationTickets";
 
-        public static void AddConfirmEmailTicket(this HttpSessionStateBase session, string ticket)
+        public static void ConfirmEmailTickets(this HttpSessionStateBase session, string ticket)
         {
             var tickets = session.ConfirmEmailTickets().ToList();
-            tickets.Add(ticket);
+            if (!string.IsNullOrWhiteSpace(ticket)) tickets.Add(ticket);
+            else tickets.Clear();
             session[ConfirmEmailTicketsKey] = tickets.ToArray();
         }
 

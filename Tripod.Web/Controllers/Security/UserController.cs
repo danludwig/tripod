@@ -1,6 +1,4 @@
-﻿using System;
-using System.Globalization;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Web.Mvc;
 using Tripod.Domain.Security;
 using Tripod.Web.Models;
@@ -58,7 +56,7 @@ namespace Tripod.Web.Controllers
             }
 
             await _commands.Execute(command);
-
+            Response.ClientCookie(command.SignedIn.Id, _queries);
             return RedirectToAction(await MVC.User.ById(command.UserId));
         }
 

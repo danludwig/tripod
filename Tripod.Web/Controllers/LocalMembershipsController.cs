@@ -31,11 +31,13 @@ namespace Tripod.Web.Controllers
             if (!ModelState.IsValid) return View(MVC.Account.Views.Register, command);
 
             await _commands.Execute(command);
-            await _commands.Execute(new SignIn
+            var signIn = new SignIn
             {
                 UserName = command.UserName,
                 Password = command.Password
-            });
+            };
+            await _commands.Execute(signIn);
+            Response.ClientCookie(signIn.SignedIn.Id, _queries);
             return RedirectToAction(MVC.Home.Index());
         }
 

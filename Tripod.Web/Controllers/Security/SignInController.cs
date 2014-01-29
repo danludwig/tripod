@@ -8,11 +8,13 @@ namespace Tripod.Web.Controllers
 {
     public partial class SignInController : Controller
     {
+        private readonly IProcessQueries _queries;
         private readonly IProcessCommands _commands;
 
         [UsedImplicitly]
-        public SignInController(IProcessCommands commands)
+        public SignInController(IProcessQueries queries, IProcessCommands commands)
         {
+            _queries = queries;
             _commands = commands;
         }
 
@@ -32,6 +34,7 @@ namespace Tripod.Web.Controllers
             if (command == null) return View(MVC.Errors.Views.BadRequest);
             if (!ModelState.IsValid) return View(MVC.Security.Views.SignIn, command);
             await _commands.Execute(command);
+            Response.ClientCookie(command.SignedIn.Id, _queries);
             return this.RedirectToLocal(returnUrl, await MVC.User.ById(command.SignedIn.Id));
         }
 

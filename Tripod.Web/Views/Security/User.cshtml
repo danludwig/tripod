@@ -1,6 +1,5 @@
 ﻿@using System.Globalization
 @using Microsoft.AspNet.Identity
-@using Tripod.Domain.Security
 @using Tripod.Web.Models
 @using UserConstraints = Tripod.Domain.Security.User.Constraints
 
@@ -85,13 +84,13 @@
             <nav class="user">
                 <ul class="nav nav-pills nav-stacked" role="navigation">
                     <li class="nav-header">
-                        <a href="@Url.Action(MVC.User.ById(Html.AuthenticatedUserId()))">
+                        <a href="@Url.Action(MVC.User.ById())">
                             @Html.Gravatar(32)
                             <strong>@User.Identity.Name</strong>
                         </a>
                     </li>
                     <li class="active">
-                        <a href="@Url.Action(MVC.User.ById(Html.AuthenticatedUserId()))">
+                        <a href="@Url.Action(MVC.User.ById())">
                             <i class="fa fa-user"></i>
                             My Account
                         </a>
@@ -131,6 +130,6 @@
 
 @section scripts
 {
-    @*@{ Html.RenderPartial(MVC.Scripts.Views.Angular); }
-    <script src="~/app/security/ChangeUserNameForm.js"></script>*@
+    @{ Html.RenderPartial(MVC.Scripts.Views.Angular); }
+    <script src="~/app/security/ChangeUserNameForm.js"></script>
 }

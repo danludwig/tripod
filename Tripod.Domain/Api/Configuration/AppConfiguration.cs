@@ -9,6 +9,16 @@ namespace Tripod
 {
     public static class AppConfiguration
     {
+        public static string XsrfKey
+        {
+            get { return ConfigurationManager.AppSettings[AppSettingKey.XsrfKey.ToString()]; }
+        }
+
+        public static string DataProtectionAppName
+        {
+            get { return ConfigurationManager.AppSettings[AppSettingKey.DataProtectionAppName.ToString()] ?? "AppName"; }
+        }
+
         public static MailAddress MailFromDefault
         {
             get { return new MailAddress(ConfigurationManager.AppSettings[AppSettingKey.MailFromDefault.ToString()] ?? "UNCONFIGURED NOREPLY <no-reply@localhost.tld>"); }

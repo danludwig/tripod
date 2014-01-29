@@ -116,33 +116,22 @@ namespace Tripod.Web
             return MvcHtmlString.Create(valueForRaw);
         }
 
-        private static T ViewBagged<T>(object value)
-        {
-            if (value == null) return default(T);
-            return (T)value;
-        }
-
-        public static int AuthenticatedUserId(this HtmlHelper html)
-        {
-            return ViewBagged<int>(html.ViewBag.AuthenticatedUserId);
-        }
-
-        public static MvcHtmlString Gravatar(this HtmlHelper html, string hash, int size, string cssClass = null)
+        public static MvcHtmlString Gravatar(this HtmlHelper html, string hash, int size, string cssClass = "gravatar")
         {
             const string srcFormat = "http://www.gravatar.com/avatar/{0}.jpg?s={1}&d=wavatar&r=PG";
             var src = string.Format(srcFormat, hash, size);
             var tagBuilder = new TagBuilder("img");
             tagBuilder.Attributes.Add("src", src);
             tagBuilder.Attributes.Add("alt", "Avatar icon");
-            cssClass = !string.IsNullOrWhiteSpace(cssClass) ? string.Format("{0} gravatar", cssClass) : "gravatar";
-            tagBuilder.Attributes.Add("class", cssClass);
+            if (!string.IsNullOrWhiteSpace(cssClass))
+                tagBuilder.Attributes.Add("class", cssClass);
             return MvcHtmlString.Create(tagBuilder.ToString(TagRenderMode.SelfClosing));
         }
 
-        public static MvcHtmlString Gravatar(this HtmlHelper html, int size, string cssClass = null)
+        public static MvcHtmlString Gravatar(this HtmlHelper html, int size, string cssClass = "gravatar")
         {
-            var hash = html.ViewBag.AuthenticatedUserGravatar;
-            return html.Gravatar((string) hash, size, cssClass);
+            var clientCookie = html.ViewContext.HttpContext.Request.ClientCookie();
+            return html.Gravatar(clientCookie != null ? clientCookie.GravatarHash : null, size, cssClass);
         }
     }
 }

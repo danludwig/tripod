@@ -3,6 +3,7 @@
     public enum AppSettingKey
     {
         XsrfKey,
+        DataProtectionAppName,
         MailFromDefault,
         MailPickupDirectory,
         MailInterceptors,

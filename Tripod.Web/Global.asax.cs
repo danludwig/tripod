@@ -15,10 +15,7 @@ namespace Tripod.Web
             ModelConfig.Configure();
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);
-
-            // todo: should probably put the gravatar hash in a cookie to avoid hitting storage on every request (which means this would be needed again)
-            //FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
-
+            FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             MvcHandler.DisableMvcResponseHeader = true;

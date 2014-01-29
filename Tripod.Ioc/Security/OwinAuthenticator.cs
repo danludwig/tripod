@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Security.Claims;
 using System.Security.Principal;
 using System.Threading.Tasks;
@@ -48,7 +47,7 @@ namespace Tripod.Ioc.Security
             }
             else
             {
-                var xsrfKey = ConfigurationManager.AppSettings[AppSettingKey.XsrfKey.ToString()];
+                var xsrfKey = AppConfiguration.XsrfKey;
                 info = await _authenticationManager.GetExternalLoginInfoAsync(xsrfKey, principal.Identity.GetUserId());
             }
 

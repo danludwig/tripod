@@ -63,6 +63,7 @@
     <Compile Include="Api\Configuration\AppSettingKey.cs" />
     <Compile Include="Api\Configuration\AppConfiguration.cs" />
     <Compile Include="Api\Cryptography\ICreateSecrets.cs" />
+    <Compile Include="Api\Cryptography\IProvideTokenizers.cs" />
     <Compile Include="Api\Net\IDeliveredEmailMessage.cs" />
     <Compile Include="Api\Net\IDeliverEmailMessage.cs" />
     <Compile Include="Api\Net\IDeliverMailMessage.cs" />
@@ -135,6 +136,7 @@
     <Compile Include="Domain\Security\Queries\IsPasswordVerified.cs" />
     <Compile Include="Domain\Security\Queries\RemoteMembershipsByUser.cs" />
     <Compile Include="Domain\Security\Queries\RemoteMembershipByUser.cs" />
+    <Compile Include="Domain\Security\Queries\ClientCookieBy.cs" />
     <Compile Include="Domain\Security\Queries\UserViewBy.cs" />
     <Compile Include="Domain\Security\Queries\UserByNameOrConfirmedEmail.cs" />
     <Compile Include="Domain\Security\Queries\UserHasLocalMembership.cs" />
@@ -170,6 +172,7 @@
     <Compile Include="Domain\Security\Validation\MustBeValidUserName.cs" />
     <Compile Include="Domain\Security\Validation\MustBePrincipalWithUserId.cs" />
     <Compile Include="Domain\Security\Validation\MustNotFindUserByName.cs" />
+    <Compile Include="Domain\Security\Views\ClientCookie.cs" />
     <Compile Include="Domain\Security\Views\UserView.cs" />
     <Compile Include="Domain\Security\_Extensions\QueryEmailConfirmations.cs" />
     <Compile Include="Domain\Security\_Extensions\QueryRemoteMemberships.cs" />

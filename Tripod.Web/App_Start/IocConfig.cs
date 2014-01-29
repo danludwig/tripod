@@ -34,9 +34,6 @@ namespace Tripod.Web
             DependencyResolver.SetResolver(new SimpleInjectorDependencyResolver(container));
             GlobalConfiguration.Configuration.DependencyResolver = new WebApiDependencyResolver(container);
 
-            // todo: should probably put the gravatar hash in a cookie to avoid hitting storage on every request (which means this can be done in App_Start directly)
-            FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters, container);
-
             FluentValidation.Mvc.FluentValidationModelValidatorProvider.Configure(
                 provider =>
                 {

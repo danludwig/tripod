@@ -48,7 +48,10 @@ namespace Tripod.Web.Controllers
             };
             await _commands.Execute(signOn);
             if (signOn.SignedOn != null)
+            {
+                Response.ClientCookie(signOn.SignedOn.Id, _queries);
                 return this.RedirectToLocal(returnUrl, await MVC.User.ById(signOn.SignedOn.Id));
+            }
 
             // if user doesn't have an email claim, we need them to confirm an email address
             var emailClaim = await _queries.Execute(new ExternalCookieClaim(ClaimTypes.Email));
@@ -62,6 +65,7 @@ namespace Tripod.Web.Controllers
                 EmailAddress = emailClaim.Value,
             };
             await _commands.Execute(createEmailConfirmation);
+
             return RedirectToAction(await MVC.SignOn.CreateRemoteMembership(createEmailConfirmation.CreatedEntity.Token, returnUrl));
         }
 
@@ -106,7 +110,7 @@ namespace Tripod.Web.Controllers
             command.SendFromUrl = SendFromUrl(returnUrl);
             await _commands.Execute(command);
 
-            Session.AddConfirmEmailTicket(command.CreatedTicket);
+            Session.ConfirmEmailTickets(command.CreatedTicket);
 
             return RedirectToAction(await MVC.SignOn.VerifyConfirmEmailSecret(command.CreatedTicket, returnUrl));
         }
@@ -235,6 +239,8 @@ namespace Tripod.Web.Controllers
                 Principal = User,
             };
             await _commands.Execute(signOn);
+            Session.ConfirmEmailTickets(null);
+            Response.ClientCookie(signOn.SignedOn.Id, _queries);
             return this.RedirectToLocal(returnUrl, await MVC.User.ById(signOn.SignedOn.Id));
         }
 

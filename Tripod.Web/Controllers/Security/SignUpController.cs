@@ -55,7 +55,7 @@ namespace Tripod.Web.Controllers
             command.SendFromUrl = SendFromUrl(returnUrl);
             await _commands.Execute(command);
 
-            Session.AddConfirmEmailTicket(command.CreatedTicket);
+            Session.ConfirmEmailTickets(command.CreatedTicket);
 
             return RedirectToAction(await MVC.SignUp.VerifyConfirmEmailSecret(command.CreatedTicket, returnUrl));
         }
@@ -207,6 +207,8 @@ namespace Tripod.Web.Controllers
                 Password = command.Password
             };
             await _commands.Execute(signIn);
+            Session.ConfirmEmailTickets(null);
+            Response.ClientCookie(signIn.SignedIn.Id, _queries);
             return this.RedirectToLocal(returnUrl, await MVC.User.ById(signIn.SignedIn.Id));
         }
 

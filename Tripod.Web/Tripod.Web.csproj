@@ -252,15 +252,14 @@
       <DependentUpon>Global.asax</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Helpers\AuthenticatedUserGravatarAttribute.cs" />
     <Compile Include="Helpers\ChallengeResult.cs" />
+    <Compile Include="Helpers\CookieExtensions.cs" />
     <Compile Include="Helpers\PermitAttribute.cs" />
     <Compile Include="Helpers\ControllerExtensions.cs" />
     <Compile Include="Helpers\HtmlHelpers.cs" />
     <Compile Include="Helpers\JsonNetResult.cs" />
     <Compile Include="Helpers\SecuredCommandModelBinder.cs" />
     <Compile Include="Helpers\SessionExtensions.cs" />
-    <Compile Include="Helpers\AuthenticatedUserIdAttribute.cs" />
     <Compile Include="HomeController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>

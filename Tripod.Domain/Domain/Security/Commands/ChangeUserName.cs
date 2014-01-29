@@ -10,6 +10,7 @@ namespace Tripod.Domain.Security
         public int UserId { get; set; }
         public string UserName { get; set; }
         public IPrincipal Principal { get; set; }
+        public User SignedIn { get; internal set; }
     }
 
     public class ValidateChangeUserNameCommand : AbstractValidator<ChangeUserName>
@@ -53,6 +54,7 @@ namespace Tripod.Domain.Security
             await _entities.SaveChangesAsync();
             await _authenticator.SignOut();
             await _authenticator.SignOn(entity);
+            command.SignedIn = entity;
         }
     }
 }

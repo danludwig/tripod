@@ -18,6 +18,8 @@ namespace Tripod.Web
         [UsedImplicitly]
         public static void ConfigureAuth(IAppBuilder app)
         {
+            app.SetDataProtectionProvider(new DpapiDataProtectionProvider(AppConfiguration.DataProtectionAppName));
+
             // http://blogs.msdn.com/b/webdev/archive/2013/12/20/announcing-preview-of-microsoft-aspnet-identity-2-0-0-alpha1.aspx
             // set up UserManager with a UserConfirmationTokens property
             app.UseUserManagerFactory(new IdentityFactoryOptions<UserManager<User, int>>
@@ -30,7 +32,7 @@ namespace Tripod.Web
                         var protector = options.DataProtectionProvider.Create("ConfirmEmail");
                         var userManager = new UserManager<User, int>(DependencyResolver.Current.GetService<IUserStore<User, int>>())
                         {
-                            UserConfirmationTokens = new DataProtectorTokenProvider(protector)
+                            UserConfirmationTokens = new DataProtectorTokenProvider(protector),
                         };
                         return userManager;
                     },

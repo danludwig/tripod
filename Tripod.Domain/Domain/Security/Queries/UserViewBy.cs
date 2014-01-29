@@ -47,11 +47,13 @@ namespace Tripod.Domain.Security
             {
                 UserId = x.Id,
                 UserName = x.Name,
-                DefaultEmailAddress = x.EmailAddresses.Select(y => new
-                {
-                    y.Value,
-                    y.HashedValue,
-                }).FirstOrDefault(),
+                DefaultEmailAddress = x.EmailAddresses.Where(y => y.IsDefault)
+                    .Select(y => new
+                    {
+                        y.Value,
+                        y.HashedValue,
+                    })
+                .FirstOrDefault(),
             })
             .SingleOrDefaultAsync().ConfigureAwait(false);
             if (projection == null) return null;
