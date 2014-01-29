@@ -27,3 +27,6 @@ body nav.user li.nav-header a {
 /* line 32, ../../compass/security/user-settings.scss */
 body nav.user li.nav-header img.gravatar {
   margin-right: 4px; }
+/* line 37, ../../compass/security/user-settings.scss */
+body section.user-settings {
+  margin-top: 30px; }

@@ -47,7 +47,8 @@ namespace T4MVC
                 public readonly string SignUpCreateLocalMembership = "SignUpCreateLocalMembership";
                 public readonly string SignUpSendConfirmationEmail = "SignUpSendConfirmationEmail";
                 public readonly string SignUpVerifyConfirmEmailSecret = "SignUpVerifyConfirmEmailSecret";
-                public readonly string User = "User";
+                public readonly string UserEmailAddresses = "UserEmailAddresses";
+                public readonly string UserSettingsIndex = "UserSettingsIndex";
             }
             public readonly string _ChangeUserNameForm = "~/Views/Security/_ChangeUserNameForm.cshtml";
             public readonly string _ConfirmEmailWizardSteps = "~/Views/Security/_ConfirmEmailWizardSteps.cshtml";
@@ -61,7 +62,8 @@ namespace T4MVC
             public readonly string SignUpCreateLocalMembership = "~/Views/Security/SignUpCreateLocalMembership.cshtml";
             public readonly string SignUpSendConfirmationEmail = "~/Views/Security/SignUpSendConfirmationEmail.cshtml";
             public readonly string SignUpVerifyConfirmEmailSecret = "~/Views/Security/SignUpVerifyConfirmEmailSecret.cshtml";
-            public readonly string User = "~/Views/Security/User.cshtml";
+            public readonly string UserEmailAddresses = "~/Views/Security/UserEmailAddresses.cshtml";
+            public readonly string UserSettingsIndex = "~/Views/Security/UserSettingsIndex.cshtml";
         }
     }
 

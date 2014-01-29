@@ -17,7 +17,7 @@
 
 @if (Model.UserView.UserId == User.Identity.GetAppUserId())
 {
-    <div class="row">
+    <section class="user-settings row">
         <nav class="user col-md-4 hidden-xs hidden-sm">
             <ul class="nav nav-pills nav-stacked" role="navigation">
                 <li class="nav-header">
@@ -26,14 +26,14 @@
                         <strong>@User.Identity.Name</strong>
                     </a>
                 </li>
-                <li class="active">
+                <li>
                     <a href="@Url.Action(MVC.User.SettingsIndex())">
                         <i class="fa fa-user"></i>
                         General settings
                     </a>
                 </li>
-                <li>
-                    <a href="#">
+                <li class="active">
+                    <a href="@Url.Action(MVC.User.Emails())">
                         <i class="fa fa-envelope"></i>
                         Email addresses
                     </a>
@@ -59,9 +59,9 @@
                 If you would like to change your @UserConstraints.NameLabel.ToLower(), you can use the text box below to do so.
             </p>
 
-            @{ Html.RenderPartial(MVC.Security.Views._ChangeUserNameForm, Model.Command); }
+            @*@{ Html.RenderPartial(MVC.Security.Views._ChangeUserNameForm, Model.Command); }*@
         </div>
-    </div>
+    </section>
 }
 
 @section scripts

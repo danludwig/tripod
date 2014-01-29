@@ -34,7 +34,7 @@ namespace Tripod.Web.Controllers
                 },
             };
 
-            return View(MVC.Security.Views.User, model);
+            return View(MVC.Security.Views.UserSettingsIndex, model);
         }
 
         [Authorize]
@@ -55,7 +55,7 @@ namespace Tripod.Web.Controllers
                     Command = command,
                 };
 
-                return View(MVC.Security.Views.User, model);
+                return View(MVC.Security.Views.UserSettingsIndex, model);
             }
 
             await _commands.Execute(command);
@@ -107,7 +107,7 @@ namespace Tripod.Web.Controllers
                 },
             };
 
-            return View(MVC.Security.Views.User, model);
+            return View(MVC.Security.Views.UserEmailAddresses, model);
         }
 
         #endregion

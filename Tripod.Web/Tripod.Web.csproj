@@ -757,11 +757,12 @@
     <Content Include="Views\Security\SignOnVerifyConfirmEmailSecret.cshtml" />
     <Content Include="Views\Security\_VerifyConfirmEmailSecretForm.cshtml" />
     <Content Include="Views\Security\SignOnCreateRemoteMembership.cshtml" />
-    <Content Include="Views\Security\User.cshtml" />
+    <Content Include="Views\Security\UserSettingsIndex.cshtml" />
     <Content Include="Views\Shared\_LayoutNavbar.cshtml" />
     <Content Include="Views\Users\_UserJumbotron.cshtml" />
     <Content Include="Views\Security\_ChangeUserNameForm.cshtml" />
     <Content Include="Views\Users\User.cshtml" />
+    <Content Include="Views\Security\UserEmailAddresses.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

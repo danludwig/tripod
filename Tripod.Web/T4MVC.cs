@@ -464,6 +464,15 @@ namespace Links
         public static readonly string font_awesome_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/font-awesome.min.css") ? Url("font-awesome.min.css") : Url("font-awesome.css");
              
         public static readonly string font_awesome_min_css = Url("font-awesome.min.css");
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public static class security {
+            private const string URLPATH = "~/content/security";
+            public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+            public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+            public static readonly string user_settings_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/user-settings.min.css") ? Url("user-settings.min.css") : Url("user-settings.css");
+                 
+        }
+    
         public static readonly string site_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/site.min.css") ? Url("site.min.css") : Url("site.css");
              
     }

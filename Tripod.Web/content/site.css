@@ -458,7 +458,7 @@ body .providers.row {
 /* user jumbotron */
 /* line 561, ../compass/site.scss */
 body .user.jumbotron {
-  margin-bottom: 12px; }
+  margin-bottom: 4px; }
   /* line 563, ../compass/site.scss */
   body .user.jumbotron h1 {
     margin: 0;
