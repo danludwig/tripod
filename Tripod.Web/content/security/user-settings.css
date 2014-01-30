@@ -27,6 +27,34 @@ body nav.user li.nav-header a {
 /* line 32, ../../compass/security/user-settings.scss */
 body nav.user li.nav-header img.gravatar {
   margin-right: 4px; }
-/* line 37, ../../compass/security/user-settings.scss */
+/* line 38, ../../compass/security/user-settings.scss */
 body section.user-settings {
   margin-top: 30px; }
+/* line 43, ../../compass/security/user-settings.scss */
+body ul.emails > li {
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+  border-bottom: solid 1px #999;
+  padding: 8px; }
+  /* line 48, ../../compass/security/user-settings.scss */
+  body ul.emails > li:hover {
+    background-color: #fe8;
+    background-color: #e7e7e7; }
+  /* line 53, ../../compass/security/user-settings.scss */
+  body ul.emails > li img.gravatar {
+    vertical-align: top;
+    height: 30px;
+    margin-right: 4px; }
+  /* line 59, ../../compass/security/user-settings.scss */
+  body ul.emails > li .email-value {
+    cursor: default;
+    font-size: 18px;
+    line-height: 30px; }
+  /* line 65, ../../compass/security/user-settings.scss */
+  body ul.emails > li .label {
+    cursor: default;
+    display: inline-block;
+    padding: .3em .6em;
+    margin-top: 7px;
+    vertical-align: top; }

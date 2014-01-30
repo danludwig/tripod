@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using Tripod.Domain.Security;
 using Tripod.Web.Models;
@@ -90,21 +91,13 @@ namespace Tripod.Web.Controllers
         [HttpGet, Route("settings/emails")]
         public virtual async Task<ActionResult> Emails()
         {
-            // user must be authorized to view this data
-            //if (userId != User.Identity.GetAppUserId())
-            //    return View(MVC.Errors.Views.Forbidden);
+            var user = await _queries.Execute(new UserViewBy(User.Identity.GetAppUserId()));
+            var emails = await _queries.Execute(new EmailAddressViewsBy(User.Identity.GetAppUserId()));
 
-            var view = await _queries.Execute(new UserViewBy(User.Identity.GetAppUserId()));
-            if (view == null) return HttpNotFound();
-
-            var model = new ChangeUserNameModel
+            var model = new EmailAddressSettingsModel
             {
-                UserView = view,
-                Command = new ChangeUserName
-                {
-                    UserId = view.UserId,
-                    UserName = view.UserName,
-                },
+                UserView = user,
+                EmailAddresses = emails.ToArray(),
             };
 
             return View(MVC.Security.Views.UserEmailAddresses, model);

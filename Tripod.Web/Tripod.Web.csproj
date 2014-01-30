@@ -269,6 +269,7 @@
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Security\ChangeUserNameModel.cs" />
+    <Compile Include="Models\Security\EmailAddressSettingsModel.cs" />
     <Compile Include="Models\Security\SignOnFormModel.cs" />
     <Compile Include="Models\Security\ConfirmEmailWizardModel.cs" />
     <Compile Include="Models\Security\UserViewModelBase.cs" />

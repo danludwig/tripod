@@ -1,7 +1,6 @@
-﻿@using Tripod.Web.Models
-@using UserConstraints = Tripod.Domain.Security.User.Constraints
+﻿@using UserConstraints = Tripod.Domain.Security.User.Constraints
 
-@model ChangeUserNameModel
+@model EmailAddressSettingsModel
 
 @{
     ViewBag.Title = "User";
@@ -15,54 +14,94 @@
 
 @{ Html.RenderPartial(MVC.Users.Views._UserJumbotron, Model.UserView); }
 
-@if (Model.UserView.UserId == User.Identity.GetAppUserId())
-{
-    <section class="user-settings row">
-        <nav class="user col-md-4 hidden-xs hidden-sm">
-            <ul class="nav nav-pills nav-stacked" role="navigation">
-                <li class="nav-header">
-                    <a href="@Url.Action(MVC.Users.ById(User.Identity.GetAppUserId()))">
-                        @Html.Gravatar(32)
-                        <strong>@User.Identity.Name</strong>
-                    </a>
-                </li>
-                <li>
-                    <a href="@Url.Action(MVC.User.SettingsIndex())">
-                        <i class="fa fa-user"></i>
-                        General settings
-                    </a>
-                </li>
-                <li class="active">
-                    <a href="@Url.Action(MVC.User.Emails())">
-                        <i class="fa fa-envelope"></i>
-                        Email addresses
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <i class="fa fa-sign-in"></i>
-                        Logins
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <i class="fa fa-key"></i>
-                        Password
-                    </a>
-                </li>
-            </ul>
-            <hr class="hr-md hr-space" />
-        </nav>
-        <div class="col-md-8" role="main">
+<section class="user-settings row">
+    <nav class="user col-md-4 hidden-xs hidden-sm">
+        <ul class="nav nav-pills nav-stacked" role="navigation">
+            <li class="nav-header">
+                <a href="@Url.Action(MVC.Users.ById(User.Identity.GetAppUserId()))">
+                    @Html.Gravatar(32)
+                    <strong>
+                        @User.Identity.Name
+                    </strong>
+                </a>
+            </li>
+            <li>
+                <a href="@Url.Action(MVC.User.SettingsIndex())">
+                    <i class="fa fa-user"></i>
+                    General settings
+                </a>
+            </li>
+            <li class="active">
+                <a href="@Url.Action(MVC.User.Emails())">
+                    <i class="fa fa-envelope"></i>
+                    Email addresses
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="fa fa-sign-in"></i>
+                    Logins
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="fa fa-key"></i>
+                    Password
+                </a>
+            </li>
+        </ul>
+        <hr class="hr-md hr-space" />
+    </nav>
+    <div class="col-md-8" role="main">
 
-            <p>
-                If you would like to change your @UserConstraints.NameLabel.ToLower(), you can use the text box below to do so.
-            </p>
+        <p>
+            If you would like to change your @UserConstraints.NameLabel.ToLower(), you can use the text box below to do so.
+        </p>
 
-            @*@{ Html.RenderPartial(MVC.Security.Views._ChangeUserNameForm, Model.Command); }*@
-        </div>
-    </section>
-}
+        <ul class="emails list-unstyled">
+            @foreach (var emailAddress in Model.EmailAddresses)
+            {
+                <li class="clearfix">
+                    @Html.Gravatar(emailAddress.HashedValue, 32)
+                    <span class="email-value">
+                        @emailAddress.Value
+                        @*when this is really long, this happens*@
+                    </span>
+                    @if (emailAddress.IsDefault)
+                    {
+                        <span class="label label-success">Primary</span>
+                    }
+                    <div class="pull-right">
+                        @if (!emailAddress.IsDefault)
+                        {
+                            if (emailAddress.IsConfirmed)
+                            {
+                                <button type="button" class="btn btn-primary btn-sm">
+                                    <i class="fa fa-arrow-up"></i>
+                                    Make Primary
+                                </button>
+                            }
+                            else
+                            {
+                                <button type="button" class="btn btn-warning btn-sm">
+                                    <i class="fa fa-exclamation"></i>
+                                    Verify
+                                </button>
+                            }
+                            <button type="button" class="btn btn-danger btn-sm">
+                                <i class="fa fa-times"></i>
+                                Delete
+                            </button>
+                        }
+
+                    </div>
+                </li>
+            }
+        </ul>
+
+        @*@{ Html.RenderPartial(MVC.Security.Views._ChangeUserNameForm, Model.Command); }*@
+    </div>
+</section>
 
 @section scripts
 {

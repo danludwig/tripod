@@ -52,7 +52,7 @@
                        model-contrib
                        server-error="@Html.ValidationMessageTextFor(x => x.UserName)"
                        server-validate="@Url.Action(MVC.User.ValidateChangeUserName())"
-                       server-validate-data="{ token: vm.token }"
+                       server-validate-data="{ userId: @User.Identity.GetUserId() }"
                        server-validate-throttle="400" />
 
                 <span class="input-group-addon validation @Html.CssClassWhenIsNotPost("hide")"

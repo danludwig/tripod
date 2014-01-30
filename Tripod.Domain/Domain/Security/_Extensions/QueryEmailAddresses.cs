@@ -54,7 +54,7 @@ namespace Tripod.Domain.Security
             return set.AsQueryable().ByUserId(userId);
         }
 
-        private static Expression<Func<EmailAddress, bool>> ByUserId(int userId)
+        internal static Expression<Func<EmailAddress, bool>> ByUserId(int userId)
         {
             return x => x.OwnerId == userId;
         }

@@ -34,7 +34,44 @@ body {
             }
         }
     }
+
     section.user-settings {
         margin-top: 30px;
+    }
+
+    ul.emails {
+        > li {
+            @include box-sizing(content-box);
+            border-bottom: solid 1px #999;
+            padding: 8px;
+
+            &:hover {
+                background-color: #fe8;
+                background-color: #e7e7e7;
+            }
+
+            img.gravatar {
+                vertical-align: top;
+                height: 30px;
+                margin-right: 4px;
+            }
+
+            .email-value {
+                cursor: default;
+                font-size: 18px;
+                line-height: 30px;
+            }
+
+            .label {
+                cursor: default;
+                display: inline-block;
+                padding: .3em .6em;
+                margin-top: 7px;
+                vertical-align: top;
+            }
+
+            button.btn {
+            }
+        }
     }
 }
