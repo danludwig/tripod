@@ -42,12 +42,33 @@ body {
     ul.emails {
         > li {
             @include box-sizing(content-box);
-            border-bottom: solid 1px #999;
+            border: solid 1px transparent;
             padding: 8px;
+            margin-bottom: 8px;
+            @include border-radius(6px);
 
-            &:hover {
-                background-color: #fe8;
-                background-color: #e7e7e7;
+            &.success {
+                background-color: #dff0d8;
+                border-color: #d6e9c6;
+                &:hover {
+                    background-color: #d6e9c6;
+                }
+            }
+
+            &.info {
+                background-color: #d9edf7;
+                border-color: #bce8f1;
+                &:hover {
+                    background-color: #bce8f1;
+                }
+            }
+
+            &.warning {
+                background-color: #f7eaa7;
+                border-color: #fe8;
+                &:hover {
+                    background-color: #fe8;
+                }
             }
 
             img.gravatar {
@@ -64,9 +85,10 @@ body {
 
             .label {
                 cursor: default;
+                font-size: 14px;
                 display: inline-block;
-                padding: .3em .6em;
-                margin-top: 7px;
+                padding: 3px 6px;
+                margin-top: 5px;
                 vertical-align: top;
             }
 

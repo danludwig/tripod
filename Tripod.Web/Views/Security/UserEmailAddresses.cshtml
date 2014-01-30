@@ -61,7 +61,8 @@
         <ul class="emails list-unstyled">
             @foreach (var emailAddress in Model.EmailAddresses)
             {
-                <li class="clearfix">
+                var flavor = emailAddress.IsDefault ? "success" : emailAddress.IsConfirmed ? "info" : "warning";
+                <li class="clearfix @flavor">
                     @Html.Gravatar(emailAddress.HashedValue, 32)
                     <span class="email-value">
                         @emailAddress.Value
@@ -71,22 +72,30 @@
                     {
                         <span class="label label-success">Primary</span>
                     }
+                    else if (emailAddress.IsConfirmed)
+                    {
+                        <span class="label label-info">Verified</span>
+                    }
+                    else
+                    {
+                        <span class="label label-warning">Unverified</span>
+                    }
                     <div class="pull-right">
                         @if (!emailAddress.IsDefault)
                         {
                             if (emailAddress.IsConfirmed)
                             {
-                                <button type="button" class="btn btn-primary btn-sm">
-                                    <i class="fa fa-arrow-up"></i>
-                                    Make Primary
-                                </button>
+                            <button type="button" class="btn btn-primary btn-sm">
+                                <i class="fa fa-arrow-up"></i>
+                                Make Primary
+                            </button>
                             }
                             else
                             {
-                                <button type="button" class="btn btn-warning btn-sm">
-                                    <i class="fa fa-exclamation"></i>
-                                    Verify
-                                </button>
+                            <button type="button" class="btn btn-warning btn-sm">
+                                <i class="fa fa-exclamation"></i>
+                                Verify
+                            </button>
                             }
                             <button type="button" class="btn btn-danger btn-sm">
                                 <i class="fa fa-times"></i>
