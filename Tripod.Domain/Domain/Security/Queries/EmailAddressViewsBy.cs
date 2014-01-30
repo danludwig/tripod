@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace Tripod.Domain.Security
 {
-    public class EmailAddressViewsBy : IDefineQuery<Task<IQueryable<EmailAddressView>>>
+    public class EmailAddressViewsBy : BaseEnumerableQuery<EmailAddressView>, IDefineQuery<Task<IQueryable<EmailAddressView>>>
     {
         [UsedImplicitly]
         public EmailAddressViewsBy(int userId)
@@ -43,7 +43,8 @@ namespace Tripod.Domain.Security
                     HashedValue = x.HashedValue,
                     IsConfirmed = x.IsConfirmed,
                     IsDefault = x.IsDefault,
-                });
+                })
+                .OrderBy(query.OrderBy);
 
             return Task.FromResult(projection);
         }

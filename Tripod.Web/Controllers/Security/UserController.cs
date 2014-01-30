@@ -1,4 +1,7 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using Tripod.Domain.Security;
@@ -92,7 +95,14 @@ namespace Tripod.Web.Controllers
         public virtual async Task<ActionResult> Emails()
         {
             var user = await _queries.Execute(new UserViewBy(User.Identity.GetAppUserId()));
-            var emails = await _queries.Execute(new EmailAddressViewsBy(User.Identity.GetAppUserId()));
+            var emails = await _queries.Execute(new EmailAddressViewsBy(User.Identity.GetAppUserId())
+            {
+                OrderBy = new Dictionary<Expression<Func<EmailAddressView, object>>, OrderByDirection>
+                {
+                    { x => x.IsDefault, OrderByDirection.Descending },
+                    { x => x.IsConfirmed, OrderByDirection.Descending },
+                },
+            });
 
             var model = new EmailAddressSettingsModel
             {
