@@ -59,11 +59,11 @@ body ul.emails > li {
       background-color: #bce8f1; }
   /* line 66, ../../compass/security/user-settings.scss */
   body ul.emails > li.warning {
-    background-color: #f7eaa7;
-    border-color: #fe8; }
+    background-color: #fe8;
+    border-color: #f7eaa7; }
     /* line 69, ../../compass/security/user-settings.scss */
     body ul.emails > li.warning:hover {
-      background-color: #fe8; }
+      background-color: #f7eaa7; }
   /* line 74, ../../compass/security/user-settings.scss */
   body ul.emails > li img.gravatar {
     vertical-align: top;
