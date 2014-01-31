@@ -22,15 +22,15 @@ ALTER TABLE [Security].[EmailAddress] ADD  CONSTRAINT [UK_Security.EmailAddress.
 )
 GO
 
--- collate case sensitively for Security.EmailConfirmation.Ticket
-ALTER TABLE [Security].[EmailConfirmation]
+-- collate case sensitively for Security.EmailVerification.Ticket
+ALTER TABLE [Security].[EmailVerification]
 ALTER COLUMN [Ticket] NVARCHAR(100)
 COLLATE Latin1_General_CS_AS
 GO
 
----- create unique key for Security.EmailConfirmation.Ticket
-IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'[Security].[EmailConfirmation]') AND name = N'UK_Security.EmailConfirmation.Ticket')
-ALTER TABLE [Security].[EmailConfirmation] ADD  CONSTRAINT [UK_Security.EmailConfirmation.Ticket] UNIQUE NONCLUSTERED
+---- create unique key for Security.EmailVerification.Ticket
+IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'[Security].[EmailVerification]') AND name = N'UK_Security.EmailVerification.Ticket')
+ALTER TABLE [Security].[EmailVerification] ADD  CONSTRAINT [UK_Security.EmailVerification.Ticket] UNIQUE NONCLUSTERED
 (
 	[Ticket] ASC
 )

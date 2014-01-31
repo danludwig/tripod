@@ -25,7 +25,7 @@ namespace Tripod.Domain.Security
 
             var emailByValue = _queries.Execute(new EmailAddressBy(nameOrEmail)
             {
-                IsConfirmed = true,
+                IsVerified = true,
             }).Result;
             return emailByValue != null;
         }

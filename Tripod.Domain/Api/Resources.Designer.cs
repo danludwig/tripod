@@ -306,63 +306,63 @@ namespace Tripod {
         /// <summary>
         ///   Looks up a localized string similar to The {PropertyName} &apos;{PropertyValue}&apos; has already been registered..
         /// </summary>
-        public static string Validation_EmailAddress_IsAlreadyConfirmed {
+        public static string Validation_EmailAddress_IsAlreadyVerified {
             get {
-                return ResourceManager.GetString("Validation_EmailAddress_IsAlreadyConfirmed", resourceCulture);
+                return ResourceManager.GetString("Validation_EmailAddress_IsAlreadyVerified", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to There is a missing message parameter..
         /// </summary>
-        public static string Validation_EmailConfirmation_MissingMessageFormatter {
+        public static string Validation_EmailVerification_MissingMessageFormatter {
             get {
-                return ResourceManager.GetString("Validation_EmailConfirmation_MissingMessageFormatter", resourceCulture);
+                return ResourceManager.GetString("Validation_EmailVerification_MissingMessageFormatter", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Unable to determine the purpose of this {PropertyName}..
         /// </summary>
-        public static string Validation_EmailConfirmationPurpose_IsEmpty {
+        public static string Validation_EmailVerificationPurpose_IsEmpty {
             get {
-                return ResourceManager.GetString("Validation_EmailConfirmationPurpose_IsEmpty", resourceCulture);
+                return ResourceManager.GetString("Validation_EmailVerificationPurpose_IsEmpty", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to &apos;{PropertyValue}&apos; is not the correct {PropertyName}. Were you sent multiple emails?.
         /// </summary>
-        public static string Validation_EmailConfirmationSecret_IsWrong {
+        public static string Validation_EmailVerificationSecret_IsWrong {
             get {
-                return ResourceManager.GetString("Validation_EmailConfirmationSecret_IsWrong", resourceCulture);
+                return ResourceManager.GetString("Validation_EmailVerificationSecret_IsWrong", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to This {PropertyName} has expired. Please start this process over to try again..
         /// </summary>
-        public static string Validation_EmailConfirmationTicket_IsExpired {
+        public static string Validation_EmailVerificationTicket_IsExpired {
             get {
-                return ResourceManager.GetString("Validation_EmailConfirmationTicket_IsExpired", resourceCulture);
+                return ResourceManager.GetString("Validation_EmailVerificationTicket_IsExpired", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to This {PropertyName} has already been used. Are you sure you haven&apos;t done this already?.
         /// </summary>
-        public static string Validation_EmailConfirmationTicket_IsRedeemed {
+        public static string Validation_EmailVerificationTicket_IsRedeemed {
             get {
-                return ResourceManager.GetString("Validation_EmailConfirmationTicket_IsRedeemed", resourceCulture);
+                return ResourceManager.GetString("Validation_EmailVerificationTicket_IsRedeemed", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to This {PropertyName} cannot be used for this purpose..
         /// </summary>
-        public static string Validation_EmailConfirmationTicket_IsWrongPurpose {
+        public static string Validation_EmailVerificationTicket_IsWrongPurpose {
             get {
-                return ResourceManager.GetString("Validation_EmailConfirmationTicket_IsWrongPurpose", resourceCulture);
+                return ResourceManager.GetString("Validation_EmailVerificationTicket_IsWrongPurpose", resourceCulture);
             }
         }
         
@@ -466,11 +466,11 @@ namespace Tripod {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please acknowledge that you will expect a confirmation email to be sent to this {PropertyName}..
+        ///   Looks up a localized string similar to Please acknowledge that you will expect a verification email to be sent to this {PropertyName}..
         /// </summary>
-        public static string Validation_SendConfirmationEmail_IsExpectingEmail {
+        public static string Validation_SendVerificationEmail_IsExpectingEmail {
             get {
-                return ResourceManager.GetString("Validation_SendConfirmationEmail_IsExpectingEmail", resourceCulture);
+                return ResourceManager.GetString("Validation_SendVerificationEmail_IsExpectingEmail", resourceCulture);
             }
         }
         

@@ -12,7 +12,7 @@ namespace Tripod.Domain.Security
         }
 
         public int UserId { get; private set; }
-        public bool? IsConfirmed { get; set; }
+        public bool? IsVerified { get; set; }
     }
 
     [UsedImplicitly]
@@ -31,8 +31,8 @@ namespace Tripod.Domain.Security
                 .EagerLoad(query.EagerLoad)
                 .ByUserId(query.UserId);
 
-            if (query.IsConfirmed.HasValue)
-                queryable = queryable.Where(x => x.IsConfirmed == query.IsConfirmed.Value);
+            if (query.IsVerified.HasValue)
+                queryable = queryable.Where(x => x.IsVerified == query.IsVerified.Value);
 
             return Task.FromResult(queryable);
         }

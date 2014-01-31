@@ -49,16 +49,16 @@ namespace Tripod.Web.Controllers
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> SendConfirmationEmail()
+        public virtual System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> SendVerificationEmail()
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SendConfirmationEmail);
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SendVerificationEmail);
             return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> VerifyConfirmEmailSecret()
+        public virtual System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> VerifyEmailSecret()
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.VerifyConfirmEmailSecret);
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.VerifyEmailSecret);
             return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
         }
         [NonAction]
@@ -91,8 +91,8 @@ namespace Tripod.Web.Controllers
         public class ActionNamesClass
         {
             public readonly string Index = "Index";
-            public readonly string SendConfirmationEmail = "SendConfirmationEmail";
-            public readonly string VerifyConfirmEmailSecret = "VerifyConfirmEmailSecret";
+            public readonly string SendVerificationEmail = "SendVerificationEmail";
+            public readonly string VerifyEmailSecret = "VerifyEmailSecret";
             public readonly string CreateRemoteMembership = "CreateRemoteMembership";
             public readonly string ValidateCreateRemoteMembership = "ValidateCreateRemoteMembership";
         }
@@ -101,8 +101,8 @@ namespace Tripod.Web.Controllers
         public class ActionNameConstants
         {
             public const string Index = "Index";
-            public const string SendConfirmationEmail = "SendConfirmationEmail";
-            public const string VerifyConfirmEmailSecret = "VerifyConfirmEmailSecret";
+            public const string SendVerificationEmail = "SendVerificationEmail";
+            public const string VerifyEmailSecret = "VerifyEmailSecret";
             public const string CreateRemoteMembership = "CreateRemoteMembership";
             public const string ValidateCreateRemoteMembership = "ValidateCreateRemoteMembership";
         }
@@ -117,21 +117,21 @@ namespace Tripod.Web.Controllers
             public readonly string provider = "provider";
             public readonly string returnUrl = "returnUrl";
         }
-        static readonly ActionParamsClass_SendConfirmationEmail s_params_SendConfirmationEmail = new ActionParamsClass_SendConfirmationEmail();
+        static readonly ActionParamsClass_SendVerificationEmail s_params_SendVerificationEmail = new ActionParamsClass_SendVerificationEmail();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_SendConfirmationEmail SendConfirmationEmailParams { get { return s_params_SendConfirmationEmail; } }
+        public ActionParamsClass_SendVerificationEmail SendVerificationEmailParams { get { return s_params_SendVerificationEmail; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_SendConfirmationEmail
+        public class ActionParamsClass_SendVerificationEmail
         {
             public readonly string returnUrl = "returnUrl";
             public readonly string command = "command";
             public readonly string loginProvider = "loginProvider";
         }
-        static readonly ActionParamsClass_VerifyConfirmEmailSecret s_params_VerifyConfirmEmailSecret = new ActionParamsClass_VerifyConfirmEmailSecret();
+        static readonly ActionParamsClass_VerifyEmailSecret s_params_VerifyEmailSecret = new ActionParamsClass_VerifyEmailSecret();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_VerifyConfirmEmailSecret VerifyConfirmEmailSecretParams { get { return s_params_VerifyConfirmEmailSecret; } }
+        public ActionParamsClass_VerifyEmailSecret VerifyEmailSecretParams { get { return s_params_VerifyEmailSecret; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_VerifyConfirmEmailSecret
+        public class ActionParamsClass_VerifyEmailSecret
         {
             public readonly string ticket = "ticket";
             public readonly string returnUrl = "returnUrl";
@@ -198,49 +198,49 @@ namespace Tripod.Web.Controllers
             return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
         }
 
-        partial void SendConfirmationEmailOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string returnUrl);
+        partial void SendVerificationEmailOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string returnUrl);
 
-        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> SendConfirmationEmail(string returnUrl)
+        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> SendVerificationEmail(string returnUrl)
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SendConfirmationEmail);
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SendVerificationEmail);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "returnUrl", returnUrl);
-            SendConfirmationEmailOverride(callInfo, returnUrl);
+            SendVerificationEmailOverride(callInfo, returnUrl);
             return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
         }
 
-        partial void SendConfirmationEmailOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Tripod.Domain.Security.SendConfirmationEmail command, string returnUrl, string loginProvider);
+        partial void SendVerificationEmailOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Tripod.Domain.Security.SendVerificationEmail command, string returnUrl, string loginProvider);
 
-        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> SendConfirmationEmail(Tripod.Domain.Security.SendConfirmationEmail command, string returnUrl, string loginProvider)
+        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> SendVerificationEmail(Tripod.Domain.Security.SendVerificationEmail command, string returnUrl, string loginProvider)
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SendConfirmationEmail);
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SendVerificationEmail);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "command", command);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "returnUrl", returnUrl);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "loginProvider", loginProvider);
-            SendConfirmationEmailOverride(callInfo, command, returnUrl, loginProvider);
+            SendVerificationEmailOverride(callInfo, command, returnUrl, loginProvider);
             return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
         }
 
-        partial void VerifyConfirmEmailSecretOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ticket, string returnUrl);
+        partial void VerifyEmailSecretOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ticket, string returnUrl);
 
-        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> VerifyConfirmEmailSecret(string ticket, string returnUrl)
+        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> VerifyEmailSecret(string ticket, string returnUrl)
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.VerifyConfirmEmailSecret);
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.VerifyEmailSecret);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ticket", ticket);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "returnUrl", returnUrl);
-            VerifyConfirmEmailSecretOverride(callInfo, ticket, returnUrl);
+            VerifyEmailSecretOverride(callInfo, ticket, returnUrl);
             return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
         }
 
-        partial void VerifyConfirmEmailSecretOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ticket, Tripod.Domain.Security.VerifyConfirmEmailSecret command, string returnUrl, string emailAddress);
+        partial void VerifyEmailSecretOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ticket, Tripod.Domain.Security.VerifyEmailSecret command, string returnUrl, string emailAddress);
 
-        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> VerifyConfirmEmailSecret(string ticket, Tripod.Domain.Security.VerifyConfirmEmailSecret command, string returnUrl, string emailAddress)
+        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> VerifyEmailSecret(string ticket, Tripod.Domain.Security.VerifyEmailSecret command, string returnUrl, string emailAddress)
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.VerifyConfirmEmailSecret);
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.VerifyEmailSecret);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ticket", ticket);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "command", command);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "returnUrl", returnUrl);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "emailAddress", emailAddress);
-            VerifyConfirmEmailSecretOverride(callInfo, ticket, command, returnUrl, emailAddress);
+            VerifyEmailSecretOverride(callInfo, ticket, command, returnUrl, emailAddress);
             return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
         }
 

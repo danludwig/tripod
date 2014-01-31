@@ -12,7 +12,6 @@ namespace Tripod.Domain.Security
             entity.Id.ShouldEqual(0);
             entity.Owner.ShouldBeNull();
             entity.PasswordHash.ShouldBeNull();
-            entity.IsConfirmed.ShouldBeFalse();
         }
     }
 }

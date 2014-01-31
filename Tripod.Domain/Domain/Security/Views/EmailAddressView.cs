@@ -7,6 +7,6 @@ namespace Tripod.Domain.Security
         public string Value { get; set; }
         public string HashedValue { get; set; }
         public bool IsPrimary { get; set; }
-        public bool IsConfirmed { get; set; }
+        public bool IsVerified { get; set; }
     }
 }

@@ -1,1 +1,1 @@
-﻿Please confirm your email address for localhost.com
+﻿Please verify your email address for localhost.com

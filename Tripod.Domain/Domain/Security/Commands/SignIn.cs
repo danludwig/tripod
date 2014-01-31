@@ -49,8 +49,8 @@ namespace Tripod.Domain.Security
 
         public async Task Handle(SignIn command)
         {
-            // match password with either a username or a confirmed email address
-            var user = await _queries.Execute(new UserByNameOrConfirmedEmail(command.UserName));
+            // match password with either a username or a verified email address
+            var user = await _queries.Execute(new UserByNameOrVerifiedEmail(command.UserName));
             if (user == null) return;
 
             user = await _userManager.FindAsync(user.Name, command.Password);

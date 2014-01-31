@@ -14,7 +14,7 @@ namespace Tripod.Domain.Security
             entity.OwnerId.ShouldBeNull();
             entity.Value.ShouldBeNull();
             entity.IsPrimary.ShouldBeFalse();
-            entity.IsConfirmed.ShouldBeFalse();
+            entity.IsVerified.ShouldBeFalse();
         }
     }
 }

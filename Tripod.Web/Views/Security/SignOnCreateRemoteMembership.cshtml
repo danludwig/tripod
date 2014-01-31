@@ -15,7 +15,7 @@
 
 @if (!ViewBag.HasClaimsEmail)
 {
-    Html.RenderPartial(MVC.Security.Views._ConfirmEmailWizardSteps, new ConfirmEmailWizardModel(3));
+    Html.RenderPartial(MVC.Security.Views._VerifyEmailWizardSteps, new VerifyEmailWizardModel(3));
     <hr class="hr-space hr-md" />
 }
 @* ReSharper disable RedundantIfElseBlock *@
@@ -34,7 +34,7 @@ else
     }
     else
     {
-        <strong>@ViewBag.LoginProvider</strong><text> and confirmed an email address.</text>
+        <strong>@ViewBag.LoginProvider</strong><text> and verified an email address.</text>
     }
     <br />
     Choose a user name for your account and click the button below to finish signing in.
@@ -185,7 +185,7 @@ else
 
         @* VALIDATION MESSAGES COLUMNS *@
         <div class="col-md-6 validation help-block help-block-horizontal-md under-label hidden-sm hidden-xs">
-            <span tooltip="@Resources.notempty_error.Replace("{PropertyName}", EmailConfirmation.Constraints.Label)"
+            <span tooltip="@Resources.notempty_error.Replace("{PropertyName}", EmailVerification.Constraints.Label)"
                   tooltip-toggle="vm.isTokenRequiredError()"
                   tooltip-animation="false"
                   tooltip-placement="right"
@@ -201,10 +201,10 @@ else
         </div>
         <div class="col-md-6 validation help-block hidden-md hidden-lg">
             <span ng-show="vm.isTokenRequiredError()" ng-cloak>
-                @Resources.notempty_error.Replace("{PropertyName}", EmailConfirmation.Constraints.Label)
+                @Resources.notempty_error.Replace("{PropertyName}", EmailVerification.Constraints.Label)
             </span>
             <span ng-show="vm.isTokenServerError()" ng-cloak>
-                {{ signOnUserCtrb.confirmPassword.error.server }}
+                {{ signOnUserCtrb.token.error.server }}
             </span>
             <span ng-class="{ hide: true }">
                 @Html.ValidationMessageFor(x => x.Token)
@@ -239,7 +239,7 @@ else
                  remove-class="@errorClass"
                  ng-show="vm.isSubmitError()">
                 <div class="help-block">
-                    Could not confirm email address due to above error(s).
+                    Could not register &amp; sign in due to above error(s).
                 </div>
             </div>
         </div>

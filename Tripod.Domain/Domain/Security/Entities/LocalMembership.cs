@@ -8,8 +8,6 @@
 
         public string PasswordHash { get; protected internal set; }
 
-        public bool IsConfirmed { get; protected internal set; }
-
         public static class Constraints
         {
             public const string Label = "Local password";

@@ -36,32 +36,32 @@ namespace T4MVC
             public class _ViewNamesClass
             {
                 public readonly string _ChangeUserNameForm = "_ChangeUserNameForm";
-                public readonly string _ConfirmEmailWizardSteps = "_ConfirmEmailWizardSteps";
-                public readonly string _SendConfirmationEmailForm = "_SendConfirmationEmailForm";
+                public readonly string _SendVerificationEmailForm = "_SendVerificationEmailForm";
                 public readonly string _SignOnForm = "_SignOnForm";
-                public readonly string _VerifyConfirmEmailSecretForm = "_VerifyConfirmEmailSecretForm";
+                public readonly string _VerifyEmailSecretForm = "_VerifyEmailSecretForm";
+                public readonly string _VerifyEmailWizardSteps = "_VerifyEmailWizardSteps";
                 public readonly string SignIn = "SignIn";
                 public readonly string SignOnCreateRemoteMembership = "SignOnCreateRemoteMembership";
-                public readonly string SignOnSendConfirmationEmail = "SignOnSendConfirmationEmail";
-                public readonly string SignOnVerifyConfirmEmailSecret = "SignOnVerifyConfirmEmailSecret";
+                public readonly string SignOnSendVerificationEmail = "SignOnSendVerificationEmail";
+                public readonly string SignOnVerifyEmailSecret = "SignOnVerifyEmailSecret";
                 public readonly string SignUpCreateLocalMembership = "SignUpCreateLocalMembership";
-                public readonly string SignUpSendConfirmationEmail = "SignUpSendConfirmationEmail";
-                public readonly string SignUpVerifyConfirmEmailSecret = "SignUpVerifyConfirmEmailSecret";
+                public readonly string SignUpSendVerificationEmail = "SignUpSendVerificationEmail";
+                public readonly string SignUpVerifyEmailSecret = "SignUpVerifyEmailSecret";
                 public readonly string UserEmailAddresses = "UserEmailAddresses";
                 public readonly string UserSettingsIndex = "UserSettingsIndex";
             }
             public readonly string _ChangeUserNameForm = "~/Views/Security/_ChangeUserNameForm.cshtml";
-            public readonly string _ConfirmEmailWizardSteps = "~/Views/Security/_ConfirmEmailWizardSteps.cshtml";
-            public readonly string _SendConfirmationEmailForm = "~/Views/Security/_SendConfirmationEmailForm.cshtml";
+            public readonly string _SendVerificationEmailForm = "~/Views/Security/_SendVerificationEmailForm.cshtml";
             public readonly string _SignOnForm = "~/Views/Security/_SignOnForm.cshtml";
-            public readonly string _VerifyConfirmEmailSecretForm = "~/Views/Security/_VerifyConfirmEmailSecretForm.cshtml";
+            public readonly string _VerifyEmailSecretForm = "~/Views/Security/_VerifyEmailSecretForm.cshtml";
+            public readonly string _VerifyEmailWizardSteps = "~/Views/Security/_VerifyEmailWizardSteps.cshtml";
             public readonly string SignIn = "~/Views/Security/SignIn.cshtml";
             public readonly string SignOnCreateRemoteMembership = "~/Views/Security/SignOnCreateRemoteMembership.cshtml";
-            public readonly string SignOnSendConfirmationEmail = "~/Views/Security/SignOnSendConfirmationEmail.cshtml";
-            public readonly string SignOnVerifyConfirmEmailSecret = "~/Views/Security/SignOnVerifyConfirmEmailSecret.cshtml";
+            public readonly string SignOnSendVerificationEmail = "~/Views/Security/SignOnSendVerificationEmail.cshtml";
+            public readonly string SignOnVerifyEmailSecret = "~/Views/Security/SignOnVerifyEmailSecret.cshtml";
             public readonly string SignUpCreateLocalMembership = "~/Views/Security/SignUpCreateLocalMembership.cshtml";
-            public readonly string SignUpSendConfirmationEmail = "~/Views/Security/SignUpSendConfirmationEmail.cshtml";
-            public readonly string SignUpVerifyConfirmEmailSecret = "~/Views/Security/SignUpVerifyConfirmEmailSecret.cshtml";
+            public readonly string SignUpSendVerificationEmail = "~/Views/Security/SignUpSendVerificationEmail.cshtml";
+            public readonly string SignUpVerifyEmailSecret = "~/Views/Security/SignUpVerifyEmailSecret.cshtml";
             public readonly string UserEmailAddresses = "~/Views/Security/UserEmailAddresses.cshtml";
             public readonly string UserSettingsIndex = "~/Views/Security/UserSettingsIndex.cshtml";
         }

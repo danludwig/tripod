@@ -60,7 +60,7 @@ namespace Tripod.Domain.Security
             {
                 var emailAddress = await _queries.Execute(new EmailAddressBy(emailClaim)
                 {
-                    IsConfirmed =  true,
+                    IsVerified =  true,
                     EagerLoad = new Expression<Func<EmailAddress, object>>[]
                     {
                         x => x.Owner,

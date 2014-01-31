@@ -1,0 +1,53 @@
+﻿@using Tripod.Domain.Security
+@using UserConstraints = Tripod.Domain.Security.User.Constraints
+
+@model SendVerificationEmail
+
+@{
+    ViewBag.Title = "Sign up";
+}
+
+@section styles
+{
+    <style>
+        .provider-alert {
+            margin-top: 20px; /* alert needs more vertical space at top, h2 only has 10px margin-bottom */
+        }
+    </style>
+}
+
+<hr class="hr-md hr-space" />
+<div class="row">
+    <div class="col-sm-8 col-sm-offset-2">
+
+        @* HEADING *@
+        <h2>@ViewBag.Title.</h2>
+
+        @* OAUTH PROVIDERS INFO ALERT *@
+        <div class="alert alert-info alert-dismissable provider-alert">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <strong>Note:</strong> You can sign up using one of the accounts below. Have more than one?
+            Just pick one to sign up with, and you can add the others later.
+        </div>
+
+        @* OAUTH PROVIDER BUTTONS FORM *@
+        @{ Html.RenderPartial(MVC.Security.Views._SignOnForm, new SignOnFormModel()); }
+
+        <h4>
+            Create a new account with us using your email address.
+        </h4>
+
+        @{ Html.RenderPartial(MVC.Security.Views._SendVerificationEmailForm); }
+
+        <hr class="hr-md hr-space" />
+        <h4>
+            Already have an account with us? <a href="@Url.Action(MVC.SignIn.Index())">Sign in here</a>.
+        </h4>
+    </div>
+</div>
+
+@section scripts
+{
+    @{ Html.RenderPartial(MVC.Scripts.Views.Angular); }
+    <script src="~/app/security/SignUpEmailForm.js"></script>
+}

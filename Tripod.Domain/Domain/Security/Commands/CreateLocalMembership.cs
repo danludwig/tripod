@@ -48,9 +48,9 @@ namespace Tripod.Domain.Security
                     .When(x => !string.IsNullOrWhiteSpace(x.Password), ApplyConditionTo.CurrentValidator);
 
             RuleFor(x => x.Token)
-                .MustBeRedeemableConfirmEmailToken(queries)
-                .MustBePurposedConfirmEmailToken(queries, x => EmailConfirmationPurpose.CreateLocalUser)
-                .WithName(EmailConfirmation.Constraints.Label)
+                .MustBeRedeemableVerifyEmailToken(queries)
+                .MustBePurposedVerifyEmailToken(queries, x => EmailVerificationPurpose.CreateLocalUser)
+                .WithName(EmailVerification.Constraints.Label)
                     .When(x => !x.Principal.Identity.IsAuthenticated);
         }
     }
@@ -80,15 +80,14 @@ namespace Tripod.Domain.Security
                 await _commands.Execute(createUser);
                 user = createUser.Created;
 
-                // confirm & associate email address
-                await _commands.Execute(new RedeemEmailConfirmation(command.Token, user));
+                // verify & associate email address
+                await _commands.Execute(new RedeemEmailVerification(command.Token, user));
             }
 
             user.LocalMembership = new LocalMembership
             {
                 Owner = user,
                 PasswordHash = await _queries.Execute(new HashedPassword(command.Password)),
-                IsConfirmed = true,
             };
             user.SecurityStamp = Guid.NewGuid().ToString();
             await _entities.SaveChangesAsync();

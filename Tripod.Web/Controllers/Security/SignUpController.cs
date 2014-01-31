@@ -22,24 +22,24 @@ namespace Tripod.Web.Controllers
             _commands = commands;
         }
 
-        #region SendConfirmationEmail
+        #region SendVerificationEmail
 
         [HttpGet, Route("sign-up")]
-        public virtual ViewResult SendConfirmationEmail(string returnUrl)
+        public virtual ViewResult SendVerificationEmail(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
-            ViewBag.ActionUrl = Url.Action(MVC.SignUp.SendConfirmationEmail());
-            ViewBag.Purpose = EmailConfirmationPurpose.CreateLocalUser;
-            ViewBag.ConfirmUrlFormat = ConfirmUrlFormat(returnUrl);
+            ViewBag.ActionUrl = Url.Action(MVC.SignUp.SendVerificationEmail());
+            ViewBag.Purpose = EmailVerificationPurpose.CreateLocalUser;
+            ViewBag.VerifyUrlFormat = VerifyUrlFormat(returnUrl);
             ViewBag.SendFromUrl = SendFromUrl(returnUrl);
-            return View(MVC.Security.Views.SignUpSendConfirmationEmail);
+            return View(MVC.Security.Views.SignUpSendVerificationEmail);
         }
 
         [ValidateAntiForgeryToken]
         [HttpPost, Route("sign-up")]
-        public virtual async Task<ActionResult> SendConfirmationEmail(SendConfirmationEmail command, string returnUrl, string loginProvider)
+        public virtual async Task<ActionResult> SendVerificationEmail(SendVerificationEmail command, string returnUrl, string loginProvider)
         {
-            if (command == null || command.Purpose == EmailConfirmationPurpose.Invalid)
+            if (command == null || command.Purpose == EmailVerificationPurpose.Invalid)
             {
                 return View(MVC.Errors.Views.BadRequest);
             }
@@ -47,22 +47,22 @@ namespace Tripod.Web.Controllers
             if (!ModelState.IsValid)
             {
                 ViewBag.ReturnUrl = returnUrl;
-                ViewBag.ActionUrl = Url.Action(MVC.SignUp.SendConfirmationEmail());
-                return View(MVC.Security.Views.SignUpSendConfirmationEmail, command);
+                ViewBag.ActionUrl = Url.Action(MVC.SignUp.SendVerificationEmail());
+                return View(MVC.Security.Views.SignUpSendVerificationEmail, command);
             }
 
-            command.ConfirmUrlFormat = ConfirmUrlFormat(returnUrl);
+            command.VerifyUrlFormat = VerifyUrlFormat(returnUrl);
             command.SendFromUrl = SendFromUrl(returnUrl);
             await _commands.Execute(command);
 
-            Session.ConfirmEmailTickets(command.CreatedTicket);
+            Session.VerifyEmailTickets(command.CreatedTicket);
 
-            return RedirectToAction(await MVC.SignUp.VerifyConfirmEmailSecret(command.CreatedTicket, returnUrl));
+            return RedirectToAction(await MVC.SignUp.VerifyEmailSecret(command.CreatedTicket, returnUrl));
         }
 
         [ValidateAntiForgeryToken]
         [HttpPost, Route("sign-up/validate/{fieldName?}", Order = 1)]
-        public virtual ActionResult ValidateSendConfirmationEmail(SendConfirmationEmail command, string fieldName = null)
+        public virtual ActionResult ValidateSendVerificationEmail(SendVerificationEmail command, string fieldName = null)
         {
             //System.Threading.Thread.Sleep(new Random().Next(5000, 5001));
             if (command == null)
@@ -79,7 +79,7 @@ namespace Tripod.Web.Controllers
             return new CamelCaseJsonResult(result);
         }
 
-        private string ConfirmUrlFormat(string returnUrl)
+        private string VerifyUrlFormat(string returnUrl)
         {
             Debug.Assert(Request.Url != null);
             var encodedUrlFormat = Url.Action(MVC.SignUp.CreateLocalMembership("{0}", "{1}"));
@@ -92,7 +92,7 @@ namespace Tripod.Web.Controllers
         private string SendFromUrl(string returnUrl)
         {
             Debug.Assert(Request.Url != null);
-            var url = Url.Action(MVC.SignUp.SendConfirmationEmail(returnUrl));
+            var url = Url.Action(MVC.SignUp.SendVerificationEmail(returnUrl));
             return string.Format("{0}://{1}{2}", Request.Url.Scheme, Request.Url.Authority, url);
         }
 
@@ -100,11 +100,11 @@ namespace Tripod.Web.Controllers
         #region VerifyConfirmEmailSecret
 
         [HttpGet, Route("sign-up/{ticket}", Order = 2)]
-        public virtual async Task<ActionResult> VerifyConfirmEmailSecret(string ticket, string returnUrl)
+        public virtual async Task<ActionResult> VerifyEmailSecret(string ticket, string returnUrl)
         {
-            var confirmation = await _queries.Execute(new EmailConfirmationBy(ticket)
+            var confirmation = await _queries.Execute(new EmailVerificationBy(ticket)
             {
-                EagerLoad = new Expression<Func<EmailConfirmation, object>>[]
+                EagerLoad = new Expression<Func<EmailVerification, object>>[]
                 {
                     x => x.Owner,
                 }
@@ -114,17 +114,17 @@ namespace Tripod.Web.Controllers
             // todo: confirmation token must not be redeemed, expired, or for different purpose
 
             ViewBag.ReturnUrl = returnUrl;
-            ViewBag.ActionUrl = Url.Action(MVC.SignUp.VerifyConfirmEmailSecret(ticket, null));
+            ViewBag.ActionUrl = Url.Action(MVC.SignUp.VerifyEmailSecret(ticket, null));
             ViewBag.Ticket = ticket;
-            ViewBag.Purpose = EmailConfirmationPurpose.CreateLocalUser;
-            if (Session.ConfirmEmailTickets().Contains(ticket))
+            ViewBag.Purpose = EmailVerificationPurpose.CreateLocalUser;
+            if (Session.VerifyEmailTickets().Contains(ticket))
                 ViewBag.EmailAddress = confirmation.Owner.Value;
-            return View(MVC.Security.Views.SignUpVerifyConfirmEmailSecret);
+            return View(MVC.Security.Views.SignUpVerifyEmailSecret);
         }
 
         [ValidateAntiForgeryToken]
         [HttpPost, Route("sign-up/{ticket}", Order = 2)]
-        public virtual async Task<ActionResult> VerifyConfirmEmailSecret(string ticket, VerifyConfirmEmailSecret command, string returnUrl, string emailAddress)
+        public virtual async Task<ActionResult> VerifyEmailSecret(string ticket, VerifyEmailSecret command, string returnUrl, string emailAddress)
         {
             //System.Threading.Thread.Sleep(new Random().Next(5000, 5001));
 
@@ -133,12 +133,12 @@ namespace Tripod.Web.Controllers
             if (!ModelState.IsValid)
             {
                 ViewBag.ReturnUrl = returnUrl;
-                ViewBag.ActionUrl = Url.Action(MVC.SignUp.VerifyConfirmEmailSecret(ticket, null));
+                ViewBag.ActionUrl = Url.Action(MVC.SignUp.VerifyEmailSecret(ticket, null));
                 ViewBag.Ticket = ticket;
-                ViewBag.Purpose = EmailConfirmationPurpose.CreateLocalUser;
-                if (Session.ConfirmEmailTickets().Contains(ticket))
+                ViewBag.Purpose = EmailVerificationPurpose.CreateLocalUser;
+                if (Session.VerifyEmailTickets().Contains(ticket))
                     ViewBag.EmailAddress = emailAddress;
-                return View(MVC.Security.Views.SignUpVerifyConfirmEmailSecret, command);
+                return View(MVC.Security.Views.SignUpVerifyEmailSecret, command);
             }
 
             await _commands.Execute(command);
@@ -148,7 +148,7 @@ namespace Tripod.Web.Controllers
 
         [ValidateAntiForgeryToken]
         [HttpPost, Route("sign-up/{ticket}/validate/{fieldName?}", Order = 2)]
-        public virtual ActionResult ValidateVerifyConfirmEmailSecret(VerifyConfirmEmailSecret command, string fieldName = null)
+        public virtual ActionResult ValidateVerifyEmailSecret(VerifyEmailSecret command, string fieldName = null)
         {
             //System.Threading.Thread.Sleep(new Random().Next(5000, 5001));
             if (command == null)
@@ -171,16 +171,16 @@ namespace Tripod.Web.Controllers
         [HttpGet, Route("sign-up/register", Order = 1)]
         public virtual async Task<ActionResult> CreateLocalMembership(string token, string returnUrl)
         {
-            var userToken = await _queries.Execute(new EmailConfirmationUserToken(token));
+            var userToken = await _queries.Execute(new EmailVerificationUserToken(token));
             if (userToken == null) return HttpNotFound();
-            var confirmation = await _queries.Execute(new EmailConfirmationBy(userToken.Value));
-            if (confirmation == null) return HttpNotFound();
+            var verification = await _queries.Execute(new EmailVerificationBy(userToken.Value));
+            if (verification == null) return HttpNotFound();
 
-            // todo: confirmation cannot be expired, redeemed, or for different purpose
+            // todo: verification cannot be expired, redeemed, or for different purpose
 
             ViewBag.Token = token;
             ViewBag.ReturnUrl = returnUrl;
-            ViewBag.EmailAddress = confirmation.Owner.Value;
+            ViewBag.EmailAddress = verification.Owner.Value;
             return View(MVC.Security.Views.SignUpCreateLocalMembership);
         }
 
@@ -209,7 +209,7 @@ namespace Tripod.Web.Controllers
                 Password = command.Password
             };
             await _commands.Execute(signIn);
-            Session.ConfirmEmailTickets(null);
+            Session.VerifyEmailTickets(null);
             Response.ClientCookie(signIn.SignedIn.Id, _queries);
             return this.RedirectToLocal(returnUrl, await MVC.User.SettingsIndex());
         }

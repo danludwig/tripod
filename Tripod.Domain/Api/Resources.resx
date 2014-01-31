@@ -219,34 +219,34 @@
   <data name="Validation_RemoteMembershipByUser_IsOnlyLogin" xml:space="preserve">
     <value>{PropertyName} '{PropertyValue}' does not have a {PasswordLabel} or any other external logins.</value>
   </data>
-  <data name="Validation_SendConfirmationEmail_IsExpectingEmail" xml:space="preserve">
-    <value>Please acknowledge that you will expect a confirmation email to be sent to this {PropertyName}.</value>
+  <data name="Validation_SendVerificationEmail_IsExpectingEmail" xml:space="preserve">
+    <value>Please acknowledge that you will expect a verification email to be sent to this {PropertyName}.</value>
   </data>
   <data name="Validation_CouldNotFind" xml:space="preserve">
     <value>Could not find {PropertyName} '{PropertyValue}'.</value>
   </data>
-  <data name="Validation_EmailConfirmationSecret_IsWrong" xml:space="preserve">
+  <data name="Validation_EmailVerificationSecret_IsWrong" xml:space="preserve">
     <value>'{PropertyValue}' is not the correct {PropertyName}. Were you sent multiple emails?</value>
   </data>
-  <data name="Validation_EmailConfirmationTicket_IsExpired" xml:space="preserve">
+  <data name="Validation_EmailVerificationTicket_IsExpired" xml:space="preserve">
     <value>This {PropertyName} has expired. Please start this process over to try again.</value>
   </data>
-  <data name="Validation_EmailConfirmationTicket_IsRedeemed" xml:space="preserve">
+  <data name="Validation_EmailVerificationTicket_IsRedeemed" xml:space="preserve">
     <value>This {PropertyName} has already been used. Are you sure you haven't done this already?</value>
   </data>
-  <data name="Validation_EmailConfirmationTicket_IsWrongPurpose" xml:space="preserve">
+  <data name="Validation_EmailVerificationTicket_IsWrongPurpose" xml:space="preserve">
     <value>This {PropertyName} cannot be used for this purpose.</value>
   </data>
   <data name="Validation_DoesNotExist_NoValue" xml:space="preserve">
     <value>{PropertyName} does not exist.</value>
   </data>
-  <data name="Validation_EmailAddress_IsAlreadyConfirmed" xml:space="preserve">
+  <data name="Validation_EmailAddress_IsAlreadyVerified" xml:space="preserve">
     <value>The {PropertyName} '{PropertyValue}' has already been registered.</value>
   </data>
-  <data name="Validation_EmailConfirmationPurpose_IsEmpty" xml:space="preserve">
+  <data name="Validation_EmailVerificationPurpose_IsEmpty" xml:space="preserve">
     <value>Unable to determine the purpose of this {PropertyName}.</value>
   </data>
-  <data name="Validation_EmailConfirmation_MissingMessageFormatter" xml:space="preserve">
+  <data name="Validation_EmailVerification_MissingMessageFormatter" xml:space="preserve">
     <value>There is a missing message parameter.</value>
   </data>
   <data name="Validation_UserName_AllowedCharacters" xml:space="preserve">

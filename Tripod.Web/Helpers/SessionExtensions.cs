@@ -6,22 +6,22 @@ namespace Tripod.Web
 {
     public static class SessionExtensions
     {
-        private const string ConfirmEmailTicketsKey = "EmailConfirmationTickets";
+        private const string VerifyEmailTicketsKey = "EmailVerificationTickets";
 
-        public static void ConfirmEmailTickets(this HttpSessionStateBase session, string ticket)
+        public static void VerifyEmailTickets(this HttpSessionStateBase session, string ticket)
         {
-            var tickets = session.ConfirmEmailTickets().ToList();
+            var tickets = session.VerifyEmailTickets().ToList();
             if (!string.IsNullOrWhiteSpace(ticket)) tickets.Add(ticket);
             else tickets.Clear();
-            session[ConfirmEmailTicketsKey] = tickets.ToArray();
+            session[VerifyEmailTicketsKey] = tickets.ToArray();
         }
 
-        public static IEnumerable<string> ConfirmEmailTickets(this HttpSessionStateBase session)
+        public static IEnumerable<string> VerifyEmailTickets(this HttpSessionStateBase session)
         {
-            var tickets = session[ConfirmEmailTicketsKey] as string[];
+            var tickets = session[VerifyEmailTicketsKey] as string[];
             if (tickets != null) return tickets;
             tickets = new string[0];
-            session[ConfirmEmailTicketsKey] = tickets;
+            session[VerifyEmailTicketsKey] = tickets;
             return tickets;
         }
     }

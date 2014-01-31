@@ -21,8 +21,8 @@ namespace Tripod.Domain.Security
             var userManager = new Mock<UserManager<User, int>>(userStore.Object);
             var authenticator = new Mock<IAuthenticate>(MockBehavior.Strict);
             var handler = new HandleSignInCommand(queries.Object, userManager.Object, authenticator.Object);
-            Expression<Func<UserByNameOrConfirmedEmail, bool>> userByNameOrConfirmedEmail = x => x.NameOrEmail == command.UserName;
-            queries.Setup(x => x.Execute(It.Is(userByNameOrConfirmedEmail))).Returns(userResult);
+            Expression<Func<UserByNameOrVerifiedEmail, bool>> userByNameOrVerifiedEmail = x => x.NameOrEmail == command.UserName;
+            queries.Setup(x => x.Execute(It.Is(userByNameOrVerifiedEmail))).Returns(userResult);
             userManager.Setup(x => x.FindAsync(command.UserName, command.Password))
                 .Returns(userResult);
             authenticator.Setup(x => x.SignOn(It.IsAny<User>(), It.IsAny<bool>())).Returns(Task.FromResult(0));
@@ -43,8 +43,8 @@ namespace Tripod.Domain.Security
             var userManager = new Mock<UserManager<User, int>>(userStore.Object);
             var authenticator = new Mock<IAuthenticate>(MockBehavior.Strict);
             var handler = new HandleSignInCommand(queries.Object, userManager.Object, authenticator.Object);
-            Expression<Func<UserByNameOrConfirmedEmail, bool>> userByNameOrConfirmedEmail = x => x.NameOrEmail == command.UserName;
-            queries.Setup(x => x.Execute(It.Is(userByNameOrConfirmedEmail))).Returns(userResult);
+            Expression<Func<UserByNameOrVerifiedEmail, bool>> userByNameOrVerifiedEmail = x => x.NameOrEmail == command.UserName;
+            queries.Setup(x => x.Execute(It.Is(userByNameOrVerifiedEmail))).Returns(userResult);
             userManager.Setup(x => x.FindAsync(command.UserName, command.Password)).Returns(userResult);
             authenticator.Setup(x => x.SignOn(user, command.IsPersistent)).Returns(Task.FromResult(0));
 
@@ -64,8 +64,8 @@ namespace Tripod.Domain.Security
             var userManager = new Mock<UserManager<User, int>>(userStore.Object);
             var authenticator = new Mock<IAuthenticate>(MockBehavior.Strict);
             var handler = new HandleSignInCommand(queries.Object, userManager.Object, authenticator.Object);
-            Expression<Func<UserByNameOrConfirmedEmail, bool>> userByNameOrConfirmedEmail = x => x.NameOrEmail == command.UserName;
-            queries.Setup(x => x.Execute(It.Is(userByNameOrConfirmedEmail))).Returns(userResult);
+            Expression<Func<UserByNameOrVerifiedEmail, bool>> userByNameOrVerifiedEmail = x => x.NameOrEmail == command.UserName;
+            queries.Setup(x => x.Execute(It.Is(userByNameOrVerifiedEmail))).Returns(userResult);
             userManager.Setup(x => x.FindAsync(command.UserName, command.Password)).Returns(userResult);
             authenticator.Setup(x => x.SignOn(user, isPersistent)).Returns(Task.FromResult(0));
 

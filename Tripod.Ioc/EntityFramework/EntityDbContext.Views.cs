@@ -11,7 +11,7 @@ using System.Data.Entity.Infrastructure.MappingViews;
 
 [assembly: DbMappingViewCacheTypeAttribute(
     typeof(Tripod.Ioc.EntityFramework.EntityDbContext),
-    typeof(Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySets3bf6f6a35c2794104ae51d760692ace33e91273a47c1fdb16958b8af234b9a09))]
+    typeof(Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySets6124ee80cf82b4ff73cb5f413c321d81f3a2b99c4593410e29af667b5d1df44e))]
 
 namespace Edm_EntityMappingGeneratedViews
 {
@@ -23,14 +23,14 @@ namespace Edm_EntityMappingGeneratedViews
     /// Implements a mapping view cache.
     /// </summary>
     [GeneratedCode("Entity Framework Power Tools", "0.9.0.0")]
-    internal sealed class ViewsForBaseEntitySets3bf6f6a35c2794104ae51d760692ace33e91273a47c1fdb16958b8af234b9a09 : DbMappingViewCache
+    internal sealed class ViewsForBaseEntitySets6124ee80cf82b4ff73cb5f413c321d81f3a2b99c4593410e29af667b5d1df44e : DbMappingViewCache
     {
         /// <summary>
         /// Gets a hash value computed over the mapping closure.
         /// </summary>
         public override string MappingHashValue
         {
-            get { return "3bf6f6a35c2794104ae51d760692ace33e91273a47c1fdb16958b8af234b9a09"; }
+            get { return "6124ee80cf82b4ff73cb5f413c321d81f3a2b99c4593410e29af667b5d1df44e"; }
         }
 
         /// <summary>
@@ -87,7 +87,7 @@ namespace Edm_EntityMappingGeneratedViews
                 return GetView7();
             }
 
-            if (extentName == "CodeFirstDatabase.EmailConfirmation")
+            if (extentName == "CodeFirstDatabase.EmailVerification")
             {
                 return GetView8();
             }
@@ -132,12 +132,12 @@ namespace Edm_EntityMappingGeneratedViews
                 return GetView16();
             }
 
-            if (extentName == "EntityDbContext.EmailConfirmations")
+            if (extentName == "EntityDbContext.EmailVerifications")
             {
                 return GetView17();
             }
 
-            if (extentName == "EntityDbContext.EmailConfirmation_Message")
+            if (extentName == "EntityDbContext.EmailVerification_Message")
             {
                 return GetView18();
             }
@@ -256,7 +256,7 @@ namespace Edm_EntityMappingGeneratedViews
         {
             return new DbMappingView(@"
     SELECT VALUE -- Constructing EmailAddress
-        [CodeFirstDatabaseSchema.EmailAddress](T1.EmailAddress_Id, T1.EmailAddress_OwnerId, T1.EmailAddress_Value, T1.EmailAddress_HashedValue, T1.EmailAddress_IsPrimary, T1.EmailAddress_IsConfirmed)
+        [CodeFirstDatabaseSchema.EmailAddress](T1.EmailAddress_Id, T1.EmailAddress_OwnerId, T1.EmailAddress_Value, T1.EmailAddress_HashedValue, T1.EmailAddress_IsPrimary, T1.EmailAddress_IsVerified)
     FROM (
         SELECT 
             T.Id AS EmailAddress_Id, 
@@ -264,7 +264,7 @@ namespace Edm_EntityMappingGeneratedViews
             T.[Value] AS EmailAddress_Value, 
             T.HashedValue AS EmailAddress_HashedValue, 
             T.IsPrimary AS EmailAddress_IsPrimary, 
-            T.IsConfirmed AS EmailAddress_IsConfirmed, 
+            T.IsVerified AS EmailAddress_IsVerified, 
             True AS _from0
         FROM EntityDbContext.EmailAddresses AS T
     ) AS T1");
@@ -278,12 +278,11 @@ namespace Edm_EntityMappingGeneratedViews
         {
             return new DbMappingView(@"
     SELECT VALUE -- Constructing LocalMembership
-        [CodeFirstDatabaseSchema.LocalMembership](T1.LocalMembership_UserId, T1.LocalMembership_PasswordHash, T1.LocalMembership_IsConfirmed)
+        [CodeFirstDatabaseSchema.LocalMembership](T1.LocalMembership_UserId, T1.LocalMembership_PasswordHash)
     FROM (
         SELECT 
             T.Id AS LocalMembership_UserId, 
             T.PasswordHash AS LocalMembership_PasswordHash, 
-            T.IsConfirmed AS LocalMembership_IsConfirmed, 
             True AS _from0
         FROM EntityDbContext.LocalMemberships AS T
     ) AS T1");
@@ -328,35 +327,35 @@ namespace Edm_EntityMappingGeneratedViews
         }
 
         /// <summary>
-        /// Gets the view for CodeFirstDatabase.EmailConfirmation.
+        /// Gets the view for CodeFirstDatabase.EmailVerification.
         /// </summary>
         /// <returns>The mapping view.</returns>
         private static DbMappingView GetView8()
         {
             return new DbMappingView(@"
-    SELECT VALUE -- Constructing EmailConfirmation
-        [CodeFirstDatabaseSchema.EmailConfirmation](T3.EmailConfirmation_Id, T3.EmailConfirmation_OwnerId, T3.EmailConfirmation_Token, T3.EmailConfirmation_Ticket, T3.EmailConfirmation_Secret, T3.EmailConfirmation_ExpiresOnUtc, T3.EmailConfirmation_RedeemedOnUtc, T3.EmailConfirmation_Purpose, T3.EmailConfirmation_EmailMessageId)
+    SELECT VALUE -- Constructing EmailVerification
+        [CodeFirstDatabaseSchema.EmailVerification](T3.EmailVerification_Id, T3.EmailVerification_OwnerId, T3.EmailVerification_Token, T3.EmailVerification_Ticket, T3.EmailVerification_Secret, T3.EmailVerification_ExpiresOnUtc, T3.EmailVerification_RedeemedOnUtc, T3.EmailVerification_Purpose, T3.EmailVerification_EmailMessageId)
     FROM (
-        SELECT T1.EmailConfirmation_Id, T1.EmailConfirmation_OwnerId, T1.EmailConfirmation_Token, T1.EmailConfirmation_Ticket, T1.EmailConfirmation_Secret, T1.EmailConfirmation_ExpiresOnUtc, T1.EmailConfirmation_RedeemedOnUtc, T1.EmailConfirmation_Purpose, T2.EmailConfirmation_EmailMessageId, T1._from0, (T2._from1 AND T2._from1 IS NOT NULL) AS _from1
+        SELECT T1.EmailVerification_Id, T1.EmailVerification_OwnerId, T1.EmailVerification_Token, T1.EmailVerification_Ticket, T1.EmailVerification_Secret, T1.EmailVerification_ExpiresOnUtc, T1.EmailVerification_RedeemedOnUtc, T1.EmailVerification_Purpose, T2.EmailVerification_EmailMessageId, T1._from0, (T2._from1 AND T2._from1 IS NOT NULL) AS _from1
         FROM  (
             SELECT 
-                T.Id AS EmailConfirmation_Id, 
-                T.OwnerId AS EmailConfirmation_OwnerId, 
-                T.Token AS EmailConfirmation_Token, 
-                T.Ticket AS EmailConfirmation_Ticket, 
-                T.Secret AS EmailConfirmation_Secret, 
-                T.ExpiresOnUtc AS EmailConfirmation_ExpiresOnUtc, 
-                T.RedeemedOnUtc AS EmailConfirmation_RedeemedOnUtc, 
-                CAST(T.Purpose AS [Edm.Int32]) AS EmailConfirmation_Purpose, 
+                T.Id AS EmailVerification_Id, 
+                T.OwnerId AS EmailVerification_OwnerId, 
+                T.Token AS EmailVerification_Token, 
+                T.Ticket AS EmailVerification_Ticket, 
+                T.Secret AS EmailVerification_Secret, 
+                T.ExpiresOnUtc AS EmailVerification_ExpiresOnUtc, 
+                T.RedeemedOnUtc AS EmailVerification_RedeemedOnUtc, 
+                CAST(T.Purpose AS [Edm.Int32]) AS EmailVerification_Purpose, 
                 True AS _from0
-            FROM EntityDbContext.EmailConfirmations AS T) AS T1
+            FROM EntityDbContext.EmailVerifications AS T) AS T1
             LEFT OUTER JOIN (
             SELECT 
-                Key(T.EmailConfirmation_Message_Source).Id AS EmailConfirmation_Id, 
-                Key(T.EmailConfirmation_Message_Target).Id AS EmailConfirmation_EmailMessageId, 
+                Key(T.EmailVerification_Message_Source).Id AS EmailVerification_Id, 
+                Key(T.EmailVerification_Message_Target).Id AS EmailVerification_EmailMessageId, 
                 True AS _from1
-            FROM EntityDbContext.EmailConfirmation_Message AS T) AS T2
-            ON T1.EmailConfirmation_Id = T2.EmailConfirmation_Id
+            FROM EntityDbContext.EmailVerification_Message AS T) AS T2
+            ON T1.EmailVerification_Id = T2.EmailVerification_Id
     ) AS T3");
         }
 
@@ -451,7 +450,7 @@ namespace Edm_EntityMappingGeneratedViews
         {
             return new DbMappingView(@"
     SELECT VALUE -- Constructing EmailAddresses
-        [Tripod.Ioc.EntityFramework.EmailAddress](T1.EmailAddress_Id, T1.EmailAddress_OwnerId, T1.EmailAddress_Value, T1.EmailAddress_HashedValue, T1.EmailAddress_IsPrimary, T1.EmailAddress_IsConfirmed)
+        [Tripod.Ioc.EntityFramework.EmailAddress](T1.EmailAddress_Id, T1.EmailAddress_OwnerId, T1.EmailAddress_Value, T1.EmailAddress_HashedValue, T1.EmailAddress_IsPrimary, T1.EmailAddress_IsVerified)
     FROM (
         SELECT 
             T.Id AS EmailAddress_Id, 
@@ -459,7 +458,7 @@ namespace Edm_EntityMappingGeneratedViews
             T.[Value] AS EmailAddress_Value, 
             T.HashedValue AS EmailAddress_HashedValue, 
             T.IsPrimary AS EmailAddress_IsPrimary, 
-            T.IsConfirmed AS EmailAddress_IsConfirmed, 
+            T.IsVerified AS EmailAddress_IsVerified, 
             True AS _from0
         FROM CodeFirstDatabase.EmailAddress AS T
     ) AS T1");
@@ -473,12 +472,11 @@ namespace Edm_EntityMappingGeneratedViews
         {
             return new DbMappingView(@"
     SELECT VALUE -- Constructing LocalMemberships
-        [Tripod.Ioc.EntityFramework.LocalMembership](T1.LocalMembership_Id, T1.LocalMembership_PasswordHash, T1.LocalMembership_IsConfirmed)
+        [Tripod.Ioc.EntityFramework.LocalMembership](T1.LocalMembership_Id, T1.LocalMembership_PasswordHash)
     FROM (
         SELECT 
             T.UserId AS LocalMembership_Id, 
             T.PasswordHash AS LocalMembership_PasswordHash, 
-            T.IsConfirmed AS LocalMembership_IsConfirmed, 
             True AS _from0
         FROM CodeFirstDatabase.LocalMembership AS T
     ) AS T1");
@@ -523,54 +521,54 @@ namespace Edm_EntityMappingGeneratedViews
         }
 
         /// <summary>
-        /// Gets the view for EntityDbContext.EmailConfirmations.
+        /// Gets the view for EntityDbContext.EmailVerifications.
         /// </summary>
         /// <returns>The mapping view.</returns>
         private static DbMappingView GetView17()
         {
             return new DbMappingView(@"
-    SELECT VALUE -- Constructing EmailConfirmations
-        [Tripod.Ioc.EntityFramework.EmailConfirmation](T1.EmailConfirmation_Id, T1.EmailConfirmation_OwnerId, T1.EmailConfirmation_Token, T1.EmailConfirmation_Ticket, T1.EmailConfirmation_Secret, T1.EmailConfirmation_ExpiresOnUtc, T1.EmailConfirmation_RedeemedOnUtc, T1.EmailConfirmation_Purpose) WITH 
-        RELATIONSHIP(CREATEREF(EntityDbContext.EmailMessages, ROW(T1.[EmailConfirmation_Message.EmailConfirmation_Message_Target.Id]),[Tripod.Ioc.EntityFramework.EmailMessage]),[Tripod.Ioc.EntityFramework.EmailConfirmation_Message],EmailConfirmation_Message_Source,EmailConfirmation_Message_Target) 
+    SELECT VALUE -- Constructing EmailVerifications
+        [Tripod.Ioc.EntityFramework.EmailVerification](T1.EmailVerification_Id, T1.EmailVerification_OwnerId, T1.EmailVerification_Token, T1.EmailVerification_Ticket, T1.EmailVerification_Secret, T1.EmailVerification_ExpiresOnUtc, T1.EmailVerification_RedeemedOnUtc, T1.EmailVerification_Purpose) WITH 
+        RELATIONSHIP(CREATEREF(EntityDbContext.EmailMessages, ROW(T1.[EmailVerification_Message.EmailVerification_Message_Target.Id]),[Tripod.Ioc.EntityFramework.EmailMessage]),[Tripod.Ioc.EntityFramework.EmailVerification_Message],EmailVerification_Message_Source,EmailVerification_Message_Target) 
     FROM (
         SELECT 
-            T.Id AS EmailConfirmation_Id, 
-            T.OwnerId AS EmailConfirmation_OwnerId, 
-            T.Token AS EmailConfirmation_Token, 
-            T.Ticket AS EmailConfirmation_Ticket, 
-            T.Secret AS EmailConfirmation_Secret, 
-            T.ExpiresOnUtc AS EmailConfirmation_ExpiresOnUtc, 
-            T.RedeemedOnUtc AS EmailConfirmation_RedeemedOnUtc, 
-            CAST(T.Purpose AS [Tripod.Ioc.EntityFramework.EmailConfirmationPurpose]) AS EmailConfirmation_Purpose, 
+            T.Id AS EmailVerification_Id, 
+            T.OwnerId AS EmailVerification_OwnerId, 
+            T.Token AS EmailVerification_Token, 
+            T.Ticket AS EmailVerification_Ticket, 
+            T.Secret AS EmailVerification_Secret, 
+            T.ExpiresOnUtc AS EmailVerification_ExpiresOnUtc, 
+            T.RedeemedOnUtc AS EmailVerification_RedeemedOnUtc, 
+            CAST(T.Purpose AS [Tripod.Ioc.EntityFramework.EmailVerificationPurpose]) AS EmailVerification_Purpose, 
             True AS _from0, 
-            T.EmailMessageId AS [EmailConfirmation_Message.EmailConfirmation_Message_Target.Id]
-        FROM CodeFirstDatabase.EmailConfirmation AS T
+            T.EmailMessageId AS [EmailVerification_Message.EmailVerification_Message_Target.Id]
+        FROM CodeFirstDatabase.EmailVerification AS T
     ) AS T1");
         }
 
         /// <summary>
-        /// Gets the view for EntityDbContext.EmailConfirmation_Message.
+        /// Gets the view for EntityDbContext.EmailVerification_Message.
         /// </summary>
         /// <returns>The mapping view.</returns>
         private static DbMappingView GetView18()
         {
             return new DbMappingView(@"
-    SELECT VALUE -- Constructing EmailConfirmation_Message
-        [Tripod.Ioc.EntityFramework.EmailConfirmation_Message](T3.[EmailConfirmation_Message.EmailConfirmation_Message_Target], T3.[EmailConfirmation_Message.EmailConfirmation_Message_Source])
+    SELECT VALUE -- Constructing EmailVerification_Message
+        [Tripod.Ioc.EntityFramework.EmailVerification_Message](T3.[EmailVerification_Message.EmailVerification_Message_Target], T3.[EmailVerification_Message.EmailVerification_Message_Source])
     FROM (
-        SELECT -- Constructing EmailConfirmation_Message_Target
-            CreateRef(EntityDbContext.EmailMessages, row(T2.[EmailConfirmation_Message.EmailConfirmation_Message_Target.Id]), [Tripod.Ioc.EntityFramework.EmailMessage]) AS [EmailConfirmation_Message.EmailConfirmation_Message_Target], 
-            T2.[EmailConfirmation_Message.EmailConfirmation_Message_Source]
+        SELECT -- Constructing EmailVerification_Message_Target
+            CreateRef(EntityDbContext.EmailMessages, row(T2.[EmailVerification_Message.EmailVerification_Message_Target.Id]), [Tripod.Ioc.EntityFramework.EmailMessage]) AS [EmailVerification_Message.EmailVerification_Message_Target], 
+            T2.[EmailVerification_Message.EmailVerification_Message_Source]
         FROM (
-            SELECT -- Constructing EmailConfirmation_Message_Source
-                T1.[EmailConfirmation_Message.EmailConfirmation_Message_Target.Id], 
-                CreateRef(EntityDbContext.EmailConfirmations, row(T1.[EmailConfirmation_Message.EmailConfirmation_Message_Source.Id]), [Tripod.Ioc.EntityFramework.EmailConfirmation]) AS [EmailConfirmation_Message.EmailConfirmation_Message_Source]
+            SELECT -- Constructing EmailVerification_Message_Source
+                T1.[EmailVerification_Message.EmailVerification_Message_Target.Id], 
+                CreateRef(EntityDbContext.EmailVerifications, row(T1.[EmailVerification_Message.EmailVerification_Message_Source.Id]), [Tripod.Ioc.EntityFramework.EmailVerification]) AS [EmailVerification_Message.EmailVerification_Message_Source]
             FROM (
                 SELECT 
-                    T.EmailMessageId AS [EmailConfirmation_Message.EmailConfirmation_Message_Target.Id], 
-                    T.Id AS [EmailConfirmation_Message.EmailConfirmation_Message_Source.Id], 
+                    T.EmailMessageId AS [EmailVerification_Message.EmailVerification_Message_Target.Id], 
+                    T.Id AS [EmailVerification_Message.EmailVerification_Message_Source.Id], 
                     True AS _from0
-                FROM CodeFirstDatabase.EmailConfirmation AS T
+                FROM CodeFirstDatabase.EmailVerification AS T
                 WHERE T.EmailMessageId IS NOT NULL
             ) AS T1
         ) AS T2

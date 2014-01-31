@@ -1,13 +1,13 @@
-﻿Thanks for registering '{EmailAddress}' at localhost.com! To confirm your ownership of this email address, please do one of the following:
+﻿Thanks for registering '{EmailAddress}' at localhost.com! To verify your ownership of this email address, please do one of the following:
 
 If localhost.com is still open in your browser window, go to it and enter the following secret code:
 {Secret}
 ^ copy the secret code above ^
 
 If you have closed your browser, click the link below or copy and paste the URL into your browser:
-{ConfirmationUrl}
+{VerificationUrl}
 ^ click or copy the URL above ^
 
-The code and URL above will expire in 30 minutes. If you to not confirm by then, you must return to {SendFromUrl} to generate a new confirmation email.
+The code and URL above will expire in 30 minutes. If you to not verify by then, you must return to {SendFromUrl} to generate a new verification email.
 
 If you did NOT request access to localhost.com using the above email address, please reply to this email to tell us.

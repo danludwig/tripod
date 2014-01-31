@@ -116,14 +116,14 @@
     <Compile Include="Domain\Security\Commands\SignInHandlerTests.cs" />
     <Compile Include="Domain\Security\Commands\CreateUserHandlerTests.cs" />
     <Compile Include="Domain\Security\Commands\SignInValidationTests.cs" />
-    <Compile Include="Domain\Security\Commands\SendConfirmationEmailValidationTests.cs" />
+    <Compile Include="Domain\Security\Commands\SendVerificationEmailValidationTests.cs" />
     <Compile Include="Domain\Security\Commands\CreateUserValidationTests.cs" />
     <Compile Include="Domain\Security\Entities\UserClaimTests.cs" />
     <Compile Include="Domain\Security\Entities\EmailAddressTests.cs" />
     <Compile Include="Domain\Security\Entities\LocalMembershipTests.cs" />
     <Compile Include="Domain\Security\Entities\_Fakes\ProxiedClaim.cs" />
     <Compile Include="Domain\Security\Entities\_Fakes\ProxiedEmailMessage.cs" />
-    <Compile Include="Domain\Security\Entities\_Fakes\ProxiedEmailConfirmation.cs" />
+    <Compile Include="Domain\Security\Entities\_Fakes\ProxiedEmailVerification.cs" />
     <Compile Include="Domain\Security\Entities\_Fakes\ProxiedEmailAddress.cs" />
     <Compile Include="Domain\Security\Entities\_Fakes\ProxiedLocalMembership.cs" />
     <Compile Include="Domain\Security\Entities\_Fakes\ProxiedRemoteMembership.cs" />

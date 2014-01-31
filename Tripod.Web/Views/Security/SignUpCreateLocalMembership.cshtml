@@ -13,11 +13,11 @@
 </h2>
 <hr class="hr-sm hr-space" />
 
-@{ Html.RenderPartial(MVC.Security.Views._ConfirmEmailWizardSteps, new ConfirmEmailWizardModel(3)); }
+@{ Html.RenderPartial(MVC.Security.Views._VerifyEmailWizardSteps, new VerifyEmailWizardModel(3)); }
 <hr class="hr-space hr-md" />
 
 <h3>
-    Thanks for confirming your email address! <small>We're almost ready to sign you in.</small>
+    Thanks for verifying your email address! <small>We're almost ready to sign you in.</small>
 </h3>
 <p>
     Choose a password that is at least 8 characters long (but no more than 100 characters).<br />
@@ -353,7 +353,7 @@
 
         @* VALIDATION MESSAGES COLUMNS *@
         <div class="col-md-6 validation help-block help-block-horizontal-md under-label hidden-sm hidden-xs">
-            <span tooltip="@Resources.notempty_error.Replace("{PropertyName}", EmailConfirmation.Constraints.Label)"
+            <span tooltip="@Resources.notempty_error.Replace("{PropertyName}", EmailVerification.Constraints.Label)"
                   tooltip-toggle="vm.isTokenRequiredError()"
                   tooltip-animation="false"
                   tooltip-placement="right"
@@ -369,7 +369,7 @@
         </div>
         <div class="col-md-6 validation help-block hidden-md hidden-lg">
             <span ng-show="vm.isTokenRequiredError()" ng-cloak>
-                @Resources.notempty_error.Replace("{PropertyName}", EmailConfirmation.Constraints.Label)
+                @Resources.notempty_error.Replace("{PropertyName}", EmailVerification.Constraints.Label)
             </span>
             <span ng-show="vm.isTokenServerError()" ng-cloak>
                 {{ signUpUserCtrb.confirmPassword.error.server }}
@@ -407,7 +407,7 @@
                  remove-class="@errorClass"
                  ng-show="vm.isSubmitError()">
                 <div class="help-block">
-                    Could not confirm email address due to above error(s).
+                    Could not register &amp; sign in due to above error(s).
                 </div>
             </div>
         </div>

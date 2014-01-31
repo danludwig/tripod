@@ -24,7 +24,7 @@ namespace Tripod.Domain.Security
         public int? Id { get; private set; }
         public string Value { get; private set; }
         public Claim Claim { get; private set; }
-        public bool? IsConfirmed { get; set; }
+        public bool? IsVerified { get; set; }
     }
 
     [UsedImplicitly]
@@ -58,7 +58,7 @@ namespace Tripod.Domain.Security
 
             var entity = await entityTask.ConfigureAwait(false);
 
-            if (entity != null && query.IsConfirmed.HasValue && query.IsConfirmed.Value != entity.IsConfirmed)
+            if (entity != null && query.IsVerified.HasValue && query.IsVerified.Value != entity.IsVerified)
                 entity = null;
 
             return entity;

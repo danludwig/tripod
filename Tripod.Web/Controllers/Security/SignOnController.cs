@@ -53,27 +53,27 @@ namespace Tripod.Web.Controllers
                 return this.RedirectToLocal(returnUrl, await MVC.User.SettingsIndex());
             }
 
-            // if user doesn't have an email claim, we need them to confirm an email address
+            // if user doesn't have an email claim, we need them to verify an email address
             var emailClaim = await _queries.Execute(new ExternalCookieClaim(ClaimTypes.Email));
             if (emailClaim == null)
-                return RedirectToAction(await MVC.SignOn.SendConfirmationEmail(returnUrl));
+                return RedirectToAction(await MVC.SignOn.SendVerificationEmail(returnUrl));
 
-            // if user does have an email claim, create a confirmation against it
-            var createEmailConfirmation = new CreateEmailConfirmation
+            // if user does have an email claim, create a verification against it
+            var createEmailVerification = new CreateEmailVerification
             {
-                Purpose = EmailConfirmationPurpose.CreateRemoteUser,
+                Purpose = EmailVerificationPurpose.CreateRemoteUser,
                 EmailAddress = emailClaim.Value,
             };
-            await _commands.Execute(createEmailConfirmation);
+            await _commands.Execute(createEmailVerification);
 
-            return RedirectToAction(await MVC.SignOn.CreateRemoteMembership(createEmailConfirmation.CreatedEntity.Token, returnUrl));
+            return RedirectToAction(await MVC.SignOn.CreateRemoteMembership(createEmailVerification.CreatedEntity.Token, returnUrl));
         }
 
         #endregion
-        #region SendConfirmationEmail
+        #region SendVerificationEmail
 
         [HttpGet, Route("sign-on/email", Order = 1)]
-        public virtual async Task<ActionResult> SendConfirmationEmail(string returnUrl)
+        public virtual async Task<ActionResult> SendVerificationEmail(string returnUrl)
         {
             // make sure we still have a remote login
             var loginInfo = await _queries.Execute(new PrincipalRemoteMembershipTicket(User));
@@ -81,20 +81,20 @@ namespace Tripod.Web.Controllers
                 return RedirectToAction(MVC.SignIn.Index());
 
             ViewBag.ReturnUrl = returnUrl;
-            ViewBag.ActionUrl = Url.Action(MVC.SignOn.SendConfirmationEmail());
-            ViewBag.Purpose = EmailConfirmationPurpose.CreateRemoteUser;
+            ViewBag.ActionUrl = Url.Action(MVC.SignOn.SendVerificationEmail());
+            ViewBag.Purpose = EmailVerificationPurpose.CreateRemoteUser;
             ViewBag.SendFromUrl = SendFromUrl(returnUrl);
             ViewBag.LoginProvider = loginInfo.Login.LoginProvider;
-            return View(MVC.Security.Views.SignOnSendConfirmationEmail);
+            return View(MVC.Security.Views.SignOnSendVerificationEmail);
         }
 
         [ValidateAntiForgeryToken]
         [HttpPost, Route("sign-on/email", Order = 1)]
-        public virtual async Task<ActionResult> SendConfirmationEmail(SendConfirmationEmail command, string returnUrl, string loginProvider)
+        public virtual async Task<ActionResult> SendVerificationEmail(SendVerificationEmail command, string returnUrl, string loginProvider)
         {
             // todo: make sure we still have a remote login
 
-            if (command == null || command.Purpose == EmailConfirmationPurpose.Invalid)
+            if (command == null || command.Purpose == EmailVerificationPurpose.Invalid)
             {
                 return View(MVC.Errors.Views.BadRequest);
             }
@@ -102,17 +102,17 @@ namespace Tripod.Web.Controllers
             if (!ModelState.IsValid)
             {
                 ViewBag.ReturnUrl = returnUrl;
-                ViewBag.ActionUrl = Url.Action(MVC.SignOn.SendConfirmationEmail());
+                ViewBag.ActionUrl = Url.Action(MVC.SignOn.SendVerificationEmail());
                 ViewBag.LoginProvider = loginProvider;
-                return View(MVC.Security.Views.SignOnSendConfirmationEmail, command);
+                return View(MVC.Security.Views.SignOnSendVerificationEmail, command);
             }
 
             command.SendFromUrl = SendFromUrl(returnUrl);
             await _commands.Execute(command);
 
-            Session.ConfirmEmailTickets(command.CreatedTicket);
+            Session.VerifyEmailTickets(command.CreatedTicket);
 
-            return RedirectToAction(await MVC.SignOn.VerifyConfirmEmailSecret(command.CreatedTicket, returnUrl));
+            return RedirectToAction(await MVC.SignOn.VerifyEmailSecret(command.CreatedTicket, returnUrl));
         }
 
         private string SendFromUrl(string returnUrl)
@@ -123,36 +123,36 @@ namespace Tripod.Web.Controllers
         }
 
         #endregion
-        #region VerifyConfirmEmailSecret
+        #region VerifyEmailSecret
 
         [HttpGet, Route("sign-on/{ticket}", Order = 2)]
-        public virtual async Task<ActionResult> VerifyConfirmEmailSecret(string ticket, string returnUrl)
+        public virtual async Task<ActionResult> VerifyEmailSecret(string ticket, string returnUrl)
         {
             // todo: make sure we still have a remote login
 
-            var confirmation = await _queries.Execute(new EmailConfirmationBy(ticket)
+            var verification = await _queries.Execute(new EmailVerificationBy(ticket)
             {
-                EagerLoad = new Expression<Func<EmailConfirmation, object>>[]
+                EagerLoad = new Expression<Func<EmailVerification, object>>[]
                 {
                     x => x.Owner,
                 }
             });
-            if (confirmation == null) return HttpNotFound();
+            if (verification == null) return HttpNotFound();
 
-            // todo: confirmation token must not be redeemed, expired, or for different purpose
+            // todo: verification token must not be redeemed, expired, or for different purpose
 
             ViewBag.ReturnUrl = returnUrl;
-            ViewBag.ActionUrl = Url.Action(MVC.SignOn.VerifyConfirmEmailSecret(ticket, null));
+            ViewBag.ActionUrl = Url.Action(MVC.SignOn.VerifyEmailSecret(ticket, null));
             ViewBag.Ticket = ticket;
-            ViewBag.Purpose = EmailConfirmationPurpose.CreateRemoteUser;
-            if (Session.ConfirmEmailTickets().Contains(ticket))
-                ViewBag.EmailAddress = confirmation.Owner.Value;
-            return View(MVC.Security.Views.SignOnVerifyConfirmEmailSecret);
+            ViewBag.Purpose = EmailVerificationPurpose.CreateRemoteUser;
+            if (Session.VerifyEmailTickets().Contains(ticket))
+                ViewBag.EmailAddress = verification.Owner.Value;
+            return View(MVC.Security.Views.SignOnVerifyEmailSecret);
         }
 
         [ValidateAntiForgeryToken]
         [HttpPost, Route("sign-on/{ticket}", Order = 2)]
-        public virtual async Task<ActionResult> VerifyConfirmEmailSecret(string ticket, VerifyConfirmEmailSecret command, string returnUrl, string emailAddress)
+        public virtual async Task<ActionResult> VerifyEmailSecret(string ticket, VerifyEmailSecret command, string returnUrl, string emailAddress)
         {
             // todo: make sure we still have a remote login
 
@@ -163,12 +163,12 @@ namespace Tripod.Web.Controllers
             if (!ModelState.IsValid)
             {
                 ViewBag.ReturnUrl = returnUrl;
-                ViewBag.ActionUrl = Url.Action(MVC.SignOn.VerifyConfirmEmailSecret(ticket, null));
+                ViewBag.ActionUrl = Url.Action(MVC.SignOn.VerifyEmailSecret(ticket, null));
                 ViewBag.Ticket = ticket;
-                ViewBag.Purpose = EmailConfirmationPurpose.CreateRemoteUser;
-                if (Session.ConfirmEmailTickets().Contains(ticket))
+                ViewBag.Purpose = EmailVerificationPurpose.CreateRemoteUser;
+                if (Session.VerifyEmailTickets().Contains(ticket))
                     ViewBag.EmailAddress = emailAddress;
-                return View(MVC.Security.Views.SignOnVerifyConfirmEmailSecret, command);
+                return View(MVC.Security.Views.SignOnVerifyEmailSecret, command);
             }
 
             await _commands.Execute(command);
@@ -187,20 +187,20 @@ namespace Tripod.Web.Controllers
             if (loginInfo == null)
                 return RedirectToAction(MVC.SignIn.Index());
 
-            var userToken = await _queries.Execute(new EmailConfirmationUserToken(token));
+            var userToken = await _queries.Execute(new EmailVerificationUserToken(token));
             if (userToken == null) return HttpNotFound();
-            var confirmation = await _queries.Execute(new EmailConfirmationBy(userToken.Value));
-            if (confirmation == null) return HttpNotFound();
+            var verification = await _queries.Execute(new EmailVerificationBy(userToken.Value));
+            if (verification == null) return HttpNotFound();
             var emailClaim = await _queries.Execute(new ExternalCookieClaim(ClaimTypes.Email));
 
-            // todo: confirmation cannot be expired, redeemed, or for different purpose
+            // todo: verification cannot be expired, redeemed, or for different purpose
 
             // if suggested username is already in use, use email address
             var user = await _queries.Execute(new UserBy(loginInfo.UserName));
 
             ViewBag.Token = token;
             ViewBag.ReturnUrl = returnUrl;
-            ViewBag.EmailAddress = confirmation.Owner.Value;
+            ViewBag.EmailAddress = verification.Owner.Value;
             ViewBag.UserName = user == null ? loginInfo.UserName : ViewBag.EmailAddress;
             ViewBag.LoginProvider = loginInfo.Login.LoginProvider;
             ViewBag.HasClaimsEmail = emailClaim != null;
@@ -239,7 +239,7 @@ namespace Tripod.Web.Controllers
                 Principal = User,
             };
             await _commands.Execute(signOn);
-            Session.ConfirmEmailTickets(null);
+            Session.VerifyEmailTickets(null);
             Response.ClientCookie(signOn.SignedOn.Id, _queries);
             return this.RedirectToLocal(returnUrl, await MVC.User.SettingsIndex());
         }

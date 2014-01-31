@@ -55,16 +55,16 @@ namespace Tripod.Ioc.EntityFramework
     }
 
     [UsedImplicitly]
-    public class EmailConfirmationDb : EntityTypeConfiguration<EmailConfirmation>
+    public class EmailVerificationDb : EntityTypeConfiguration<EmailVerification>
     {
-        public EmailConfirmationDb()
+        public EmailVerificationDb()
         {
-            ToTable(typeof(EmailConfirmation).Name, UserDb.SchemaName);
+            ToTable(typeof(EmailVerification).Name, UserDb.SchemaName);
 
             HasKey(x => x.Id);
 
-            Property(x => x.Secret).HasMaxLength(EmailConfirmation.Constraints.SecretMaxLength);
-            Property(x => x.Ticket).HasMaxLength(EmailConfirmation.Constraints.TicketMaxLength);
+            Property(x => x.Secret).HasMaxLength(EmailVerification.Constraints.SecretMaxLength);
+            Property(x => x.Ticket).HasMaxLength(EmailVerification.Constraints.TicketMaxLength);
 
             HasRequired(x => x.Owner).WithMany().HasForeignKey(x => x.OwnerId).WillCascadeOnDelete();
             HasOptional(x => x.Message).WithOptionalDependent()

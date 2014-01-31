@@ -12,7 +12,7 @@ namespace Tripod.Domain.Security
         }
 
         public int UserId { get; private set; }
-        public bool? IsConfirmed { get; [UsedImplicitly] set; }
+        public bool? IsVerified { get; [UsedImplicitly] set; }
     }
 
     [UsedImplicitly]
@@ -31,8 +31,8 @@ namespace Tripod.Domain.Security
                 .Where(QueryEmailAddresses.ByUserId(query.UserId))
             ;
 
-            if (query.IsConfirmed.HasValue)
-                queryable = queryable.Where(x => x.IsConfirmed == query.IsConfirmed.Value);
+            if (query.IsVerified.HasValue)
+                queryable = queryable.Where(x => x.IsVerified == query.IsVerified.Value);
 
             var projection = queryable
                 .Select(x => new EmailAddressView
@@ -41,7 +41,7 @@ namespace Tripod.Domain.Security
                     UserId = x.OwnerId,
                     Value = x.Value,
                     HashedValue = x.HashedValue,
-                    IsConfirmed = x.IsConfirmed,
+                    IsVerified = x.IsVerified,
                     IsPrimary = x.IsPrimary,
                 })
                 .OrderBy(query.OrderBy);

@@ -24,8 +24,8 @@ namespace Tripod.Domain.Security
 
         public async Task<bool> Handle(IsPasswordVerified query)
         {
-            // match password with either a username or a confirmed email address
-            var user = await _queries.Execute(new UserByNameOrConfirmedEmail(query.UserName))
+            // match password with either a username or a verified email address
+            var user = await _queries.Execute(new UserByNameOrVerifiedEmail(query.UserName))
                 .ConfigureAwait(false);
             if (user == null) return false;
 

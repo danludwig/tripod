@@ -36,9 +36,9 @@ namespace Tripod.Domain.Security
             ;
 
             RuleFor(x => x.Token)
-                .MustBeRedeemableConfirmEmailToken(queries)
-                .MustBePurposedConfirmEmailToken(queries, x => EmailConfirmationPurpose.CreateRemoteUser)
-                .WithName(EmailConfirmation.Constraints.Label)
+                .MustBeRedeemableVerifyEmailToken(queries)
+                .MustBePurposedVerifyEmailToken(queries, x => EmailVerificationPurpose.CreateRemoteUser)
+                .WithName(EmailVerification.Constraints.Label)
                     .When(x => !x.Principal.Identity.IsAuthenticated && x.User == null)
             ;
         }
@@ -75,8 +75,8 @@ namespace Tripod.Domain.Security
                 await _commands.Execute(createUser);
                 user = createUser.Created;
 
-                // confirm & associate email address
-                await _commands.Execute(new RedeemEmailConfirmation(command.Token, user));
+                // verify & associate email address
+                await _commands.Execute(new RedeemEmailVerification(command.Token, user));
             }
 
             var ticket = await _queries.Execute(new PrincipalRemoteMembershipTicket(command.Principal));
