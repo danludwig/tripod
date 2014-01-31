@@ -7,12 +7,14 @@ namespace Tripod.Web.Controllers
     public partial class UsersController : Controller
     {
         private readonly IProcessQueries _queries;
-        private readonly IProcessCommands _commands;
+        //private readonly IProcessCommands _commands;
 
-        public UsersController(IProcessQueries queries, IProcessCommands commands)
+        public UsersController(IProcessQueries queries
+            //, IProcessCommands commands
+        )
         {
             _queries = queries;
-            _commands = commands;
+            //_commands = commands;
         }
 
         #region Public User Page

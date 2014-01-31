@@ -17,14 +17,7 @@ namespace Tripod.Domain.Security
     [UsedImplicitly]
     public class HandleHashedEmailValueByQuery : IHandleQuery<HashedEmailValueBy, Task<string>>
     {
-        private readonly IReadEntities _entities;
-
-        public HandleHashedEmailValueByQuery(IReadEntities entities)
-        {
-            _entities = entities;
-        }
-
-        public async Task<string> Handle(HashedEmailValueBy query)
+        public Task<string> Handle(HashedEmailValueBy query)
         {
             // https://en.gravatar.com/site/implement/hash/
             var emailAddress = query.EmailAddress != null ? query.EmailAddress.Trim().ToLower() : "";
@@ -35,7 +28,7 @@ namespace Tripod.Domain.Security
             foreach (var t in hash) 
                 sb.Append(t.ToString("x2"));
             var gravatar = sb.ToString();
-            return gravatar;
+            return Task.FromResult(gravatar);
         }
     }
 }

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Linq.Expressions;
-
-namespace Tripod.Domain.Security
+﻿namespace Tripod.Domain.Security
 {
     public class UserView
     {
@@ -9,10 +6,5 @@ namespace Tripod.Domain.Security
         public string UserName { get; set; }
         public string PrimaryEmailAddress { get; set; }
         public string PrimaryEmailHash { get; set; }
-
-        internal static Expression<Func<User, object>>[] EagerLoad = new Expression<Func<User, object>>[]
-        {
-            x => x.EmailAddresses,
-        }; 
     }
 }

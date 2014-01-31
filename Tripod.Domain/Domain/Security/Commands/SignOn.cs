@@ -11,7 +11,6 @@ namespace Tripod.Domain.Security
     /// </summary>
     public class SignOn : IDefineCommand
     {
-        public SignOn() { }
         public IPrincipal Principal { get; set; }
         public bool IsPersistent { get; [UsedImplicitly] set; }
         public User SignedOn { get; internal set; }
