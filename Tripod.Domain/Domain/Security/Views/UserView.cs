@@ -7,8 +7,8 @@ namespace Tripod.Domain.Security
     {
         public int UserId { get; set; }
         public string UserName { get; set; }
-        public string DefaultEmailAddress { get; set; }
-        public string DefaultEmailHash { get; set; }
+        public string PrimaryEmailAddress { get; set; }
+        public string PrimaryEmailHash { get; set; }
 
         internal static Expression<Func<User, object>>[] EagerLoad = new Expression<Func<User, object>>[]
         {

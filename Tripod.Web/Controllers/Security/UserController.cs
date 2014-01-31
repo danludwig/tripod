@@ -99,7 +99,7 @@ namespace Tripod.Web.Controllers
             {
                 OrderBy = new Dictionary<Expression<Func<EmailAddressView, object>>, OrderByDirection>
                 {
-                    { x => x.IsDefault, OrderByDirection.Descending },
+                    { x => x.IsPrimary, OrderByDirection.Descending },
                     { x => x.IsConfirmed, OrderByDirection.Descending },
                 },
             });

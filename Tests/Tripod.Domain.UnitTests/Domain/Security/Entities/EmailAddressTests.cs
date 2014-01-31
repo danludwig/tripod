@@ -13,7 +13,7 @@ namespace Tripod.Domain.Security
             entity.Owner.ShouldBeNull();
             entity.OwnerId.ShouldBeNull();
             entity.Value.ShouldBeNull();
-            entity.IsDefault.ShouldBeFalse();
+            entity.IsPrimary.ShouldBeFalse();
             entity.IsConfirmed.ShouldBeFalse();
         }
     }

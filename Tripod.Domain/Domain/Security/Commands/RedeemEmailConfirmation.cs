@@ -38,12 +38,10 @@ namespace Tripod.Domain.Security
     public class HandleRedeemEmailConfirmationCommand : IHandleCommand<RedeemEmailConfirmation>
     {
         private readonly IProcessQueries _queries;
-        private readonly IProcessCommands _commands;
         private readonly IWriteEntities _entities;
 
-        public HandleRedeemEmailConfirmationCommand(IProcessQueries queries, IProcessCommands commands, IWriteEntities entities)
+        public HandleRedeemEmailConfirmationCommand(IProcessQueries queries, IWriteEntities entities)
         {
-            _commands = commands;
             _entities = entities;
             _queries = queries;
         }
@@ -61,8 +59,8 @@ namespace Tripod.Domain.Security
             email.Owner = command.User;
             email.IsConfirmed = true;
 
-            // is this the user's default email address?
-            email.IsDefault = !command.User.EmailAddresses.Any(x => x.IsDefault);
+            // is this the user's primary email address?
+            email.IsPrimary = !command.User.EmailAddresses.Any(x => x.IsPrimary);
 
             // expire unused confirmations
             var unusedConfirmations = await _entities.Get<EmailConfirmation>()

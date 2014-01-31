@@ -11,7 +11,7 @@ namespace Tripod.Domain.Security
 
         public string Value { get; protected internal set; }
         public string HashedValue { get; protected internal set; }
-        public bool IsDefault { get; protected internal set; }
+        public bool IsPrimary { get; protected internal set; }
         public bool IsConfirmed { get; protected internal set; }
 
         public static class Constraints

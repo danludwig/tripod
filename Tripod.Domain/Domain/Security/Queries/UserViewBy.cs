@@ -46,7 +46,7 @@ namespace Tripod.Domain.Security
             {
                 UserId = x.Id,
                 UserName = x.Name,
-                DefaultEmailAddress = x.EmailAddresses.Where(y => y.IsDefault)
+                PrimaryEmailAddress = x.EmailAddresses.Where(y => y.IsPrimary)
                     .Select(y => new
                     {
                         y.Value,
@@ -61,8 +61,8 @@ namespace Tripod.Domain.Security
             {
                 UserId = projection.UserId,
                 UserName = projection.UserName,
-                DefaultEmailAddress = projection.DefaultEmailAddress.Value,
-                DefaultEmailHash = projection.DefaultEmailAddress.HashedValue,
+                PrimaryEmailAddress = projection.PrimaryEmailAddress.Value,
+                PrimaryEmailHash = projection.PrimaryEmailAddress.HashedValue,
             };
 
             return view;

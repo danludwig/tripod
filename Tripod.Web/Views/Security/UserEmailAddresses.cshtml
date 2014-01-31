@@ -61,14 +61,14 @@
         <ul class="emails list-unstyled">
             @foreach (var emailAddress in Model.EmailAddresses)
             {
-                var flavor = emailAddress.IsDefault ? "success" : emailAddress.IsConfirmed ? "info" : "warning";
+                var flavor = emailAddress.IsPrimary ? "success" : emailAddress.IsConfirmed ? "info" : "warning";
                 <li class="clearfix @flavor">
                     @Html.Gravatar(emailAddress.HashedValue, 32)
                     <span class="email-value">
                         @emailAddress.Value
                         @*when this is really long, this happens*@
                     </span>
-                    @if (emailAddress.IsDefault)
+                    @if (emailAddress.IsPrimary)
                     {
                         <span class="label label-success">Primary</span>
                     }
@@ -81,7 +81,7 @@
                         <span class="label label-warning">Unverified</span>
                     }
                     <div class="pull-right">
-                        @if (!emailAddress.IsDefault)
+                        @if (!emailAddress.IsPrimary)
                         {
                             if (emailAddress.IsConfirmed)
                             {

@@ -34,7 +34,7 @@ namespace Tripod.Domain.Security
                 {
                     UserId = x.Id,
                     UserName = x.Name,
-                    GravatarHash = x.EmailAddresses.FirstOrDefault(y => y.IsDefault).HashedValue,
+                    GravatarHash = x.EmailAddresses.FirstOrDefault(y => y.IsPrimary).HashedValue,
                 })
                 .SingleOrDefaultAsync().ConfigureAwait(false);
                 return clientCookie;

@@ -42,7 +42,7 @@ namespace Tripod.Domain.Security
                     Value = x.Value,
                     HashedValue = x.HashedValue,
                     IsConfirmed = x.IsConfirmed,
-                    IsDefault = x.IsDefault,
+                    IsPrimary = x.IsPrimary,
                 })
                 .OrderBy(query.OrderBy);
 

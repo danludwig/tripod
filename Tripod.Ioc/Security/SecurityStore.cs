@@ -320,7 +320,7 @@ namespace Tripod.Ioc.Security
         //    var entity = new EmailAddress
         //    {
         //        AuthenticationType = email,
-        //        IsDefault = !user.EmailAddresses.Any(x => x.IsDefault),
+        //        IsPrimary = !user.EmailAddresses.Any(x => x.IsPrimary),
         //    };
         //    user.EmailAddresses.Add(entity);
         //    return Task.FromResult(0);
@@ -331,8 +331,8 @@ namespace Tripod.Ioc.Security
         //    ThrowIfDisposed();
         //    if (user == null) throw new ArgumentNullException("user");
 
-        //    var entity = user.EmailAddresses.FirstOrDefault(x => x.IsDefault && x.IsConfirmed)
-        //        ?? user.EmailAddresses.FirstOrDefault(x => x.IsDefault)
+        //    var entity = user.EmailAddresses.FirstOrDefault(x => x.IsPrimary && x.IsConfirmed)
+        //        ?? user.EmailAddresses.FirstOrDefault(x => x.IsPrimary)
         //        ?? user.EmailAddresses.FirstOrDefault(x => x.IsConfirmed)
         //        ?? user.EmailAddresses.FirstOrDefault();
         //    return Task.FromResult(entity != null ? entity.AuthenticationType : null);
@@ -341,8 +341,8 @@ namespace Tripod.Ioc.Security
         //public Task<User> FindByEmailAsync(string email)
         //{
         //    ThrowIfDisposed();
-        //    return GetUserAggregateAsync(u => u.EmailAddresses.Any(x => x.IsDefault && x.IsConfirmed && x.AuthenticationType.Equals(email, StringComparison.OrdinalIgnoreCase)))
-        //        ?? GetUserAggregateAsync(u => u.EmailAddresses.Any(x => x.IsDefault && x.AuthenticationType.Equals(email, StringComparison.OrdinalIgnoreCase)))
+        //    return GetUserAggregateAsync(u => u.EmailAddresses.Any(x => x.IsPrimary && x.IsConfirmed && x.AuthenticationType.Equals(email, StringComparison.OrdinalIgnoreCase)))
+        //        ?? GetUserAggregateAsync(u => u.EmailAddresses.Any(x => x.IsPrimary && x.AuthenticationType.Equals(email, StringComparison.OrdinalIgnoreCase)))
         //        ?? GetUserAggregateAsync(u => u.EmailAddresses.Any(x => x.IsConfirmed && x.AuthenticationType.Equals(email, StringComparison.OrdinalIgnoreCase)))
         //        ?? GetUserAggregateAsync(u => u.EmailAddresses.Any(x => x.AuthenticationType.Equals(email, StringComparison.OrdinalIgnoreCase)));
         //}
