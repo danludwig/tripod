@@ -9,6 +9,32 @@
 @section styles
 {
     <link href="~/content/security/user-settings.css" rel="stylesheet" />
+    <style>
+        .modal-primary .modal-header {
+            border-radius: 5px 5px 0 0;
+            color: #fff;
+            background-color: #428bca;
+        }
+
+        .modal-danger .modal-header {
+            border-radius: 5px 5px 0 0;
+            color: #fff;
+            background-color: #d9534f;
+        }
+
+        .modal-buttons-left .modal-footer {
+            text-align: left;
+        }
+
+        body.modal-open, .modal-open .navbar-fixed-top {
+            overflow: auto;
+            margin-right: 0;
+        }
+
+        .modal {
+            overflow-y: auto;
+        }
+    </style>
 }
 
 
@@ -126,7 +152,16 @@
                             <form method="POST" action="@Url.Action(MVC.User.DeleteEmailAddress(emailAddress.EmailAddressId, null))" class="form-inline" style="display: inline;">
                                 @Html.AntiForgeryToken()
                                 @Html.HttpMethodOverride(HttpVerbs.Delete)
-                                <button type="submit" class="btn btn-danger btn-sm">
+                                <button type="submit"
+                                        class="btn btn-danger btn-sm"
+                                        data-bootbox="confirm-form-submit"
+                                        data-bootbox-class="modal-danger modal-buttons-left"
+                                        data-bootbox-title="Please confirm your intent"
+                                        data-bootbox-message="Are you sure you want to delete the email address @emailAddress.Value?"
+                                        data-bootbox-confirm="Yes, confirm delete"
+                                        data-bootbox-confirm-class="btn-danger"
+                                        data-bootbox-deny="No, cancel delete"
+                                        data-bootbox-deny-class="btn-link">
                                     <i class="fa fa-times"></i>
                                     Delete
                                 </button>
@@ -151,4 +186,37 @@
 {
     @*@{ Html.RenderPartial(MVC.Scripts.Views.Angular); }
         <script src="~/app/security/ChangeUserNameForm.js"></script>*@
+    <script src="~/scripts/bootbox.js"></script>
+    <script>
+        $(document).on('click', 'button[data-bootbox=confirm-form-submit]', function (e) {
+            e.preventDefault();
+
+            var clicked = $(e.target);
+            var options = {
+                message: clicked.data('bootbox-message') || 'Are you sure you want to do this?',
+                closeButton: false,
+                buttons: {
+                    confirm: {
+                        label: clicked.data('bootbox-confirm') || 'Confirm',
+                        className: clicked.data('bootbox-confirm-class') || '',
+                        callback: function (isConfirmed) {
+                            if (!isConfirmed) return;
+                            clicked.parents('form').submit();
+                        },
+                    },
+                    deny: {
+                        label: clicked.data('bootbox-deny') || 'Cancel',
+                        className: clicked.data('bootbox-deny-class') || '',
+                    },
+                },
+            };
+            var title = clicked.data('bootbox-title');
+            if (title) options.title = title;
+            var className = clicked.data('bootbox-class');
+            if (className) options.className = className;
+            bootbox.dialog(options);
+
+            return false;
+        });
+    </script>
 }
