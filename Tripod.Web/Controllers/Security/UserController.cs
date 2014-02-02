@@ -311,5 +311,46 @@ namespace Tripod.Web.Controllers
         //}
 
         #endregion
+        #region DeleteEmailAddress
+
+        [ValidateAntiForgeryToken]
+        [HttpDelete, Route("settings/emails/{emailAddressId}")]
+        public virtual async Task<ActionResult> DeleteEmailAddress(int emailAddressId, DeleteEmailAddress command)
+        {
+            if (command == null) return View(MVC.Errors.BadRequest());
+
+            if (!ModelState.IsValid)
+            {
+                var user = await _queries.Execute(new UserViewBy(User.Identity.GetAppUserId()));
+                var emails = await _queries.Execute(new EmailAddressViewsBy(User.Identity.GetAppUserId())
+                {
+                    OrderBy = new Dictionary<Expression<Func<EmailAddressView, object>>, OrderByDirection>
+                    {
+                        { x => x.IsPrimary, OrderByDirection.Descending },
+                        { x => x.IsVerified, OrderByDirection.Descending },
+                    },
+                });
+
+                var model = new EmailAddressSettingsModel
+                {
+                    UserView = user,
+                    EmailAddresses = emails.ToArray(),
+                    SendVerificationEmail = new SendVerificationEmail
+                    {
+                        Purpose = EmailVerificationPurpose.AddEmail,
+                        SendFromUrl = SendFromUrl(),
+                        VerifyUrlFormat = VerifyUrlFormat(),
+                    },
+                };
+
+                ViewBag.ActionUrl = Url.Action(MVC.User.SendVerificationEmail());
+                return View(MVC.Security.Views.UserEmailAddresses, model);
+            }
+
+            await _commands.Execute(command);
+            return RedirectToAction(await MVC.User.Emails());
+        }
+
+        #endregion
     }
 }

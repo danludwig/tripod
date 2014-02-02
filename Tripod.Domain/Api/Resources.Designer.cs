@@ -304,6 +304,15 @@ namespace Tripod {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You cannot delete your primary {PropertyName}..
+        /// </summary>
+        public static string Validation_EmailAddress_CannotDeletePrimary {
+            get {
+                return ResourceManager.GetString("Validation_EmailAddress_CannotDeletePrimary", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The {PropertyName} &apos;{PropertyValue}&apos; has already been registered..
         /// </summary>
         public static string Validation_EmailAddress_IsAlreadyVerified {
@@ -421,6 +430,24 @@ namespace Tripod {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You are not authorized to perform this action on {PropertyName} #{PropertyValue}..
+        /// </summary>
+        public static string Validation_NotAuthorized_IntIdValue {
+            get {
+                return ResourceManager.GetString("Validation_NotAuthorized_IntIdValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &apos;{PropertyValue}&apos; is not authorized to perform this action on {PropertyName} #{UserId}.
+        /// </summary>
+        public static string Validation_NotAuthorized_UserAction {
+            get {
+                return ResourceManager.GetString("Validation_NotAuthorized_UserAction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to There are no users with the given {PropertyName}..
         /// </summary>
         public static string Validation_NoUserByLoginProviderKey {
@@ -471,15 +498,6 @@ namespace Tripod {
         public static string Validation_SendVerificationEmail_IsExpectingEmail {
             get {
                 return ResourceManager.GetString("Validation_SendVerificationEmail_IsExpectingEmail", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to &apos;{PropertyValue}&apos; is not authorized to perform this action on {PropertyName} #{UserId}.
-        /// </summary>
-        public static string Validation_UserCommand_NotAuthorized {
-            get {
-                return ResourceManager.GetString("Validation_UserCommand_NotAuthorized", resourceCulture);
             }
         }
         

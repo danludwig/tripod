@@ -21,7 +21,6 @@ namespace Tripod.Domain.Security
         public ValidateDeleteRemoteMembershipCommand(IProcessQueries queries)
         {
             RuleFor(x => x.Principal)
-                .NotNull().WithName(User.Constraints.Label)
                 .MustFindUserByPrincipal(queries)
 
                 // to delete this remote membership, user must either have a local password or a different external login
@@ -29,7 +28,9 @@ namespace Tripod.Domain.Security
                     .When(x => !queries.Execute(new RemoteMembershipsByUser(x.Principal.Identity.GetAppUserId()))
                         .Result.Any(y => y.LoginProvider != x.LoginProvider && y.ProviderKey != x.ProviderKey),
                             ApplyConditionTo.CurrentValidator)
+
                     .WithMessage(Resources.Validation_RemoteMembershipByUser_IsOnlyLogin)
+                    .WithName(User.Constraints.Label)
             ;
 
             RuleFor(x => x.LoginProvider)

@@ -20,7 +20,6 @@ namespace Tripod.Domain.Security
         public ValidateCreateRemoteMembershipCommand(IProcessQueries queries)
         {
             RuleFor(x => x.Principal)
-                .NotNull()
                 .MustFindUserByPrincipal(queries)
                     .When(x => x.Principal.Identity.IsAuthenticated, ApplyConditionTo.CurrentValidator)
                 .MustFindRemoteMembershipTicket(queries)

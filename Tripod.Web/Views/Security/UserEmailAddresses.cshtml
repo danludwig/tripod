@@ -123,10 +123,14 @@
                                     </button>
                                 </form>
                             }
-                            <button type="button" class="btn btn-danger btn-sm">
-                                <i class="fa fa-times"></i>
-                                Delete
-                            </button>
+                            <form method="POST" action="@Url.Action(MVC.User.DeleteEmailAddress(emailAddress.EmailAddressId, null))" class="form-inline" style="display: inline;">
+                                @Html.AntiForgeryToken()
+                                @Html.HttpMethodOverride(HttpVerbs.Delete)
+                                <button type="submit" class="btn btn-danger btn-sm">
+                                    <i class="fa fa-times"></i>
+                                    Delete
+                                </button>
+                            </form>
                         }
 
                     </div>
@@ -146,5 +150,5 @@
 @section scripts
 {
     @*@{ Html.RenderPartial(MVC.Scripts.Views.Angular); }
-    <script src="~/app/security/ChangeUserNameForm.js"></script>*@
+        <script src="~/app/security/ChangeUserNameForm.js"></script>*@
 }

@@ -258,10 +258,16 @@
   <data name="Validation_RemoteMembership_NoTicket" xml:space="preserve">
     <value>There is no external login information to process.</value>
   </data>
-  <data name="Validation_UserCommand_NotAuthorized" xml:space="preserve">
+  <data name="Validation_NotAuthorized_UserAction" xml:space="preserve">
     <value>'{PropertyValue}' is not authorized to perform this action on {PropertyName} #{UserId}</value>
   </data>
   <data name="Validation_UserName_AllowedEmailAddress" xml:space="preserve">
     <value>You cannot use the email address '{PropertyValue}' for your {PropertyName}.</value>
+  </data>
+  <data name="Validation_EmailAddress_CannotDeletePrimary" xml:space="preserve">
+    <value>You cannot delete your primary {PropertyName}.</value>
+  </data>
+  <data name="Validation_NotAuthorized_IntIdValue" xml:space="preserve">
+    <value>You are not authorized to perform this action on {PropertyName} #{PropertyValue}.</value>
   </data>
 </root>

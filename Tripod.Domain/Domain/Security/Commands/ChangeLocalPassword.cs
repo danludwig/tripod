@@ -21,7 +21,6 @@ namespace Tripod.Domain.Security
         public ValidateChangeLocalPasswordCommand(IProcessQueries queries)
         {
             RuleFor(x => x.Principal)
-                .NotNull()
                 .MustFindUserByPrincipal(queries)
                 .MustFindLocalMembershipByPrincipal(queries)
                     .WithName(User.Constraints.Label);

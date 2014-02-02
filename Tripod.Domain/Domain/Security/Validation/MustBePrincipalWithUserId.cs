@@ -10,7 +10,7 @@ namespace Tripod.Domain.Security
         private readonly Func<T, int> _userId;
 
         internal MustBePrincipalWithUserId(Func<T, int> userId)
-            : base(() => Resources.Validation_UserCommand_NotAuthorized)
+            : base(() => Resources.Validation_NotAuthorized_UserAction)
         {
             if (userId == null) throw new ArgumentNullException("userId");
             _userId = userId;

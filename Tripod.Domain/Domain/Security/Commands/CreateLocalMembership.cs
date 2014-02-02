@@ -20,7 +20,6 @@ namespace Tripod.Domain.Security
         public ValidateCreateLocalMembershipCommand(IProcessQueries queries)
         {
             RuleFor(x => x.Principal)
-                .NotNull()
                 .MustFindUserByPrincipal(queries)
                 .MustNotFindLocalMembershipByPrincipal(queries)
                     .WithName(User.Constraints.Label)

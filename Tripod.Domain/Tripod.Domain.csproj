@@ -105,6 +105,7 @@
     <Compile Include="Api\_Extensions\StringExtensions.cs" />
     <Compile Include="Domain\Audit\ExceptionAudit.cs" />
     <Compile Include="Domain\Security\Commands\ChangeUserName.cs" />
+    <Compile Include="Domain\Security\Commands\DeleteEmailAddress.cs" />
     <Compile Include="Domain\Security\Commands\RejectEmailVerification.cs" />
     <Compile Include="Domain\Security\Commands\RedeemEmailVerification.cs" />
     <Compile Include="Domain\Security\Commands\CreateRemoteMembership.cs" />
@@ -158,6 +159,7 @@
     <Compile Include="Domain\Security\Validation\EmailVerification\MustNotBeRedeemedVerifyEmailToken.cs" />
     <Compile Include="Domain\Security\Validation\EmailVerification\MustNotBeUnverifiedEmailUserName.cs" />
     <Compile Include="Domain\Security\Validation\EmailVerification\MustBeVerifiedEmailSecret.cs" />
+    <Compile Include="Domain\Security\Validation\MustNotBePrimaryEmailAddress.cs" />
     <Compile Include="Domain\Security\Validation\MustBeUnauthenticatedPrincipal.cs" />
     <Compile Include="Domain\Security\Validation\MustBeValidPassword.cs" />
     <Compile Include="Domain\Security\Validation\MustEqualPassword.cs" />
@@ -165,6 +167,8 @@
     <Compile Include="Domain\Security\Validation\EmailVerification\MustBePurposedVerifyEmailTicket.cs" />
     <Compile Include="Domain\Security\Validation\EmailVerification\MustNotBeRedeemedVerifyEmailTicket.cs" />
     <Compile Include="Domain\Security\Validation\EmailVerification\MustNotBeExpiredVerifyEmailTicket.cs" />
+    <Compile Include="Domain\Security\Validation\MustBeEmailAddressWithOwnerId.cs" />
+    <Compile Include="Domain\Security\Validation\MustFindEmailAddressById.cs" />
     <Compile Include="Domain\Security\Validation\MustFindUserById.cs" />
     <Compile Include="Domain\Security\Validation\MustNotContainInvalidUserNameText.cs" />
     <Compile Include="Domain\Security\Validation\MustFindLocalMembershipByPrincipal.cs" />
