@@ -184,8 +184,8 @@
 
 @section scripts
 {
-    @*@{ Html.RenderPartial(MVC.Scripts.Views.Angular); }
-        <script src="~/app/security/ChangeUserNameForm.js"></script>*@
+    @{ Html.RenderPartial(MVC.Scripts.Views.Angular); }
+    <script src="~/app/security/SignUpEmailForm.js"></script>
     <script src="~/scripts/bootbox.js"></script>
     <script>
         $(document).on('click', 'button[data-bootbox=confirm-form-submit]', function (e) {

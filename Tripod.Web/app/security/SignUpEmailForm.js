@@ -1,4 +1,4 @@
-'use strict';
+﻿'use strict';
 var App;
 (function (App) {
     (function (Security) {
@@ -66,6 +66,8 @@ var App;
             SignUpEmailForm.moduleName = 'sign-up-form';
 
             SignUpEmailForm.ngModule = angular.module(SignUpEmailForm.moduleName, [App.Modules.Tripod.moduleName]);
+
+            angular.bootstrap($('[ng-module=' + SignUpEmailForm.moduleName + ']'), [SignUpEmailForm.moduleName]);
         })(Security.SignUpEmailForm || (Security.SignUpEmailForm = {}));
         var SignUpEmailForm = Security.SignUpEmailForm;
     })(App.Security || (App.Security = {}));

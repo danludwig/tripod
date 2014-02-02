@@ -93,4 +93,6 @@ module App.Security.SignUpEmailForm {
     export var moduleName = 'sign-up-form';
 
     export var ngModule = angular.module(moduleName, [Modules.Tripod.moduleName]);
+
+    angular.bootstrap($('[ng-module=' + moduleName + ']'), [moduleName]);
 }
