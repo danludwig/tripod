@@ -39,22 +39,22 @@ namespace Tripod.Domain.Security
         }
 
         #endregion
-        #region ByOwnerValue
+        #region ByOwnerId
 
-        public static IQueryable<EmailVerification> ByOwnerValue(this IQueryable<EmailVerification> set, string ownerValue)
+        public static IQueryable<EmailVerification> ByOwnerId(this IQueryable<EmailVerification> set, int ownerId)
         {
-            return set.Where(ByOwnerValue(ownerValue));
+            return set.Where(ByOwnerId(ownerId));
         }
 
         [UsedImplicitly]
-        public static IEnumerable<EmailVerification> ByOwnerValue(this IEnumerable<EmailVerification> set, string ownerValue)
+        public static IEnumerable<EmailVerification> ByOwnerId(this IEnumerable<EmailVerification> set, int ownerId)
         {
-            return set.AsQueryable().ByOwnerValue(ownerValue);
+            return set.AsQueryable().ByOwnerId(ownerId);
         }
 
-        private static Expression<Func<EmailVerification, bool>> ByOwnerValue(string ownerValue)
+        private static Expression<Func<EmailVerification, bool>> ByOwnerId(int ownerId)
         {
-            return x => x.Owner.Value.Equals(ownerValue, StringComparison.OrdinalIgnoreCase);
+            return x => x.OwnerId == ownerId;
         }
 
         #endregion

@@ -1,21 +1,25 @@
 ﻿using System;
 using System.Data.Entity;
 using System.Linq;
+using System.Security.Principal;
 using System.Threading.Tasks;
 using FluentValidation;
 
 namespace Tripod.Domain.Security
 {
-    public class RedeemEmailVerification :  IDefineCommand
+    public class RedeemEmailVerification : BaseEntityCommand, IDefineSecuredCommand
     {
-        internal RedeemEmailVerification(string token, User user)
+        [UsedImplicitly]
+        public RedeemEmailVerification() { }
+
+        internal RedeemEmailVerification(User user)
         {
             if (user == null) throw new ArgumentNullException("user");
-            Token = token;
             User = user;
         }
 
-        internal string Token { get; private set; }
+        public IPrincipal Principal { get; set; }
+        public string Token { get; set; }
         internal User User { get; private set; }
     }
 
@@ -24,11 +28,17 @@ namespace Tripod.Domain.Security
     {
         public ValidateRedeemEmailVerificationCommand(IProcessQueries queries)
         {
+            RuleFor(x => x.Principal)
+                .MustFindUserByPrincipal(queries)
+                    .When(x => x.User == null)
+                    .WithName(User.Constraints.Label);
+
             RuleFor(x => x.Token)
                 .MustBeRedeemableVerifyEmailToken(queries)
                 .MustBePurposedVerifyEmailToken(queries,
                     x => EmailVerificationPurpose.CreateRemoteUser,
-                    x => EmailVerificationPurpose.CreateLocalUser
+                    x => EmailVerificationPurpose.CreateLocalUser,
+                    x => EmailVerificationPurpose.AddEmail
                 )
                     .WithName(EmailVerification.Constraints.Label);
         }
@@ -56,19 +66,25 @@ namespace Tripod.Domain.Security
             verification.RedeemedOnUtc = DateTime.UtcNow;
 
             var email = verification.Owner;
-            email.Owner = command.User;
+            var user = command.User
+                ?? await _entities.Get<User>()
+                    .EagerLoad(x => x.EmailAddresses)
+                    .ByIdAsync(command.Principal.Identity.GetAppUserId());
+            email.Owner = user;
             email.IsVerified = true;
 
             // is this the user's primary email address?
-            email.IsPrimary = !command.User.EmailAddresses.Any(x => x.IsPrimary);
+            email.IsPrimary = !user.EmailAddresses.Any(x => x.IsPrimary);
 
             // expire unused verifications
             var unusedVerifications = await _entities.Get<EmailVerification>()
-                .ByOwnerValue(email.Value)
+                .ByOwnerId(email.Id)
                 .ToArrayAsync()
             ;
             foreach (var unusedVerification in unusedVerifications.Except(new[] { verification }))
                 unusedVerification.RedeemedOnUtc = unusedVerification.ExpiresOnUtc;
+
+            if (command.Commit) await _entities.SaveChangesAsync();
         }
     }
 }

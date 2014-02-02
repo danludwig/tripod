@@ -5,14 +5,13 @@ using FluentValidation;
 
 namespace Tripod.Domain.Security
 {
-    public class CreateLocalMembership : IDefineSecuredCommand
+    public class CreateLocalMembership : BaseCreateEntityCommand<LocalMembership>, IDefineSecuredCommand
     {
         public IPrincipal Principal { get; set; }
         public string UserName { get; [UsedImplicitly] set; }
         public string Password { get; [UsedImplicitly] set; }
         public string ConfirmPassword { get; [UsedImplicitly] set; }
         public string Token { get; [UsedImplicitly] set; }
-        public LocalMembership Created { [UsedImplicitly] get; internal set; }
     }
 
     [UsedImplicitly]
@@ -78,10 +77,14 @@ namespace Tripod.Domain.Security
             {
                 var createUser = new CreateUser { Name = command.UserName };
                 await _commands.Execute(createUser);
-                user = createUser.Created;
+                user = createUser.CreatedEntity;
 
                 // verify & associate email address
-                await _commands.Execute(new RedeemEmailVerification(command.Token, user));
+                await _commands.Execute(new RedeemEmailVerification(user)
+                {
+                    Commit = false,
+                    Token = command.Token,
+                });
             }
 
             user.LocalMembership = new LocalMembership
@@ -91,7 +94,7 @@ namespace Tripod.Domain.Security
             };
             user.SecurityStamp = Guid.NewGuid().ToString();
             await _entities.SaveChangesAsync();
-            command.Created = user.LocalMembership;
+            command.CreatedEntity = user.LocalMembership;
         }
     }
 }

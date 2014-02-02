@@ -31,8 +31,8 @@ namespace Tripod.Domain.Security
 
             handler.Handle(command);
 
-            command.Created.ShouldNotBeNull();
-            command.Created.Name.ShouldEqual(command.Name);
+            command.CreatedEntity.ShouldNotBeNull();
+            command.CreatedEntity.Name.ShouldEqual(command.Name);
         }
     }
 }

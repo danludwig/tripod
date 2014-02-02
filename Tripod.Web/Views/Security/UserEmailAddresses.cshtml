@@ -12,6 +12,7 @@
 }
 
 
+
 @{ Html.RenderPartial(MVC.Users.Views._UserJumbotron, Model.UserView); }
 
 <section class="user-settings row">
@@ -54,9 +55,16 @@
     </nav>
     <div class="col-md-8" role="main">
 
-        <p>
-            If you would like to change your @UserConstraints.NameLabel.ToLower(), you can use the text box below to do so.
-        </p>
+        @if (!ViewData.ModelState.IsValid)
+        {
+            <div class="alert alert-danger">
+                Could not send verification email due to error(s) below.
+            </div>
+        }
+
+        <h3 class="scalp">
+            My email addresses
+        </h3>
 
         <ul class="emails list-unstyled">
             @foreach (var emailAddress in Model.EmailAddresses)
@@ -85,17 +93,35 @@
                         {
                             if (emailAddress.IsVerified)
                             {
-                            <button type="button" class="btn btn-primary btn-sm">
-                                <i class="fa fa-arrow-up"></i>
-                                Make Primary
-                            </button>
+                                <button type="button" class="btn btn-primary btn-sm">
+                                    <i class="fa fa-arrow-up"></i>
+                                    Make Primary
+                                </button>
                             }
                             else
                             {
-                            <button type="button" class="btn btn-warning btn-sm">
-                                <i class="fa fa-exclamation"></i>
-                                Verify
-                            </button>
+                                <form method="POST" action="@Url.Action(MVC.User.SendVerificationEmail())" class="form-inline" style="display: inline;">
+                                    @Html.AntiForgeryToken()
+                                    <input type="hidden"
+                                           name="verifyUrlFormat"
+                                           value="@Model.SendVerificationEmail.VerifyUrlFormat">
+                                    <input type="hidden"
+                                           name="sendFromUrl"
+                                           value="@Model.SendVerificationEmail.SendFromUrl">
+                                    <input type="hidden"
+                                           name="purpose"
+                                           value="@Model.SendVerificationEmail.Purpose">
+                                    <input type="hidden"
+                                           name="emailAddress"
+                                           value="@emailAddress.Value">
+                                    <input type="hidden"
+                                           name="isExpectingEmail"
+                                           value="true">
+                                    <button type="submit" class="btn btn-warning btn-sm">
+                                        <i class="fa fa-exclamation"></i>
+                                        Verify
+                                    </button>
+                                </form>
                             }
                             <button type="button" class="btn btn-danger btn-sm">
                                 <i class="fa fa-times"></i>
@@ -108,12 +134,17 @@
             }
         </ul>
 
-        @*@{ Html.RenderPartial(MVC.Security.Views._ChangeUserNameForm, Model.Command); }*@
+        <h3>
+            Add a new email address
+        </h3>
+
+        @{ Html.RenderPartial(MVC.Security.Views._SendVerificationEmailForm, Model.SendVerificationEmail); }
+
     </div>
 </section>
 
 @section scripts
 {
-    @{ Html.RenderPartial(MVC.Scripts.Views.Angular); }
-    <script src="~/app/security/ChangeUserNameForm.js"></script>
+    @*@{ Html.RenderPartial(MVC.Scripts.Views.Angular); }
+    <script src="~/app/security/ChangeUserNameForm.js"></script>*@
 }

@@ -123,7 +123,6 @@ namespace Tripod.Web.Controllers
         {
             public readonly string returnUrl = "returnUrl";
             public readonly string command = "command";
-            public readonly string loginProvider = "loginProvider";
         }
         static readonly ActionParamsClass_ValidateSendVerificationEmail s_params_ValidateSendVerificationEmail = new ActionParamsClass_ValidateSendVerificationEmail();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -203,15 +202,14 @@ namespace Tripod.Web.Controllers
             return callInfo;
         }
 
-        partial void SendVerificationEmailOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Tripod.Domain.Security.SendVerificationEmail command, string returnUrl, string loginProvider);
+        partial void SendVerificationEmailOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Tripod.Domain.Security.SendVerificationEmail command, string returnUrl);
 
-        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> SendVerificationEmail(Tripod.Domain.Security.SendVerificationEmail command, string returnUrl, string loginProvider)
+        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> SendVerificationEmail(Tripod.Domain.Security.SendVerificationEmail command, string returnUrl)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SendVerificationEmail);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "command", command);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "returnUrl", returnUrl);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "loginProvider", loginProvider);
-            SendVerificationEmailOverride(callInfo, command, returnUrl, loginProvider);
+            SendVerificationEmailOverride(callInfo, command, returnUrl);
             return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
         }
 

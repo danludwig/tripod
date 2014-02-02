@@ -1,14 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Mvc;
 using Tripod.Domain.Security;
 using Tripod.Web.Models;
 
 namespace Tripod.Web.Controllers
 {
+    [Authorize]
     public partial class UserController : Controller
     {
         private readonly IProcessQueries _queries;
@@ -41,7 +44,6 @@ namespace Tripod.Web.Controllers
             return View(MVC.Security.Views.UserSettingsIndex, model);
         }
 
-        [Authorize]
         [ValidateAntiForgeryToken]
         [HttpPut, Route("settings/username")]
         public virtual async Task<ActionResult> ChangeUserName(ChangeUserName command)
@@ -67,7 +69,6 @@ namespace Tripod.Web.Controllers
             return RedirectToAction(await MVC.User.SettingsIndex());
         }
 
-        [Authorize]
         [ValidateAntiForgeryToken]
         [HttpPost, Route("settings/username/validate")]
         public virtual ActionResult ValidateChangeUserName(ChangeUserName command)
@@ -88,9 +89,8 @@ namespace Tripod.Web.Controllers
         }
 
         #endregion
-        #region EmailAddresses
+        #region EmailAddresses (& SendVerificationEmail)
 
-        [Authorize]
         [HttpGet, Route("settings/emails")]
         public virtual async Task<ActionResult> Emails()
         {
@@ -108,10 +108,207 @@ namespace Tripod.Web.Controllers
             {
                 UserView = user,
                 EmailAddresses = emails.ToArray(),
+                SendVerificationEmail = new SendVerificationEmail
+                {
+                    Purpose = EmailVerificationPurpose.AddEmail,
+                    SendFromUrl = SendFromUrl(),
+                    VerifyUrlFormat = VerifyUrlFormat(),
+                },
             };
 
+            ViewBag.ActionUrl = Url.Action(MVC.User.SendVerificationEmail());
+            ViewBag.Purpose = model.SendVerificationEmail.Purpose;
             return View(MVC.Security.Views.UserEmailAddresses, model);
         }
+
+        [ValidateAntiForgeryToken]
+        [HttpPost, Route("settings/emails")]
+        public virtual async Task<ActionResult> SendVerificationEmail(SendVerificationEmail command)
+        {
+            if (command == null || command.Purpose == EmailVerificationPurpose.Invalid)
+            {
+                return View(MVC.Errors.Views.BadRequest);
+            }
+
+            if (!ModelState.IsValid)
+            {
+                var user = await _queries.Execute(new UserViewBy(User.Identity.GetAppUserId()));
+                var emails = await _queries.Execute(new EmailAddressViewsBy(User.Identity.GetAppUserId())
+                {
+                    OrderBy = new Dictionary<Expression<Func<EmailAddressView, object>>, OrderByDirection>
+                    {
+                        { x => x.IsPrimary, OrderByDirection.Descending },
+                        { x => x.IsVerified, OrderByDirection.Descending },
+                    },
+                });
+
+                var model = new EmailAddressSettingsModel
+                {
+                    UserView = user,
+                    EmailAddresses = emails.ToArray(),
+                    SendVerificationEmail = command,
+                };
+
+                ViewBag.ActionUrl = Url.Action(MVC.User.SendVerificationEmail());
+                return View(MVC.Security.Views.UserEmailAddresses, model);
+            }
+
+            command.VerifyUrlFormat = VerifyUrlFormat();
+            command.SendFromUrl = SendFromUrl();
+            await _commands.Execute(command);
+
+            Session.VerifyEmailTickets(command.CreatedTicket);
+
+            return RedirectToAction(await MVC.User.VerifyEmailSecret(command.CreatedTicket));
+        }
+
+        private string VerifyUrlFormat()
+        {
+            Debug.Assert(Request.Url != null);
+            var encodedUrlFormat = Url.Action(MVC.User.RedeemEmailVerification("{0}"));
+            var decodedUrlFormat = HttpUtility.UrlDecode(encodedUrlFormat);
+            return string.Format("{0}://{1}{2}", Request.Url.Scheme, Request.Url.Authority, decodedUrlFormat);
+        }
+
+        private string SendFromUrl()
+        {
+            Debug.Assert(Request.Url != null);
+            var url = Url.Action(MVC.User.Emails());
+            return string.Format("{0}://{1}{2}", Request.Url.Scheme, Request.Url.Authority, url);
+        }
+
+        #endregion
+        #region VerifyConfirmEmailSecret
+
+        [HttpGet, Route("settings/emails/{ticket}", Order = 2)]
+        public virtual async Task<ActionResult> VerifyEmailSecret(string ticket)
+        {
+            var verification = await _queries.Execute(new EmailVerificationBy(ticket)
+            {
+                EagerLoad = new Expression<Func<EmailVerification, object>>[]
+                {
+                    x => x.Owner,
+                }
+            });
+            if (verification == null) return HttpNotFound();
+
+            // todo: confirmation token must not be redeemed, expired, or for different purpose
+
+            ViewBag.ActionUrl = Url.Action(MVC.User.VerifyEmailSecret(ticket));
+            ViewBag.Ticket = ticket;
+            ViewBag.Purpose = EmailVerificationPurpose.AddEmail;
+            if (Session.VerifyEmailTickets().Contains(ticket))
+                ViewBag.EmailAddress = verification.Owner.Value;
+            return View(MVC.Security.Views.AddEmailVerifyEmailSecret);
+        }
+
+        [ValidateAntiForgeryToken]
+        [HttpPost, Route("settings/emails/{ticket}", Order = 2)]
+        public virtual async Task<ActionResult> VerifyEmailSecret(VerifyEmailSecret command, string emailAddress)
+        {
+            //System.Threading.Thread.Sleep(new Random().Next(5000, 5001));
+
+            if (command == null) return View(MVC.Errors.Views.BadRequest);
+
+            if (!ModelState.IsValid)
+            {
+                ViewBag.ActionUrl = Url.Action(MVC.User.VerifyEmailSecret(command.Ticket));
+                ViewBag.Ticket = command.Ticket;
+                ViewBag.Purpose = EmailVerificationPurpose.AddEmail;
+                if (Session.VerifyEmailTickets().Contains(command.Ticket))
+                    ViewBag.EmailAddress = emailAddress;
+                return View(MVC.Security.Views.AddEmailVerifyEmailSecret, command);
+            }
+
+            await _commands.Execute(command);
+
+            return RedirectToAction(await MVC.User.RedeemEmailVerification(command.Token));
+        }
+
+        #endregion
+        #region RedeemEmailVerification
+
+        [HttpGet, Route("settings/emails/confirm", Order = 1)]
+        public virtual async Task<ActionResult> RedeemEmailVerification(string token)
+        {
+            var userToken = await _queries.Execute(new EmailVerificationUserToken(token));
+            if (userToken == null) return HttpNotFound();
+            var verification = await _queries.Execute(new EmailVerificationBy(userToken.Value));
+            if (verification == null) return HttpNotFound();
+
+            // todo: verification cannot be expired, redeemed, or for different purpose
+
+            ViewBag.Token = token;
+            ViewBag.EmailAddress = verification.Owner.Value;
+            return View(MVC.Security.Views.AddEmailRedeemEmailVerification);
+        }
+
+        [ValidateAntiForgeryToken]
+        [HttpPost, Route("settings/emails/confirm", Order = 1)]
+        public virtual async Task<ActionResult> RedeemEmailVerification(RedeemEmailVerification command, string emailAddress)
+        {
+            //System.Threading.Thread.Sleep(new Random().Next(5000, 5001));
+
+            if (command == null || string.IsNullOrWhiteSpace(emailAddress))
+                return View(MVC.Errors.Views.BadRequest);
+
+            if (!ModelState.IsValid)
+            {
+                ViewBag.Token = command.Token;
+                ViewBag.EmailAddress = emailAddress;
+                return View(MVC.Security.Views.AddEmailRedeemEmailVerification, command);
+            }
+
+            await _commands.Execute(command);
+
+            Session.VerifyEmailTickets(null);
+            return this.RedirectToLocal(await MVC.User.Emails());
+        }
+
+        [ValidateAntiForgeryToken]
+        [HttpPost, Route("settings/emails/reject", Order = 1)]
+        public virtual async Task<ActionResult> RejectEmailOwnership(RejectEmailVerification command, string emailAddress)
+        {
+            //System.Threading.Thread.Sleep(new Random().Next(5000, 5001));
+
+            if (command == null || string.IsNullOrWhiteSpace(emailAddress))
+                return View(MVC.Errors.Views.BadRequest);
+
+            if (!ModelState.IsValid)
+            {
+                ViewBag.Token = command.Token;
+                ViewBag.EmailAddress = emailAddress;
+                return View(MVC.Security.Views.AddEmailRedeemEmailVerification, new RedeemEmailVerification
+                {
+                    Token = command.Token,
+                });
+            }
+
+            await _commands.Execute(command);
+
+            Session.VerifyEmailTickets(null);
+            return this.RedirectToLocal(await MVC.User.Emails());
+        }
+
+        //[ValidateAntiForgeryToken]
+        //[HttpPost, Route("sign-up/register/validate/{fieldName?}", Order = 1)]
+        //public virtual ActionResult ValidateCreateLocalMembership(CreateLocalMembership command, string fieldName = null)
+        //{
+        //    //System.Threading.Thread.Sleep(new Random().Next(5000, 5001));
+
+        //    if (command == null)
+        //    {
+        //        Response.StatusCode = 400;
+        //        return Json(null);
+        //    }
+
+        //    var result = new ValidatedFields(ModelState, fieldName);
+
+        //    //ModelState[command.PropertyName(x => x.UserName)].Errors.Clear();
+        //    //result = new ValidatedFields(ModelState, fieldName);
+
+        //    return new CamelCaseJsonResult(result);
+        //}
 
         #endregion
     }

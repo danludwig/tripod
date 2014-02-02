@@ -73,10 +73,14 @@ namespace Tripod.Domain.Security
             {
                 var createUser = new CreateUser { Name = command.UserName };
                 await _commands.Execute(createUser);
-                user = createUser.Created;
+                user = createUser.CreatedEntity;
 
                 // verify & associate email address
-                await _commands.Execute(new RedeemEmailVerification(command.Token, user));
+                await _commands.Execute(new RedeemEmailVerification(user)
+                {
+                    Commit = false,
+                    Token = command.Token,
+                });
             }
 
             var ticket = await _queries.Execute(new PrincipalRemoteMembershipTicket(command.Principal));

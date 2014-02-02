@@ -37,7 +37,7 @@ namespace Tripod.Web.Controllers
 
         [ValidateAntiForgeryToken]
         [HttpPost, Route("sign-up")]
-        public virtual async Task<ActionResult> SendVerificationEmail(SendVerificationEmail command, string returnUrl, string loginProvider)
+        public virtual async Task<ActionResult> SendVerificationEmail(SendVerificationEmail command, string returnUrl)
         {
             if (command == null || command.Purpose == EmailVerificationPurpose.Invalid)
             {

@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
+using System.Security.Principal;
 using System.Threading.Tasks;
 using FluentValidation;
 
 namespace Tripod.Domain.Security
 {
-    public class SendVerificationEmail : IDefineCommand
+    public class SendVerificationEmail : IDefineSecuredCommand
     {
+        public IPrincipal Principal { get; set; }
         public string EmailAddress { get; set; }
         public bool IsExpectingEmail { get; set; }
         public EmailVerificationPurpose Purpose { get; set; }
@@ -20,6 +22,17 @@ namespace Tripod.Domain.Security
     {
         public ValidateSendVerificationEmailCommand(IProcessQueries queries)
         {
+            RuleFor(x => x.Principal)
+                .MustBeUnauthenticatedPrincipal()
+                    .When(x => x.Purpose == EmailVerificationPurpose.CreateLocalUser
+                            || x.Purpose == EmailVerificationPurpose.CreateRemoteUser
+                            || x.Purpose == EmailVerificationPurpose.ForgotPassword,
+                        ApplyConditionTo.CurrentValidator)
+                .MustFindUserByPrincipal(queries)
+                    .When(x => x.Purpose == EmailVerificationPurpose.AddEmail,
+                        ApplyConditionTo.CurrentValidator)
+            ;
+
             RuleFor(x => x.EmailAddress)
                 .MustBeVerifiableEmailAddress(queries)
                     .WithName(EmailAddress.Constraints.Label);
@@ -36,7 +49,9 @@ namespace Tripod.Domain.Security
             RuleFor(x => x.VerifyUrlFormat)
                 .NotEmpty()
                     .WithMessage(Resources.Validation_EmailVerification_MissingMessageFormatter)
-                    .When(x => x.Purpose == EmailVerificationPurpose.CreateLocalUser);
+                    // do not require a verification url when registering remote users,
+                    // but do require one when registering local users and adding new emails to user account
+                    .When(x => x.Purpose != EmailVerificationPurpose.CreateRemoteUser);
 
             RuleFor(x => x.SendFromUrl)
                 .NotEmpty()
@@ -69,6 +84,10 @@ namespace Tripod.Domain.Security
             };
             await _commands.Execute(createEmailVerification);
             var verification = createEmailVerification.CreatedEntity;
+
+            // attach the email to a user when appropriate
+            if (command.Purpose == EmailVerificationPurpose.AddEmail && command.Principal != null && command.Principal.Identity.IsAuthenticated)
+                verification.Owner.OwnerId = command.Principal.Identity.GetAppUserId();
 
             // load the templates
             var resourceFormat = string.Format("{0}.{1}.txt", verification.Purpose, "{0}");

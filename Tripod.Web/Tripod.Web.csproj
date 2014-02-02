@@ -764,6 +764,8 @@
     <Content Include="Views\Security\_ChangeUserNameForm.cshtml" />
     <Content Include="Views\Users\User.cshtml" />
     <Content Include="Views\Security\UserEmailAddresses.cshtml" />
+    <Content Include="Views\Security\AddEmailVerifyEmailSecret.cshtml" />
+    <Content Include="Views\Security\AddEmailRedeemEmailVerification.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

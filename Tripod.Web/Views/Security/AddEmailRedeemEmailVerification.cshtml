@@ -1,0 +1,92 @@
+﻿@using Tripod.Domain.Security
+@using UserConstraints = Tripod.Domain.Security.User.Constraints
+
+@model RedeemEmailVerification
+
+@{
+    ViewBag.Title = "Confirm adding this email to your account";
+}
+
+<h2>
+    Add email  &raquo;
+    <small>@ViewBag.Title.</small>
+</h2>
+<hr class="hr-sm hr-space" />
+
+@{ Html.RenderPartial(MVC.Security.Views._VerifyEmailWizardSteps, new VerifyEmailWizardModel(3, "Confirm email")); }
+<hr class="hr-space hr-md" />
+
+<h3>
+    Thanks for verifying your email address! <small>We're almost ready to add it to your account.</small>
+</h3>
+
+<hr class="hr-md hr-space" />
+<p>
+    <strong>Please confirm your intent:</strong> Do you want to add the email address <strong>@ViewBag.EmailAddress</strong> to your <strong>@User.Identity.Name</strong> account?
+</p>
+<hr class="hr-md hr-space" />
+
+
+<div class="row">
+    <div class="col-md-12">
+        <form role="form"
+              method="POST"
+              action="@Url.Action(MVC.User.RedeemEmailVerification())"
+              class=" form-inline">
+            @Html.AntiForgeryToken()
+            <input type="hidden"
+                   name="emailAddress"
+                   value="@ViewBag.EmailAddress" />
+            <input type="hidden"
+                   name="token"
+                   value="@ViewBag.Token"
+                   ng-init="vm.token='@ViewBag.Token'"
+                   ng-model="vm.token"
+                   required
+                   model-contrib
+                   server-error="@Html.ValidationMessageTextFor(x => x.Token)"
+                   server-validate="@Url.Action(MVC.SignUp.ValidateCreateLocalMembership(null, "token"))" />
+            @{
+                var buttonClass = ViewData.ModelState.IsValid ? null : "btn-danger";
+                var readyClass = ViewData.ModelState.IsValid ? null : "hide";
+                var errorClass = ViewData.ModelState.IsValid ? "hide" : null;
+            }
+            <button type="submit"
+                    class="pull-left btn btn-primary @buttonClass"
+                    ng-class="vm.submitCssClass()"
+                    ng-disabled="vm.isSubmitDisabled()"
+                    remove-class="@buttonClass">
+                <i class="fa fa-fw fa-envelope @readyClass"
+                   remove-class="@readyClass"
+                   ng-show="vm.isSubmitReady()"></i>
+                <i class="fa fa-fw fa-exclamation-triangle @errorClass"
+                   remove-class="@errorClass"
+                   ng-show="vm.isSubmitError()"></i>
+                <i class="fa fa-fw fa-spinner fa-spin spin-fast"
+                   ng-show="vm.isSubmitWaiting()" ng-cloak></i>
+                Yes, confirm email
+            </button>
+        </form>
+        <form role="form"
+              method="POST"
+              action="@Url.Action(MVC.User.RejectEmailOwnership())"
+              class=" form-inline">
+            @Html.AntiForgeryToken()
+            <input type="hidden"
+                   name="emailAddress"
+                   value="@ViewBag.EmailAddress" />
+            <input type="hidden"
+                   name="token"
+                   value="@ViewBag.Token" />
+            <button type="submit" class="btn btn-link nudge-right">
+                No, do not confirm email
+            </button>
+        </form>
+    </div>
+</div>
+
+@section scripts
+{
+    @*@{ Html.RenderPartial(MVC.Scripts.Views.Angular); }
+        <script src="~/app/security/SignUpUserForm.js"></script>*@
+}

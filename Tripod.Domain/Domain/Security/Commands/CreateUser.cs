@@ -4,11 +4,10 @@ using FluentValidation;
 
 namespace Tripod.Domain.Security
 {
-    public class CreateUser : IDefineCommand
+    public class CreateUser : BaseCreateEntityCommand<User>, IDefineCommand
     {
         internal CreateUser() { }
         internal string Name { get; set; }
-        internal User Created { get; set; }
     }
 
     public class ValidateCreateUserCommand : AbstractValidator<CreateUser>
@@ -41,7 +40,7 @@ namespace Tripod.Domain.Security
             };
             _entities.Create(entity);
 
-            command.Created = entity;
+            command.CreatedEntity = entity;
             return Task.FromResult(0);
         }
     }
