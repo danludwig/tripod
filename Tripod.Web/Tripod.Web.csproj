@@ -363,6 +363,9 @@
     <Content Include="app\_common\modules\Tripod.js">
       <DependentUpon>Tripod.ts</DependentUpon>
     </Content>
+    <Content Include="app\_common\unobtrusive\bootbox-confirm.js">
+      <DependentUpon>bootbox-confirm.ts</DependentUpon>
+    </Content>
     <Content Include="App_Data\.gitignore" />
     <Content Include="App_Data\mail\pickup\.gitignore" />
     <Content Include="content\bootstrap.css" />
@@ -812,6 +815,7 @@
     <TypeScriptCompile Include="app\_common\directives\ServerError.ts" />
     <TypeScriptCompile Include="app\_common\directives\ServerValidate.ts" />
     <TypeScriptCompile Include="app\_common\modules\Tripod.ts" />
+    <TypeScriptCompile Include="app\_common\unobtrusive\bootbox-confirm.ts" />
     <TypeScriptCompile Include="scripts\typings\angular-ui-bootstrap\angular-ui-bootstrap.d.ts" />
     <TypeScriptCompile Include="scripts\typings\angularjs\angular-cookies.d.ts" />
     <TypeScriptCompile Include="scripts\typings\angularjs\angular-mocks.d.ts" />

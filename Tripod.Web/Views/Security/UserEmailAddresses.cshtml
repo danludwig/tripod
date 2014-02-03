@@ -156,6 +156,7 @@
                                         class="btn btn-danger btn-sm"
                                         data-bootbox="confirm-form-submit"
                                         data-bootbox-class="modal-danger modal-buttons-left"
+                                        data-bootbox-close="false"
                                         data-bootbox-title="Please confirm your intent"
                                         data-bootbox-message="Are you sure you want to delete the email address @emailAddress.Value?"
                                         data-bootbox-confirm="Yes, confirm delete"
@@ -185,38 +186,7 @@
 @section scripts
 {
     @{ Html.RenderPartial(MVC.Scripts.Views.Angular); }
-    <script src="~/app/security/SignUpEmailForm.js"></script>
     <script src="~/scripts/bootbox.js"></script>
-    <script>
-        $(document).on('click', 'button[data-bootbox=confirm-form-submit]', function (e) {
-            e.preventDefault();
-
-            var clicked = $(e.target);
-            var options = {
-                message: clicked.data('bootbox-message') || 'Are you sure you want to do this?',
-                closeButton: false,
-                buttons: {
-                    confirm: {
-                        label: clicked.data('bootbox-confirm') || 'Confirm',
-                        className: clicked.data('bootbox-confirm-class') || '',
-                        callback: function (isConfirmed) {
-                            if (!isConfirmed) return;
-                            clicked.parents('form').submit();
-                        },
-                    },
-                    deny: {
-                        label: clicked.data('bootbox-deny') || 'Cancel',
-                        className: clicked.data('bootbox-deny-class') || '',
-                    },
-                },
-            };
-            var title = clicked.data('bootbox-title');
-            if (title) options.title = title;
-            var className = clicked.data('bootbox-class');
-            if (className) options.className = className;
-            bootbox.dialog(options);
-
-            return false;
-        });
-    </script>
+    <script src="~/app/security/SignUpEmailForm.js"></script>
+    <script src="~/app/_common/unobtrusive/bootbox-confirm.js"></script>
 }
