@@ -26,7 +26,7 @@
 </p>
 <hr class="hr-md hr-space" />
 
-@{ Html.RenderPartial(MVC.Shared.Views._AlertsTempData); }
+@{ Html.RenderPartial(MVC.Shared.Views._AlertsTempData, new AlertRenderOptions { Inline = true }); }
 
 <div class="row">
     <div class="col-md-12">

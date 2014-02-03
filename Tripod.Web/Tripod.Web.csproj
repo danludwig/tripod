@@ -69,6 +69,9 @@
     <Reference Include="FluentValidation.Mvc">
       <HintPath>..\packages\FluentValidation.MVC4.5.0.0.1\lib\Net40\FluentValidation.Mvc.dll</HintPath>
     </Reference>
+    <Reference Include="MarkdownSharp">
+      <HintPath>..\packages\MarkdownSharp.1.13.0.0\lib\35\MarkdownSharp.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.0.0-alpha1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
@@ -276,6 +279,7 @@
     <Compile Include="Models\Security\SignOnFormModel.cs" />
     <Compile Include="Models\Security\VerifyEmailWizardModel.cs" />
     <Compile Include="Models\Security\UserViewModelBase.cs" />
+    <Compile Include="Models\_Common\AlertRenderOptions.cs" />
     <Compile Include="Models\_Common\ValidatedField.cs" />
     <Compile Include="Models\_Common\ValidatedFieldError.cs" />
     <Compile Include="Models\_Common\ValidatedFields.cs" />

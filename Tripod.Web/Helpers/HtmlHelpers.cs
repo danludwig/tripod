@@ -3,6 +3,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
+using MarkdownSharp;
 
 namespace Tripod.Web
 {
@@ -132,6 +133,13 @@ namespace Tripod.Web
         {
             var clientCookie = html.ViewContext.HttpContext.Request.ClientCookie();
             return html.Gravatar(clientCookie != null ? clientCookie.GravatarHash : null, size, cssClass);
+        }
+
+        private static readonly Markdown MarkdownTransformer = new Markdown();
+
+        public static MvcHtmlString Markdown(this HtmlHelper html, string content)
+        {
+            return new MvcHtmlString(MarkdownTransformer.Transform(content));
         }
     }
 }

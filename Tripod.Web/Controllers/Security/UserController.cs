@@ -149,7 +149,7 @@ namespace Tripod.Web.Controllers
                     SendVerificationEmail = command,
                 };
 
-                TempData.Alerts("Could not send verification email due to error(s) below.", AlertFlavor.Danger);
+                TempData.Alerts("**Could not send verification email due to error(s) below.**", AlertFlavor.Danger);
                 ViewBag.ActionUrl = Url.Action(MVC.User.SendVerificationEmail());
                 return View(MVC.Security.Views.UserEmailAddresses, model);
             }
@@ -256,7 +256,7 @@ namespace Tripod.Web.Controllers
             if (!ModelState.IsValid)
             {
                 var firstError = ModelState.Values.SelectMany(x => x.Errors.Select(y => y.ErrorMessage)).First();
-                var message = string.Format("Could not confirm email address: {0}", firstError);
+                var message = string.Format("Could not confirm email address: **{0}**", firstError);
                 TempData.Alerts(message, AlertFlavor.Danger, true);
                 ViewBag.Token = command.Token;
                 ViewBag.EmailAddress = emailAddress;
@@ -283,7 +283,7 @@ namespace Tripod.Web.Controllers
                 await _commands.Execute(command);
             }
 
-            var message = string.Format("The email address confirmation for '{0}' was rejected.", emailAddress);
+            var message = string.Format("The email address confirmation for **{0}** was rejected.", emailAddress);
             TempData.Alerts(message, AlertFlavor.Success, true);
             Session.VerifyEmailTickets(null);
             return this.RedirectToLocal(await MVC.User.Emails());
@@ -301,7 +301,7 @@ namespace Tripod.Web.Controllers
             if (!ModelState.IsValid)
             {
                 var firstError = ModelState.Values.SelectMany(x => x.Errors.Select(y => y.ErrorMessage)).First();
-                var message = string.Format("Could not delete email address: {0}", firstError);
+                var message = string.Format("Could not delete email address: **{0}**", firstError);
                 TempData.Alerts(message, AlertFlavor.Danger, true);
             }
             else
@@ -310,7 +310,7 @@ namespace Tripod.Web.Controllers
                 if (email != null)
                 {
                     await _commands.Execute(command);
-                    var message = string.Format("Successfully deleted email address '{0}'.", email.Value);
+                    var message = string.Format("Successfully deleted email address **{0}**.", email.Value);
                     TempData.Alerts(message, AlertFlavor.Success, true);
                 }
             }

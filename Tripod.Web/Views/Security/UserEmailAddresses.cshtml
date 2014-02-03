@@ -81,7 +81,7 @@
     </nav>
     <div class="col-md-8" role="main">
 
-        @{ Html.RenderPartial(MVC.Shared.Views._AlertsTempData); }
+        @{ Html.RenderPartial(MVC.Shared.Views._AlertsTempData, new AlertRenderOptions()); }
 
         <h3 class="scalp">
             My email addresses
