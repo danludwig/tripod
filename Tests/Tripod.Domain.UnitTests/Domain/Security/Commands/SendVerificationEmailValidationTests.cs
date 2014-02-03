@@ -133,8 +133,7 @@ namespace Tripod.Domain.Security
 
         [Theory, InlineData(EmailVerificationPurpose.CreateLocalUser),
             InlineData(EmailVerificationPurpose.CreateRemoteUser),
-            InlineData(EmailVerificationPurpose.ForgotPassword),
-            InlineData(EmailVerificationPurpose.AddEmail)]
+            InlineData(EmailVerificationPurpose.ForgotPassword)]
         public void IsValid_WhenAllRulesPass(EmailVerificationPurpose purpose)
         {
             var queries = new Mock<IProcessQueries>(MockBehavior.Strict);
