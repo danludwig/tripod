@@ -105,6 +105,7 @@
     <Compile Include="Api\_Extensions\StringExtensions.cs" />
     <Compile Include="Domain\Audit\ExceptionAudit.cs" />
     <Compile Include="Domain\Security\Commands\ChangeUserName.cs" />
+    <Compile Include="Domain\Security\Commands\UpdateEmailAddress.cs" />
     <Compile Include="Domain\Security\Commands\DeleteEmailAddress.cs" />
     <Compile Include="Domain\Security\Commands\RejectEmailVerification.cs" />
     <Compile Include="Domain\Security\Commands\RedeemEmailVerification.cs" />

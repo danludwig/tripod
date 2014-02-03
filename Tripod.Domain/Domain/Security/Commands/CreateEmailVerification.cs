@@ -45,7 +45,7 @@ namespace Tripod.Domain.Security
             var emailAddress = await _entities.Get<EmailAddress>().ByValueAsync(command.EmailAddress)
                 ?? new EmailAddress
                 {
-                    Value = command.EmailAddress,
+                    Value = command.EmailAddress.ToLower(), // TODO: allow users to change capitalization of email?
                     HashedValue = await _queries.Execute(new HashedEmailValueBy(command.EmailAddress)),
                 };
 

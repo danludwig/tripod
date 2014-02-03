@@ -304,11 +304,11 @@ namespace Tripod {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You cannot delete your primary {PropertyName}..
+        ///   Looks up a localized string similar to You cannot perform this action on your primary {PropertyName}..
         /// </summary>
-        public static string Validation_EmailAddress_CannotDeletePrimary {
+        public static string Validation_EmailAddress_CannotBePrimary {
             get {
-                return ResourceManager.GetString("Validation_EmailAddress_CannotDeletePrimary", resourceCulture);
+                return ResourceManager.GetString("Validation_EmailAddress_CannotBePrimary", resourceCulture);
             }
         }
         

@@ -9,7 +9,7 @@ namespace Tripod.Domain.Security
         private readonly IProcessQueries _queries;
 
         internal MustNotBePrimaryEmailAddress(IProcessQueries queries)
-            : base(() => Resources.Validation_EmailAddress_CannotDeletePrimary)
+            : base(() => Resources.Validation_EmailAddress_CannotBePrimary)
         {
             if (queries == null) throw new ArgumentNullException("queries");
             _queries = queries;

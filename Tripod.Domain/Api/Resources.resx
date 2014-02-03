@@ -264,8 +264,8 @@
   <data name="Validation_UserName_AllowedEmailAddress" xml:space="preserve">
     <value>You cannot use the email address '{PropertyValue}' for your {PropertyName}.</value>
   </data>
-  <data name="Validation_EmailAddress_CannotDeletePrimary" xml:space="preserve">
-    <value>You cannot delete your primary {PropertyName}.</value>
+  <data name="Validation_EmailAddress_CannotBePrimary" xml:space="preserve">
+    <value>You cannot perform this action on your primary {PropertyName}.</value>
   </data>
   <data name="Validation_NotAuthorized_IntIdValue" xml:space="preserve">
     <value>You are not authorized to perform this action on {PropertyName} #{PropertyValue}.</value>

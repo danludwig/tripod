@@ -6,6 +6,7 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 using Tripod.Domain.Security;
 using Tripod.Web.Models;
 
@@ -287,6 +288,39 @@ namespace Tripod.Web.Controllers
             TempData.Alerts(message, AlertFlavor.Success, true);
             Session.VerifyEmailTickets(null);
             return this.RedirectToLocal(await MVC.User.Emails());
+        }
+
+        #endregion
+        #region UpdateEmailAddress
+
+        [ValidateAntiForgeryToken]
+        [HttpPut, Route("settings/emails/{emailAddressId}")]
+        public virtual async Task<ActionResult> UpdateEmailAddress(int emailAddressId, UpdateEmailAddress command)
+        {
+            if (command == null) return View(MVC.Errors.BadRequest());
+
+            if (!ModelState.IsValid)
+            {
+                var firstError = ModelState.Values.SelectMany(x => x.Errors.Select(y => y.ErrorMessage)).First();
+                var message = string.Format("Could not update email address: **{0}**", firstError);
+                TempData.Alerts(message, AlertFlavor.Danger, true);
+            }
+            else
+            {
+                var email = await _queries.Execute(new EmailAddressBy(emailAddressId));
+                if (email != null)
+                {
+                    await _commands.Execute(command);
+                    var message = string.Format("Successfully updated email address **{0}**.", email.Value);
+                    TempData.Alerts(message, AlertFlavor.Success, true);
+
+                    // changing the primary email address also changes gravatar
+                    if (email.IsPrimary != command.IsPrimary)
+                        Response.ClientCookie(User.Identity.GetUserId(), _queries);
+                }
+            }
+
+            return RedirectToAction(await MVC.User.Emails());
         }
 
         #endregion

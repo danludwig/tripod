@@ -84,6 +84,13 @@ namespace Tripod.Web.Controllers
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> UpdateEmailAddress()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.UpdateEmailAddress);
+            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public virtual System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> DeleteEmailAddress()
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.DeleteEmailAddress);
@@ -113,6 +120,7 @@ namespace Tripod.Web.Controllers
             public readonly string VerifyEmailSecret = "VerifyEmailSecret";
             public readonly string RedeemEmailVerification = "RedeemEmailVerification";
             public readonly string RejectEmailOwnership = "RejectEmailOwnership";
+            public readonly string UpdateEmailAddress = "UpdateEmailAddress";
             public readonly string DeleteEmailAddress = "DeleteEmailAddress";
         }
 
@@ -127,6 +135,7 @@ namespace Tripod.Web.Controllers
             public const string VerifyEmailSecret = "VerifyEmailSecret";
             public const string RedeemEmailVerification = "RedeemEmailVerification";
             public const string RejectEmailOwnership = "RejectEmailOwnership";
+            public const string UpdateEmailAddress = "UpdateEmailAddress";
             public const string DeleteEmailAddress = "DeleteEmailAddress";
         }
 
@@ -183,6 +192,15 @@ namespace Tripod.Web.Controllers
         {
             public readonly string command = "command";
             public readonly string emailAddress = "emailAddress";
+        }
+        static readonly ActionParamsClass_UpdateEmailAddress s_params_UpdateEmailAddress = new ActionParamsClass_UpdateEmailAddress();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_UpdateEmailAddress UpdateEmailAddressParams { get { return s_params_UpdateEmailAddress; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_UpdateEmailAddress
+        {
+            public readonly string emailAddressId = "emailAddressId";
+            public readonly string command = "command";
         }
         static readonly ActionParamsClass_DeleteEmailAddress s_params_DeleteEmailAddress = new ActionParamsClass_DeleteEmailAddress();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -310,6 +328,17 @@ namespace Tripod.Web.Controllers
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "command", command);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "emailAddress", emailAddress);
             RejectEmailOwnershipOverride(callInfo, command, emailAddress);
+            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
+        }
+
+        partial void UpdateEmailAddressOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int emailAddressId, Tripod.Domain.Security.UpdateEmailAddress command);
+
+        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> UpdateEmailAddress(int emailAddressId, Tripod.Domain.Security.UpdateEmailAddress command)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.UpdateEmailAddress);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "emailAddressId", emailAddressId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "command", command);
+            UpdateEmailAddressOverride(callInfo, emailAddressId, command);
             return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
         }
 

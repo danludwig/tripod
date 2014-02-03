@@ -109,15 +109,24 @@
                     {
                         <span class="label label-warning">Unverified</span>
                     }
+                    
+                    @** BUTTONS *@
                     <div class="pull-right">
                         @if (!emailAddress.IsPrimary)
                         {
                             if (emailAddress.IsVerified)
                             {
-                                <button type="button" class="btn btn-primary btn-sm">
+                            <form method="POST" action="@Url.Action(MVC.User.UpdateEmailAddress(emailAddress.EmailAddressId, null))" class="form-inline" style="display: inline;">
+                                @Html.AntiForgeryToken()
+                                @Html.HttpMethodOverride(HttpVerbs.Put)
+                                <input type="hidden"
+                                       name="isPrimary"
+                                       value="true">
+                                <button type="submit" class="btn btn-primary btn-sm">
                                     <i class="fa fa-arrow-up"></i>
                                     Make Primary
                                 </button>
+                            </form>
                             }
                             else
                             {
