@@ -6,7 +6,7 @@
         {
             var alertFlavor = string.Format("alert-{0}", alert.Flavor.ToString().ToLower());
             var alertDismiss = alert.IsDismissable ? "alert-dismissable" : null;
-            <div class="alert @alertFlavor @alertDismiss">
+            <div class="alert alert-inline @alertFlavor @alertDismiss">
                 @if (alert.IsDismissable)
                 {
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>

@@ -255,6 +255,9 @@ namespace Tripod.Web.Controllers
 
             if (!ModelState.IsValid)
             {
+                var firstError = ModelState.Values.SelectMany(x => x.Errors.Select(y => y.ErrorMessage)).First();
+                var message = string.Format("Could not confirm email address: {0}", firstError);
+                TempData.Alerts(message, AlertFlavor.Danger, true);
                 ViewBag.Token = command.Token;
                 ViewBag.EmailAddress = emailAddress;
                 return View(MVC.Security.Views.AddEmailRedeemEmailVerification, command);
@@ -275,41 +278,16 @@ namespace Tripod.Web.Controllers
             if (command == null || string.IsNullOrWhiteSpace(emailAddress))
                 return View(MVC.Errors.Views.BadRequest);
 
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                ViewBag.Token = command.Token;
-                ViewBag.EmailAddress = emailAddress;
-                return View(MVC.Security.Views.AddEmailRedeemEmailVerification, new RedeemEmailVerification
-                {
-                    Token = command.Token,
-                });
+                await _commands.Execute(command);
             }
 
-            await _commands.Execute(command);
-
+            var message = string.Format("The email address confirmation for '{0}' was rejected.", emailAddress);
+            TempData.Alerts(message, AlertFlavor.Success, true);
             Session.VerifyEmailTickets(null);
             return this.RedirectToLocal(await MVC.User.Emails());
         }
-
-        //[ValidateAntiForgeryToken]
-        //[HttpPost, Route("sign-up/register/validate/{fieldName?}", Order = 1)]
-        //public virtual ActionResult ValidateCreateLocalMembership(CreateLocalMembership command, string fieldName = null)
-        //{
-        //    //System.Threading.Thread.Sleep(new Random().Next(5000, 5001));
-
-        //    if (command == null)
-        //    {
-        //        Response.StatusCode = 400;
-        //        return Json(null);
-        //    }
-
-        //    var result = new ValidatedFields(ModelState, fieldName);
-
-        //    //ModelState[command.PropertyName(x => x.UserName)].Errors.Clear();
-        //    //result = new ValidatedFields(ModelState, fieldName);
-
-        //    return new CamelCaseJsonResult(result);
-        //}
 
         #endregion
         #region DeleteEmailAddress

@@ -26,6 +26,7 @@
 </p>
 <hr class="hr-md hr-space" />
 
+@{ Html.RenderPartial(MVC.Shared.Views._AlertsTempData); }
 
 <div class="row">
     <div class="col-md-12">
@@ -84,9 +85,3 @@
         </form>
     </div>
 </div>
-
-@section scripts
-{
-    @*@{ Html.RenderPartial(MVC.Scripts.Views.Angular); }
-        <script src="~/app/security/SignUpUserForm.js"></script>*@
-}
