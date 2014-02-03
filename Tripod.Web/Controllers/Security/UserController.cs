@@ -149,6 +149,7 @@ namespace Tripod.Web.Controllers
                     SendVerificationEmail = command,
                 };
 
+                TempData.Alerts("Could not send verification email due to error(s) below.", AlertFlavor.Danger);
                 ViewBag.ActionUrl = Url.Action(MVC.User.SendVerificationEmail());
                 return View(MVC.Security.Views.UserEmailAddresses, model);
             }
@@ -321,33 +322,21 @@ namespace Tripod.Web.Controllers
 
             if (!ModelState.IsValid)
             {
-                var user = await _queries.Execute(new UserViewBy(User.Identity.GetAppUserId()));
-                var emails = await _queries.Execute(new EmailAddressViewsBy(User.Identity.GetAppUserId())
+                var firstError = ModelState.Values.SelectMany(x => x.Errors.Select(y => y.ErrorMessage)).First();
+                var message = string.Format("Could not delete email address: {0}", firstError);
+                TempData.Alerts(message, AlertFlavor.Danger, true);
+            }
+            else
+            {
+                var email = await _queries.Execute(new EmailAddressBy(emailAddressId));
+                if (email != null)
                 {
-                    OrderBy = new Dictionary<Expression<Func<EmailAddressView, object>>, OrderByDirection>
-                    {
-                        { x => x.IsPrimary, OrderByDirection.Descending },
-                        { x => x.IsVerified, OrderByDirection.Descending },
-                    },
-                });
-
-                var model = new EmailAddressSettingsModel
-                {
-                    UserView = user,
-                    EmailAddresses = emails.ToArray(),
-                    SendVerificationEmail = new SendVerificationEmail
-                    {
-                        Purpose = EmailVerificationPurpose.AddEmail,
-                        SendFromUrl = SendFromUrl(),
-                        VerifyUrlFormat = VerifyUrlFormat(),
-                    },
-                };
-
-                ViewBag.ActionUrl = Url.Action(MVC.User.SendVerificationEmail());
-                return View(MVC.Security.Views.UserEmailAddresses, model);
+                    await _commands.Execute(command);
+                    var message = string.Format("Successfully deleted email address '{0}'.", email.Value);
+                    TempData.Alerts(message, AlertFlavor.Success, true);
+                }
             }
 
-            await _commands.Execute(command);
             return RedirectToAction(await MVC.User.Emails());
         }
 

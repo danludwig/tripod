@@ -81,12 +81,7 @@
     </nav>
     <div class="col-md-8" role="main">
 
-        @if (!ViewData.ModelState.IsValid)
-        {
-            <div class="alert alert-danger">
-                Could not send verification email due to error(s) below.
-            </div>
-        }
+        @{ Html.RenderPartial(MVC.Shared.Views._AlertsTempData); }
 
         <h3 class="scalp">
             My email addresses

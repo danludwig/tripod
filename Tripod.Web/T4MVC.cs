@@ -122,6 +122,8 @@ namespace Links
         public static readonly string angular_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/angular.min.js") ? Url("angular.min.js") : Url("angular.js");
         public static readonly string angular_min_js = Url("angular.min.js");
         public static readonly string angular_min_js_map = Url("angular.min.js.map");
+        public static readonly string bootbox_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/bootbox.min.js") ? Url("bootbox.min.js") : Url("bootbox.js");
+        public static readonly string bootbox_min_js = Url("bootbox.min.js");
         public static readonly string bootstrap_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/bootstrap.min.js") ? Url("bootstrap.min.js") : Url("bootstrap.js");
         public static readonly string bootstrap_min_js = Url("bootstrap.min.js");
         public static readonly string errors_json = Url("errors.json");
@@ -386,6 +388,7 @@ namespace Links
         public static readonly string jquery_validate_min_js = Url("jquery.validate.min.js");
         public static readonly string jquery_validate_unobtrusive_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.validate.unobtrusive.min.js") ? Url("jquery.validate.unobtrusive.min.js") : Url("jquery.validate.unobtrusive.js");
         public static readonly string jquery_validate_unobtrusive_min_js = Url("jquery.validate.unobtrusive.min.js");
+        public static readonly string marked_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/marked.min.js") ? Url("marked.min.js") : Url("marked.js");
         public static readonly string modernizr_2_6_2_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/modernizr-2.6.2.min.js") ? Url("modernizr-2.6.2.min.js") : Url("modernizr-2.6.2.js");
         public static readonly string respond_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/respond.min.js") ? Url("respond.min.js") : Url("respond.js");
         public static readonly string respond_min_js = Url("respond.min.js");
@@ -417,6 +420,14 @@ namespace Links
             }
         
             [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+            public static class bootbox {
+                private const string URLPATH = "~/scripts/typings/bootbox";
+                public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+                public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+                public static readonly string bootbox_d_ts = Url("bootbox.d.ts");
+            }
+        
+            [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
             public static class bootstrap {
                 private const string URLPATH = "~/scripts/typings/bootstrap";
                 public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
@@ -430,6 +441,14 @@ namespace Links
                 public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                 public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
                 public static readonly string jquery_d_ts = Url("jquery.d.ts");
+            }
+        
+            [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+            public static class marked {
+                private const string URLPATH = "~/scripts/typings/marked";
+                public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+                public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+                public static readonly string marked_d_ts = Url("marked.d.ts");
             }
         
         }

@@ -1,0 +1,19 @@
+﻿@{
+    var alerts = TempData.Alerts();
+    if (alerts != null && alerts.Any())
+    {
+        foreach (var alert in alerts)
+        {
+            var alertFlavor = string.Format("alert-{0}", alert.Flavor.ToString().ToLower());
+            var alertDismiss = alert.IsDismissable ? "alert-dismissable" : null;
+            <div class="alert @alertFlavor @alertDismiss">
+                @if (alert.IsDismissable)
+                {
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                }
+                @alert.Message
+            </div>
+        }
+    }
+}
+

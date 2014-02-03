@@ -253,7 +253,10 @@
       <DependentUpon>Global.asax</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Models\_Common\AlertFlavor.cs" />
+    <Compile Include="Models\_Common\AlertModel.cs" />
     <Compile Include="Helpers\ChallengeResult.cs" />
+    <Compile Include="Helpers\TempDataExtensions.cs" />
     <Compile Include="Helpers\CookieExtensions.cs" />
     <Compile Include="Helpers\PermitAttribute.cs" />
     <Compile Include="Helpers\ControllerExtensions.cs" />
@@ -698,6 +701,7 @@
     <Content Include="scripts\jquery.validate.min.js" />
     <Content Include="scripts\jquery.validate.unobtrusive.js" />
     <Content Include="scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="scripts\marked.js" />
     <Content Include="scripts\modernizr-2.6.2.js" />
     <Content Include="scripts\respond.js" />
     <Content Include="scripts\respond.min.js" />
@@ -771,6 +775,7 @@
     <Content Include="Views\Security\UserEmailAddresses.cshtml" />
     <Content Include="Views\Security\AddEmailVerifyEmailSecret.cshtml" />
     <Content Include="Views\Security\AddEmailRedeemEmailVerification.cshtml" />
+    <Content Include="Views\Shared\_AlertsTempData.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
@@ -827,6 +832,7 @@
     <TypeScriptCompile Include="scripts\typings\bootbox\bootbox.d.ts" />
     <TypeScriptCompile Include="scripts\typings\bootstrap\bootstrap.d.ts" />
     <TypeScriptCompile Include="scripts\typings\jquery\jquery.d.ts" />
+    <TypeScriptCompile Include="scripts\typings\marked\marked.d.ts" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
