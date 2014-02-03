@@ -22,10 +22,10 @@ using System.Web.Routing;
 using T4MVC;
 namespace Tripod.Web.Controllers
 {
-    public partial class UserController
+    public partial class UserEmailsController
     {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        protected UserController(Dummy d) { }
+        protected UserEmailsController(Dummy d) { }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         protected RedirectToRouteResult RedirectToAction(ActionResult result)
@@ -41,19 +41,6 @@ namespace Tripod.Web.Controllers
             return RedirectToRoutePermanent(callInfo.RouteValueDictionary);
         }
 
-        [NonAction]
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> ChangeUserName()
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ChangeUserName);
-            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
-        }
-        [NonAction]
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult ValidateChangeUserName()
-        {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ValidateChangeUserName);
-        }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public virtual System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> SendVerificationEmail()
@@ -98,13 +85,13 @@ namespace Tripod.Web.Controllers
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public UserController Actions { get { return MVC.User; } }
+        public UserEmailsController Actions { get { return MVC.UserEmails; } }
         [GeneratedCode("T4MVC", "2.0")]
         public readonly string Area = "";
         [GeneratedCode("T4MVC", "2.0")]
-        public readonly string Name = "User";
+        public readonly string Name = "UserEmails";
         [GeneratedCode("T4MVC", "2.0")]
-        public const string NameConst = "User";
+        public const string NameConst = "UserEmails";
 
         static readonly ActionNamesClass s_actions = new ActionNamesClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -112,10 +99,7 @@ namespace Tripod.Web.Controllers
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNamesClass
         {
-            public readonly string SettingsIndex = "SettingsIndex";
-            public readonly string ChangeUserName = "ChangeUserName";
-            public readonly string ValidateChangeUserName = "ValidateChangeUserName";
-            public readonly string Emails = "Emails";
+            public readonly string Index = "Index";
             public readonly string SendVerificationEmail = "SendVerificationEmail";
             public readonly string VerifyEmailSecret = "VerifyEmailSecret";
             public readonly string RedeemEmailVerification = "RedeemEmailVerification";
@@ -127,10 +111,7 @@ namespace Tripod.Web.Controllers
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNameConstants
         {
-            public const string SettingsIndex = "SettingsIndex";
-            public const string ChangeUserName = "ChangeUserName";
-            public const string ValidateChangeUserName = "ValidateChangeUserName";
-            public const string Emails = "Emails";
+            public const string Index = "Index";
             public const string SendVerificationEmail = "SendVerificationEmail";
             public const string VerifyEmailSecret = "VerifyEmailSecret";
             public const string RedeemEmailVerification = "RedeemEmailVerification";
@@ -140,22 +121,6 @@ namespace Tripod.Web.Controllers
         }
 
 
-        static readonly ActionParamsClass_ChangeUserName s_params_ChangeUserName = new ActionParamsClass_ChangeUserName();
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_ChangeUserName ChangeUserNameParams { get { return s_params_ChangeUserName; } }
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_ChangeUserName
-        {
-            public readonly string command = "command";
-        }
-        static readonly ActionParamsClass_ValidateChangeUserName s_params_ValidateChangeUserName = new ActionParamsClass_ValidateChangeUserName();
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_ValidateChangeUserName ValidateChangeUserNameParams { get { return s_params_ValidateChangeUserName; } }
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_ValidateChangeUserName
-        {
-            public readonly string command = "command";
-        }
         static readonly ActionParamsClass_SendVerificationEmail s_params_SendVerificationEmail = new ActionParamsClass_SendVerificationEmail();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_SendVerificationEmail SendVerificationEmailParams { get { return s_params_SendVerificationEmail; } }
@@ -226,45 +191,16 @@ namespace Tripod.Web.Controllers
     }
 
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-    public partial class T4MVC_UserController : Tripod.Web.Controllers.UserController
+    public partial class T4MVC_UserEmailsController : Tripod.Web.Controllers.UserEmailsController
     {
-        public T4MVC_UserController() : base(Dummy.Instance) { }
+        public T4MVC_UserEmailsController() : base(Dummy.Instance) { }
 
-        partial void SettingsIndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
 
-        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> SettingsIndex()
+        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Index()
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SettingsIndex);
-            SettingsIndexOverride(callInfo);
-            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
-        }
-
-        partial void ChangeUserNameOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Tripod.Domain.Security.ChangeUserName command);
-
-        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> ChangeUserName(Tripod.Domain.Security.ChangeUserName command)
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ChangeUserName);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "command", command);
-            ChangeUserNameOverride(callInfo, command);
-            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
-        }
-
-        partial void ValidateChangeUserNameOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Tripod.Domain.Security.ChangeUserName command);
-
-        public override System.Web.Mvc.ActionResult ValidateChangeUserName(Tripod.Domain.Security.ChangeUserName command)
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ValidateChangeUserName);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "command", command);
-            ValidateChangeUserNameOverride(callInfo, command);
-            return callInfo;
-        }
-
-        partial void EmailsOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
-
-        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Emails()
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Emails);
-            EmailsOverride(callInfo);
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
+            IndexOverride(callInfo);
             return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
         }
 

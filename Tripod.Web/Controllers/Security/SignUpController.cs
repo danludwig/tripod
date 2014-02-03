@@ -211,7 +211,7 @@ namespace Tripod.Web.Controllers
             await _commands.Execute(signIn);
             Session.VerifyEmailTickets(null);
             Response.ClientCookie(signIn.SignedIn.Id, _queries);
-            return this.RedirectToLocal(returnUrl, await MVC.User.SettingsIndex());
+            return this.RedirectToLocal(returnUrl, await MVC.UserSettings.Index());
         }
 
         [ValidateAntiForgeryToken]

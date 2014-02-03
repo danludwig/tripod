@@ -247,7 +247,8 @@
     <Compile Include="Controllers\RemoteMembershipsController.cs" />
     <Compile Include="Controllers\Security\SignUpController.cs" />
     <Compile Include="Controllers\Security\SignInController.cs" />
-    <Compile Include="Controllers\Security\UserController.cs" />
+    <Compile Include="Controllers\Security\UserEmailsController.cs" />
+    <Compile Include="Controllers\Security\UserSettingsController.cs" />
     <Compile Include="Controllers\Users\UsersController.cs" />
     <Compile Include="ErrorsController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
@@ -314,10 +315,13 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
-    <Compile Include="UserController.generated.cs">
+    <Compile Include="UserEmailsController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="UsersController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UserSettingsController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
   </ItemGroup>

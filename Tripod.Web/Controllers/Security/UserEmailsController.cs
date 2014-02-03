@@ -13,87 +13,21 @@ using Tripod.Web.Models;
 namespace Tripod.Web.Controllers
 {
     [Authorize]
-    public partial class UserController : Controller
+    public partial class UserEmailsController : Controller
     {
         private readonly IProcessQueries _queries;
         private readonly IProcessCommands _commands;
 
-        public UserController(IProcessQueries queries, IProcessCommands commands)
+        public UserEmailsController(IProcessQueries queries, IProcessCommands commands)
         {
             _queries = queries;
             _commands = commands;
         }
 
-        #region ChangeUserName (default form)
-
-        [HttpGet, Route("settings")]
-        public virtual async Task<ActionResult> SettingsIndex()
-        {
-            var view = await _queries.Execute(new UserViewBy(User.Identity.GetAppUserId()));
-            if (view == null) return HttpNotFound();
-
-            var model = new ChangeUserNameModel
-            {
-                UserView = view,
-                Command = new ChangeUserName
-                {
-                    UserId = view.UserId,
-                    UserName = view.UserName,
-                },
-            };
-
-            return View(MVC.Security.Views.UserSettingsIndex, model);
-        }
-
-        [ValidateAntiForgeryToken]
-        [HttpPut, Route("settings/username")]
-        public virtual async Task<ActionResult> ChangeUserName(ChangeUserName command)
-        {
-            if (command == null) return View(MVC.Errors.BadRequest());
-
-            var view = await _queries.Execute(new UserViewBy(command.UserId));
-            if (view == null) return HttpNotFound();
-
-            if (!ModelState.IsValid)
-            {
-                var model = new ChangeUserNameModel
-                {
-                    UserView = view,
-                    Command = command,
-                };
-
-                return View(MVC.Security.Views.UserSettingsIndex, model);
-            }
-
-            await _commands.Execute(command);
-            Response.ClientCookie(command.SignedIn.Id, _queries);
-            return RedirectToAction(await MVC.User.SettingsIndex());
-        }
-
-        [ValidateAntiForgeryToken]
-        [HttpPost, Route("settings/username/validate")]
-        public virtual ActionResult ValidateChangeUserName(ChangeUserName command)
-        {
-            //System.Threading.Thread.Sleep(new Random().Next(5000, 5001));
-            if (command == null)
-            {
-                Response.StatusCode = 400;
-                return Json(null);
-            }
-
-            var result = new ValidatedFields(ModelState);
-
-            //ModelState[command.PropertyName(x => x.UserName)].Errors.Clear();
-            //result = new ValidatedFields(ModelState, command.PropertyName(x => x.UserName));
-
-            return new CamelCaseJsonResult(result);
-        }
-
-        #endregion
-        #region EmailAddresses (& SendVerificationEmail)
+        #region Index & SendVerificationEmail
 
         [HttpGet, Route("settings/emails")]
-        public virtual async Task<ActionResult> Emails()
+        public virtual async Task<ActionResult> Index()
         {
             var user = await _queries.Execute(new UserViewBy(User.Identity.GetAppUserId()));
             var emails = await _queries.Execute(new EmailAddressViewsBy(User.Identity.GetAppUserId())
@@ -117,7 +51,7 @@ namespace Tripod.Web.Controllers
                 },
             };
 
-            ViewBag.ActionUrl = Url.Action(MVC.User.SendVerificationEmail());
+            ViewBag.ActionUrl = Url.Action(MVC.UserEmails.SendVerificationEmail());
             ViewBag.Purpose = model.SendVerificationEmail.Purpose;
             return View(MVC.Security.Views.UserEmailAddresses, model);
         }
@@ -151,7 +85,7 @@ namespace Tripod.Web.Controllers
                 };
 
                 TempData.Alerts("**Could not send verification email due to error(s) below.**", AlertFlavor.Danger);
-                ViewBag.ActionUrl = Url.Action(MVC.User.SendVerificationEmail());
+                ViewBag.ActionUrl = Url.Action(MVC.UserEmails.SendVerificationEmail());
                 return View(MVC.Security.Views.UserEmailAddresses, model);
             }
 
@@ -161,13 +95,13 @@ namespace Tripod.Web.Controllers
 
             Session.VerifyEmailTickets(command.CreatedTicket);
 
-            return RedirectToAction(await MVC.User.VerifyEmailSecret(command.CreatedTicket));
+            return RedirectToAction(await MVC.UserEmails.VerifyEmailSecret(command.CreatedTicket));
         }
 
         private string VerifyUrlFormat()
         {
             Debug.Assert(Request.Url != null);
-            var encodedUrlFormat = Url.Action(MVC.User.RedeemEmailVerification("{0}"));
+            var encodedUrlFormat = Url.Action(MVC.UserEmails.RedeemEmailVerification("{0}"));
             var decodedUrlFormat = HttpUtility.UrlDecode(encodedUrlFormat);
             return string.Format("{0}://{1}{2}", Request.Url.Scheme, Request.Url.Authority, decodedUrlFormat);
         }
@@ -175,7 +109,7 @@ namespace Tripod.Web.Controllers
         private string SendFromUrl()
         {
             Debug.Assert(Request.Url != null);
-            var url = Url.Action(MVC.User.Emails());
+            var url = Url.Action(MVC.UserEmails.Index());
             return string.Format("{0}://{1}{2}", Request.Url.Scheme, Request.Url.Authority, url);
         }
 
@@ -196,7 +130,7 @@ namespace Tripod.Web.Controllers
 
             // todo: confirmation token must not be redeemed, expired, or for different purpose
 
-            ViewBag.ActionUrl = Url.Action(MVC.User.VerifyEmailSecret(ticket));
+            ViewBag.ActionUrl = Url.Action(MVC.UserEmails.VerifyEmailSecret(ticket));
             ViewBag.Ticket = ticket;
             ViewBag.Purpose = EmailVerificationPurpose.AddEmail;
             if (Session.VerifyEmailTickets().Contains(ticket))
@@ -214,7 +148,7 @@ namespace Tripod.Web.Controllers
 
             if (!ModelState.IsValid)
             {
-                ViewBag.ActionUrl = Url.Action(MVC.User.VerifyEmailSecret(command.Ticket));
+                ViewBag.ActionUrl = Url.Action(MVC.UserEmails.VerifyEmailSecret(command.Ticket));
                 ViewBag.Ticket = command.Ticket;
                 ViewBag.Purpose = EmailVerificationPurpose.AddEmail;
                 if (Session.VerifyEmailTickets().Contains(command.Ticket))
@@ -224,7 +158,7 @@ namespace Tripod.Web.Controllers
 
             await _commands.Execute(command);
 
-            return RedirectToAction(await MVC.User.RedeemEmailVerification(command.Token));
+            return RedirectToAction(await MVC.UserEmails.RedeemEmailVerification(command.Token));
         }
 
         #endregion
@@ -267,7 +201,7 @@ namespace Tripod.Web.Controllers
             await _commands.Execute(command);
 
             Session.VerifyEmailTickets(null);
-            return this.RedirectToLocal(await MVC.User.Emails());
+            return this.RedirectToLocal(await MVC.UserEmails.Index());
         }
 
         [ValidateAntiForgeryToken]
@@ -287,7 +221,7 @@ namespace Tripod.Web.Controllers
             var message = string.Format("The email address confirmation for **{0}** was rejected.", emailAddress);
             TempData.Alerts(message, AlertFlavor.Success, true);
             Session.VerifyEmailTickets(null);
-            return this.RedirectToLocal(await MVC.User.Emails());
+            return this.RedirectToLocal(await MVC.UserEmails.Index());
         }
 
         #endregion
@@ -320,7 +254,7 @@ namespace Tripod.Web.Controllers
                 }
             }
 
-            return RedirectToAction(await MVC.User.Emails());
+            return RedirectToAction(await MVC.UserEmails.Index());
         }
 
         #endregion
@@ -349,7 +283,7 @@ namespace Tripod.Web.Controllers
                 }
             }
 
-            return RedirectToAction(await MVC.User.Emails());
+            return RedirectToAction(await MVC.UserEmails.Index());
         }
 
         #endregion

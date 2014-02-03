@@ -53,13 +53,13 @@
                 </a>
             </li>
             <li>
-                <a href="@Url.Action(MVC.User.SettingsIndex())">
+                <a href="@Url.Action(MVC.UserSettings.Index())">
                     <i class="fa fa-user"></i>
                     General settings
                 </a>
             </li>
             <li class="active">
-                <a href="@Url.Action(MVC.User.Emails())">
+                <a href="@Url.Action(MVC.UserEmails.Index())">
                     <i class="fa fa-envelope"></i>
                     Email addresses
                 </a>
@@ -116,7 +116,7 @@
                         {
                             if (emailAddress.IsVerified)
                             {
-                            <form method="POST" action="@Url.Action(MVC.User.UpdateEmailAddress(emailAddress.EmailAddressId, null))" class="form-inline" style="display: inline;">
+                            <form method="POST" action="@Url.Action(MVC.UserEmails.UpdateEmailAddress(emailAddress.EmailAddressId, null))" class="form-inline" style="display: inline;">
                                 @Html.AntiForgeryToken()
                                 @Html.HttpMethodOverride(HttpVerbs.Put)
                                 <input type="hidden"
@@ -130,7 +130,7 @@
                             }
                             else
                             {
-                                <form method="POST" action="@Url.Action(MVC.User.SendVerificationEmail())" class="form-inline" style="display: inline;">
+                                <form method="POST" action="@Url.Action(MVC.UserEmails.SendVerificationEmail())" class="form-inline" style="display: inline;">
                                     @Html.AntiForgeryToken()
                                     <input type="hidden"
                                            name="verifyUrlFormat"
@@ -153,7 +153,7 @@
                                     </button>
                                 </form>
                             }
-                            <form method="POST" action="@Url.Action(MVC.User.DeleteEmailAddress(emailAddress.EmailAddressId, null))" class="form-inline" style="display: inline;">
+                            <form method="POST" action="@Url.Action(MVC.UserEmails.DeleteEmailAddress(emailAddress.EmailAddressId, null))" class="form-inline" style="display: inline;">
                                 @Html.AntiForgeryToken()
                                 @Html.HttpMethodOverride(HttpVerbs.Delete)
                                 <button type="submit"

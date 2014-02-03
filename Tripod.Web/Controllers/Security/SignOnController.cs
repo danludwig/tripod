@@ -50,7 +50,7 @@ namespace Tripod.Web.Controllers
             if (signOn.SignedOn != null)
             {
                 Response.ClientCookie(signOn.SignedOn.Id, _queries);
-                return this.RedirectToLocal(returnUrl, await MVC.User.SettingsIndex());
+                return this.RedirectToLocal(returnUrl, await MVC.UserSettings.Index());
             }
 
             // if user doesn't have an email claim, we need them to verify an email address
@@ -241,7 +241,7 @@ namespace Tripod.Web.Controllers
             await _commands.Execute(signOn);
             Session.VerifyEmailTickets(null);
             Response.ClientCookie(signOn.SignedOn.Id, _queries);
-            return this.RedirectToLocal(returnUrl, await MVC.User.SettingsIndex());
+            return this.RedirectToLocal(returnUrl, await MVC.UserSettings.Index());
         }
 
         [ValidateAntiForgeryToken]
