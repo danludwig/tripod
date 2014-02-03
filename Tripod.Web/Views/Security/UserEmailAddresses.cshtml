@@ -158,7 +158,7 @@
                                         data-bootbox-class="modal-danger modal-buttons-left"
                                         data-bootbox-close="false"
                                         data-bootbox-title="Please confirm your intent"
-                                        data-bootbox-message="Are you sure you want to delete the email address @emailAddress.Value?"
+                                        data-bootbox-message="Are you sure you want to delete the email address **@emailAddress.Value**?"
                                         data-bootbox-confirm="Yes, confirm delete"
                                         data-bootbox-confirm-class="btn-danger"
                                         data-bootbox-deny="No, cancel delete"
@@ -187,6 +187,7 @@
 {
     @{ Html.RenderPartial(MVC.Scripts.Views.Angular); }
     <script src="~/scripts/bootbox.js"></script>
+    <script src="~/scripts/marked.js"></script>
     <script src="~/app/security/SignUpEmailForm.js"></script>
     <script src="~/app/_common/unobtrusive/bootbox-confirm.js"></script>
 }

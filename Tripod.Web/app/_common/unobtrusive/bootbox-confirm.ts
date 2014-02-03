@@ -3,8 +3,9 @@
      $(document).on('click', '[data-bootbox=confirm-form-submit]', (e: JQueryEventObject) => {
          e.preventDefault();
          var clicked = $(e.target);
+         var message = clicked.data('bootbox-message') || 'Are you sure you want to do this?';
          var options: any = {
-             message: clicked.data('bootbox-message') || 'Are you sure you want to do this?',
+             message: marked(message),
              closeButton: clicked.data('bootbox-close') || false,
              buttons: {
                  confirm: {
