@@ -25,7 +25,8 @@ namespace Tripod.Domain.Security
 
         public Task<UserToken> Handle(EmailVerificationUserToken query)
         {
-            var userToken = _userManager.UserConfirmationTokens.Validate(query.Token);
+            var userToken = _userManager.UserConfirmationTokens.Validate(query.Token)
+                ?? _userManager.PasswordResetTokens.Validate(query.Token);
             return Task.FromResult(userToken);
         }
     }

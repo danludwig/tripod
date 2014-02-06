@@ -29,10 +29,12 @@ namespace Tripod.Web
                 {
                     OnCreate = options =>
                     {
-                        var protector = options.DataProtectionProvider.Create("ConfirmEmail");
+                        var emailProtector = options.DataProtectionProvider.Create("ConfirmEmail");
+                        var passwordProtector = options.DataProtectionProvider.Create("ResetPassword");
                         var userManager = new UserManager<User, int>(DependencyResolver.Current.GetService<IUserStore<User, int>>())
                         {
-                            UserConfirmationTokens = new DataProtectorTokenProvider(protector),
+                            UserConfirmationTokens = new DataProtectorTokenProvider(emailProtector),
+                            PasswordResetTokens = new DataProtectorTokenProvider(passwordProtector),
                         };
                         return userManager;
                     },

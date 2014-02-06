@@ -29,7 +29,9 @@ namespace Tripod.Ioc.Security
 
                 // the owin context user manager factory has our token provider
                 var owinContext = HttpContext.Current.GetOwinContext();
-                userManager.UserConfirmationTokens = owinContext.GetUserManager<UserManager<User, int>>().UserConfirmationTokens;
+                var owinUserManager = owinContext.GetUserManager<UserManager<User, int>>();
+                userManager.UserConfirmationTokens = owinUserManager.UserConfirmationTokens;
+                userManager.PasswordResetTokens = owinUserManager.PasswordResetTokens;
                 return userManager;
             });
 

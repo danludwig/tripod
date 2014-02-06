@@ -135,8 +135,10 @@ namespace Tripod.Ioc.Security
             var owinEnvironment = new Dictionary<string, object>();
             var userStore = new Mock<IUserStore<User, int>>();
             var userManager = new UserManager<User, int>(userStore.Object);
-            var tokenProvider = new Mock<ITokenProvider>(MockBehavior.Strict);
-            userManager.UserConfirmationTokens = tokenProvider.Object;
+            var userTokenProvider = new Mock<ITokenProvider>(MockBehavior.Strict);
+            userManager.UserConfirmationTokens = userTokenProvider.Object;
+            var passwordTokenProvider = new Mock<ITokenProvider>(MockBehavior.Strict);
+            userManager.PasswordResetTokens = passwordTokenProvider.Object;
             owinEnvironment["AspNet.Identity.Owin:" + userManager.GetType().AssemblyQualifiedName] = userManager;
             HttpContext.Current.Items.Add("owin.Environment", owinEnvironment);
             var container = new Container();
@@ -147,7 +149,9 @@ namespace Tripod.Ioc.Security
             var instance = container.GetInstance<UserManager<User, int>>();
             instance.ShouldNotBeNull();
             instance.UserConfirmationTokens.ShouldNotBeNull();
-            instance.UserConfirmationTokens.ShouldEqual(tokenProvider.Object);
+            instance.UserConfirmationTokens.ShouldEqual(userTokenProvider.Object);
+            instance.PasswordResetTokens.ShouldNotBeNull();
+            instance.PasswordResetTokens.ShouldEqual(passwordTokenProvider.Object);
         }
 
         [Fact]

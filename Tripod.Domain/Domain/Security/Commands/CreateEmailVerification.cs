@@ -63,7 +63,10 @@ namespace Tripod.Domain.Security
                 ticket = _queries.Execute(new RandomSecret(20, 25));
 
             // serialize a new user token to a string
-            var token = _userManager.UserConfirmationTokens.Generate(new UserToken
+            var tokens = command.Purpose == EmailVerificationPurpose.ForgotPassword
+                ? _userManager.UserConfirmationTokens
+                : _userManager.PasswordResetTokens;
+            var token = tokens.Generate(new UserToken
             {
                 UserId = command.EmailAddress,
                 Value = ticket,
