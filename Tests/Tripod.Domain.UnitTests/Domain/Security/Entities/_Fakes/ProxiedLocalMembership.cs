@@ -3,6 +3,6 @@
     [UsedImplicitly]
     public class ProxiedLocalMembership : LocalMembership
     {
-        public override User Owner { get; protected internal set; }
+        public override User User { get; protected internal set; }
     }
 }

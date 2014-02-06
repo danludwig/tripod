@@ -62,13 +62,13 @@ namespace Tripod.Domain.Security
                     IsVerified =  true,
                     EagerLoad = new Expression<Func<EmailAddress, object>>[]
                     {
-                        x => x.Owner,
+                        x => x.User,
                     },
                 });
                 if (emailAddress != null)
                 {
                     // need to add the external login credentials
-                    user = emailAddress.Owner;
+                    user = emailAddress.User;
                     _entities.Update(user); // make sure it is attached to the context
                     await _commands.Execute(new CreateRemoteMembership
                     {

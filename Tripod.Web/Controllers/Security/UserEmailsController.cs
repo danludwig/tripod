@@ -123,7 +123,7 @@ namespace Tripod.Web.Controllers
             {
                 EagerLoad = new Expression<Func<EmailVerification, object>>[]
                 {
-                    x => x.Owner,
+                    x => x.EmailAddress,
                 }
             });
             if (verification == null) return HttpNotFound();
@@ -134,7 +134,7 @@ namespace Tripod.Web.Controllers
             ViewBag.Ticket = ticket;
             ViewBag.Purpose = EmailVerificationPurpose.AddEmail;
             if (Session.VerifyEmailTickets().Contains(ticket))
-                ViewBag.EmailAddress = verification.Owner.Value;
+                ViewBag.EmailAddress = verification.EmailAddress.Value;
             return View(MVC.Security.Views.AddEmailVerifyEmailSecret);
         }
 
@@ -175,7 +175,7 @@ namespace Tripod.Web.Controllers
             // todo: verification cannot be expired, redeemed, or for different purpose
 
             ViewBag.Token = token;
-            ViewBag.EmailAddress = verification.Owner.Value;
+            ViewBag.EmailAddress = verification.EmailAddress.Value;
             return View(MVC.Security.Views.AddEmailRedeemEmailVerification);
         }
 
@@ -206,7 +206,7 @@ namespace Tripod.Web.Controllers
 
         [ValidateAntiForgeryToken]
         [HttpPost, Route("settings/emails/reject", Order = 1)]
-        public virtual async Task<ActionResult> RejectEmailOwnership(RejectEmailVerification command, string emailAddress)
+        public virtual async Task<ActionResult> RejectEmailVerification(RejectEmailVerification command, string emailAddress)
         {
             //System.Threading.Thread.Sleep(new Random().Next(5000, 5001));
 

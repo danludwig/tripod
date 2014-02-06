@@ -10,7 +10,7 @@ namespace Tripod.Domain.Security
         {
             var entity = new LocalMembership();
             entity.Id.ShouldEqual(0);
-            entity.Owner.ShouldBeNull();
+            entity.User.ShouldBeNull();
             entity.PasswordHash.ShouldBeNull();
         }
     }

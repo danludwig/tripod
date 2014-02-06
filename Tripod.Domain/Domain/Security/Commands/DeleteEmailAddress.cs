@@ -26,7 +26,7 @@ namespace Tripod.Domain.Security
                 .MustFindEmailAddressById(queries)
 
                 // user/principal must own the email address
-                .MustBeEmailAddressWithOwnerId(queries, x => x.Principal.Identity.GetAppUserId())
+                .MustBeEmailAddressWithUserId(queries, x => x.Principal.Identity.GetAppUserId())
 
                 // cannot delete primary email address
                 // also, cannot delete only email address
@@ -61,10 +61,10 @@ namespace Tripod.Domain.Security
                 _entities.Delete(entity);
             }
 
-            // when it is unverified, just detach from owner
+            // when it is unverified, just detach from user
             else
             {
-                entity.OwnerId = null;
+                entity.UserId = null;
             }
 
             await _entities.SaveChangesAsync();

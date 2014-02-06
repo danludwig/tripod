@@ -26,7 +26,7 @@ namespace Tripod.Domain.Security
         [UsedImplicitly]
         internal static Expression<Func<RemoteMembership, bool>> ByUserId(int userId)
         {
-            return x => x.Owner.Id == userId;
+            return x => x.User.Id == userId;
         }
 
         #endregion
@@ -46,7 +46,7 @@ namespace Tripod.Domain.Security
         [UsedImplicitly]
         internal static Expression<Func<RemoteMembership, bool>> ByUserName(string userName)
         {
-            return x => x.Owner.Name.Equals(userName, StringComparison.OrdinalIgnoreCase);
+            return x => x.User.Name.Equals(userName, StringComparison.OrdinalIgnoreCase);
         }
 
         #endregion
@@ -127,7 +127,7 @@ namespace Tripod.Domain.Security
         [UsedImplicitly]
         internal static Expression<Func<RemoteMembership, bool>> ByUserIdAndLoginInfo(int userId, UserLoginInfo userLoginInfo)
         {
-            return x => x.Owner.Id == userId
+            return x => x.User.Id == userId
                 && x.LoginProvider == userLoginInfo.LoginProvider
                 && x.ProviderKey == userLoginInfo.ProviderKey;
         }
@@ -169,7 +169,7 @@ namespace Tripod.Domain.Security
         [UsedImplicitly]
         internal static Expression<Func<RemoteMembership, bool>> ByUserNameAndLoginInfo(string userName, UserLoginInfo userLoginInfo)
         {
-            return x => x.Owner.Name.Equals(userName, StringComparison.OrdinalIgnoreCase)
+            return x => x.User.Name.Equals(userName, StringComparison.OrdinalIgnoreCase)
                 && x.LoginProvider == userLoginInfo.LoginProvider
                 && x.ProviderKey == userLoginInfo.ProviderKey;
         }

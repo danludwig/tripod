@@ -4,7 +4,7 @@
     {
         protected internal LocalMembership() { }
 
-        public virtual User Owner { get; protected internal set; }
+        public virtual User User { get; protected internal set; }
 
         public string PasswordHash { get; protected internal set; }
 

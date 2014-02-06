@@ -11,7 +11,7 @@ using System.Data.Entity.Infrastructure.MappingViews;
 
 [assembly: DbMappingViewCacheTypeAttribute(
     typeof(Tripod.Ioc.EntityFramework.EntityDbContext),
-    typeof(Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySets02e806b199988fa6428fb78b18e6a2928928a91a98b2604349693143accb490e))]
+    typeof(Edm_EntityMappingGeneratedViews.ViewsForBaseEntitySets0cf0077543a5206789e3f0bf1e93f71a3764fb2b52edea4e13241c4c8d15804f))]
 
 namespace Edm_EntityMappingGeneratedViews
 {
@@ -23,14 +23,14 @@ namespace Edm_EntityMappingGeneratedViews
     /// Implements a mapping view cache.
     /// </summary>
     [GeneratedCode("Entity Framework Power Tools", "0.9.0.0")]
-    internal sealed class ViewsForBaseEntitySets02e806b199988fa6428fb78b18e6a2928928a91a98b2604349693143accb490e : DbMappingViewCache
+    internal sealed class ViewsForBaseEntitySets0cf0077543a5206789e3f0bf1e93f71a3764fb2b52edea4e13241c4c8d15804f : DbMappingViewCache
     {
         /// <summary>
         /// Gets a hash value computed over the mapping closure.
         /// </summary>
         public override string MappingHashValue
         {
-            get { return "02e806b199988fa6428fb78b18e6a2928928a91a98b2604349693143accb490e"; }
+            get { return "0cf0077543a5206789e3f0bf1e93f71a3764fb2b52edea4e13241c4c8d15804f"; }
         }
 
         /// <summary>
@@ -256,11 +256,11 @@ namespace Edm_EntityMappingGeneratedViews
         {
             return new DbMappingView(@"
     SELECT VALUE -- Constructing EmailAddress
-        [CodeFirstDatabaseSchema.EmailAddress](T1.EmailAddress_Id, T1.EmailAddress_OwnerId, T1.EmailAddress_Value, T1.EmailAddress_HashedValue, T1.EmailAddress_IsPrimary, T1.EmailAddress_IsVerified)
+        [CodeFirstDatabaseSchema.EmailAddress](T1.EmailAddress_Id, T1.EmailAddress_UserId, T1.EmailAddress_Value, T1.EmailAddress_HashedValue, T1.EmailAddress_IsPrimary, T1.EmailAddress_IsVerified)
     FROM (
         SELECT 
             T.Id AS EmailAddress_Id, 
-            T.OwnerId AS EmailAddress_OwnerId, 
+            T.UserId AS EmailAddress_UserId, 
             T.[Value] AS EmailAddress_Value, 
             T.HashedValue AS EmailAddress_HashedValue, 
             T.IsPrimary AS EmailAddress_IsPrimary, 
@@ -334,13 +334,13 @@ namespace Edm_EntityMappingGeneratedViews
         {
             return new DbMappingView(@"
     SELECT VALUE -- Constructing EmailVerification
-        [CodeFirstDatabaseSchema.EmailVerification](T3.EmailVerification_Id, T3.EmailVerification_OwnerId, T3.EmailVerification_Token, T3.EmailVerification_Ticket, T3.EmailVerification_Secret, T3.EmailVerification_ExpiresOnUtc, T3.EmailVerification_RedeemedOnUtc, T3.EmailVerification_Purpose, T3.EmailVerification_EmailMessageId)
+        [CodeFirstDatabaseSchema.EmailVerification](T3.EmailVerification_Id, T3.EmailVerification_EmailAddressId, T3.EmailVerification_Token, T3.EmailVerification_Ticket, T3.EmailVerification_Secret, T3.EmailVerification_ExpiresOnUtc, T3.EmailVerification_RedeemedOnUtc, T3.EmailVerification_Purpose, T3.EmailVerification_EmailMessageId)
     FROM (
-        SELECT T1.EmailVerification_Id, T1.EmailVerification_OwnerId, T1.EmailVerification_Token, T1.EmailVerification_Ticket, T1.EmailVerification_Secret, T1.EmailVerification_ExpiresOnUtc, T1.EmailVerification_RedeemedOnUtc, T1.EmailVerification_Purpose, T2.EmailVerification_EmailMessageId, T1._from0, (T2._from1 AND T2._from1 IS NOT NULL) AS _from1
+        SELECT T1.EmailVerification_Id, T1.EmailVerification_EmailAddressId, T1.EmailVerification_Token, T1.EmailVerification_Ticket, T1.EmailVerification_Secret, T1.EmailVerification_ExpiresOnUtc, T1.EmailVerification_RedeemedOnUtc, T1.EmailVerification_Purpose, T2.EmailVerification_EmailMessageId, T1._from0, (T2._from1 AND T2._from1 IS NOT NULL) AS _from1
         FROM  (
             SELECT 
                 T.Id AS EmailVerification_Id, 
-                T.OwnerId AS EmailVerification_OwnerId, 
+                T.EmailAddressId AS EmailVerification_EmailAddressId, 
                 T.Token AS EmailVerification_Token, 
                 T.Ticket AS EmailVerification_Ticket, 
                 T.Secret AS EmailVerification_Secret, 
@@ -367,11 +367,11 @@ namespace Edm_EntityMappingGeneratedViews
         {
             return new DbMappingView(@"
     SELECT VALUE -- Constructing EmailMessage
-        [CodeFirstDatabaseSchema.EmailMessage](T1.EmailMessage_Id, T1.EmailMessage_OwnerId, T1.EmailMessage_From, T1.EmailMessage_Subject, T1.EmailMessage_Body, T1.EmailMessage_IsBodyHtml, T1.EmailMessage_SendOnUtc, T1.EmailMessage_SentOnUtc, T1.EmailMessage_CancelledOnUtc, T1.EmailMessage_LastSendError)
+        [CodeFirstDatabaseSchema.EmailMessage](T1.EmailMessage_Id, T1.EmailMessage_EmailAddressId, T1.EmailMessage_From, T1.EmailMessage_Subject, T1.EmailMessage_Body, T1.EmailMessage_IsBodyHtml, T1.EmailMessage_SendOnUtc, T1.EmailMessage_SentOnUtc, T1.EmailMessage_CancelledOnUtc, T1.EmailMessage_LastSendError)
     FROM (
         SELECT 
             T.Id AS EmailMessage_Id, 
-            T.OwnerId AS EmailMessage_OwnerId, 
+            T.EmailAddressId AS EmailMessage_EmailAddressId, 
             T.[From] AS EmailMessage_From, 
             T.Subject AS EmailMessage_Subject, 
             T.Body AS EmailMessage_Body, 
@@ -450,11 +450,11 @@ namespace Edm_EntityMappingGeneratedViews
         {
             return new DbMappingView(@"
     SELECT VALUE -- Constructing EmailAddresses
-        [Tripod.Ioc.EntityFramework.EmailAddress](T1.EmailAddress_Id, T1.EmailAddress_OwnerId, T1.EmailAddress_Value, T1.EmailAddress_HashedValue, T1.EmailAddress_IsPrimary, T1.EmailAddress_IsVerified)
+        [Tripod.Ioc.EntityFramework.EmailAddress](T1.EmailAddress_Id, T1.EmailAddress_UserId, T1.EmailAddress_Value, T1.EmailAddress_HashedValue, T1.EmailAddress_IsPrimary, T1.EmailAddress_IsVerified)
     FROM (
         SELECT 
             T.Id AS EmailAddress_Id, 
-            T.OwnerId AS EmailAddress_OwnerId, 
+            T.UserId AS EmailAddress_UserId, 
             T.[Value] AS EmailAddress_Value, 
             T.HashedValue AS EmailAddress_HashedValue, 
             T.IsPrimary AS EmailAddress_IsPrimary, 
@@ -528,12 +528,12 @@ namespace Edm_EntityMappingGeneratedViews
         {
             return new DbMappingView(@"
     SELECT VALUE -- Constructing EmailVerifications
-        [Tripod.Ioc.EntityFramework.EmailVerification](T1.EmailVerification_Id, T1.EmailVerification_OwnerId, T1.EmailVerification_Token, T1.EmailVerification_Ticket, T1.EmailVerification_Secret, T1.EmailVerification_ExpiresOnUtc, T1.EmailVerification_RedeemedOnUtc, T1.EmailVerification_Purpose) WITH 
+        [Tripod.Ioc.EntityFramework.EmailVerification](T1.EmailVerification_Id, T1.EmailVerification_EmailAddressId, T1.EmailVerification_Token, T1.EmailVerification_Ticket, T1.EmailVerification_Secret, T1.EmailVerification_ExpiresOnUtc, T1.EmailVerification_RedeemedOnUtc, T1.EmailVerification_Purpose) WITH 
         RELATIONSHIP(CREATEREF(EntityDbContext.EmailMessages, ROW(T1.[EmailVerification_Message.EmailVerification_Message_Target.Id]),[Tripod.Ioc.EntityFramework.EmailMessage]),[Tripod.Ioc.EntityFramework.EmailVerification_Message],EmailVerification_Message_Source,EmailVerification_Message_Target) 
     FROM (
         SELECT 
             T.Id AS EmailVerification_Id, 
-            T.OwnerId AS EmailVerification_OwnerId, 
+            T.EmailAddressId AS EmailVerification_EmailAddressId, 
             T.Token AS EmailVerification_Token, 
             T.Ticket AS EmailVerification_Ticket, 
             T.Secret AS EmailVerification_Secret, 
@@ -583,11 +583,11 @@ namespace Edm_EntityMappingGeneratedViews
         {
             return new DbMappingView(@"
     SELECT VALUE -- Constructing EmailMessages
-        [Tripod.Ioc.EntityFramework.EmailMessage](T1.EmailMessage_Id, T1.EmailMessage_OwnerId, T1.EmailMessage_From, T1.EmailMessage_Subject, T1.EmailMessage_Body, T1.EmailMessage_IsBodyHtml, T1.EmailMessage_SendOnUtc, T1.EmailMessage_SentOnUtc, T1.EmailMessage_CancelledOnUtc, T1.EmailMessage_LastSendError)
+        [Tripod.Ioc.EntityFramework.EmailMessage](T1.EmailMessage_Id, T1.EmailMessage_EmailAddressId, T1.EmailMessage_From, T1.EmailMessage_Subject, T1.EmailMessage_Body, T1.EmailMessage_IsBodyHtml, T1.EmailMessage_SendOnUtc, T1.EmailMessage_SentOnUtc, T1.EmailMessage_CancelledOnUtc, T1.EmailMessage_LastSendError)
     FROM (
         SELECT 
             T.Id AS EmailMessage_Id, 
-            T.OwnerId AS EmailMessage_OwnerId, 
+            T.EmailAddressId AS EmailMessage_EmailAddressId, 
             T.[From] AS EmailMessage_From, 
             T.Subject AS EmailMessage_Subject, 
             T.Body AS EmailMessage_Body, 

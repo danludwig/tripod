@@ -56,7 +56,7 @@ namespace Tripod.Domain.Security
 
         internal static Expression<Func<EmailAddress, bool>> ByUserId(int userId)
         {
-            return x => x.OwnerId == userId;
+            return x => x.UserId == userId;
         }
 
         #endregion

@@ -61,16 +61,16 @@ namespace Tripod.Domain.Security
             // verify & associate email address
             var userToken = await _queries.Execute(new EmailVerificationUserToken(command.Token));
             var verification = await _entities.Get<EmailVerification>()
-                .EagerLoad(x => x.Owner)
+                .EagerLoad(x => x.EmailAddress)
                 .ByTicketAsync(userToken.Value, false);
             verification.RedeemedOnUtc = DateTime.UtcNow;
 
-            var email = verification.Owner;
+            var email = verification.EmailAddress;
             var user = command.User
                 ?? await _entities.Get<User>()
                     .EagerLoad(x => x.EmailAddresses)
                     .ByIdAsync(command.Principal.Identity.GetAppUserId());
-            email.Owner = user;
+            email.User = user;
             email.IsVerified = true;
 
             // is this the user's primary email address?
@@ -78,7 +78,7 @@ namespace Tripod.Domain.Security
 
             // expire unused verifications
             var unusedVerifications = await _entities.Get<EmailVerification>()
-                .ByOwnerId(email.Id)
+                .ByEmailAddressId(email.Id)
                 .ToArrayAsync()
             ;
             foreach (var unusedVerification in unusedVerifications.Except(new[] { verification }))

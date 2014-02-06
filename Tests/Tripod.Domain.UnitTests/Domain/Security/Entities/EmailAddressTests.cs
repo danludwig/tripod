@@ -10,8 +10,8 @@ namespace Tripod.Domain.Security
         {
             var entity = new EmailAddress();
             entity.Id.ShouldEqual(0);
-            entity.Owner.ShouldBeNull();
-            entity.OwnerId.ShouldBeNull();
+            entity.User.ShouldBeNull();
+            entity.UserId.ShouldBeNull();
             entity.Value.ShouldBeNull();
             entity.IsPrimary.ShouldBeFalse();
             entity.IsVerified.ShouldBeFalse();

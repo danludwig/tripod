@@ -76,7 +76,7 @@ namespace Tripod.Domain.Security
             // create the verification
             var verification = new EmailVerification
             {
-                Owner = emailAddress,
+                EmailAddress = emailAddress,
                 Purpose = command.Purpose,
                 Secret = secret,
                 Ticket = ticket,

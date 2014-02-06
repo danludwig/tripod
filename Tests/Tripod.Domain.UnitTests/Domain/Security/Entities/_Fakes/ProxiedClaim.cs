@@ -3,6 +3,6 @@
     [UsedImplicitly]
     public class ProxiedClaim : UserClaim
     {
-        public override User Owner { get; protected internal set; }
+        public override User User { get; protected internal set; }
     }
 }

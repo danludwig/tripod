@@ -106,7 +106,7 @@ namespace Tripod.Web.Controllers
             {
                 EagerLoad = new Expression<Func<EmailVerification, object>>[]
                 {
-                    x => x.Owner,
+                    x => x.EmailAddress,
                 }
             });
             if (confirmation == null) return HttpNotFound();
@@ -118,7 +118,7 @@ namespace Tripod.Web.Controllers
             ViewBag.Ticket = ticket;
             ViewBag.Purpose = EmailVerificationPurpose.CreateLocalUser;
             if (Session.VerifyEmailTickets().Contains(ticket))
-                ViewBag.EmailAddress = confirmation.Owner.Value;
+                ViewBag.EmailAddress = confirmation.EmailAddress.Value;
             return View(MVC.Security.Views.SignUpVerifyEmailSecret);
         }
 
@@ -180,7 +180,7 @@ namespace Tripod.Web.Controllers
 
             ViewBag.Token = token;
             ViewBag.ReturnUrl = returnUrl;
-            ViewBag.EmailAddress = verification.Owner.Value;
+            ViewBag.EmailAddress = verification.EmailAddress.Value;
             return View(MVC.Security.Views.SignUpCreateLocalMembership);
         }
 

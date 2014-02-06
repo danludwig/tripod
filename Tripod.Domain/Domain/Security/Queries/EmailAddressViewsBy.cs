@@ -38,7 +38,7 @@ namespace Tripod.Domain.Security
                 .Select(x => new EmailAddressView
                 {
                     EmailAddressId = x.Id,
-                    UserId = x.OwnerId,
+                    UserId = x.UserId,
                     Value = x.Value,
                     HashedValue = x.HashedValue,
                     IsVerified = x.IsVerified,

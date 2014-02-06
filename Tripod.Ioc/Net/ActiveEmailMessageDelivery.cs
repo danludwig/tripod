@@ -22,7 +22,7 @@ namespace Tripod.Ioc.Net
         public void Deliver(int emailMessageId)
         {
             var entity = _entities.Query<EmailMessage>()
-                .EagerLoad(x => x.Owner)
+                .EagerLoad(x => x.EmailAddress)
                 .ById(emailMessageId, false)
             ;
 
@@ -33,7 +33,7 @@ namespace Tripod.Ioc.Net
             if (entity.SendOnUtc > DateTime.UtcNow) return;
 
             var from = new MailAddress(entity.From);
-            var to = new MailAddress(entity.Owner.Value);
+            var to = new MailAddress(entity.EmailAddress.Value);
             var mailMessage = new MailMessage(from, to)
             {
                 Subject = entity.Subject,

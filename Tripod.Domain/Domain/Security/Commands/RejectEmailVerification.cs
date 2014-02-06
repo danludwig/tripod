@@ -45,12 +45,12 @@ namespace Tripod.Domain.Security
             // reject this email verification
             var userToken = await _queries.Execute(new EmailVerificationUserToken(command.Token));
             var verification = await _entities.Get<EmailVerification>()
-                .EagerLoad(x => x.Owner)
+                .EagerLoad(x => x.EmailAddress)
                 .ByTicketAsync(userToken.Value, false);
             verification.Token = "Rejected";
 
-            var email = verification.Owner;
-            email.OwnerId = null;
+            var email = verification.EmailAddress;
+            email.UserId = null;
             verification.Secret = null;
             var ticket = _queries.Execute(new RandomSecret(20, 25));
 

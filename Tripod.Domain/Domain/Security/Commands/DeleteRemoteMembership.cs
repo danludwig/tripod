@@ -58,7 +58,7 @@ namespace Tripod.Domain.Security
             var userId = command.Principal.Identity.GetAppUserId();
             var userLoginInfo = new UserLoginInfo(command.LoginProvider, command.ProviderKey);
             var remoteMembership = await _entities.Get<RemoteMembership>()
-                .EagerLoad(new Expression<Func<RemoteMembership, object>>[] { x => x.Owner, })
+                .EagerLoad(new Expression<Func<RemoteMembership, object>>[] { x => x.User, })
                 .ByUserIdAndLoginInfoAsync(userId, userLoginInfo);
             if (remoteMembership == null) return;
 

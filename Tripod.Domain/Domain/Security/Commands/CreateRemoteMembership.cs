@@ -89,7 +89,7 @@ namespace Tripod.Domain.Security
 
             var entity = new RemoteMembership
             {
-                Owner = user,
+                User = user,
                 UserId = user.Id,
                 Id =
                 {

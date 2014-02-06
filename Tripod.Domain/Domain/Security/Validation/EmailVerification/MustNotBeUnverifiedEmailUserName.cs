@@ -45,11 +45,11 @@ namespace Tripod.Domain.Security
                 {
                     EagerLoad = new Expression<Func<EmailVerification, object>>[]
                     {
-                        x => x.Owner,
+                        x => x.EmailAddress,
                     },
                 }).Result;
                 if (verification == null) return true;
-                if (verification.Owner.Value.Equals(userName, StringComparison.OrdinalIgnoreCase)) return true;
+                if (verification.EmailAddress.Value.Equals(userName, StringComparison.OrdinalIgnoreCase)) return true;
             }
             else
             {

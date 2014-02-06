@@ -50,7 +50,7 @@ namespace Tripod.Ioc.EntityFramework
             Property(x => x.Value).IsRequired().HasMaxLength(EmailAddress.Constraints.ValueMaxLength);
             Property(x => x.HashedValue).IsRequired().HasMaxLength(EmailAddress.Constraints.HashedValueMaxLength);
 
-            HasOptional(x => x.Owner).WithMany(x => x.EmailAddresses).HasForeignKey(x => x.OwnerId).WillCascadeOnDelete();
+            HasOptional(x => x.User).WithMany(x => x.EmailAddresses).HasForeignKey(x => x.UserId).WillCascadeOnDelete();
         }
     }
 
@@ -66,7 +66,7 @@ namespace Tripod.Ioc.EntityFramework
             Property(x => x.Secret).HasMaxLength(EmailVerification.Constraints.SecretMaxLength);
             Property(x => x.Ticket).HasMaxLength(EmailVerification.Constraints.TicketMaxLength);
 
-            HasRequired(x => x.Owner).WithMany().HasForeignKey(x => x.OwnerId).WillCascadeOnDelete();
+            HasRequired(x => x.EmailAddress).WithMany().HasForeignKey(x => x.EmailAddressId).WillCascadeOnDelete();
             HasOptional(x => x.Message).WithOptionalDependent()
                 .Map(x => x.MapKey("EmailMessageId")).WillCascadeOnDelete(false);
         }
@@ -85,7 +85,7 @@ namespace Tripod.Ioc.EntityFramework
             Property(x => x.Subject).HasMaxLength(EmailMessage.Constraints.SubjectMaxLength);
             Property(x => x.LastSendError).HasMaxLength(EmailMessage.Constraints.LastSendErrorMaxLength);
 
-            HasRequired(x => x.Owner).WithMany().HasForeignKey(x => x.OwnerId).WillCascadeOnDelete();
+            HasRequired(x => x.EmailAddress).WithMany().HasForeignKey(x => x.EmailAddressId).WillCascadeOnDelete();
         }
     }
 
@@ -99,7 +99,7 @@ namespace Tripod.Ioc.EntityFramework
             HasKey(x => x.Id);
             Property(x => x.Id).HasColumnName("UserId").HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
 
-            HasRequired(x => x.Owner).WithOptional(x => x.LocalMembership).WillCascadeOnDelete();
+            HasRequired(x => x.User).WithOptional(x => x.LocalMembership).WillCascadeOnDelete();
         }
     }
 
@@ -115,7 +115,7 @@ namespace Tripod.Ioc.EntityFramework
             Property(x => x.LoginProvider).HasColumnName("LoginProvider").HasMaxLength(RemoteMembership.Constraints.ProviderMaxLength);
             Property(x => x.ProviderKey).HasColumnName("ProviderKey").HasMaxLength(RemoteMembership.Constraints.ProviderUserIdMaxLength);
 
-            HasRequired(x => x.Owner).WithMany(x => x.RemoteMemberships).HasForeignKey(x => x.UserId).WillCascadeOnDelete();
+            HasRequired(x => x.User).WithMany(x => x.RemoteMemberships).HasForeignKey(x => x.UserId).WillCascadeOnDelete();
         }
     }
 
@@ -128,7 +128,7 @@ namespace Tripod.Ioc.EntityFramework
 
             HasKey(x => x.Id);
 
-            HasRequired(x => x.Owner).WithMany(x => x.Claims).HasForeignKey(x => x.UserId).WillCascadeOnDelete();
+            HasRequired(x => x.User).WithMany(x => x.Claims).HasForeignKey(x => x.UserId).WillCascadeOnDelete();
         }
     }
 }

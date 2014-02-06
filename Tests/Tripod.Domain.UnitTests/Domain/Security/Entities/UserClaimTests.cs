@@ -10,7 +10,7 @@ namespace Tripod.Domain.Security
         {
             var entity = new UserClaim();
             entity.Id.ShouldEqual(0);
-            entity.Owner.ShouldBeNull();
+            entity.User.ShouldBeNull();
             entity.UserId.ShouldEqual(0);
             entity.ClaimType.ShouldBeNull();
             entity.ClaimValue.ShouldBeNull();

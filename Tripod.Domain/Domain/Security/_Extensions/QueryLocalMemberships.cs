@@ -37,7 +37,7 @@ namespace Tripod.Domain.Security
 
         internal static Expression<Func<LocalMembership, bool>> ByUserId(int userId)
         {
-            return x => x.Owner.Id == userId;
+            return x => x.User.Id == userId;
         }
 
         #endregion
@@ -68,7 +68,7 @@ namespace Tripod.Domain.Security
 
         internal static Expression<Func<LocalMembership, bool>> ByUserName(string userName)
         {
-            return x => x.Owner.Name.Equals(userName, StringComparison.OrdinalIgnoreCase);
+            return x => x.User.Name.Equals(userName, StringComparison.OrdinalIgnoreCase);
         }
 
         #endregion
@@ -99,7 +99,7 @@ namespace Tripod.Domain.Security
 
         private static Expression<Func<LocalMembership, bool>> ByUserLoginInfo(UserLoginInfo userLoginInfo)
         {
-            return x => x.Owner.RemoteMemberships.Any(y => y.LoginProvider == userLoginInfo.LoginProvider && y.ProviderKey == userLoginInfo.ProviderKey);
+            return x => x.User.RemoteMemberships.Any(y => y.LoginProvider == userLoginInfo.LoginProvider && y.ProviderKey == userLoginInfo.ProviderKey);
         }
 
         #endregion
@@ -130,7 +130,7 @@ namespace Tripod.Domain.Security
 
         internal static Expression<Func<LocalMembership, bool>> ByVerifiedEmail(string emailAddress)
         {
-            return x => x.Owner.EmailAddresses.Any(y => y.IsVerified && y.Value.Equals(emailAddress, StringComparison.OrdinalIgnoreCase));
+            return x => x.User.EmailAddresses.Any(y => y.IsVerified && y.Value.Equals(emailAddress, StringComparison.OrdinalIgnoreCase));
         }
 
         #endregion

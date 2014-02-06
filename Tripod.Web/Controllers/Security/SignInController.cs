@@ -127,7 +127,7 @@ namespace Tripod.Web.Controllers
             {
                 EagerLoad = new Expression<Func<EmailVerification, object>>[]
                 {
-                    x => x.Owner,
+                    x => x.EmailAddress,
                 }
             });
             if (confirmation == null) return HttpNotFound();
@@ -139,7 +139,7 @@ namespace Tripod.Web.Controllers
             ViewBag.Ticket = ticket;
             ViewBag.Purpose = EmailVerificationPurpose.ForgotPassword;
             if (Session.VerifyEmailTickets().Contains(ticket))
-                ViewBag.EmailAddress = confirmation.Owner.Value;
+                ViewBag.EmailAddress = confirmation.EmailAddress.Value;
             return View(MVC.Security.Views.SignInVerifyEmailSecret);
         }
 
@@ -182,7 +182,7 @@ namespace Tripod.Web.Controllers
 
             ViewBag.Token = token;
             ViewBag.ReturnUrl = returnUrl;
-            ViewBag.EmailAddress = verification.Owner.Value;
+            ViewBag.EmailAddress = verification.EmailAddress.Value;
             return View(MVC.Security.Views.SignInRedeemEmailVerification);
         }
 
@@ -212,7 +212,7 @@ namespace Tripod.Web.Controllers
 
             var signIn = new SignIn
             {
-                UserNameOrVerifiedEmail = verification.Owner.Value,
+                UserNameOrVerifiedEmail = verification.EmailAddress.Value,
                 Password = command.Password
             };
             await _commands.Execute(signIn);

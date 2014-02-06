@@ -52,17 +52,17 @@ namespace Tripod.Domain.Security
         {
             var userToken = await _queries.Execute(new EmailVerificationUserToken(command.Token));
             var verification = await _entities.Get<EmailVerification>()
-                .EagerLoad(x => x.Owner)
+                .EagerLoad(x => x.EmailAddress)
                 .ByTicketAsync(userToken.Value, false);
             verification.RedeemedOnUtc = DateTime.UtcNow;
-            var user = verification.Owner.Owner;
+            var user = verification.EmailAddress.User;
 
-            var localMembership = await _queries.Execute(new LocalMembershipByVerifiedEmail(verification.Owner.Value));
+            var localMembership = await _queries.Execute(new LocalMembershipByVerifiedEmail(verification.EmailAddress.Value));
 
             // if the user has a no local membership, create one
             if (localMembership == null)
             {
-                localMembership = new LocalMembership { Owner = user, };
+                localMembership = new LocalMembership { User = user, };
                 user.LocalMembership = localMembership;
             }
             

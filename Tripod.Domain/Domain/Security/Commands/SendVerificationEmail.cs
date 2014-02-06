@@ -90,7 +90,7 @@ namespace Tripod.Domain.Security
 
             // attach the email to a user when appropriate
             if (command.Purpose == EmailVerificationPurpose.AddEmail && command.Principal != null && command.Principal.Identity.IsAuthenticated)
-                verification.Owner.OwnerId = command.Principal.Identity.GetAppUserId();
+                verification.EmailAddress.UserId = command.Principal.Identity.GetAppUserId();
 
             // load the templates
             var resourceFormat = string.Format("{0}.{1}.txt", verification.Purpose, "{0}");
@@ -101,7 +101,7 @@ namespace Tripod.Domain.Security
             // format the message body
             var formatters = new Dictionary<string, string>
             {
-                { "{EmailAddress}", verification.Owner.Value },
+                { "{EmailAddress}", verification.EmailAddress.Value },
                 { "{Secret}", verification.Secret },
                 // don't forget to encode the token, it contains illegal querystring characters
                 { "{VerificationUrl}", string.Format(command.VerifyUrlFormat ?? "", Uri.EscapeDataString(verification.Token)) },
@@ -111,7 +111,7 @@ namespace Tripod.Domain.Security
             // create the message
             var message = new EmailMessage
             {
-                Owner = verification.Owner,
+                EmailAddress = verification.EmailAddress,
                 From = AppConfiguration.MailFromDefault.ToString(),
                 Subject = formatters.Format(subjectFormat),
                 Body = formatters.Format(bodyFormat),

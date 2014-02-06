@@ -33,11 +33,11 @@ namespace Tripod.Domain.Security
                 IsVerified = true,
                 EagerLoad = new Expression<Func<EmailAddress, object>>[]
                 {
-                    x => x.Owner,
+                    x => x.User,
                 },
             }).Result;
 
-            user = email != null ? email.Owner : null;
+            user = email != null ? email.User : null;
             return Task.FromResult(user);
         }
     }

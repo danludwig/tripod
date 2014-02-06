@@ -171,7 +171,7 @@
     <Compile Include="Domain\Security\Validation\EmailVerification\MustBePurposedVerifyEmailTicket.cs" />
     <Compile Include="Domain\Security\Validation\EmailVerification\MustNotBeRedeemedVerifyEmailTicket.cs" />
     <Compile Include="Domain\Security\Validation\EmailVerification\MustNotBeExpiredVerifyEmailTicket.cs" />
-    <Compile Include="Domain\Security\Validation\MustBeEmailAddressWithOwnerId.cs" />
+    <Compile Include="Domain\Security\Validation\MustBeEmailAddressWithUserId.cs" />
     <Compile Include="Domain\Security\Validation\MustFindEmailAddressById.cs" />
     <Compile Include="Domain\Security\Validation\MustFindUserById.cs" />
     <Compile Include="Domain\Security\Validation\MustNotContainInvalidUserNameText.cs" />

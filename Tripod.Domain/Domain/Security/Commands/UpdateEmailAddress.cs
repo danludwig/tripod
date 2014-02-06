@@ -29,7 +29,7 @@ namespace Tripod.Domain.Security
                 .MustFindEmailAddressById(queries)
 
                 // user/principal must own the email address
-                .MustBeEmailAddressWithOwnerId(queries, x => x.Principal.Identity.GetAppUserId())
+                .MustBeEmailAddressWithUserId(queries, x => x.Principal.Identity.GetAppUserId())
 
                 // cannot set primary email address to false, only to true
                 .MustNotBePrimaryEmailAddress(queries)
@@ -56,7 +56,7 @@ namespace Tripod.Domain.Security
         {
             // load up the entity
             var entity = await _entities.Get<EmailAddress>()
-                .EagerLoad(x => x.Owner.EmailAddresses)
+                .EagerLoad(x => x.User.EmailAddresses)
                 .ByIdAsync(command.EmailAddressId);
             var commit = false;
 
@@ -71,7 +71,7 @@ namespace Tripod.Domain.Security
                 // since the primary email address cannot be changed to non-primary,
                 // at this point we must be changing a non-primary to primary.
                 commit = true;
-                var primaryEmail = entity.Owner.EmailAddresses.Single(x => x.IsPrimary);
+                var primaryEmail = entity.User.EmailAddresses.Single(x => x.IsPrimary);
                 primaryEmail.IsPrimary = false;
                 entity.IsPrimary = true;
             }

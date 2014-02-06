@@ -64,9 +64,9 @@ namespace Tripod.Web.Controllers
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> RejectEmailOwnership()
+        public virtual System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> RejectEmailVerification()
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.RejectEmailOwnership);
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.RejectEmailVerification);
             return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
         }
         [NonAction]
@@ -103,7 +103,7 @@ namespace Tripod.Web.Controllers
             public readonly string SendVerificationEmail = "SendVerificationEmail";
             public readonly string VerifyEmailSecret = "VerifyEmailSecret";
             public readonly string RedeemEmailVerification = "RedeemEmailVerification";
-            public readonly string RejectEmailOwnership = "RejectEmailOwnership";
+            public readonly string RejectEmailVerification = "RejectEmailVerification";
             public readonly string UpdateEmailAddress = "UpdateEmailAddress";
             public readonly string DeleteEmailAddress = "DeleteEmailAddress";
         }
@@ -115,7 +115,7 @@ namespace Tripod.Web.Controllers
             public const string SendVerificationEmail = "SendVerificationEmail";
             public const string VerifyEmailSecret = "VerifyEmailSecret";
             public const string RedeemEmailVerification = "RedeemEmailVerification";
-            public const string RejectEmailOwnership = "RejectEmailOwnership";
+            public const string RejectEmailVerification = "RejectEmailVerification";
             public const string UpdateEmailAddress = "UpdateEmailAddress";
             public const string DeleteEmailAddress = "DeleteEmailAddress";
         }
@@ -149,11 +149,11 @@ namespace Tripod.Web.Controllers
             public readonly string command = "command";
             public readonly string emailAddress = "emailAddress";
         }
-        static readonly ActionParamsClass_RejectEmailOwnership s_params_RejectEmailOwnership = new ActionParamsClass_RejectEmailOwnership();
+        static readonly ActionParamsClass_RejectEmailVerification s_params_RejectEmailVerification = new ActionParamsClass_RejectEmailVerification();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_RejectEmailOwnership RejectEmailOwnershipParams { get { return s_params_RejectEmailOwnership; } }
+        public ActionParamsClass_RejectEmailVerification RejectEmailVerificationParams { get { return s_params_RejectEmailVerification; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_RejectEmailOwnership
+        public class ActionParamsClass_RejectEmailVerification
         {
             public readonly string command = "command";
             public readonly string emailAddress = "emailAddress";
@@ -256,14 +256,14 @@ namespace Tripod.Web.Controllers
             return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
         }
 
-        partial void RejectEmailOwnershipOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Tripod.Domain.Security.RejectEmailVerification command, string emailAddress);
+        partial void RejectEmailVerificationOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Tripod.Domain.Security.RejectEmailVerification command, string emailAddress);
 
-        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> RejectEmailOwnership(Tripod.Domain.Security.RejectEmailVerification command, string emailAddress)
+        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> RejectEmailVerification(Tripod.Domain.Security.RejectEmailVerification command, string emailAddress)
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.RejectEmailOwnership);
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.RejectEmailVerification);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "command", command);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "emailAddress", emailAddress);
-            RejectEmailOwnershipOverride(callInfo, command, emailAddress);
+            RejectEmailVerificationOverride(callInfo, command, emailAddress);
             return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
         }
 

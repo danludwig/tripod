@@ -21,7 +21,7 @@ namespace Tripod.Domain.Security
         }
 
         public int UserId { get; protected internal set; }
-        public virtual User Owner { get; protected internal set; }
+        public virtual User User { get; protected internal set; }
 
         public static class Constraints
         {

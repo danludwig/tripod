@@ -6,8 +6,8 @@ namespace Tripod.Domain.Security
     {
         protected internal EmailVerification() { }
 
-        public int OwnerId { get; [UsedImplicitly] protected internal set; }
-        public virtual EmailAddress Owner { get; protected internal set; }
+        public int EmailAddressId { get; [UsedImplicitly] protected internal set; }
+        public virtual EmailAddress EmailAddress { get; protected internal set; }
 
         public string Token { get; protected internal set; }
         public string Ticket { get; protected internal set; }

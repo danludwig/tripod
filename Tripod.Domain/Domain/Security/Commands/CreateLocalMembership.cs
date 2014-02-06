@@ -88,7 +88,7 @@ namespace Tripod.Domain.Security
 
             user.LocalMembership = new LocalMembership
             {
-                Owner = user,
+                User = user,
                 PasswordHash = await _queries.Execute(new HashedPassword(command.Password)),
             };
             user.SecurityStamp = Guid.NewGuid().ToString();
