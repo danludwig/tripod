@@ -33,7 +33,7 @@ namespace Tripod.Web.Controllers
             await _commands.Execute(command);
             var signIn = new SignIn
             {
-                UserName = command.UserName,
+                UserNameOrVerifiedEmail = command.UserName,
                 Password = command.Password
             };
             await _commands.Execute(signIn);

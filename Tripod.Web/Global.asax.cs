@@ -13,7 +13,7 @@ namespace Tripod.Web
         {
             IocConfig.Configure();
             ModelConfig.Configure();
-            AreaRegistration.RegisterAllAreas();
+            //AreaRegistration.RegisterAllAreas(); // faster startup because not using areas
             GlobalConfiguration.Configure(WebApiConfig.Register);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);

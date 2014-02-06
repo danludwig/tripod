@@ -63,6 +63,7 @@
                                model-contrib
                                server-error="@Html.ValidationMessageTextFor(x => x.EmailAddress)"
                                server-validate="@Url.Action(MVC.SignUp.ValidateSendVerificationEmail(null, "emailAddress"))"
+                               server-validate-data="{ purpose: '@EmailVerificationPurpose.ForgotPassword' }"
                                server-validate-throttle="400" />
 
                         <span class="input-group-addon validation @Html.CssClassWhenIsNotPost("hide")"
@@ -174,3 +175,9 @@
         </form>
     </div>
 </div>
+
+@section scripts
+{
+    @{ Html.RenderPartial(MVC.Scripts.Views.Angular); }
+    <script src="~/app/security/SignUpEmailForm.js"></script>
+}

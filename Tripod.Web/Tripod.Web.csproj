@@ -786,6 +786,7 @@
     <Content Include="Views\Shared\_AlertsTempData.cshtml" />
     <Content Include="Views\Security\SignInSendVerificationEmail.cshtml" />
     <Content Include="Views\Security\SignInVerifyEmailSecret.cshtml" />
+    <Content Include="Views\Security\SignInRedeemEmailVerification.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

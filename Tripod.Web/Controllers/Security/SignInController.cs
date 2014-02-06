@@ -103,7 +103,7 @@ namespace Tripod.Web.Controllers
         private string VerifyUrlFormat(string returnUrl)
         {
             Debug.Assert(Request.Url != null);
-            var encodedUrlFormat = Url.Action(MVC.SignUp.CreateLocalMembership("{0}", "{1}"));
+            var encodedUrlFormat = Url.Action(MVC.SignIn.ResetPassword("{0}", "{1}"));
             var decodedUrlFormat = HttpUtility.UrlDecode(encodedUrlFormat);
             Debug.Assert(decodedUrlFormat != null);
             var formattedUrl = string.Format(decodedUrlFormat, "{0}", returnUrl);
@@ -164,7 +164,81 @@ namespace Tripod.Web.Controllers
 
             await _commands.Execute(command);
 
-            return RedirectToAction(await MVC.SignUp.CreateLocalMembership(command.Token, returnUrl));
+            return RedirectToAction(await MVC.SignIn.ResetPassword(command.Token, returnUrl));
+        }
+
+        #endregion
+        #region ResetPassword
+
+        [HttpGet, Route("sign-in/password/recover", Order = 1)]
+        public virtual async Task<ActionResult> ResetPassword(string token, string returnUrl)
+        {
+            var userToken = await _queries.Execute(new EmailVerificationUserToken(token));
+            if (userToken == null) return HttpNotFound();
+            var verification = await _queries.Execute(new EmailVerificationBy(userToken.Value));
+            if (verification == null) return HttpNotFound();
+
+            // todo: verification cannot be expired, redeemed, or for different purpose
+
+            ViewBag.Token = token;
+            ViewBag.ReturnUrl = returnUrl;
+            ViewBag.EmailAddress = verification.Owner.Value;
+            return View(MVC.Security.Views.SignInRedeemEmailVerification);
+        }
+
+        [ValidateAntiForgeryToken]
+        [HttpPost, Route("sign-in/password/recover", Order = 1)]
+        public virtual async Task<ActionResult> ResetPassword(ResetPassword command, string returnUrl, string emailAddress)
+        {
+            //System.Threading.Thread.Sleep(new Random().Next(5000, 5001));
+
+            if (command == null || string.IsNullOrWhiteSpace(emailAddress))
+                return View(MVC.Errors.Views.BadRequest);
+
+            var userToken = await _queries.Execute(new EmailVerificationUserToken(command.Token));
+            if (userToken == null) return HttpNotFound();
+            var verification = await _queries.Execute(new EmailVerificationBy(userToken.Value));
+            if (verification == null) return HttpNotFound();
+
+            if (!ModelState.IsValid)
+            {
+                ViewBag.Token = command.Token;
+                ViewBag.ReturnUrl = returnUrl;
+                ViewBag.EmailAddress = emailAddress;
+                return View(MVC.Security.Views.SignInRedeemEmailVerification, command);
+            }
+
+            await _commands.Execute(command);
+
+            var signIn = new SignIn
+            {
+                UserNameOrVerifiedEmail = verification.Owner.Value,
+                Password = command.Password
+            };
+            await _commands.Execute(signIn);
+            Session.VerifyEmailTickets(null);
+            Response.ClientCookie(signIn.SignedIn.Id, _queries);
+            return this.RedirectToLocal(returnUrl, await MVC.UserSettings.Index());
+        }
+
+        [ValidateAntiForgeryToken]
+        [HttpPost, Route("sign-in/password/recover/validate/{fieldName?}", Order = 1)]
+        public virtual ActionResult ValidateResetPassword(ResetPassword command, string fieldName = null)
+        {
+            //System.Threading.Thread.Sleep(new Random().Next(5000, 5001));
+
+            if (command == null)
+            {
+                Response.StatusCode = 400;
+                return Json(null);
+            }
+
+            var result = new ValidatedFields(ModelState, fieldName);
+
+            //ModelState[command.PropertyName(x => x.UserName)].Errors.Clear();
+            //result = new ValidatedFields(ModelState, fieldName);
+
+            return new CamelCaseJsonResult(result);
         }
 
         #endregion

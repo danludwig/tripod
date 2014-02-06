@@ -66,6 +66,19 @@ namespace Tripod.Web.Controllers
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.VerifyEmailSecret);
             return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
         }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> ResetPassword()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ResetPassword);
+            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult ValidateResetPassword()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ValidateResetPassword);
+        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public SignInController Actions { get { return MVC.SignIn; } }
@@ -86,6 +99,8 @@ namespace Tripod.Web.Controllers
             public readonly string Validate = "Validate";
             public readonly string SendVerificationEmail = "SendVerificationEmail";
             public readonly string VerifyEmailSecret = "VerifyEmailSecret";
+            public readonly string ResetPassword = "ResetPassword";
+            public readonly string ValidateResetPassword = "ValidateResetPassword";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -95,6 +110,8 @@ namespace Tripod.Web.Controllers
             public const string Validate = "Validate";
             public const string SendVerificationEmail = "SendVerificationEmail";
             public const string VerifyEmailSecret = "VerifyEmailSecret";
+            public const string ResetPassword = "ResetPassword";
+            public const string ValidateResetPassword = "ValidateResetPassword";
         }
 
 
@@ -135,6 +152,26 @@ namespace Tripod.Web.Controllers
             public readonly string returnUrl = "returnUrl";
             public readonly string command = "command";
             public readonly string emailAddress = "emailAddress";
+        }
+        static readonly ActionParamsClass_ResetPassword s_params_ResetPassword = new ActionParamsClass_ResetPassword();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_ResetPassword ResetPasswordParams { get { return s_params_ResetPassword; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_ResetPassword
+        {
+            public readonly string token = "token";
+            public readonly string returnUrl = "returnUrl";
+            public readonly string command = "command";
+            public readonly string emailAddress = "emailAddress";
+        }
+        static readonly ActionParamsClass_ValidateResetPassword s_params_ValidateResetPassword = new ActionParamsClass_ValidateResetPassword();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_ValidateResetPassword ValidateResetPasswordParams { get { return s_params_ValidateResetPassword; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_ValidateResetPassword
+        {
+            public readonly string command = "command";
+            public readonly string fieldName = "fieldName";
         }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -230,6 +267,40 @@ namespace Tripod.Web.Controllers
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "emailAddress", emailAddress);
             VerifyEmailSecretOverride(callInfo, ticket, command, returnUrl, emailAddress);
             return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
+        }
+
+        partial void ResetPasswordOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string token, string returnUrl);
+
+        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> ResetPassword(string token, string returnUrl)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ResetPassword);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "token", token);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "returnUrl", returnUrl);
+            ResetPasswordOverride(callInfo, token, returnUrl);
+            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
+        }
+
+        partial void ResetPasswordOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Tripod.Domain.Security.ResetPassword command, string returnUrl, string emailAddress);
+
+        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> ResetPassword(Tripod.Domain.Security.ResetPassword command, string returnUrl, string emailAddress)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ResetPassword);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "command", command);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "returnUrl", returnUrl);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "emailAddress", emailAddress);
+            ResetPasswordOverride(callInfo, command, returnUrl, emailAddress);
+            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
+        }
+
+        partial void ValidateResetPasswordOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Tripod.Domain.Security.ResetPassword command, string fieldName);
+
+        public override System.Web.Mvc.ActionResult ValidateResetPassword(Tripod.Domain.Security.ResetPassword command, string fieldName)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ValidateResetPassword);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "command", command);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "fieldName", fieldName);
+            ValidateResetPasswordOverride(callInfo, command, fieldName);
+            return callInfo;
         }
 
     }

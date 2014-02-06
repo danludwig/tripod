@@ -103,5 +103,36 @@ namespace Tripod.Domain.Security
         }
 
         #endregion
+        #region ByVerifiedEmail
+
+        [UsedImplicitly]
+        public static LocalMembership ByVerifiedEmail(this IQueryable<LocalMembership> set, string emailAddress, bool allowNull = true)
+        {
+            return allowNull ? set.SingleOrDefault(ByVerifiedEmail(emailAddress)) : set.Single(ByVerifiedEmail(emailAddress));
+        }
+
+        [UsedImplicitly]
+        public static LocalMembership ByVerifiedEmail(this IEnumerable<LocalMembership> set, string emailAddress, bool allowNull = true)
+        {
+            return set.AsQueryable().ByVerifiedEmail(emailAddress, allowNull);
+        }
+
+        public static Task<LocalMembership> ByVerifiedEmailAsync(this IQueryable<LocalMembership> set, string emailAddress, bool allowNull = true)
+        {
+            return allowNull ? set.SingleOrDefaultAsync(ByVerifiedEmail(emailAddress)) : set.SingleAsync(ByVerifiedEmail(emailAddress));
+        }
+
+        [UsedImplicitly]
+        public static Task<LocalMembership> ByVerifiedEmailAsync(this IEnumerable<LocalMembership> set, string emailAddress, bool allowNull = true)
+        {
+            return set.AsQueryable().ByVerifiedEmailAsync(emailAddress, allowNull);
+        }
+
+        internal static Expression<Func<LocalMembership, bool>> ByVerifiedEmail(string emailAddress)
+        {
+            return x => x.Owner.EmailAddresses.Any(y => y.IsVerified && y.Value.Equals(emailAddress, StringComparison.OrdinalIgnoreCase));
+        }
+
+        #endregion
     }
 }

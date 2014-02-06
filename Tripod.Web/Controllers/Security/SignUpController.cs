@@ -205,7 +205,7 @@ namespace Tripod.Web.Controllers
 
             var signIn = new SignIn
             {
-                UserName = command.UserName,
+                UserNameOrVerifiedEmail = command.UserName,
                 Password = command.Password
             };
             await _commands.Execute(signIn);

@@ -49,14 +49,14 @@
                 }
 
                 @* EMAIL ADDRESS INPUT *@
-                <div class="form-group form-group-lg @Html.BootstrapValidationCssClassFor(x => x.UserName)"
+                <div class="form-group form-group-lg @Html.BootstrapValidationCssClassFor(x => x.UserNameOrVerifiedEmail)"
                      remove-class="has-success has-error"
                      ng-class="signInCtrb.userName.feedbackCssClass()">
 
                     @* INPUT GROUP COLUMN *@
                     <div class="col-md-8">
                         @* SR LABEL *@
-                        <label for="@Html.IdFor(x => x.UserName)" class="control-label sr-only">
+                        <label for="@Html.IdFor(x => x.UserNameOrVerifiedEmail)" class="control-label sr-only">
                             @UserConstraints.NameLabel or @EmailAddress.Constraints.Label
                         </label>
                         <div class="@Html.CssClassWhenNotNullModel(inputGroupCss)"
@@ -65,14 +65,14 @@
                             <input type="text"
                                    class="form-control @inputCss"
                                    placeholder="@UserConstraints.NameLabel or @EmailAddress.Constraints.Label"
-                                   id="@Html.IdFor(x => x.UserName)"
+                                   id="@Html.IdFor(x => x.UserNameOrVerifiedEmail)"
                                    name="userName"
-                                   value="@Html.ValueFor(x => x.UserName)"
-                                   ng-init="vm.userName='@Html.ValueForJavaScriptString(x => x.UserName)'"
+                                   value="@Html.ValueFor(x => x.UserNameOrVerifiedEmail)"
+                                   ng-init="vm.userName='@Html.ValueForJavaScriptString(x => x.UserNameOrVerifiedEmail)'"
                                    ng-model="vm.userName"
                                    required
                                    model-contrib
-                                   server-error="@Html.ValidationMessageTextFor(x => x.UserName)"
+                                   server-error="@Html.ValidationMessageTextFor(x => x.UserNameOrVerifiedEmail)"
                                    server-validate="@Url.Action(MVC.SignIn.Validate(null, "userName"))"
                                    server-validate-throttle="400" />
 
@@ -102,7 +102,7 @@
                               tooltip-placement="right"
                               class="validation-tooltip"></span>
 
-                        <span ng-class="{ hide: true }">@Html.ValidationMessageFor(x => x.UserName)</span>
+                        <span ng-class="{ hide: true }">@Html.ValidationMessageFor(x => x.UserNameOrVerifiedEmail)</span>
                     </div>
                     <div class="col-md-4 validation help-block hidden-md hidden-lg">
                         <span ng-show="vm.isUserNameRequiredError()" ng-cloak>
@@ -112,7 +112,7 @@
                             {{ signInCtrb.userName.error.server }}
                         </span>
                         <span ng-class="{ hide: true }">
-                            @Html.ValidationMessageFor(x => x.UserName)
+                            @Html.ValidationMessageFor(x => x.UserNameOrVerifiedEmail)
                         </span>
                     </div>
                 </div>

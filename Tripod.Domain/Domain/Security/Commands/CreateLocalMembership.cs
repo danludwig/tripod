@@ -70,7 +70,7 @@ namespace Tripod.Domain.Security
         public async Task Handle(CreateLocalMembership command)
         {
             // does user already exist?
-            var hasUserId = command.Principal.Identity.HasAppUserId();
+            var hasUserId = command.Principal != null && command.Principal.Identity.HasAppUserId();
             var user = hasUserId ? await _entities.GetAsync<User>(command.Principal.Identity.GetAppUserId()) : null;
             if (!hasUserId)
             {

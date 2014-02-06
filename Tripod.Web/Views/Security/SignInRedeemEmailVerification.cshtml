@@ -1,19 +1,19 @@
 ﻿@using System.Globalization
 @using Tripod.Domain.Security
 @using UserConstraints = Tripod.Domain.Security.User.Constraints
-@model CreateLocalMembership
+@model ResetPassword
 
 @{
-    ViewBag.Title = "Complete your registration";
+    ViewBag.Title = "Reset your password";
 }
 
 <h2>
-    Sign up  &raquo;
+    Sign in  &raquo;
     <small>@ViewBag.Title.</small>
 </h2>
 <hr class="hr-sm hr-space" />
 
-@{ Html.RenderPartial(MVC.Security.Views._VerifyEmailWizardSteps, new VerifyEmailWizardModel(3)); }
+@{ Html.RenderPartial(MVC.Security.Views._VerifyEmailWizardSteps, new VerifyEmailWizardModel(3, "Sign in")); }
 <hr class="hr-space hr-md" />
 
 <h3>
@@ -26,7 +26,7 @@
 
 <form role="form"
       method="POST"
-      action="@Url.Action(MVC.SignUp.CreateLocalMembership(null, null, null))"
+      action="@Url.Action(MVC.SignIn.ResetPassword(null, null, null))"
       novalidate
       ng-app="sign-up-register-form"
       ng-controller="App.Security.SignUpUserForm.Controller"
@@ -37,6 +37,18 @@
 
     @Html.AntiForgeryToken()
 
+    <input type="hidden"
+           name="emailAddress"
+           value="@ViewBag.EmailAddress" />
+    <input type="hidden"
+           name="token"
+           value="@ViewBag.Token"
+           ng-init="vm.token='@ViewBag.Token'"
+           ng-model="vm.token"
+           required
+           model-contrib
+           server-error="@Html.ValidationMessageTextFor(x => x.Token)"
+           server-validate="@Url.Action(MVC.SignIn.ValidateResetPassword(null, "token"))" />
     <input type="hidden" name="returnUrl" value="@ViewBag.ReturnUrl" />
 
     @Html.ValidationSummary(true)
@@ -72,7 +84,7 @@
                        ng-maxlength="@LocalMembership.Constraints.PasswordMaxLength"
                        model-contrib
                        server-error="@Html.ValidationMessageTextFor(x => x.Password)"
-                       server-validate="@Url.Action(MVC.SignUp.ValidateCreateLocalMembership(null, "password"))"
+                       server-validate="@Url.Action(MVC.SignIn.ValidateResetPassword(null, "password"))"
                        server-validate-throttle="400" />
 
                 <span class="input-group-addon validation @Html.CssClassWhenNullModel("hide")"
@@ -170,7 +182,7 @@
                        must-equal-when="signUpUserForm.password.$viewValue"
                        model-contrib
                        server-error="@Html.ValidationMessageTextFor(x => x.ConfirmPassword)"
-                       server-validate="@Url.Action(MVC.SignUp.ValidateCreateLocalMembership(null, "confirmPassword"))"
+                       server-validate="@Url.Action(MVC.SignIn.ValidateResetPassword(null, "confirmPassword"))"
                        server-validate-data="{ password: vm.password }"
                        server-validate-throttle="400"
                        server-valdidate-cache="false" />
@@ -229,157 +241,6 @@
         </div>
     </div>
 
-    <p>
-        By default, we use your email address as your username. You have the option of choosing a different username below.<br />
-        If you choose a username other than your email address, you will be able to sign in using either.<br />
-        If you don't want to choose a different username now, you can do it after you sign in.
-    </p>
-
-    @* USERNAME INPUT *@
-    <div class="form-group form-group-lg @Html.BootstrapValidationCssClassFor(x => x.UserName)"
-         remove-class="has-success has-error"
-         ng-class="signUpUserCtrb.userName.feedbackCssClass()">
-
-        @* INPUT GROUP COLUMN *@
-        <div class="col-md-6">
-            @* LABEL *@
-            <label for="@Html.IdFor(x => x.UserName)" class="control-label">
-                @UserConstraints.NameLabel
-            </label>
-            <small>@Resources.Validation_UserName_AllowedCharacters.Replace("{PropertyName}", "-")</small>
-            <div class="@Html.CssClassWhenNotNullModel(inputGroupCss)"
-                 remove-class="@inputGroupCss"
-                 ng-class="signUpUserCtrb.userName.inputGroupCssClass('lg')">
-                <input type="text"
-                       class="form-control @inputCss"
-                       placeholder="Enter @UserConstraints.NameLabel.ToLower() here"
-                       id="@Html.IdFor(x => x.UserName)"
-                       name="userName"
-                       value="@(Html.ValueFor(x => x.UserName).ToString() != "" ? Html.ValueFor(x => x.UserName) : ViewBag.EmailAddress)"
-                       ng-init="vm.userName='@(Html.ValueFor(x => x.UserName).ToString() != "" ? Html.ValueForJavaScriptString(x => x.UserName) : ViewBag.EmailAddress)'"
-                       ng-model="vm.userName"
-                       required
-                       model-contrib
-                       server-error="@Html.ValidationMessageTextFor(x => x.UserName)"
-                       server-validate="@Url.Action(MVC.SignUp.ValidateCreateLocalMembership(null, "userName"))"
-                       server-validate-data="{ token: vm.token }"
-                       server-validate-throttle="400" />
-
-                <span class="input-group-addon validation @Html.CssClassWhenNullModel("hide")"
-                      remove-class="hide"
-                      ng-class="vm.userNameInputGroupValidationAddOnCssClass()">
-                    <i class="fa fa-fw fa-asterisk default" title="This is a required field"></i>
-                    <i class="fa fa-fw fa-times error"></i>
-                    <i class="fa fa-fw fa-spinner fa-spin spin-fast spinner"></i>
-                    <i class="fa fa-fw fa-exclamation-triangle warning"></i>
-                    <i class="fa fa-fw fa-check success"></i>
-                </span>
-            </div>
-        </div>
-
-        @* VALIDATION MESSAGES COLUMNS *@
-        <div class="col-md-6 validation help-block help-block-horizontal-md under-label hidden-sm hidden-xs">
-            <span tooltip="@Resources.notempty_error.Replace("{PropertyName}", UserConstraints.NameLabel)"
-                  tooltip-toggle="vm.isUserNameRequiredError()"
-                  tooltip-animation="false"
-                  tooltip-placement="right"
-                  class="validation-tooltip"></span>
-
-            <span tooltip="{{ signUpUserCtrb.userName.error.server }}"
-                  tooltip-toggle="vm.isUserNameServerError()"
-                  tooltip-animation="false"
-                  tooltip-placement="right"
-                  class="validation-tooltip"></span>
-
-            <span ng-class="{ hide: true }">@Html.ValidationMessageFor(x => x.UserName)</span>
-        </div>
-        <div class="col-md-6 validation help-block hidden-md hidden-lg">
-            <span ng-show="vm.isUserNameRequiredError()" ng-cloak>
-                @Resources.notempty_error.Replace("{PropertyName}", UserConstraints.NameLabel)
-            </span>
-            <span ng-show="vm.isUserNameServerError()" ng-cloak>
-                {{ signUpUserCtrb.userName.error.server }}
-            </span>
-            <span ng-class="{ hide: true }">
-                @Html.ValidationMessageFor(x => x.UserName)
-            </span>
-        </div>
-    </div>
-
-    @* EMAIL INPUT *@
-    <div class="form-group form-group-lg @Html.BootstrapValidationCssClassFor(x => x.Token)"
-         remove-class="has-success has-error"
-         ng-class="signUpUserCtrb.token.feedbackCssClass()">
-
-        @* INPUT GROUP COLUMN *@
-        <div class="col-md-6">
-            @* SR LABEL *@
-            <label for="@Html.IdFor(x => x.Token)" class="control-label">
-                @EmailAddress.Constraints.ValueLabel
-            </label>
-            <small>(You can't change this now, but you can add &amp; remove emails after you sign in)</small>
-            <div class="@Html.CssClassWhenNotNullModel(inputGroupCss)"
-                 remove-class="@inputGroupCss"
-                 ng-class="signUpUserCtrb.token.inputGroupCssClass('lg')">
-                <input type="text"
-                       class="form-control @inputCss"
-                       id="@Html.IdFor(x => x.Token)"
-                       value="@ViewBag.EmailAddress"
-                       disabled readonly="readonly" />
-                <input type="hidden"
-                       name="emailAddress"
-                       value="@ViewBag.EmailAddress" />
-                <input type="hidden"
-                       name="token"
-                       value="@ViewBag.Token"
-                       ng-init="vm.token='@ViewBag.Token'"
-                       ng-model="vm.token"
-                       required
-                       model-contrib
-                       server-error="@Html.ValidationMessageTextFor(x => x.Token)"
-                       server-validate="@Url.Action(MVC.SignUp.ValidateCreateLocalMembership(null, "token"))" />
-
-                <span class="input-group-addon validation @Html.CssClassWhenNullModel("hide")"
-                      remove-class="hide"
-                      ng-class="vm.tokenInputGroupValidationAddOnCssClass()">
-                    <i class="fa fa-fw fa-asterisk default" title="This is a required field"></i>
-                    <i class="fa fa-fw fa-times error"></i>
-                    <i class="fa fa-fw fa-spinner fa-spin spin-fast spinner"></i>
-                    <i class="fa fa-fw fa-exclamation-triangle warning"></i>
-                    <i class="fa fa-fw fa-check success"></i>
-                </span>
-            </div>
-        </div>
-
-        @* VALIDATION MESSAGES COLUMNS *@
-        <div class="col-md-6 validation help-block help-block-horizontal-md under-label hidden-sm hidden-xs">
-            <span tooltip="@Resources.notempty_error.Replace("{PropertyName}", EmailVerification.Constraints.Label)"
-                  tooltip-toggle="vm.isTokenRequiredError()"
-                  tooltip-animation="false"
-                  tooltip-placement="right"
-                  class="validation-tooltip"></span>
-
-            <span tooltip="{{ signUpUserCtrb.token.error.server }}"
-                  tooltip-toggle="vm.isTokenServerError()"
-                  tooltip-animation="false"
-                  tooltip-placement="right"
-                  class="validation-tooltip"></span>
-
-            <span ng-class="{ hide: true }">@Html.ValidationMessageFor(x => x.Token)</span>
-        </div>
-        <div class="col-md-6 validation help-block hidden-md hidden-lg">
-            <span ng-show="vm.isTokenRequiredError()" ng-cloak>
-                @Resources.notempty_error.Replace("{PropertyName}", EmailVerification.Constraints.Label)
-            </span>
-            <span ng-show="vm.isTokenServerError()" ng-cloak>
-                {{ signUpUserCtrb.token.error.server }}
-            </span>
-            <span ng-class="{ hide: true }">
-                @Html.ValidationMessageFor(x => x.Token)
-            </span>
-        </div>
-    </div>
-
     @* FORM SUBMIT BUTTON *@
     <div class="form-group">
         <div class="col-md-12">
@@ -401,13 +262,22 @@
                    ng-show="vm.isSubmitError()"></i>
                 <i class="fa fa-fw fa-spinner fa-spin spin-fast"
                    ng-show="vm.isSubmitWaiting()" ng-cloak></i>
-                Register &amp; sign in
+                Reset password & sign in
             </button>
             <div class="has-error pull-left nudge-right @errorClass"
                  remove-class="@errorClass"
                  ng-show="vm.isSubmitError()">
                 <div class="help-block">
-                    Could not register &amp; sign in due to above error(s).
+                    <div ng-show="vm.isTokenRequiredError()" ng-cloak>
+                        @Resources.notempty_error.Replace("{PropertyName}", EmailVerification.Constraints.Label)
+                    </div>
+                    <div ng-show="vm.isTokenServerError()" ng-cloak>
+                        {{ signUpUserCtrb.token.error.server }}
+                    </div>
+                    <span ng-class="{ hide: true }">
+                        @Html.ValidationMessageFor(x => x.Token)
+                    </span>
+                    Could not reset password &amp; sign in due to above error(s).
                 </div>
             </div>
         </div>

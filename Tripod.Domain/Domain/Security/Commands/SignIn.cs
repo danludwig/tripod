@@ -9,7 +9,7 @@ namespace Tripod.Domain.Security
     /// </summary>
     public class SignIn : IDefineCommand
     {
-        public string UserName { get; set; }
+        public string UserNameOrVerifiedEmail { get; set; }
         public string Password { get; set; }
         public bool IsPersistent { get; set; }
         public User SignedIn { get; internal set; }
@@ -19,7 +19,7 @@ namespace Tripod.Domain.Security
     {
         public ValidateSignInCommand(IProcessQueries queries)
         {
-            RuleFor(x => x.UserName)
+            RuleFor(x => x.UserNameOrVerifiedEmail)
                 .NotEmpty()
                 .MustFindUserByNameOrEmail(queries)
                     .WithName(string.Format("{0} or {1}", User.Constraints.NameLabel, EmailAddress.Constraints.Label))
@@ -27,9 +27,9 @@ namespace Tripod.Domain.Security
             
             RuleFor(x => x.Password)
                 .NotEmpty()
-                .MustBeVerifiedPassword(queries, x => x.UserName)
+                .MustBeVerifiedPassword(queries, x => x.UserNameOrVerifiedEmail)
                     .WithName(LocalMembership.Constraints.PasswordLabel)
-                    .When(x => queries.Execute(new UserBy(x.UserName)).Result != null, ApplyConditionTo.CurrentValidator)
+                    .When(x => queries.Execute(new UserBy(x.UserNameOrVerifiedEmail)).Result != null, ApplyConditionTo.CurrentValidator)
             ;
         }
     }
@@ -50,7 +50,7 @@ namespace Tripod.Domain.Security
         public async Task Handle(SignIn command)
         {
             // match password with either a username or a verified email address
-            var user = await _queries.Execute(new UserByNameOrVerifiedEmail(command.UserName));
+            var user = await _queries.Execute(new UserByNameOrVerifiedEmail(command.UserNameOrVerifiedEmail));
             if (user == null) return;
 
             user = await _userManager.FindAsync(user.Name, command.Password);

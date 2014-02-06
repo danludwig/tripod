@@ -104,6 +104,7 @@
     <Compile Include="Api\_Extensions\ReflectionExtensions.cs" />
     <Compile Include="Api\_Extensions\StringExtensions.cs" />
     <Compile Include="Domain\Audit\ExceptionAudit.cs" />
+    <Compile Include="Domain\Security\Commands\ResetPassword.cs" />
     <Compile Include="Domain\Security\Commands\ChangeUserName.cs" />
     <Compile Include="Domain\Security\Commands\UpdateEmailAddress.cs" />
     <Compile Include="Domain\Security\Commands\DeleteEmailAddress.cs" />
@@ -138,6 +139,7 @@
     <Compile Include="Domain\Security\Queries\EmailAddressBy.cs" />
     <Compile Include="Domain\Security\Queries\EmailVerificationUserToken.cs" />
     <Compile Include="Domain\Security\Queries\EmailVerificationBy.cs" />
+    <Compile Include="Domain\Security\Queries\LocalMembershipByVerifiedEmail.cs" />
     <Compile Include="Domain\Security\Queries\RandomSecret.cs" />
     <Compile Include="Domain\Security\Queries\PrincipalRemoteMembershipTicket.cs" />
     <Compile Include="Domain\Security\Queries\IsPasswordVerified.cs" />

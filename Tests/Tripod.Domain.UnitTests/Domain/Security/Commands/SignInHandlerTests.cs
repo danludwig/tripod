@@ -13,39 +13,39 @@ namespace Tripod.Domain.Security
         [Fact]
         public void FindsUser_ByNameAndPassword()
         {
-            var command = new SignIn { UserName = "username", Password = "password" };
-            var user = new User { Name = command.UserName };
+            var command = new SignIn { UserNameOrVerifiedEmail = "username", Password = "password" };
+            var user = new User { Name = command.UserNameOrVerifiedEmail };
             var userResult = Task.FromResult(user);
             var userStore = new Mock<IUserStore<User, int>>();
             var queries = new Mock<IProcessQueries>(MockBehavior.Strict);
             var userManager = new Mock<UserManager<User, int>>(userStore.Object);
             var authenticator = new Mock<IAuthenticate>(MockBehavior.Strict);
             var handler = new HandleSignInCommand(queries.Object, userManager.Object, authenticator.Object);
-            Expression<Func<UserByNameOrVerifiedEmail, bool>> userByNameOrVerifiedEmail = x => x.NameOrEmail == command.UserName;
+            Expression<Func<UserByNameOrVerifiedEmail, bool>> userByNameOrVerifiedEmail = x => x.NameOrEmail == command.UserNameOrVerifiedEmail;
             queries.Setup(x => x.Execute(It.Is(userByNameOrVerifiedEmail))).Returns(userResult);
-            userManager.Setup(x => x.FindAsync(command.UserName, command.Password))
+            userManager.Setup(x => x.FindAsync(command.UserNameOrVerifiedEmail, command.Password))
                 .Returns(userResult);
             authenticator.Setup(x => x.SignOn(It.IsAny<User>(), It.IsAny<bool>())).Returns(Task.FromResult(0));
 
             handler.Handle(command).Wait();
 
-            userManager.Verify(x => x.FindAsync(command.UserName, command.Password), Times.Once);
+            userManager.Verify(x => x.FindAsync(command.UserNameOrVerifiedEmail, command.Password), Times.Once);
         }
 
         [Fact]
         public void AuthenticatesUser()
         {
-            var command = new SignIn { UserName = "username", Password = "password" };
-            var user = new User { Name = command.UserName };
+            var command = new SignIn { UserNameOrVerifiedEmail = "username", Password = "password" };
+            var user = new User { Name = command.UserNameOrVerifiedEmail };
             var userResult = Task.FromResult(user);
             var userStore = new Mock<IUserStore<User, int>>();
             var queries = new Mock<IProcessQueries>(MockBehavior.Strict);
             var userManager = new Mock<UserManager<User, int>>(userStore.Object);
             var authenticator = new Mock<IAuthenticate>(MockBehavior.Strict);
             var handler = new HandleSignInCommand(queries.Object, userManager.Object, authenticator.Object);
-            Expression<Func<UserByNameOrVerifiedEmail, bool>> userByNameOrVerifiedEmail = x => x.NameOrEmail == command.UserName;
+            Expression<Func<UserByNameOrVerifiedEmail, bool>> userByNameOrVerifiedEmail = x => x.NameOrEmail == command.UserNameOrVerifiedEmail;
             queries.Setup(x => x.Execute(It.Is(userByNameOrVerifiedEmail))).Returns(userResult);
-            userManager.Setup(x => x.FindAsync(command.UserName, command.Password)).Returns(userResult);
+            userManager.Setup(x => x.FindAsync(command.UserNameOrVerifiedEmail, command.Password)).Returns(userResult);
             authenticator.Setup(x => x.SignOn(user, command.IsPersistent)).Returns(Task.FromResult(0));
 
             handler.Handle(command).Wait();
@@ -56,17 +56,17 @@ namespace Tripod.Domain.Security
         [Theory, InlineData(true), InlineData(false)]
         public void AuthenticatesUser_UsingCommand_IsPersistent(bool isPersistent)
         {
-            var command = new SignIn { UserName = "username", Password = "password", IsPersistent = isPersistent };
-            var user = new User { Name = command.UserName };
+            var command = new SignIn { UserNameOrVerifiedEmail = "username", Password = "password", IsPersistent = isPersistent };
+            var user = new User { Name = command.UserNameOrVerifiedEmail };
             var userResult = Task.FromResult(user);
             var queries = new Mock<IProcessQueries>(MockBehavior.Strict);
             var userStore = new Mock<IUserStore<User, int>>();
             var userManager = new Mock<UserManager<User, int>>(userStore.Object);
             var authenticator = new Mock<IAuthenticate>(MockBehavior.Strict);
             var handler = new HandleSignInCommand(queries.Object, userManager.Object, authenticator.Object);
-            Expression<Func<UserByNameOrVerifiedEmail, bool>> userByNameOrVerifiedEmail = x => x.NameOrEmail == command.UserName;
+            Expression<Func<UserByNameOrVerifiedEmail, bool>> userByNameOrVerifiedEmail = x => x.NameOrEmail == command.UserNameOrVerifiedEmail;
             queries.Setup(x => x.Execute(It.Is(userByNameOrVerifiedEmail))).Returns(userResult);
-            userManager.Setup(x => x.FindAsync(command.UserName, command.Password)).Returns(userResult);
+            userManager.Setup(x => x.FindAsync(command.UserNameOrVerifiedEmail, command.Password)).Returns(userResult);
             authenticator.Setup(x => x.SignOn(user, isPersistent)).Returns(Task.FromResult(0));
 
             handler.Handle(command).Wait();
