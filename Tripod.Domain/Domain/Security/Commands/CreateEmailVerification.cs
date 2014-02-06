@@ -17,6 +17,9 @@ namespace Tripod.Domain.Security
         {
             RuleFor(x => x.EmailAddress)
                 .MustBeVerifiableEmailAddress(queries)
+                    .When(x => x.Purpose != EmailVerificationPurpose.ForgotPassword, ApplyConditionTo.CurrentValidator)
+                .MustFindUserByVerifiedEmail(queries)
+                    .When(x => x.Purpose == EmailVerificationPurpose.ForgotPassword, ApplyConditionTo.CurrentValidator)
                     .WithName(EmailAddress.Constraints.Label);
 
             RuleFor(x => x.Purpose)

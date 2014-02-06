@@ -1,0 +1,176 @@
+﻿@using Tripod.Domain.Security
+@model SendVerificationEmail
+
+@{
+    ViewBag.Title = "Sign in help";
+}
+
+<hr class="hr-md hr-space" />
+<div class="row">
+    <div class="col-sm-8 col-sm-offset-2">
+        <h2>
+            @ViewBag.Title &raquo;
+            <small>Forget your password?</small>
+        </h2>
+        <p>
+            Enter your email address below and we'll try to help you sign in.
+        </p>
+        <form role="form"
+              method="POST"
+              action="@Url.Action(MVC.SignIn.SendVerificationEmail())"
+              class="form-horizontal"
+              novalidate
+              name="signUpEmailForm"
+              ng-module="sign-up-form"
+              ng-controller="App.Security.SignUpEmailForm.Controller"
+              form-contrib="signUpEmailCtrb"
+              form-submitted="@IsPost">
+
+            @Html.AntiForgeryToken()
+            <input type="hidden" name="@Html.NameFor(x => x.VerifyUrlFormat)" value="@(Model != null ? Model.VerifyUrlFormat : ViewBag.VerifyUrlFormat)">
+            <input type="hidden" name="@Html.NameFor(x => x.SendFromUrl)" value="@(Model != null ? Model.SendFromUrl : ViewBag.SendFromUrl)">
+            <input type="hidden" name="returnUrl" value="@ViewBag.ReturnUrl" />
+
+            @Html.ValidationSummary(true)
+            @{
+                const string inputCss = "input-lg";
+                const string inputGroupCss = "input-group input-group-lg";
+            }
+
+            @* EMAIL ADDRESS INPUT *@
+            <div class="form-group form-group-lg @Html.BootstrapValidationCssClassFor(x => x.EmailAddress, true)"
+                 remove-class="has-success has-error"
+                 ng-class="signUpEmailCtrb.emailAddress.feedbackCssClass()">
+
+                @* INPUT GROUP COLUMN *@
+                <div class="col-md-8">
+                    @* SR LABEL *@
+                    <label for="@Html.IdFor(x => x.EmailAddress)" class="control-label sr-only">
+                        @EmailAddress.Constraints.Label
+                    </label>
+                    <div class="@Html.CssClassWhenIsPost(inputGroupCss)"
+                         remove-class="@inputGroupCss"
+                         ng-class="signUpEmailCtrb.emailAddress.inputGroupCssClass('lg')">
+                        <input type="email"
+                               class="form-control @inputCss"
+                               placeholder="@EmailAddress.Constraints.Label"
+                               id="@Html.IdFor(x => x.EmailAddress)"
+                               name="emailAddress"
+                               value="@Html.ValueFor(x => x.EmailAddress)"
+                               ng-init="vm.emailAddress='@Html.ValueForJavaScriptString(x => x.EmailAddress)'"
+                               ng-model="vm.emailAddress"
+                               required
+                               model-contrib
+                               server-error="@Html.ValidationMessageTextFor(x => x.EmailAddress)"
+                               server-validate="@Url.Action(MVC.SignUp.ValidateSendVerificationEmail(null, "emailAddress"))"
+                               server-validate-throttle="400" />
+
+                        <span class="input-group-addon validation @Html.CssClassWhenIsNotPost("hide")"
+                              remove-class="hide"
+                              ng-class="vm.emailAddressInputGroupValidationAddOnCssClass()">
+                            <i class="fa fa-fw fa-asterisk default" title="This is a required field"></i>
+                            <i class="fa fa-fw fa-times error"></i>
+                            <i class="fa fa-fw fa-spinner fa-spin spin-fast spinner"></i>
+                            <i class="fa fa-fw fa-exclamation-triangle warning"></i>
+                            <i class="fa fa-fw fa-check success"></i>
+                        </span>
+                    </div>
+                </div>
+
+                @* VALIDATION MESSAGES COLUMNS *@
+                <div class="col-md-4 validation help-block help-block-horizontal-md hidden-sm hidden-xs">
+                    <span tooltip="@Resources.notempty_error.Replace("{PropertyName}", EmailAddress.Constraints.Label)"
+                          tooltip-toggle="vm.isEmailAddressRequiredError()"
+                          tooltip-animation="false"
+                          tooltip-placement="right"
+                          class="validation-tooltip"></span>
+
+                    <span tooltip="@Resources.email_error.Replace("{PropertyValue}", "{{ signUpEmailForm.emailAddress.$viewValue }}")"
+                          tooltip-toggle="vm.isEmailAddressPatternError()"
+                          tooltip-animation="false"
+                          tooltip-placement="right"
+                          class="validation-tooltip"></span>
+
+                    <span tooltip="{{ signUpEmailCtrb.emailAddress.error.server }}"
+                          tooltip-toggle="vm.isEmailAddressServerError()"
+                          tooltip-animation="false"
+                          tooltip-placement="right"
+                          class="validation-tooltip"></span>
+
+                    <span ng-class="{ hide: true }">@Html.ValidationMessageFor(x => x.EmailAddress)</span>
+                </div>
+                <div class="col-md-4 validation help-block hidden-md hidden-lg">
+                    <span ng-show="vm.isEmailAddressRequiredError()" ng-cloak>
+                        @Resources.notempty_error.Replace("{PropertyName}", EmailAddress.Constraints.Label)
+                    </span>
+                    <span ng-show="vm.isEmailAddressServerError()" ng-cloak>
+                        {{ signUpEmailCtrb.emailAddress.error.server }}
+                    </span>
+                    <span ng-class="{ hide: true }">
+                        @Html.ValidationMessageFor(x => x.EmailAddress)
+                    </span>
+                </div>
+            </div>
+
+            @* DISCLAIMER CHECKBOX INPUT *@
+            <input type="hidden" name="isExpectingEmail" value="true" />
+
+            @* FORM SUBMIT BUTTON *@
+            <div class="form-group">
+                <div class="col-md-12">
+                    @{
+                        var buttonClass = ViewData.ModelState.IsValid ? null : "btn-danger";
+                        var readyClass = ViewData.ModelState.IsValid ? null : "hide";
+                        var errorClass = ViewData.ModelState.IsValid ? "hide" : null;
+                    }
+                    <button type="submit" class="pull-left btn btn-primary btn-lg @buttonClass"
+                            ng-class="vm.submitCssClass()"
+                            ng-disabled="vm.isSubmitDisabled()"
+                            remove-class="@buttonClass">
+                        <i class="fa fa-fw fa-envelope @readyClass"
+                           remove-class="@readyClass"
+                           ng-show="vm.isSubmitReady()"></i>
+                        <i class="fa fa-fw fa-exclamation-triangle @errorClass"
+                           remove-class="@errorClass"
+                           ng-show="vm.isSubmitError()"></i>
+                        <i class="fa fa-fw fa-spinner fa-spin spin-fast"
+                           ng-show="vm.isSubmitWaiting()" ng-cloak></i>
+                        Send verification email
+                    </button>
+                    <input type="hidden"
+                           name="@Html.NameFor(x => x.Purpose)"
+                           value="@(Model != null ? Model.Purpose : ViewBag.Purpose)"
+                           ng-init="vm.purpose=@(Model != null ? Model.Purpose : ViewBag.Purpose)"
+                           ng-model="vm.purpose"
+                           model-contrib
+                           server-error="@Html.ValidationMessageTextFor(x => x.Purpose)" />
+                    <div class="has-error pull-left nudge-right @errorClass"
+                         remove-class="@errorClass"
+                         ng-show="vm.isSubmitError()">
+                        <div class="help-block">
+                            @if (!Html.ViewData.ModelState.IsValidField(Html.NameFor(x => x.Purpose).ToString()))
+                            {
+                                <div>
+                                    @Html.ValidationMessageFor(x => x.Purpose)
+                                </div>
+                            }
+                            @if (!Html.ViewData.ModelState.IsValidField(Html.NameFor(x => x.VerifyUrlFormat).ToString()))
+                            {
+                                <div>
+                                    @Html.ValidationMessageFor(x => x.VerifyUrlFormat)
+                                </div>
+                            }
+                            @if (!Html.ViewData.ModelState.IsValidField(Html.NameFor(x => x.SendFromUrl).ToString()))
+                            {
+                                <div>
+                                    @Html.ValidationMessageFor(x => x.SendFromUrl)
+                                </div>
+                            }
+                            Could not send verification email due to above error(s).
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

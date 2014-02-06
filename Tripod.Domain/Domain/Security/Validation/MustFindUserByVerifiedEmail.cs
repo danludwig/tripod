@@ -4,11 +4,11 @@ using FluentValidation.Validators;
 
 namespace Tripod.Domain.Security
 {
-    public class MustFindUserByNameOrEmail : PropertyValidator
+    public class MustFindUserByVerifiedEmail : PropertyValidator
     {
         private readonly IProcessQueries _queries;
 
-        internal MustFindUserByNameOrEmail(IProcessQueries queries)
+        internal MustFindUserByVerifiedEmail(IProcessQueries queries)
             : base(() => Resources.Validation_CouldNotFind)
         {
             if (queries == null) throw new ArgumentNullException("queries");
@@ -17,13 +17,10 @@ namespace Tripod.Domain.Security
 
         protected override bool IsValid(PropertyValidatorContext context)
         {
-            var nameOrEmail = (string)context.PropertyValue;
-            if (string.IsNullOrWhiteSpace(nameOrEmail)) return false;
+            var email = (string)context.PropertyValue;
+            if (string.IsNullOrWhiteSpace(email)) return false;
 
-            var userByName = _queries.Execute(new UserBy(nameOrEmail)).Result;
-            if (userByName != null) return true;
-
-            var emailByValue = _queries.Execute(new EmailAddressBy(nameOrEmail)
+            var emailByValue = _queries.Execute(new EmailAddressBy(email)
             {
                 IsVerified = true,
             }).Result;
@@ -34,12 +31,12 @@ namespace Tripod.Domain.Security
         }
     }
 
-    public static class MustFindUserByNameOrEmailExtensions
+    public static class MustFindUserByVerifiedEmailExtensions
     {
-        public static IRuleBuilderOptions<T, string> MustFindUserByNameOrEmail<T>
+        public static IRuleBuilderOptions<T, string> MustFindUserByVerifiedEmail<T>
             (this IRuleBuilder<T, string> ruleBuilder, IProcessQueries queries)
         {
-            return ruleBuilder.SetValidator(new MustFindUserByNameOrEmail(queries));
+            return ruleBuilder.SetValidator(new MustFindUserByVerifiedEmail(queries));
         }
     }
 }

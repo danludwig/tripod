@@ -4,7 +4,7 @@ namespace Tripod
 {
     public interface IProcessValidation
     {
-        ValidationResult Validate(IDefineCommand data);
-        ValidationResult Validate<TResult>(IDefineQuery<TResult> data);
+        ValidationResult Validate(IDefineCommand command);
+        ValidationResult Validate<TResult>(IDefineQuery<TResult> query);
     }
 }

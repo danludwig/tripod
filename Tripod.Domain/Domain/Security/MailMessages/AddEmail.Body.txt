@@ -10,4 +10,4 @@ If you have closed your browser, click the link below or copy and paste the URL 
 
 The code and URL above will expire in 30 minutes. If you to not verify by then, you must return to {SendFromUrl} to generate a new verification email.
 
-If you did NOT request access to localhost.com using the above email address, please reply to this email to tell us.
+If you did NOT go to localhost.com and try to register this email address, please reply to this email to tell us.

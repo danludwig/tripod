@@ -49,7 +49,7 @@ namespace Tripod.Domain.Security
             result.Errors.Count(targetError).ShouldEqual(1);
             result.Errors.Single(targetError).ErrorMessage
                 .ShouldEqual(Resources.Validation_CouldNotFind
-                    .Replace("{PropertyName}", string.Format("{0} or {1}", User.Constraints.NameLabel, EmailAddress.Constraints.Label))
+                    .Replace("{PropertyName}", string.Format("{0} or {1}", User.Constraints.NameLabel, EmailAddress.Constraints.Label).ToLower())
                     .Replace("{PropertyValue}", command.UserName));
             queries.Verify(x => x.Execute(It.Is(userByName)), Times.Once);
             queries.Verify(x => x.Execute(It.Is(emailByValue)), Times.Once);

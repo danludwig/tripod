@@ -53,6 +53,12 @@ namespace Tripod.Web.Controllers
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Validate);
         }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult SendVerificationEmail()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SendVerificationEmail);
+        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public SignInController Actions { get { return MVC.SignIn; } }
@@ -71,6 +77,7 @@ namespace Tripod.Web.Controllers
         {
             public readonly string Index = "Index";
             public readonly string Validate = "Validate";
+            public readonly string SendVerificationEmail = "SendVerificationEmail";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -78,6 +85,7 @@ namespace Tripod.Web.Controllers
         {
             public const string Index = "Index";
             public const string Validate = "Validate";
+            public const string SendVerificationEmail = "SendVerificationEmail";
         }
 
 
@@ -98,6 +106,15 @@ namespace Tripod.Web.Controllers
         {
             public readonly string command = "command";
             public readonly string fieldName = "fieldName";
+        }
+        static readonly ActionParamsClass_SendVerificationEmail s_params_SendVerificationEmail = new ActionParamsClass_SendVerificationEmail();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_SendVerificationEmail SendVerificationEmailParams { get { return s_params_SendVerificationEmail; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_SendVerificationEmail
+        {
+            public readonly string returnUrl = "returnUrl";
+            public readonly string command = "command";
         }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -148,6 +165,27 @@ namespace Tripod.Web.Controllers
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "fieldName", fieldName);
             ValidateOverride(callInfo, command, fieldName);
             return callInfo;
+        }
+
+        partial void SendVerificationEmailOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string returnUrl);
+
+        public override System.Web.Mvc.ActionResult SendVerificationEmail(string returnUrl)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SendVerificationEmail);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "returnUrl", returnUrl);
+            SendVerificationEmailOverride(callInfo, returnUrl);
+            return callInfo;
+        }
+
+        partial void SendVerificationEmailOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Tripod.Domain.Security.SendVerificationEmail command, string returnUrl);
+
+        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> SendVerificationEmail(Tripod.Domain.Security.SendVerificationEmail command, string returnUrl)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SendVerificationEmail);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "command", command);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "returnUrl", returnUrl);
+            SendVerificationEmailOverride(callInfo, command, returnUrl);
+            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
         }
 
     }
