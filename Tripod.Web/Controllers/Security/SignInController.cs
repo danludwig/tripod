@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -19,6 +21,8 @@ namespace Tripod.Web.Controllers
             _queries = queries;
             _commands = commands;
         }
+
+        #region Index
 
         [HttpGet, Route("sign-in")]
         public virtual ActionResult Index(string returnUrl)
@@ -59,6 +63,9 @@ namespace Tripod.Web.Controllers
             return new CamelCaseJsonResult(result);
         }
 
+        #endregion
+        #region SendVerificationEmail
+
         [HttpGet, Route("sign-in/password")]
         public virtual ActionResult SendVerificationEmail(string returnUrl)
         {
@@ -81,7 +88,6 @@ namespace Tripod.Web.Controllers
             if (!ModelState.IsValid)
             {
                 ViewBag.ReturnUrl = returnUrl;
-                ViewBag.ActionUrl = Url.Action(MVC.SignUp.SendVerificationEmail());
                 return View(MVC.Security.Views.SignInSendVerificationEmail, command);
             }
 
@@ -91,7 +97,7 @@ namespace Tripod.Web.Controllers
 
             Session.VerifyEmailTickets(command.CreatedTicket);
 
-            return RedirectToAction(await MVC.SignUp.VerifyEmailSecret(command.CreatedTicket, returnUrl));
+            return RedirectToAction(await MVC.SignIn.VerifyEmailSecret(command.CreatedTicket, returnUrl));
         }
 
         private string VerifyUrlFormat(string returnUrl)
@@ -107,8 +113,60 @@ namespace Tripod.Web.Controllers
         private string SendFromUrl(string returnUrl)
         {
             Debug.Assert(Request.Url != null);
-            var url = Url.Action(MVC.SignUp.SendVerificationEmail(returnUrl));
+            var url = Url.Action(MVC.SignIn.SendVerificationEmail(returnUrl));
             return string.Format("{0}://{1}{2}", Request.Url.Scheme, Request.Url.Authority, url);
         }
+
+        #endregion
+        #region VerifyConfirmEmailSecret
+
+        [HttpGet, Route("sign-in/password/{ticket}", Order = 2)]
+        public virtual async Task<ActionResult> VerifyEmailSecret(string ticket, string returnUrl)
+        {
+            var confirmation = await _queries.Execute(new EmailVerificationBy(ticket)
+            {
+                EagerLoad = new Expression<Func<EmailVerification, object>>[]
+                {
+                    x => x.Owner,
+                }
+            });
+            if (confirmation == null) return HttpNotFound();
+
+            // todo: confirmation token must not be redeemed, expired, or for different purpose
+
+            ViewBag.ReturnUrl = returnUrl;
+            ViewBag.ActionUrl = Url.Action(MVC.SignIn.VerifyEmailSecret(ticket, null));
+            ViewBag.Ticket = ticket;
+            ViewBag.Purpose = EmailVerificationPurpose.ForgotPassword;
+            if (Session.VerifyEmailTickets().Contains(ticket))
+                ViewBag.EmailAddress = confirmation.Owner.Value;
+            return View(MVC.Security.Views.SignInVerifyEmailSecret);
+        }
+
+        [ValidateAntiForgeryToken]
+        [HttpPost, Route("sign-in/password/{ticket}", Order = 2)]
+        public virtual async Task<ActionResult> VerifyEmailSecret(string ticket, VerifyEmailSecret command, string returnUrl, string emailAddress)
+        {
+            //System.Threading.Thread.Sleep(new Random().Next(5000, 5001));
+
+            if (command == null) return View(MVC.Errors.Views.BadRequest);
+
+            if (!ModelState.IsValid)
+            {
+                ViewBag.ReturnUrl = returnUrl;
+                ViewBag.ActionUrl = Url.Action(MVC.SignIn.VerifyEmailSecret(ticket, null));
+                ViewBag.Ticket = ticket;
+                ViewBag.Purpose = EmailVerificationPurpose.ForgotPassword;
+                if (Session.VerifyEmailTickets().Contains(ticket))
+                    ViewBag.EmailAddress = emailAddress;
+                return View(MVC.Security.Views.SignInVerifyEmailSecret, command);
+            }
+
+            await _commands.Execute(command);
+
+            return RedirectToAction(await MVC.SignUp.CreateLocalMembership(command.Token, returnUrl));
+        }
+
+        #endregion
     }
 }

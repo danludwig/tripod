@@ -44,6 +44,7 @@ namespace T4MVC
                 public readonly string AddEmailVerifyEmailSecret = "AddEmailVerifyEmailSecret";
                 public readonly string SignIn = "SignIn";
                 public readonly string SignInSendVerificationEmail = "SignInSendVerificationEmail";
+                public readonly string SignInVerifyEmailSecret = "SignInVerifyEmailSecret";
                 public readonly string SignOnCreateRemoteMembership = "SignOnCreateRemoteMembership";
                 public readonly string SignOnSendVerificationEmail = "SignOnSendVerificationEmail";
                 public readonly string SignOnVerifyEmailSecret = "SignOnVerifyEmailSecret";
@@ -62,6 +63,7 @@ namespace T4MVC
             public readonly string AddEmailVerifyEmailSecret = "~/Views/Security/AddEmailVerifyEmailSecret.cshtml";
             public readonly string SignIn = "~/Views/Security/SignIn.cshtml";
             public readonly string SignInSendVerificationEmail = "~/Views/Security/SignInSendVerificationEmail.cshtml";
+            public readonly string SignInVerifyEmailSecret = "~/Views/Security/SignInVerifyEmailSecret.cshtml";
             public readonly string SignOnCreateRemoteMembership = "~/Views/Security/SignOnCreateRemoteMembership.cshtml";
             public readonly string SignOnSendVerificationEmail = "~/Views/Security/SignOnSendVerificationEmail.cshtml";
             public readonly string SignOnVerifyEmailSecret = "~/Views/Security/SignOnVerifyEmailSecret.cshtml";
