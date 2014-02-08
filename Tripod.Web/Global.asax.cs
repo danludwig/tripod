@@ -11,7 +11,7 @@ namespace Tripod.Web
     {
         protected void Application_Start()
         {
-            IocConfig.Configure();
+            ServicesConfig.Configure();
             ModelConfig.Configure();
             //AreaRegistration.RegisterAllAreas(); // faster startup because not using areas
             GlobalConfiguration.Configure(WebApiConfig.Register);

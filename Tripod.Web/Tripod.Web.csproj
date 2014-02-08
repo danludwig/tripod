@@ -229,7 +229,7 @@
     <Compile Include="ApiControllers\StartupController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
-    <Compile Include="App_Start\IocConfig.cs" />
+    <Compile Include="App_Start\ServicesConfig.cs" />
     <Compile Include="App_Start\ModelConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
@@ -803,9 +803,9 @@
       <Project>{e1ba1d96-1242-4196-85c1-0034447a4106}</Project>
       <Name>Tripod.Domain</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Tripod.Ioc\Tripod.Ioc.csproj">
+    <ProjectReference Include="..\Tripod.Services\Tripod.Services.csproj">
       <Project>{df8036d8-f370-49fd-9c85-14d95ad68139}</Project>
-      <Name>Tripod.Ioc</Name>
+      <Name>Tripod.Services</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
