@@ -715,6 +715,12 @@
     <Content Include="scripts\jquery.validate.min.js" />
     <Content Include="scripts\jquery.validate.unobtrusive.js" />
     <Content Include="scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="scripts\knockout-3.0.0.debug.js" />
+    <Content Include="scripts\knockout-3.0.0.js" />
+    <Content Include="scripts\knockout.mapping-latest.debug.js" />
+    <Content Include="scripts\knockout.mapping-latest.js" />
+    <Content Include="scripts\knockout.validation.debug.js" />
+    <Content Include="scripts\knockout.validation.js" />
     <Content Include="scripts\marked.js" />
     <Content Include="scripts\modernizr-2.6.2.js" />
     <Content Include="scripts\respond.js" />
@@ -852,6 +858,9 @@
     <TypeScriptCompile Include="scripts\typings\bootbox\bootbox.d.ts" />
     <TypeScriptCompile Include="scripts\typings\bootstrap\bootstrap.d.ts" />
     <TypeScriptCompile Include="scripts\typings\jquery\jquery.d.ts" />
+    <TypeScriptCompile Include="scripts\typings\knockout.mapping\knockout.mapping.d.ts" />
+    <TypeScriptCompile Include="scripts\typings\knockout.validation\knockout.validation.d.ts" />
+    <TypeScriptCompile Include="scripts\typings\knockout\knockout.d.ts" />
     <TypeScriptCompile Include="scripts\typings\marked\marked.d.ts" />
   </ItemGroup>
   <PropertyGroup>
