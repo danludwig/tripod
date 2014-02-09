@@ -79,6 +79,8 @@ var App;
             ValidationState.prototype.hasAsyncResult = function (value, callback) {
                 var field = this.asyncResult(value);
                 if (field) {
+                    this.asyncXhr.abort('stale');
+                    this.spinner.stop();
                     this.setAsyncValidity(field, callback);
                     return true;
                 }
@@ -97,7 +99,8 @@ var App;
                 }, 0);
             };
 
-            ValidationState.prototype.doAsync = function (settings, element, fieldName, value, callback) {
+            ValidationState.prototype.doAsync = function (settings, element, fieldName, value, callback, cache) {
+                if (typeof cache === "undefined") { cache = true; }
                 var _this = this;
                 if (this.asyncXhr)
                     this.asyncXhr.abort('stale');
@@ -110,7 +113,8 @@ var App;
                 this.asyncXhr = $.ajax(settings);
                 this.asyncXhr.done(function (response) {
                     var field = response[fieldName];
-                    _this.asyncResults(value, field);
+                    if (cache)
+                        _this.asyncResults(value, field);
                     _this.setAsyncValidity(field, callback);
                     _this.spinner.stop();
                 });

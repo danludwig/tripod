@@ -24,6 +24,7 @@ var App;
                 };
 
                 ViewModel.prototype.initValidation = function () {
+                    var _this = this;
                     this.passwordValidation.observe(this.password);
                     this.confirmPasswordValidation.observe(this.confirmPassword);
 
@@ -46,6 +47,10 @@ var App;
 
                     if (this.settings.isPostBack)
                         this.errors.showAllMessages();
+
+                    this.password.subscribe(function () {
+                        _this.confirmPassword.isValid.valueHasMutated();
+                    });
                 };
 
                 ViewModel.prototype._validatePassword = function () {
@@ -86,7 +91,7 @@ var App;
                                     confirmPassword: value
                                 }
                             };
-                            _this.confirmPasswordValidation.doAsync(asyncSettings, _this.settings.element, 'confirmPassword', value, callback);
+                            _this.confirmPasswordValidation.doAsync(asyncSettings, _this.settings.element, 'confirmPassword', value, callback, false);
                         },
                         message: 'Invalid.'
                     };

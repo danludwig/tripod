@@ -61,8 +61,11 @@ module App.Security.CreatePasswordForm {
             });
             ko.validation.group(this);
 
-
             if (this.settings.isPostBack) this.errors.showAllMessages();
+
+            this.password.subscribe((): void => {
+                this.confirmPassword.isValid.valueHasMutated();
+            });
         }
 
         private _validatePassword(): KnockoutValidationAsyncRuleDefinition {
@@ -101,7 +104,7 @@ module App.Security.CreatePasswordForm {
                             confirmPassword: value,
                         },
                     };
-                    this.confirmPasswordValidation.doAsync(asyncSettings, this.settings.element, 'confirmPassword', value, callback);
+                    this.confirmPasswordValidation.doAsync(asyncSettings, this.settings.element, 'confirmPassword', value, callback, false);
                 },
                 message: 'Invalid.',
             };

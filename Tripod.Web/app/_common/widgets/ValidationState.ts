@@ -55,7 +55,6 @@ module App.Widgets {
             return this.hasError() || this.hasSuccess() || this.spinner.isVisible() ? css : '';
         }
 
-        asyncXhr: JQueryXHR;
         private _asyncResults: any[] = [];
 
         asyncResults(value: any, validation: ValidatedField): void {
@@ -75,6 +74,8 @@ module App.Widgets {
         hasAsyncResult(value: any, callback: KnockoutValidationAsyncCallback): boolean {
             var field = this.asyncResult(value);
             if (field) {
+                this.asyncXhr.abort('stale');
+                this.spinner.stop();
                 this.setAsyncValidity(field, callback);
                 return true;
             }
@@ -91,7 +92,9 @@ module App.Widgets {
             }, 0);
         }
 
-        doAsync(settings: JQueryAjaxSettings, element: Element, fieldName: string, value: any, callback: KnockoutValidationAsyncCallback): void {
+        asyncXhr: JQueryXHR;
+
+        doAsync(settings: JQueryAjaxSettings, element: Element, fieldName: string, value: any, callback: KnockoutValidationAsyncCallback, cache: boolean = true): void {
             if (this.asyncXhr) this.asyncXhr.abort('stale');
             if (this._field().isModified()) this.spinner.start();
             if (element && settings.data) {
@@ -101,7 +104,7 @@ module App.Widgets {
             this.asyncXhr = $.ajax(settings);
             this.asyncXhr.done((response: any): void => {
                 var field: ValidatedField = response[fieldName];
-                this.asyncResults(value, field);
+                if (cache) this.asyncResults(value, field);
                 this.setAsyncValidity(field, callback);
                 this.spinner.stop();
             });
