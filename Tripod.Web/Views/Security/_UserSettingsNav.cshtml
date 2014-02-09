@@ -1,0 +1,37 @@
+﻿@model UserSettingsNavModel
+
+<nav class="user col-md-4 hidden-xs hidden-sm">
+    <ul class="nav nav-pills nav-stacked" role="navigation">
+        <li class="nav-header">
+            <a href="@Url.Action(MVC.Users.ById(User.Identity.GetAppUserId()))">
+                @Html.Gravatar(32)
+                <strong>@User.Identity.Name</strong>
+            </a>
+        </li>
+        <li class="@(Model.IsGeneralSettings ? "active" : null)">
+            <a href="@Url.Action(MVC.UserSettings.Index())">
+                <i class="fa fa-user"></i>
+                General settings
+            </a>
+        </li>
+        <li class="@(Model.IsEmailAddresses ? "active" : null)">
+            <a href="@Url.Action(MVC.UserEmails.Index())">
+                <i class="fa fa-envelope"></i>
+                Email addresses
+            </a>
+        </li>
+        <li class="@(Model.IsLogins ? "active" : null)">
+            <a href="#">
+                <i class="fa fa-sign-in"></i>
+                Logins
+            </a>
+        </li>
+        <li class="@(Model.IsPassword ? "active" : null)">
+            <a href="@Url.Action(MVC.UserPassword.Index())">
+                <i class="fa fa-key"></i>
+                Password
+            </a>
+        </li>
+    </ul>
+    <hr class="hr-md hr-space" />
+</nav>

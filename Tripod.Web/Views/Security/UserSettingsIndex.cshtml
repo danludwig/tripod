@@ -3,7 +3,7 @@
 @model ChangeUserNameModel
 
 @{
-    ViewBag.Title = "User";
+    ViewBag.Title = "General settings";
 }
 
 @section styles
@@ -14,58 +14,23 @@
 
 @{ Html.RenderPartial(MVC.Users.Views._UserJumbotron, Model.UserView); }
 
-@if (Model.UserView.UserId == User.Identity.GetAppUserId())
-{
-    <section class="user-settings row">
-        <nav class="user col-md-4 hidden-xs hidden-sm">
-            <ul class="nav nav-pills nav-stacked" role="navigation">
-                <li class="nav-header">
-                    <a href="@Url.Action(MVC.Users.ById(User.Identity.GetAppUserId()))">
-                        @Html.Gravatar(32)
-                        <strong>@User.Identity.Name</strong>
-                    </a>
-                </li>
-                <li class="active">
-                    <a href="@Url.Action(MVC.UserSettings.Index())">
-                        <i class="fa fa-user"></i>
-                        General settings
-                    </a>
-                </li>
-                <li>
-                    <a href="@Url.Action(MVC.UserEmails.Index())">
-                        <i class="fa fa-envelope"></i>
-                        Email addresses
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <i class="fa fa-sign-in"></i>
-                        Logins
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <i class="fa fa-key"></i>
-                        Password
-                    </a>
-                </li>
-            </ul>
-            <hr class="hr-md hr-space" />
-        </nav>
-        <div class="col-md-8" role="main">
+<section class="user-settings row">
 
-            <h3 class="scalp">
-                My @UserConstraints.NameLabel.ToLower()
-            </h3>
+    @{ Html.RenderPartial(MVC.Security.Views._UserSettingsNav, new UserSettingsNavModel { IsGeneralSettings = true }); }
 
-            <p>
-                If you would like to change your @UserConstraints.NameLabel.ToLower(), you can use the text box below to do so.
-            </p>
+    <div class="col-md-8" role="main">
 
-            @{ Html.RenderPartial(MVC.Security.Views._ChangeUserNameForm, Model.Command); }
-        </div>
-    </section>
-}
+        <h3 class="scalp">
+            My @UserConstraints.NameLabel.ToLower()
+        </h3>
+
+        <p>
+            If you would like to change your @UserConstraints.NameLabel.ToLower(), you can use the text box below to do so.
+        </p>
+
+        @{ Html.RenderPartial(MVC.Security.Views._ChangeUserNameForm, Model.Command); }
+    </div>
+</section>
 
 @section scripts
 {

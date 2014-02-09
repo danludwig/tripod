@@ -35,6 +35,7 @@ public static class MVC
     public static Tripod.Web.Controllers.SignOutController SignOut = new Tripod.Web.Controllers.T4MVC_SignOutController();
     public static Tripod.Web.Controllers.SignUpController SignUp = new Tripod.Web.Controllers.T4MVC_SignUpController();
     public static Tripod.Web.Controllers.UserEmailsController UserEmails = new Tripod.Web.Controllers.T4MVC_UserEmailsController();
+    public static Tripod.Web.Controllers.UserPasswordController UserPassword = new Tripod.Web.Controllers.T4MVC_UserPasswordController();
     public static Tripod.Web.Controllers.UserSettingsController UserSettings = new Tripod.Web.Controllers.T4MVC_UserSettingsController();
     public static Tripod.Web.Controllers.UsersController Users = new Tripod.Web.Controllers.T4MVC_UsersController();
     public static T4MVC.ScriptsController Scripts = new T4MVC.ScriptsController();

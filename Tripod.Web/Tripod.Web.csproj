@@ -248,6 +248,7 @@
     <Compile Include="Controllers\Security\SignUpController.cs" />
     <Compile Include="Controllers\Security\SignInController.cs" />
     <Compile Include="Controllers\Security\UserEmailsController.cs" />
+    <Compile Include="Controllers\Security\UserPasswordController.cs" />
     <Compile Include="Controllers\Security\UserSettingsController.cs" />
     <Compile Include="Controllers\Users\UsersController.cs" />
     <Compile Include="ErrorsController.generated.cs">
@@ -257,6 +258,8 @@
       <DependentUpon>Global.asax</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Models\Security\CreateLocalMembershipModel.cs" />
+    <Compile Include="Models\Security\UserSettingsNavModel.cs" />
     <Compile Include="Models\_Common\AlertFlavor.cs" />
     <Compile Include="Models\_Common\AlertModel.cs" />
     <Compile Include="Helpers\ChallengeResult.cs" />
@@ -316,6 +319,9 @@
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="UserEmailsController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UserPasswordController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="UsersController.generated.cs">
@@ -787,6 +793,9 @@
     <Content Include="Views\Security\SignInSendVerificationEmail.cshtml" />
     <Content Include="Views\Security\SignInVerifyEmailSecret.cshtml" />
     <Content Include="Views\Security\SignInRedeemEmailVerification.cshtml" />
+    <Content Include="Views\Security\CreatePassword.cshtml" />
+    <Content Include="Views\Security\_UserSettingsNav.cshtml" />
+    <Content Include="Views\Security\_CreatePasswordForm.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
