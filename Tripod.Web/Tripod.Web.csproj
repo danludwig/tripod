@@ -338,6 +338,9 @@
     <Content Include="app\security\ChangeUserNameForm.js">
       <DependentUpon>ChangeUserNameForm.ts</DependentUpon>
     </Content>
+    <Content Include="app\security\CreatePasswordForm.js">
+      <DependentUpon>CreatePasswordForm.ts</DependentUpon>
+    </Content>
     <Content Include="app\security\SignInForm.js">
       <DependentUpon>SignInForm.ts</DependentUpon>
     </Content>
@@ -382,6 +385,9 @@
     </Content>
     <Content Include="app\_common\unobtrusive\bootbox-confirm.js">
       <DependentUpon>bootbox-confirm.ts</DependentUpon>
+    </Content>
+    <Content Include="app\_common\widgets\ValidationState.js">
+      <DependentUpon>ValidationState.ts</DependentUpon>
     </Content>
     <Content Include="App_Data\.gitignore" />
     <Content Include="App_Data\mail\pickup\.gitignore" />
@@ -828,6 +834,7 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="app\errors\Haikus.ts" />
+    <TypeScriptCompile Include="app\security\CreatePasswordForm.ts" />
     <TypeScriptCompile Include="app\security\ChangeUserNameForm.ts" />
     <TypeScriptCompile Include="app\security\SignOnUserForm.ts" />
     <TypeScriptCompile Include="app\security\SignUpUserForm.ts" />
@@ -847,6 +854,7 @@
     <TypeScriptCompile Include="app\_common\directives\ServerValidate.ts" />
     <TypeScriptCompile Include="app\_common\modules\Tripod.ts" />
     <TypeScriptCompile Include="app\_common\unobtrusive\bootbox-confirm.ts" />
+    <TypeScriptCompile Include="app\_common\widgets\ValidationState.ts" />
     <TypeScriptCompile Include="scripts\typings\angular-ui-bootstrap\angular-ui-bootstrap.d.ts" />
     <TypeScriptCompile Include="scripts\typings\angularjs\angular-cookies.d.ts" />
     <TypeScriptCompile Include="scripts\typings\angularjs\angular-mocks.d.ts" />

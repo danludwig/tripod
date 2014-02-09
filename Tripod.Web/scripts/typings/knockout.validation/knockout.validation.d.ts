@@ -141,6 +141,7 @@ interface KnockoutStatic {
 interface KnockoutSubscribableFunctions {
     isValid: KnockoutComputed<boolean>;
     isValidating: KnockoutObservable<boolean>;
+    isModified: KnockoutObservable<boolean>;
     rules: KnockoutObservableArray<KnockoutValidationRule>;
 }
 
