@@ -25,17 +25,34 @@ var App;
 
                 ViewModel.prototype.initValidation = function () {
                     var _this = this;
-                    this.passwordValidation.observe(this.password);
-                    this.confirmPasswordValidation.observe(this.confirmPassword);
-
                     ko.validation.rules['passwordServer'] = this._validatePassword();
                     ko.validation.rules['confirmPasswordServer'] = this._validateConfirmPassword();
                     ko.validation.registerExtenders();
 
                     this.password.extend({
+                        required: {
+                            params: true,
+                            message: this.settings.passwordRequiredMessage
+                        },
+                        minLengthCustom: {
+                            params: this.settings.passwordMinLength,
+                            messageTemplate: this.settings.passwordMinLengthMessage
+                        },
+                        maxLengthCustom: {
+                            params: this.settings.passwordMaxLength,
+                            messageTemplate: this.settings.passwordMaxLengthMessage
+                        },
                         passwordServer: this
                     });
                     this.confirmPassword.extend({
+                        required: {
+                            params: true,
+                            message: this.settings.confirmPasswordRequiredMessage
+                        },
+                        equalTo: {
+                            params: this.password,
+                            message: this.settings.confirmPasswordEqualsMessage
+                        },
                         confirmPasswordServer: this
                     });
 
@@ -49,8 +66,11 @@ var App;
                         this.errors.showAllMessages();
 
                     this.password.subscribe(function () {
-                        _this.confirmPassword.isValid.valueHasMutated();
+                        _this.confirmPassword.isValid.notifySubscribers(false);
                     });
+
+                    this.passwordValidation.observe(this.password);
+                    this.confirmPasswordValidation.observe(this.confirmPassword);
                 };
 
                 ViewModel.prototype._validatePassword = function () {
@@ -100,10 +120,17 @@ var App;
 
                 ViewModel.prototype.onSubmit = function () {
                     if (!this.isValid()) {
+                        this._isPostBack();
                         this.errors.showAllMessages();
+                        return false;
                     }
 
                     return this.isValid();
+                };
+
+                ViewModel.prototype._isPostBack = function () {
+                    this.passwordValidation.isPostBack(true);
+                    this.confirmPasswordValidation.isPostBack(true);
                 };
                 return ViewModel;
             })();

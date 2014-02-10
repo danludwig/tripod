@@ -4,10 +4,10 @@ var App;
         var ValidationState = (function () {
             function ValidationState(isPostBack) {
                 var _this = this;
-                this.isPostBack = isPostBack;
                 this._field = ko.observable();
                 this._lastState = '';
                 this.spinner = new App.Widgets.Spinner({ delay: 200 });
+                this.isPostBack = ko.observable();
                 this.hasError = ko.computed(function () {
                     return _this._has('error');
                 });
@@ -27,6 +27,7 @@ var App;
                     return !_this.hasError() && !_this.hasSuccess() && !_this.spinner.isVisible();
                 });
                 this._asyncResults = [];
+                this.isPostBack(isPostBack);
             }
             ValidationState.prototype.observe = function (field) {
                 this._field(field);
@@ -36,11 +37,12 @@ var App;
                 var field = this._field();
                 var isSpinnerRunning = this.spinner.isRunning();
                 var isSpinnerVisible = this.spinner.isVisible();
+                var isPostBack = this.isPostBack();
 
                 if (!field || !field.isModified || !field.isValid)
                     return false;
 
-                var isFieldModified = field.isModified() || this.isPostBack;
+                var isFieldModified = field.isModified() || isPostBack;
                 var isValidating = field.isValidating();
                 var isValid = field.isValid();
 

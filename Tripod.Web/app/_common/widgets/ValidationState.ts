@@ -5,8 +5,11 @@ module App.Widgets {
         private _field = ko.observable<KnockoutObservable<any>>();
         private _lastState = '';
         spinner = new Spinner({ delay: 200 });
+        isPostBack = ko.observable<boolean>();
 
-        constructor(public isPostBack: boolean) { }
+        constructor(isPostBack: boolean) {
+            this.isPostBack(isPostBack);
+        }
 
         observe(field: KnockoutObservable<any>): void {
             this._field(field);
@@ -16,10 +19,11 @@ module App.Widgets {
             var field = this._field();
             var isSpinnerRunning = this.spinner.isRunning();
             var isSpinnerVisible = this.spinner.isVisible();
+            var isPostBack = this.isPostBack();
 
             if (!field || !field.isModified || !field.isValid) return false;
 
-            var isFieldModified = field.isModified() || this.isPostBack;
+            var isFieldModified = field.isModified() || isPostBack;
             var isValidating = field.isValidating();
             var isValid = field.isValid();
 

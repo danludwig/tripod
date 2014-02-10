@@ -389,6 +389,9 @@
     <Content Include="app\_common\widgets\Spinner.js">
       <DependentUpon>Spinner.ts</DependentUpon>
     </Content>
+    <Content Include="app\_common\widgets\ValidationRules.js">
+      <DependentUpon>ValidationRules.ts</DependentUpon>
+    </Content>
     <Content Include="app\_common\widgets\ValidationState.js">
       <DependentUpon>ValidationState.ts</DependentUpon>
     </Content>
@@ -858,6 +861,7 @@
     <TypeScriptCompile Include="app\_common\modules\Tripod.ts" />
     <TypeScriptCompile Include="app\_common\unobtrusive\bootbox-confirm.ts" />
     <TypeScriptCompile Include="app\_common\widgets\Spinner.ts" />
+    <TypeScriptCompile Include="app\_common\widgets\ValidationRules.ts" />
     <TypeScriptCompile Include="app\_common\widgets\ValidationState.ts" />
     <TypeScriptCompile Include="scripts\typings\angular-ui-bootstrap\angular-ui-bootstrap.d.ts" />
     <TypeScriptCompile Include="scripts\typings\angularjs\angular-cookies.d.ts" />
