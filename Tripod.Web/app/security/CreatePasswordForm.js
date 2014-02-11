@@ -10,6 +10,8 @@ var App;
                     this.confirmPassword = ko.observable();
                     this.passwordValidation = new App.Widgets.ValidationState(this.settings.isPostBack);
                     this.confirmPasswordValidation = new App.Widgets.ValidationState(this.settings.isPostBack);
+                    this.isSubmitWaiting = ko.observable(false);
+                    this.isPostBack = ko.observable(this.settings.isPostBack);
                     this.initValidation();
                     if (this.settings.element)
                         this.applyBindings(this.settings.element);
@@ -21,6 +23,7 @@ var App;
                 ViewModel.prototype.applyBindings = function (element) {
                     this.settings.element = element;
                     ko.applyBindings(this, element);
+                    this._initTooltips();
                 };
 
                 ViewModel.prototype.initValidation = function () {
@@ -30,29 +33,9 @@ var App;
                     ko.validation.registerExtenders();
 
                     this.password.extend({
-                        required: {
-                            params: true,
-                            message: this.settings.passwordRequiredMessage
-                        },
-                        minLengthCustom: {
-                            params: this.settings.passwordMinLength,
-                            messageTemplate: this.settings.passwordMinLengthMessage
-                        },
-                        maxLengthCustom: {
-                            params: this.settings.passwordMaxLength,
-                            messageTemplate: this.settings.passwordMaxLengthMessage
-                        },
                         passwordServer: this
                     });
                     this.confirmPassword.extend({
-                        required: {
-                            params: true,
-                            message: this.settings.confirmPasswordRequiredMessage
-                        },
-                        equalTo: {
-                            params: this.password,
-                            message: this.settings.confirmPasswordEqualsMessage
-                        },
                         confirmPasswordServer: this
                     });
 
@@ -71,6 +54,53 @@ var App;
 
                     this.passwordValidation.observe(this.password);
                     this.confirmPasswordValidation.observe(this.confirmPassword);
+
+                    this.isValidating = ko.computed(function () {
+                        return _this.password.isValidating() || _this.confirmPassword.isValidating();
+                    });
+
+                    this.isSubmitError = ko.computed(function () {
+                        return !_this.isSubmitWaiting() && !_this.isValid() && _this.isPostBack();
+                    });
+
+                    this.isSubmitReady = ko.computed(function () {
+                        return !_this.isSubmitWaiting() && !_this.isSubmitError();
+                    });
+
+                    this.isSubmitDisabled = ko.computed(function () {
+                        return _this.isSubmitWaiting() || _this.isSubmitError();
+                    });
+
+                    this.submitCss = ko.computed(function () {
+                        return _this.isSubmitError() ? 'btn-danger' : '';
+                    });
+                };
+
+                ViewModel.prototype._initTooltips = function () {
+                    var _this = this;
+                    var tooltipOptions = {
+                        animation: false,
+                        trigger: 'manual',
+                        placement: 'right'
+                    };
+                    this.passwordTooltip = new App.Widgets.BootstrapTooltip(this.$passwordTooltip, tooltipOptions);
+                    ko.computed(function () {
+                        _this.password();
+                        if (_this.passwordValidation.hasSuccess() && !_this.passwordValidation.hasError()) {
+                            _this.passwordTooltip.hide();
+                        } else if (!_this.passwordValidation.hasSuccess() && _this.passwordValidation.hasError()) {
+                            _this.passwordTooltip.title(_this.password.error);
+                        }
+                    });
+                    this.confirmPasswordTooltip = new App.Widgets.BootstrapTooltip(this.$confirmPasswordTooltip, tooltipOptions);
+                    ko.computed(function () {
+                        _this.confirmPassword();
+                        if (_this.confirmPasswordValidation.hasSuccess() && !_this.confirmPasswordValidation.hasError()) {
+                            _this.confirmPasswordTooltip.hide();
+                        } else if (!_this.confirmPasswordValidation.hasSuccess() && _this.confirmPasswordValidation.hasError()) {
+                            _this.confirmPasswordTooltip.title(_this.confirmPassword.error);
+                        }
+                    });
                 };
 
                 ViewModel.prototype._validatePassword = function () {
@@ -118,10 +148,19 @@ var App;
                     return ruleDefinition;
                 };
 
-                ViewModel.prototype.onSubmit = function () {
+                ViewModel.prototype.onSubmit = function (formElement) {
+                    if (this.isValidating()) {
+                        this.isSubmitWaiting(true);
+                        setTimeout(function () {
+                            $(formElement).submit();
+                        }, 10);
+                        return false;
+                    }
+
                     if (!this.isValid()) {
                         this._isPostBack();
                         this.errors.showAllMessages();
+                        this.isSubmitWaiting(false);
                         return false;
                     }
 
@@ -131,6 +170,7 @@ var App;
                 ViewModel.prototype._isPostBack = function () {
                     this.passwordValidation.isPostBack(true);
                     this.confirmPasswordValidation.isPostBack(true);
+                    this.isPostBack(true);
                 };
                 return ViewModel;
             })();

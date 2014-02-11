@@ -44,11 +44,12 @@ module App.Widgets {
             return this._has('success');
         });
 
-        fieldCss = ko.computed((): string => {
-            if (this.hasError()) return 'has-error';
-            if (this.hasSuccess()) return 'has-success';
-            if (this.spinner.isVisible()) return 'has-spinner';
-            return '';
+        fieldCss = ko.computed((): any => {
+            return {
+                'has-error': this.hasError(),
+                'has-success': this.hasSuccess(),
+                'has-spinner': this.spinner.isVisible(),
+            };
         });
 
         hasNoAddOn = ko.computed((): boolean => {
@@ -100,16 +101,18 @@ module App.Widgets {
 
         doAsync(settings: JQueryAjaxSettings, element: Element, fieldName: string, value: any, callback: KnockoutValidationAsyncCallback, cache: boolean = true): void {
             if (this.asyncXhr) this.asyncXhr.abort('stale');
-            if (this._field().isModified()) this.spinner.start();
+            var field = this._field();
+            if (!field) return;
+            if (field.isModified()) this.spinner.start();
             if (element && settings.data) {
                 var token = $(element).find('input[name=__RequestVerificationToken]').val();
                 settings.data['__RequestVerificationToken'] = token;
             }
             this.asyncXhr = $.ajax(settings);
             this.asyncXhr.done((response: any): void => {
-                var field: ValidatedField = response[fieldName];
-                if (cache) this.asyncResults(value, field);
-                this.setAsyncValidity(field, callback);
+                var validated: ValidatedField = response[fieldName];
+                if (cache) this.asyncResults(value, validated);
+                this.setAsyncValidity(validated, callback);
                 this.spinner.stop();
             });
             this.asyncXhr.fail((xhr: JQueryXHR, textStatus: string): void => {

@@ -143,5 +143,6 @@ interface KnockoutSubscribableFunctions {
     isValidating: KnockoutObservable<boolean>;
     isModified: KnockoutObservable<boolean>;
     rules: KnockoutObservableArray<KnockoutValidationRule>;
+    error: string;
 }
 

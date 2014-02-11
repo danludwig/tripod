@@ -35,6 +35,18 @@ module App.Security.CreatePasswordForm {
         passwordCss: KnockoutComputed<string>;
         passwordValidation = new Widgets.ValidationState(this.settings.isPostBack);
         confirmPasswordValidation = new Widgets.ValidationState(this.settings.isPostBack);
+        isValidating: KnockoutComputed<boolean>;
+
+        passwordTooltip: Widgets.BootstrapTooltip;
+        $passwordTooltip: JQuery;
+        confirmPasswordTooltip: Widgets.BootstrapTooltip;
+        $confirmPasswordTooltip: JQuery;
+
+        isSubmitWaiting = ko.observable(false);
+        isSubmitDisabled: KnockoutComputed<boolean>;
+        isSubmitError: KnockoutComputed<boolean>;
+        isSubmitReady: KnockoutComputed<boolean>;
+        submitCss: KnockoutComputed<string>;
 
         constructor(public settings: ViewModelSettings) {
             this.initValidation();
@@ -45,6 +57,7 @@ module App.Security.CreatePasswordForm {
         applyBindings(element: Element): void {
             this.settings.element = element;
             ko.applyBindings(this, element);
+            this._initTooltips();
         }
 
         private initValidation(): void {
@@ -54,29 +67,29 @@ module App.Security.CreatePasswordForm {
             ko.validation.registerExtenders();
 
             this.password.extend({
-                required: {
-                    params: true,
-                    message: this.settings.passwordRequiredMessage,
-                },
-                minLengthCustom: {
-                    params: this.settings.passwordMinLength,
-                    messageTemplate: this.settings.passwordMinLengthMessage,
-                },
-                maxLengthCustom: {
-                    params: this.settings.passwordMaxLength,
-                    messageTemplate: this.settings.passwordMaxLengthMessage,
-                },
+                //required: {
+                //    params: true,
+                //    message: this.settings.passwordRequiredMessage,
+                //},
+                //minLengthCustom: {
+                //    params: this.settings.passwordMinLength,
+                //    messageTemplate: this.settings.passwordMinLengthMessage,
+                //},
+                //maxLengthCustom: {
+                //    params: this.settings.passwordMaxLength,
+                //    messageTemplate: this.settings.passwordMaxLengthMessage,
+                //},
                 passwordServer: this,
             });
             this.confirmPassword.extend({
-                required: {
-                    params: true,
-                    message: this.settings.confirmPasswordRequiredMessage,
-                },
-                equalTo: {
-                    params: this.password,
-                    message: this.settings.confirmPasswordEqualsMessage,
-                },
+                //required: {
+                //    params: true,
+                //    message: this.settings.confirmPasswordRequiredMessage,
+                //},
+                //equalTo: {
+                //    params: this.password,
+                //    message: this.settings.confirmPasswordEqualsMessage,
+                //},
                 confirmPasswordServer: this,
             });
 
@@ -94,6 +107,54 @@ module App.Security.CreatePasswordForm {
 
             this.passwordValidation.observe(this.password);
             this.confirmPasswordValidation.observe(this.confirmPassword);
+
+            this.isValidating = ko.computed((): boolean => {
+                return this.password.isValidating() || this.confirmPassword.isValidating();
+            });
+
+            this.isSubmitError = ko.computed((): boolean => {
+                return !this.isSubmitWaiting() && !this.isValid() && this.isPostBack();
+            });
+
+            this.isSubmitReady = ko.computed((): boolean => {
+                return !this.isSubmitWaiting() && !this.isSubmitError();
+            });
+
+            this.isSubmitDisabled = ko.computed((): boolean => {
+                return this.isSubmitWaiting() || this.isSubmitError();
+            });
+
+            this.submitCss = ko.computed((): string => {
+                return this.isSubmitError() ? 'btn-danger' : '';
+            });
+        }
+
+        private _initTooltips(): void {
+            var tooltipOptions: TooltipOptions = {
+                animation: false,
+                trigger: 'manual',
+                placement: 'right',
+            };
+            this.passwordTooltip = new Widgets.BootstrapTooltip(this.$passwordTooltip, tooltipOptions);
+            ko.computed((): void => {
+                this.password();
+                if (this.passwordValidation.hasSuccess() && !this.passwordValidation.hasError()) {
+                    this.passwordTooltip.hide();
+                }
+                else if (!this.passwordValidation.hasSuccess() && this.passwordValidation.hasError()) {
+                    this.passwordTooltip.title(this.password.error);
+                }
+            });
+            this.confirmPasswordTooltip = new Widgets.BootstrapTooltip(this.$confirmPasswordTooltip, tooltipOptions);
+            ko.computed((): void => {
+                this.confirmPassword();
+                if (this.confirmPasswordValidation.hasSuccess() && !this.confirmPasswordValidation.hasError()) {
+                    this.confirmPasswordTooltip.hide();
+                }
+                else if (!this.confirmPasswordValidation.hasSuccess() && this.confirmPasswordValidation.hasError()) {
+                    this.confirmPasswordTooltip.title(this.confirmPassword.error);
+                }
+            });
         }
 
         private _validatePassword(): KnockoutValidationAsyncRuleDefinition {
@@ -139,22 +200,35 @@ module App.Security.CreatePasswordForm {
             return ruleDefinition;
         }
 
-        onSubmit(): boolean {
+        onSubmit(formElement: Element): boolean {
+
+            if (this.isValidating()) {
+                this.isSubmitWaiting(true);
+                setTimeout((): void => {
+                    $(formElement).submit();
+                }, 10);
+                return false;
+            }
 
             if (!this.isValid()) {
                 this._isPostBack();
                 this.errors.showAllMessages();
+                this.isSubmitWaiting(false);
                 return false;
             }
 
+            //if (!formElement) return true;
+            //this.onSubmit(null);
+            //return false;
             return this.isValid();
             //return true;
         }
 
+        isPostBack = ko.observable(this.settings.isPostBack);
         private _isPostBack(): void {
             this.passwordValidation.isPostBack(true);
             this.confirmPasswordValidation.isPostBack(true);
+            this.isPostBack(true);
         }
-
     }
 }

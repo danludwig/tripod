@@ -15,13 +15,11 @@ var App;
                     return _this._has('success');
                 });
                 this.fieldCss = ko.computed(function () {
-                    if (_this.hasError())
-                        return 'has-error';
-                    if (_this.hasSuccess())
-                        return 'has-success';
-                    if (_this.spinner.isVisible())
-                        return 'has-spinner';
-                    return '';
+                    return {
+                        'has-error': _this.hasError(),
+                        'has-success': _this.hasSuccess(),
+                        'has-spinner': _this.spinner.isVisible()
+                    };
                 });
                 this.hasNoAddOn = ko.computed(function () {
                     return !_this.hasError() && !_this.hasSuccess() && !_this.spinner.isVisible();
@@ -106,7 +104,10 @@ var App;
                 var _this = this;
                 if (this.asyncXhr)
                     this.asyncXhr.abort('stale');
-                if (this._field().isModified())
+                var field = this._field();
+                if (!field)
+                    return;
+                if (field.isModified())
                     this.spinner.start();
                 if (element && settings.data) {
                     var token = $(element).find('input[name=__RequestVerificationToken]').val();
@@ -114,10 +115,10 @@ var App;
                 }
                 this.asyncXhr = $.ajax(settings);
                 this.asyncXhr.done(function (response) {
-                    var field = response[fieldName];
+                    var validated = response[fieldName];
                     if (cache)
-                        _this.asyncResults(value, field);
-                    _this.setAsyncValidity(field, callback);
+                        _this.asyncResults(value, validated);
+                    _this.setAsyncValidity(validated, callback);
                     _this.spinner.stop();
                 });
                 this.asyncXhr.fail(function (xhr, textStatus) {

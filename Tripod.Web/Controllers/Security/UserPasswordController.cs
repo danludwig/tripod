@@ -5,6 +5,7 @@ using Tripod.Web.Models;
 
 namespace Tripod.Web.Controllers
 {
+    [Authorize]
     public partial class UserPasswordController : Controller
     {
         private readonly IProcessQueries _queries;
@@ -50,7 +51,7 @@ namespace Tripod.Web.Controllers
                 return View(MVC.Security.Views.CreatePassword, model);
             }
 
-            return null;
+            return RedirectToAction(await MVC.UserPassword.Index());
         }
     }
 }
