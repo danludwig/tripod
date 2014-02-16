@@ -258,6 +258,7 @@
       <DependentUpon>Global.asax</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Models\Security\ChangeLocalPasswordModel.cs" />
     <Compile Include="Models\Security\CreateLocalMembershipModel.cs" />
     <Compile Include="Models\Security\UserSettingsNavModel.cs" />
     <Compile Include="Models\_Common\AlertFlavor.cs" />
@@ -334,6 +335,9 @@
   <ItemGroup>
     <Content Include="app\errors\Haikus.js">
       <DependentUpon>Haikus.ts</DependentUpon>
+    </Content>
+    <Content Include="app\security\ChangePasswordForm.js">
+      <DependentUpon>ChangePasswordForm.ts</DependentUpon>
     </Content>
     <Content Include="app\security\ChangeUserNameForm.js">
       <DependentUpon>ChangeUserNameForm.ts</DependentUpon>
@@ -820,6 +824,8 @@
     <Content Include="Views\Security\CreatePassword.cshtml" />
     <Content Include="Views\Security\_UserSettingsNav.cshtml" />
     <Content Include="Views\Security\_CreatePasswordForm.cshtml" />
+    <Content Include="Views\Security\ChangePassword.cshtml" />
+    <Content Include="Views\Security\_ChangePasswordForm.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
@@ -846,6 +852,7 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="app\errors\Haikus.ts" />
+    <TypeScriptCompile Include="app\security\ChangePasswordForm.ts" />
     <TypeScriptCompile Include="app\security\CreatePasswordForm.ts" />
     <TypeScriptCompile Include="app\security\ChangeUserNameForm.ts" />
     <TypeScriptCompile Include="app\security\SignOnUserForm.ts" />

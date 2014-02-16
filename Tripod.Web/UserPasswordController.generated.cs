@@ -48,6 +48,19 @@ namespace Tripod.Web.Controllers
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.CreateLocalMembership);
             return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
         }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> ChangeLocalPassword()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ChangeLocalPassword);
+            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult ValidateChangeLocalPassword()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ValidateChangeLocalPassword);
+        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public UserPasswordController Actions { get { return MVC.UserPassword; } }
@@ -66,6 +79,8 @@ namespace Tripod.Web.Controllers
         {
             public readonly string Index = "Index";
             public readonly string CreateLocalMembership = "CreateLocalMembership";
+            public readonly string ChangeLocalPassword = "ChangeLocalPassword";
+            public readonly string ValidateChangeLocalPassword = "ValidateChangeLocalPassword";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -73,6 +88,8 @@ namespace Tripod.Web.Controllers
         {
             public const string Index = "Index";
             public const string CreateLocalMembership = "CreateLocalMembership";
+            public const string ChangeLocalPassword = "ChangeLocalPassword";
+            public const string ValidateChangeLocalPassword = "ValidateChangeLocalPassword";
         }
 
 
@@ -83,6 +100,23 @@ namespace Tripod.Web.Controllers
         public class ActionParamsClass_CreateLocalMembership
         {
             public readonly string command = "command";
+        }
+        static readonly ActionParamsClass_ChangeLocalPassword s_params_ChangeLocalPassword = new ActionParamsClass_ChangeLocalPassword();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_ChangeLocalPassword ChangeLocalPasswordParams { get { return s_params_ChangeLocalPassword; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_ChangeLocalPassword
+        {
+            public readonly string command = "command";
+        }
+        static readonly ActionParamsClass_ValidateChangeLocalPassword s_params_ValidateChangeLocalPassword = new ActionParamsClass_ValidateChangeLocalPassword();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_ValidateChangeLocalPassword ValidateChangeLocalPasswordParams { get { return s_params_ValidateChangeLocalPassword; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_ValidateChangeLocalPassword
+        {
+            public readonly string command = "command";
+            public readonly string fieldName = "fieldName";
         }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -120,6 +154,27 @@ namespace Tripod.Web.Controllers
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "command", command);
             CreateLocalMembershipOverride(callInfo, command);
             return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
+        }
+
+        partial void ChangeLocalPasswordOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Tripod.Domain.Security.ChangeLocalPassword command);
+
+        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> ChangeLocalPassword(Tripod.Domain.Security.ChangeLocalPassword command)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ChangeLocalPassword);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "command", command);
+            ChangeLocalPasswordOverride(callInfo, command);
+            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
+        }
+
+        partial void ValidateChangeLocalPasswordOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Tripod.Domain.Security.ChangeLocalPassword command, string fieldName);
+
+        public override System.Web.Mvc.ActionResult ValidateChangeLocalPassword(Tripod.Domain.Security.ChangeLocalPassword command, string fieldName)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ValidateChangeLocalPassword);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "command", command);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "fieldName", fieldName);
+            ValidateChangeLocalPasswordOverride(callInfo, command, fieldName);
+            return callInfo;
         }
 
     }

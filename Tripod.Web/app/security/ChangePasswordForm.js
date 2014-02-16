@@ -1,14 +1,16 @@
-'use strict';
+﻿'use strict';
 var App;
 (function (App) {
     (function (Security) {
-        (function (CreatePasswordForm) {
+        (function (ChangePasswordForm) {
             var ViewModel = (function () {
                 function ViewModel(settings) {
                     this.settings = settings;
-                    this.password = ko.observable();
+                    this.oldPassword = ko.observable();
+                    this.newPassword = ko.observable();
                     this.confirmPassword = ko.observable();
-                    this.passwordValidation = new App.Widgets.ValidationState(this.settings.isPostBack);
+                    this.oldPasswordValidation = new App.Widgets.ValidationState(this.settings.isPostBack);
+                    this.newPasswordValidation = new App.Widgets.ValidationState(this.settings.isPostBack);
                     this.confirmPasswordValidation = new App.Widgets.ValidationState(this.settings.isPostBack);
                     this.isSubmitWaiting = ko.observable(false);
                     this.isPostBack = ko.observable(this.settings.isPostBack);
@@ -28,34 +30,20 @@ var App;
 
                 ViewModel.prototype.initValidation = function () {
                     var _this = this;
-                    ko.validation.rules['passwordServer'] = this._validatePassword();
+                    ko.validation.rules['newPasswordServer'] = this._validateNewPassword();
                     ko.validation.rules['confirmPasswordServer'] = this._validateConfirmPassword();
                     ko.validation.registerExtenders();
 
-                    this.password.extend({
+                    this.oldPassword.extend({
                         required: {
                             params: true,
-                            message: this.settings.passwordRequiredMessage
-                        },
-                        minLengthCustom: {
-                            params: this.settings.passwordMinLength,
-                            messageTemplate: this.settings.passwordMinLengthMessage
-                        },
-                        maxLengthCustom: {
-                            params: this.settings.passwordMaxLength,
-                            messageTemplate: this.settings.passwordMaxLengthMessage
-                        },
-                        passwordServer: this
+                            message: this.settings.oldPasswordRequiredMessage
+                        }
+                    });
+                    this.newPassword.extend({
+                        newPasswordServer: this
                     });
                     this.confirmPassword.extend({
-                        required: {
-                            params: true,
-                            message: this.settings.confirmPasswordRequiredMessage
-                        },
-                        equalTo: {
-                            params: this.password,
-                            message: this.settings.confirmPasswordEqualsMessage
-                        },
                         confirmPasswordServer: this
                     });
 
@@ -68,15 +56,16 @@ var App;
                     if (this.settings.isPostBack)
                         this.errors.showAllMessages();
 
-                    this.password.subscribe(function () {
+                    this.newPassword.subscribe(function () {
                         _this.confirmPassword.isValid.notifySubscribers(false);
                     });
 
-                    this.passwordValidation.observe(this.password);
+                    this.oldPasswordValidation.observe(this.oldPassword);
+                    this.newPasswordValidation.observe(this.newPassword);
                     this.confirmPasswordValidation.observe(this.confirmPassword);
 
                     this.isValidating = ko.computed(function () {
-                        return _this.password.isValidating() || _this.confirmPassword.isValidating();
+                        return _this.newPassword.isValidating() || _this.confirmPassword.isValidating();
                     });
 
                     this.isSubmitError = ko.computed(function () {
@@ -103,13 +92,22 @@ var App;
                         trigger: 'manual',
                         placement: 'right'
                     };
-                    this.passwordTooltip = new App.Widgets.BootstrapTooltip(this.$passwordTooltip, tooltipOptions);
+                    this.oldPasswordTooltip = new App.Widgets.BootstrapTooltip(this.$oldPasswordTooltip, tooltipOptions);
                     ko.computed(function () {
-                        _this.password();
-                        if (_this.passwordValidation.hasSuccess() && !_this.passwordValidation.hasError()) {
-                            _this.passwordTooltip.hide();
-                        } else if (!_this.passwordValidation.hasSuccess() && _this.passwordValidation.hasError()) {
-                            _this.passwordTooltip.title(_this.password.error);
+                        _this.oldPassword();
+                        if (_this.oldPasswordValidation.hasSuccess() && !_this.oldPasswordValidation.hasError()) {
+                            _this.oldPasswordTooltip.hide();
+                        } else if (!_this.oldPasswordValidation.hasSuccess() && _this.oldPasswordValidation.hasError()) {
+                            _this.oldPasswordTooltip.title(_this.oldPassword.error);
+                        }
+                    });
+                    this.newPasswordTooltip = new App.Widgets.BootstrapTooltip(this.$newPasswordTooltip, tooltipOptions);
+                    ko.computed(function () {
+                        _this.newPassword();
+                        if (_this.newPasswordValidation.hasSuccess() && !_this.newPasswordValidation.hasError()) {
+                            _this.newPasswordTooltip.hide();
+                        } else if (!_this.newPasswordValidation.hasSuccess() && _this.newPasswordValidation.hasError()) {
+                            _this.newPasswordTooltip.title(_this.newPassword.error);
                         }
                     });
                     this.confirmPasswordTooltip = new App.Widgets.BootstrapTooltip(this.$confirmPasswordTooltip, tooltipOptions);
@@ -123,22 +121,22 @@ var App;
                     });
                 };
 
-                ViewModel.prototype._validatePassword = function () {
+                ViewModel.prototype._validateNewPassword = function () {
                     var _this = this;
                     var ruleDefinition = {
                         async: true,
                         validator: function (value, params, callback) {
-                            if (_this.passwordValidation.hasAsyncResult(value, callback))
+                            if (_this.newPasswordValidation.hasAsyncResult(value, callback))
                                 return;
 
                             var asyncSettings = {
-                                url: _this.settings.passwordValidateUrl,
+                                url: _this.settings.newPasswordValidateUrl,
                                 type: 'POST',
                                 data: {
-                                    password: value
+                                    newPassword: value
                                 }
                             };
-                            _this.passwordValidation.doAsync(asyncSettings, _this.settings.element, 'password', value, callback);
+                            _this.newPasswordValidation.doAsync(asyncSettings, _this.settings.element, 'newPassword', value, callback);
                         },
                         message: 'Invalid.'
                     };
@@ -157,7 +155,7 @@ var App;
                                 url: _this.settings.confirmPasswordValidateUrl,
                                 type: 'POST',
                                 data: {
-                                    password: params.password(),
+                                    newPassword: params.newPassword(),
                                     confirmPassword: value
                                 }
                             };
@@ -188,15 +186,15 @@ var App;
                 };
 
                 ViewModel.prototype._isPostBack = function () {
-                    this.passwordValidation.isPostBack(true);
+                    this.newPasswordValidation.isPostBack(true);
                     this.confirmPasswordValidation.isPostBack(true);
                     this.isPostBack(true);
                 };
                 return ViewModel;
             })();
-            CreatePasswordForm.ViewModel = ViewModel;
-        })(Security.CreatePasswordForm || (Security.CreatePasswordForm = {}));
-        var CreatePasswordForm = Security.CreatePasswordForm;
+            ChangePasswordForm.ViewModel = ViewModel;
+        })(Security.ChangePasswordForm || (Security.ChangePasswordForm = {}));
+        var ChangePasswordForm = Security.ChangePasswordForm;
     })(App.Security || (App.Security = {}));
     var Security = App.Security;
 })(App || (App = {}));

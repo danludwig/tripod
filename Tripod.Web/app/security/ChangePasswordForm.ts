@@ -1,21 +1,23 @@
 'use strict';
 
-module App.Security.CreatePasswordForm {
+module App.Security.ChangePasswordForm {
 
     export interface ServerModel {
-        password: string;
+        oldPassword: string
+        newPassword: string;
         confirmPassword: string;
     }
 
     export interface ViewModelSettings {
         element?: Element;
         isPostBack: boolean;
-        passwordRequiredMessage: string;
-        passwordMinLength: number;
-        passwordMaxLength: number;
-        passwordMinLengthMessage: string;
-        passwordMaxLengthMessage: string;
-        passwordValidateUrl: string;
+        oldPasswordRequiredMessage: string;
+        newPasswordRequiredMessage: string;
+        newPasswordMinLength: number;
+        newPasswordMaxLength: number;
+        newPasswordMinLengthMessage: string;
+        newPasswordMaxLengthMessage: string;
+        newPasswordValidateUrl: string;
         confirmPasswordRequiredMessage: string;
         confirmPasswordEqualsMessage: string;
         confirmPasswordValidateUrl: string;
@@ -27,18 +29,22 @@ module App.Security.CreatePasswordForm {
             return new ViewModel(settings);
         }
 
-        password = ko.observable<string>();
+        oldPassword = ko.observable<string>();
+        newPassword = ko.observable<string>();
         confirmPassword = ko.observable<string>();
 
         isValid: () => boolean;
         errors: KnockoutValidationErrors;
-        passwordCss: KnockoutComputed<string>;
-        passwordValidation = new Widgets.ValidationState(this.settings.isPostBack);
+        newPasswordCss: KnockoutComputed<string>;
+        oldPasswordValidation = new Widgets.ValidationState(this.settings.isPostBack);
+        newPasswordValidation = new Widgets.ValidationState(this.settings.isPostBack);
         confirmPasswordValidation = new Widgets.ValidationState(this.settings.isPostBack);
         isValidating: KnockoutComputed<boolean>;
 
-        passwordTooltip: Widgets.BootstrapTooltip;
-        $passwordTooltip: JQuery;
+        oldPasswordTooltip: Widgets.BootstrapTooltip;
+        $oldPasswordTooltip: JQuery;
+        newPasswordTooltip: Widgets.BootstrapTooltip;
+        $newPasswordTooltip: JQuery;
         confirmPasswordTooltip: Widgets.BootstrapTooltip;
         $confirmPasswordTooltip: JQuery;
 
@@ -62,34 +68,49 @@ module App.Security.CreatePasswordForm {
 
         private initValidation(): void {
 
-            ko.validation.rules['passwordServer'] = this._validatePassword();
+            ko.validation.rules['newPasswordServer'] = this._validateNewPassword();
             ko.validation.rules['confirmPasswordServer'] = this._validateConfirmPassword();
             ko.validation.registerExtenders();
 
-            this.password.extend({
+            this.oldPassword.extend({
                 required: {
                     params: true,
-                    message: this.settings.passwordRequiredMessage,
+                    message: this.settings.oldPasswordRequiredMessage,
                 },
-                minLengthCustom: {
-                    params: this.settings.passwordMinLength,
-                    messageTemplate: this.settings.passwordMinLengthMessage,
-                },
-                maxLengthCustom: {
-                    params: this.settings.passwordMaxLength,
-                    messageTemplate: this.settings.passwordMaxLengthMessage,
-                },
-                passwordServer: this,
+                //minLengthCustom: {
+                //    params: this.settings.newPasswordMinLength,
+                //    messageTemplate: this.settings.newPasswordMinLengthMessage,
+                //},
+                //maxLengthCustom: {
+                //    params: this.settings.newPasswordMaxLength,
+                //    messageTemplate: this.settings.newPasswordMaxLengthMessage,
+                //},
+                //newPasswordServer: this,
+            });
+            this.newPassword.extend({
+                //required: {
+                //    params: true,
+                //    message: this.settings.newPasswordRequiredMessage,
+                //},
+                //minLengthCustom: {
+                //    params: this.settings.newPasswordMinLength,
+                //    messageTemplate: this.settings.newPasswordMinLengthMessage,
+                //},
+                //maxLengthCustom: {
+                //    params: this.settings.newPasswordMaxLength,
+                //    messageTemplate: this.settings.newPasswordMaxLengthMessage,
+                //},
+                newPasswordServer: this,
             });
             this.confirmPassword.extend({
-                required: {
-                    params: true,
-                    message: this.settings.confirmPasswordRequiredMessage,
-                },
-                equalTo: {
-                    params: this.password,
-                    message: this.settings.confirmPasswordEqualsMessage,
-                },
+                //required: {
+                //    params: true,
+                //    message: this.settings.confirmPasswordRequiredMessage,
+                //},
+                //equalTo: {
+                //    params: this.newPassword,
+                //    message: this.settings.confirmPasswordEqualsMessage,
+                //},
                 confirmPasswordServer: this,
             });
 
@@ -101,15 +122,16 @@ module App.Security.CreatePasswordForm {
 
             if (this.settings.isPostBack) this.errors.showAllMessages();
 
-            this.password.subscribe((): void => {
+            this.newPassword.subscribe((): void => {
                 this.confirmPassword.isValid.notifySubscribers(false);
             });
 
-            this.passwordValidation.observe(this.password);
+            this.oldPasswordValidation.observe(this.oldPassword);
+            this.newPasswordValidation.observe(this.newPassword);
             this.confirmPasswordValidation.observe(this.confirmPassword);
 
             this.isValidating = ko.computed((): boolean => {
-                return this.password.isValidating() || this.confirmPassword.isValidating();
+                return this.newPassword.isValidating() || this.confirmPassword.isValidating();
             });
 
             this.isSubmitError = ko.computed((): boolean => {
@@ -135,14 +157,24 @@ module App.Security.CreatePasswordForm {
                 trigger: 'manual',
                 placement: 'right',
             };
-            this.passwordTooltip = new Widgets.BootstrapTooltip(this.$passwordTooltip, tooltipOptions);
+            this.oldPasswordTooltip = new Widgets.BootstrapTooltip(this.$oldPasswordTooltip, tooltipOptions);
             ko.computed((): void => {
-                this.password();
-                if (this.passwordValidation.hasSuccess() && !this.passwordValidation.hasError()) {
-                    this.passwordTooltip.hide();
+                this.oldPassword();
+                if (this.oldPasswordValidation.hasSuccess() && !this.oldPasswordValidation.hasError()) {
+                    this.oldPasswordTooltip.hide();
                 }
-                else if (!this.passwordValidation.hasSuccess() && this.passwordValidation.hasError()) {
-                    this.passwordTooltip.title(this.password.error);
+                else if (!this.oldPasswordValidation.hasSuccess() && this.oldPasswordValidation.hasError()) {
+                    this.oldPasswordTooltip.title(this.oldPassword.error);
+                }
+            });
+            this.newPasswordTooltip = new Widgets.BootstrapTooltip(this.$newPasswordTooltip, tooltipOptions);
+            ko.computed((): void => {
+                this.newPassword();
+                if (this.newPasswordValidation.hasSuccess() && !this.newPasswordValidation.hasError()) {
+                    this.newPasswordTooltip.hide();
+                }
+                else if (!this.newPasswordValidation.hasSuccess() && this.newPasswordValidation.hasError()) {
+                    this.newPasswordTooltip.title(this.newPassword.error);
                 }
             });
             this.confirmPasswordTooltip = new Widgets.BootstrapTooltip(this.$confirmPasswordTooltip, tooltipOptions);
@@ -157,21 +189,21 @@ module App.Security.CreatePasswordForm {
             });
         }
 
-        private _validatePassword(): KnockoutValidationAsyncRuleDefinition {
+        private _validateNewPassword(): KnockoutValidationAsyncRuleDefinition {
             var ruleDefinition: KnockoutValidationAsyncRuleDefinition = {
                 async: true,
                 validator: (value: string, params: ViewModel, callback: KnockoutValidationAsyncCallback): void => {
 
-                    if (this.passwordValidation.hasAsyncResult(value, callback)) return;
+                    if (this.newPasswordValidation.hasAsyncResult(value, callback)) return;
 
                     var asyncSettings: JQueryAjaxSettings = {
-                        url: this.settings.passwordValidateUrl,
+                        url: this.settings.newPasswordValidateUrl,
                         type: 'POST',
                         data: {
-                            password: value,
+                            newPassword: value,
                         },
                     };
-                    this.passwordValidation.doAsync(asyncSettings, this.settings.element, 'password', value, callback);
+                    this.newPasswordValidation.doAsync(asyncSettings, this.settings.element, 'newPassword', value, callback);
                 },
                 message: 'Invalid.',
             };
@@ -189,7 +221,7 @@ module App.Security.CreatePasswordForm {
                         url: this.settings.confirmPasswordValidateUrl,
                         type: 'POST',
                         data: {
-                            password: params.password(),
+                            newPassword: params.newPassword(),
                             confirmPassword: value,
                         },
                     };
@@ -226,7 +258,7 @@ module App.Security.CreatePasswordForm {
 
         isPostBack = ko.observable(this.settings.isPostBack);
         private _isPostBack(): void {
-            this.passwordValidation.isPostBack(true);
+            this.newPasswordValidation.isPostBack(true);
             this.confirmPasswordValidation.isPostBack(true);
             this.isPostBack(true);
         }

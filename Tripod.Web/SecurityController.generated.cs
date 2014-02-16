@@ -35,6 +35,7 @@ namespace T4MVC
             public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
             public class _ViewNamesClass
             {
+                public readonly string _ChangePasswordForm = "_ChangePasswordForm";
                 public readonly string _ChangeUserNameForm = "_ChangeUserNameForm";
                 public readonly string _CreatePasswordForm = "_CreatePasswordForm";
                 public readonly string _SendVerificationEmailForm = "_SendVerificationEmailForm";
@@ -44,6 +45,7 @@ namespace T4MVC
                 public readonly string _VerifyEmailWizardSteps = "_VerifyEmailWizardSteps";
                 public readonly string AddEmailRedeemEmailVerification = "AddEmailRedeemEmailVerification";
                 public readonly string AddEmailVerifyEmailSecret = "AddEmailVerifyEmailSecret";
+                public readonly string ChangePassword = "ChangePassword";
                 public readonly string CreatePassword = "CreatePassword";
                 public readonly string SignIn = "SignIn";
                 public readonly string SignInRedeemEmailVerification = "SignInRedeemEmailVerification";
@@ -58,6 +60,7 @@ namespace T4MVC
                 public readonly string UserEmailAddresses = "UserEmailAddresses";
                 public readonly string UserSettingsIndex = "UserSettingsIndex";
             }
+            public readonly string _ChangePasswordForm = "~/Views/Security/_ChangePasswordForm.cshtml";
             public readonly string _ChangeUserNameForm = "~/Views/Security/_ChangeUserNameForm.cshtml";
             public readonly string _CreatePasswordForm = "~/Views/Security/_CreatePasswordForm.cshtml";
             public readonly string _SendVerificationEmailForm = "~/Views/Security/_SendVerificationEmailForm.cshtml";
@@ -67,6 +70,7 @@ namespace T4MVC
             public readonly string _VerifyEmailWizardSteps = "~/Views/Security/_VerifyEmailWizardSteps.cshtml";
             public readonly string AddEmailRedeemEmailVerification = "~/Views/Security/AddEmailRedeemEmailVerification.cshtml";
             public readonly string AddEmailVerifyEmailSecret = "~/Views/Security/AddEmailVerifyEmailSecret.cshtml";
+            public readonly string ChangePassword = "~/Views/Security/ChangePassword.cshtml";
             public readonly string CreatePassword = "~/Views/Security/CreatePassword.cshtml";
             public readonly string SignIn = "~/Views/Security/SignIn.cshtml";
             public readonly string SignInRedeemEmailVerification = "~/Views/Security/SignInRedeemEmailVerification.cshtml";
