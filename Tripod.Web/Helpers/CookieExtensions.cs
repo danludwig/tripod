@@ -23,10 +23,7 @@ namespace Tripod.Web
             if (response == null) throw new ArgumentNullException("response");
             if (queries == null) throw new ArgumentNullException("queries");
 
-            var cookie = new HttpCookie(CookieName, "")
-            {
-                Expires = DateTime.UtcNow.AddDays(-2),
-            };
+            var cookie = new HttpCookie(CookieName, "");
 
             int userIdInt;
             if (int.TryParse(userId, out userIdInt))
@@ -42,7 +39,11 @@ namespace Tripod.Web
                 };
                 var cookieValue = cookieTokens.Generate(userToken);
                 cookie.Values[ClientCookieKey] = cookieValue;
-                cookie.Expires = DateTime.UtcNow.AddDays(60);
+                //cookie.Expires = DateTime.UtcNow.AddDays(60);
+            }
+            else
+            {
+                cookie.Expires = DateTime.UtcNow.AddDays(-2);
             }
 
             response.SetCookie(cookie);
