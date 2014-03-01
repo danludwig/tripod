@@ -12,6 +12,7 @@ module App.Security.ChangePasswordForm {
         element?: Element;
         isPostBack: boolean;
         oldPasswordRequiredMessage: string;
+        oldPasswordValidateUrl: string;
         newPasswordRequiredMessage: string;
         newPasswordMinLength: number;
         newPasswordMaxLength: number;
@@ -68,6 +69,7 @@ module App.Security.ChangePasswordForm {
 
         private initValidation(): void {
 
+            ko.validation.rules['oldPasswordServer'] = this._validateOldPassword();
             ko.validation.rules['newPasswordServer'] = this._validateNewPassword();
             ko.validation.rules['confirmPasswordServer'] = this._validateConfirmPassword();
             ko.validation.registerExtenders();
@@ -77,40 +79,32 @@ module App.Security.ChangePasswordForm {
                     params: true,
                     message: this.settings.oldPasswordRequiredMessage,
                 },
-                //minLengthCustom: {
-                //    params: this.settings.newPasswordMinLength,
-                //    messageTemplate: this.settings.newPasswordMinLengthMessage,
-                //},
-                //maxLengthCustom: {
-                //    params: this.settings.newPasswordMaxLength,
-                //    messageTemplate: this.settings.newPasswordMaxLengthMessage,
-                //},
-                //newPasswordServer: this,
+                oldPasswordServer: this,
             });
             this.newPassword.extend({
-                //required: {
-                //    params: true,
-                //    message: this.settings.newPasswordRequiredMessage,
-                //},
-                //minLengthCustom: {
-                //    params: this.settings.newPasswordMinLength,
-                //    messageTemplate: this.settings.newPasswordMinLengthMessage,
-                //},
-                //maxLengthCustom: {
-                //    params: this.settings.newPasswordMaxLength,
-                //    messageTemplate: this.settings.newPasswordMaxLengthMessage,
-                //},
+                required: {
+                    params: true,
+                    message: this.settings.newPasswordRequiredMessage,
+                },
+                minLengthCustom: {
+                    params: this.settings.newPasswordMinLength,
+                    messageTemplate: this.settings.newPasswordMinLengthMessage,
+                },
+                maxLengthCustom: {
+                    params: this.settings.newPasswordMaxLength,
+                    messageTemplate: this.settings.newPasswordMaxLengthMessage,
+                },
                 newPasswordServer: this,
             });
             this.confirmPassword.extend({
-                //required: {
-                //    params: true,
-                //    message: this.settings.confirmPasswordRequiredMessage,
-                //},
-                //equalTo: {
-                //    params: this.newPassword,
-                //    message: this.settings.confirmPasswordEqualsMessage,
-                //},
+                required: {
+                    params: true,
+                    message: this.settings.confirmPasswordRequiredMessage,
+                },
+                equalTo: {
+                    params: this.newPassword,
+                    message: this.settings.confirmPasswordEqualsMessage,
+                },
                 confirmPasswordServer: this,
             });
 
@@ -187,6 +181,27 @@ module App.Security.ChangePasswordForm {
                     this.confirmPasswordTooltip.title(this.confirmPassword.error);
                 }
             });
+        }
+
+        private _validateOldPassword(): KnockoutValidationAsyncRuleDefinition {
+            var ruleDefinition: KnockoutValidationAsyncRuleDefinition = {
+                async: true,
+                validator: (value: string, params: ViewModel, callback: KnockoutValidationAsyncCallback): void => {
+
+                    if (this.oldPasswordValidation.hasAsyncResult(value, callback)) return;
+
+                    var asyncSettings: JQueryAjaxSettings = {
+                        url: this.settings.oldPasswordValidateUrl,
+                        type: 'POST',
+                        data: {
+                            oldPassword: value,
+                        },
+                    };
+                    this.oldPasswordValidation.doAsync(asyncSettings, this.settings.element, 'oldPassword', value, callback);
+                },
+                message: 'Invalid.',
+            };
+            return ruleDefinition;
         }
 
         private _validateNewPassword(): KnockoutValidationAsyncRuleDefinition {

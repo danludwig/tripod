@@ -1,4 +1,4 @@
-﻿'use strict';
+'use strict';
 var App;
 (function (App) {
     (function (Security) {
@@ -30,6 +30,7 @@ var App;
 
                 ViewModel.prototype.initValidation = function () {
                     var _this = this;
+                    ko.validation.rules['oldPasswordServer'] = this._validateOldPassword();
                     ko.validation.rules['newPasswordServer'] = this._validateNewPassword();
                     ko.validation.rules['confirmPasswordServer'] = this._validateConfirmPassword();
                     ko.validation.registerExtenders();
@@ -38,12 +39,33 @@ var App;
                         required: {
                             params: true,
                             message: this.settings.oldPasswordRequiredMessage
-                        }
+                        },
+                        oldPasswordServer: this
                     });
                     this.newPassword.extend({
+                        required: {
+                            params: true,
+                            message: this.settings.newPasswordRequiredMessage
+                        },
+                        minLengthCustom: {
+                            params: this.settings.newPasswordMinLength,
+                            messageTemplate: this.settings.newPasswordMinLengthMessage
+                        },
+                        maxLengthCustom: {
+                            params: this.settings.newPasswordMaxLength,
+                            messageTemplate: this.settings.newPasswordMaxLengthMessage
+                        },
                         newPasswordServer: this
                     });
                     this.confirmPassword.extend({
+                        required: {
+                            params: true,
+                            message: this.settings.confirmPasswordRequiredMessage
+                        },
+                        equalTo: {
+                            params: this.newPassword,
+                            message: this.settings.confirmPasswordEqualsMessage
+                        },
                         confirmPasswordServer: this
                     });
 
@@ -119,6 +141,28 @@ var App;
                             _this.confirmPasswordTooltip.title(_this.confirmPassword.error);
                         }
                     });
+                };
+
+                ViewModel.prototype._validateOldPassword = function () {
+                    var _this = this;
+                    var ruleDefinition = {
+                        async: true,
+                        validator: function (value, params, callback) {
+                            if (_this.oldPasswordValidation.hasAsyncResult(value, callback))
+                                return;
+
+                            var asyncSettings = {
+                                url: _this.settings.oldPasswordValidateUrl,
+                                type: 'POST',
+                                data: {
+                                    oldPassword: value
+                                }
+                            };
+                            _this.oldPasswordValidation.doAsync(asyncSettings, _this.settings.element, 'oldPassword', value, callback);
+                        },
+                        message: 'Invalid.'
+                    };
+                    return ruleDefinition;
                 };
 
                 ViewModel.prototype._validateNewPassword = function () {
