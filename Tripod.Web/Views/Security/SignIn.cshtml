@@ -51,7 +51,7 @@
                 @* EMAIL ADDRESS INPUT *@
                 <div class="form-group form-group-lg @Html.BootstrapValidationCssClassFor(x => x.UserNameOrVerifiedEmail)"
                      remove-class="has-success has-error"
-                     ng-class="signInCtrb.userName.feedbackCssClass()">
+                     ng-class="signInCtrb.userNameOrVerifiedEmail.feedbackCssClass()">
 
                     @* INPUT GROUP COLUMN *@
                     <div class="col-md-8">
@@ -61,19 +61,19 @@
                         </label>
                         <div class="@Html.CssClassWhenNotNullModel(inputGroupCss)"
                              remove-class="@inputGroupCss"
-                             ng-class="signInCtrb.userName.inputGroupCssClass('lg')">
+                             ng-class="signInCtrb.userNameOrVerifiedEmail.inputGroupCssClass('lg')">
                             <input type="text"
                                    class="form-control @inputCss"
                                    placeholder="@UserConstraints.NameLabel or @EmailAddress.Constraints.Label"
                                    id="@Html.IdFor(x => x.UserNameOrVerifiedEmail)"
-                                   name="userName"
+                                   name="userNameOrVerifiedEmail"
                                    value="@Html.ValueFor(x => x.UserNameOrVerifiedEmail)"
-                                   ng-init="vm.userName='@Html.ValueForJavaScriptString(x => x.UserNameOrVerifiedEmail)'"
-                                   ng-model="vm.userName"
+                                   ng-init="vm.userNameOrVerifiedEmail='@Html.ValueForJavaScriptString(x => x.UserNameOrVerifiedEmail)'"
+                                   ng-model="vm.userNameOrVerifiedEmail"
                                    required
                                    model-contrib
                                    server-error="@Html.ValidationMessageTextFor(x => x.UserNameOrVerifiedEmail)"
-                                   server-validate="@Url.Action(MVC.SignIn.Validate(null, "userName"))"
+                                   server-validate="@Url.Action(MVC.SignIn.Validate(null, "userNameOrVerifiedEmail"))"
                                    server-validate-throttle="400" />
 
                             <span class="input-group-addon validation @Html.CssClassWhenNullModel("hide")"
@@ -96,7 +96,7 @@
                               tooltip-placement="right"
                               class="validation-tooltip"></span>
 
-                        <span tooltip="{{ signInCtrb.userName.error.server }}"
+                        <span tooltip="{{ signInCtrb.userNameOrVerifiedEmail.error.server }}"
                               tooltip-toggle="vm.isUserNameServerError()"
                               tooltip-animation="false"
                               tooltip-placement="right"
@@ -109,7 +109,7 @@
                             @Resources.notempty_error.Replace("{PropertyName}", string.Format("{0} or {1}", UserConstraints.NameLabel, EmailAddress.Constraints.Label))
                         </span>
                         <span ng-show="vm.isUserNameServerError()" ng-cloak>
-                            {{ signInCtrb.userName.error.server }}
+                            {{ signInCtrb.userNameOrVerifiedEmail.error.server }}
                         </span>
                         <span ng-class="{ hide: true }">
                             @Html.ValidationMessageFor(x => x.UserNameOrVerifiedEmail)

@@ -1,4 +1,4 @@
-'use strict';
+﻿'use strict';
 var App;
 (function (App) {
     (function (Security) {
@@ -6,25 +6,25 @@ var App;
             var Controller = (function () {
                 function Controller(scope) {
                     this.scope = scope;
-                    this.userName = '';
+                    this.userNameOrVerifiedEmail = '';
                     this.password = '';
                     this.isPersistent = false;
                     scope.vm = this;
                 }
                 Controller.prototype.userNameInputGroupValidationAddOnCssClass = function () {
-                    return this.scope.signInCtrb.userName.hasFeedback() ? null : 'hide';
+                    return this.scope.signInCtrb.userNameOrVerifiedEmail.hasFeedback() ? null : 'hide';
                 };
 
                 Controller.prototype.isUserNameRequiredError = function () {
-                    return this.scope.signInForm.userName.$error.required && this.scope.signInCtrb.userName.hasError;
+                    return this.scope.signInForm.userNameOrVerifiedEmail.$error.required && this.scope.signInCtrb.userNameOrVerifiedEmail.hasError;
                 };
 
                 Controller.prototype.isUserNameServerError = function () {
-                    return this.scope.signInForm.userName.$error.server && this.scope.signInCtrb.userName.hasError;
+                    return this.scope.signInForm.userNameOrVerifiedEmail.$error.server && this.scope.signInCtrb.userNameOrVerifiedEmail.hasError;
                 };
 
                 Controller.prototype.isPasswordError = function () {
-                    return this.scope.signInCtrb.password.hasError && (!this.scope.signInCtrb.userName.hasError || this.scope.signInForm.userName.$error.required);
+                    return this.scope.signInCtrb.password.hasError && (!this.scope.signInCtrb.userNameOrVerifiedEmail.hasError || this.scope.signInForm.userNameOrVerifiedEmail.$error.required);
                 };
 
                 Controller.prototype.passwordCssClass = function () {

@@ -3,18 +3,18 @@
 module App.Security.SignInForm {
 
     export interface Model {
-        userName?: string;
+        userNameOrVerifiedEmail?: string;
         password?: string;
         isPersistent?: boolean;
     }
 
     export interface Form extends ng.IFormController {
-        userName: ng.INgModelController;
+        userNameOrVerifiedEmail: ng.INgModelController;
         password: ng.INgModelController;
     }
 
     export interface Contrib extends Directives.FormContrib.Controller {
-        userName: Directives.ModelContrib.Controller;
+        userNameOrVerifiedEmail: Directives.ModelContrib.Controller;
         password: Directives.ModelContrib.Controller;
     }
 
@@ -25,7 +25,7 @@ module App.Security.SignInForm {
 
     export class Controller implements Model {
 
-        userName: string = '';
+        userNameOrVerifiedEmail: string = '';
         password: string = '';
         isPersistent: boolean = false;
 
@@ -35,23 +35,23 @@ module App.Security.SignInForm {
         }
 
         userNameInputGroupValidationAddOnCssClass(): string {
-            return this.scope.signInCtrb.userName.hasFeedback() ? null : 'hide';
+            return this.scope.signInCtrb.userNameOrVerifiedEmail.hasFeedback() ? null : 'hide';
         }
 
         isUserNameRequiredError(): boolean {
-            return this.scope.signInForm.userName.$error.required
-                && this.scope.signInCtrb.userName.hasError;
+            return this.scope.signInForm.userNameOrVerifiedEmail.$error.required
+                && this.scope.signInCtrb.userNameOrVerifiedEmail.hasError;
         }
 
         isUserNameServerError(): boolean {
-            return this.scope.signInForm.userName.$error.server
-                && this.scope.signInCtrb.userName.hasError;
+            return this.scope.signInForm.userNameOrVerifiedEmail.$error.server
+                && this.scope.signInCtrb.userNameOrVerifiedEmail.hasError;
         }
 
         isPasswordError(): boolean {
             return this.scope.signInCtrb.password.hasError
-                && (!this.scope.signInCtrb.userName.hasError
-                || this.scope.signInForm.userName.$error.required);
+                && (!this.scope.signInCtrb.userNameOrVerifiedEmail.hasError
+                || this.scope.signInForm.userNameOrVerifiedEmail.$error.required);
         }
 
         passwordCssClass(): string {
