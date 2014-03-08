@@ -7,7 +7,6 @@ using Tripod.Services.FluentValidation;
 using Tripod.Services.Net;
 using Tripod.Services.Security;
 using Tripod.Services.Transactions;
-using Tripod.Services.FluentValidation;
 
 namespace Tripod.Services
 {
