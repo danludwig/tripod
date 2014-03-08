@@ -248,6 +248,7 @@
     <Compile Include="Controllers\Security\SignUpController.cs" />
     <Compile Include="Controllers\Security\SignInController.cs" />
     <Compile Include="Controllers\Security\UserEmailsController.cs" />
+    <Compile Include="Controllers\Security\UserLoginsController.cs" />
     <Compile Include="Controllers\Security\UserPasswordController.cs" />
     <Compile Include="Controllers\Security\UserSettingsController.cs" />
     <Compile Include="Controllers\Users\UsersController.cs" />
@@ -320,6 +321,9 @@
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="UserEmailsController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UserLoginsController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="UserPasswordController.generated.cs">
@@ -826,6 +830,7 @@
     <Content Include="Views\Security\_CreatePasswordForm.cshtml" />
     <Content Include="Views\Security\ChangePassword.cshtml" />
     <Content Include="Views\Security\_ChangePasswordForm.cshtml" />
+    <Content Include="Views\Security\UserLogins.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

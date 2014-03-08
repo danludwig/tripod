@@ -58,6 +58,7 @@ namespace T4MVC
                 public readonly string SignUpSendVerificationEmail = "SignUpSendVerificationEmail";
                 public readonly string SignUpVerifyEmailSecret = "SignUpVerifyEmailSecret";
                 public readonly string UserEmailAddresses = "UserEmailAddresses";
+                public readonly string UserLogins = "UserLogins";
                 public readonly string UserSettingsIndex = "UserSettingsIndex";
             }
             public readonly string _ChangePasswordForm = "~/Views/Security/_ChangePasswordForm.cshtml";
@@ -83,6 +84,7 @@ namespace T4MVC
             public readonly string SignUpSendVerificationEmail = "~/Views/Security/SignUpSendVerificationEmail.cshtml";
             public readonly string SignUpVerifyEmailSecret = "~/Views/Security/SignUpVerifyEmailSecret.cshtml";
             public readonly string UserEmailAddresses = "~/Views/Security/UserEmailAddresses.cshtml";
+            public readonly string UserLogins = "~/Views/Security/UserLogins.cshtml";
             public readonly string UserSettingsIndex = "~/Views/Security/UserSettingsIndex.cshtml";
         }
     }
