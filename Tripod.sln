@@ -10,6 +10,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.gitignore = .gitignore
 		CodeCoverage.runsettings = CodeCoverage.runsettings
 		GlobalAssemblyInfo.cs = GlobalAssemblyInfo.cs
+		readme.md = readme.md
 		ReSharperAnnotations.cs = ReSharperAnnotations.cs
 		Tripod.sln.DotSettings = Tripod.sln.DotSettings
 		WE2013-settings.xml = WE2013-settings.xml
