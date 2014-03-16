@@ -52,7 +52,7 @@
     <MarkdownEncodeProblemUrlCharacters>True</MarkdownEncodeProblemUrlCharacters>
     <MarkdownGenerateXHTML>True</MarkdownGenerateXHTML>
     <MarkdownLinkEmails>True</MarkdownLinkEmails>
-    <MarkdownMargin_width>520</MarkdownMargin_width>
+    <MarkdownMargin_width>538</MarkdownMargin_width>
     <MarkdownShowPreviewWindow>True</MarkdownShowPreviewWindow>
     <MarkdownStrictBoldItalic>True</MarkdownStrictBoldItalic>
     <PixelPushing_OnByDefault>True</PixelPushing_OnByDefault>

@@ -1,6 +1,29 @@
-﻿@{
-    ViewBag.Title = "View1";
+﻿@model LoginSettingsModel
+
+@{
+    ViewBag.Title = "Logins";
 }
 
-<h2>View1</h2>
+@section styles
+{
+    <link href="~/content/security/user-settings.css" rel="stylesheet" />
+}
 
+
+
+@{ Html.RenderPartial(MVC.Users.Views._UserJumbotron, Model.UserView); }
+
+<section class="user-settings row">
+
+    @{ Html.RenderPartial(MVC.Security.Views._UserSettingsNav, new UserSettingsNavModel { IsLogins = true }); }
+
+    <div class="col-md-8" role="main">
+
+        @{ Html.RenderPartial(MVC.Shared.Views._AlertsTempData, new AlertRenderOptions()); }
+
+        <h3 class="scalp">
+            My logins
+        </h3>
+
+    </div>
+</section>

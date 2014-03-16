@@ -261,6 +261,7 @@
     </Compile>
     <Compile Include="Models\Security\ChangeLocalPasswordModel.cs" />
     <Compile Include="Models\Security\CreateLocalMembershipModel.cs" />
+    <Compile Include="Models\Security\LoginSettingsModel.cs" />
     <Compile Include="Models\Security\UserSettingsNavModel.cs" />
     <Compile Include="Models\_Common\AlertFlavor.cs" />
     <Compile Include="Models\_Common\AlertModel.cs" />

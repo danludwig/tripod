@@ -1,4 +1,7 @@
-﻿using System.Web.Mvc;
+﻿using System.Threading.Tasks;
+using System.Web.Mvc;
+using Tripod.Domain.Security;
+using Tripod.Web.Models;
 
 namespace Tripod.Web.Controllers
 {
@@ -12,9 +15,16 @@ namespace Tripod.Web.Controllers
         }
 
         [HttpGet, Route("settings/logins")]
-        public virtual ActionResult Index()
+        public virtual async Task<ActionResult> Index()
         {
-            return View(MVC.Security.Views.UserLogins);
+            var user = await _queries.Execute(new UserViewBy(User.Identity.GetAppUserId()));
+
+            var model = new LoginSettingsModel
+            {
+                UserView = user,
+            };
+
+            return View(MVC.Security.Views.UserLogins, model);
         }
 	}
 }
