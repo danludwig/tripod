@@ -10,7 +10,7 @@ Tripod is not the be-all end-all .NET app architecture, and does not try or clai
 
 #Why Tripod?
 
-Tripod was published by me, Dan Ludwig, as a community contribution. I [read a lot of code](http://www.stackoverflow.com/), and I see a lot of developers running into problems when they base their project architectures on blog posts, .NET books, or worse, [Microsoft's own tutorials](http://www.asp.net/get-started/).
+Tripod was published by me, Dan Ludwig, as a community contribution. [I read a lot of code](http://stackoverflow.com/users/304832/danludwig), and I see a lot of developers running into problems when they base their project architectures on blog posts, .NET books, or worse, [Microsoft's own tutorials](http://www.asp.net/get-started/).
 
 Let's face it, writing code is easy. Anyone can write code, and [everyone should know how to write a little code](http://code.org/). What's hard is writing *good* code.
 
