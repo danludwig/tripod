@@ -31,7 +31,7 @@ In the end, a lot of it boils down to *opinion*. Are you a pragmatic developer w
 
 Maybe, maybe not. Like I said, it depends on who you ask. It is definitely no magic bullet. I believe the ASP.NET (server) parts of Tripod are good code, but I'm not sure if I like the HTML or Javascript parts of it. To be honest, this is the first project I ever used AngularJS with. So that part of it could very well be bad code. I don't think I've read enough good AngularJS code to be able to form a strong opinion on that part of it.
 
-Tripod was published as an example of how to organize and structure server (ASP.NET) code. Don't look to it for examples of how to handle applications when they make it to the browser. The Tripod architecture is about all of the code that runs on the server.
+Tripod was published as an example of how to organize and structure *server* (ASP.NET) code. Don't look to it for examples of how to architect the parts of applications that execute on the browser. The Tripod architecture is about all of the code that runs on the server.
 
 What about Tripod do I think is good?
 
@@ -48,7 +48,7 @@ Tripod also employs a few patterns which I have found to be very useful:
 
 2. Command Query Responsibility Segregation: CQRS is at the very heart of Tripod's architecture. Commands and queries are the messaging mechanisms between users and business code. User wants to see data? Query. User wants to affect data? Command. It's that simple.
 
-3. Dependency Inversion Principle. Okay, I know I've already mentioned this one in the other #3, but it is a pivotal part of the Tripod architecture. Even if you are already using an IoC container, you may be interested to see how Tripod uses it.
+3. Dependency Inversion Principle. Okay, I know I've already mentioned this one in the previous #3 above, but it is a pivotal part of the Tripod architecture. Even if you are already using an IoC container, you may be interested to see how Tripod uses it.
 
 Finally, Tripod helps me avoid common pitfalls and other frustrating "anti-patterns":
 
