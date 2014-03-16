@@ -25,5 +25,47 @@
             My logins
         </h3>
 
+        @if (!Model.Logins.Any())
+        {
+            <p>
+                You do not have any logins linked to your account.
+            </p>
+        }
+        else
+        {
+            var google = Model.Logins.SingleOrDefault(x => x.Provider.Equals("Google", StringComparison.OrdinalIgnoreCase));
+            var facebook = Model.Logins.SingleOrDefault(x => x.Provider.Equals("Facebook", StringComparison.OrdinalIgnoreCase));
+            var twitter = Model.Logins.SingleOrDefault(x => x.Provider.Equals("Twitter", StringComparison.OrdinalIgnoreCase));
+            <ul class="logins list-unstyled">
+                @if (google != null)
+                {
+                    <li class="google clearfix">
+                        <i></i>
+                        <span class="login-text">
+                            Google
+                        </span>
+                    </li>
+                }
+                @if (facebook != null)
+                {
+                    <li class="facebook clearfix">
+                        <i></i>
+                        <span class="login-text">
+                            Facebook
+                        </span>
+                    </li>
+                }
+                @if (twitter != null)
+                {
+                    <li class="twitter clearfix">
+                        <i></i>
+                        <span class="login-text">
+                            Twitter
+                        </span>
+                    </li>
+                }
+            </ul>
+        }
+
     </div>
 </section>

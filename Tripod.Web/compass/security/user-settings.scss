@@ -92,8 +92,67 @@ body {
                 margin-left: 4px;
                 vertical-align: top;
             }
+        }
+    }
 
-            button.btn {
+    ul.logins {
+        > li {
+            @include box-sizing(content-box);
+            border: 0;
+            padding: 0;
+            margin-bottom: 8px;
+            @include border-radius(6px);
+            color: #fff;
+
+            i {
+                display: block;
+                float: left;
+                height: 48px;
+                width: 56px;
+            }
+
+            &.google {
+                background-color: #dd4b39;
+                &:hover {
+                    background-color: #e94a2f;
+                }
+                i {
+                    background-image: url(../../images/oauth-buttons/google/Red-signin-Small-transparent-44dp.png);
+                    @include background-size(auto 48px);
+                    background-repeat: no-repeat;
+                    background-position: 4px 1px;
+                }
+            }
+
+            &.facebook {
+                background-color: #3b5998;
+                &:hover {
+                    background-color: #4c69a3;
+                }
+                i {
+                    background-image: url(../../images/oauth-buttons/facebook/f-white-around-transparent.png);
+                    @include background-size(auto 36px);
+                    background-repeat: no-repeat;
+                    background-position: 6px 6px;
+                }
+            }
+
+            &.twitter {
+                background-color: #1daee3;
+                &:hover {
+                    background-color: #00bbff;
+                }
+                i {
+                    background-image: url(../../images/oauth-buttons/twitter/bird-white-on-transparent-30-22.png);
+                    background-repeat: no-repeat;
+                    background-position: 12px 14px;
+                }
+            }
+
+            .login-text {
+                float: left;
+                font-size: 18px;
+                line-height: 48px;
             }
         }
     }
