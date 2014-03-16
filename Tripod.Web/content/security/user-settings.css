@@ -98,7 +98,7 @@ body ul.logins > li {
   border-radius: 6px;
   color: #fff; }
   /* line 107, ../../compass/security/user-settings.scss */
-  body ul.logins > li i {
+  body ul.logins > li i.provider {
     display: block;
     float: left;
     height: 48px;
@@ -110,7 +110,7 @@ body ul.logins > li {
     body ul.logins > li.google:hover {
       background-color: #e94a2f; }
     /* line 119, ../../compass/security/user-settings.scss */
-    body ul.logins > li.google i {
+    body ul.logins > li.google i.provider {
       background-image: url(../../images/oauth-buttons/google/Red-signin-Small-transparent-44dp.png);
       -webkit-background-size: auto 48px;
       -moz-background-size: auto 48px;
@@ -125,7 +125,7 @@ body ul.logins > li {
     body ul.logins > li.facebook:hover {
       background-color: #4c69a3; }
     /* line 132, ../../compass/security/user-settings.scss */
-    body ul.logins > li.facebook i {
+    body ul.logins > li.facebook i.provider {
       background-image: url(../../images/oauth-buttons/facebook/f-white-around-transparent.png);
       -webkit-background-size: auto 36px;
       -moz-background-size: auto 36px;
@@ -140,7 +140,7 @@ body ul.logins > li {
     body ul.logins > li.twitter:hover {
       background-color: #00bbff; }
     /* line 145, ../../compass/security/user-settings.scss */
-    body ul.logins > li.twitter i {
+    body ul.logins > li.twitter i.provider {
       background-image: url(../../images/oauth-buttons/twitter/bird-white-on-transparent-30-22.png);
       background-repeat: no-repeat;
       background-position: 12px 14px; }
@@ -148,4 +148,10 @@ body ul.logins > li {
   body ul.logins > li .login-text {
     float: left;
     font-size: 18px;
-    line-height: 48px; }
+    line-height: 48px;
+    cursor: default; }
+  /* line 159, ../../compass/security/user-settings.scss */
+  body ul.logins > li .buttons {
+    float: right;
+    margin-top: 9px;
+    margin-right: 9px; }

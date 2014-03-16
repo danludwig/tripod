@@ -104,7 +104,7 @@ body {
             @include border-radius(6px);
             color: #fff;
 
-            i {
+            i.provider {
                 display: block;
                 float: left;
                 height: 48px;
@@ -116,7 +116,7 @@ body {
                 &:hover {
                     background-color: #e94a2f;
                 }
-                i {
+                i.provider {
                     background-image: url(../../images/oauth-buttons/google/Red-signin-Small-transparent-44dp.png);
                     @include background-size(auto 48px);
                     background-repeat: no-repeat;
@@ -129,7 +129,7 @@ body {
                 &:hover {
                     background-color: #4c69a3;
                 }
-                i {
+                i.provider {
                     background-image: url(../../images/oauth-buttons/facebook/f-white-around-transparent.png);
                     @include background-size(auto 36px);
                     background-repeat: no-repeat;
@@ -142,7 +142,7 @@ body {
                 &:hover {
                     background-color: #00bbff;
                 }
-                i {
+                i.provider {
                     background-image: url(../../images/oauth-buttons/twitter/bird-white-on-transparent-30-22.png);
                     background-repeat: no-repeat;
                     background-position: 12px 14px;
@@ -153,6 +153,13 @@ body {
                 float: left;
                 font-size: 18px;
                 line-height: 48px;
+                cursor: default;
+            }
+
+            .buttons {
+                float: right;
+                margin-top: 9px;
+                margin-right: 9px;
             }
         }
     }

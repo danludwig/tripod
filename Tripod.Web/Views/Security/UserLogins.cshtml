@@ -33,6 +33,9 @@
         }
         else
         {
+            <p>
+                You can sign in using any of the following accounts:
+            </p>
             var google = Model.Logins.SingleOrDefault(x => x.Provider.Equals("Google", StringComparison.OrdinalIgnoreCase));
             var facebook = Model.Logins.SingleOrDefault(x => x.Provider.Equals("Facebook", StringComparison.OrdinalIgnoreCase));
             var twitter = Model.Logins.SingleOrDefault(x => x.Provider.Equals("Twitter", StringComparison.OrdinalIgnoreCase));
@@ -40,28 +43,88 @@
                 @if (google != null)
                 {
                     <li class="google clearfix">
-                        <i></i>
+                        <i class="provider"></i>
                         <span class="login-text">
                             Google
                         </span>
+                        <div class="buttons">
+                            <form method="POST" action="" class="form-inline" style="display: inline;">
+                                @Html.AntiForgeryToken()
+                                @Html.HttpMethodOverride(HttpVerbs.Delete)
+                                <button type="submit"
+                                        class="btn btn-warning btn-sm"
+                                        data-bootbox="confirm-form-submit"
+                                        data-bootbox-class="modal-danger modal-buttons-left"
+                                        data-bootbox-close="false"
+                                        data-bootbox-title="Please confirm your intent"
+                                        data-bootbox-message="Are you sure you want to delete the **Google** login?"
+                                        data-bootbox-confirm="Yes, confirm delete"
+                                        data-bootbox-confirm-class="btn-danger"
+                                        data-bootbox-deny="No, cancel delete"
+                                        data-bootbox-deny-class="btn-link">
+                                    <i class="fa fa-times"></i>
+                                    Unlink
+                                </button>
+                            </form>
+                        </div>
                     </li>
                 }
                 @if (facebook != null)
                 {
                     <li class="facebook clearfix">
-                        <i></i>
+                        <i class="provider"></i>
                         <span class="login-text">
                             Facebook
                         </span>
+                        <div class="buttons">
+                            <form method="POST" action="" class="form-inline" style="display: inline;">
+                                @Html.AntiForgeryToken()
+                                @Html.HttpMethodOverride(HttpVerbs.Delete)
+                                <button type="submit"
+                                        class="btn btn-warning btn-sm"
+                                        data-bootbox="confirm-form-submit"
+                                        data-bootbox-class="modal-danger modal-buttons-left"
+                                        data-bootbox-close="false"
+                                        data-bootbox-title="Please confirm your intent"
+                                        data-bootbox-message="Are you sure you want to delete the **Facebook** login?"
+                                        data-bootbox-confirm="Yes, confirm delete"
+                                        data-bootbox-confirm-class="btn-danger"
+                                        data-bootbox-deny="No, cancel delete"
+                                        data-bootbox-deny-class="btn-link">
+                                    <i class="fa fa-times"></i>
+                                    Unlink
+                                </button>
+                            </form>
+                        </div>
                     </li>
                 }
                 @if (twitter != null)
                 {
                     <li class="twitter clearfix">
-                        <i></i>
+                        <i class="provider"></i>
                         <span class="login-text">
                             Twitter
                         </span>
+                        <div class="buttons">
+                            <form method="POST" action="" class="form-inline" style="display: inline;">
+                                @Html.AntiForgeryToken()
+                                @Html.HttpMethodOverride(HttpVerbs.Delete)
+                                <button type="submit"
+                                        class="btn btn-warning btn-sm"
+                                        data-bootbox="confirm-form-submit"
+                                        data-bootbox-class="modal-danger modal-buttons-left"
+                                        data-bootbox-close="false"
+                                        data-bootbox-title="Please confirm your intent"
+                                        data-bootbox-message="Are you sure you want to delete the **Twitter** login?"
+                                        data-bootbox-confirm="Yes, confirm delete"
+                                        data-bootbox-confirm-class="btn-danger"
+                                        data-bootbox-deny="No, cancel delete"
+                                        data-bootbox-deny-class="btn-link">
+                                    <i class="fa fa-times"></i>
+                                    Unlink
+                                </button>
+                            </form>
+                        </div>
                     </li>
                 }
             </ul>
