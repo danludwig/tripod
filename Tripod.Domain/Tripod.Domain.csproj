@@ -130,6 +130,7 @@
     <Compile Include="Domain\Security\Entities\UserClaim.cs" />
     <Compile Include="Domain\Security\Entities\RemoteMembership.cs" />
     <Compile Include="Domain\Security\Entities\User.cs" />
+    <Compile Include="Domain\Security\Queries\RemoteMembershipViewsBy.cs" />
     <Compile Include="Domain\Security\Queries\EmailAddressViewsBy.cs" />
     <Compile Include="Domain\Security\Queries\EmailAddressesBy.cs" />
     <Compile Include="Domain\Security\Queries\HashedEmailValueBy.cs" />
@@ -187,6 +188,7 @@
     <Compile Include="Domain\Security\Validation\MustNotFindUserByName.cs" />
     <Compile Include="Domain\Security\Views\ClientCookie.cs" />
     <Compile Include="Domain\Security\Views\EmailAddressView.cs" />
+    <Compile Include="Domain\Security\Views\RemoteMembershipView.cs" />
     <Compile Include="Domain\Security\Views\UserView.cs" />
     <Compile Include="Domain\Security\_Extensions\QueryEmailVerifications.cs" />
     <Compile Include="Domain\Security\_Extensions\QueryRemoteMemberships.cs" />
