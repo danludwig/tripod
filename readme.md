@@ -2,7 +2,7 @@ Note: This project is **not** affiliated with  [TRIPOD website building services
 
 #What is Tripod?
 
-Tripod is an example of one way to architect .NET apps.
+Tripod is an example of one way to architect .NET apps. It is a form of onion architecture that uses specific tools, patterns, and conventions. It is opinionated code.
 
 #What is Tripod not?
 
@@ -26,7 +26,7 @@ Maybe, maybe not. Like I said, it depends on who you ask. It is definitely no ma
 
 Tripod was published as an example of how to organize and structure *server* (ASP.NET) code. Don't look to it for examples of how to architect the parts of applications that execute on the browser. The Tripod architecture is about all of the code that runs on the server.
 
-What about Tripod do I think is good?
+###What about Tripod do I think is good?
 
 1. Tripod is testable. In this project you will find automatable unit tests and integration tests (though no automated user acceptance tests (yet)). You should not be able to write anything in Tripod that isn't unit- or integration-testable.
 
@@ -35,7 +35,7 @@ What about Tripod do I think is good?
 3. Tripod uses depenency injection and inversion of control to create decoupled, cohesive software components. This helps me to more easily separate business code (what I often refer to as "interesting" code) from infrastructure code (what I often refer to as "boring" code).
 
 
-Tripod also employs a few patterns which I have found to be very useful:
+###Tripod also employs a few patterns which I have found to be very useful:
 
 1. Generic Repository: This is probably not the generic repository you are used to. With Tripod you will never have to create a boring generic repository class. Instead, you will use generic methods defined on one repository class.
 
@@ -43,7 +43,7 @@ Tripod also employs a few patterns which I have found to be very useful:
 
 3. Dependency Inversion Principle. Okay, I know I've already mentioned this one in the previous #3 above, but it is a pivotal part of the Tripod architecture. Even if you are already using an IoC container, you may be interested to see how Tripod uses it.
 
-Finally, Tripod helps me avoid common pitfalls and other frustrating "anti-patterns":
+###Finally, Tripod helps me avoid common pitfalls and other frustrating "anti-patterns":
 
 1. Constructor overinjection: As a rule of thumb, classes should never really depend on more than 5 other components to do their jobs. With Tripod, your components should rarely need more than 3 dependencies.
 
