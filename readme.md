@@ -1,6 +1,4 @@
-Note: This project is **not** affiliated with  [TRIPOD website building services](othertripod1). If you are looking for that, [you can find it here](othertripod1).
-
-[othertripod1]: http://www.tripod.lycos.com/
+Note: This project is **not** affiliated with  [TRIPOD website building services](http://www.tripod.lycos.com/). If you are looking for that, [you can find it here](http://www.tripod.lycos.com/).
 
 #What is Tripod?
 
@@ -12,18 +10,13 @@ Tripod is not the be-all end-all .NET app architecture, and does not try or clai
 
 #Why Tripod?
 
-Tripod was published by me, Dan Ludwig, as a community contribution. I [read a lot of code](so), and I see a lot of developers running into problems when they base their project architectures on blog posts, .NET books, or worse, [Microsoft's own tutorials](aspnet).
+Tripod was published by me, Dan Ludwig, as a community contribution. I [read a lot of code](http://www.stackoverflow.com/), and I see a lot of developers running into problems when they base their project architectures on blog posts, .NET books, or worse, [Microsoft's own tutorials](http://www.asp.net/get-started/).
 
-[so]: http://www.stackoverflow.com/
-[aspnet]: http://www.asp.net/get-started/
-
-Let's face it, writing code is easy. Anyone can write code, and [everyone should know how to write a little code](codeorg). What's hard is writing *good* code.
+Let's face it, writing code is easy. Anyone can write code, and [everyone should know how to write a little code](http://code.org/). What's hard is writing *good* code.
 
 ##What is *good* code?
 
 It depends on who you ask. When you write code for long enough, your experience leads you to build *opinions*. What may be a perfect set of code to a customer or business leader could look like a horrid tangled mess to a software engineer who looks at it for the first time. Does that make it *bad* code? Yes? But it does everything it's supposed to and keeps X number of families' mouths fed. How is that bad?
-
-[codeorg]: http://code.org/
 
 In the end, a lot of it boils down to *opinion*. Are you a pragmatic developer who isn't afraid to use brute force to get things done and burn down your task queue? Or do you have an aesthetic for code, and find yourself looking for more elegant solutions? If you're like me, you're probably some mix between the two.
 
@@ -60,12 +53,8 @@ Finally, Tripod helps me avoid common pitfalls and other frustrating "anti-patte
 
 ##OK, so how does Tripod work?
 
-Download it, run it, explore it, and try figure it out for yourself. If you have any questions or concerns, [post them under issues](tpissues). I will write more about it as I build upon it over time. I have only put it on GitHub to share it with a couple of people who already know about it, and it is **not finished**. However if you're looking to explore different ideas, why *not* at least have a look at it?
-
-[tpissues]: https://github.com/danludwig/tripod/issues/
+Download it, run it, explore it, and try figure it out for yourself. If you have any questions or concerns, [post them under issues](https://github.com/danludwig/tripod/issues/). I will write more about it as I build upon it over time. I have only put it on GitHub to share it with a couple of people who already know about it, and it is **not finished**. However if you're looking to explore different ideas, why *not* at least have a look at it?
 
 #License
 
-All code in Tripod projects is licensed under the [MIT License](mitlic).
-
-[mitlic]: http://opensource.org/licenses/MIT
+All code in Tripod projects is licensed under the [MIT License](http://opensource.org/licenses/MIT).
