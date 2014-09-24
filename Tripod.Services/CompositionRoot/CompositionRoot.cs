@@ -18,7 +18,6 @@ namespace Tripod.Services
 #if !DEBUG
             settings.IsGreenfield = false;
 #endif
-            container.Options.AllowOverridingRegistrations = true;
             container.Register<IServiceProvider>(() => container, Lifestyle.Singleton);
             container.RegisterCryptography();
             container.RegisterExceptionAuditor();

@@ -20,7 +20,7 @@ namespace Tripod.Services
         [Fact]
         public void ComposeRoot_AllowsOverridingRegistrations()
         {
-            Container.Options.AllowOverridingRegistrations.ShouldBeTrue();
+            Container.Options.AllowOverridingRegistrations.ShouldBeFalse();
         }
 
         [Fact]
