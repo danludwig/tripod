@@ -40,7 +40,7 @@ namespace Tripod.Web.Controllers
         [HttpPut, Route("settings/username")]
         public virtual async Task<ActionResult> ChangeUserName(ChangeUserName command)
         {
-            if (command == null) return View(MVC.Errors.BadRequest());
+            if (command == null) return View(MVC.Errors.Views.BadRequest);
 
             var view = await _queries.Execute(new UserViewBy(command.UserId));
             if (view == null) return HttpNotFound();

@@ -231,7 +231,7 @@ namespace Tripod.Web.Controllers
         [HttpPut, Route("settings/emails/{emailAddressId}")]
         public virtual async Task<ActionResult> UpdateEmailAddress(int emailAddressId, UpdateEmailAddress command)
         {
-            if (command == null) return View(MVC.Errors.BadRequest());
+            if (command == null) return View(MVC.Errors.Views.BadRequest);
 
             if (!ModelState.IsValid)
             {
@@ -264,7 +264,7 @@ namespace Tripod.Web.Controllers
         [HttpDelete, Route("settings/emails/{emailAddressId}")]
         public virtual async Task<ActionResult> DeleteEmailAddress(int emailAddressId, DeleteEmailAddress command)
         {
-            if (command == null) return View(MVC.Errors.BadRequest());
+            if (command == null) return View(MVC.Errors.Views.BadRequest);
 
             if (!ModelState.IsValid)
             {
