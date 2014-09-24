@@ -41,6 +41,13 @@ namespace Tripod.Web.Controllers
             return RedirectToRoutePermanent(callInfo.RouteValueDictionary);
         }
 
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Delete()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Delete);
+            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
+        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public UserLoginsController Actions { get { return MVC.UserLogins; } }
@@ -58,15 +65,26 @@ namespace Tripod.Web.Controllers
         public class ActionNamesClass
         {
             public readonly string Index = "Index";
+            public readonly string Delete = "Delete";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNameConstants
         {
             public const string Index = "Index";
+            public const string Delete = "Delete";
         }
 
 
+        static readonly ActionParamsClass_Delete s_params_Delete = new ActionParamsClass_Delete();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_Delete DeleteParams { get { return s_params_Delete; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_Delete
+        {
+            public readonly string loginProvider = "loginProvider";
+            public readonly string command = "command";
+        }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ViewsClass Views { get { return s_views; } }
@@ -92,6 +110,17 @@ namespace Tripod.Web.Controllers
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
             IndexOverride(callInfo);
+            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
+        }
+
+        partial void DeleteOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string loginProvider, Tripod.Domain.Security.DeleteRemoteMembership command);
+
+        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Delete(string loginProvider, Tripod.Domain.Security.DeleteRemoteMembership command)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Delete);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "loginProvider", loginProvider);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "command", command);
+            DeleteOverride(callInfo, loginProvider, command);
             return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
         }
 

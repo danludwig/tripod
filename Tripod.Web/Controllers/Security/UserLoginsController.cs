@@ -29,5 +29,19 @@ namespace Tripod.Web.Controllers
 
             return View(MVC.Security.Views.UserLogins, model);
         }
-	}
+
+        [ValidateAntiForgeryToken]
+        [HttpDelete, Route("settings/logins/{loginProvider}")]
+        public virtual async Task<ActionResult> Delete(string loginProvider, DeleteRemoteMembership command)
+        {
+            if (ModelState.IsValid)
+            {
+                TempData.Alerts("Command should be executed.", AlertFlavor.Success);
+                return RedirectToAction(await MVC.UserLogins.Index());
+            }
+
+            TempData.Alerts("Model did not pass validation.", AlertFlavor.Danger);
+            return RedirectToAction(await MVC.UserLogins.Index());
+        }
+    }
 }

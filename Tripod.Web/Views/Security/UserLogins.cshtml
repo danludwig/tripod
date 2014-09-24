@@ -48,9 +48,10 @@
                             Google
                         </span>
                         <div class="buttons">
-                            <form method="POST" action="" class="form-inline" style="display: inline;">
+                            <form method="POST" action="@Url.Action(MVC.UserLogins.Delete("Google", null))" class="form-inline" style="display: inline;">
                                 @Html.AntiForgeryToken()
                                 @Html.HttpMethodOverride(HttpVerbs.Delete)
+                                <input type="hidden" name="providerKey" value="@google.Key" />
                                 <button type="submit"
                                         class="btn btn-warning btn-sm"
                                         data-bootbox="confirm-form-submit"
@@ -77,9 +78,10 @@
                             Facebook
                         </span>
                         <div class="buttons">
-                            <form method="POST" action="" class="form-inline" style="display: inline;">
+                            <form method="POST" action="@Url.Action(MVC.UserLogins.Delete("Facebook", null))" class="form-inline" style="display: inline;">
                                 @Html.AntiForgeryToken()
                                 @Html.HttpMethodOverride(HttpVerbs.Delete)
+                                <input type="hidden" name="providerKey" value="@facebook.Key" />
                                 <button type="submit"
                                         class="btn btn-warning btn-sm"
                                         data-bootbox="confirm-form-submit"
@@ -106,9 +108,10 @@
                             Twitter
                         </span>
                         <div class="buttons">
-                            <form method="POST" action="" class="form-inline" style="display: inline;">
+                            <form method="POST" action="@Url.Action(MVC.UserLogins.Delete("Twitter", null))" class="form-inline" style="display: inline;">
                                 @Html.AntiForgeryToken()
                                 @Html.HttpMethodOverride(HttpVerbs.Delete)
+                                <input type="hidden" name="providerKey" value="@twitter.Key" />
                                 <button type="submit"
                                         class="btn btn-warning btn-sm"
                                         data-bootbox="confirm-form-submit"
