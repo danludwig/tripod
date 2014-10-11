@@ -31,21 +31,21 @@ namespace Tripod.Domain.Security
         {
             RuleFor(x => x.Principal)
                 .MustFindUserByPrincipal(queries)
-                    .When(x => x.User == null)
-                    .WithName(User.Constraints.Label);
+                .When(x => x.User == null)
+                .WithName(User.Constraints.Label);
 
+            // do not allow this command when purpose is to reset a forgotten password
+            // because in that case, there is already an email associated with the user
+            var validPurposes = new Func<RedeemEmailVerification, EmailVerificationPurpose>[]
+            {
+                x => EmailVerificationPurpose.CreateRemoteUser,
+                x => EmailVerificationPurpose.CreateLocalUser,
+                x => EmailVerificationPurpose.AddEmail,
+            };
             RuleFor(x => x.Ticket)
                 .MustBeRedeemableVerifyEmailTicket(queries)
-                .MustBePurposedVerifyEmailTicket(queries,
-                    x => EmailVerificationPurpose.CreateRemoteUser,
-                    x => EmailVerificationPurpose.CreateLocalUser,
-                    x => EmailVerificationPurpose.AddEmail
-                )
-                .WithName(EmailVerification.Constraints.Label)
-            ;
-
-            RuleFor(x => x.Token)
-                .MustBeValidVerifyEmailToken(queries, x => x.Ticket)
+                .MustBePurposedVerifyEmailTicket(queries, validPurposes)
+                .MustHaveValidVerifyEmailToken(queries, x => x.Token)
                 .WithName(EmailVerification.Constraints.Label)
             ;
         }

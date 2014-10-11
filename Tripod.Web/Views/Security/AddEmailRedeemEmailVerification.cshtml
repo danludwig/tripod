@@ -39,15 +39,6 @@
                    name="emailAddress"
                    value="@ViewBag.EmailAddress" />
             <input type="hidden"
-                   name="token"
-                   value="@ViewBag.Token"
-                   ng-init="vm.token='@ViewBag.Token'"
-                   ng-model="vm.token"
-                   required
-                   model-contrib
-                   server-error="@Html.ValidationMessageTextFor(x => x.Token)"
-                   server-validate="@Url.Action(MVC.SignUp.ValidateCreateLocalMembership(null, "token"))" />
-            <input type="hidden"
                    name="ticket"
                    value="@ViewBag.Ticket"
                    ng-init="vm.ticket='@ViewBag.Ticket'"
@@ -55,7 +46,14 @@
                    required
                    model-contrib
                    server-error="@Html.ValidationMessageTextFor(x => x.Ticket)"
-                   server-validate="@Url.Action(MVC.SignUp.ValidateCreateLocalMembership(null, "ticket"))" />
+                   server-validate="@Url.Action(MVC.SignUp.ValidateCreateLocalMembership(null, "ticket"))"
+                   server-validate-data="{ token: vm.token }" />
+            <input type="hidden"
+                   name="token"
+                   value="@ViewBag.Token"
+                   ng-init="vm.token='@ViewBag.Token'"
+                   ng-model="vm.token"
+                   model-contrib />
             @{
                 var buttonClass = ViewData.ModelState.IsValid ? null : "btn-danger";
                 var readyClass = ViewData.ModelState.IsValid ? null : "hide";

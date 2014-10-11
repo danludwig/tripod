@@ -167,17 +167,14 @@ namespace Tripod.Web.Controllers
         [HttpGet, Route("settings/emails/confirm", Order = 1)]
         public virtual async Task<ActionResult> RedeemEmailVerification(string token, string ticket)
         {
-            //var userToken = await _queries.Execute(new EmailVerificationUserToken(token));
-            //if (userToken == null) return HttpNotFound();
-            //if (!userToken) return HttpNotFound();
             var verification = await _queries.Execute(new EmailVerificationBy(ticket));
             if (verification == null) return HttpNotFound();
 
             // todo: verification cannot be expired, redeemed, or for different purpose
 
-            ViewBag.Token = token;
-            ViewBag.Ticket = ticket;
             ViewBag.EmailAddress = verification.EmailAddress.Value;
+            ViewBag.Ticket = ticket;
+            ViewBag.Token = token;
             return View(MVC.Security.Views.AddEmailRedeemEmailVerification);
         }
 
@@ -195,8 +192,9 @@ namespace Tripod.Web.Controllers
                 var firstError = ModelState.Values.SelectMany(x => x.Errors.Select(y => y.ErrorMessage)).First();
                 var message = string.Format("Could not confirm email address: **{0}**", firstError);
                 TempData.Alerts(message, AlertFlavor.Danger, true);
-                ViewBag.Token = command.Token;
                 ViewBag.EmailAddress = emailAddress;
+                ViewBag.Ticket = command.Ticket;
+                ViewBag.Token = command.Token;
                 return View(MVC.Security.Views.AddEmailRedeemEmailVerification, command);
             }
 

@@ -3,7 +3,7 @@
 @using UserConstraints = Tripod.Domain.Security.User.Constraints
 @model ResetPassword
 
-@{ // BUG make sure to come back and check this
+@{
     ViewBag.Title = "Reset your password";
 }
 
@@ -55,7 +55,6 @@
            value="@ViewBag.Token"
            ng-init="vm.token='@ViewBag.Token'"
            ng-model="vm.token"
-           required
            model-contrib />
     <input type="hidden" name="returnUrl" value="@ViewBag.ReturnUrl" />
 
