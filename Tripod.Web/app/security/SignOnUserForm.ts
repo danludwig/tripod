@@ -5,16 +5,19 @@ module App.Security.SignOnUserForm {
     export interface Model {
         userName?: string;
         token?: string;
+        ticket?: string;
     }
 
     export interface Form extends ng.IFormController {
         userName: ng.INgModelController;
         token: ng.INgModelController;
+        ticket: ng.INgModelController;
     }
 
     export interface Contrib extends Directives.FormContrib.Controller {
         userName: Directives.ModelContrib.Controller;
         token: Directives.ModelContrib.Controller;
+        ticket: Directives.ModelContrib.Controller;
     }
 
     export interface Scope extends ViewModelScope<Model> {
@@ -47,18 +50,18 @@ module App.Security.SignOnUserForm {
                 && this.scope.signOnUserCtrb.userName.hasError;
         }
 
-        tokenInputGroupValidationAddOnCssClass(): string {
-            return this.scope.signOnUserCtrb.token.hasFeedback() ? null : 'hide';
+        ticketInputGroupValidationAddOnCssClass(): string {
+            return this.scope.signOnUserCtrb.ticket.hasFeedback() ? null : 'hide';
         }
 
-        isTokenRequiredError(): boolean {
-            return this.scope.signOnUserForm.token.$error.required
-                && this.scope.signOnUserCtrb.token.hasError;
+        isTicketRequiredError(): boolean {
+            return this.scope.signOnUserForm.ticket.$error.required
+                && this.scope.signOnUserCtrb.ticket.hasError;
         }
 
-        isTokenServerError(): boolean {
-            return this.scope.signOnUserForm.token.$error.server
-                && this.scope.signOnUserCtrb.token.hasError;
+        isTicketServerError(): boolean {
+            return this.scope.signOnUserForm.ticket.$error.server
+                && this.scope.signOnUserCtrb.ticket.hasError;
         }
 
         isSubmitWaiting(): boolean {

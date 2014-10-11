@@ -22,28 +22,27 @@ namespace Tripod.Domain.Security
         {
             RuleFor(x => x.Principal)
                 .MustFindUserByPrincipal(queries)
-                    .When(x => x.Principal.Identity.IsAuthenticated, ApplyConditionTo.CurrentValidator)
+                    .When(x => x.Principal.Identity.IsAuthenticated,
+                        ApplyConditionTo.CurrentValidator)
                 .MustFindRemoteMembershipTicket(queries)
-                    .WithName(User.Constraints.Label)
+                .WithName(User.Constraints.Label)
             ;
 
             RuleFor(x => x.UserName)
                 .MustBeValidUserName()
                 .MustNotFindUserByName(queries)
                 .MustNotBeUnverifiedEmailUserName(queries, x => x.Ticket)
-                    .WithName(User.Constraints.NameLabel)
-                    .When(x => !x.Principal.Identity.IsAuthenticated && x.User == null)
+                .When(x => !x.Principal.Identity.IsAuthenticated && x.User == null)
+                .WithName(User.Constraints.NameLabel)
             ;
 
             RuleFor(x => x.Ticket)
                 .MustBeRedeemableVerifyEmailTicket(queries)
                 .MustBePurposedVerifyEmailTicket(queries, x => EmailVerificationPurpose.CreateRemoteUser)
-                .WithName(EmailVerification.Constraints.Label)
-                    .When(x => !x.Principal.Identity.IsAuthenticated && x.User == null)
-            ;
+                .MustHaveValidVerifyEmailToken(queries, x => x.Token)
 
-            RuleFor(x => x.Token)
-                .MustBeValidVerifyEmailToken(queries, x => x.Ticket)
+                // ticket is not required when signed-on user adds a social login
+                .When(x => !x.Principal.Identity.IsAuthenticated && x.User == null)
                 .WithName(EmailVerification.Constraints.Label)
             ;
         }

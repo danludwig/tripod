@@ -94,7 +94,7 @@ else
                        model-contrib
                        server-error="@Html.ValidationMessageTextFor(x => x.UserName)"
                        server-validate="@Url.Action(MVC.SignOn.ValidateCreateRemoteMembership(null, "userName"))"
-                       server-validate-data="{ token: vm.token }"
+                       server-validate-data="{ ticket: vm.ticket }"
                        server-validate-throttle="400" />
 
                 <span class="input-group-addon validation @Html.CssClassWhenNullModel("hide")"
@@ -139,37 +139,28 @@ else
     </div>
 
     @* EMAIL INPUT *@
-    <div class="form-group form-group-lg @Html.BootstrapValidationCssClassFor(x => x.Token)"
+    <div class="form-group form-group-lg @Html.BootstrapValidationCssClassFor(x => x.Ticket)"
          remove-class="has-success has-error"
-         ng-class="signOnUserCtrb.token.feedbackCssClass()">
+         ng-class="signOnUserCtrb.ticket.feedbackCssClass()">
 
         @* INPUT GROUP COLUMN *@
         <div class="col-md-6">
             @* SR LABEL *@
-            <label for="@Html.IdFor(x => x.Token)" class="control-label">
+            <label for="@Html.IdFor(x => x.Ticket)" class="control-label">
                 @EmailAddress.Constraints.ValueLabel
             </label>
             <small>(You can't change this now, but you can add &amp; remove emails after you sign in)</small>
             <div class="@Html.CssClassWhenNotNullModel(inputGroupCss)"
                  remove-class="@inputGroupCss"
-                 ng-class="signOnUserCtrb.token.inputGroupCssClass('lg')">
+                 ng-class="signOnUserCtrb.ticket.inputGroupCssClass('lg')">
                 <input type="text"
                        class="form-control @inputCss"
-                       id="@Html.IdFor(x => x.Token)"
+                       id="@Html.IdFor(x => x.Ticket)"
                        value="@ViewBag.EmailAddress"
                        disabled readonly="readonly" />
                 <input type="hidden"
                        name="emailAddress"
                        value="@ViewBag.EmailAddress" />
-                <input type="hidden"
-                       name="token"
-                       value="@ViewBag.Token"
-                       ng-init="vm.token='@ViewBag.Token'"
-                       ng-model="vm.token"
-                       required
-                       model-contrib
-                       server-error="@Html.ValidationMessageTextFor(x => x.Token)"
-                       server-validate="@Url.Action(MVC.SignOn.ValidateCreateRemoteMembership(null, "token"))" />
                 <input type="hidden"
                        name="ticket"
                        value="@ViewBag.Ticket"
@@ -178,11 +169,19 @@ else
                        required
                        model-contrib
                        server-error="@Html.ValidationMessageTextFor(x => x.Ticket)"
-                       server-validate="@Url.Action(MVC.SignOn.ValidateCreateRemoteMembership(null, "ticket"))" />
+                       server-validate="@Url.Action(MVC.SignOn.ValidateCreateRemoteMembership(null, "ticket"))"
+                       server-validate-data="{ token: vm.token }" />
+                <input type="hidden"
+                       name="token"
+                       value="@ViewBag.Token"
+                       ng-init="vm.token='@ViewBag.Token'"
+                       ng-model="vm.token"
+                       required
+                       model-contrib />
 
                 <span class="input-group-addon validation @Html.CssClassWhenNullModel("hide")"
                       remove-class="hide"
-                      ng-class="vm.tokenInputGroupValidationAddOnCssClass()">
+                      ng-class="vm.ticketInputGroupValidationAddOnCssClass()">
                     <i class="fa fa-fw fa-asterisk default" title="This is a required field"></i>
                     <i class="fa fa-fw fa-times error"></i>
                     <i class="fa fa-fw fa-spinner fa-spin spin-fast spinner"></i>
@@ -195,28 +194,28 @@ else
         @* VALIDATION MESSAGES COLUMNS *@
         <div class="col-md-6 validation help-block help-block-horizontal-md under-label hidden-sm hidden-xs">
             <span tooltip="@Resources.notempty_error.Replace("{PropertyName}", EmailVerification.Constraints.Label)"
-                  tooltip-toggle="vm.isTokenRequiredError()"
+                  tooltip-toggle="vm.isTicketRequiredError()"
                   tooltip-animation="false"
                   tooltip-placement="right"
                   class="validation-tooltip"></span>
 
-            <span tooltip="{{ signOnUserCtrb.token.error.server }}"
-                  tooltip-toggle="vm.isTokenServerError()"
+            <span tooltip="{{ signOnUserCtrb.ticket.error.server }}"
+                  tooltip-toggle="vm.isTicketServerError()"
                   tooltip-animation="false"
                   tooltip-placement="right"
                   class="validation-tooltip"></span>
 
-            <span ng-class="{ hide: true }">@Html.ValidationMessageFor(x => x.Token)</span>
+            <span ng-class="{ hide: true }">@Html.ValidationMessageFor(x => x.Ticket)</span>
         </div>
         <div class="col-md-6 validation help-block hidden-md hidden-lg">
-            <span ng-show="vm.isTokenRequiredError()" ng-cloak>
+            <span ng-show="vm.isTicketRequiredError()" ng-cloak>
                 @Resources.notempty_error.Replace("{PropertyName}", EmailVerification.Constraints.Label)
             </span>
-            <span ng-show="vm.isTokenServerError()" ng-cloak>
-                {{ signOnUserCtrb.token.error.server }}
+            <span ng-show="vm.isTicketServerError()" ng-cloak>
+                {{ signOnUserCtrb.ticket.error.server }}
             </span>
             <span ng-class="{ hide: true }">
-                @Html.ValidationMessageFor(x => x.Token)
+                @Html.ValidationMessageFor(x => x.Ticket)
             </span>
         </div>
     </div>

@@ -184,7 +184,7 @@ namespace Tripod.Web.Controllers
 
         [HttpGet, Route("sign-on/register", Order = 1)]
         public virtual async Task<ActionResult> CreateRemoteMembership(string token, string ticket, string returnUrl)
-        { // BUG make sure to come back and check this
+        {
             // make sure we still have a remote login
             var loginInfo = await _queries.Execute(new PrincipalRemoteMembershipTicket(User));
             if (loginInfo == null)
@@ -199,13 +199,13 @@ namespace Tripod.Web.Controllers
             // if suggested username is already in use, use email address
             var user = await _queries.Execute(new UserBy(loginInfo.UserName));
 
-            ViewBag.Token = token;
-            ViewBag.Ticket = ticket;
-            ViewBag.ReturnUrl = returnUrl;
             ViewBag.EmailAddress = verification.EmailAddress.Value;
             ViewBag.UserName = user == null ? loginInfo.UserName : ViewBag.EmailAddress;
             ViewBag.LoginProvider = loginInfo.Login.LoginProvider;
             ViewBag.HasClaimsEmail = emailClaim != null;
+            ViewBag.Token = token;
+            ViewBag.Ticket = ticket;
+            ViewBag.ReturnUrl = returnUrl;
             return View(MVC.Security.Views.SignOnCreateRemoteMembership);
         }
 
@@ -226,12 +226,12 @@ namespace Tripod.Web.Controllers
             if (!ModelState.IsValid)
             {
                 var emailClaim = await _queries.Execute(new ExternalCookieClaim(ClaimTypes.Email));
-                ViewBag.Token = command.Token;
-                ViewBag.Ticket = command.Ticket;
-                ViewBag.ReturnUrl = returnUrl;
                 ViewBag.EmailAddress = emailAddress;
                 ViewBag.LoginProvider = loginInfo.Login.LoginProvider;
                 ViewBag.HasClaimsEmail = emailClaim != null;
+                ViewBag.Token = command.Token;
+                ViewBag.Ticket = command.Ticket;
+                ViewBag.ReturnUrl = returnUrl;
                 return View(MVC.Security.Views.SignOnCreateRemoteMembership, command);
             }
 

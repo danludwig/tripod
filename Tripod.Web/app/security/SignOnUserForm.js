@@ -1,4 +1,4 @@
-'use strict';
+﻿'use strict';
 var App;
 (function (App) {
     (function (Security) {
@@ -23,16 +23,16 @@ var App;
                     return this.scope.signOnUserForm.userName.$error.server && this.scope.signOnUserCtrb.userName.hasError;
                 };
 
-                Controller.prototype.tokenInputGroupValidationAddOnCssClass = function () {
-                    return this.scope.signOnUserCtrb.token.hasFeedback() ? null : 'hide';
+                Controller.prototype.ticketInputGroupValidationAddOnCssClass = function () {
+                    return this.scope.signOnUserCtrb.ticket.hasFeedback() ? null : 'hide';
                 };
 
-                Controller.prototype.isTokenRequiredError = function () {
-                    return this.scope.signOnUserForm.token.$error.required && this.scope.signOnUserCtrb.token.hasError;
+                Controller.prototype.isTicketRequiredError = function () {
+                    return this.scope.signOnUserForm.ticket.$error.required && this.scope.signOnUserCtrb.ticket.hasError;
                 };
 
-                Controller.prototype.isTokenServerError = function () {
-                    return this.scope.signOnUserForm.token.$error.server && this.scope.signOnUserCtrb.token.hasError;
+                Controller.prototype.isTicketServerError = function () {
+                    return this.scope.signOnUserForm.ticket.$error.server && this.scope.signOnUserCtrb.ticket.hasError;
                 };
 
                 Controller.prototype.isSubmitWaiting = function () {

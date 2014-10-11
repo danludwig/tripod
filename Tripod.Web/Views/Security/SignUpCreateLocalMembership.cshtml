@@ -345,10 +345,7 @@
                        ng-init="vm.token='@ViewBag.Token'"
                        ng-model="vm.token"
                        required
-                       model-contrib
-                       xserver-error="@Html.ValidationMessageTextFor(x => x.Token)"
-                       xserver-validate="@Url.Action(MVC.SignUp.ValidateCreateLocalMembership(null, "token"))"
-                       xserver-validate-data="{ ticket: vm.ticket }" />
+                       model-contrib />
 
                 <span class="input-group-addon validation @Html.CssClassWhenNullModel("hide")"
                       remove-class="hide"
