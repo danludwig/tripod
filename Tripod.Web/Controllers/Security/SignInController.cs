@@ -103,10 +103,10 @@ namespace Tripod.Web.Controllers
         private string VerifyUrlFormat(string returnUrl)
         {
             Debug.Assert(Request.Url != null);
-            var encodedUrlFormat = Url.Action(MVC.SignIn.ResetPassword("{0}", "{1}"));
+            var encodedUrlFormat = Url.Action(MVC.SignIn.ResetPassword("{0}", "{1}", "{2}"));
             var decodedUrlFormat = HttpUtility.UrlDecode(encodedUrlFormat);
             Debug.Assert(decodedUrlFormat != null);
-            var formattedUrl = string.Format(decodedUrlFormat, "{0}", returnUrl);
+            var formattedUrl = string.Format(decodedUrlFormat, "{0}", "{1}", returnUrl);
             return string.Format("{0}://{1}{2}", Request.Url.Scheme, Request.Url.Authority, formattedUrl);
         }
 
@@ -164,23 +164,22 @@ namespace Tripod.Web.Controllers
 
             await _commands.Execute(command);
 
-            return RedirectToAction(await MVC.SignIn.ResetPassword(command.Token, returnUrl));
+            return RedirectToAction(await MVC.SignIn.ResetPassword(command.Token, ticket, returnUrl));
         }
 
         #endregion
         #region ResetPassword
 
         [HttpGet, Route("sign-in/password/recover", Order = 1)]
-        public virtual async Task<ActionResult> ResetPassword(string token, string returnUrl)
-        {
-            var userToken = await _queries.Execute(new EmailVerificationUserToken(token));
-            if (userToken == null) return HttpNotFound();
-            var verification = await _queries.Execute(new EmailVerificationBy(userToken.Value));
+        public virtual async Task<ActionResult> ResetPassword(string token, string ticket, string returnUrl)
+        { // BUG make sure to come back and check this
+            var verification = await _queries.Execute(new EmailVerificationBy(ticket));
             if (verification == null) return HttpNotFound();
 
             // todo: verification cannot be expired, redeemed, or for different purpose
 
             ViewBag.Token = token;
+            ViewBag.Ticket = ticket;
             ViewBag.ReturnUrl = returnUrl;
             ViewBag.EmailAddress = verification.EmailAddress.Value;
             return View(MVC.Security.Views.SignInRedeemEmailVerification);
@@ -195,14 +194,13 @@ namespace Tripod.Web.Controllers
             if (command == null || string.IsNullOrWhiteSpace(emailAddress))
                 return View(MVC.Errors.Views.BadRequest);
 
-            var userToken = await _queries.Execute(new EmailVerificationUserToken(command.Token));
-            if (userToken == null) return HttpNotFound();
-            var verification = await _queries.Execute(new EmailVerificationBy(userToken.Value));
+            var verification = await _queries.Execute(new EmailVerificationBy(command.Ticket));
             if (verification == null) return HttpNotFound();
 
             if (!ModelState.IsValid)
             {
                 ViewBag.Token = command.Token;
+                ViewBag.Ticket = command.Ticket;
                 ViewBag.ReturnUrl = returnUrl;
                 ViewBag.EmailAddress = emailAddress;
                 return View(MVC.Security.Views.SignInRedeemEmailVerification, command);

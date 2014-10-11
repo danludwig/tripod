@@ -8,6 +8,7 @@ var App;
                     this.scope = scope;
                     this.userName = '';
                     this.token = '';
+                    this.ticket = '';
                     scope.vm = this;
                 }
                 Controller.prototype.userNameInputGroupValidationAddOnCssClass = function () {

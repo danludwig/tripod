@@ -1,13 +1,9 @@
 ﻿using System.Threading.Tasks;
-using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
-using Microsoft.Owin.Security.DataProtection;
 using Microsoft.Owin.Security.Facebook;
 using Owin;
-using Tripod.Domain.Security;
 using Claim = System.Security.Claims.Claim;
 
 namespace Tripod.Web
@@ -18,35 +14,13 @@ namespace Tripod.Web
         [UsedImplicitly]
         public static void ConfigureAuth(IAppBuilder app)
         {
-            app.SetDataProtectionProvider(new DpapiDataProtectionProvider(AppConfiguration.DataProtectionAppName));
-
-            // http://blogs.msdn.com/b/webdev/archive/2013/12/20/announcing-preview-of-microsoft-aspnet-identity-2-0-0-alpha1.aspx
-            // set up UserManager with a UserConfirmationTokens property
-            app.UseUserManagerFactory(new IdentityFactoryOptions<UserManager<User, int>>
-            {
-                DataProtectionProvider = app.GetDataProtectionProvider(),
-                Provider = new IdentityFactoryProvider<UserManager<User, int>>
-                {
-                    OnCreate = options =>
-                    {
-                        var emailProtector = options.DataProtectionProvider.Create("ConfirmEmail");
-                        var passwordProtector = options.DataProtectionProvider.Create("ResetPassword");
-                        var userManager = new UserManager<User, int>(DependencyResolver.Current.GetService<IUserStore<User, int>>())
-                        {
-                            UserConfirmationTokens = new DataProtectorTokenProvider(emailProtector),
-                            PasswordResetTokens = new DataProtectorTokenProvider(passwordProtector),
-                        };
-                        return userManager;
-                    },
-                }
-            });
-
             // Enable the application to use a cookie to store information for the signed in user
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
                 AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
                 LoginPath = new PathString("/sign-in"),
             });
+
             // Use a cookie to temporarily store information about a user logging in with a third party login provider
             app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
 

@@ -28,12 +28,13 @@ module App.Security.SignUpUserForm {
         signUpUserCtrb: Contrib;
     }
 
-    export class Controller implements Model {
+    export class Controller implements Model { // BUG make sure to come back and check this
 
         password: string = '';
         confirmPassword: string = '';
         userName: string = '';
         token: string = '';
+        ticket: string = '';
 
         static $inject = ['$scope'];
         constructor(public scope: Scope) {

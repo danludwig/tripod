@@ -50,6 +50,11 @@ namespace Tripod.Services.Security
             throw new NotImplementedException();
         }
 
+        public void SignOut(AuthenticationProperties properties, params string[] authenticationTypes)
+        {
+            throw new NotImplementedException();
+        }
+
         public void SignOut(params string[] authenticationTypes)
         {
             throw new NotImplementedException();

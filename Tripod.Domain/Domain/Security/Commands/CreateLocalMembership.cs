@@ -12,6 +12,7 @@ namespace Tripod.Domain.Security
         public string Password { get; [UsedImplicitly] set; }
         public string ConfirmPassword { get; [UsedImplicitly] set; }
         public string Token { get; [UsedImplicitly] set; }
+        public string Ticket { get; [UsedImplicitly] set; }
     }
 
     [UsedImplicitly]
@@ -29,7 +30,7 @@ namespace Tripod.Domain.Security
             RuleFor(x => x.UserName)
                 .MustBeValidUserName()
                 .MustNotFindUserByName(queries)
-                .MustNotBeUnverifiedEmailUserName(x => x.Token, queries)
+                .MustNotBeUnverifiedEmailUserName(queries, x => x.Ticket)
                     .WithName(User.Constraints.NameLabel)
                     .When(x => !x.Principal.Identity.IsAuthenticated)
             ;
@@ -43,13 +44,20 @@ namespace Tripod.Domain.Security
                 .NotEmpty()
                 .MustEqualPassword(x => x.Password)
                     .WithName(LocalMembership.Constraints.PasswordConfirmationLabel)
-                    .When(x => !string.IsNullOrWhiteSpace(x.Password), ApplyConditionTo.CurrentValidator);
+                    .When(x => !string.IsNullOrWhiteSpace(x.Password), ApplyConditionTo.CurrentValidator)
+            ;
+
+            RuleFor(x => x.Ticket)
+                .MustBeRedeemableVerifyEmailTicket(queries)
+                .MustBePurposedVerifyEmailTicket(queries, x => EmailVerificationPurpose.CreateLocalUser)
+                .WithName(EmailVerification.Constraints.Label)
+                    .When(x => !x.Principal.Identity.IsAuthenticated)
+            ;
 
             RuleFor(x => x.Token)
-                .MustBeRedeemableVerifyEmailToken(queries)
-                .MustBePurposedVerifyEmailToken(queries, x => EmailVerificationPurpose.CreateLocalUser)
+                .MustBeValidVerifyEmailToken(queries, x => x.Ticket)
                 .WithName(EmailVerification.Constraints.Label)
-                    .When(x => !x.Principal.Identity.IsAuthenticated);
+            ;
         }
     }
 
@@ -83,6 +91,7 @@ namespace Tripod.Domain.Security
                 {
                     Commit = false,
                     Token = command.Token,
+                    Ticket = command.Ticket,
                 });
             }
 

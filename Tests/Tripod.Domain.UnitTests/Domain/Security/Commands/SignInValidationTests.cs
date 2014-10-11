@@ -37,10 +37,8 @@ namespace Tripod.Domain.Security
             var queries = new Mock<IProcessQueries>(MockBehavior.Strict);
             var validator = new ValidateSignInCommand(queries.Object);
             var command = new SignIn { UserNameOrVerifiedEmail = userName };
-            Expression<Func<UserBy, bool>> userByName = x => x.Name == command.UserNameOrVerifiedEmail;
-            Expression<Func<EmailAddressBy, bool>> emailByValue = x => x.Value == command.UserNameOrVerifiedEmail;
-            queries.Setup(x => x.Execute(It.Is(userByName))).Returns(Task.FromResult(null as User));
-            queries.Setup(x => x.Execute(It.Is(emailByValue))).Returns(Task.FromResult(null as EmailAddress));
+            Expression<Func<UserByNameOrVerifiedEmail, bool>> userById = x => x.NameOrEmail == command.UserNameOrVerifiedEmail;
+            queries.Setup(x => x.Execute(It.Is(userById))).Returns(Task.FromResult(null as User));
 
             var result = validator.Validate(command);
 
@@ -51,8 +49,7 @@ namespace Tripod.Domain.Security
                 .ShouldEqual(Resources.Validation_CouldNotFind
                     .Replace("{PropertyName}", string.Format("{0} or {1}", User.Constraints.NameLabel, EmailAddress.Constraints.Label).ToLower())
                     .Replace("{PropertyValue}", command.UserNameOrVerifiedEmail));
-            queries.Verify(x => x.Execute(It.Is(userByName)), Times.Once);
-            queries.Verify(x => x.Execute(It.Is(emailByValue)), Times.Once);
+            queries.Verify(x => x.Execute(It.Is(userById)), Times.Once);
         }
 
         [Theory, InlineData(null), InlineData(""), InlineData("\t  \r\n")]
@@ -83,7 +80,7 @@ namespace Tripod.Domain.Security
             Expression<Func<IsPasswordVerified, bool>> expectedQuery = x =>
                 x.UserName == command.UserNameOrVerifiedEmail && x.Password == command.Password;
             queries.Setup(x => x.Execute(It.Is(expectedQuery))).Returns(Task.FromResult(false));
-            Expression<Func<UserBy, bool>> userQuery = x => x.Name == command.UserNameOrVerifiedEmail;
+            Expression<Func<UserByNameOrVerifiedEmail, bool>> userQuery = x => x.NameOrEmail == command.UserNameOrVerifiedEmail;
             queries.Setup(x => x.Execute(It.Is(userQuery))).Returns(Task.FromResult(new User()));
 
             var result = validator.Validate(command);
@@ -92,6 +89,7 @@ namespace Tripod.Domain.Security
             Func<ValidationFailure, bool> targetError = x => x.PropertyName == command.PropertyName(y => y.Password);
             result.Errors.Count(targetError).ShouldEqual(1);
             result.Errors.Single(targetError).ErrorMessage.ShouldEqual(Resources.Validation_InvalidPassword);
+            queries.Verify(x => x.Execute(It.Is(expectedQuery)), Times.Once);
             queries.Verify(x => x.Execute(It.Is(expectedQuery)), Times.Once);
         }
 
@@ -105,11 +103,9 @@ namespace Tripod.Domain.Security
             var command = new SignIn { UserNameOrVerifiedEmail = userName, Password = password, };
             Expression<Func<IsPasswordVerified, bool>> expectedQuery = x =>
                 x.UserName == command.UserNameOrVerifiedEmail && x.Password == command.Password;
-            Expression<Func<UserBy, bool>> userByName = x => x.Name == command.UserNameOrVerifiedEmail;
-            Expression<Func<EmailAddressBy, bool>> emailByValue = x => x.Value == command.UserNameOrVerifiedEmail;
+            Expression<Func<UserByNameOrVerifiedEmail, bool>> userById = x => x.NameOrEmail == command.UserNameOrVerifiedEmail;
             queries.Setup(x => x.Execute(It.Is(expectedQuery))).Returns(Task.FromResult(false));
-            queries.Setup(x => x.Execute(It.Is(userByName))).Returns(Task.FromResult(null as User));
-            queries.Setup(x => x.Execute(It.Is(emailByValue))).Returns(Task.FromResult(null as EmailAddress));
+            queries.Setup(x => x.Execute(It.Is(userById))).Returns(Task.FromResult(null as User));
 
             var result = validator.Validate(command);
 
@@ -117,6 +113,7 @@ namespace Tripod.Domain.Security
             Func<ValidationFailure, bool> targetError = x => x.PropertyName == command.PropertyName(y => y.Password);
             result.Errors.Count(targetError).ShouldEqual(0);
             queries.Verify(x => x.Execute(It.Is(expectedQuery)), Times.Never);
+            queries.Verify(x => x.Execute(It.Is(userById)), Times.Exactly(2));
         }
 
         [Fact]
@@ -130,7 +127,7 @@ namespace Tripod.Domain.Security
             Expression<Func<IsPasswordVerified, bool>> passwordQuery = x =>
                 x.UserName == command.UserNameOrVerifiedEmail && x.Password == command.Password;
             queries.Setup(x => x.Execute(It.Is(passwordQuery))).Returns(Task.FromResult(true));
-            Expression<Func<UserBy, bool>> userQuery = x => x.Name == command.UserNameOrVerifiedEmail;
+            Expression<Func<UserByNameOrVerifiedEmail, bool>> userQuery = x => x.NameOrEmail == command.UserNameOrVerifiedEmail;
             queries.Setup(x => x.Execute(It.Is(userQuery))).Returns(Task.FromResult(new User()));
 
             var result = validator.Validate(command);

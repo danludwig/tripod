@@ -101,7 +101,7 @@ namespace Tripod.Web.Controllers
         private string VerifyUrlFormat()
         {
             Debug.Assert(Request.Url != null);
-            var encodedUrlFormat = Url.Action(MVC.UserEmails.RedeemEmailVerification("{0}"));
+            var encodedUrlFormat = Url.Action(MVC.UserEmails.RedeemEmailVerification("{0}", "{1}"));
             var decodedUrlFormat = HttpUtility.UrlDecode(encodedUrlFormat);
             return string.Format("{0}://{1}{2}", Request.Url.Scheme, Request.Url.Authority, decodedUrlFormat);
         }
@@ -158,23 +158,25 @@ namespace Tripod.Web.Controllers
 
             await _commands.Execute(command);
 
-            return RedirectToAction(await MVC.UserEmails.RedeemEmailVerification(command.Token));
+            return RedirectToAction(await MVC.UserEmails.RedeemEmailVerification(command.Token, command.Ticket));
         }
 
         #endregion
         #region RedeemEmailVerification
 
         [HttpGet, Route("settings/emails/confirm", Order = 1)]
-        public virtual async Task<ActionResult> RedeemEmailVerification(string token)
+        public virtual async Task<ActionResult> RedeemEmailVerification(string token, string ticket)
         {
-            var userToken = await _queries.Execute(new EmailVerificationUserToken(token));
-            if (userToken == null) return HttpNotFound();
-            var verification = await _queries.Execute(new EmailVerificationBy(userToken.Value));
+            //var userToken = await _queries.Execute(new EmailVerificationUserToken(token));
+            //if (userToken == null) return HttpNotFound();
+            //if (!userToken) return HttpNotFound();
+            var verification = await _queries.Execute(new EmailVerificationBy(ticket));
             if (verification == null) return HttpNotFound();
 
             // todo: verification cannot be expired, redeemed, or for different purpose
 
             ViewBag.Token = token;
+            ViewBag.Ticket = ticket;
             ViewBag.EmailAddress = verification.EmailAddress.Value;
             return View(MVC.Security.Views.AddEmailRedeemEmailVerification);
         }

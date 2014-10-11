@@ -11,6 +11,7 @@ namespace Tripod.Domain.Security
         public IPrincipal Principal { get; set; }
         public string UserName { get; [UsedImplicitly] set; }
         public string Token { get; [UsedImplicitly] set; }
+        public string Ticket { get; [UsedImplicitly] set; }
         internal User User { get; set; }
     }
 
@@ -29,16 +30,21 @@ namespace Tripod.Domain.Security
             RuleFor(x => x.UserName)
                 .MustBeValidUserName()
                 .MustNotFindUserByName(queries)
-                .MustNotBeUnverifiedEmailUserName(x => x.Token, queries)
+                .MustNotBeUnverifiedEmailUserName(queries, x => x.Ticket)
                     .WithName(User.Constraints.NameLabel)
                     .When(x => !x.Principal.Identity.IsAuthenticated && x.User == null)
             ;
 
-            RuleFor(x => x.Token)
-                .MustBeRedeemableVerifyEmailToken(queries)
-                .MustBePurposedVerifyEmailToken(queries, x => EmailVerificationPurpose.CreateRemoteUser)
+            RuleFor(x => x.Ticket)
+                .MustBeRedeemableVerifyEmailTicket(queries)
+                .MustBePurposedVerifyEmailTicket(queries, x => EmailVerificationPurpose.CreateRemoteUser)
                 .WithName(EmailVerification.Constraints.Label)
                     .When(x => !x.Principal.Identity.IsAuthenticated && x.User == null)
+            ;
+
+            RuleFor(x => x.Token)
+                .MustBeValidVerifyEmailToken(queries, x => x.Ticket)
+                .WithName(EmailVerification.Constraints.Label)
             ;
         }
     }
@@ -79,6 +85,7 @@ namespace Tripod.Domain.Security
                 {
                     Commit = false,
                     Token = command.Token,
+                    Ticket = command.Ticket,
                 });
             }
 

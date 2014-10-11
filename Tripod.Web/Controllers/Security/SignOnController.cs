@@ -66,7 +66,10 @@ namespace Tripod.Web.Controllers
             };
             await _commands.Execute(createEmailVerification);
 
-            return RedirectToAction(await MVC.SignOn.CreateRemoteMembership(createEmailVerification.CreatedEntity.Token, returnUrl));
+            return RedirectToAction(await MVC.SignOn.CreateRemoteMembership(
+                createEmailVerification.CreatedEntity.Token,
+                createEmailVerification.CreatedEntity.Ticket,
+                returnUrl));
         }
 
         #endregion
@@ -173,23 +176,21 @@ namespace Tripod.Web.Controllers
 
             await _commands.Execute(command);
 
-            return RedirectToAction(await MVC.SignOn.CreateRemoteMembership(command.Token, returnUrl));
+            return RedirectToAction(await MVC.SignOn.CreateRemoteMembership(command.Token, ticket, returnUrl));
         }
 
         #endregion
         #region CreateRemoteMembership
 
         [HttpGet, Route("sign-on/register", Order = 1)]
-        public virtual async Task<ActionResult> CreateRemoteMembership(string token, string returnUrl)
-        {
+        public virtual async Task<ActionResult> CreateRemoteMembership(string token, string ticket, string returnUrl)
+        { // BUG make sure to come back and check this
             // make sure we still have a remote login
             var loginInfo = await _queries.Execute(new PrincipalRemoteMembershipTicket(User));
             if (loginInfo == null)
                 return RedirectToAction(MVC.SignIn.Index());
 
-            var userToken = await _queries.Execute(new EmailVerificationUserToken(token));
-            if (userToken == null) return HttpNotFound();
-            var verification = await _queries.Execute(new EmailVerificationBy(userToken.Value));
+            var verification = await _queries.Execute(new EmailVerificationBy(ticket));
             if (verification == null) return HttpNotFound();
             var emailClaim = await _queries.Execute(new ExternalCookieClaim(ClaimTypes.Email));
 
@@ -199,6 +200,7 @@ namespace Tripod.Web.Controllers
             var user = await _queries.Execute(new UserBy(loginInfo.UserName));
 
             ViewBag.Token = token;
+            ViewBag.Ticket = ticket;
             ViewBag.ReturnUrl = returnUrl;
             ViewBag.EmailAddress = verification.EmailAddress.Value;
             ViewBag.UserName = user == null ? loginInfo.UserName : ViewBag.EmailAddress;
@@ -225,6 +227,7 @@ namespace Tripod.Web.Controllers
             {
                 var emailClaim = await _queries.Execute(new ExternalCookieClaim(ClaimTypes.Email));
                 ViewBag.Token = command.Token;
+                ViewBag.Ticket = command.Ticket;
                 ViewBag.ReturnUrl = returnUrl;
                 ViewBag.EmailAddress = emailAddress;
                 ViewBag.LoginProvider = loginInfo.Login.LoginProvider;

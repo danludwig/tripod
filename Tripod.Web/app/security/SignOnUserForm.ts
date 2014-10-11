@@ -22,10 +22,11 @@ module App.Security.SignOnUserForm {
         signOnUserCtrb: Contrib;
     }
 
-    export class Controller implements Model {
+    export class Controller implements Model { // BUG make sure to come back and check this
 
         userName: string = '';
         token: string = '';
+        ticket: string = '';
 
         static $inject = ['$scope'];
         constructor(public scope: Scope) {

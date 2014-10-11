@@ -7,6 +7,7 @@ namespace Tripod.Domain.Security
     public class ResetPassword : IDefineCommand
     {
         public string Token { get; [UsedImplicitly] set; }
+        public string Ticket { get; [UsedImplicitly] set; }
         public string Password { get; [UsedImplicitly] set; }
         public string ConfirmPassword { get; [UsedImplicitly] set; }
     }
@@ -16,12 +17,18 @@ namespace Tripod.Domain.Security
     {
         public ValidateResetPasswordCommand(IProcessQueries queries)
         {
-            RuleFor(x => x.Token)
-                .MustBeRedeemableVerifyEmailToken(queries)
-                .MustBePurposedVerifyEmailToken(queries,
+            RuleFor(x => x.Ticket)
+                .MustBeRedeemableVerifyEmailTicket(queries)
+                .MustBePurposedVerifyEmailTicket(queries,
                     x => EmailVerificationPurpose.ForgotPassword
                 )
-                    .WithName(EmailVerification.Constraints.Label);
+                    .WithName(EmailVerification.Constraints.Label)
+            ;
+
+            RuleFor(x => x.Token)
+                .MustBeValidVerifyEmailToken(queries, x => x.Ticket)
+                .WithName(EmailVerification.Constraints.Label)
+            ;
 
             RuleFor(x => x.Password)
                 .MustBeValidPassword()
@@ -32,7 +39,8 @@ namespace Tripod.Domain.Security
                 .NotEmpty()
                 .MustEqualPassword(x => x.Password, LocalMembership.Constraints.PasswordLabel)
                     .WithName(LocalMembership.Constraints.PasswordConfirmationLabel)
-                .When(x => !string.IsNullOrWhiteSpace(x.Password), ApplyConditionTo.CurrentValidator);
+                .When(x => !string.IsNullOrWhiteSpace(x.Password), ApplyConditionTo.CurrentValidator)
+            ;
         }
     }
 
@@ -50,10 +58,9 @@ namespace Tripod.Domain.Security
 
         public async Task Handle(ResetPassword command)
         {
-            var userToken = await _queries.Execute(new EmailVerificationUserToken(command.Token));
             var verification = await _entities.Get<EmailVerification>()
                 .EagerLoad(x => x.EmailAddress)
-                .ByTicketAsync(userToken.Value, false);
+                .ByTicketAsync(command.Ticket, false);
             verification.RedeemedOnUtc = DateTime.UtcNow;
             var user = verification.EmailAddress.User;
 

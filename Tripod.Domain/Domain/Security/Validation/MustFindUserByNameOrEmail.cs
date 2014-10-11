@@ -20,14 +20,8 @@ namespace Tripod.Domain.Security
             var nameOrEmail = (string)context.PropertyValue;
             if (string.IsNullOrWhiteSpace(nameOrEmail)) return false;
 
-            var userByName = _queries.Execute(new UserBy(nameOrEmail)).Result;
-            if (userByName != null) return true;
-
-            var emailByValue = _queries.Execute(new EmailAddressBy(nameOrEmail)
-            {
-                IsVerified = true,
-            }).Result;
-            if (emailByValue != null) return true;
+            var user = _queries.Execute(new UserByNameOrVerifiedEmail(nameOrEmail)).Result;
+            if (user != null) return true;
 
             context.MessageFormatter.AppendArgument("PropertyName", context.PropertyDescription.ToLower());
             return false;

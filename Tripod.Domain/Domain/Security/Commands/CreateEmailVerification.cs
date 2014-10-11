@@ -31,11 +31,11 @@ namespace Tripod.Domain.Security
     [UsedImplicitly]
     public class HandleCreateEmailVerificationCommand : IHandleCommand<CreateEmailVerification>
     {
-        private readonly UserManager<User, int> _userManager;
+        private readonly UserManager<UserTicket, string> _userManager;
         private readonly IProcessQueries _queries;
         private readonly IWriteEntities _entities;
 
-        public HandleCreateEmailVerificationCommand(UserManager<User, int> userManager, IProcessQueries queries, IWriteEntities entities)
+        public HandleCreateEmailVerificationCommand(UserManager<UserTicket, string> userManager, IProcessQueries queries, IWriteEntities entities)
         {
             _userManager = userManager;
             _queries = queries;
@@ -63,15 +63,11 @@ namespace Tripod.Domain.Security
                 ticket = _queries.Execute(new RandomSecret(20, 25));
 
             // serialize a new user token to a string
-            var tokens = command.Purpose == EmailVerificationPurpose.ForgotPassword
-                ? _userManager.UserConfirmationTokens
-                : _userManager.PasswordResetTokens;
-            var token = tokens.Generate(new UserToken
-            {
-                UserId = command.EmailAddress,
-                Value = ticket,
-                CreationDate = DateTime.UtcNow,
-            });
+            var token = await _userManager.UserTokenProvider.GenerateAsync(command.Purpose.ToString(), _userManager,
+                new UserTicket
+                {
+                    UserName = ticket,
+                });
 
             // create the verification
             var verification = new EmailVerification

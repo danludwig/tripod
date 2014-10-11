@@ -3,7 +3,7 @@
 @using UserConstraints = Tripod.Domain.Security.User.Constraints
 @model CreateLocalMembership
 
-@{
+@{ // BUG make sure to come back and check this
     ViewBag.Title = "Complete your registration";
 }
 
@@ -26,7 +26,7 @@
 
 <form role="form"
       method="POST"
-      action="@Url.Action(MVC.SignUp.CreateLocalMembership(null, null, null))"
+      action="@Url.Action(MVC.SignUp.CreateLocalMembership(null as CreateLocalMembership, null, null))"
       novalidate
       ng-app="sign-up-register-form"
       ng-controller="App.Security.SignUpUserForm.Controller"
@@ -338,6 +338,15 @@
                        model-contrib
                        server-error="@Html.ValidationMessageTextFor(x => x.Token)"
                        server-validate="@Url.Action(MVC.SignUp.ValidateCreateLocalMembership(null, "token"))" />
+                <input type="hidden"
+                       name="ticket"
+                       value="@ViewBag.Ticket"
+                       ng-init="vm.ticket='@ViewBag.Ticket'"
+                       ng-model="vm.ticket"
+                       required
+                       model-contrib
+                       server-error="@Html.ValidationMessageTextFor(x => x.Ticket)"
+                       server-validate="@Url.Action(MVC.SignUp.ValidateCreateLocalMembership(null, "ticket"))" />
 
                 <span class="input-group-addon validation @Html.CssClassWhenNullModel("hide")"
                       remove-class="hide"

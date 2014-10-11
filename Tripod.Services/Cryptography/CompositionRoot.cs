@@ -11,7 +11,6 @@ namespace Tripod.Services.Cryptography
 
             // note that changing the appname argument below will invalidate any previously generated tokens
             container.Register<IDataProtectionProvider>(() => new DpapiDataProtectionProvider(AppConfiguration.DataProtectionAppName));
-            container.Register<IProvideTokenizers, OwinDataProtectionTokenizers>();
         }
     }
 }

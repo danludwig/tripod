@@ -10,6 +10,7 @@ var App;
                     this.confirmPassword = '';
                     this.userName = '';
                     this.token = '';
+                    this.ticket = '';
                     scope.vm = this;
                 }
                 Controller.prototype.passwordInputGroupValidationAddOnCssClass = function () {

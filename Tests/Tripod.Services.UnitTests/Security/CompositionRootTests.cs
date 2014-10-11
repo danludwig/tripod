@@ -6,6 +6,7 @@ using Moq;
 using Should;
 using SimpleInjector;
 using Tripod.Domain.Security;
+using Tripod.Services.Cryptography;
 using Tripod.Services.EntityFramework;
 using Xunit;
 
@@ -129,29 +130,33 @@ namespace Tripod.Services.Security
         }
 
         [Fact]
-        public void RegistersUserManager_UsingOwinTokenProviders_WhenCurrentHttpContext_HasOwinEnvironment()
+        public void RegistersUserManager_WithoutOwinTokenProviders()
         {
             HttpContext.Current = new HttpContext(new HttpRequest(null, "http://localhost", null), new HttpResponse(null));
-            var owinEnvironment = new Dictionary<string, object>();
-            var userStore = new Mock<IUserStore<User, int>>();
-            var userManager = new UserManager<User, int>(userStore.Object);
-            var userTokenProvider = new Mock<ITokenProvider>(MockBehavior.Strict);
-            userManager.UserConfirmationTokens = userTokenProvider.Object;
-            var passwordTokenProvider = new Mock<ITokenProvider>(MockBehavior.Strict);
-            userManager.PasswordResetTokens = passwordTokenProvider.Object;
-            owinEnvironment["AspNet.Identity.Owin:" + userManager.GetType().AssemblyQualifiedName] = userManager;
-            HttpContext.Current.Items.Add("owin.Environment", owinEnvironment);
             var container = new Container();
+            container.RegisterCryptography();
             container.RegisterEntityFramework();
             container.RegisterSecurity();
             container.Verify();
 
             var instance = container.GetInstance<UserManager<User, int>>();
             instance.ShouldNotBeNull();
-            instance.UserConfirmationTokens.ShouldNotBeNull();
-            instance.UserConfirmationTokens.ShouldEqual(userTokenProvider.Object);
-            instance.PasswordResetTokens.ShouldNotBeNull();
-            instance.PasswordResetTokens.ShouldEqual(passwordTokenProvider.Object);
+            instance.UserTokenProvider.ShouldBeNull();
+        }
+
+        [Fact]
+        public void RegistersUserTokenManager_WithOwinTokenProviders()
+        {
+            HttpContext.Current = new HttpContext(new HttpRequest(null, "http://localhost", null), new HttpResponse(null));
+            var container = new Container();
+            container.RegisterCryptography();
+            container.RegisterEntityFramework();
+            container.RegisterSecurity();
+            container.Verify();
+
+            var instance = container.GetInstance<UserManager<UserTicket, string>>();
+            instance.ShouldNotBeNull();
+            instance.UserTokenProvider.ShouldNotBeNull();
         }
 
         [Fact]
@@ -164,6 +169,7 @@ namespace Tripod.Services.Security
             //instance.ShouldBeType<BigFatPhonyAuthenticationManager>();
             HttpContext.Current = null;
             var container = new Container();
+            container.RegisterCryptography();
             container.RegisterEntityFramework();
             container.RegisterSecurity();
             container.Verify();
@@ -180,6 +186,7 @@ namespace Tripod.Services.Security
         {
             HttpContext.Current = new HttpContext(new HttpRequest(null, "http://localhost", null), new HttpResponse(null));
             var container = new Container();
+            container.RegisterCryptography();
             container.RegisterEntityFramework();
             container.RegisterSecurity();
             container.Verify();
@@ -201,6 +208,7 @@ namespace Tripod.Services.Security
             owinEnvironment["AspNet.Identity.Owin:" + userManager.GetType().AssemblyQualifiedName] = userManager;
             HttpContext.Current.Items.Add("owin.Environment", owinEnvironment);
             var container = new Container();
+            container.RegisterCryptography();
             container.RegisterEntityFramework();
             container.RegisterSecurity();
             container.Verify();

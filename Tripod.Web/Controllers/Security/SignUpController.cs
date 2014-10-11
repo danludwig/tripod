@@ -82,10 +82,10 @@ namespace Tripod.Web.Controllers
         private string VerifyUrlFormat(string returnUrl)
         {
             Debug.Assert(Request.Url != null);
-            var encodedUrlFormat = Url.Action(MVC.SignUp.CreateLocalMembership("{0}", "{1}"));
+            var encodedUrlFormat = Url.Action(MVC.SignUp.CreateLocalMembership("{0}", "{1}", "{2}"));
             var decodedUrlFormat = HttpUtility.UrlDecode(encodedUrlFormat);
             Debug.Assert(decodedUrlFormat != null);
-            var formattedUrl = string.Format(decodedUrlFormat, "{0}", returnUrl);
+            var formattedUrl = string.Format(decodedUrlFormat, "{0}", "{1}", returnUrl);
             return string.Format("{0}://{1}{2}", Request.Url.Scheme, Request.Url.Authority, formattedUrl);
         }
 
@@ -143,7 +143,7 @@ namespace Tripod.Web.Controllers
 
             await _commands.Execute(command);
 
-            return RedirectToAction(await MVC.SignUp.CreateLocalMembership(command.Token, returnUrl));
+            return RedirectToAction(await MVC.SignUp.CreateLocalMembership(command.Token, ticket, returnUrl));
         }
 
         [ValidateAntiForgeryToken]
@@ -169,16 +169,15 @@ namespace Tripod.Web.Controllers
         #region CreateLocalMembership
 
         [HttpGet, Route("sign-up/register", Order = 1)]
-        public virtual async Task<ActionResult> CreateLocalMembership(string token, string returnUrl)
-        {
-            var userToken = await _queries.Execute(new EmailVerificationUserToken(token));
-            if (userToken == null) return HttpNotFound();
-            var verification = await _queries.Execute(new EmailVerificationBy(userToken.Value));
+        public virtual async Task<ActionResult> CreateLocalMembership(string token, string ticket, string returnUrl)
+        { // BUG make sure to come back and check this
+            var verification = await _queries.Execute(new EmailVerificationBy(ticket));
             if (verification == null) return HttpNotFound();
 
             // todo: verification cannot be expired, redeemed, or for different purpose
 
             ViewBag.Token = token;
+            ViewBag.Ticket = ticket;
             ViewBag.ReturnUrl = returnUrl;
             ViewBag.EmailAddress = verification.EmailAddress.Value;
             return View(MVC.Security.Views.SignUpCreateLocalMembership);
@@ -196,6 +195,7 @@ namespace Tripod.Web.Controllers
             if (!ModelState.IsValid)
             {
                 ViewBag.Token = command.Token;
+                ViewBag.Ticket = command.Ticket;
                 ViewBag.ReturnUrl = returnUrl;
                 ViewBag.EmailAddress = emailAddress;
                 return View(MVC.Security.Views.SignUpCreateLocalMembership, command);

@@ -20,6 +20,7 @@ namespace Tripod.Domain.Security
 
         public IPrincipal Principal { get; set; }
         public string Token { get; set; }
+        public string Ticket { get; set; }
         internal User User { get; private set; }
     }
 
@@ -33,36 +34,39 @@ namespace Tripod.Domain.Security
                     .When(x => x.User == null)
                     .WithName(User.Constraints.Label);
 
-            RuleFor(x => x.Token)
-                .MustBeRedeemableVerifyEmailToken(queries)
-                .MustBePurposedVerifyEmailToken(queries,
+            RuleFor(x => x.Ticket)
+                .MustBeRedeemableVerifyEmailTicket(queries)
+                .MustBePurposedVerifyEmailTicket(queries,
                     x => EmailVerificationPurpose.CreateRemoteUser,
                     x => EmailVerificationPurpose.CreateLocalUser,
                     x => EmailVerificationPurpose.AddEmail
                 )
-                    .WithName(EmailVerification.Constraints.Label);
+                .WithName(EmailVerification.Constraints.Label)
+            ;
+
+            RuleFor(x => x.Token)
+                .MustBeValidVerifyEmailToken(queries, x => x.Ticket)
+                .WithName(EmailVerification.Constraints.Label)
+            ;
         }
     }
 
     [UsedImplicitly]
     public class HandleRedeemEmailVerificationCommand : IHandleCommand<RedeemEmailVerification>
     {
-        private readonly IProcessQueries _queries;
         private readonly IWriteEntities _entities;
 
-        public HandleRedeemEmailVerificationCommand(IProcessQueries queries, IWriteEntities entities)
+        public HandleRedeemEmailVerificationCommand(IWriteEntities entities)
         {
             _entities = entities;
-            _queries = queries;
         }
 
         public async Task Handle(RedeemEmailVerification command)
         {
             // verify & associate email address
-            var userToken = await _queries.Execute(new EmailVerificationUserToken(command.Token));
             var verification = await _entities.Get<EmailVerification>()
                 .EagerLoad(x => x.EmailAddress)
-                .ByTicketAsync(userToken.Value, false);
+                .ByTicketAsync(command.Ticket, false);
             verification.RedeemedOnUtc = DateTime.UtcNow;
 
             var email = verification.EmailAddress;

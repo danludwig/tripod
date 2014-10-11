@@ -7,26 +7,29 @@ namespace Tripod.Domain.Security
 {
     public class MustNotBeUnverifiedEmailUserName<T> : PropertyValidator
     {
-        private readonly Func<T, string> _token;
-        private readonly Func<T, int> _userId;
         private readonly IProcessQueries _queries;
+        private readonly Func<T, string> _ticket;
+        private readonly Func<T, int> _userId;
 
-        internal MustNotBeUnverifiedEmailUserName(Func<T, string> token, IProcessQueries queries)
+        private MustNotBeUnverifiedEmailUserName(IProcessQueries queries)
             : base(() => Resources.Validation_UserName_AllowedEmailAddress)
         {
-            if (token == null) throw new ArgumentNullException("token");
             if (queries == null) throw new ArgumentNullException("queries");
-            _token = token;
             _queries = queries;
         }
 
-        internal MustNotBeUnverifiedEmailUserName(Func<T, int> userId, IProcessQueries queries)
-            : base(() => Resources.Validation_UserName_AllowedEmailAddress)
+        internal MustNotBeUnverifiedEmailUserName(IProcessQueries queries, Func<T, string> ticket)
+            : this(queries)
+        {
+            if (ticket == null) throw new ArgumentNullException("ticket");
+            _ticket = ticket;
+        }
+
+        internal MustNotBeUnverifiedEmailUserName(IProcessQueries queries, Func<T, int> userId)
+            : this(queries)
         {
             if (userId == null) throw new ArgumentNullException("userId");
-            if (queries == null) throw new ArgumentNullException("queries");
             _userId = userId;
-            _queries = queries;
         }
 
         protected override bool IsValid(PropertyValidatorContext context)
@@ -36,12 +39,10 @@ namespace Tripod.Domain.Security
 
             if (!EmailAddress.ValueRegex.IsMatch(userName)) return true;
 
-            if (_token != null)
+            if (_ticket != null)
             {
-                var token = _token((T) context.Instance);
-                var userToken = _queries.Execute(new EmailVerificationUserToken(token)).Result;
-                if (userToken == null) return true;
-                var verification = _queries.Execute(new EmailVerificationBy(userToken.Value)
+                var ticket = _ticket((T)context.Instance);
+                var verification = _queries.Execute(new EmailVerificationBy(ticket)
                 {
                     EagerLoad = new Expression<Func<EmailVerification, object>>[]
                     {
@@ -70,15 +71,15 @@ namespace Tripod.Domain.Security
     public static class MustNotBeUnverifiedEmailUserNameExtensions
     {
         public static IRuleBuilderOptions<T, string> MustNotBeUnverifiedEmailUserName<T>
-            (this IRuleBuilder<T, string> ruleBuilder, Func<T, string> token, IProcessQueries queries)
+            (this IRuleBuilder<T, string> ruleBuilder, IProcessQueries queries, Func<T, string> ticket)
         {
-            return ruleBuilder.SetValidator(new MustNotBeUnverifiedEmailUserName<T>(token, queries));
+            return ruleBuilder.SetValidator(new MustNotBeUnverifiedEmailUserName<T>(queries, ticket));
         }
 
         public static IRuleBuilderOptions<T, string> MustNotBeUnverifiedEmailUserName<T>
-            (this IRuleBuilder<T, string> ruleBuilder, Func<T, int> userId, IProcessQueries queries)
+            (this IRuleBuilder<T, string> ruleBuilder, IProcessQueries queries, Func<T, int> userId)
         {
-            return ruleBuilder.SetValidator(new MustNotBeUnverifiedEmailUserName<T>(userId, queries));
+            return ruleBuilder.SetValidator(new MustNotBeUnverifiedEmailUserName<T>(queries, userId));
         }
     }
 }

@@ -3,7 +3,7 @@
 @using UserConstraints = Tripod.Domain.Security.User.Constraints
 @model ResetPassword
 
-@{
+@{ // BUG make sure to come back and check this
     ViewBag.Title = "Reset your password";
 }
 
@@ -26,7 +26,7 @@
 
 <form role="form"
       method="POST"
-      action="@Url.Action(MVC.SignIn.ResetPassword(null, null, null))"
+      action="@Url.Action(MVC.SignIn.ResetPassword(null as ResetPassword, null, null))"
       novalidate
       ng-app="sign-up-register-form"
       ng-controller="App.Security.SignUpUserForm.Controller"
@@ -48,7 +48,17 @@
            required
            model-contrib
            server-error="@Html.ValidationMessageTextFor(x => x.Token)"
-           server-validate="@Url.Action(MVC.SignIn.ValidateResetPassword(null, "token"))" />
+           server-validate="@Url.Action(MVC.SignIn.ValidateResetPassword(null, "token"))"
+           server-validate-data="{ ticket: vm.ticket }" />
+    <input type="hidden"
+           name="ticket"
+           value="@ViewBag.Ticket"
+           ng-init="vm.ticket='@ViewBag.Ticket'"
+           ng-model="vm.ticket"
+           required
+           model-contrib
+           server-error="@Html.ValidationMessageTextFor(x => x.Ticket)"
+           server-validate="@Url.Action(MVC.SignIn.ValidateResetPassword(null, "ticket"))" />
     <input type="hidden" name="returnUrl" value="@ViewBag.ReturnUrl" />
 
     @Html.ValidationSummary(true)

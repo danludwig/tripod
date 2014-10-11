@@ -3,7 +3,7 @@
 
 @model CreateRemoteMembership
 
-@{
+@{ // BUG make sure to come back and check this
     ViewBag.Title = "Complete your registration";
 }
 
@@ -48,7 +48,7 @@ else
 
 <form role="form"
       method="POST"
-      action="@Url.Action(MVC.SignOn.CreateRemoteMembership(null, null, null))"
+      action="@Url.Action(MVC.SignOn.CreateRemoteMembership(null as CreateRemoteMembership, null, null))"
       novalidate
       ng-app="sign-on-register-form"
       ng-controller="App.Security.SignOnUserForm.Controller"
@@ -170,6 +170,15 @@ else
                        model-contrib
                        server-error="@Html.ValidationMessageTextFor(x => x.Token)"
                        server-validate="@Url.Action(MVC.SignOn.ValidateCreateRemoteMembership(null, "token"))" />
+                <input type="hidden"
+                       name="ticket"
+                       value="@ViewBag.Ticket"
+                       ng-init="vm.ticket='@ViewBag.Ticket'"
+                       ng-model="vm.ticket"
+                       required
+                       model-contrib
+                       server-error="@Html.ValidationMessageTextFor(x => x.Ticket)"
+                       server-validate="@Url.Action(MVC.SignOn.ValidateCreateRemoteMembership(null, "ticket"))" />
 
                 <span class="input-group-addon validation @Html.CssClassWhenNullModel("hide")"
                       remove-class="hide"

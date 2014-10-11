@@ -145,6 +145,7 @@ namespace Tripod.Web.Controllers
         public class ActionParamsClass_CreateRemoteMembership
         {
             public readonly string token = "token";
+            public readonly string ticket = "ticket";
             public readonly string returnUrl = "returnUrl";
             public readonly string command = "command";
             public readonly string emailAddress = "emailAddress";
@@ -244,14 +245,15 @@ namespace Tripod.Web.Controllers
             return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
         }
 
-        partial void CreateRemoteMembershipOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string token, string returnUrl);
+        partial void CreateRemoteMembershipOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string token, string ticket, string returnUrl);
 
-        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> CreateRemoteMembership(string token, string returnUrl)
+        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> CreateRemoteMembership(string token, string ticket, string returnUrl)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.CreateRemoteMembership);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "token", token);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ticket", ticket);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "returnUrl", returnUrl);
-            CreateRemoteMembershipOverride(callInfo, token, returnUrl);
+            CreateRemoteMembershipOverride(callInfo, token, ticket, returnUrl);
             return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
         }
 

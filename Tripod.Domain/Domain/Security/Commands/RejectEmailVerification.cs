@@ -8,6 +8,7 @@ namespace Tripod.Domain.Security
     {
         public IPrincipal Principal { get; set; }
         public string Token { get; [UsedImplicitly] set; }
+        public string Ticket { get; [UsedImplicitly] set; }
     }
 
     [UsedImplicitly]
@@ -17,14 +18,21 @@ namespace Tripod.Domain.Security
         {
             RuleFor(x => x.Principal)
                 .MustFindUserByPrincipal(queries)
-                    .WithName(User.Constraints.Label);
+                    .WithName(User.Constraints.Label)
+            ;
 
-            RuleFor(x => x.Token)
-                .MustBeRedeemableVerifyEmailToken(queries)
-                .MustBePurposedVerifyEmailToken(queries,
+            RuleFor(x => x.Ticket)
+                .MustBeRedeemableVerifyEmailTicket(queries)
+                .MustBePurposedVerifyEmailTicket(queries,
                     x => EmailVerificationPurpose.AddEmail
                 )
-                    .WithName(EmailVerification.Constraints.Label);
+                    .WithName(EmailVerification.Constraints.Label)
+            ;
+
+            RuleFor(x => x.Token)
+                .MustBeValidVerifyEmailToken(queries, x => x.Ticket)
+                .WithName(EmailVerification.Constraints.Label)
+            ;
         }
     }
 
@@ -43,10 +51,9 @@ namespace Tripod.Domain.Security
         public async Task Handle(RejectEmailVerification command)
         {
             // reject this email verification
-            var userToken = await _queries.Execute(new EmailVerificationUserToken(command.Token));
             var verification = await _entities.Get<EmailVerification>()
                 .EagerLoad(x => x.EmailAddress)
-                .ByTicketAsync(userToken.Value, false);
+                .ByTicketAsync(command.Ticket, false);
             verification.Token = "Rejected";
 
             var email = verification.EmailAddress;

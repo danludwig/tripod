@@ -28,8 +28,8 @@ namespace Tripod.Domain.Security
             RuleFor(x => x.Password)
                 .NotEmpty()
                 .MustBeVerifiedPassword(queries, x => x.UserNameOrVerifiedEmail)
-                    .WithName(LocalMembership.Constraints.PasswordLabel)
-                    .When(x => queries.Execute(new UserBy(x.UserNameOrVerifiedEmail)).Result != null, ApplyConditionTo.CurrentValidator)
+                    .When(x => queries.Execute(new UserByNameOrVerifiedEmail(x.UserNameOrVerifiedEmail)).Result != null, ApplyConditionTo.CurrentValidator)
+                .WithName(LocalMembership.Constraints.PasswordLabel)
             ;
         }
     }

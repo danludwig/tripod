@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Globalization;
+using System.Text;
 using System.Web;
-using System.Web.Mvc;
-using Microsoft.AspNet.Identity;
+using System.Web.Security;
 using Newtonsoft.Json;
 using Tripod.Domain.Security;
 
@@ -30,14 +30,8 @@ namespace Tripod.Web
             {
                 var data = queries.Execute(new ClientCookieBy(userIdInt)).Result;
                 var json = JsonConvert.SerializeObject(data);
-                var cookieTokens = DependencyResolver.Current.GetService<IProvideTokenizers>().CookieEncryptionTokens;
-                var userToken = new UserToken
-                {
-                    CreationDate = DateTime.UtcNow,
-                    Value = json,
-                    UserId = userId,
-                };
-                var cookieValue = cookieTokens.Generate(userToken);
+                byte[] jsonBytes = MachineKey.Protect(Encoding.UTF8.GetBytes(json), "Cookie");
+                string cookieValue = HttpServerUtility.UrlTokenEncode(jsonBytes);
                 cookie.Values[ClientCookieKey] = cookieValue;
                 //cookie.Expires = DateTime.UtcNow.AddDays(60);
             }
@@ -57,15 +51,14 @@ namespace Tripod.Web
             var cookie = request.Cookies.Get(CookieName);
             if (cookie != null)
             {
-                var protectedValue = cookie.Values[ClientCookieKey];
-                var cookieTokens = DependencyResolver.Current.GetService<IProvideTokenizers>().CookieEncryptionTokens;
-                var userToken = cookieTokens.Validate(protectedValue);
-                if (userToken != null)
-                {
-                    json = userToken.Value;
-                }
+                var cookieValue = cookie.Values[ClientCookieKey];
+                var jsonBytes = HttpServerUtility.UrlTokenDecode(cookieValue);
+                if (jsonBytes != null)
+                    jsonBytes = MachineKey.Unprotect(jsonBytes, "Cookie");
+                if (jsonBytes != null)
+                    json = Encoding.UTF8.GetString(jsonBytes);
             }
-            
+
             var clientCookie = JsonConvert.DeserializeObject<ClientCookie>(json);
             return clientCookie;
         }

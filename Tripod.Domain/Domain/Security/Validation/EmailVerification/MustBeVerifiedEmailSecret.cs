@@ -6,16 +6,16 @@ namespace Tripod.Domain.Security
 {
     public class MustBeVerifiedEmailSecret<T> : PropertyValidator
     {
-        private readonly Func<T, string> _ticket;
         private readonly IProcessQueries _queries;
+        private readonly Func<T, string> _ticket;
 
-        internal MustBeVerifiedEmailSecret(Func<T, string> ticket, IProcessQueries queries)
+        internal MustBeVerifiedEmailSecret(IProcessQueries queries, Func<T, string> ticket)
             : base(() => Resources.Validation_EmailVerificationSecret_IsWrong)
         {
-            if (ticket == null) throw new ArgumentNullException("ticket");
             if (queries == null) throw new ArgumentNullException("queries");
-            _ticket = ticket;
+            if (ticket == null) throw new ArgumentNullException("ticket");
             _queries = queries;
+            _ticket = ticket;
         }
 
         protected override bool IsValid(PropertyValidatorContext context)
@@ -35,9 +35,9 @@ namespace Tripod.Domain.Security
     public static class MustBeVerifiedEmailSecretExtensions
     {
         public static IRuleBuilderOptions<T, string> MustBeVerifiedEmailSecret<T>
-            (this IRuleBuilder<T, string> ruleBuilder, Func<T, string> ticket, IProcessQueries queries)
+            (this IRuleBuilder<T, string> ruleBuilder, IProcessQueries queries, Func<T, string> ticket)
         {
-            return ruleBuilder.SetValidator(new MustBeVerifiedEmailSecret<T>(ticket, queries));
+            return ruleBuilder.SetValidator(new MustBeVerifiedEmailSecret<T>(queries, ticket));
         }
     }
 }

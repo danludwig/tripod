@@ -3,7 +3,7 @@
 
 @model RedeemEmailVerification
 
-@{
+@{ // BUG make sure to come back and check this
     ViewBag.Title = "Confirm adding this email to your account";
 }
 
@@ -47,6 +47,15 @@
                    model-contrib
                    server-error="@Html.ValidationMessageTextFor(x => x.Token)"
                    server-validate="@Url.Action(MVC.SignUp.ValidateCreateLocalMembership(null, "token"))" />
+            <input type="hidden"
+                   name="ticket"
+                   value="@ViewBag.Ticket"
+                   ng-init="vm.ticket='@ViewBag.Ticket'"
+                   ng-model="vm.ticket"
+                   required
+                   model-contrib
+                   server-error="@Html.ValidationMessageTextFor(x => x.Ticket)"
+                   server-validate="@Url.Action(MVC.SignUp.ValidateCreateLocalMembership(null, "ticket"))" />
             @{
                 var buttonClass = ViewData.ModelState.IsValid ? null : "btn-danger";
                 var readyClass = ViewData.ModelState.IsValid ? null : "hide";
@@ -79,6 +88,9 @@
             <input type="hidden"
                    name="token"
                    value="@ViewBag.Token" />
+            <input type="hidden"
+                   name="ticket"
+                   value="@ViewBag.Ticket" />
             <button type="submit" class="btn btn-link nudge-right">
                 No, do not confirm email
             </button>

@@ -146,6 +146,7 @@ namespace Tripod.Web.Controllers
         public class ActionParamsClass_RedeemEmailVerification
         {
             public readonly string token = "token";
+            public readonly string ticket = "ticket";
             public readonly string command = "command";
             public readonly string emailAddress = "emailAddress";
         }
@@ -235,13 +236,14 @@ namespace Tripod.Web.Controllers
             return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
         }
 
-        partial void RedeemEmailVerificationOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string token);
+        partial void RedeemEmailVerificationOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string token, string ticket);
 
-        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> RedeemEmailVerification(string token)
+        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> RedeemEmailVerification(string token, string ticket)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.RedeemEmailVerification);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "token", token);
-            RedeemEmailVerificationOverride(callInfo, token);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ticket", ticket);
+            RedeemEmailVerificationOverride(callInfo, token, ticket);
             return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
         }
 

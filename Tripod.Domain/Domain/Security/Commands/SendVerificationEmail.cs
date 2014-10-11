@@ -104,7 +104,9 @@ namespace Tripod.Domain.Security
                 { "{EmailAddress}", verification.EmailAddress.Value },
                 { "{Secret}", verification.Secret },
                 // don't forget to encode the token, it contains illegal querystring characters
-                { "{VerificationUrl}", string.Format(command.VerifyUrlFormat ?? "", Uri.EscapeDataString(verification.Token)) },
+                { "{VerificationUrl}", string.Format(command.VerifyUrlFormat ?? "",
+                    Uri.EscapeDataString(verification.Token),
+                    Uri.EscapeDataString(verification.Ticket)) },
                 { "{SendFromUrl}", command.SendFromUrl }
             };
 

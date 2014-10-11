@@ -1,6 +1,7 @@
 ﻿using System.Web;
 using Microsoft.AspNet.Identity;
-using Owin;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin.Security.DataProtection;
 using SimpleInjector;
 using Tripod.Domain.Security;
 
@@ -18,20 +19,24 @@ namespace Tripod.Services.Security
             container.Register<IUserClaimStore<User, int>, SecurityStore>();
             container.Register<IUserSecurityStampStore<User, int>, SecurityStore>();
             container.Register<IQueryableUserStore<User, int>, SecurityStore>();
-            //container.Register<IUserConfirmationStore<User, int>, SecurityStore>();
-            //container.Register<IUserEmailStore<User, int>, SecurityStore>();
 
             // identity UserManager<User, int> registration
+            container.Register(() => new UserManager<User, int>(container.GetInstance<IUserStore<User, int>>()));
+
+            container.Register<IUserStore<UserTicket, string>, UserTokenSecurityStore>();
             container.Register(() =>
             {
-                var userManager = new UserManager<User, int>(container.GetInstance<IUserStore<User, int>>());
-                if (!HasOwinContext()) return userManager;
-
-                // the owin context user manager factory has our token provider
-                var owinContext = HttpContext.Current.GetOwinContext();
-                var owinUserManager = owinContext.GetUserManager<UserManager<User, int>>();
-                userManager.UserConfirmationTokens = owinUserManager.UserConfirmationTokens;
-                userManager.PasswordResetTokens = owinUserManager.PasswordResetTokens;
+                var userManager = new UserManager<UserTicket, string>(container.GetInstance<IUserStore<UserTicket, string>>());
+                var protectionProvider = container.GetInstance<IDataProtectionProvider>();
+                var purposes = new[]
+                {
+                    EmailVerificationPurpose.CreateLocalUser.ToString(),
+                    EmailVerificationPurpose.CreateRemoteUser.ToString(),
+                    EmailVerificationPurpose.AddEmail.ToString(),
+                    EmailVerificationPurpose.ForgotPassword.ToString(),
+                };
+                IDataProtector dataProtector = protectionProvider.Create(purposes);
+                userManager.UserTokenProvider = new DataProtectorTokenProvider<UserTicket, string>(dataProtector);
                 return userManager;
             });
 

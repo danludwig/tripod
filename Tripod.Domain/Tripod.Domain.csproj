@@ -43,8 +43,9 @@
     <Reference Include="FluentValidation">
       <HintPath>..\packages\FluentValidation.5.0.0.1\lib\Net40\FluentValidation.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.AspNet.Identity.Core">
-      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.0.0-alpha1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.1.0\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -63,7 +64,6 @@
     <Compile Include="Api\Configuration\AppSettingKey.cs" />
     <Compile Include="Api\Configuration\AppConfiguration.cs" />
     <Compile Include="Api\Cryptography\ICreateSecrets.cs" />
-    <Compile Include="Api\Cryptography\IProvideTokenizers.cs" />
     <Compile Include="Api\Net\IDeliveredEmailMessage.cs" />
     <Compile Include="Api\Net\IDeliverEmailMessage.cs" />
     <Compile Include="Api\Net\IDeliverMailMessage.cs" />
@@ -127,9 +127,11 @@
     <Compile Include="Domain\Security\Entities\EmailMessage.cs" />
     <Compile Include="Domain\Security\Entities\LocalMembership.cs" />
     <Compile Include="Domain\Security\Entities\Permission.cs" />
+    <Compile Include="Domain\Security\Entities\UserTicket.cs" />
     <Compile Include="Domain\Security\Entities\UserClaim.cs" />
     <Compile Include="Domain\Security\Entities\RemoteMembership.cs" />
     <Compile Include="Domain\Security\Entities\User.cs" />
+    <Compile Include="Domain\Security\Queries\EmailVerificationTokenIsValid.cs" />
     <Compile Include="Domain\Security\Queries\RemoteMembershipViewsBy.cs" />
     <Compile Include="Domain\Security\Queries\EmailAddressViewsBy.cs" />
     <Compile Include="Domain\Security\Queries\EmailAddressesBy.cs" />
@@ -138,7 +140,6 @@
     <Compile Include="Domain\Security\Queries\ExternalCookieClaim.cs" />
     <Compile Include="Domain\Security\Queries\ExternalCookieClaims.cs" />
     <Compile Include="Domain\Security\Queries\EmailAddressBy.cs" />
-    <Compile Include="Domain\Security\Queries\EmailVerificationUserToken.cs" />
     <Compile Include="Domain\Security\Queries\EmailVerificationBy.cs" />
     <Compile Include="Domain\Security\Queries\LocalMembershipByVerifiedEmail.cs" />
     <Compile Include="Domain\Security\Queries\RandomSecret.cs" />
@@ -152,15 +153,11 @@
     <Compile Include="Domain\Security\Queries\UserHasLocalMembership.cs" />
     <Compile Include="Domain\Security\Queries\LocalMembershipByUser.cs" />
     <Compile Include="Domain\Security\Queries\UserBy.cs" />
-    <Compile Include="Domain\Security\Validation\EmailVerification\MustBeRedeemableVerifyEmailToken.cs" />
-    <Compile Include="Domain\Security\Validation\EmailVerification\MustBePurposedVerifyEmailToken.cs" />
+    <Compile Include="Domain\Security\Validation\EmailVerification\MustBeRedeemableVerifyEmailTicket.cs" />
     <Compile Include="Domain\Security\Validation\EmailVerification\MustBeValidVerifyEmailPurpose.cs" />
+    <Compile Include="Domain\Security\Validation\EmailVerification\MustBeValidVerifyEmailToken.cs" />
     <Compile Include="Domain\Security\Validation\EmailVerification\MustBeVerifiableEmailAddress.cs" />
     <Compile Include="Domain\Security\Validation\EmailVerification\MustNotBeVerifiedEmailAddress.cs" />
-    <Compile Include="Domain\Security\Validation\EmailVerification\MustBeValidVerifyEmailToken.cs" />
-    <Compile Include="Domain\Security\Validation\EmailVerification\MustFindEmailVerificationByToken.cs" />
-    <Compile Include="Domain\Security\Validation\EmailVerification\MustNotBeExpiredVerifyEmailToken.cs" />
-    <Compile Include="Domain\Security\Validation\EmailVerification\MustNotBeRedeemedVerifyEmailToken.cs" />
     <Compile Include="Domain\Security\Validation\EmailVerification\MustNotBeUnverifiedEmailUserName.cs" />
     <Compile Include="Domain\Security\Validation\EmailVerification\MustBeVerifiedEmailSecret.cs" />
     <Compile Include="Domain\Security\Validation\MustFindUserByVerifiedEmail.cs" />
