@@ -153,7 +153,8 @@
     <Compile Include="Domain\Security\Queries\UserHasLocalMembership.cs" />
     <Compile Include="Domain\Security\Queries\LocalMembershipByUser.cs" />
     <Compile Include="Domain\Security\Queries\UserBy.cs" />
-    <Compile Include="Domain\Security\Validation\EmailVerification\MustBeRedeemableVerifyEmailTicket.cs" />
+    <Compile Include="Domain\Security\Validation\EmailVerification\MustHaveValidVerifyEmailToken.cs" />
+    <Compile Include="Domain\Security\Validation\EmailVerification\MustBeRedeemableVerifyEmailTicketExtensions.cs" />
     <Compile Include="Domain\Security\Validation\EmailVerification\MustBeValidVerifyEmailPurpose.cs" />
     <Compile Include="Domain\Security\Validation\EmailVerification\MustBeValidVerifyEmailToken.cs" />
     <Compile Include="Domain\Security\Validation\EmailVerification\MustBeVerifiableEmailAddress.cs" />

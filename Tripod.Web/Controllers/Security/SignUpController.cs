@@ -170,16 +170,16 @@ namespace Tripod.Web.Controllers
 
         [HttpGet, Route("sign-up/register", Order = 1)]
         public virtual async Task<ActionResult> CreateLocalMembership(string token, string ticket, string returnUrl)
-        { // BUG make sure to come back and check this
+        {
             var verification = await _queries.Execute(new EmailVerificationBy(ticket));
             if (verification == null) return HttpNotFound();
 
             // todo: verification cannot be expired, redeemed, or for different purpose
 
-            ViewBag.Token = token;
-            ViewBag.Ticket = ticket;
-            ViewBag.ReturnUrl = returnUrl;
             ViewBag.EmailAddress = verification.EmailAddress.Value;
+            ViewBag.Ticket = ticket;
+            ViewBag.Token = token;
+            ViewBag.ReturnUrl = returnUrl;
             return View(MVC.Security.Views.SignUpCreateLocalMembership);
         }
 
@@ -194,10 +194,10 @@ namespace Tripod.Web.Controllers
 
             if (!ModelState.IsValid)
             {
-                ViewBag.Token = command.Token;
-                ViewBag.Ticket = command.Ticket;
-                ViewBag.ReturnUrl = returnUrl;
                 ViewBag.EmailAddress = emailAddress;
+                ViewBag.Ticket = command.Ticket;
+                ViewBag.Token = command.Token;
+                ViewBag.ReturnUrl = returnUrl;
                 return View(MVC.Security.Views.SignUpCreateLocalMembership, command);
             }
 
@@ -228,7 +228,7 @@ namespace Tripod.Web.Controllers
 
             var result = new ValidatedFields(ModelState, fieldName);
 
-            //ModelState[command.PropertyName(x => x.UserName)].Errors.Clear();
+            //ModelState[command.PropertyName(x => x.UserName)].Errors.Add("Something went wrong");
             //result = new ValidatedFields(ModelState, fieldName);
 
             return new CamelCaseJsonResult(result);

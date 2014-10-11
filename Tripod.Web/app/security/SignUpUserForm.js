@@ -61,16 +61,16 @@ var App;
                     return this.scope.signUpUserForm.userName.$error.server && this.scope.signUpUserCtrb.userName.hasError;
                 };
 
-                Controller.prototype.tokenInputGroupValidationAddOnCssClass = function () {
-                    return this.scope.signUpUserCtrb.token.hasFeedback() ? null : 'hide';
+                Controller.prototype.ticketInputGroupValidationAddOnCssClass = function () {
+                    return this.scope.signUpUserCtrb.ticket.hasFeedback() ? null : 'hide';
                 };
 
-                Controller.prototype.isTokenRequiredError = function () {
-                    return this.scope.signUpUserForm.token.$error.required && this.scope.signUpUserCtrb.token.hasError;
+                Controller.prototype.isTicketRequiredError = function () {
+                    return this.scope.signUpUserForm.ticket.$error.required && this.scope.signUpUserCtrb.ticket.hasError;
                 };
 
-                Controller.prototype.isTokenServerError = function () {
-                    return this.scope.signUpUserForm.token.$error.server && this.scope.signUpUserCtrb.token.hasError;
+                Controller.prototype.isTicketServerError = function () {
+                    return this.scope.signUpUserForm.ticket.$error.server && this.scope.signUpUserCtrb.ticket.hasError;
                 };
 
                 Controller.prototype.isSubmitWaiting = function () {

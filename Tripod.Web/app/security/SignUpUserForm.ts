@@ -7,6 +7,7 @@ module App.Security.SignUpUserForm {
         confirmPassword?: string;
         userName?: string;
         token?: string;
+        ticket?: string;
     }
 
     export interface Form extends ng.IFormController {
@@ -14,6 +15,7 @@ module App.Security.SignUpUserForm {
         confirmPassword: ng.INgModelController;
         userName: ng.INgModelController;
         token: ng.INgModelController;
+        ticket: ng.INgModelController;
     }
 
     export interface Contrib extends Directives.FormContrib.Controller {
@@ -21,6 +23,7 @@ module App.Security.SignUpUserForm {
         confirmPassword: Directives.ModelContrib.Controller;
         userName: Directives.ModelContrib.Controller;
         token: Directives.ModelContrib.Controller;
+        ticket: Directives.ModelContrib.Controller;
     }
 
     export interface Scope extends ViewModelScope<Model> {
@@ -100,18 +103,18 @@ module App.Security.SignUpUserForm {
                 && this.scope.signUpUserCtrb.userName.hasError;
         }
 
-        tokenInputGroupValidationAddOnCssClass(): string {
-            return this.scope.signUpUserCtrb.token.hasFeedback() ? null : 'hide';
+        ticketInputGroupValidationAddOnCssClass(): string {
+            return this.scope.signUpUserCtrb.ticket.hasFeedback() ? null : 'hide';
         }
 
-        isTokenRequiredError(): boolean {
-            return this.scope.signUpUserForm.token.$error.required
-                && this.scope.signUpUserCtrb.token.hasError;
+        isTicketRequiredError(): boolean {
+            return this.scope.signUpUserForm.ticket.$error.required
+                && this.scope.signUpUserCtrb.ticket.hasError;
         }
 
-        isTokenServerError(): boolean {
-            return this.scope.signUpUserForm.token.$error.server
-                && this.scope.signUpUserCtrb.token.hasError;
+        isTicketServerError(): boolean {
+            return this.scope.signUpUserForm.ticket.$error.server
+                && this.scope.signUpUserCtrb.ticket.hasError;
         }
 
         isSubmitWaiting(): boolean {

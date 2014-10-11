@@ -23,39 +23,38 @@ namespace Tripod.Domain.Security
             RuleFor(x => x.Principal)
                 .MustFindUserByPrincipal(queries)
                 .MustNotFindLocalMembershipByPrincipal(queries)
-                    .WithName(User.Constraints.Label)
-                    .When(x => x.Principal.Identity.IsAuthenticated)
+                .When(x => x.Principal.Identity.IsAuthenticated)
+                .WithName(User.Constraints.Label)
             ;
 
             RuleFor(x => x.UserName)
                 .MustBeValidUserName()
                 .MustNotFindUserByName(queries)
                 .MustNotBeUnverifiedEmailUserName(queries, x => x.Ticket)
-                    .WithName(User.Constraints.NameLabel)
-                    .When(x => !x.Principal.Identity.IsAuthenticated)
+                .When(x => !x.Principal.Identity.IsAuthenticated)
+                .WithName(User.Constraints.NameLabel)
             ;
 
             RuleFor(x => x.Password)
                 .MustBeValidPassword()
-                    .WithName(LocalMembership.Constraints.PasswordLabel)
+                .WithName(LocalMembership.Constraints.PasswordLabel)
             ;
 
             RuleFor(x => x.ConfirmPassword)
                 .NotEmpty()
                 .MustEqualPassword(x => x.Password)
-                    .WithName(LocalMembership.Constraints.PasswordConfirmationLabel)
-                    .When(x => !string.IsNullOrWhiteSpace(x.Password), ApplyConditionTo.CurrentValidator)
+                    .When(x => !string.IsNullOrWhiteSpace(x.Password),
+                        ApplyConditionTo.CurrentValidator)
+                .WithName(LocalMembership.Constraints.PasswordConfirmationLabel)
             ;
 
             RuleFor(x => x.Ticket)
                 .MustBeRedeemableVerifyEmailTicket(queries)
                 .MustBePurposedVerifyEmailTicket(queries, x => EmailVerificationPurpose.CreateLocalUser)
-                .WithName(EmailVerification.Constraints.Label)
-                    .When(x => !x.Principal.Identity.IsAuthenticated)
-            ;
+                .MustHaveValidVerifyEmailToken(queries, x => x.Token)
 
-            RuleFor(x => x.Token)
-                .MustBeValidVerifyEmailToken(queries, x => x.Ticket)
+                // ticket is not required when signed-on user creates a local password
+                .When(x => !x.Principal.Identity.IsAuthenticated)
                 .WithName(EmailVerification.Constraints.Label)
             ;
         }

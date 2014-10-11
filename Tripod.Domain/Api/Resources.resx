@@ -270,4 +270,7 @@
   <data name="Validation_NotAuthorized_IntIdValue" xml:space="preserve">
     <value>You are not authorized to perform this action on {PropertyName} #{PropertyValue}.</value>
   </data>
+  <data name="Validation_EmailVerificationTicket_HasInvalidToken" xml:space="preserve">
+    <value>This {PropertyName} is corrupted. Please start this process over to try again.</value>
+  </data>
 </root>
