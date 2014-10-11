@@ -25,7 +25,7 @@ module App.Security.SignOnUserForm {
         signOnUserCtrb: Contrib;
     }
 
-    export class Controller implements Model { // BUG make sure to come back and check this
+    export class Controller implements Model {
 
         userName: string = '';
         token: string = '';

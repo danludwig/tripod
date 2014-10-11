@@ -172,7 +172,7 @@ namespace Tripod.Web.Controllers
 
         [HttpGet, Route("sign-in/password/recover", Order = 1)]
         public virtual async Task<ActionResult> ResetPassword(string token, string ticket, string returnUrl)
-        { // BUG make sure to come back and check this
+        {
             var verification = await _queries.Execute(new EmailVerificationBy(ticket));
             if (verification == null) return HttpNotFound();
 
