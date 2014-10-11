@@ -178,10 +178,10 @@ namespace Tripod.Web.Controllers
 
             // todo: verification cannot be expired, redeemed, or for different purpose
 
-            ViewBag.Token = token;
-            ViewBag.Ticket = ticket;
-            ViewBag.ReturnUrl = returnUrl;
             ViewBag.EmailAddress = verification.EmailAddress.Value;
+            ViewBag.Ticket = ticket;
+            ViewBag.Token = token;
+            ViewBag.ReturnUrl = returnUrl;
             return View(MVC.Security.Views.SignInRedeemEmailVerification);
         }
 
@@ -199,10 +199,10 @@ namespace Tripod.Web.Controllers
 
             if (!ModelState.IsValid)
             {
-                ViewBag.Token = command.Token;
-                ViewBag.Ticket = command.Ticket;
-                ViewBag.ReturnUrl = returnUrl;
                 ViewBag.EmailAddress = emailAddress;
+                ViewBag.Ticket = command.Ticket;
+                ViewBag.Token = command.Token;
+                ViewBag.ReturnUrl = returnUrl;
                 return View(MVC.Security.Views.SignInRedeemEmailVerification, command);
             }
 

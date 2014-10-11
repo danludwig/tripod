@@ -41,16 +41,6 @@
            name="emailAddress"
            value="@ViewBag.EmailAddress" />
     <input type="hidden"
-           name="token"
-           value="@ViewBag.Token"
-           ng-init="vm.token='@ViewBag.Token'"
-           ng-model="vm.token"
-           required
-           model-contrib
-           server-error="@Html.ValidationMessageTextFor(x => x.Token)"
-           server-validate="@Url.Action(MVC.SignIn.ValidateResetPassword(null, "token"))"
-           server-validate-data="{ ticket: vm.ticket }" />
-    <input type="hidden"
            name="ticket"
            value="@ViewBag.Ticket"
            ng-init="vm.ticket='@ViewBag.Ticket'"
@@ -58,7 +48,15 @@
            required
            model-contrib
            server-error="@Html.ValidationMessageTextFor(x => x.Ticket)"
-           server-validate="@Url.Action(MVC.SignIn.ValidateResetPassword(null, "ticket"))" />
+           server-validate="@Url.Action(MVC.SignIn.ValidateResetPassword(null, "ticket"))"
+           server-validate-data="{ token: vm.token }" />
+    <input type="hidden"
+           name="token"
+           value="@ViewBag.Token"
+           ng-init="vm.token='@ViewBag.Token'"
+           ng-model="vm.token"
+           required
+           model-contrib />
     <input type="hidden" name="returnUrl" value="@ViewBag.ReturnUrl" />
 
     @Html.ValidationSummary(true)
@@ -278,14 +276,14 @@
                  remove-class="@errorClass"
                  ng-show="vm.isSubmitError()">
                 <div class="help-block">
-                    <div ng-show="vm.isTokenRequiredError()" ng-cloak>
+                    <div ng-show="vm.isTicketRequiredError()" ng-cloak>
                         @Resources.notempty_error.Replace("{PropertyName}", EmailVerification.Constraints.Label)
                     </div>
-                    <div ng-show="vm.isTokenServerError()" ng-cloak>
-                        {{ signUpUserCtrb.token.error.server }}
+                    <div ng-show="vm.isTicketServerError()" ng-cloak>
+                        {{ signUpUserCtrb.ticket.error.server }}
                     </div>
                     <span ng-class="{ hide: true }">
-                        @Html.ValidationMessageFor(x => x.Token)
+                        @Html.ValidationMessageFor(x => x.Ticket)
                     </span>
                     Could not reset password &amp; sign in due to above error(s).
                 </div>

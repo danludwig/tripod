@@ -19,27 +19,23 @@ namespace Tripod.Domain.Security
         {
             RuleFor(x => x.Ticket)
                 .MustBeRedeemableVerifyEmailTicket(queries)
-                .MustBePurposedVerifyEmailTicket(queries,
-                    x => EmailVerificationPurpose.ForgotPassword
-                )
-                    .WithName(EmailVerification.Constraints.Label)
-            ;
-
-            RuleFor(x => x.Token)
-                .MustBeValidVerifyEmailToken(queries, x => x.Ticket)
+                .MustBePurposedVerifyEmailTicket(queries, x => EmailVerificationPurpose.ForgotPassword)
+                .MustHaveValidVerifyEmailToken(queries, x => x.Token)
                 .WithName(EmailVerification.Constraints.Label)
             ;
 
             RuleFor(x => x.Password)
                 .MustBeValidPassword()
-                    .WithName(LocalMembership.Constraints.PasswordLabel)
+                .WithName(LocalMembership.Constraints.PasswordLabel)
             ;
 
             RuleFor(x => x.ConfirmPassword)
                 .NotEmpty()
                 .MustEqualPassword(x => x.Password, LocalMembership.Constraints.PasswordLabel)
-                    .WithName(LocalMembership.Constraints.PasswordConfirmationLabel)
-                .When(x => !string.IsNullOrWhiteSpace(x.Password), ApplyConditionTo.CurrentValidator)
+                    // only needs to equal password when password is not empty or whitespace
+                    .When(x => !string.IsNullOrWhiteSpace(x.Password),
+                        ApplyConditionTo.CurrentValidator)
+                .WithName(LocalMembership.Constraints.PasswordConfirmationLabel)
             ;
         }
     }
