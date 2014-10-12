@@ -103,38 +103,38 @@ namespace Tripod.Web.Controllers
     {
         public T4MVC_HomeController() : base(Dummy.Instance) { }
 
-        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+        partial void IndexOverride(T4MVC_System_Web_Mvc_ViewResult callInfo);
 
-        public override System.Web.Mvc.ActionResult Index()
+        public override System.Web.Mvc.ViewResult Index()
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
+            var callInfo = new T4MVC_System_Web_Mvc_ViewResult(Area, Name, ActionNames.Index);
             IndexOverride(callInfo);
             return callInfo;
         }
 
-        partial void AboutOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+        partial void AboutOverride(T4MVC_System_Web_Mvc_ViewResult callInfo);
 
-        public override System.Web.Mvc.ActionResult About()
+        public override System.Web.Mvc.ViewResult About()
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.About);
+            var callInfo = new T4MVC_System_Web_Mvc_ViewResult(Area, Name, ActionNames.About);
             AboutOverride(callInfo);
             return callInfo;
         }
 
-        partial void ContactOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+        partial void ContactOverride(T4MVC_System_Web_Mvc_ViewResult callInfo);
 
-        public override System.Web.Mvc.ActionResult Contact()
+        public override System.Web.Mvc.ViewResult Contact()
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Contact);
+            var callInfo = new T4MVC_System_Web_Mvc_ViewResult(Area, Name, ActionNames.Contact);
             ContactOverride(callInfo);
             return callInfo;
         }
 
-        partial void AdminOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+        partial void AdminOverride(T4MVC_System_Web_Mvc_ViewResult callInfo);
 
-        public override System.Web.Mvc.ActionResult Admin()
+        public override System.Web.Mvc.ViewResult Admin()
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Admin);
+            var callInfo = new T4MVC_System_Web_Mvc_ViewResult(Area, Name, ActionNames.Admin);
             AdminOverride(callInfo);
             return callInfo;
         }

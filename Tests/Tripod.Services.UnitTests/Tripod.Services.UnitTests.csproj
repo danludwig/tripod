@@ -109,7 +109,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="..\..\GlobalAssemblyInfo.cs">
-      <Link>GlobalAssemblyInfo.cs</Link>
+      <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="CompositionRoot\WebApiDependencyResolverTests.cs" />
     <Compile Include="CompositionRoot\_Fakes\FakeMultipleService1.cs" />

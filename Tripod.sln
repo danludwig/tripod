@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30110.0
+VisualStudioVersion = 12.0.30723.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tripod.Domain", "Tripod.Domain\Tripod.Domain.csproj", "{E1BA1D96-1242-4196-85C1-0034447A4106}"
 EndProject
@@ -39,6 +39,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tripod.Services.UnitTests",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tripod.Services.IntegrationTests", "Tests\Tripod.Services.IntegrationTests\Tripod.Services.IntegrationTests.csproj", "{7A69DC6A-46C7-4AF2-90A7-EE3C3E0A57E7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tripod.Web.UnitTests", "Tests\Tripod.Web.UnitTests\Tripod.Web.UnitTests.csproj", "{5ABB2C2A-393D-4EAD-A077-390008A35D57}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug Integration Tests|Any CPU = Debug Integration Tests|Any CPU
@@ -64,7 +66,6 @@ Global
 		{D217070F-C4C0-46FA-9040-E0EEDF4C673F}.Debug Unit Tests|Any CPU.Build.0 = Debug|Any CPU
 		{D217070F-C4C0-46FA-9040-E0EEDF4C673F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D217070F-C4C0-46FA-9040-E0EEDF4C673F}.DebugBuildTs|Any CPU.ActiveCfg = Debug|Any CPU
-		{D217070F-C4C0-46FA-9040-E0EEDF4C673F}.DebugBuildTs|Any CPU.Build.0 = Debug|Any CPU
 		{D217070F-C4C0-46FA-9040-E0EEDF4C673F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D217070F-C4C0-46FA-9040-E0EEDF4C673F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5058F80F-C633-433B-A381-55A8A3F2BAA0}.Debug Integration Tests|Any CPU.ActiveCfg = Debug|Any CPU
@@ -94,19 +95,25 @@ Global
 		{D8C8221F-89B0-4707-B0F7-6762872BDA14}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D8C8221F-89B0-4707-B0F7-6762872BDA14}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D8C8221F-89B0-4707-B0F7-6762872BDA14}.DebugBuildTs|Any CPU.ActiveCfg = Debug|Any CPU
-		{D8C8221F-89B0-4707-B0F7-6762872BDA14}.DebugBuildTs|Any CPU.Build.0 = Debug|Any CPU
 		{D8C8221F-89B0-4707-B0F7-6762872BDA14}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D8C8221F-89B0-4707-B0F7-6762872BDA14}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7A69DC6A-46C7-4AF2-90A7-EE3C3E0A57E7}.Debug Integration Tests|Any CPU.ActiveCfg = Debug|Any CPU
 		{7A69DC6A-46C7-4AF2-90A7-EE3C3E0A57E7}.Debug Integration Tests|Any CPU.Build.0 = Debug|Any CPU
 		{7A69DC6A-46C7-4AF2-90A7-EE3C3E0A57E7}.Debug Unit Tests|Any CPU.ActiveCfg = Debug|Any CPU
-		{7A69DC6A-46C7-4AF2-90A7-EE3C3E0A57E7}.Debug Unit Tests|Any CPU.Build.0 = Debug|Any CPU
 		{7A69DC6A-46C7-4AF2-90A7-EE3C3E0A57E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7A69DC6A-46C7-4AF2-90A7-EE3C3E0A57E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7A69DC6A-46C7-4AF2-90A7-EE3C3E0A57E7}.DebugBuildTs|Any CPU.ActiveCfg = Debug|Any CPU
-		{7A69DC6A-46C7-4AF2-90A7-EE3C3E0A57E7}.DebugBuildTs|Any CPU.Build.0 = Debug|Any CPU
 		{7A69DC6A-46C7-4AF2-90A7-EE3C3E0A57E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7A69DC6A-46C7-4AF2-90A7-EE3C3E0A57E7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5ABB2C2A-393D-4EAD-A077-390008A35D57}.Debug Integration Tests|Any CPU.ActiveCfg = Debug|Any CPU
+		{5ABB2C2A-393D-4EAD-A077-390008A35D57}.Debug Integration Tests|Any CPU.Build.0 = Debug|Any CPU
+		{5ABB2C2A-393D-4EAD-A077-390008A35D57}.Debug Unit Tests|Any CPU.ActiveCfg = Debug|Any CPU
+		{5ABB2C2A-393D-4EAD-A077-390008A35D57}.Debug Unit Tests|Any CPU.Build.0 = Debug|Any CPU
+		{5ABB2C2A-393D-4EAD-A077-390008A35D57}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5ABB2C2A-393D-4EAD-A077-390008A35D57}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5ABB2C2A-393D-4EAD-A077-390008A35D57}.DebugBuildTs|Any CPU.ActiveCfg = Debug|Any CPU
+		{5ABB2C2A-393D-4EAD-A077-390008A35D57}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5ABB2C2A-393D-4EAD-A077-390008A35D57}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -115,5 +122,6 @@ Global
 		{D217070F-C4C0-46FA-9040-E0EEDF4C673F} = {B443F697-3A23-430D-BE52-12924ECCD617}
 		{D8C8221F-89B0-4707-B0F7-6762872BDA14} = {B443F697-3A23-430D-BE52-12924ECCD617}
 		{7A69DC6A-46C7-4AF2-90A7-EE3C3E0A57E7} = {B443F697-3A23-430D-BE52-12924ECCD617}
+		{5ABB2C2A-393D-4EAD-A077-390008A35D57} = {B443F697-3A23-430D-BE52-12924ECCD617}
 	EndGlobalSection
 EndGlobal
