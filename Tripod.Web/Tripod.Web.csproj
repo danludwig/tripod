@@ -833,6 +833,9 @@
     <Content Include="Views\Security\ChangePassword.cshtml" />
     <Content Include="Views\Security\_ChangePasswordForm.cshtml" />
     <Content Include="Views\Security\UserLogins.cshtml" />
+    <Content Include="Views\Security\_SignOnTwitterButton.cshtml" />
+    <Content Include="Views\Security\_SignOnGoogleButton.cshtml" />
+    <Content Include="Views\Security\_SignOnFacebookButton.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

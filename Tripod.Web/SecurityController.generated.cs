@@ -39,7 +39,10 @@ namespace T4MVC
                 public readonly string _ChangeUserNameForm = "_ChangeUserNameForm";
                 public readonly string _CreatePasswordForm = "_CreatePasswordForm";
                 public readonly string _SendVerificationEmailForm = "_SendVerificationEmailForm";
+                public readonly string _SignOnFacebookButton = "_SignOnFacebookButton";
                 public readonly string _SignOnForm = "_SignOnForm";
+                public readonly string _SignOnGoogleButton = "_SignOnGoogleButton";
+                public readonly string _SignOnTwitterButton = "_SignOnTwitterButton";
                 public readonly string _UserSettingsNav = "_UserSettingsNav";
                 public readonly string _VerifyEmailSecretForm = "_VerifyEmailSecretForm";
                 public readonly string _VerifyEmailWizardSteps = "_VerifyEmailWizardSteps";
@@ -65,7 +68,10 @@ namespace T4MVC
             public readonly string _ChangeUserNameForm = "~/Views/Security/_ChangeUserNameForm.cshtml";
             public readonly string _CreatePasswordForm = "~/Views/Security/_CreatePasswordForm.cshtml";
             public readonly string _SendVerificationEmailForm = "~/Views/Security/_SendVerificationEmailForm.cshtml";
+            public readonly string _SignOnFacebookButton = "~/Views/Security/_SignOnFacebookButton.cshtml";
             public readonly string _SignOnForm = "~/Views/Security/_SignOnForm.cshtml";
+            public readonly string _SignOnGoogleButton = "~/Views/Security/_SignOnGoogleButton.cshtml";
+            public readonly string _SignOnTwitterButton = "~/Views/Security/_SignOnTwitterButton.cshtml";
             public readonly string _UserSettingsNav = "~/Views/Security/_UserSettingsNav.cshtml";
             public readonly string _VerifyEmailSecretForm = "~/Views/Security/_VerifyEmailSecretForm.cshtml";
             public readonly string _VerifyEmailWizardSteps = "~/Views/Security/_VerifyEmailWizardSteps.cshtml";

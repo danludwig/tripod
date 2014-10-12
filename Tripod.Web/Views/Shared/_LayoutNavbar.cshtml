@@ -47,7 +47,7 @@
                         </li>
                         <li class="divider"></li>
                         <li>
-                            <form method="POST" action="@Url.Action(MVC.SignOut.Index())">
+                            <form method="POST" action="@Url.Action(MVC.SignOut.Post())">
                                 @Html.AntiForgeryToken()
                                 <button type="submit">
                                     <i class="fa fa-sign-out"></i>

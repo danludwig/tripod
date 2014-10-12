@@ -32,6 +32,8 @@ namespace Tripod.Domain.Security
                 .MustBeValidUserName()
                 .MustNotFindUserByName(queries)
                 .MustNotBeUnverifiedEmailUserName(queries, x => x.Ticket)
+
+                // username is not required when signed-on user adds a social login
                 .When(x => !x.Principal.Identity.IsAuthenticated && x.User == null)
                 .WithName(User.Constraints.NameLabel)
             ;

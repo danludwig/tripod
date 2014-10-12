@@ -18,10 +18,17 @@ namespace Tripod.Web.Controllers
         [Authorize]
         [ValidateAntiForgeryToken]
         [HttpPost, Route("sign-out")]
-        public virtual ActionResult Index()
+        public virtual ActionResult Post()
         {
             _commands.Execute(new SignOut());
             Response.ClientCookie(null, _queries);
+            return RedirectToAction(MVC.Home.Index());
+        }
+
+        [Authorize]
+        [HttpGet, Route("sign-out")]
+        public virtual ActionResult Get()
+        {
             return RedirectToAction(MVC.Home.Index());
         }
     }
