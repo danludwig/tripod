@@ -26,11 +26,14 @@ namespace Tripod.Web.Controllers
         {
             var user = await _queries.Execute(new UserViewBy(User.Identity.GetAppUserId()));
             var logins = await _queries.Execute(new RemoteMembershipViewsBy(User.Identity.GetAppUserId()));
+            // allow deletion of social logins only when there is more than one or user has local password
+            var isDeleteAllowed = logins.Count() > 1 || await _queries.Execute(new UserHasLocalMembership(User));
 
             var model = new LoginSettingsModel
             {
                 UserView = user,
                 Logins = logins.ToArray(),
+                IsDeleteAllowed =  isDeleteAllowed,
             };
 
             ViewBag.ReturnUrl = Url.Action(MVC.UserLogins.Index());
@@ -74,6 +77,8 @@ namespace Tripod.Web.Controllers
             }
 
             await _commands.Execute(command);
+            alert = string.Format("Your **{0}** login was added successfully.", provider);
+            TempData.Alerts(alert, AlertFlavor.Success, true);
             return RedirectToAction(await MVC.UserLogins.Index());
         }
 

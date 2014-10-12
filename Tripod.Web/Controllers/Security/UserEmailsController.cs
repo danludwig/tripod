@@ -269,7 +269,7 @@ namespace Tripod.Web.Controllers
             if (!ModelState.IsValid)
             {
                 var firstError = ModelState.Values.SelectMany(x => x.Errors.Select(y => y.ErrorMessage)).First();
-                var message = string.Format("Could not delete email address: **{0}**", firstError);
+                var message = string.Format("Could not remove email address: **{0}**", firstError);
                 TempData.Alerts(message, AlertFlavor.Danger, true);
             }
             else
@@ -278,7 +278,7 @@ namespace Tripod.Web.Controllers
                 if (email != null)
                 {
                     await _commands.Execute(command);
-                    var message = string.Format("Successfully deleted email address **{0}**.", email.Value);
+                    var message = string.Format("Successfully removed email address **{0}**.", email.Value);
                     TempData.Alerts(message, AlertFlavor.Success, true);
                 }
             }

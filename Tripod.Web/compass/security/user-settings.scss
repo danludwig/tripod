@@ -160,6 +160,15 @@ body {
                 float: right;
                 margin-top: 9px;
                 margin-right: 9px;
+
+                .btn-warning {
+                    background-color: #333;
+                    border-color: #CCC;
+
+                    i.fa-times {
+                        color: #f00;
+                    }
+                }
             }
         }
     }

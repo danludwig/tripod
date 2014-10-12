@@ -1,5 +1,6 @@
 ﻿@using System.Linq
 @using Microsoft.Owin.Security
+@using Tripod.Domain.Security
 @model LoginSettingsModel
 
 @{
@@ -38,98 +39,38 @@
             <p>
                 You can sign in using any of the following accounts:
             </p>
-            var google = Model.Logins.SingleOrDefault(x => x.Provider.Equals("Google", StringComparison.OrdinalIgnoreCase));
-            var facebook = Model.Logins.SingleOrDefault(x => x.Provider.Equals("Facebook", StringComparison.OrdinalIgnoreCase));
-            var twitter = Model.Logins.SingleOrDefault(x => x.Provider.Equals("Twitter", StringComparison.OrdinalIgnoreCase));
             <ul class="logins list-unstyled">
-                @if (google != null)
+                @foreach (RemoteMembershipView login in Model.Logins)
                 {
-                    <li class="google clearfix">
+                    <li class="@login.Provider.ToLower() clearfix">
                         <i class="provider"></i>
                         <span class="login-text">
-                            Google
+                            @login.Provider
                         </span>
-                        <div class="buttons">
-                            <form method="POST" action="@Url.Action(MVC.UserLogins.Delete("Google", null))" class="form-inline" style="display: inline;">
-                                @Html.AntiForgeryToken()
-                                @Html.HttpMethodOverride(HttpVerbs.Delete)
-                                <input type="hidden" name="providerKey" value="@google.Key" />
-                                <button type="submit"
-                                        class="btn btn-warning btn-sm"
-                                        data-bootbox="confirm-form-submit"
-                                        data-bootbox-class="modal-danger modal-buttons-left"
-                                        data-bootbox-close="false"
-                                        data-bootbox-title="Please confirm your intent"
-                                        data-bootbox-message="Are you sure you want to delete the **Google** login?"
-                                        data-bootbox-confirm="Yes, confirm delete"
-                                        data-bootbox-confirm-class="btn-danger"
-                                        data-bootbox-deny="No, cancel delete"
-                                        data-bootbox-deny-class="btn-link">
-                                    <i class="fa fa-times"></i>
-                                    Unlink
-                                </button>
-                            </form>
-                        </div>
-                    </li>
-                }
-                @if (facebook != null)
-                {
-                    <li class="facebook clearfix">
-                        <i class="provider"></i>
-                        <span class="login-text">
-                            Facebook
-                        </span>
-                        <div class="buttons">
-                            <form method="POST" action="@Url.Action(MVC.UserLogins.Delete("Facebook", null))" class="form-inline" style="display: inline;">
-                                @Html.AntiForgeryToken()
-                                @Html.HttpMethodOverride(HttpVerbs.Delete)
-                                <input type="hidden" name="providerKey" value="@facebook.Key" />
-                                <button type="submit"
-                                        class="btn btn-warning btn-sm"
-                                        data-bootbox="confirm-form-submit"
-                                        data-bootbox-class="modal-danger modal-buttons-left"
-                                        data-bootbox-close="false"
-                                        data-bootbox-title="Please confirm your intent"
-                                        data-bootbox-message="Are you sure you want to delete the **Facebook** login?"
-                                        data-bootbox-confirm="Yes, confirm delete"
-                                        data-bootbox-confirm-class="btn-danger"
-                                        data-bootbox-deny="No, cancel delete"
-                                        data-bootbox-deny-class="btn-link">
-                                    <i class="fa fa-times"></i>
-                                    Unlink
-                                </button>
-                            </form>
-                        </div>
-                    </li>
-                }
-                @if (twitter != null)
-                {
-                    <li class="twitter clearfix">
-                        <i class="provider"></i>
-                        <span class="login-text">
-                            Twitter
-                        </span>
-                        <div class="buttons">
-                            <form method="POST" action="@Url.Action(MVC.UserLogins.Delete("Twitter", null))" class="form-inline" style="display: inline;">
-                                @Html.AntiForgeryToken()
-                                @Html.HttpMethodOverride(HttpVerbs.Delete)
-                                <input type="hidden" name="providerKey" value="@twitter.Key" />
-                                <button type="submit"
-                                        class="btn btn-warning btn-sm"
-                                        data-bootbox="confirm-form-submit"
-                                        data-bootbox-class="modal-danger modal-buttons-left"
-                                        data-bootbox-close="false"
-                                        data-bootbox-title="Please confirm your intent"
-                                        data-bootbox-message="Are you sure you want to delete the **Twitter** login?"
-                                        data-bootbox-confirm="Yes, confirm delete"
-                                        data-bootbox-confirm-class="btn-danger"
-                                        data-bootbox-deny="No, cancel delete"
-                                        data-bootbox-deny-class="btn-link">
-                                    <i class="fa fa-times"></i>
-                                    Unlink
-                                </button>
-                            </form>
-                        </div>
+                        @if (Model.IsDeleteAllowed)
+                        {
+                            <div class="buttons">
+                                <form method="POST" action="@Url.Action(MVC.UserLogins.Delete(login.Provider, null))" class="form-inline" style="display: inline;">
+                                    @Html.AntiForgeryToken()
+                                    @Html.HttpMethodOverride(HttpVerbs.Delete)
+                                    <input type="hidden" name="providerKey" value="@login.Key" />
+                                    <button type="submit"
+                                            class="btn btn-warning btn-sm"
+                                            data-bootbox="confirm-form-submit"
+                                            data-bootbox-class="modal-danger modal-buttons-left"
+                                            data-bootbox-close="false"
+                                            data-bootbox-title="Please confirm your intent"
+                                            data-bootbox-message="Are you sure you want to remove your **@login.Provider** login?"
+                                            data-bootbox-confirm="Yes, confirm remove"
+                                            data-bootbox-confirm-class="btn-danger"
+                                            data-bootbox-deny="No, cancel remove"
+                                            data-bootbox-deny-class="btn-link">
+                                        <i class="fa fa-times"></i>
+                                        Remove
+                                    </button>
+                                </form>
+                            </div>
+                        }
                     </li>
                 }
             </ul>
@@ -140,9 +81,9 @@
                 .Where(x => Model.Logins.All(y => x.AuthenticationType != y.Provider))
                 .ToArray();
 
-            var googleProvider = loginProviders.SingleOrDefault(x => x.AuthenticationType.Equals("Google", StringComparison.OrdinalIgnoreCase));
-            var facebookProvider = loginProviders.SingleOrDefault(x => x.AuthenticationType.Equals("Facebook", StringComparison.OrdinalIgnoreCase));
-            var twitterProvider = loginProviders.SingleOrDefault(x => x.AuthenticationType.Equals("Twitter", StringComparison.OrdinalIgnoreCase));
+            var google = loginProviders.SingleOrDefault(x => x.AuthenticationType.Equals("Google", StringComparison.OrdinalIgnoreCase));
+            var facebook = loginProviders.SingleOrDefault(x => x.AuthenticationType.Equals("Facebook", StringComparison.OrdinalIgnoreCase));
+            var twitter = loginProviders.SingleOrDefault(x => x.AuthenticationType.Equals("Twitter", StringComparison.OrdinalIgnoreCase));
         }
         @if (loginProviders.Any())
         {
@@ -156,19 +97,19 @@
 
                 <input type="hidden" name="returnUrl" value="@ViewBag.ReturnUrl" />
 
-                @if (googleProvider != null)
+                @if (google != null)
                 {
                     <div class="col-sm-4">
                         @{ Html.RenderPartial(MVC.Security.Views._SignOnGoogleButton); }
                     </div>
                 }
-                @if (facebookProvider != null)
+                @if (facebook != null)
                 {
                     <div class="col-sm-4">
                         @{ Html.RenderPartial(MVC.Security.Views._SignOnFacebookButton); }
                     </div>
                 }
-                @if (twitterProvider != null)
+                @if (twitter != null)
                 {
                     <div class="col-sm-4">
                         @{ Html.RenderPartial(MVC.Security.Views._SignOnTwitterButton); }

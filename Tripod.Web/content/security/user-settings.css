@@ -155,3 +155,10 @@ body ul.logins > li {
     float: right;
     margin-top: 9px;
     margin-right: 9px; }
+    /* line 164, ../../compass/security/user-settings.scss */
+    body ul.logins > li .buttons .btn-warning {
+      background-color: #333;
+      border-color: #CCC; }
+      /* line 168, ../../compass/security/user-settings.scss */
+      body ul.logins > li .buttons .btn-warning i.fa-times {
+        color: #f00; }
