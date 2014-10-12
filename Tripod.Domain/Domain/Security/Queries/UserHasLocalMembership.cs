@@ -1,6 +1,7 @@
 ﻿using System.Data.Entity;
 using System.Security.Principal;
 using System.Threading.Tasks;
+using Microsoft.AspNet.Identity;
 
 namespace Tripod.Domain.Security
 {
@@ -44,7 +45,7 @@ namespace Tripod.Domain.Security
             if (query.UserId.HasValue) return queryable.AnyAsync(QueryLocalMemberships.ByUserId(query.UserId.Value));
 
             if (query.Principal != null && query.Principal.Identity.HasAppUserId())
-                return queryable.AnyAsync(QueryLocalMemberships.ByUserId(query.Principal.Identity.GetAppUserId()));
+                return queryable.AnyAsync(QueryLocalMemberships.ByUserId(query.Principal.Identity.GetUserId<int>()));
 
             return queryable.AnyAsync(QueryLocalMemberships.ByUserName(query.UserName));
         }

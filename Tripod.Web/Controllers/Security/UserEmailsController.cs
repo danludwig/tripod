@@ -29,8 +29,8 @@ namespace Tripod.Web.Controllers
         [HttpGet, Route("settings/emails")]
         public virtual async Task<ActionResult> Index()
         {
-            var user = await _queries.Execute(new UserViewBy(User.Identity.GetAppUserId()));
-            var emails = await _queries.Execute(new EmailAddressViewsBy(User.Identity.GetAppUserId())
+            var user = await _queries.Execute(new UserViewBy(User.Identity.GetUserId<int>()));
+            var emails = await _queries.Execute(new EmailAddressViewsBy(User.Identity.GetUserId<int>())
             {
                 OrderBy = new Dictionary<Expression<Func<EmailAddressView, object>>, OrderByDirection>
                 {
@@ -67,8 +67,8 @@ namespace Tripod.Web.Controllers
 
             if (!ModelState.IsValid)
             {
-                var user = await _queries.Execute(new UserViewBy(User.Identity.GetAppUserId()));
-                var emails = await _queries.Execute(new EmailAddressViewsBy(User.Identity.GetAppUserId())
+                var user = await _queries.Execute(new UserViewBy(User.Identity.GetUserId<int>()));
+                var emails = await _queries.Execute(new EmailAddressViewsBy(User.Identity.GetUserId<int>())
                 {
                     OrderBy = new Dictionary<Expression<Func<EmailAddressView, object>>, OrderByDirection>
                     {

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.Principal;
 using System.Threading.Tasks;
 using FluentValidation;
+using Microsoft.AspNet.Identity;
 
 namespace Tripod.Domain.Security
 {
@@ -73,7 +74,7 @@ namespace Tripod.Domain.Security
             var user = command.User
                 ?? await _entities.Get<User>()
                     .EagerLoad(x => x.EmailAddresses)
-                    .ByIdAsync(command.Principal.Identity.GetAppUserId());
+                    .ByIdAsync(command.Principal.Identity.GetUserId<int>());
             email.User = user;
             email.IsVerified = true;
 

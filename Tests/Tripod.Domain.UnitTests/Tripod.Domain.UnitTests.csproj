@@ -102,6 +102,7 @@
     <Compile Include="Api\Validation\_Fixtures\FluentValidationTests.cs" />
     <Compile Include="Api\_Extensions\ExpressionExtensionTests.cs" />
     <Compile Include="Api\_Extensions\EntityExtensionTests.cs" />
+    <Compile Include="Api\_Extensions\IdentityExtensionTests.cs" />
     <Compile Include="Api\_Extensions\_Fakes\FakeClosedGenericB1.cs" />
     <Compile Include="Api\_Extensions\_Fakes\FakeClosedGenericA2.cs" />
     <Compile Include="Api\_Extensions\_Fakes\FakeEntityWithCollectionProperty.cs" />

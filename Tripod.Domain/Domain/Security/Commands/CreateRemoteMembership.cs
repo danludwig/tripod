@@ -3,6 +3,7 @@ using System.Linq.Expressions;
 using System.Security.Principal;
 using System.Threading.Tasks;
 using FluentValidation;
+using Microsoft.AspNet.Identity;
 
 namespace Tripod.Domain.Security
 {
@@ -73,7 +74,7 @@ namespace Tripod.Domain.Security
                 {
                     x => x.RemoteMemberships,
                 })
-                .ByIdAsync(command.Principal.Identity.GetAppUserId()) : command.User;
+                .ByIdAsync(command.Principal.Identity.GetUserId<int>()) : command.User;
 
             if (user == null)
             {

@@ -24,8 +24,8 @@ namespace Tripod.Web.Controllers
         [HttpGet, Route("settings/logins")]
         public virtual async Task<ActionResult> Index()
         {
-            var user = await _queries.Execute(new UserViewBy(User.Identity.GetAppUserId()));
-            var logins = await _queries.Execute(new RemoteMembershipViewsBy(User.Identity.GetAppUserId()));
+            var user = await _queries.Execute(new UserViewBy(User.Identity.GetUserId<int>()));
+            var logins = await _queries.Execute(new RemoteMembershipViewsBy(User.Identity.GetUserId<int>()));
             // allow deletion of social logins only when there is more than one or user has local password
             var isDeleteAllowed = logins.Count() > 1 || await _queries.Execute(new UserHasLocalMembership(User));
 

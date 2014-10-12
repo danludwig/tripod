@@ -58,7 +58,7 @@ namespace Tripod.Domain.Security
 
         public async Task Handle(ChangeLocalPassword command)
         {
-            var userId = command.Principal.Identity.GetAppUserId();
+            var userId = command.Principal.Identity.GetUserId<int>();
             var user = await _entities.Get<User>()
                 .EagerLoad(new Expression<Func<User, object>>[] { x => x.LocalMembership, })
                 .ByIdAsync(userId);

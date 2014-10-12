@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 using Tripod.Domain.Security;
 using Tripod.Web.Models;
 
@@ -20,7 +21,7 @@ namespace Tripod.Web.Controllers
         [HttpGet, Route("settings/password")]
         public virtual async Task<ActionResult> Index()
         {
-            var userId = User.Identity.GetAppUserId();
+            var userId = User.Identity.GetUserId<int>();
             var user = await _queries.Execute(new UserViewBy(userId));
             var localMembership = await _queries.Execute(new LocalMembershipByUser(userId));
             if (localMembership != null)
@@ -51,7 +52,7 @@ namespace Tripod.Web.Controllers
 
             if (!ModelState.IsValid)
             {
-                var userId = User.Identity.GetAppUserId();
+                var userId = User.Identity.GetUserId<int>();
                 var user = await _queries.Execute(new UserViewBy(userId));
                 var model = new CreateLocalMembershipModel
                 {
@@ -74,7 +75,7 @@ namespace Tripod.Web.Controllers
 
             if (!ModelState.IsValid)
             {
-                var userId = User.Identity.GetAppUserId();
+                var userId = User.Identity.GetUserId<int>();
                 var user = await _queries.Execute(new UserViewBy(userId));
                 var model = new ChangeLocalPasswordModel
                 {

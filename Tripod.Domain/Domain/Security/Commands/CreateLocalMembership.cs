@@ -2,6 +2,7 @@
 using System.Security.Principal;
 using System.Threading.Tasks;
 using FluentValidation;
+using Microsoft.AspNet.Identity;
 
 namespace Tripod.Domain.Security
 {
@@ -78,7 +79,7 @@ namespace Tripod.Domain.Security
         {
             // does user already exist?
             var hasUserId = command.Principal != null && command.Principal.Identity.HasAppUserId();
-            var user = hasUserId ? await _entities.GetAsync<User>(command.Principal.Identity.GetAppUserId()) : null;
+            var user = hasUserId ? await _entities.GetAsync<User>(command.Principal.Identity.GetUserId<int>()) : null;
             if (!hasUserId)
             {
                 var createUser = new CreateUser { Name = command.UserName };

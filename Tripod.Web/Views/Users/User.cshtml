@@ -1,10 +1,11 @@
-﻿@using Tripod.Domain.Security
+﻿@using Microsoft.AspNet.Identity
+@using Tripod.Domain.Security
 
 @model UserView
 
 @{
     ViewBag.Title = User.Identity.Name;
-    var isMyPage = User.Identity.HasAppUserId() && User.Identity.GetAppUserId() == Model.UserId;
+    var isMyPage = User.Identity.HasAppUserId() && User.Identity.GetUserId<int>() == Model.UserId;
 }
 
 @{ Html.RenderPartial(MVC.Users.Views._UserJumbotron); }

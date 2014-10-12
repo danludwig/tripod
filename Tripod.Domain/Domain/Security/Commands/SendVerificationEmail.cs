@@ -4,6 +4,7 @@ using System.Reflection;
 using System.Security.Principal;
 using System.Threading.Tasks;
 using FluentValidation;
+using Microsoft.AspNet.Identity;
 
 namespace Tripod.Domain.Security
 {
@@ -90,7 +91,7 @@ namespace Tripod.Domain.Security
 
             // attach the email to a user when appropriate
             if (command.Purpose == EmailVerificationPurpose.AddEmail && command.Principal != null && command.Principal.Identity.IsAuthenticated)
-                verification.EmailAddress.UserId = command.Principal.Identity.GetAppUserId();
+                verification.EmailAddress.UserId = command.Principal.Identity.GetUserId<int>();
 
             // load the templates
             var resourceFormat = string.Format("{0}.{1}.txt", verification.Purpose, "{0}");

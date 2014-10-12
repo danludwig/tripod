@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 using Tripod.Domain.Security;
 using Tripod.Web.Models;
 
@@ -20,7 +21,7 @@ namespace Tripod.Web.Controllers
         [HttpGet, Route("settings")]
         public virtual async Task<ActionResult> Index()
         {
-            var view = await _queries.Execute(new UserViewBy(User.Identity.GetAppUserId()));
+            var view = await _queries.Execute(new UserViewBy(User.Identity.GetUserId<int>()));
             if (view == null) return HttpNotFound();
 
             var model = new ChangeUserNameModel

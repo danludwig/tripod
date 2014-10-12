@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Security.Principal;
 using System.Threading.Tasks;
+using Microsoft.AspNet.Identity;
 
 namespace Tripod.Domain.Security
 {
@@ -35,7 +36,7 @@ namespace Tripod.Domain.Security
             }
             else if (query.Principal != null && query.Principal.Identity.IsAuthenticated)
             {
-                queryable = queryable.Where(EntityExtensions.ById<User>(query.Principal.Identity.GetAppUserId()));
+                queryable = queryable.Where(EntityExtensions.ById<User>(query.Principal.Identity.GetUserId<int>()));
             }
             else
             {

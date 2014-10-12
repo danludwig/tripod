@@ -2,6 +2,7 @@
 using System.Security.Principal;
 using FluentValidation;
 using FluentValidation.Validators;
+using Microsoft.AspNet.Identity;
 
 namespace Tripod.Domain.Security
 {
@@ -20,7 +21,7 @@ namespace Tripod.Domain.Security
         {
             var principal = (IPrincipal)context.PropertyValue;
             var userId = _userId((T)context.Instance);
-            if (principal.Identity.GetAppUserId() == userId) return true;
+            if (principal.Identity.GetUserId<int>() == userId) return true;
 
             context.MessageFormatter.AppendArgument("PropertyValue", principal.Identity.Name);
             context.MessageFormatter.AppendArgument("PropertyName", context.PropertyDescription.ToLower());

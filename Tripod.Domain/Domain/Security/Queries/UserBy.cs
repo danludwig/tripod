@@ -33,7 +33,7 @@ namespace Tripod.Domain.Security
             if (query.Id.HasValue) return queryable.ByIdAsync(query.Id.Value);
 
             if (query.Principal != null && query.Principal.Identity.IsAuthenticated)
-                return queryable.ByIdAsync(query.Principal.Identity.GetAppUserId());
+                return queryable.ByIdAsync(query.Principal.Identity.GetUserId<int>());
 
             if (query.UserLoginInfo != null) return queryable.ByUserLoginInfoAsync(query.UserLoginInfo);
 

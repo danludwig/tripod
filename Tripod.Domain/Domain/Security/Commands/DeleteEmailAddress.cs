@@ -1,6 +1,7 @@
 ﻿using System.Security.Principal;
 using System.Threading.Tasks;
 using FluentValidation;
+using Microsoft.AspNet.Identity;
 
 namespace Tripod.Domain.Security
 {
@@ -26,7 +27,7 @@ namespace Tripod.Domain.Security
                 .MustFindEmailAddressById(queries)
 
                 // user/principal must own the email address
-                .MustBeEmailAddressWithUserId(queries, x => x.Principal.Identity.GetAppUserId())
+                .MustBeEmailAddressWithUserId(queries, x => x.Principal.Identity.GetUserId<int>())
 
                 // cannot delete primary email address
                 // also, cannot delete only email address
