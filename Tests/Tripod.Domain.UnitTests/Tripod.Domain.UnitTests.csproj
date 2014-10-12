@@ -104,6 +104,7 @@
     <Compile Include="Api\_Extensions\EntityExtensionTests.cs" />
     <Compile Include="Api\_Extensions\IdentityExtensionTests.cs" />
     <Compile Include="Api\_Extensions\PathExtensionTests.cs" />
+    <Compile Include="Api\_Extensions\StringExtensionTests.cs" />
     <Compile Include="Api\_Extensions\_Fakes\FakeClosedGenericB1.cs" />
     <Compile Include="Api\_Extensions\_Fakes\FakeClosedGenericA2.cs" />
     <Compile Include="Api\_Extensions\_Fakes\FakeEntityWithCollectionProperty.cs" />
