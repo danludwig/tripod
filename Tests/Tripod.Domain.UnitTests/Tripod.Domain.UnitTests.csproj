@@ -119,6 +119,8 @@
     <Compile Include="Api\_Extensions\_Fakes\FakeOuterObject.cs" />
     <Compile Include="Api\_Extensions\_Fakes\IFakeOpenGenericB.cs" />
     <Compile Include="Api\_Extensions\ReflectionExtensionTests.cs" />
+    <Compile Include="Domain\Audit\Entities\ExceptionAuditTests.cs" />
+    <Compile Include="Domain\Audit\Entities\_Fakes\ProxiedPermission.cs" />
     <Compile Include="Domain\Security\Commands\SignInHandlerTests.cs" />
     <Compile Include="Domain\Security\Commands\CreateUserHandlerTests.cs" />
     <Compile Include="Domain\Security\Commands\SignInValidationTests.cs" />
@@ -160,6 +162,7 @@
     <EmbeddedResource Include="Api\_Extensions\_Fakes\FakeResource1.txt" />
     <EmbeddedResource Include="Api\_Extensions\_Fakes\FakeResource1.xml" />
   </ItemGroup>
+  <ItemGroup />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>
