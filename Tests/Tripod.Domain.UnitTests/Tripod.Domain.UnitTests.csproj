@@ -155,7 +155,10 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Api\_Extensions\_Fakes\FakeResource1.txt" />
+    <EmbeddedResource Include="Api\_Extensions\_Fakes\FakeResource1.xml" />
+  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

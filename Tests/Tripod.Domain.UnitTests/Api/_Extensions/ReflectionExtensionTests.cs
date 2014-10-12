@@ -1,11 +1,15 @@
 ﻿using System;
+using System.Reflection;
 using Should;
 using Xunit;
+using Xunit.Extensions;
 
 namespace Tripod
 {
     public class ReflectionExtensionTests
     {
+        #region IsGenericallyAssignableFrom
+
         [Fact]
         public void IsGenericallyAssignableFrom_ReturnsTrue_WhenClosedExtendsDirectlyFromOpen()
         {
@@ -51,6 +55,9 @@ namespace Tripod
             openGeneric.IsGenericallyAssignableFrom(closedGeneric).ShouldBeFalse();
         }
 
+        #endregion
+        #region PropertyName
+
         [Fact]
         public void PropertyName_ThrowsArgumentNullException_WhenThisArgIsNull()
         {
@@ -94,5 +101,47 @@ namespace Tripod
             var propertyName = owner.PropertyName(x => x.Inner.Property, false);
             propertyName.ShouldEqual("Property");
         }
+
+        #endregion
+        #region GetManifestResourceText
+
+        [Theory]
+        [InlineData("Tripod.Api._Extensions._Fakes.FakeResource1.txt", "For Testing")]
+        [InlineData("Tripod.Api._Extensions._Fakes.FakeResource1.xml", "<element>\r\n</element>\r\n")]
+        public void GetManifestResourceText_ReturnsFullResourceText(string resourceWithText, string expectedText)
+        {
+            var result = Assembly.GetExecutingAssembly().GetManifestResourceText(resourceWithText);
+            result.ShouldEqual(expectedText);
+        }
+
+        [Fact]
+        public void GetManifestResourceText_ThrowsInvalidOperationException_WhenResourceDoesNotExist()
+        {
+            var exception = Assert.Throws<InvalidOperationException>(() =>
+                Assembly.GetExecutingAssembly().GetManifestResourceText("FakeResourceX.ell"));
+            exception.ShouldNotBeNull();
+        }
+
+        #endregion
+        #region GetManifestResourceName
+
+        [Theory]
+        [InlineData("FakeResource1.txt")]
+        [InlineData("FakeResource1.xml")]
+        public void GetManifestResourceName_ReturnsFullResourceName(string resourceToFind)
+        {
+            var result = Assembly.GetExecutingAssembly().GetManifestResourceName(resourceToFind);
+            result.ShouldEqual(string.Format("Tripod.Api._Extensions._Fakes.{0}", resourceToFind));
+        }
+
+        [Fact]
+        public void GetManifestResourceName_ThrowsInvalidOperationException_WhenResourceDoesNotExist()
+        {
+            var exception = Assert.Throws<InvalidOperationException>(() =>
+                Assembly.GetExecutingAssembly().GetManifestResourceName("FakeResourceX.ell"));
+            exception.ShouldNotBeNull();
+        }
+
+        #endregion
     }
 }
