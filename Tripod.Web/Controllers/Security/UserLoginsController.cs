@@ -64,7 +64,8 @@ namespace Tripod.Web.Controllers
             if (!validationResult.IsValid)
             {
                 alert = string.Format("There was an error adding your **{0}** login: {1}",
-                    provider, validationResult.Errors[0].ErrorMessage);
+                    provider, validationResult.Errors
+                        .First(x => !string.IsNullOrWhiteSpace(x.ErrorMessage)).ErrorMessage);
             }
             if (!string.IsNullOrWhiteSpace(alert))
             {
@@ -80,13 +81,22 @@ namespace Tripod.Web.Controllers
         [HttpDelete, Route("settings/logins/{loginProvider}")]
         public virtual async Task<ActionResult> Delete(string loginProvider, DeleteRemoteMembership command)
         {
-            if (ModelState.IsValid)
+            if (command == null) return View(MVC.Errors.Views.BadRequest);
+
+            string alert;
+            if (!ModelState.IsValid)
             {
-                TempData.Alerts("Command should be executed.", AlertFlavor.Success);
+                var validationResult = _validation.Validate(command);
+                alert = string.Format("There was an error removing your **{0}** login: {1}",
+                    command.LoginProvider, validationResult.Errors
+                        .First(x => !string.IsNullOrWhiteSpace(x.ErrorMessage)).ErrorMessage);
+                TempData.Alerts(alert, AlertFlavor.Danger);
                 return RedirectToAction(await MVC.UserLogins.Index());
             }
 
-            TempData.Alerts("Model did not pass validation.", AlertFlavor.Danger);
+            await _commands.Execute(command);
+            alert = string.Format("Your **{0}** login was removed successfully.", command.LoginProvider);
+            TempData.Alerts(alert, AlertFlavor.Success, true);
             return RedirectToAction(await MVC.UserLogins.Index());
         }
     }
