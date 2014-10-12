@@ -8,10 +8,15 @@ namespace Tripod.Services.Net
     public class InterceptMailDeliveryDecorator : IDeliverMailMessage
     {
         private readonly IDeliverMailMessage _decorated;
+        private readonly AppConfiguration _appConfiguration;
 
-        public InterceptMailDeliveryDecorator(IDeliverMailMessage decorated)
+        public InterceptMailDeliveryDecorator(
+              IDeliverMailMessage decorated
+            , AppConfiguration appConfiguration
+        )
         {
             _decorated = decorated;
+            _appConfiguration = appConfiguration;
         }
 
         public void Deliver(MailMessage message, SendCompletedEventHandler sendCompleted = null, object userState = null)
@@ -45,7 +50,7 @@ namespace Tripod.Services.Net
             message.CC.Clear();
             message.Bcc.Clear();
 
-            foreach (var interceptor in AppConfiguration.MailInterceptors)
+            foreach (var interceptor in _appConfiguration.MailInterceptors)
                 message.To.Add(interceptor);
 
             var formattedMessage = string.Format(messageFormat, messageBuilder.ToString().Trim());

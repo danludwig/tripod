@@ -61,8 +61,11 @@
       <Link>Properties\ReSharperAnnotations.cs</Link>
     </Compile>
     <Compile Include="Api\Audit\IAuditException.cs" />
+    <Compile Include="Api\Configuration\AppConfiguration2.cs" />
     <Compile Include="Api\Configuration\AppSettingKey.cs" />
     <Compile Include="Api\Configuration\AppConfiguration.cs" />
+    <Compile Include="Api\Configuration\ConfigurationManagerReader.cs" />
+    <Compile Include="Api\Configuration\IReadConfiguration.cs" />
     <Compile Include="Api\Cryptography\ICreateSecrets.cs" />
     <Compile Include="Api\Net\IDeliveredEmailMessage.cs" />
     <Compile Include="Api\Net\IDeliverEmailMessage.cs" />

@@ -14,12 +14,18 @@ namespace Tripod.Web.Controllers
     {
         private readonly IProcessQueries _queries;
         private readonly IProcessCommands _commands;
+        private readonly AppConfiguration _appConfiguration;
 
         [UsedImplicitly]
-        public SignOnController(IProcessQueries queries, IProcessCommands commands)
+        public SignOnController(
+              IProcessQueries queries
+            , IProcessCommands commands
+            , AppConfiguration appConfiguration
+        )
         {
             _queries = queries;
             _commands = commands;
+            _appConfiguration = appConfiguration;
         }
 
         #region Index
@@ -31,7 +37,8 @@ namespace Tripod.Web.Controllers
             if (string.IsNullOrWhiteSpace(provider)) return View(MVC.Errors.Views.BadRequest);
 
             // Request a redirect to the external login provider
-            return new ChallengeResult(provider, Url.Action(MVC.SignOn.Index(returnUrl)));
+            string redirectUri = Url.Action(MVC.SignOn.Index(returnUrl));
+            return new ChallengeResult(_appConfiguration, provider, redirectUri);
         }
 
         [HttpGet, Route("sign-on")]

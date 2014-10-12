@@ -17,7 +17,7 @@ namespace Tripod.Services.Security
         public void SignOn_ThrowsIfNoOwin(bool useBigFatPhony)
         {
             var authenticationManager = useBigFatPhony ? new BigFatPhonyAuthenticationManager() : null;
-            var instance = new OwinAuthenticator(authenticationManager, null);
+            var instance = new OwinAuthenticator(authenticationManager, null, null);
             var exception = Assert.Throws<InvalidOperationException>(() => instance.SignOn(null).GetAwaiter().GetResult());
             exception.ShouldNotBeNull();
             exception.Message.ShouldContain("no owin");
@@ -30,7 +30,7 @@ namespace Tripod.Services.Security
             var authenticationManager = new Mock<IAuthenticationManager>(MockBehavior.Strict);
             var userStore = new Mock<IUserStore<User, int>>(MockBehavior.Strict);
             var userManager = new UserManager<User, int>(userStore.Object);
-            var instance = new OwinAuthenticator(authenticationManager.Object, userManager);
+            var instance = new OwinAuthenticator(authenticationManager.Object, userManager, null);
             authenticationManager.Setup(x => x.SignOut(DefaultAuthenticationTypes.ExternalCookie));
             authenticationManager.Setup(x => x.SignIn(It.IsAny<AuthenticationProperties>(), It.IsAny<ClaimsIdentity>()));
 
@@ -46,7 +46,7 @@ namespace Tripod.Services.Security
             var authenticationManager = new Mock<IAuthenticationManager>(MockBehavior.Strict);
             var userStore = new Mock<IUserStore<User, int>>(MockBehavior.Strict);
             var userManager = new UserManager<User, int>(userStore.Object);
-            var instance = new OwinAuthenticator(authenticationManager.Object, userManager);
+            var instance = new OwinAuthenticator(authenticationManager.Object, userManager, null);
             authenticationManager.Setup(x => x.SignOut(It.IsAny<string>()));
             Expression<Func<ClaimsIdentity, bool>> expectedIdentity = x => x.Name.Equals(user.Name);
             Expression<Func<AuthenticationProperties, bool>> expectedProperties = x => x.IsPersistent == isPersistent;
@@ -61,7 +61,7 @@ namespace Tripod.Services.Security
         public void SignOff_ThrowsIfNoOwin(bool useBigFatPhony)
         {
             var authenticationManager = useBigFatPhony ? new BigFatPhonyAuthenticationManager() : null;
-            var instance = new OwinAuthenticator(authenticationManager, null);
+            var instance = new OwinAuthenticator(authenticationManager, null, null);
             var exception = Assert.Throws<InvalidOperationException>(() => instance.SignOut().GetAwaiter().GetResult());
             exception.ShouldNotBeNull();
             exception.Message.ShouldContain("no owin");
@@ -73,7 +73,7 @@ namespace Tripod.Services.Security
             var authenticationManager = new Mock<IAuthenticationManager>(MockBehavior.Strict);
             var userStore = new Mock<IUserStore<User, int>>(MockBehavior.Strict);
             var userManager = new UserManager<User, int>(userStore.Object);
-            var instance = new OwinAuthenticator(authenticationManager.Object, userManager);
+            var instance = new OwinAuthenticator(authenticationManager.Object, userManager, null);
             authenticationManager.Setup(x => x.SignOut());
 
             instance.SignOut().Wait();

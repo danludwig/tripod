@@ -13,12 +13,18 @@ namespace Tripod.Web.Controllers
         private readonly IProcessQueries _queries;
         private readonly IProcessValidation _validation;
         private readonly IProcessCommands _commands;
+        private readonly AppConfiguration _appConfiguration;
 
-        public UserLoginsController(IProcessQueries queries, IProcessValidation validation, IProcessCommands commands)
+        public UserLoginsController(
+              IProcessQueries queries
+            , IProcessValidation validation
+            , IProcessCommands commands
+            , AppConfiguration appConfiguration)
         {
             _queries = queries;
             _validation = validation;
             _commands = commands;
+            _appConfiguration = appConfiguration;
         }
 
         [HttpGet, Route("settings/logins")]
@@ -49,7 +55,7 @@ namespace Tripod.Web.Controllers
             // Request a redirect to the external login provider
             string redirectUri = Url.Action(MVC.UserLogins.LinkLoginCallback(provider, returnUrl));
             string userId = User.Identity.GetUserId();
-            return new ChallengeResult(provider, redirectUri, userId);
+            return new ChallengeResult(_appConfiguration, provider, redirectUri, userId);
         }
 
         [HttpGet, Route("settings/logins/callback")]

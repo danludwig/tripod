@@ -6,25 +6,28 @@ namespace Tripod.Web
 {
     public class ChallengeResult : HttpUnauthorizedResult
     {
-        public ChallengeResult(string provider, string redirectUri, string userId = null)
-        {
-            LoginProvider = provider;
-            RedirectUri = redirectUri;
-            UserId = userId;
-        }
+        private readonly AppConfiguration _appConfiguration;
+        private readonly string _loginProvider;
+        private readonly string _redirectUri;
+        private readonly string _userId;
 
-        private string LoginProvider { get; set; }
-        private string RedirectUri { get; set; }
-        private string UserId { get; set; }
+        public ChallengeResult(AppConfiguration appConfiguration,
+            string provider, string redirectUri, string userId = null)
+        {
+            _appConfiguration = appConfiguration;
+            _loginProvider = provider;
+            _redirectUri = redirectUri;
+            _userId = userId;
+        }
 
         public override void ExecuteResult(ControllerContext context)
         {
-            var properties = new AuthenticationProperties { RedirectUri = RedirectUri };
-            if (UserId != null)
+            var properties = new AuthenticationProperties { RedirectUri = _redirectUri };
+            if (_userId != null)
             {
-                properties.Dictionary[AppConfiguration.XsrfKey] = UserId;
+                properties.Dictionary[_appConfiguration.XsrfKey] = _userId;
             }
-            context.HttpContext.GetOwinContext().Authentication.Challenge(properties, LoginProvider);
+            context.HttpContext.GetOwinContext().Authentication.Challenge(properties, _loginProvider);
         }
     }
 }

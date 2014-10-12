@@ -10,13 +10,20 @@ namespace Tripod.Web.Controllers
         private readonly IProcessQueries _queries;
         private readonly IProcessCommands _commands;
         private readonly IProcessValidation _validation;
+        private readonly AppConfiguration _appConfiguration;
 
         [UsedImplicitly]
-        public AuthenticationController(IProcessQueries queries, IProcessCommands commands, IProcessValidation validation)
+        public AuthenticationController(
+              IProcessQueries queries
+            , IProcessCommands commands
+            , IProcessValidation validation
+            , AppConfiguration appConfiguration
+        )
         {
             _queries = queries;
             _commands = commands;
             _validation = validation;
+            _appConfiguration = appConfiguration;
         }
 
         [Authorize]
@@ -25,7 +32,9 @@ namespace Tripod.Web.Controllers
         public virtual ActionResult LinkLogin(string provider)
         {
             // Request a redirect to the external login provider to link a login for the current user
-            return new ChallengeResult(provider, Url.Action(MVC.Authentication.LinkLoginCallback()), User.Identity.GetUserId());
+            string redirectUri = Url.Action(MVC.Authentication.LinkLoginCallback());
+            string userId = User.Identity.GetUserId();
+            return new ChallengeResult(_appConfiguration, provider, redirectUri, userId);
         }
 
         [Authorize]

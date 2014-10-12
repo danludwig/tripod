@@ -14,11 +14,17 @@ namespace Tripod.Services.Security
     {
         private readonly IAuthenticationManager _authenticationManager;
         private readonly UserManager<User, int> _userManager;
+        private readonly AppConfiguration _appConfiguration;
 
-        public OwinAuthenticator(IAuthenticationManager authenticationManager, UserManager<User, int> userManager)
+        public OwinAuthenticator(
+            IAuthenticationManager authenticationManager
+            , UserManager<User, int> userManager
+            , AppConfiguration appConfiguration
+        )
         {
             _authenticationManager = authenticationManager;
             _userManager = userManager;
+            _appConfiguration = appConfiguration;
         }
 
         public Task SignOn(User user, bool isPersistent = false)
@@ -47,7 +53,7 @@ namespace Tripod.Services.Security
             }
             else
             {
-                var xsrfKey = AppConfiguration.XsrfKey;
+                var xsrfKey = _appConfiguration.XsrfKey;
                 info = await _authenticationManager.GetExternalLoginInfoAsync(xsrfKey, principal.Identity.GetUserId());
             }
 

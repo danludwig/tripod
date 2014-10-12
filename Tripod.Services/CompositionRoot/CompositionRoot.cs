@@ -1,6 +1,7 @@
 ﻿using System;
 using SimpleInjector;
 using Tripod.Services.Audit;
+using Tripod.Services.Configuration;
 using Tripod.Services.Cryptography;
 using Tripod.Services.EntityFramework;
 using Tripod.Services.FluentValidation;
@@ -19,6 +20,7 @@ namespace Tripod.Services
             settings.IsGreenfield = false;
 #endif
             container.Register<IServiceProvider>(() => container, Lifestyle.Singleton);
+            container.RegisterConfiguration();
             container.RegisterCryptography();
             container.RegisterExceptionAuditor();
             container.RegisterMailDelivery();

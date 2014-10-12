@@ -13,10 +13,15 @@ namespace Tripod.Services.Audit
     public class ElmahExceptionAuditor : IAuditException
     {
         private readonly IDeliverMailMessage _mailMessageSender;
+        private readonly AppConfiguration _appConfiguration;
 
-        public ElmahExceptionAuditor(IDeliverMailMessage mailMessageSender)
+        public ElmahExceptionAuditor(
+              IDeliverMailMessage mailMessageSender
+            , AppConfiguration appConfiguration
+        )
         {
             _mailMessageSender = mailMessageSender;
+            _appConfiguration = appConfiguration;
         }
 
         public void Audit(Exception exception)
@@ -46,7 +51,7 @@ namespace Tripod.Services.Audit
         }
 
 
-        private static MailMessage CreateMailMessage(Exception exception)
+        private MailMessage CreateMailMessage(Exception exception)
         {
             var error = new Error(exception);
             var subject = error.Message.Replace("\r", string.Empty).Replace("\n", string.Empty);
@@ -71,8 +76,8 @@ namespace Tripod.Services.Audit
                 builder.AppendLine(exception.StackTrace);
                 body = builder.ToString();
             }
-            var tos = AppConfiguration.MailExceptionTo.ToArray();
-            var mailMessage = new MailMessage(AppConfiguration.MailFromDefault, tos.First())
+            var tos = _appConfiguration.MailExceptionTo.ToArray();
+            var mailMessage = new MailMessage(_appConfiguration.MailFromDefault, tos.First())
             {
                 Subject = subject,
                 Body = body,

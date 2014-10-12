@@ -21,7 +21,8 @@ namespace Tripod.Services.Net
 
             #region Mail Delivery
 
-            var mailDeliveryMethod = AppConfiguration.MailDeliveryMethod;
+            var appConfiguration = new AppConfiguration(new ConfigurationManagerReader());
+            var mailDeliveryMethod = appConfiguration.MailDeliveryMethod;
 #if DEBUG
             if (mailDeliveryMethod != SmtpDeliveryMethod.Network)
             {

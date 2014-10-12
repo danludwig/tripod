@@ -69,12 +69,18 @@ namespace Tripod.Domain.Security
         private readonly IProcessCommands _commands;
         private readonly IWriteEntities _entities;
         private readonly IDeliverEmailMessage _mail;
+        private readonly AppConfiguration _appConfiguration;
 
-        public HandleSendVerificationEmailCommand(IProcessCommands commands, IWriteEntities entities, IDeliverEmailMessage mail)
+        public HandleSendVerificationEmailCommand(
+              IProcessCommands commands
+            , IWriteEntities entities
+            , IDeliverEmailMessage mail
+            , AppConfiguration appConfiguration)
         {
             _commands = commands;
             _entities = entities;
             _mail = mail;
+            _appConfiguration = appConfiguration;
         }
 
         public async Task Handle(SendVerificationEmail command)
@@ -115,7 +121,7 @@ namespace Tripod.Domain.Security
             var message = new EmailMessage
             {
                 EmailAddress = verification.EmailAddress,
-                From = AppConfiguration.MailFromDefault.ToString(),
+                From = _appConfiguration.MailFromDefault.ToString(),
                 Subject = formatters.Format(subjectFormat),
                 Body = formatters.Format(bodyFormat),
                 IsBodyHtml = false,

@@ -6,6 +6,7 @@ using Moq;
 using Should;
 using SimpleInjector;
 using Tripod.Domain.Security;
+using Tripod.Services.Configuration;
 using Tripod.Services.Cryptography;
 using Tripod.Services.EntityFramework;
 using Xunit;
@@ -134,6 +135,7 @@ namespace Tripod.Services.Security
         {
             HttpContext.Current = new HttpContext(new HttpRequest(null, "http://localhost", null), new HttpResponse(null));
             var container = new Container();
+            container.RegisterConfiguration();
             container.RegisterCryptography();
             container.RegisterEntityFramework();
             container.RegisterSecurity();
@@ -149,6 +151,7 @@ namespace Tripod.Services.Security
         {
             HttpContext.Current = new HttpContext(new HttpRequest(null, "http://localhost", null), new HttpResponse(null));
             var container = new Container();
+            container.RegisterConfiguration();
             container.RegisterCryptography();
             container.RegisterEntityFramework();
             container.RegisterSecurity();
@@ -169,6 +172,7 @@ namespace Tripod.Services.Security
             //instance.ShouldBeType<BigFatPhonyAuthenticationManager>();
             HttpContext.Current = null;
             var container = new Container();
+            container.RegisterConfiguration();
             container.RegisterCryptography();
             container.RegisterEntityFramework();
             container.RegisterSecurity();
@@ -186,6 +190,7 @@ namespace Tripod.Services.Security
         {
             HttpContext.Current = new HttpContext(new HttpRequest(null, "http://localhost", null), new HttpResponse(null));
             var container = new Container();
+            container.RegisterConfiguration();
             container.RegisterCryptography();
             container.RegisterEntityFramework();
             container.RegisterSecurity();
@@ -208,6 +213,7 @@ namespace Tripod.Services.Security
             owinEnvironment["AspNet.Identity.Owin:" + userManager.GetType().AssemblyQualifiedName] = userManager;
             HttpContext.Current.Items.Add("owin.Environment", owinEnvironment);
             var container = new Container();
+            container.RegisterConfiguration();
             container.RegisterCryptography();
             container.RegisterEntityFramework();
             container.RegisterSecurity();
