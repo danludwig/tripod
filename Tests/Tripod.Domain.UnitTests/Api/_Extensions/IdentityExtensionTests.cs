@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
 using System.Security.Principal;
-using System.Text;
-using System.Threading.Tasks;
 using Should;
 using Xunit;
 
@@ -45,8 +41,7 @@ namespace Tripod
         [Fact]
         public void HasUserId_ThrowsArgumentNullException_WhenIdentityIsNull()
         {
-            var identity = null as IIdentity;
-            var exception = Assert.Throws<ArgumentNullException>(() => identity.HasAppUserId());
+            var exception = Assert.Throws<ArgumentNullException>(() => (null as IIdentity).HasAppUserId());
             exception.ShouldNotBeNull();
             exception.ParamName.ShouldEqual("identity");
         }

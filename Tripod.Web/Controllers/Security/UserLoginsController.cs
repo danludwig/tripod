@@ -15,6 +15,7 @@ namespace Tripod.Web.Controllers
         private readonly IProcessCommands _commands;
         private readonly AppConfiguration _appConfiguration;
 
+        [UsedImplicitly]
         public UserLoginsController(
               IProcessQueries queries
             , IProcessValidation validation

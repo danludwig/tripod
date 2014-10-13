@@ -11,6 +11,7 @@ namespace Tripod.Domain.Security
         public EmailVerificationPurpose Purpose { get; [UsedImplicitly] set; }
     }
 
+    [UsedImplicitly]
     public class ValidateCreateEmailVerificationCommand : AbstractValidator<CreateEmailVerification>
     {
         public ValidateCreateEmailVerificationCommand(IProcessQueries queries)

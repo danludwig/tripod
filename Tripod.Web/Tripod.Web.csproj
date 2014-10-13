@@ -318,78 +318,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="app\errors\Haikus.js">
-      <DependentUpon>Haikus.ts</DependentUpon>
-    </Content>
-    <Content Include="app\security\ChangePasswordForm.js">
-      <DependentUpon>ChangePasswordForm.ts</DependentUpon>
-    </Content>
-    <Content Include="app\security\ChangeUserNameForm.js">
-      <DependentUpon>ChangeUserNameForm.ts</DependentUpon>
-    </Content>
-    <Content Include="app\security\CreatePasswordForm.js">
-      <DependentUpon>CreatePasswordForm.ts</DependentUpon>
-    </Content>
-    <Content Include="app\security\SignInForm.js">
-      <DependentUpon>SignInForm.ts</DependentUpon>
-    </Content>
-    <Content Include="app\security\SignOnUserForm.js">
-      <DependentUpon>SignOnUserForm.ts</DependentUpon>
-    </Content>
-    <Content Include="app\security\SignUpEmailForm.js">
-      <DependentUpon>SignUpEmailForm.ts</DependentUpon>
-    </Content>
-    <Content Include="app\security\SignUpSecretForm.js">
-      <DependentUpon>SignUpSecretForm.ts</DependentUpon>
-    </Content>
-    <Content Include="app\security\SignUpUserForm.js">
-      <DependentUpon>SignUpUserForm.ts</DependentUpon>
-    </Content>
-    <Content Include="app\_common\directives\FormContrib.js">
-      <DependentUpon>FormContrib.ts</DependentUpon>
-    </Content>
-    <Content Include="app\_common\directives\InputPreFormatter.js">
-      <DependentUpon>InputPreFormatter.ts</DependentUpon>
-    </Content>
-    <Content Include="app\_common\directives\ModelContrib.js">
-      <DependentUpon>ModelContrib.ts</DependentUpon>
-    </Content>
-    <Content Include="app\_common\directives\MustEqual.js">
-      <DependentUpon>MustEqual.ts</DependentUpon>
-    </Content>
-    <Content Include="app\_common\directives\RemoveCssClass.js">
-      <DependentUpon>RemoveCssClass.ts</DependentUpon>
-    </Content>
-    <Content Include="app\_common\directives\ServerError.js">
-      <DependentUpon>ServerError.ts</DependentUpon>
-    </Content>
-    <Content Include="app\_common\directives\ServerValidate.js">
-      <DependentUpon>ServerValidate.ts</DependentUpon>
-    </Content>
-    <Content Include="app\_common\directives\TooltipToggle.js">
-      <DependentUpon>TooltipToggle.ts</DependentUpon>
-    </Content>
-    <Content Include="app\_common\modules\Tripod.js">
-      <DependentUpon>Tripod.ts</DependentUpon>
-    </Content>
-    <Content Include="app\_common\unobtrusive\bootbox-confirm.js">
-      <DependentUpon>bootbox-confirm.ts</DependentUpon>
-    </Content>
-    <Content Include="app\_common\widgets\BindingHandlers.js">
-      <DependentUpon>BindingHandlers.ts</DependentUpon>
-    </Content>
-    <Content Include="app\_common\widgets\BootstrapTooltip.js">
-      <DependentUpon>BootstrapTooltip.ts</DependentUpon>
-    </Content>
-    <Content Include="app\_common\widgets\Spinner.js">
-      <DependentUpon>Spinner.ts</DependentUpon>
-    </Content>
-    <Content Include="app\_common\widgets\ValidationRules.js">
-      <DependentUpon>ValidationRules.ts</DependentUpon>
-    </Content>
-    <Content Include="app\_common\widgets\ValidationState.js">
-      <DependentUpon>ValidationState.ts</DependentUpon>
-    </Content>
     <Content Include="App_Data\.gitignore" />
     <Content Include="App_Data\mail\pickup\.gitignore" />
     <Content Include="content\bootstrap.css" />
@@ -427,6 +355,30 @@
     <Content Include="scripts\angular-touch.min.js" />
     <Content Include="scripts\angular.js" />
     <Content Include="scripts\angular.min.js" />
+    <Content Include="scripts\app\errors\Haikus.js" />
+    <Content Include="scripts\app\security\ChangePasswordForm.js" />
+    <Content Include="scripts\app\security\ChangeUserNameForm.js" />
+    <Content Include="scripts\app\security\CreatePasswordForm.js" />
+    <Content Include="scripts\app\security\SignInForm.js" />
+    <Content Include="scripts\app\security\SignOnUserForm.js" />
+    <Content Include="scripts\app\security\SignUpEmailForm.js" />
+    <Content Include="scripts\app\security\SignUpSecretForm.js" />
+    <Content Include="scripts\app\security\SignUpUserForm.js" />
+    <Content Include="scripts\app\_common\directives\FormContrib.js" />
+    <Content Include="scripts\app\_common\directives\InputPreFormatter.js" />
+    <Content Include="scripts\app\_common\directives\ModelContrib.js" />
+    <Content Include="scripts\app\_common\directives\MustEqual.js" />
+    <Content Include="scripts\app\_common\directives\RemoveCssClass.js" />
+    <Content Include="scripts\app\_common\directives\ServerError.js" />
+    <Content Include="scripts\app\_common\directives\ServerValidate.js" />
+    <Content Include="scripts\app\_common\directives\TooltipToggle.js" />
+    <Content Include="scripts\app\_common\modules\Tripod.js" />
+    <Content Include="scripts\app\_common\unobtrusive\bootbox-confirm.js" />
+    <Content Include="scripts\app\_common\widgets\BindingHandlers.js" />
+    <Content Include="scripts\app\_common\widgets\BootstrapTooltip.js" />
+    <Content Include="scripts\app\_common\widgets\Spinner.js" />
+    <Content Include="scripts\app\_common\widgets\ValidationRules.js" />
+    <Content Include="scripts\app\_common\widgets\ValidationState.js" />
     <Content Include="scripts\bootbox.js" />
     <Content Include="scripts\bootbox.min.js" />
     <Content Include="scripts\bootstrap.js" />
@@ -886,6 +838,7 @@
     <TypeScriptModuleKind>none</TypeScriptModuleKind>
     <TypeScriptRemoveComments>True</TypeScriptRemoveComments>
     <TypeScriptSourceMap>False</TypeScriptSourceMap>
+    <TypeScriptOutDir>scripts\app</TypeScriptOutDir>
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />

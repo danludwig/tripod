@@ -13,6 +13,7 @@ namespace Tripod.Domain.Security
         public User SignedIn { get; internal set; }
     }
 
+    [UsedImplicitly]
     public class ValidateChangeUserNameCommand : AbstractValidator<ChangeUserName>
     {
         public ValidateChangeUserNameCommand(IProcessQueries queries)
@@ -34,6 +35,7 @@ namespace Tripod.Domain.Security
         }
     }
 
+    [UsedImplicitly]
     public class HandleChangeUserNameCommand : IHandleCommand<ChangeUserName>
     {
         private readonly IWriteEntities _entities;

@@ -18,6 +18,7 @@ namespace Tripod.Web.Controllers
         private readonly IProcessQueries _queries;
         private readonly IProcessCommands _commands;
 
+        [UsedImplicitly]
         public UserEmailsController(IProcessQueries queries, IProcessCommands commands)
         {
             _queries = queries;

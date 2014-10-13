@@ -9,6 +9,7 @@ namespace Tripod.Web.Controllers
         private readonly IProcessQueries _queries;
         //private readonly IProcessCommands _commands;
 
+        [UsedImplicitly]
         public UsersController(IProcessQueries queries
             //, IProcessCommands commands
         )

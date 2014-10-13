@@ -14,6 +14,7 @@ namespace Tripod.Domain.Security
         public string NameOrEmail { get; private set; }
     }
 
+    [UsedImplicitly]
     public class HandleUserByNameOrVerifiedEmailQuery : IHandleQuery<UserByNameOrVerifiedEmail, Task<User>>
     {
         private readonly IProcessQueries _queries;

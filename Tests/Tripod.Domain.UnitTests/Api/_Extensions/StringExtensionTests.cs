@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Should;
-using Xunit;
 using Xunit.Extensions;
 
-namespace Tripod.Api._Extensions
+namespace Tripod
 {
     public class StringExtensionTests
     {

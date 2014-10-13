@@ -9,6 +9,7 @@ namespace Tripod.Domain.Security
     public class UserViewBy : IDefineQuery<Task<UserView>>
     {
         public UserViewBy(int id) { Id = id; }
+        [UsedImplicitly]
         public UserViewBy(string name) { Name = name; }
         public UserViewBy(IPrincipal principal) { Principal = principal; }
 
@@ -17,6 +18,7 @@ namespace Tripod.Domain.Security
         public IPrincipal Principal { get; private set; }
     }
 
+    [UsedImplicitly]
     public class HandleUserViewByQuery : IHandleQuery<UserViewBy, Task<UserView>>
     {
         private readonly IReadEntities _entities;

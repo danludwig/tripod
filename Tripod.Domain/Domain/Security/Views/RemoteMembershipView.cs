@@ -4,6 +4,6 @@ namespace Tripod.Domain.Security
     {
         public string Provider { get; set; }
         public string Key { get; set; }
-        public int? UserId { get; set; }
+        public int? UserId { [UsedImplicitly] get; set; }
     }
 }

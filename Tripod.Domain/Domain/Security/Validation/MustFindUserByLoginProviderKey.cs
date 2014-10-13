@@ -31,6 +31,7 @@ namespace Tripod.Domain.Security
         }
     }
 
+    [UsedImplicitly]
     public static class MustFindUserByLoginProviderKeyExtensions
     {
         public static IRuleBuilderOptions<T, string> MustFindUserByLoginProviderKey<T>

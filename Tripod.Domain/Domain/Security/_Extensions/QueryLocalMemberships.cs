@@ -128,7 +128,7 @@ namespace Tripod.Domain.Security
             return set.AsQueryable().ByVerifiedEmailAsync(emailAddress, allowNull);
         }
 
-        internal static Expression<Func<LocalMembership, bool>> ByVerifiedEmail(string emailAddress)
+        private static Expression<Func<LocalMembership, bool>> ByVerifiedEmail(string emailAddress)
         {
             return x => x.User.EmailAddresses.Any(y => y.IsVerified && y.Value.Equals(emailAddress, StringComparison.OrdinalIgnoreCase));
         }

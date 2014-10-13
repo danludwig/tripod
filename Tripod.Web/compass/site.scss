@@ -293,14 +293,14 @@ body {
         }
     }
 
-    /*
-        Removed this as it was causing issues with responsive
-        .input-group-lg .input-group-addon.validation i {
+    .input-group-lg .input-group-addon.validation i {
         margin-top: 6px;
     }
+    /*
+        Removed this as it was causing issues with responsive
     .form-control-lg .input-group-addon.validation i {
         margin-top: 6px;
-    }*/
+    } */
 
     .input-group-sm .input-group-addon.validation i {
         margin-top: -1px;

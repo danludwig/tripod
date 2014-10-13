@@ -194,12 +194,9 @@ body .fa-spin.spin-fast {
 body {
   /*
       Removed this as it was causing issues with responsive
-      .input-group-lg .input-group-addon.validation i {
-      margin-top: 6px;
-  }
   .form-control-lg .input-group-addon.validation i {
       margin-top: 6px;
-  }*/ }
+  } */ }
   /* line 245, ../compass/site.scss */
   body .input-group-addon.validation {
     /* position the icon(s) within this container */
@@ -238,6 +235,9 @@ body {
       body .input-group-addon.validation i.spinner.fa-spinner {
         /* size for green checkmark icons */
         font-size: 18px; }
+  /* line 296, ../compass/site.scss */
+  body .input-group-lg .input-group-addon.validation i {
+    margin-top: 6px; }
   /* line 305, ../compass/site.scss */
   body .input-group-sm .input-group-addon.validation i {
     margin-top: -1px; }

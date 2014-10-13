@@ -119,6 +119,7 @@ namespace Tripod.Web
 
         public static MvcHtmlString Gravatar(this HtmlHelper html, string hash, int size, string cssClass = "gravatar")
         {
+            if (html == null) return new MvcHtmlString(hash);
             const string srcFormat = "http://www.gravatar.com/avatar/{0}.jpg?s={1}&d=wavatar&r=PG";
             var src = string.Format(srcFormat, hash, size);
             var tagBuilder = new TagBuilder("img");
@@ -139,6 +140,7 @@ namespace Tripod.Web
 
         public static MvcHtmlString Markdown(this HtmlHelper html, string content)
         {
+            if (html == null) return new MvcHtmlString(content);
             return new MvcHtmlString(MarkdownTransformer.Transform(content));
         }
     }

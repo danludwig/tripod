@@ -14,6 +14,7 @@ namespace Tripod.Domain.Security
         public int? UserId { get; private set; }
     }
 
+    [UsedImplicitly]
     public class HandleClientCookieByQuery : IHandleQuery<ClientCookieBy, Task<ClientCookie>>
     {
         private readonly IReadEntities _entities;

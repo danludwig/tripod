@@ -2,7 +2,6 @@
 using FluentValidation;
 using SimpleInjector;
 using SimpleInjector.Extensions;
-using Tripod.Services.FluentValidation;
 
 namespace Tripod.Services.FluentValidation
 {
