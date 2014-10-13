@@ -232,8 +232,10 @@
     <Compile Include="Controllers\Security\SignOutController.cs" />
     <Compile Include="Controllers\ErrorsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\Security\SignUpController.cs" />
+    <Compile Include="Controllers\Security\SignUpCreateUserController.cs" />
     <Compile Include="Controllers\Security\SignInController.cs" />
+    <Compile Include="Controllers\Security\SignUpSendEmailController.cs" />
+    <Compile Include="Controllers\Security\SignUpVerifySecretController.cs" />
     <Compile Include="Controllers\Security\UserEmailsController.cs" />
     <Compile Include="Controllers\Security\UserLoginsController.cs" />
     <Compile Include="Controllers\Security\UserPasswordController.cs" />
@@ -293,7 +295,13 @@
     <Compile Include="SignOutController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
-    <Compile Include="SignUpController.generated.cs">
+    <Compile Include="SignUpCreateUserController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SignUpSendEmailController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SignUpVerifySecretController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="T4MVC.cs">
@@ -713,13 +721,13 @@
       <LastGenOutput>T4MVC.cs</LastGenOutput>
     </None>
     <Content Include="Views\Security\SignIn.cshtml" />
-    <Content Include="Views\Security\SignUpSendVerificationEmail.cshtml" />
+    <Content Include="Views\Security\SignUpSendEmail.cshtml" />
     <Content Include="Views\Security\_SignOnForm.cshtml" />
     <Content Include="Views\Errors\NotFound.cshtml" />
     <Content Include="Views\Errors\Forbidden.cshtml" />
     <Content Include="Views\Errors\BadRequest.cshtml" />
-    <Content Include="Views\Security\SignUpVerifyEmailSecret.cshtml" />
-    <Content Include="Views\Security\SignUpCreateLocalMembership.cshtml" />
+    <Content Include="Views\Security\SignUpVerifySecret.cshtml" />
+    <Content Include="Views\Security\SignUpCreateUser.cshtml" />
     <Content Include="Views\Security\_VerifyEmailWizardSteps.cshtml" />
     <Content Include="Views\Security\SignOnSendVerificationEmail.cshtml" />
     <Content Include="Views\Scripts\Angular.cshtml" />
@@ -750,7 +758,10 @@
     <Content Include="Views\Security\_SignOnGoogleButton.cshtml" />
     <Content Include="Views\Security\_SignOnFacebookButton.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Views\SignUpSendEmail\" />
+    <Folder Include="Views\SignUpVerifySecret\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />

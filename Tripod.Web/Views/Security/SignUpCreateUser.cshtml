@@ -26,7 +26,7 @@
 
 <form role="form"
       method="POST"
-      action="@Url.Action(MVC.SignUp.CreateLocalMembership(null as CreateLocalMembership, null, null))"
+      action="@Url.Action(MVC.SignUpCreateUser.Post(null as CreateLocalMembership, null, null))"
       novalidate
       ng-app="sign-up-register-form"
       ng-controller="App.Security.SignUpUserForm.Controller"
@@ -72,7 +72,7 @@
                        ng-maxlength="@LocalMembership.Constraints.PasswordMaxLength"
                        model-contrib
                        server-error="@Html.ValidationMessageTextFor(x => x.Password)"
-                       server-validate="@Url.Action(MVC.SignUp.ValidateCreateLocalMembership(null, "password"))"
+                       server-validate="@Url.Action(MVC.SignUpCreateUser.Validate(null, "password"))"
                        server-validate-throttle="400" />
 
                 <span class="input-group-addon validation @Html.CssClassWhenNullModel("hide")"
@@ -170,7 +170,7 @@
                        must-equal-when="signUpUserForm.password.$viewValue"
                        model-contrib
                        server-error="@Html.ValidationMessageTextFor(x => x.ConfirmPassword)"
-                       server-validate="@Url.Action(MVC.SignUp.ValidateCreateLocalMembership(null, "confirmPassword"))"
+                       server-validate="@Url.Action(MVC.SignUpCreateUser.Validate(null, "confirmPassword"))"
                        server-validate-data="{ password: vm.password }"
                        server-validate-throttle="400"
                        server-valdidate-cache="false" />
@@ -261,7 +261,7 @@
                        required
                        model-contrib
                        server-error="@Html.ValidationMessageTextFor(x => x.UserName)"
-                       server-validate="@Url.Action(MVC.SignUp.ValidateCreateLocalMembership(null, "userName"))"
+                       server-validate="@Url.Action(MVC.SignUpCreateUser.Validate(null, "userName"))"
                        server-validate-data="{ ticket: vm.ticket }"
                        server-validate-throttle="400" />
 
@@ -337,7 +337,7 @@
                        required
                        model-contrib
                        server-error="@Html.ValidationMessageTextFor(x => x.Ticket)"
-                       server-validate="@Url.Action(MVC.SignUp.ValidateCreateLocalMembership(null, "ticket"))"
+                       server-validate="@Url.Action(MVC.SignUpCreateUser.Validate(null, "ticket"))"
                        server-validate-data="{ token: vm.token }" />
                 <input type="hidden"
                        name="token"

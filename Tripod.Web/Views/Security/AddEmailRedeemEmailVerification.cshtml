@@ -46,7 +46,7 @@
                    required
                    model-contrib
                    server-error="@Html.ValidationMessageTextFor(x => x.Ticket)"
-                   server-validate="@Url.Action(MVC.SignUp.ValidateCreateLocalMembership(null, "ticket"))"
+                   server-validate="@Url.Action(MVC.SignUpCreateUser.Validate(null, "ticket"))"
                    server-validate-data="{ token: vm.token }" />
             <input type="hidden"
                    name="token"

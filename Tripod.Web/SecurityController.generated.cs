@@ -57,9 +57,9 @@ namespace T4MVC
                 public readonly string SignOnCreateRemoteMembership = "SignOnCreateRemoteMembership";
                 public readonly string SignOnSendVerificationEmail = "SignOnSendVerificationEmail";
                 public readonly string SignOnVerifyEmailSecret = "SignOnVerifyEmailSecret";
-                public readonly string SignUpCreateLocalMembership = "SignUpCreateLocalMembership";
-                public readonly string SignUpSendVerificationEmail = "SignUpSendVerificationEmail";
-                public readonly string SignUpVerifyEmailSecret = "SignUpVerifyEmailSecret";
+                public readonly string SignUpCreateUser = "SignUpCreateUser";
+                public readonly string SignUpSendEmail = "SignUpSendEmail";
+                public readonly string SignUpVerifySecret = "SignUpVerifySecret";
                 public readonly string UserEmailAddresses = "UserEmailAddresses";
                 public readonly string UserLogins = "UserLogins";
                 public readonly string UserSettingsIndex = "UserSettingsIndex";
@@ -86,9 +86,9 @@ namespace T4MVC
             public readonly string SignOnCreateRemoteMembership = "~/Views/Security/SignOnCreateRemoteMembership.cshtml";
             public readonly string SignOnSendVerificationEmail = "~/Views/Security/SignOnSendVerificationEmail.cshtml";
             public readonly string SignOnVerifyEmailSecret = "~/Views/Security/SignOnVerifyEmailSecret.cshtml";
-            public readonly string SignUpCreateLocalMembership = "~/Views/Security/SignUpCreateLocalMembership.cshtml";
-            public readonly string SignUpSendVerificationEmail = "~/Views/Security/SignUpSendVerificationEmail.cshtml";
-            public readonly string SignUpVerifyEmailSecret = "~/Views/Security/SignUpVerifyEmailSecret.cshtml";
+            public readonly string SignUpCreateUser = "~/Views/Security/SignUpCreateUser.cshtml";
+            public readonly string SignUpSendEmail = "~/Views/Security/SignUpSendEmail.cshtml";
+            public readonly string SignUpVerifySecret = "~/Views/Security/SignUpVerifySecret.cshtml";
             public readonly string UserEmailAddresses = "~/Views/Security/UserEmailAddresses.cshtml";
             public readonly string UserLogins = "~/Views/Security/UserLogins.cshtml";
             public readonly string UserSettingsIndex = "~/Views/Security/UserSettingsIndex.cshtml";

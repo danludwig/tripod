@@ -62,7 +62,7 @@
                                required
                                model-contrib
                                server-error="@Html.ValidationMessageTextFor(x => x.EmailAddress)"
-                               server-validate="@Url.Action(MVC.SignUp.ValidateSendVerificationEmail(null, "emailAddress"))"
+                               server-validate="@Url.Action(MVC.SignUpSendEmail.Validate(null, "emailAddress"))"
                                server-validate-data="{ purpose: '@EmailVerificationPurpose.ForgotPassword' }"
                                server-validate-throttle="400" />
 

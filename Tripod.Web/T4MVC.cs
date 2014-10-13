@@ -29,7 +29,9 @@ public static class MVC
     public static Tripod.Web.Controllers.SignInController SignIn = new Tripod.Web.Controllers.T4MVC_SignInController();
     public static Tripod.Web.Controllers.SignOnController SignOn = new Tripod.Web.Controllers.T4MVC_SignOnController();
     public static Tripod.Web.Controllers.SignOutController SignOut = new Tripod.Web.Controllers.T4MVC_SignOutController();
-    public static Tripod.Web.Controllers.SignUpController SignUp = new Tripod.Web.Controllers.T4MVC_SignUpController();
+    public static Tripod.Web.Controllers.SignUpCreateUserController SignUpCreateUser = new Tripod.Web.Controllers.T4MVC_SignUpCreateUserController();
+    public static Tripod.Web.Controllers.SignUpSendEmailController SignUpSendEmail = new Tripod.Web.Controllers.T4MVC_SignUpSendEmailController();
+    public static Tripod.Web.Controllers.SignUpVerifySecretController SignUpVerifySecret = new Tripod.Web.Controllers.T4MVC_SignUpVerifySecretController();
     public static Tripod.Web.Controllers.UserEmailsController UserEmails = new Tripod.Web.Controllers.T4MVC_UserEmailsController();
     public static Tripod.Web.Controllers.UserLoginsController UserLogins = new Tripod.Web.Controllers.T4MVC_UserLoginsController();
     public static Tripod.Web.Controllers.UserPasswordController UserPassword = new Tripod.Web.Controllers.T4MVC_UserPasswordController();
@@ -121,6 +123,86 @@ namespace Links
         public static readonly string angular_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/angular.min.js") ? Url("angular.min.js") : Url("angular.js");
         public static readonly string angular_min_js = Url("angular.min.js");
         public static readonly string angular_min_js_map = Url("angular.min.js.map");
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public static class app {
+            private const string URLPATH = "~/scripts/app";
+            public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+            public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+            [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+            public static class _common {
+                private const string URLPATH = "~/scripts/app/_common";
+                public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+                public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+                [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+                public static class directives {
+                    private const string URLPATH = "~/scripts/app/_common/directives";
+                    public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+                    public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+                    public static readonly string FormContrib_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/FormContrib.min.js") ? Url("FormContrib.min.js") : Url("FormContrib.js");
+                    public static readonly string InputPreFormatter_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/InputPreFormatter.min.js") ? Url("InputPreFormatter.min.js") : Url("InputPreFormatter.js");
+                    public static readonly string ModelContrib_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/ModelContrib.min.js") ? Url("ModelContrib.min.js") : Url("ModelContrib.js");
+                    public static readonly string MustEqual_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/MustEqual.min.js") ? Url("MustEqual.min.js") : Url("MustEqual.js");
+                    public static readonly string RemoveCssClass_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/RemoveCssClass.min.js") ? Url("RemoveCssClass.min.js") : Url("RemoveCssClass.js");
+                    public static readonly string ServerError_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/ServerError.min.js") ? Url("ServerError.min.js") : Url("ServerError.js");
+                    public static readonly string ServerValidate_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/ServerValidate.min.js") ? Url("ServerValidate.min.js") : Url("ServerValidate.js");
+                    public static readonly string TooltipToggle_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/TooltipToggle.min.js") ? Url("TooltipToggle.min.js") : Url("TooltipToggle.js");
+                }
+            
+                [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+                public static class modules {
+                    private const string URLPATH = "~/scripts/app/_common/modules";
+                    public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+                    public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+                    public static readonly string Tripod_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Tripod.min.js") ? Url("Tripod.min.js") : Url("Tripod.js");
+                }
+            
+                [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+                public static class unobtrusive {
+                    private const string URLPATH = "~/scripts/app/_common/unobtrusive";
+                    public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+                    public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+                    public static readonly string bootbox_confirm_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/bootbox-confirm.min.js") ? Url("bootbox-confirm.min.js") : Url("bootbox-confirm.js");
+                }
+            
+                [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+                public static class widgets {
+                    private const string URLPATH = "~/scripts/app/_common/widgets";
+                    public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+                    public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+                    public static readonly string BindingHandlers_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/BindingHandlers.min.js") ? Url("BindingHandlers.min.js") : Url("BindingHandlers.js");
+                    public static readonly string BootstrapTooltip_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/BootstrapTooltip.min.js") ? Url("BootstrapTooltip.min.js") : Url("BootstrapTooltip.js");
+                    public static readonly string Spinner_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Spinner.min.js") ? Url("Spinner.min.js") : Url("Spinner.js");
+                    public static readonly string ValidationRules_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/ValidationRules.min.js") ? Url("ValidationRules.min.js") : Url("ValidationRules.js");
+                    public static readonly string ValidationState_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/ValidationState.min.js") ? Url("ValidationState.min.js") : Url("ValidationState.js");
+                }
+            
+            }
+        
+            [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+            public static class errors {
+                private const string URLPATH = "~/scripts/app/errors";
+                public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+                public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+                public static readonly string Haikus_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Haikus.min.js") ? Url("Haikus.min.js") : Url("Haikus.js");
+            }
+        
+            [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+            public static class security {
+                private const string URLPATH = "~/scripts/app/security";
+                public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+                public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+                public static readonly string ChangePasswordForm_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/ChangePasswordForm.min.js") ? Url("ChangePasswordForm.min.js") : Url("ChangePasswordForm.js");
+                public static readonly string ChangeUserNameForm_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/ChangeUserNameForm.min.js") ? Url("ChangeUserNameForm.min.js") : Url("ChangeUserNameForm.js");
+                public static readonly string CreatePasswordForm_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/CreatePasswordForm.min.js") ? Url("CreatePasswordForm.min.js") : Url("CreatePasswordForm.js");
+                public static readonly string SignInForm_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/SignInForm.min.js") ? Url("SignInForm.min.js") : Url("SignInForm.js");
+                public static readonly string SignOnUserForm_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/SignOnUserForm.min.js") ? Url("SignOnUserForm.min.js") : Url("SignOnUserForm.js");
+                public static readonly string SignUpEmailForm_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/SignUpEmailForm.min.js") ? Url("SignUpEmailForm.min.js") : Url("SignUpEmailForm.js");
+                public static readonly string SignUpSecretForm_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/SignUpSecretForm.min.js") ? Url("SignUpSecretForm.min.js") : Url("SignUpSecretForm.js");
+                public static readonly string SignUpUserForm_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/SignUpUserForm.min.js") ? Url("SignUpUserForm.min.js") : Url("SignUpUserForm.js");
+            }
+        
+        }
+    
         public static readonly string bootbox_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/bootbox.min.js") ? Url("bootbox.min.js") : Url("bootbox.js");
         public static readonly string bootbox_min_js = Url("bootbox.min.js");
         public static readonly string bootstrap_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/bootstrap.min.js") ? Url("bootstrap.min.js") : Url("bootstrap.js");
@@ -415,6 +497,7 @@ namespace Links
                 private const string URLPATH = "~/scripts/typings/angularjs";
                 public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                 public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+                public static readonly string angular_animate_d_ts = Url("angular-animate.d.ts");
                 public static readonly string angular_cookies_d_ts = Url("angular-cookies.d.ts");
                 public static readonly string angular_mocks_d_ts = Url("angular-mocks.d.ts");
                 public static readonly string angular_resource_d_ts = Url("angular-resource.d.ts");
