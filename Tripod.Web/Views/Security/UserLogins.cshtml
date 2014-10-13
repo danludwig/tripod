@@ -18,7 +18,7 @@
 
 <section class="user-settings row">
 
-    @{ Html.RenderPartial(MVC.Security.Views._UserSettingsNav, new UserSettingsNavModel { IsLogins = true }); }
+    @{ Html.RenderPartial(MVC.Security.Views.SharedViews._UserSettingsNav, new UserSettingsNavModel { IsLogins = true }); }
 
     <div class="col-md-8" role="main">
 
@@ -100,19 +100,19 @@
                 @if (google != null)
                 {
                     <div class="col-sm-4">
-                        @{ Html.RenderPartial(MVC.Security.Views._SignOnGoogleButton); }
+                        @{ Html.RenderPartial(MVC.Security.Views.SharedViews._SignOnGoogleButton); }
                     </div>
                 }
                 @if (facebook != null)
                 {
                     <div class="col-sm-4">
-                        @{ Html.RenderPartial(MVC.Security.Views._SignOnFacebookButton); }
+                        @{ Html.RenderPartial(MVC.Security.Views.SharedViews._SignOnFacebookButton); }
                     </div>
                 }
                 @if (twitter != null)
                 {
                     <div class="col-sm-4">
-                        @{ Html.RenderPartial(MVC.Security.Views._SignOnTwitterButton); }
+                        @{ Html.RenderPartial(MVC.Security.Views.SharedViews._SignOnTwitterButton); }
                     </div>
                 }
             </form>

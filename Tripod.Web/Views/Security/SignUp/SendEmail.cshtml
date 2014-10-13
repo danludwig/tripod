@@ -31,13 +31,13 @@
         </div>
 
         @* OAUTH PROVIDER BUTTONS FORM *@
-        @{ Html.RenderPartial(MVC.Security.Views._SignOnForm, new SignOnFormModel()); }
+        @{ Html.RenderPartial(MVC.Security.Views.SharedForms._SignOnForm, new SignOnFormModel()); }
 
         <h4>
             Create a new account with us using your email address.
         </h4>
 
-        @{ Html.RenderPartial(MVC.Security.Views._SendVerificationEmailForm); }
+        @{ Html.RenderPartial(MVC.Security.Views.SharedForms._SendVerificationEmailForm); }
 
         <hr class="hr-md hr-space" />
         <h4>

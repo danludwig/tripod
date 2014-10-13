@@ -12,19 +12,19 @@
 
     @* GOOGLE *@
     <div class="@columnWidth">
-        @{ Html.RenderPartial(MVC.Security.Views._SignOnGoogleButton); }
+        @{ Html.RenderPartial(MVC.Security.Views.SharedViews._SignOnGoogleButton); }
     </div>
 
     @* FACEBOOK *@
     <div class="@columnWidth">
-        @{ Html.RenderPartial(MVC.Security.Views._SignOnFacebookButton); }
+        @{ Html.RenderPartial(MVC.Security.Views.SharedViews._SignOnFacebookButton); }
     </div>
 
     @* TWITTER *@
     @if (!Model.EmailProvidersOnly)
     {
         <div class="col-sm-4">
-            @{ Html.RenderPartial(MVC.Security.Views._SignOnTwitterButton); }
+            @{ Html.RenderPartial(MVC.Security.Views.SharedViews._SignOnTwitterButton); }
         </div>
     }
 </form>

@@ -720,48 +720,45 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>T4MVC.cs</LastGenOutput>
     </None>
-    <Content Include="Views\Security\SignIn.cshtml" />
-    <Content Include="Views\Security\SignUpSendEmail.cshtml" />
-    <Content Include="Views\Security\_SignOnForm.cshtml" />
+    <Content Include="Views\Security\SignIn\Index.cshtml" />
+    <Content Include="Views\Security\SignUp\SendEmail.cshtml" />
+    <Content Include="Views\Security\SharedForms\_SignOnForm.cshtml" />
     <Content Include="Views\Errors\NotFound.cshtml" />
     <Content Include="Views\Errors\Forbidden.cshtml" />
     <Content Include="Views\Errors\BadRequest.cshtml" />
-    <Content Include="Views\Security\SignUpVerifySecret.cshtml" />
-    <Content Include="Views\Security\SignUpCreateUser.cshtml" />
-    <Content Include="Views\Security\_VerifyEmailWizardSteps.cshtml" />
-    <Content Include="Views\Security\SignOnSendVerificationEmail.cshtml" />
+    <Content Include="Views\Security\SignUp\VerifySecret.cshtml" />
+    <Content Include="Views\Security\SignUp\CreateUser.cshtml" />
+    <Content Include="Views\Security\SharedViews\_VerifyEmailWizardSteps.cshtml" />
+    <Content Include="Views\Security\SignOn\SendEmail.cshtml" />
     <Content Include="Views\Scripts\Angular.cshtml" />
-    <Content Include="Views\Security\_SendVerificationEmailForm.cshtml" />
+    <Content Include="Views\Security\SharedForms\_SendVerificationEmailForm.cshtml" />
     <Content Include="Views\Home\Admin.cshtml" />
-    <Content Include="Views\Security\SignOnVerifyEmailSecret.cshtml" />
-    <Content Include="Views\Security\_VerifyEmailSecretForm.cshtml" />
-    <Content Include="Views\Security\SignOnCreateRemoteMembership.cshtml" />
+    <Content Include="Views\Security\SignOn\VerifySecret.cshtml" />
+    <Content Include="Views\Security\SharedForms\_VerifyEmailSecretForm.cshtml" />
+    <Content Include="Views\Security\SignOn\CreateUser.cshtml" />
     <Content Include="Views\Security\UserSettingsIndex.cshtml" />
     <Content Include="Views\Shared\_LayoutNavbar.cshtml" />
     <Content Include="Views\Users\_UserJumbotron.cshtml" />
-    <Content Include="Views\Security\_ChangeUserNameForm.cshtml" />
+    <Content Include="Views\Security\SharedForms\_ChangeUserNameForm.cshtml" />
     <Content Include="Views\Users\User.cshtml" />
     <Content Include="Views\Security\UserEmailAddresses.cshtml" />
     <Content Include="Views\Security\AddEmailVerifyEmailSecret.cshtml" />
     <Content Include="Views\Security\AddEmailRedeemEmailVerification.cshtml" />
     <Content Include="Views\Shared\_AlertsTempData.cshtml" />
-    <Content Include="Views\Security\SignInSendVerificationEmail.cshtml" />
-    <Content Include="Views\Security\SignInVerifyEmailSecret.cshtml" />
-    <Content Include="Views\Security\SignInRedeemEmailVerification.cshtml" />
+    <Content Include="Views\Security\SignIn\SendEmail.cshtml" />
+    <Content Include="Views\Security\SignIn\VerifySecret.cshtml" />
+    <Content Include="Views\Security\SignIn\ResetPassword.cshtml" />
     <Content Include="Views\Security\CreatePassword.cshtml" />
-    <Content Include="Views\Security\_UserSettingsNav.cshtml" />
-    <Content Include="Views\Security\_CreatePasswordForm.cshtml" />
+    <Content Include="Views\Security\SharedViews\_UserSettingsNav.cshtml" />
+    <Content Include="Views\Security\SharedForms\_CreatePasswordForm.cshtml" />
     <Content Include="Views\Security\ChangePassword.cshtml" />
-    <Content Include="Views\Security\_ChangePasswordForm.cshtml" />
+    <Content Include="Views\Security\SharedForms\_ChangePasswordForm.cshtml" />
     <Content Include="Views\Security\UserLogins.cshtml" />
-    <Content Include="Views\Security\_SignOnTwitterButton.cshtml" />
-    <Content Include="Views\Security\_SignOnGoogleButton.cshtml" />
-    <Content Include="Views\Security\_SignOnFacebookButton.cshtml" />
+    <Content Include="Views\Security\SharedViews\_SignOnTwitterButton.cshtml" />
+    <Content Include="Views\Security\SharedViews\_SignOnGoogleButton.cshtml" />
+    <Content Include="Views\Security\SharedViews\_SignOnFacebookButton.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\SignUpSendEmail\" />
-    <Folder Include="Views\SignUpVerifySecret\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />

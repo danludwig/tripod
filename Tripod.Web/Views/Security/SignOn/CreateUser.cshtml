@@ -15,7 +15,7 @@
 
 @if (!ViewBag.HasClaimsEmail)
 {
-    Html.RenderPartial(MVC.Security.Views._VerifyEmailWizardSteps, new VerifyEmailWizardModel(3));
+    Html.RenderPartial(MVC.Security.Views.SharedViews._VerifyEmailWizardSteps, new VerifyEmailWizardModel(3));
     <hr class="hr-space hr-md" />
 }
 @* ReSharper disable RedundantIfElseBlock *@

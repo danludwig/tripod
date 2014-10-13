@@ -35,63 +35,118 @@ namespace T4MVC
             public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
             public class _ViewNamesClass
             {
-                public readonly string _ChangePasswordForm = "_ChangePasswordForm";
-                public readonly string _ChangeUserNameForm = "_ChangeUserNameForm";
-                public readonly string _CreatePasswordForm = "_CreatePasswordForm";
-                public readonly string _SendVerificationEmailForm = "_SendVerificationEmailForm";
-                public readonly string _SignOnFacebookButton = "_SignOnFacebookButton";
-                public readonly string _SignOnForm = "_SignOnForm";
-                public readonly string _SignOnGoogleButton = "_SignOnGoogleButton";
-                public readonly string _SignOnTwitterButton = "_SignOnTwitterButton";
-                public readonly string _UserSettingsNav = "_UserSettingsNav";
-                public readonly string _VerifyEmailSecretForm = "_VerifyEmailSecretForm";
-                public readonly string _VerifyEmailWizardSteps = "_VerifyEmailWizardSteps";
                 public readonly string AddEmailRedeemEmailVerification = "AddEmailRedeemEmailVerification";
                 public readonly string AddEmailVerifyEmailSecret = "AddEmailVerifyEmailSecret";
                 public readonly string ChangePassword = "ChangePassword";
                 public readonly string CreatePassword = "CreatePassword";
-                public readonly string SignIn = "SignIn";
-                public readonly string SignInRedeemEmailVerification = "SignInRedeemEmailVerification";
-                public readonly string SignInSendVerificationEmail = "SignInSendVerificationEmail";
-                public readonly string SignInVerifyEmailSecret = "SignInVerifyEmailSecret";
-                public readonly string SignOnCreateRemoteMembership = "SignOnCreateRemoteMembership";
-                public readonly string SignOnSendVerificationEmail = "SignOnSendVerificationEmail";
-                public readonly string SignOnVerifyEmailSecret = "SignOnVerifyEmailSecret";
-                public readonly string SignUpCreateUser = "SignUpCreateUser";
-                public readonly string SignUpSendEmail = "SignUpSendEmail";
-                public readonly string SignUpVerifySecret = "SignUpVerifySecret";
                 public readonly string UserEmailAddresses = "UserEmailAddresses";
                 public readonly string UserLogins = "UserLogins";
                 public readonly string UserSettingsIndex = "UserSettingsIndex";
             }
-            public readonly string _ChangePasswordForm = "~/Views/Security/_ChangePasswordForm.cshtml";
-            public readonly string _ChangeUserNameForm = "~/Views/Security/_ChangeUserNameForm.cshtml";
-            public readonly string _CreatePasswordForm = "~/Views/Security/_CreatePasswordForm.cshtml";
-            public readonly string _SendVerificationEmailForm = "~/Views/Security/_SendVerificationEmailForm.cshtml";
-            public readonly string _SignOnFacebookButton = "~/Views/Security/_SignOnFacebookButton.cshtml";
-            public readonly string _SignOnForm = "~/Views/Security/_SignOnForm.cshtml";
-            public readonly string _SignOnGoogleButton = "~/Views/Security/_SignOnGoogleButton.cshtml";
-            public readonly string _SignOnTwitterButton = "~/Views/Security/_SignOnTwitterButton.cshtml";
-            public readonly string _UserSettingsNav = "~/Views/Security/_UserSettingsNav.cshtml";
-            public readonly string _VerifyEmailSecretForm = "~/Views/Security/_VerifyEmailSecretForm.cshtml";
-            public readonly string _VerifyEmailWizardSteps = "~/Views/Security/_VerifyEmailWizardSteps.cshtml";
             public readonly string AddEmailRedeemEmailVerification = "~/Views/Security/AddEmailRedeemEmailVerification.cshtml";
             public readonly string AddEmailVerifyEmailSecret = "~/Views/Security/AddEmailVerifyEmailSecret.cshtml";
             public readonly string ChangePassword = "~/Views/Security/ChangePassword.cshtml";
             public readonly string CreatePassword = "~/Views/Security/CreatePassword.cshtml";
-            public readonly string SignIn = "~/Views/Security/SignIn.cshtml";
-            public readonly string SignInRedeemEmailVerification = "~/Views/Security/SignInRedeemEmailVerification.cshtml";
-            public readonly string SignInSendVerificationEmail = "~/Views/Security/SignInSendVerificationEmail.cshtml";
-            public readonly string SignInVerifyEmailSecret = "~/Views/Security/SignInVerifyEmailSecret.cshtml";
-            public readonly string SignOnCreateRemoteMembership = "~/Views/Security/SignOnCreateRemoteMembership.cshtml";
-            public readonly string SignOnSendVerificationEmail = "~/Views/Security/SignOnSendVerificationEmail.cshtml";
-            public readonly string SignOnVerifyEmailSecret = "~/Views/Security/SignOnVerifyEmailSecret.cshtml";
-            public readonly string SignUpCreateUser = "~/Views/Security/SignUpCreateUser.cshtml";
-            public readonly string SignUpSendEmail = "~/Views/Security/SignUpSendEmail.cshtml";
-            public readonly string SignUpVerifySecret = "~/Views/Security/SignUpVerifySecret.cshtml";
             public readonly string UserEmailAddresses = "~/Views/Security/UserEmailAddresses.cshtml";
             public readonly string UserLogins = "~/Views/Security/UserLogins.cshtml";
             public readonly string UserSettingsIndex = "~/Views/Security/UserSettingsIndex.cshtml";
+            static readonly _SharedFormsClass s_SharedForms = new _SharedFormsClass();
+            public _SharedFormsClass SharedForms { get { return s_SharedForms; } }
+            [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+            public partial class _SharedFormsClass
+            {
+                static readonly _ViewNamesClass s_ViewNames = new _ViewNamesClass();
+                public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
+                public class _ViewNamesClass
+                {
+                    public readonly string _ChangePasswordForm = "_ChangePasswordForm";
+                    public readonly string _ChangeUserNameForm = "_ChangeUserNameForm";
+                    public readonly string _CreatePasswordForm = "_CreatePasswordForm";
+                    public readonly string _SendVerificationEmailForm = "_SendVerificationEmailForm";
+                    public readonly string _SignOnForm = "_SignOnForm";
+                    public readonly string _VerifyEmailSecretForm = "_VerifyEmailSecretForm";
+                }
+                public readonly string _ChangePasswordForm = "~/Views/Security/SharedForms/_ChangePasswordForm.cshtml";
+                public readonly string _ChangeUserNameForm = "~/Views/Security/SharedForms/_ChangeUserNameForm.cshtml";
+                public readonly string _CreatePasswordForm = "~/Views/Security/SharedForms/_CreatePasswordForm.cshtml";
+                public readonly string _SendVerificationEmailForm = "~/Views/Security/SharedForms/_SendVerificationEmailForm.cshtml";
+                public readonly string _SignOnForm = "~/Views/Security/SharedForms/_SignOnForm.cshtml";
+                public readonly string _VerifyEmailSecretForm = "~/Views/Security/SharedForms/_VerifyEmailSecretForm.cshtml";
+            }
+            static readonly _SharedViewsClass s_SharedViews = new _SharedViewsClass();
+            public _SharedViewsClass SharedViews { get { return s_SharedViews; } }
+            [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+            public partial class _SharedViewsClass
+            {
+                static readonly _ViewNamesClass s_ViewNames = new _ViewNamesClass();
+                public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
+                public class _ViewNamesClass
+                {
+                    public readonly string _SignOnFacebookButton = "_SignOnFacebookButton";
+                    public readonly string _SignOnGoogleButton = "_SignOnGoogleButton";
+                    public readonly string _SignOnTwitterButton = "_SignOnTwitterButton";
+                    public readonly string _UserSettingsNav = "_UserSettingsNav";
+                    public readonly string _VerifyEmailWizardSteps = "_VerifyEmailWizardSteps";
+                }
+                public readonly string _SignOnFacebookButton = "~/Views/Security/SharedViews/_SignOnFacebookButton.cshtml";
+                public readonly string _SignOnGoogleButton = "~/Views/Security/SharedViews/_SignOnGoogleButton.cshtml";
+                public readonly string _SignOnTwitterButton = "~/Views/Security/SharedViews/_SignOnTwitterButton.cshtml";
+                public readonly string _UserSettingsNav = "~/Views/Security/SharedViews/_UserSettingsNav.cshtml";
+                public readonly string _VerifyEmailWizardSteps = "~/Views/Security/SharedViews/_VerifyEmailWizardSteps.cshtml";
+            }
+            static readonly _SignInClass s_SignIn = new _SignInClass();
+            public _SignInClass SignIn { get { return s_SignIn; } }
+            [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+            public partial class _SignInClass
+            {
+                static readonly _ViewNamesClass s_ViewNames = new _ViewNamesClass();
+                public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
+                public class _ViewNamesClass
+                {
+                    public readonly string Index = "Index";
+                    public readonly string ResetPassword = "ResetPassword";
+                    public readonly string SendEmail = "SendEmail";
+                    public readonly string VerifySecret = "VerifySecret";
+                }
+                public readonly string Index = "~/Views/Security/SignIn/Index.cshtml";
+                public readonly string ResetPassword = "~/Views/Security/SignIn/ResetPassword.cshtml";
+                public readonly string SendEmail = "~/Views/Security/SignIn/SendEmail.cshtml";
+                public readonly string VerifySecret = "~/Views/Security/SignIn/VerifySecret.cshtml";
+            }
+            static readonly _SignOnClass s_SignOn = new _SignOnClass();
+            public _SignOnClass SignOn { get { return s_SignOn; } }
+            [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+            public partial class _SignOnClass
+            {
+                static readonly _ViewNamesClass s_ViewNames = new _ViewNamesClass();
+                public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
+                public class _ViewNamesClass
+                {
+                    public readonly string CreateUser = "CreateUser";
+                    public readonly string SendEmail = "SendEmail";
+                    public readonly string VerifySecret = "VerifySecret";
+                }
+                public readonly string CreateUser = "~/Views/Security/SignOn/CreateUser.cshtml";
+                public readonly string SendEmail = "~/Views/Security/SignOn/SendEmail.cshtml";
+                public readonly string VerifySecret = "~/Views/Security/SignOn/VerifySecret.cshtml";
+            }
+            static readonly _SignUpClass s_SignUp = new _SignUpClass();
+            public _SignUpClass SignUp { get { return s_SignUp; } }
+            [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+            public partial class _SignUpClass
+            {
+                static readonly _ViewNamesClass s_ViewNames = new _ViewNamesClass();
+                public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
+                public class _ViewNamesClass
+                {
+                    public readonly string CreateUser = "CreateUser";
+                    public readonly string SendEmail = "SendEmail";
+                    public readonly string VerifySecret = "VerifySecret";
+                }
+                public readonly string CreateUser = "~/Views/Security/SignUp/CreateUser.cshtml";
+                public readonly string SendEmail = "~/Views/Security/SignUp/SendEmail.cshtml";
+                public readonly string VerifySecret = "~/Views/Security/SignUp/VerifySecret.cshtml";
+            }
         }
     }
 

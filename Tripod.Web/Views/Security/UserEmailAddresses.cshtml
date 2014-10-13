@@ -17,7 +17,7 @@
 
 <section class="user-settings row">
 
-    @{ Html.RenderPartial(MVC.Security.Views._UserSettingsNav, new UserSettingsNavModel { IsEmailAddresses = true }); }
+    @{ Html.RenderPartial(MVC.Security.Views.SharedViews._UserSettingsNav, new UserSettingsNavModel { IsEmailAddresses = true }); }
 
     <div class="col-md-8" role="main">
 
@@ -121,7 +121,7 @@
             Add a new email address
         </h3>
 
-        @{ Html.RenderPartial(MVC.Security.Views._SendVerificationEmailForm, Model.SendVerificationEmail); }
+        @{ Html.RenderPartial(MVC.Security.Views.SharedForms._SendVerificationEmailForm, Model.SendVerificationEmail); }
 
     </div>
 </section>

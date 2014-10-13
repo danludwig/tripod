@@ -95,7 +95,7 @@ namespace Tripod.Web.Controllers
             ViewBag.Purpose = EmailVerificationPurpose.CreateRemoteUser;
             ViewBag.SendFromUrl = SendFromUrl(returnUrl);
             ViewBag.LoginProvider = loginInfo.Login.LoginProvider;
-            return View(MVC.Security.Views.SignOnSendVerificationEmail);
+            return View(MVC.Security.Views.SignOn.SendEmail);
         }
 
         [ValidateAntiForgeryToken]
@@ -114,7 +114,7 @@ namespace Tripod.Web.Controllers
                 ViewBag.ReturnUrl = returnUrl;
                 ViewBag.ActionUrl = Url.Action(MVC.SignOn.SendVerificationEmail());
                 ViewBag.LoginProvider = loginProvider;
-                return View(MVC.Security.Views.SignOnSendVerificationEmail, command);
+                return View(MVC.Security.Views.SignOn.SendEmail, command);
             }
 
             command.SendFromUrl = SendFromUrl(returnUrl);
@@ -157,7 +157,7 @@ namespace Tripod.Web.Controllers
             ViewBag.Purpose = EmailVerificationPurpose.CreateRemoteUser;
             if (Session.VerifyEmailTickets().Contains(ticket))
                 ViewBag.EmailAddress = verification.EmailAddress.Value;
-            return View(MVC.Security.Views.SignOnVerifyEmailSecret);
+            return View(MVC.Security.Views.SignOn.VerifySecret);
         }
 
         [ValidateAntiForgeryToken]
@@ -178,7 +178,7 @@ namespace Tripod.Web.Controllers
                 ViewBag.Purpose = EmailVerificationPurpose.CreateRemoteUser;
                 if (Session.VerifyEmailTickets().Contains(ticket))
                     ViewBag.EmailAddress = emailAddress;
-                return View(MVC.Security.Views.SignOnVerifyEmailSecret, command);
+                return View(MVC.Security.Views.SignOn.VerifySecret, command);
             }
 
             await _commands.Execute(command);
@@ -213,7 +213,7 @@ namespace Tripod.Web.Controllers
             ViewBag.Token = token;
             ViewBag.Ticket = ticket;
             ViewBag.ReturnUrl = returnUrl;
-            return View(MVC.Security.Views.SignOnCreateRemoteMembership);
+            return View(MVC.Security.Views.SignOn.CreateUser);
         }
 
         [ValidateAntiForgeryToken]
@@ -239,7 +239,7 @@ namespace Tripod.Web.Controllers
                 ViewBag.Token = command.Token;
                 ViewBag.Ticket = command.Ticket;
                 ViewBag.ReturnUrl = returnUrl;
-                return View(MVC.Security.Views.SignOnCreateRemoteMembership, command);
+                return View(MVC.Security.Views.SignOn.CreateUser, command);
             }
 
             await _commands.Execute(command);

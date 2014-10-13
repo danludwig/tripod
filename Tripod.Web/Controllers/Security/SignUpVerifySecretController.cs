@@ -40,7 +40,7 @@ namespace Tripod.Web.Controllers
             ViewBag.Purpose = EmailVerificationPurpose.CreateLocalUser;
             if (Session.VerifyEmailTickets().Contains(ticket))
                 ViewBag.EmailAddress = confirmation.EmailAddress.Value;
-            return View(MVC.Security.Views.SignUpVerifySecret);
+            return View(MVC.Security.Views.SignUp.VerifySecret);
         }
 
         [ValidateAntiForgeryToken]
@@ -78,7 +78,7 @@ namespace Tripod.Web.Controllers
                 ViewBag.Purpose = EmailVerificationPurpose.CreateLocalUser;
                 if (Session.VerifyEmailTickets().Contains(ticket))
                     ViewBag.EmailAddress = emailAddress;
-                return View(MVC.Security.Views.SignUpVerifySecret, command);
+                return View(MVC.Security.Views.SignUp.VerifySecret, command);
             }
 
             await _commands.Execute(command);

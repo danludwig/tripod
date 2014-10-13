@@ -28,7 +28,7 @@ namespace Tripod.Web.Controllers
         public virtual ActionResult Index(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
-            return View(MVC.Security.Views.SignIn);
+            return View(MVC.Security.Views.SignIn.Index);
         }
 
         [ValidateAntiForgeryToken]
@@ -38,7 +38,7 @@ namespace Tripod.Web.Controllers
             //System.Threading.Thread.Sleep(new Random().Next(5000, 5001));
 
             if (command == null) return View(MVC.Errors.Views.BadRequest);
-            if (!ModelState.IsValid) return View(MVC.Security.Views.SignIn, command);
+            if (!ModelState.IsValid) return View(MVC.Security.Views.SignIn.Index, command);
             await _commands.Execute(command);
             Response.ClientCookie(command.SignedIn.Id, _queries);
             return this.RedirectToLocal(returnUrl, await MVC.UserSettings.Index());
@@ -73,7 +73,7 @@ namespace Tripod.Web.Controllers
             ViewBag.Purpose = EmailVerificationPurpose.ForgotPassword;
             ViewBag.VerifyUrlFormat = VerifyUrlFormat(returnUrl);
             ViewBag.SendFromUrl = SendFromUrl(returnUrl);
-            return View(MVC.Security.Views.SignInSendVerificationEmail);
+            return View(MVC.Security.Views.SignIn.SendEmail);
         }
 
         [ValidateAntiForgeryToken]
@@ -88,7 +88,7 @@ namespace Tripod.Web.Controllers
             if (!ModelState.IsValid)
             {
                 ViewBag.ReturnUrl = returnUrl;
-                return View(MVC.Security.Views.SignInSendVerificationEmail, command);
+                return View(MVC.Security.Views.SignIn.SendEmail, command);
             }
 
             command.VerifyUrlFormat = VerifyUrlFormat(returnUrl);
@@ -140,7 +140,7 @@ namespace Tripod.Web.Controllers
             ViewBag.Purpose = EmailVerificationPurpose.ForgotPassword;
             if (Session.VerifyEmailTickets().Contains(ticket))
                 ViewBag.EmailAddress = confirmation.EmailAddress.Value;
-            return View(MVC.Security.Views.SignInVerifyEmailSecret);
+            return View(MVC.Security.Views.SignIn.VerifySecret);
         }
 
         [ValidateAntiForgeryToken]
@@ -159,7 +159,7 @@ namespace Tripod.Web.Controllers
                 ViewBag.Purpose = EmailVerificationPurpose.ForgotPassword;
                 if (Session.VerifyEmailTickets().Contains(ticket))
                     ViewBag.EmailAddress = emailAddress;
-                return View(MVC.Security.Views.SignInVerifyEmailSecret, command);
+                return View(MVC.Security.Views.SignIn.VerifySecret, command);
             }
 
             await _commands.Execute(command);
@@ -182,7 +182,7 @@ namespace Tripod.Web.Controllers
             ViewBag.Ticket = ticket;
             ViewBag.Token = token;
             ViewBag.ReturnUrl = returnUrl;
-            return View(MVC.Security.Views.SignInRedeemEmailVerification);
+            return View(MVC.Security.Views.SignIn.ResetPassword);
         }
 
         [ValidateAntiForgeryToken]
@@ -203,7 +203,7 @@ namespace Tripod.Web.Controllers
                 ViewBag.Ticket = command.Ticket;
                 ViewBag.Token = command.Token;
                 ViewBag.ReturnUrl = returnUrl;
-                return View(MVC.Security.Views.SignInRedeemEmailVerification, command);
+                return View(MVC.Security.Views.SignIn.ResetPassword, command);
             }
 
             await _commands.Execute(command);

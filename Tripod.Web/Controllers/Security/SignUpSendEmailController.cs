@@ -25,7 +25,7 @@ namespace Tripod.Web.Controllers
             ViewBag.Purpose = EmailVerificationPurpose.CreateLocalUser;
             ViewBag.VerifyUrlFormat = VerifyUrlFormat(returnUrl);
             ViewBag.SendFromUrl = SendFromUrl(returnUrl);
-            return View(MVC.Security.Views.SignUpSendEmail);
+            return View(MVC.Security.Views.SignUp.SendEmail);
         }
 
         [ValidateAntiForgeryToken]
@@ -60,7 +60,7 @@ namespace Tripod.Web.Controllers
             {
                 ViewBag.ReturnUrl = returnUrl;
                 ViewBag.ActionUrl = Url.Action(MVC.SignUpSendEmail.Post());
-                return View(MVC.Security.Views.SignUpSendEmail, command);
+                return View(MVC.Security.Views.SignUp.SendEmail, command);
             }
 
             command.VerifyUrlFormat = VerifyUrlFormat(returnUrl);

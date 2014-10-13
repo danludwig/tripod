@@ -29,7 +29,7 @@ namespace Tripod.Web.Controllers
             ViewBag.Ticket = ticket;
             ViewBag.Token = token;
             ViewBag.ReturnUrl = returnUrl;
-            return View(MVC.Security.Views.SignUpCreateUser);
+            return View(MVC.Security.Views.SignUp.CreateUser);
         }
 
         [ValidateAntiForgeryToken]
@@ -67,7 +67,7 @@ namespace Tripod.Web.Controllers
                 ViewBag.Ticket = command.Ticket;
                 ViewBag.Token = command.Token;
                 ViewBag.ReturnUrl = returnUrl;
-                return View(MVC.Security.Views.SignUpCreateUser, command);
+                return View(MVC.Security.Views.SignUp.CreateUser, command);
             }
 
             await _commands.Execute(command);
