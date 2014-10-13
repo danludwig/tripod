@@ -13,8 +13,8 @@ var App;
                 this.isVisible(this.settings.runImmediately);
             }
             Spinner.prototype.start = function (immediately) {
-                if (typeof immediately === "undefined") { immediately = false; }
                 var _this = this;
+                if (typeof immediately === "undefined") { immediately = false; }
                 this.isRunning(true);
                 if (this.settings.delay < 1 || immediately)
                     this.isVisible(true);

@@ -6,7 +6,7 @@ var App;
                 var _this = this;
                 this._field = ko.observable();
                 this._lastState = '';
-                this.spinner = new App.Widgets.Spinner({ delay: 200 });
+                this.spinner = new Widgets.Spinner({ delay: 200 });
                 this.isPostBack = ko.observable();
                 this.hasError = ko.computed(function () {
                     return _this._has('error');
@@ -100,8 +100,8 @@ var App;
             };
 
             ValidationState.prototype.doAsync = function (settings, element, fieldName, value, callback, cache) {
-                if (typeof cache === "undefined") { cache = true; }
                 var _this = this;
+                if (typeof cache === "undefined") { cache = true; }
                 if (this.asyncXhr)
                     this.asyncXhr.abort('stale');
                 var field = this._field();

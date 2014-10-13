@@ -138,11 +138,16 @@ interface KnockoutStatic {
     applyBindingsWithValidation(viewModel: any, rootNode?: any, options?: KnockoutValidationConfiguration): void;
 }
 
-interface KnockoutSubscribableFunctions {
+interface KnockoutSubscribableFunctions<T> {
     isValid: KnockoutComputed<boolean>;
     isValidating: KnockoutObservable<boolean>;
-    isModified: KnockoutObservable<boolean>;
     rules: KnockoutObservableArray<KnockoutValidationRule>;
+    isModified: KnockoutObservable<boolean>;
     error: string;
 }
 
+declare module "knockout.validation" {
+	export = validation;
+}
+
+declare var validation: KnockoutValidationStatic;

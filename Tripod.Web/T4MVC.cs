@@ -24,12 +24,8 @@ using T4MVC;
 [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
 public static class MVC
 {
-    public static Tripod.Web.Controllers.AccountController Account = new Tripod.Web.Controllers.T4MVC_AccountController();
-    public static Tripod.Web.Controllers.AuthenticationController Authentication = new Tripod.Web.Controllers.T4MVC_AuthenticationController();
     public static Tripod.Web.Controllers.ErrorsController Errors = new Tripod.Web.Controllers.T4MVC_ErrorsController();
     public static Tripod.Web.Controllers.HomeController Home = new Tripod.Web.Controllers.T4MVC_HomeController();
-    public static Tripod.Web.Controllers.LocalMembershipsController LocalMemberships = new Tripod.Web.Controllers.T4MVC_LocalMembershipsController();
-    public static Tripod.Web.Controllers.RemoteMembershipsController RemoteMemberships = new Tripod.Web.Controllers.T4MVC_RemoteMembershipsController();
     public static Tripod.Web.Controllers.SignInController SignIn = new Tripod.Web.Controllers.T4MVC_SignInController();
     public static Tripod.Web.Controllers.SignOnController SignOn = new Tripod.Web.Controllers.T4MVC_SignOnController();
     public static Tripod.Web.Controllers.SignOutController SignOut = new Tripod.Web.Controllers.T4MVC_SignOutController();
