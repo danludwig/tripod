@@ -48,7 +48,7 @@ else
 
 <form role="form"
       method="POST"
-      action="@Url.Action(MVC.SignOn.CreateRemoteMembership(null as CreateRemoteMembership, null, null))"
+      action="@Url.Action(MVC.SignOnCreateUser.Post())"
       novalidate
       ng-app="sign-on-register-form"
       ng-controller="App.Security.SignOnUserForm.Controller"
@@ -93,7 +93,7 @@ else
                        required
                        model-contrib
                        server-error="@Html.ValidationMessageTextFor(x => x.UserName)"
-                       server-validate="@Url.Action(MVC.SignOn.ValidateCreateRemoteMembership(null, "userName"))"
+                       server-validate="@Url.Action(MVC.SignOnCreateUser.Validate(null, "userName"))"
                        server-validate-data="{ ticket: vm.ticket }"
                        server-validate-throttle="400" />
 
@@ -169,7 +169,7 @@ else
                        required
                        model-contrib
                        server-error="@Html.ValidationMessageTextFor(x => x.Ticket)"
-                       server-validate="@Url.Action(MVC.SignOn.ValidateCreateRemoteMembership(null, "ticket"))"
+                       server-validate="@Url.Action(MVC.SignOnCreateUser.Validate(null, "ticket"))"
                        server-validate-data="{ token: vm.token }" />
                 <input type="hidden"
                        name="token"

@@ -6,7 +6,7 @@
 
 <form role="form"
       method="POST"
-      action="@Url.Action(MVC.UserSettings.ChangeUserName())"
+      action="@Url.Action(MVC.UserName.Put())"
       novalidate
       ng-app="change-username-form"
       ng-controller="App.Security.ChangeUserNameForm.Controller"
@@ -51,7 +51,7 @@
                        required
                        model-contrib
                        server-error="@Html.ValidationMessageTextFor(x => x.UserName)"
-                       server-validate="@Url.Action(MVC.UserSettings.ValidateChangeUserName())"
+                       server-validate="@Url.Action(MVC.UserName.ValidatePut())"
                        server-validate-data="{ userId: @User.Identity.GetUserId() }"
                        server-validate-throttle="400" />
 
@@ -118,7 +118,7 @@
                        ng-show="vm.isSubmitWaiting()" ng-cloak></i>
                     Change @UserConstraints.NameLabel.ToLower()
                 </button>
-                <a href="@Url.Action(MVC.UserSettings.ChangeUserName())" class="nudge-right"
+                <a href="@Url.Action(MVC.UserName.Put())" class="nudge-right"
                    ng-click="vm.restoreOrigialUserName($event)"
                    ng-init="vm.originalUserName='@(Html.ValueFor(x => x.UserName).ToString() != "" ? Html.ValueForJavaScriptString(x => x.UserName) : MvcHtmlString.Create(User.Identity.Name))'">
                     Cancel

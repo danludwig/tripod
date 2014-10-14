@@ -7,13 +7,13 @@ using Tripod.Web.Models;
 namespace Tripod.Web.Controllers
 {
     [Authorize]
-    public partial class UserSettingsController : Controller
+    public partial class UserNameController : Controller
     {
         private readonly IProcessQueries _queries;
         private readonly IProcessCommands _commands;
 
         [UsedImplicitly]
-        public UserSettingsController(IProcessQueries queries, IProcessCommands commands)
+        public UserNameController(IProcessQueries queries, IProcessCommands commands)
         {
             _queries = queries;
             _commands = commands;
@@ -35,12 +35,12 @@ namespace Tripod.Web.Controllers
                 },
             };
 
-            return View(MVC.Security.Views.UserSettingsIndex, model);
+            return View(MVC.Security.Views.User.Settings, model);
         }
 
         [ValidateAntiForgeryToken]
         [HttpPut, Route("settings/username")]
-        public virtual async Task<ActionResult> ChangeUserName(ChangeUserName command)
+        public virtual async Task<ActionResult> Put(ChangeUserName command)
         {
             if (command == null) return View(MVC.Errors.Views.BadRequest);
 
@@ -55,17 +55,17 @@ namespace Tripod.Web.Controllers
                     Command = command,
                 };
 
-                return View(MVC.Security.Views.UserSettingsIndex, model);
+                return View(MVC.Security.Views.User.Settings, model);
             }
 
             await _commands.Execute(command);
             Response.ClientCookie(command.SignedIn.Id, _queries);
-            return RedirectToAction(await MVC.UserSettings.Index());
+            return RedirectToAction(await MVC.UserName.Index());
         }
 
         [ValidateAntiForgeryToken]
         [HttpPost, Route("settings/username/validate")]
-        public virtual ActionResult ValidateChangeUserName(ChangeUserName command)
+        public virtual ActionResult ValidatePut(ChangeUserName command)
         {
             //System.Threading.Thread.Sleep(new Random().Next(5000, 5001));
             if (command == null)

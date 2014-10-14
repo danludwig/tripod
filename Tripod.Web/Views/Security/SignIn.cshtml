@@ -31,7 +31,7 @@
         <div ng-app="sign-in-form" ng-controller="App.Security.SignInForm.Controller">
             <form role="form"
                   method="POST"
-                  action="@Url.Action(MVC.SignIn.Index())"
+                  action="@Url.Action(MVC.SignIn.Post())"
                   novalidate
                   name="signInForm"
                   form-contrib="signInCtrb"
@@ -151,7 +151,7 @@
                             </span>
                         </div>
                         <div class="help-block hidden-xs hidden-sm">
-                            <a href="@Url.Action(MVC.SignIn.SendVerificationEmail((string)ViewBag.ReturnUrl))">
+                            <a href="@Url.Action(MVC.ResetPasswordSendEmail.Index((string)ViewBag.ReturnUrl))">
                                 I forgot my password
                             </a>
                         </div>
@@ -183,7 +183,7 @@
                         <span ng-class="{ hide: true }">
                             @Html.ValidationMessageFor(x => x.Password)
                         </span>
-                        <a href="@Url.Action(MVC.SignIn.SendVerificationEmail((string)ViewBag.ReturnUrl))">
+                        <a href="@Url.Action(MVC.ResetPasswordSendEmail.Index((string)ViewBag.ReturnUrl))">
                             I forgot my password
                         </a>
                     </div>

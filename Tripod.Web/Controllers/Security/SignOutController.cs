@@ -25,11 +25,10 @@ namespace Tripod.Web.Controllers
             return RedirectToAction(MVC.Home.Index());
         }
 
-        [Authorize]
         [HttpGet, Route("sign-out")]
         public virtual ActionResult Get()
         {
-            return RedirectToAction(MVC.Home.Index());
+            return Post();
         }
     }
 }

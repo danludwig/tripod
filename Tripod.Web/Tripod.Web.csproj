@@ -228,7 +228,13 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\Security\ResetPasswordController.cs" />
+    <Compile Include="Controllers\Security\ResetPasswordSendEmailController.cs" />
+    <Compile Include="Controllers\Security\ResetPasswordVerifySecretController.cs" />
     <Compile Include="Controllers\Security\SignOnController.cs" />
+    <Compile Include="Controllers\Security\SignOnCreateUserController.cs" />
+    <Compile Include="Controllers\Security\SignOnSendEmailController.cs" />
+    <Compile Include="Controllers\Security\SignOnVerifySecretController.cs" />
     <Compile Include="Controllers\Security\SignOutController.cs" />
     <Compile Include="Controllers\ErrorsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -236,14 +242,13 @@
     <Compile Include="Controllers\Security\SignInController.cs" />
     <Compile Include="Controllers\Security\SignUpSendEmailController.cs" />
     <Compile Include="Controllers\Security\SignUpVerifySecretController.cs" />
+    <Compile Include="Controllers\Security\UserEmailConfirmController.cs" />
     <Compile Include="Controllers\Security\UserEmailsController.cs" />
+    <Compile Include="Controllers\Security\UserEmailVerifySecretController.cs" />
     <Compile Include="Controllers\Security\UserLoginsController.cs" />
     <Compile Include="Controllers\Security\UserPasswordController.cs" />
-    <Compile Include="Controllers\Security\UserSettingsController.cs" />
+    <Compile Include="Controllers\Security\UserNameController.cs" />
     <Compile Include="Controllers\Users\UsersController.cs" />
-    <Compile Include="ErrorsController.generated.cs">
-      <DependentUpon>T4MVC.tt</DependentUpon>
-    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
       <SubType>Code</SubType>
@@ -263,9 +268,6 @@
     <Compile Include="Helpers\JsonNetResult.cs" />
     <Compile Include="Helpers\SecuredCommandModelBinder.cs" />
     <Compile Include="Helpers\SessionExtensions.cs" />
-    <Compile Include="HomeController.generated.cs">
-      <DependentUpon>T4MVC.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\Security\ChangeUserNameModel.cs" />
     <Compile Include="Models\Security\EmailAddressSettingsModel.cs" />
     <Compile Include="Models\Security\SignOnFormModel.cs" />
@@ -277,51 +279,9 @@
     <Compile Include="Models\_Common\ValidatedFields.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="App_Start\Startup.cs" />
-    <Compile Include="ScriptsController.generated.cs">
-      <DependentUpon>T4MVC.tt</DependentUpon>
-    </Compile>
-    <Compile Include="SecurityController.generated.cs">
-      <DependentUpon>T4MVC.tt</DependentUpon>
-    </Compile>
-    <Compile Include="SharedController.generated.cs">
-      <DependentUpon>T4MVC.tt</DependentUpon>
-    </Compile>
-    <Compile Include="SignInController.generated.cs">
-      <DependentUpon>T4MVC.tt</DependentUpon>
-    </Compile>
-    <Compile Include="SignOnController.generated.cs">
-      <DependentUpon>T4MVC.tt</DependentUpon>
-    </Compile>
-    <Compile Include="SignOutController.generated.cs">
-      <DependentUpon>T4MVC.tt</DependentUpon>
-    </Compile>
-    <Compile Include="SignUpCreateUserController.generated.cs">
-      <DependentUpon>T4MVC.tt</DependentUpon>
-    </Compile>
-    <Compile Include="SignUpSendEmailController.generated.cs">
-      <DependentUpon>T4MVC.tt</DependentUpon>
-    </Compile>
-    <Compile Include="SignUpVerifySecretController.generated.cs">
-      <DependentUpon>T4MVC.tt</DependentUpon>
-    </Compile>
     <Compile Include="T4MVC.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>T4MVC.tt</DependentUpon>
-    </Compile>
-    <Compile Include="UserEmailsController.generated.cs">
-      <DependentUpon>T4MVC.tt</DependentUpon>
-    </Compile>
-    <Compile Include="UserLoginsController.generated.cs">
-      <DependentUpon>T4MVC.tt</DependentUpon>
-    </Compile>
-    <Compile Include="UserPasswordController.generated.cs">
-      <DependentUpon>T4MVC.tt</DependentUpon>
-    </Compile>
-    <Compile Include="UsersController.generated.cs">
-      <DependentUpon>T4MVC.tt</DependentUpon>
-    </Compile>
-    <Compile Include="UserSettingsController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
   </ItemGroup>
@@ -720,7 +680,7 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>T4MVC.cs</LastGenOutput>
     </None>
-    <Content Include="Views\Security\SignIn\Index.cshtml" />
+    <Content Include="Views\Security\SignIn.cshtml" />
     <Content Include="Views\Security\SignUp\SendEmail.cshtml" />
     <Content Include="Views\Security\SharedForms\_SignOnForm.cshtml" />
     <Content Include="Views\Errors\NotFound.cshtml" />
@@ -736,24 +696,24 @@
     <Content Include="Views\Security\SignOn\VerifySecret.cshtml" />
     <Content Include="Views\Security\SharedForms\_VerifyEmailSecretForm.cshtml" />
     <Content Include="Views\Security\SignOn\CreateUser.cshtml" />
-    <Content Include="Views\Security\UserSettingsIndex.cshtml" />
+    <Content Include="Views\Security\User\Settings.cshtml" />
     <Content Include="Views\Shared\_LayoutNavbar.cshtml" />
     <Content Include="Views\Users\_UserJumbotron.cshtml" />
     <Content Include="Views\Security\SharedForms\_ChangeUserNameForm.cshtml" />
     <Content Include="Views\Users\User.cshtml" />
-    <Content Include="Views\Security\UserEmailAddresses.cshtml" />
-    <Content Include="Views\Security\AddEmailVerifyEmailSecret.cshtml" />
-    <Content Include="Views\Security\AddEmailRedeemEmailVerification.cshtml" />
+    <Content Include="Views\Security\User\EmailAddresses.cshtml" />
+    <Content Include="Views\Security\User\AddEmailVerifySecret.cshtml" />
+    <Content Include="Views\Security\User\AddEmailConfirm.cshtml" />
     <Content Include="Views\Shared\_AlertsTempData.cshtml" />
-    <Content Include="Views\Security\SignIn\SendEmail.cshtml" />
-    <Content Include="Views\Security\SignIn\VerifySecret.cshtml" />
-    <Content Include="Views\Security\SignIn\ResetPassword.cshtml" />
-    <Content Include="Views\Security\CreatePassword.cshtml" />
+    <Content Include="Views\Security\ResetPassword\SendEmail.cshtml" />
+    <Content Include="Views\Security\ResetPassword\VerifySecret.cshtml" />
+    <Content Include="Views\Security\ResetPassword\ResetPassword.cshtml" />
+    <Content Include="Views\Security\User\CreatePassword.cshtml" />
     <Content Include="Views\Security\SharedViews\_UserSettingsNav.cshtml" />
     <Content Include="Views\Security\SharedForms\_CreatePasswordForm.cshtml" />
-    <Content Include="Views\Security\ChangePassword.cshtml" />
+    <Content Include="Views\Security\User\ChangePassword.cshtml" />
     <Content Include="Views\Security\SharedForms\_ChangePasswordForm.cshtml" />
-    <Content Include="Views\Security\UserLogins.cshtml" />
+    <Content Include="Views\Security\User\Logins.cshtml" />
     <Content Include="Views\Security\SharedViews\_SignOnTwitterButton.cshtml" />
     <Content Include="Views\Security\SharedViews\_SignOnGoogleButton.cshtml" />
     <Content Include="Views\Security\SharedViews\_SignOnFacebookButton.cshtml" />

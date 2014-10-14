@@ -26,16 +26,24 @@ public static class MVC
 {
     public static Tripod.Web.Controllers.ErrorsController Errors = new Tripod.Web.Controllers.T4MVC_ErrorsController();
     public static Tripod.Web.Controllers.HomeController Home = new Tripod.Web.Controllers.T4MVC_HomeController();
+    public static Tripod.Web.Controllers.ResetPasswordController ResetPassword = new Tripod.Web.Controllers.T4MVC_ResetPasswordController();
+    public static Tripod.Web.Controllers.ResetPasswordSendEmailController ResetPasswordSendEmail = new Tripod.Web.Controllers.T4MVC_ResetPasswordSendEmailController();
+    public static Tripod.Web.Controllers.ResetPasswordVerifySecretController ResetPasswordVerifySecret = new Tripod.Web.Controllers.T4MVC_ResetPasswordVerifySecretController();
     public static Tripod.Web.Controllers.SignInController SignIn = new Tripod.Web.Controllers.T4MVC_SignInController();
     public static Tripod.Web.Controllers.SignOnController SignOn = new Tripod.Web.Controllers.T4MVC_SignOnController();
+    public static Tripod.Web.Controllers.SignOnCreateUserController SignOnCreateUser = new Tripod.Web.Controllers.T4MVC_SignOnCreateUserController();
+    public static Tripod.Web.Controllers.SignOnSendEmailController SignOnSendEmail = new Tripod.Web.Controllers.T4MVC_SignOnSendEmailController();
+    public static Tripod.Web.Controllers.SignOnVerifySecretController SignOnVerifySecret = new Tripod.Web.Controllers.T4MVC_SignOnVerifySecretController();
     public static Tripod.Web.Controllers.SignOutController SignOut = new Tripod.Web.Controllers.T4MVC_SignOutController();
     public static Tripod.Web.Controllers.SignUpCreateUserController SignUpCreateUser = new Tripod.Web.Controllers.T4MVC_SignUpCreateUserController();
     public static Tripod.Web.Controllers.SignUpSendEmailController SignUpSendEmail = new Tripod.Web.Controllers.T4MVC_SignUpSendEmailController();
     public static Tripod.Web.Controllers.SignUpVerifySecretController SignUpVerifySecret = new Tripod.Web.Controllers.T4MVC_SignUpVerifySecretController();
+    public static Tripod.Web.Controllers.UserEmailConfirmController UserEmailConfirm = new Tripod.Web.Controllers.T4MVC_UserEmailConfirmController();
     public static Tripod.Web.Controllers.UserEmailsController UserEmails = new Tripod.Web.Controllers.T4MVC_UserEmailsController();
+    public static Tripod.Web.Controllers.UserEmailVerifySecretController UserEmailVerifySecret = new Tripod.Web.Controllers.T4MVC_UserEmailVerifySecretController();
     public static Tripod.Web.Controllers.UserLoginsController UserLogins = new Tripod.Web.Controllers.T4MVC_UserLoginsController();
+    public static Tripod.Web.Controllers.UserNameController UserName = new Tripod.Web.Controllers.T4MVC_UserNameController();
     public static Tripod.Web.Controllers.UserPasswordController UserPassword = new Tripod.Web.Controllers.T4MVC_UserPasswordController();
-    public static Tripod.Web.Controllers.UserSettingsController UserSettings = new Tripod.Web.Controllers.T4MVC_UserSettingsController();
     public static Tripod.Web.Controllers.UsersController Users = new Tripod.Web.Controllers.T4MVC_UsersController();
     public static T4MVC.ScriptsController Scripts = new T4MVC.ScriptsController();
     public static T4MVC.SecurityController Security = new T4MVC.SecurityController();
@@ -643,6 +651,3093 @@ internal static class T4MVCHelpers {
     }
 }
 
+
+namespace Tripod.Web.Controllers
+{
+    public partial class ErrorsController
+    {
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ErrorsController() { }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected ErrorsController(Dummy d) { }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected RedirectToRouteResult RedirectToAction(ActionResult result)
+        {
+            var callInfo = result.GetT4MVCResult();
+            return RedirectToRoute(callInfo.RouteValueDictionary);
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected RedirectToRouteResult RedirectToActionPermanent(ActionResult result)
+        {
+            var callInfo = result.GetT4MVCResult();
+            return RedirectToRoutePermanent(callInfo.RouteValueDictionary);
+        }
+
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ErrorsController Actions { get { return MVC.Errors; } }
+        [GeneratedCode("T4MVC", "2.0")]
+        public readonly string Area = "";
+        [GeneratedCode("T4MVC", "2.0")]
+        public readonly string Name = "Errors";
+        [GeneratedCode("T4MVC", "2.0")]
+        public const string NameConst = "Errors";
+
+        static readonly ActionNamesClass s_actions = new ActionNamesClass();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionNamesClass ActionNames { get { return s_actions; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionNamesClass
+        {
+            public readonly string Unexpected = "Unexpected";
+            public readonly string Throw = "Throw";
+            public readonly string BadRequest = "BadRequest";
+            public readonly string Forbidden = "Forbidden";
+            public readonly string NotFound = "NotFound";
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionNameConstants
+        {
+            public const string Unexpected = "Unexpected";
+            public const string Throw = "Throw";
+            public const string BadRequest = "BadRequest";
+            public const string Forbidden = "Forbidden";
+            public const string NotFound = "NotFound";
+        }
+
+
+        static readonly ViewsClass s_views = new ViewsClass();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ViewsClass Views { get { return s_views; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ViewsClass
+        {
+            static readonly _ViewNamesClass s_ViewNames = new _ViewNamesClass();
+            public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
+            public class _ViewNamesClass
+            {
+                public readonly string BadRequest = "BadRequest";
+                public readonly string Forbidden = "Forbidden";
+                public readonly string NotFound = "NotFound";
+            }
+            public readonly string BadRequest = "~/Views/Errors/BadRequest.cshtml";
+            public readonly string Forbidden = "~/Views/Errors/Forbidden.cshtml";
+            public readonly string NotFound = "~/Views/Errors/NotFound.cshtml";
+        }
+    }
+
+    [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+    public partial class T4MVC_ErrorsController : Tripod.Web.Controllers.ErrorsController
+    {
+        public T4MVC_ErrorsController() : base(Dummy.Instance) { }
+
+        partial void UnexpectedOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        public override System.Web.Mvc.ActionResult Unexpected()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Unexpected);
+            UnexpectedOverride(callInfo);
+            return callInfo;
+        }
+
+        partial void ThrowOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        public override System.Web.Mvc.ActionResult Throw()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Throw);
+            ThrowOverride(callInfo);
+            return callInfo;
+        }
+
+        partial void BadRequestOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        public override System.Web.Mvc.ActionResult BadRequest()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.BadRequest);
+            BadRequestOverride(callInfo);
+            return callInfo;
+        }
+
+        partial void ForbiddenOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        public override System.Web.Mvc.ActionResult Forbidden()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Forbidden);
+            ForbiddenOverride(callInfo);
+            return callInfo;
+        }
+
+        partial void NotFoundOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        public override System.Web.Mvc.ActionResult NotFound()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.NotFound);
+            NotFoundOverride(callInfo);
+            return callInfo;
+        }
+
+    }
+}
+
+namespace Tripod.Web.Controllers
+{
+    public partial class HomeController
+    {
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public HomeController() { }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected HomeController(Dummy d) { }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected RedirectToRouteResult RedirectToAction(ActionResult result)
+        {
+            var callInfo = result.GetT4MVCResult();
+            return RedirectToRoute(callInfo.RouteValueDictionary);
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected RedirectToRouteResult RedirectToActionPermanent(ActionResult result)
+        {
+            var callInfo = result.GetT4MVCResult();
+            return RedirectToRoutePermanent(callInfo.RouteValueDictionary);
+        }
+
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public HomeController Actions { get { return MVC.Home; } }
+        [GeneratedCode("T4MVC", "2.0")]
+        public readonly string Area = "";
+        [GeneratedCode("T4MVC", "2.0")]
+        public readonly string Name = "Home";
+        [GeneratedCode("T4MVC", "2.0")]
+        public const string NameConst = "Home";
+
+        static readonly ActionNamesClass s_actions = new ActionNamesClass();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionNamesClass ActionNames { get { return s_actions; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionNamesClass
+        {
+            public readonly string Index = "Index";
+            public readonly string About = "About";
+            public readonly string Contact = "Contact";
+            public readonly string Admin = "Admin";
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionNameConstants
+        {
+            public const string Index = "Index";
+            public const string About = "About";
+            public const string Contact = "Contact";
+            public const string Admin = "Admin";
+        }
+
+
+        static readonly ViewsClass s_views = new ViewsClass();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ViewsClass Views { get { return s_views; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ViewsClass
+        {
+            static readonly _ViewNamesClass s_ViewNames = new _ViewNamesClass();
+            public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
+            public class _ViewNamesClass
+            {
+                public readonly string About = "About";
+                public readonly string Admin = "Admin";
+                public readonly string Contact = "Contact";
+                public readonly string Index = "Index";
+            }
+            public readonly string About = "~/Views/Home/About.cshtml";
+            public readonly string Admin = "~/Views/Home/Admin.cshtml";
+            public readonly string Contact = "~/Views/Home/Contact.cshtml";
+            public readonly string Index = "~/Views/Home/Index.cshtml";
+        }
+    }
+
+    [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+    public partial class T4MVC_HomeController : Tripod.Web.Controllers.HomeController
+    {
+        public T4MVC_HomeController() : base(Dummy.Instance) { }
+
+        partial void IndexOverride(T4MVC_System_Web_Mvc_ViewResult callInfo);
+
+        public override System.Web.Mvc.ViewResult Index()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ViewResult(Area, Name, ActionNames.Index);
+            IndexOverride(callInfo);
+            return callInfo;
+        }
+
+        partial void AboutOverride(T4MVC_System_Web_Mvc_ViewResult callInfo);
+
+        public override System.Web.Mvc.ViewResult About()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ViewResult(Area, Name, ActionNames.About);
+            AboutOverride(callInfo);
+            return callInfo;
+        }
+
+        partial void ContactOverride(T4MVC_System_Web_Mvc_ViewResult callInfo);
+
+        public override System.Web.Mvc.ViewResult Contact()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ViewResult(Area, Name, ActionNames.Contact);
+            ContactOverride(callInfo);
+            return callInfo;
+        }
+
+        partial void AdminOverride(T4MVC_System_Web_Mvc_ViewResult callInfo);
+
+        public override System.Web.Mvc.ViewResult Admin()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ViewResult(Area, Name, ActionNames.Admin);
+            AdminOverride(callInfo);
+            return callInfo;
+        }
+
+    }
+}
+
+namespace Tripod.Web.Controllers
+{
+    public partial class ResetPasswordController
+    {
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected ResetPasswordController(Dummy d) { }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected RedirectToRouteResult RedirectToAction(ActionResult result)
+        {
+            var callInfo = result.GetT4MVCResult();
+            return RedirectToRoute(callInfo.RouteValueDictionary);
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected RedirectToRouteResult RedirectToActionPermanent(ActionResult result)
+        {
+            var callInfo = result.GetT4MVCResult();
+            return RedirectToRoutePermanent(callInfo.RouteValueDictionary);
+        }
+
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Index()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
+            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult Validate()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Validate);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Post()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Post);
+            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ResetPasswordController Actions { get { return MVC.ResetPassword; } }
+        [GeneratedCode("T4MVC", "2.0")]
+        public readonly string Area = "";
+        [GeneratedCode("T4MVC", "2.0")]
+        public readonly string Name = "ResetPassword";
+        [GeneratedCode("T4MVC", "2.0")]
+        public const string NameConst = "ResetPassword";
+
+        static readonly ActionNamesClass s_actions = new ActionNamesClass();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionNamesClass ActionNames { get { return s_actions; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionNamesClass
+        {
+            public readonly string Index = "Index";
+            public readonly string Validate = "Validate";
+            public readonly string Post = "Post";
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionNameConstants
+        {
+            public const string Index = "Index";
+            public const string Validate = "Validate";
+            public const string Post = "Post";
+        }
+
+
+        static readonly ActionParamsClass_Index s_params_Index = new ActionParamsClass_Index();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_Index IndexParams { get { return s_params_Index; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_Index
+        {
+            public readonly string token = "token";
+            public readonly string ticket = "ticket";
+            public readonly string returnUrl = "returnUrl";
+        }
+        static readonly ActionParamsClass_Validate s_params_Validate = new ActionParamsClass_Validate();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_Validate ValidateParams { get { return s_params_Validate; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_Validate
+        {
+            public readonly string command = "command";
+            public readonly string fieldName = "fieldName";
+        }
+        static readonly ActionParamsClass_Post s_params_Post = new ActionParamsClass_Post();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_Post PostParams { get { return s_params_Post; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_Post
+        {
+            public readonly string command = "command";
+            public readonly string returnUrl = "returnUrl";
+            public readonly string emailAddress = "emailAddress";
+        }
+        static readonly ViewsClass s_views = new ViewsClass();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ViewsClass Views { get { return s_views; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ViewsClass
+        {
+            static readonly _ViewNamesClass s_ViewNames = new _ViewNamesClass();
+            public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
+            public class _ViewNamesClass
+            {
+            }
+        }
+    }
+
+    [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+    public partial class T4MVC_ResetPasswordController : Tripod.Web.Controllers.ResetPasswordController
+    {
+        public T4MVC_ResetPasswordController() : base(Dummy.Instance) { }
+
+        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string token, string ticket, string returnUrl);
+
+        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Index(string token, string ticket, string returnUrl)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "token", token);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ticket", ticket);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "returnUrl", returnUrl);
+            IndexOverride(callInfo, token, ticket, returnUrl);
+            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
+        }
+
+        partial void ValidateOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Tripod.Domain.Security.ResetPassword command, string fieldName);
+
+        public override System.Web.Mvc.ActionResult Validate(Tripod.Domain.Security.ResetPassword command, string fieldName)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Validate);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "command", command);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "fieldName", fieldName);
+            ValidateOverride(callInfo, command, fieldName);
+            return callInfo;
+        }
+
+        partial void PostOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Tripod.Domain.Security.ResetPassword command, string returnUrl, string emailAddress);
+
+        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Post(Tripod.Domain.Security.ResetPassword command, string returnUrl, string emailAddress)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Post);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "command", command);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "returnUrl", returnUrl);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "emailAddress", emailAddress);
+            PostOverride(callInfo, command, returnUrl, emailAddress);
+            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
+        }
+
+    }
+}
+
+namespace Tripod.Web.Controllers
+{
+    public partial class ResetPasswordSendEmailController
+    {
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected ResetPasswordSendEmailController(Dummy d) { }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected RedirectToRouteResult RedirectToAction(ActionResult result)
+        {
+            var callInfo = result.GetT4MVCResult();
+            return RedirectToRoute(callInfo.RouteValueDictionary);
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected RedirectToRouteResult RedirectToActionPermanent(ActionResult result)
+        {
+            var callInfo = result.GetT4MVCResult();
+            return RedirectToRoutePermanent(callInfo.RouteValueDictionary);
+        }
+
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult Index()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Post()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Post);
+            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ResetPasswordSendEmailController Actions { get { return MVC.ResetPasswordSendEmail; } }
+        [GeneratedCode("T4MVC", "2.0")]
+        public readonly string Area = "";
+        [GeneratedCode("T4MVC", "2.0")]
+        public readonly string Name = "ResetPasswordSendEmail";
+        [GeneratedCode("T4MVC", "2.0")]
+        public const string NameConst = "ResetPasswordSendEmail";
+
+        static readonly ActionNamesClass s_actions = new ActionNamesClass();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionNamesClass ActionNames { get { return s_actions; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionNamesClass
+        {
+            public readonly string Index = "Index";
+            public readonly string Post = "Post";
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionNameConstants
+        {
+            public const string Index = "Index";
+            public const string Post = "Post";
+        }
+
+
+        static readonly ActionParamsClass_Index s_params_Index = new ActionParamsClass_Index();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_Index IndexParams { get { return s_params_Index; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_Index
+        {
+            public readonly string returnUrl = "returnUrl";
+        }
+        static readonly ActionParamsClass_Post s_params_Post = new ActionParamsClass_Post();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_Post PostParams { get { return s_params_Post; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_Post
+        {
+            public readonly string command = "command";
+            public readonly string returnUrl = "returnUrl";
+        }
+        static readonly ViewsClass s_views = new ViewsClass();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ViewsClass Views { get { return s_views; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ViewsClass
+        {
+            static readonly _ViewNamesClass s_ViewNames = new _ViewNamesClass();
+            public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
+            public class _ViewNamesClass
+            {
+            }
+        }
+    }
+
+    [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+    public partial class T4MVC_ResetPasswordSendEmailController : Tripod.Web.Controllers.ResetPasswordSendEmailController
+    {
+        public T4MVC_ResetPasswordSendEmailController() : base(Dummy.Instance) { }
+
+        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string returnUrl);
+
+        public override System.Web.Mvc.ActionResult Index(string returnUrl)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "returnUrl", returnUrl);
+            IndexOverride(callInfo, returnUrl);
+            return callInfo;
+        }
+
+        partial void PostOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Tripod.Domain.Security.SendVerificationEmail command, string returnUrl);
+
+        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Post(Tripod.Domain.Security.SendVerificationEmail command, string returnUrl)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Post);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "command", command);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "returnUrl", returnUrl);
+            PostOverride(callInfo, command, returnUrl);
+            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
+        }
+
+    }
+}
+
+namespace Tripod.Web.Controllers
+{
+    public partial class ResetPasswordVerifySecretController
+    {
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected ResetPasswordVerifySecretController(Dummy d) { }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected RedirectToRouteResult RedirectToAction(ActionResult result)
+        {
+            var callInfo = result.GetT4MVCResult();
+            return RedirectToRoute(callInfo.RouteValueDictionary);
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected RedirectToRouteResult RedirectToActionPermanent(ActionResult result)
+        {
+            var callInfo = result.GetT4MVCResult();
+            return RedirectToRoutePermanent(callInfo.RouteValueDictionary);
+        }
+
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Index()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
+            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Post()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Post);
+            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ResetPasswordVerifySecretController Actions { get { return MVC.ResetPasswordVerifySecret; } }
+        [GeneratedCode("T4MVC", "2.0")]
+        public readonly string Area = "";
+        [GeneratedCode("T4MVC", "2.0")]
+        public readonly string Name = "ResetPasswordVerifySecret";
+        [GeneratedCode("T4MVC", "2.0")]
+        public const string NameConst = "ResetPasswordVerifySecret";
+
+        static readonly ActionNamesClass s_actions = new ActionNamesClass();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionNamesClass ActionNames { get { return s_actions; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionNamesClass
+        {
+            public readonly string Index = "Index";
+            public readonly string Post = "Post";
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionNameConstants
+        {
+            public const string Index = "Index";
+            public const string Post = "Post";
+        }
+
+
+        static readonly ActionParamsClass_Index s_params_Index = new ActionParamsClass_Index();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_Index IndexParams { get { return s_params_Index; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_Index
+        {
+            public readonly string ticket = "ticket";
+            public readonly string returnUrl = "returnUrl";
+        }
+        static readonly ActionParamsClass_Post s_params_Post = new ActionParamsClass_Post();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_Post PostParams { get { return s_params_Post; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_Post
+        {
+            public readonly string ticket = "ticket";
+            public readonly string command = "command";
+            public readonly string returnUrl = "returnUrl";
+            public readonly string emailAddress = "emailAddress";
+        }
+        static readonly ViewsClass s_views = new ViewsClass();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ViewsClass Views { get { return s_views; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ViewsClass
+        {
+            static readonly _ViewNamesClass s_ViewNames = new _ViewNamesClass();
+            public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
+            public class _ViewNamesClass
+            {
+            }
+        }
+    }
+
+    [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+    public partial class T4MVC_ResetPasswordVerifySecretController : Tripod.Web.Controllers.ResetPasswordVerifySecretController
+    {
+        public T4MVC_ResetPasswordVerifySecretController() : base(Dummy.Instance) { }
+
+        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ticket, string returnUrl);
+
+        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Index(string ticket, string returnUrl)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ticket", ticket);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "returnUrl", returnUrl);
+            IndexOverride(callInfo, ticket, returnUrl);
+            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
+        }
+
+        partial void PostOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ticket, Tripod.Domain.Security.VerifyEmailSecret command, string returnUrl, string emailAddress);
+
+        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Post(string ticket, Tripod.Domain.Security.VerifyEmailSecret command, string returnUrl, string emailAddress)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Post);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ticket", ticket);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "command", command);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "returnUrl", returnUrl);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "emailAddress", emailAddress);
+            PostOverride(callInfo, ticket, command, returnUrl, emailAddress);
+            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
+        }
+
+    }
+}
+
+namespace Tripod.Web.Controllers
+{
+    public partial class SignInController
+    {
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected SignInController(Dummy d) { }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected RedirectToRouteResult RedirectToAction(ActionResult result)
+        {
+            var callInfo = result.GetT4MVCResult();
+            return RedirectToRoute(callInfo.RouteValueDictionary);
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected RedirectToRouteResult RedirectToActionPermanent(ActionResult result)
+        {
+            var callInfo = result.GetT4MVCResult();
+            return RedirectToRoutePermanent(callInfo.RouteValueDictionary);
+        }
+
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult Index()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Post()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Post);
+            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult Validate()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Validate);
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public SignInController Actions { get { return MVC.SignIn; } }
+        [GeneratedCode("T4MVC", "2.0")]
+        public readonly string Area = "";
+        [GeneratedCode("T4MVC", "2.0")]
+        public readonly string Name = "SignIn";
+        [GeneratedCode("T4MVC", "2.0")]
+        public const string NameConst = "SignIn";
+
+        static readonly ActionNamesClass s_actions = new ActionNamesClass();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionNamesClass ActionNames { get { return s_actions; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionNamesClass
+        {
+            public readonly string Index = "Index";
+            public readonly string Post = "Post";
+            public readonly string Validate = "Validate";
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionNameConstants
+        {
+            public const string Index = "Index";
+            public const string Post = "Post";
+            public const string Validate = "Validate";
+        }
+
+
+        static readonly ActionParamsClass_Index s_params_Index = new ActionParamsClass_Index();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_Index IndexParams { get { return s_params_Index; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_Index
+        {
+            public readonly string returnUrl = "returnUrl";
+        }
+        static readonly ActionParamsClass_Post s_params_Post = new ActionParamsClass_Post();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_Post PostParams { get { return s_params_Post; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_Post
+        {
+            public readonly string command = "command";
+            public readonly string returnUrl = "returnUrl";
+        }
+        static readonly ActionParamsClass_Validate s_params_Validate = new ActionParamsClass_Validate();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_Validate ValidateParams { get { return s_params_Validate; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_Validate
+        {
+            public readonly string command = "command";
+            public readonly string fieldName = "fieldName";
+        }
+        static readonly ViewsClass s_views = new ViewsClass();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ViewsClass Views { get { return s_views; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ViewsClass
+        {
+            static readonly _ViewNamesClass s_ViewNames = new _ViewNamesClass();
+            public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
+            public class _ViewNamesClass
+            {
+            }
+        }
+    }
+
+    [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+    public partial class T4MVC_SignInController : Tripod.Web.Controllers.SignInController
+    {
+        public T4MVC_SignInController() : base(Dummy.Instance) { }
+
+        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string returnUrl);
+
+        public override System.Web.Mvc.ActionResult Index(string returnUrl)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "returnUrl", returnUrl);
+            IndexOverride(callInfo, returnUrl);
+            return callInfo;
+        }
+
+        partial void PostOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Tripod.Domain.Security.SignIn command, string returnUrl);
+
+        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Post(Tripod.Domain.Security.SignIn command, string returnUrl)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Post);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "command", command);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "returnUrl", returnUrl);
+            PostOverride(callInfo, command, returnUrl);
+            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
+        }
+
+        partial void ValidateOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Tripod.Domain.Security.SignIn command, string fieldName);
+
+        public override System.Web.Mvc.ActionResult Validate(Tripod.Domain.Security.SignIn command, string fieldName)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Validate);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "command", command);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "fieldName", fieldName);
+            ValidateOverride(callInfo, command, fieldName);
+            return callInfo;
+        }
+
+    }
+}
+
+namespace Tripod.Web.Controllers
+{
+    public partial class SignOnController
+    {
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected SignOnController(Dummy d) { }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected RedirectToRouteResult RedirectToAction(ActionResult result)
+        {
+            var callInfo = result.GetT4MVCResult();
+            return RedirectToRoute(callInfo.RouteValueDictionary);
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected RedirectToRouteResult RedirectToActionPermanent(ActionResult result)
+        {
+            var callInfo = result.GetT4MVCResult();
+            return RedirectToRoutePermanent(callInfo.RouteValueDictionary);
+        }
+
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult Post()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Post);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> SignOnCallback()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SignOnCallback);
+            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public SignOnController Actions { get { return MVC.SignOn; } }
+        [GeneratedCode("T4MVC", "2.0")]
+        public readonly string Area = "";
+        [GeneratedCode("T4MVC", "2.0")]
+        public readonly string Name = "SignOn";
+        [GeneratedCode("T4MVC", "2.0")]
+        public const string NameConst = "SignOn";
+
+        static readonly ActionNamesClass s_actions = new ActionNamesClass();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionNamesClass ActionNames { get { return s_actions; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionNamesClass
+        {
+            public readonly string Post = "Post";
+            public readonly string SignOnCallback = "SignOnCallback";
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionNameConstants
+        {
+            public const string Post = "Post";
+            public const string SignOnCallback = "SignOnCallback";
+        }
+
+
+        static readonly ActionParamsClass_Post s_params_Post = new ActionParamsClass_Post();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_Post PostParams { get { return s_params_Post; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_Post
+        {
+            public readonly string provider = "provider";
+            public readonly string returnUrl = "returnUrl";
+        }
+        static readonly ActionParamsClass_SignOnCallback s_params_SignOnCallback = new ActionParamsClass_SignOnCallback();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_SignOnCallback SignOnCallbackParams { get { return s_params_SignOnCallback; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_SignOnCallback
+        {
+            public readonly string returnUrl = "returnUrl";
+        }
+        static readonly ViewsClass s_views = new ViewsClass();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ViewsClass Views { get { return s_views; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ViewsClass
+        {
+            static readonly _ViewNamesClass s_ViewNames = new _ViewNamesClass();
+            public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
+            public class _ViewNamesClass
+            {
+            }
+        }
+    }
+
+    [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+    public partial class T4MVC_SignOnController : Tripod.Web.Controllers.SignOnController
+    {
+        public T4MVC_SignOnController() : base(Dummy.Instance) { }
+
+        partial void PostOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string provider, string returnUrl);
+
+        public override System.Web.Mvc.ActionResult Post(string provider, string returnUrl)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Post);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "provider", provider);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "returnUrl", returnUrl);
+            PostOverride(callInfo, provider, returnUrl);
+            return callInfo;
+        }
+
+        partial void SignOnCallbackOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string returnUrl);
+
+        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> SignOnCallback(string returnUrl)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SignOnCallback);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "returnUrl", returnUrl);
+            SignOnCallbackOverride(callInfo, returnUrl);
+            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
+        }
+
+    }
+}
+
+namespace Tripod.Web.Controllers
+{
+    public partial class SignOnCreateUserController
+    {
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected SignOnCreateUserController(Dummy d) { }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected RedirectToRouteResult RedirectToAction(ActionResult result)
+        {
+            var callInfo = result.GetT4MVCResult();
+            return RedirectToRoute(callInfo.RouteValueDictionary);
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected RedirectToRouteResult RedirectToActionPermanent(ActionResult result)
+        {
+            var callInfo = result.GetT4MVCResult();
+            return RedirectToRoutePermanent(callInfo.RouteValueDictionary);
+        }
+
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Index()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
+            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult Validate()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Validate);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Post()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Post);
+            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public SignOnCreateUserController Actions { get { return MVC.SignOnCreateUser; } }
+        [GeneratedCode("T4MVC", "2.0")]
+        public readonly string Area = "";
+        [GeneratedCode("T4MVC", "2.0")]
+        public readonly string Name = "SignOnCreateUser";
+        [GeneratedCode("T4MVC", "2.0")]
+        public const string NameConst = "SignOnCreateUser";
+
+        static readonly ActionNamesClass s_actions = new ActionNamesClass();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionNamesClass ActionNames { get { return s_actions; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionNamesClass
+        {
+            public readonly string Index = "Index";
+            public readonly string Validate = "Validate";
+            public readonly string Post = "Post";
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionNameConstants
+        {
+            public const string Index = "Index";
+            public const string Validate = "Validate";
+            public const string Post = "Post";
+        }
+
+
+        static readonly ActionParamsClass_Index s_params_Index = new ActionParamsClass_Index();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_Index IndexParams { get { return s_params_Index; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_Index
+        {
+            public readonly string token = "token";
+            public readonly string ticket = "ticket";
+            public readonly string returnUrl = "returnUrl";
+        }
+        static readonly ActionParamsClass_Validate s_params_Validate = new ActionParamsClass_Validate();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_Validate ValidateParams { get { return s_params_Validate; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_Validate
+        {
+            public readonly string command = "command";
+            public readonly string fieldName = "fieldName";
+        }
+        static readonly ActionParamsClass_Post s_params_Post = new ActionParamsClass_Post();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_Post PostParams { get { return s_params_Post; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_Post
+        {
+            public readonly string command = "command";
+            public readonly string returnUrl = "returnUrl";
+            public readonly string emailAddress = "emailAddress";
+        }
+        static readonly ViewsClass s_views = new ViewsClass();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ViewsClass Views { get { return s_views; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ViewsClass
+        {
+            static readonly _ViewNamesClass s_ViewNames = new _ViewNamesClass();
+            public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
+            public class _ViewNamesClass
+            {
+            }
+        }
+    }
+
+    [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+    public partial class T4MVC_SignOnCreateUserController : Tripod.Web.Controllers.SignOnCreateUserController
+    {
+        public T4MVC_SignOnCreateUserController() : base(Dummy.Instance) { }
+
+        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string token, string ticket, string returnUrl);
+
+        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Index(string token, string ticket, string returnUrl)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "token", token);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ticket", ticket);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "returnUrl", returnUrl);
+            IndexOverride(callInfo, token, ticket, returnUrl);
+            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
+        }
+
+        partial void ValidateOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Tripod.Domain.Security.CreateRemoteMembership command, string fieldName);
+
+        public override System.Web.Mvc.ActionResult Validate(Tripod.Domain.Security.CreateRemoteMembership command, string fieldName)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Validate);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "command", command);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "fieldName", fieldName);
+            ValidateOverride(callInfo, command, fieldName);
+            return callInfo;
+        }
+
+        partial void PostOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Tripod.Domain.Security.CreateRemoteMembership command, string returnUrl, string emailAddress);
+
+        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Post(Tripod.Domain.Security.CreateRemoteMembership command, string returnUrl, string emailAddress)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Post);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "command", command);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "returnUrl", returnUrl);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "emailAddress", emailAddress);
+            PostOverride(callInfo, command, returnUrl, emailAddress);
+            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
+        }
+
+    }
+}
+
+namespace Tripod.Web.Controllers
+{
+    public partial class SignOnSendEmailController
+    {
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected SignOnSendEmailController(Dummy d) { }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected RedirectToRouteResult RedirectToAction(ActionResult result)
+        {
+            var callInfo = result.GetT4MVCResult();
+            return RedirectToRoute(callInfo.RouteValueDictionary);
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected RedirectToRouteResult RedirectToActionPermanent(ActionResult result)
+        {
+            var callInfo = result.GetT4MVCResult();
+            return RedirectToRoutePermanent(callInfo.RouteValueDictionary);
+        }
+
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Index()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
+            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Post()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Post);
+            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public SignOnSendEmailController Actions { get { return MVC.SignOnSendEmail; } }
+        [GeneratedCode("T4MVC", "2.0")]
+        public readonly string Area = "";
+        [GeneratedCode("T4MVC", "2.0")]
+        public readonly string Name = "SignOnSendEmail";
+        [GeneratedCode("T4MVC", "2.0")]
+        public const string NameConst = "SignOnSendEmail";
+
+        static readonly ActionNamesClass s_actions = new ActionNamesClass();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionNamesClass ActionNames { get { return s_actions; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionNamesClass
+        {
+            public readonly string Index = "Index";
+            public readonly string Post = "Post";
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionNameConstants
+        {
+            public const string Index = "Index";
+            public const string Post = "Post";
+        }
+
+
+        static readonly ActionParamsClass_Index s_params_Index = new ActionParamsClass_Index();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_Index IndexParams { get { return s_params_Index; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_Index
+        {
+            public readonly string returnUrl = "returnUrl";
+        }
+        static readonly ActionParamsClass_Post s_params_Post = new ActionParamsClass_Post();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_Post PostParams { get { return s_params_Post; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_Post
+        {
+            public readonly string command = "command";
+            public readonly string returnUrl = "returnUrl";
+            public readonly string loginProvider = "loginProvider";
+        }
+        static readonly ViewsClass s_views = new ViewsClass();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ViewsClass Views { get { return s_views; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ViewsClass
+        {
+            static readonly _ViewNamesClass s_ViewNames = new _ViewNamesClass();
+            public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
+            public class _ViewNamesClass
+            {
+            }
+        }
+    }
+
+    [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+    public partial class T4MVC_SignOnSendEmailController : Tripod.Web.Controllers.SignOnSendEmailController
+    {
+        public T4MVC_SignOnSendEmailController() : base(Dummy.Instance) { }
+
+        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string returnUrl);
+
+        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Index(string returnUrl)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "returnUrl", returnUrl);
+            IndexOverride(callInfo, returnUrl);
+            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
+        }
+
+        partial void PostOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Tripod.Domain.Security.SendVerificationEmail command, string returnUrl, string loginProvider);
+
+        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Post(Tripod.Domain.Security.SendVerificationEmail command, string returnUrl, string loginProvider)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Post);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "command", command);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "returnUrl", returnUrl);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "loginProvider", loginProvider);
+            PostOverride(callInfo, command, returnUrl, loginProvider);
+            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
+        }
+
+    }
+}
+
+namespace Tripod.Web.Controllers
+{
+    public partial class SignOnVerifySecretController
+    {
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected SignOnVerifySecretController(Dummy d) { }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected RedirectToRouteResult RedirectToAction(ActionResult result)
+        {
+            var callInfo = result.GetT4MVCResult();
+            return RedirectToRoute(callInfo.RouteValueDictionary);
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected RedirectToRouteResult RedirectToActionPermanent(ActionResult result)
+        {
+            var callInfo = result.GetT4MVCResult();
+            return RedirectToRoutePermanent(callInfo.RouteValueDictionary);
+        }
+
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Index()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
+            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Post()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Post);
+            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public SignOnVerifySecretController Actions { get { return MVC.SignOnVerifySecret; } }
+        [GeneratedCode("T4MVC", "2.0")]
+        public readonly string Area = "";
+        [GeneratedCode("T4MVC", "2.0")]
+        public readonly string Name = "SignOnVerifySecret";
+        [GeneratedCode("T4MVC", "2.0")]
+        public const string NameConst = "SignOnVerifySecret";
+
+        static readonly ActionNamesClass s_actions = new ActionNamesClass();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionNamesClass ActionNames { get { return s_actions; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionNamesClass
+        {
+            public readonly string Index = "Index";
+            public readonly string Post = "Post";
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionNameConstants
+        {
+            public const string Index = "Index";
+            public const string Post = "Post";
+        }
+
+
+        static readonly ActionParamsClass_Index s_params_Index = new ActionParamsClass_Index();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_Index IndexParams { get { return s_params_Index; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_Index
+        {
+            public readonly string ticket = "ticket";
+            public readonly string returnUrl = "returnUrl";
+        }
+        static readonly ActionParamsClass_Post s_params_Post = new ActionParamsClass_Post();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_Post PostParams { get { return s_params_Post; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_Post
+        {
+            public readonly string ticket = "ticket";
+            public readonly string command = "command";
+            public readonly string returnUrl = "returnUrl";
+            public readonly string emailAddress = "emailAddress";
+        }
+        static readonly ViewsClass s_views = new ViewsClass();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ViewsClass Views { get { return s_views; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ViewsClass
+        {
+            static readonly _ViewNamesClass s_ViewNames = new _ViewNamesClass();
+            public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
+            public class _ViewNamesClass
+            {
+            }
+        }
+    }
+
+    [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+    public partial class T4MVC_SignOnVerifySecretController : Tripod.Web.Controllers.SignOnVerifySecretController
+    {
+        public T4MVC_SignOnVerifySecretController() : base(Dummy.Instance) { }
+
+        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ticket, string returnUrl);
+
+        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Index(string ticket, string returnUrl)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ticket", ticket);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "returnUrl", returnUrl);
+            IndexOverride(callInfo, ticket, returnUrl);
+            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
+        }
+
+        partial void PostOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ticket, Tripod.Domain.Security.VerifyEmailSecret command, string returnUrl, string emailAddress);
+
+        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Post(string ticket, Tripod.Domain.Security.VerifyEmailSecret command, string returnUrl, string emailAddress)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Post);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ticket", ticket);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "command", command);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "returnUrl", returnUrl);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "emailAddress", emailAddress);
+            PostOverride(callInfo, ticket, command, returnUrl, emailAddress);
+            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
+        }
+
+    }
+}
+
+namespace Tripod.Web.Controllers
+{
+    public partial class SignOutController
+    {
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected SignOutController(Dummy d) { }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected RedirectToRouteResult RedirectToAction(ActionResult result)
+        {
+            var callInfo = result.GetT4MVCResult();
+            return RedirectToRoute(callInfo.RouteValueDictionary);
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected RedirectToRouteResult RedirectToActionPermanent(ActionResult result)
+        {
+            var callInfo = result.GetT4MVCResult();
+            return RedirectToRoutePermanent(callInfo.RouteValueDictionary);
+        }
+
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public SignOutController Actions { get { return MVC.SignOut; } }
+        [GeneratedCode("T4MVC", "2.0")]
+        public readonly string Area = "";
+        [GeneratedCode("T4MVC", "2.0")]
+        public readonly string Name = "SignOut";
+        [GeneratedCode("T4MVC", "2.0")]
+        public const string NameConst = "SignOut";
+
+        static readonly ActionNamesClass s_actions = new ActionNamesClass();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionNamesClass ActionNames { get { return s_actions; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionNamesClass
+        {
+            public readonly string Post = "Post";
+            public readonly string Get = "Get";
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionNameConstants
+        {
+            public const string Post = "Post";
+            public const string Get = "Get";
+        }
+
+
+        static readonly ViewsClass s_views = new ViewsClass();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ViewsClass Views { get { return s_views; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ViewsClass
+        {
+            static readonly _ViewNamesClass s_ViewNames = new _ViewNamesClass();
+            public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
+            public class _ViewNamesClass
+            {
+            }
+        }
+    }
+
+    [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+    public partial class T4MVC_SignOutController : Tripod.Web.Controllers.SignOutController
+    {
+        public T4MVC_SignOutController() : base(Dummy.Instance) { }
+
+        partial void PostOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        public override System.Web.Mvc.ActionResult Post()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Post);
+            PostOverride(callInfo);
+            return callInfo;
+        }
+
+        partial void GetOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        public override System.Web.Mvc.ActionResult Get()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Get);
+            GetOverride(callInfo);
+            return callInfo;
+        }
+
+    }
+}
+
+namespace Tripod.Web.Controllers
+{
+    public partial class SignUpCreateUserController
+    {
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected SignUpCreateUserController(Dummy d) { }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected RedirectToRouteResult RedirectToAction(ActionResult result)
+        {
+            var callInfo = result.GetT4MVCResult();
+            return RedirectToRoute(callInfo.RouteValueDictionary);
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected RedirectToRouteResult RedirectToActionPermanent(ActionResult result)
+        {
+            var callInfo = result.GetT4MVCResult();
+            return RedirectToRoutePermanent(callInfo.RouteValueDictionary);
+        }
+
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Index()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
+            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult Validate()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Validate);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Post()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Post);
+            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public SignUpCreateUserController Actions { get { return MVC.SignUpCreateUser; } }
+        [GeneratedCode("T4MVC", "2.0")]
+        public readonly string Area = "";
+        [GeneratedCode("T4MVC", "2.0")]
+        public readonly string Name = "SignUpCreateUser";
+        [GeneratedCode("T4MVC", "2.0")]
+        public const string NameConst = "SignUpCreateUser";
+
+        static readonly ActionNamesClass s_actions = new ActionNamesClass();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionNamesClass ActionNames { get { return s_actions; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionNamesClass
+        {
+            public readonly string Index = "Index";
+            public readonly string Validate = "Validate";
+            public readonly string Post = "Post";
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionNameConstants
+        {
+            public const string Index = "Index";
+            public const string Validate = "Validate";
+            public const string Post = "Post";
+        }
+
+
+        static readonly ActionParamsClass_Index s_params_Index = new ActionParamsClass_Index();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_Index IndexParams { get { return s_params_Index; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_Index
+        {
+            public readonly string token = "token";
+            public readonly string ticket = "ticket";
+            public readonly string returnUrl = "returnUrl";
+        }
+        static readonly ActionParamsClass_Validate s_params_Validate = new ActionParamsClass_Validate();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_Validate ValidateParams { get { return s_params_Validate; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_Validate
+        {
+            public readonly string command = "command";
+            public readonly string fieldName = "fieldName";
+        }
+        static readonly ActionParamsClass_Post s_params_Post = new ActionParamsClass_Post();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_Post PostParams { get { return s_params_Post; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_Post
+        {
+            public readonly string command = "command";
+            public readonly string returnUrl = "returnUrl";
+            public readonly string emailAddress = "emailAddress";
+        }
+        static readonly ViewsClass s_views = new ViewsClass();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ViewsClass Views { get { return s_views; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ViewsClass
+        {
+            static readonly _ViewNamesClass s_ViewNames = new _ViewNamesClass();
+            public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
+            public class _ViewNamesClass
+            {
+            }
+        }
+    }
+
+    [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+    public partial class T4MVC_SignUpCreateUserController : Tripod.Web.Controllers.SignUpCreateUserController
+    {
+        public T4MVC_SignUpCreateUserController() : base(Dummy.Instance) { }
+
+        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string token, string ticket, string returnUrl);
+
+        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Index(string token, string ticket, string returnUrl)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "token", token);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ticket", ticket);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "returnUrl", returnUrl);
+            IndexOverride(callInfo, token, ticket, returnUrl);
+            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
+        }
+
+        partial void ValidateOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Tripod.Domain.Security.CreateLocalMembership command, string fieldName);
+
+        public override System.Web.Mvc.ActionResult Validate(Tripod.Domain.Security.CreateLocalMembership command, string fieldName)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Validate);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "command", command);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "fieldName", fieldName);
+            ValidateOverride(callInfo, command, fieldName);
+            return callInfo;
+        }
+
+        partial void PostOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Tripod.Domain.Security.CreateLocalMembership command, string returnUrl, string emailAddress);
+
+        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Post(Tripod.Domain.Security.CreateLocalMembership command, string returnUrl, string emailAddress)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Post);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "command", command);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "returnUrl", returnUrl);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "emailAddress", emailAddress);
+            PostOverride(callInfo, command, returnUrl, emailAddress);
+            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
+        }
+
+    }
+}
+
+namespace Tripod.Web.Controllers
+{
+    public partial class SignUpSendEmailController
+    {
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected SignUpSendEmailController(Dummy d) { }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected RedirectToRouteResult RedirectToAction(ActionResult result)
+        {
+            var callInfo = result.GetT4MVCResult();
+            return RedirectToRoute(callInfo.RouteValueDictionary);
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected RedirectToRouteResult RedirectToActionPermanent(ActionResult result)
+        {
+            var callInfo = result.GetT4MVCResult();
+            return RedirectToRoutePermanent(callInfo.RouteValueDictionary);
+        }
+
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ViewResult Index()
+        {
+            return new T4MVC_System_Web_Mvc_ViewResult(Area, Name, ActionNames.Index);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult Validate()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Validate);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Post()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Post);
+            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public SignUpSendEmailController Actions { get { return MVC.SignUpSendEmail; } }
+        [GeneratedCode("T4MVC", "2.0")]
+        public readonly string Area = "";
+        [GeneratedCode("T4MVC", "2.0")]
+        public readonly string Name = "SignUpSendEmail";
+        [GeneratedCode("T4MVC", "2.0")]
+        public const string NameConst = "SignUpSendEmail";
+
+        static readonly ActionNamesClass s_actions = new ActionNamesClass();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionNamesClass ActionNames { get { return s_actions; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionNamesClass
+        {
+            public readonly string Index = "Index";
+            public readonly string Validate = "Validate";
+            public readonly string Post = "Post";
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionNameConstants
+        {
+            public const string Index = "Index";
+            public const string Validate = "Validate";
+            public const string Post = "Post";
+        }
+
+
+        static readonly ActionParamsClass_Index s_params_Index = new ActionParamsClass_Index();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_Index IndexParams { get { return s_params_Index; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_Index
+        {
+            public readonly string returnUrl = "returnUrl";
+        }
+        static readonly ActionParamsClass_Validate s_params_Validate = new ActionParamsClass_Validate();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_Validate ValidateParams { get { return s_params_Validate; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_Validate
+        {
+            public readonly string command = "command";
+            public readonly string fieldName = "fieldName";
+        }
+        static readonly ActionParamsClass_Post s_params_Post = new ActionParamsClass_Post();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_Post PostParams { get { return s_params_Post; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_Post
+        {
+            public readonly string command = "command";
+            public readonly string returnUrl = "returnUrl";
+        }
+        static readonly ViewsClass s_views = new ViewsClass();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ViewsClass Views { get { return s_views; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ViewsClass
+        {
+            static readonly _ViewNamesClass s_ViewNames = new _ViewNamesClass();
+            public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
+            public class _ViewNamesClass
+            {
+            }
+        }
+    }
+
+    [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+    public partial class T4MVC_SignUpSendEmailController : Tripod.Web.Controllers.SignUpSendEmailController
+    {
+        public T4MVC_SignUpSendEmailController() : base(Dummy.Instance) { }
+
+        partial void IndexOverride(T4MVC_System_Web_Mvc_ViewResult callInfo, string returnUrl);
+
+        public override System.Web.Mvc.ViewResult Index(string returnUrl)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ViewResult(Area, Name, ActionNames.Index);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "returnUrl", returnUrl);
+            IndexOverride(callInfo, returnUrl);
+            return callInfo;
+        }
+
+        partial void ValidateOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Tripod.Domain.Security.SendVerificationEmail command, string fieldName);
+
+        public override System.Web.Mvc.ActionResult Validate(Tripod.Domain.Security.SendVerificationEmail command, string fieldName)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Validate);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "command", command);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "fieldName", fieldName);
+            ValidateOverride(callInfo, command, fieldName);
+            return callInfo;
+        }
+
+        partial void PostOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Tripod.Domain.Security.SendVerificationEmail command, string returnUrl);
+
+        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Post(Tripod.Domain.Security.SendVerificationEmail command, string returnUrl)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Post);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "command", command);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "returnUrl", returnUrl);
+            PostOverride(callInfo, command, returnUrl);
+            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
+        }
+
+    }
+}
+
+namespace Tripod.Web.Controllers
+{
+    public partial class SignUpVerifySecretController
+    {
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected SignUpVerifySecretController(Dummy d) { }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected RedirectToRouteResult RedirectToAction(ActionResult result)
+        {
+            var callInfo = result.GetT4MVCResult();
+            return RedirectToRoute(callInfo.RouteValueDictionary);
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected RedirectToRouteResult RedirectToActionPermanent(ActionResult result)
+        {
+            var callInfo = result.GetT4MVCResult();
+            return RedirectToRoutePermanent(callInfo.RouteValueDictionary);
+        }
+
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Index()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
+            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult Validate()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Validate);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Post()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Post);
+            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public SignUpVerifySecretController Actions { get { return MVC.SignUpVerifySecret; } }
+        [GeneratedCode("T4MVC", "2.0")]
+        public readonly string Area = "";
+        [GeneratedCode("T4MVC", "2.0")]
+        public readonly string Name = "SignUpVerifySecret";
+        [GeneratedCode("T4MVC", "2.0")]
+        public const string NameConst = "SignUpVerifySecret";
+
+        static readonly ActionNamesClass s_actions = new ActionNamesClass();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionNamesClass ActionNames { get { return s_actions; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionNamesClass
+        {
+            public readonly string Index = "Index";
+            public readonly string Validate = "Validate";
+            public readonly string Post = "Post";
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionNameConstants
+        {
+            public const string Index = "Index";
+            public const string Validate = "Validate";
+            public const string Post = "Post";
+        }
+
+
+        static readonly ActionParamsClass_Index s_params_Index = new ActionParamsClass_Index();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_Index IndexParams { get { return s_params_Index; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_Index
+        {
+            public readonly string ticket = "ticket";
+            public readonly string returnUrl = "returnUrl";
+        }
+        static readonly ActionParamsClass_Validate s_params_Validate = new ActionParamsClass_Validate();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_Validate ValidateParams { get { return s_params_Validate; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_Validate
+        {
+            public readonly string command = "command";
+            public readonly string fieldName = "fieldName";
+        }
+        static readonly ActionParamsClass_Post s_params_Post = new ActionParamsClass_Post();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_Post PostParams { get { return s_params_Post; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_Post
+        {
+            public readonly string ticket = "ticket";
+            public readonly string command = "command";
+            public readonly string returnUrl = "returnUrl";
+            public readonly string emailAddress = "emailAddress";
+        }
+        static readonly ViewsClass s_views = new ViewsClass();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ViewsClass Views { get { return s_views; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ViewsClass
+        {
+            static readonly _ViewNamesClass s_ViewNames = new _ViewNamesClass();
+            public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
+            public class _ViewNamesClass
+            {
+            }
+        }
+    }
+
+    [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+    public partial class T4MVC_SignUpVerifySecretController : Tripod.Web.Controllers.SignUpVerifySecretController
+    {
+        public T4MVC_SignUpVerifySecretController() : base(Dummy.Instance) { }
+
+        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ticket, string returnUrl);
+
+        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Index(string ticket, string returnUrl)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ticket", ticket);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "returnUrl", returnUrl);
+            IndexOverride(callInfo, ticket, returnUrl);
+            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
+        }
+
+        partial void ValidateOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Tripod.Domain.Security.VerifyEmailSecret command, string fieldName);
+
+        public override System.Web.Mvc.ActionResult Validate(Tripod.Domain.Security.VerifyEmailSecret command, string fieldName)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Validate);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "command", command);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "fieldName", fieldName);
+            ValidateOverride(callInfo, command, fieldName);
+            return callInfo;
+        }
+
+        partial void PostOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ticket, Tripod.Domain.Security.VerifyEmailSecret command, string returnUrl, string emailAddress);
+
+        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Post(string ticket, Tripod.Domain.Security.VerifyEmailSecret command, string returnUrl, string emailAddress)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Post);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ticket", ticket);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "command", command);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "returnUrl", returnUrl);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "emailAddress", emailAddress);
+            PostOverride(callInfo, ticket, command, returnUrl, emailAddress);
+            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
+        }
+
+    }
+}
+
+namespace Tripod.Web.Controllers
+{
+    public partial class UserEmailConfirmController
+    {
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected UserEmailConfirmController(Dummy d) { }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected RedirectToRouteResult RedirectToAction(ActionResult result)
+        {
+            var callInfo = result.GetT4MVCResult();
+            return RedirectToRoute(callInfo.RouteValueDictionary);
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected RedirectToRouteResult RedirectToActionPermanent(ActionResult result)
+        {
+            var callInfo = result.GetT4MVCResult();
+            return RedirectToRoutePermanent(callInfo.RouteValueDictionary);
+        }
+
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Index()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
+            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Post()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Post);
+            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Reject()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Reject);
+            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public UserEmailConfirmController Actions { get { return MVC.UserEmailConfirm; } }
+        [GeneratedCode("T4MVC", "2.0")]
+        public readonly string Area = "";
+        [GeneratedCode("T4MVC", "2.0")]
+        public readonly string Name = "UserEmailConfirm";
+        [GeneratedCode("T4MVC", "2.0")]
+        public const string NameConst = "UserEmailConfirm";
+
+        static readonly ActionNamesClass s_actions = new ActionNamesClass();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionNamesClass ActionNames { get { return s_actions; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionNamesClass
+        {
+            public readonly string Index = "Index";
+            public readonly string Post = "Post";
+            public readonly string Reject = "Reject";
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionNameConstants
+        {
+            public const string Index = "Index";
+            public const string Post = "Post";
+            public const string Reject = "Reject";
+        }
+
+
+        static readonly ActionParamsClass_Index s_params_Index = new ActionParamsClass_Index();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_Index IndexParams { get { return s_params_Index; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_Index
+        {
+            public readonly string token = "token";
+            public readonly string ticket = "ticket";
+        }
+        static readonly ActionParamsClass_Post s_params_Post = new ActionParamsClass_Post();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_Post PostParams { get { return s_params_Post; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_Post
+        {
+            public readonly string command = "command";
+            public readonly string emailAddress = "emailAddress";
+        }
+        static readonly ActionParamsClass_Reject s_params_Reject = new ActionParamsClass_Reject();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_Reject RejectParams { get { return s_params_Reject; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_Reject
+        {
+            public readonly string command = "command";
+            public readonly string emailAddress = "emailAddress";
+        }
+        static readonly ViewsClass s_views = new ViewsClass();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ViewsClass Views { get { return s_views; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ViewsClass
+        {
+            static readonly _ViewNamesClass s_ViewNames = new _ViewNamesClass();
+            public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
+            public class _ViewNamesClass
+            {
+            }
+        }
+    }
+
+    [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+    public partial class T4MVC_UserEmailConfirmController : Tripod.Web.Controllers.UserEmailConfirmController
+    {
+        public T4MVC_UserEmailConfirmController() : base(Dummy.Instance) { }
+
+        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string token, string ticket);
+
+        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Index(string token, string ticket)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "token", token);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ticket", ticket);
+            IndexOverride(callInfo, token, ticket);
+            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
+        }
+
+        partial void PostOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Tripod.Domain.Security.RedeemEmailVerification command, string emailAddress);
+
+        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Post(Tripod.Domain.Security.RedeemEmailVerification command, string emailAddress)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Post);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "command", command);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "emailAddress", emailAddress);
+            PostOverride(callInfo, command, emailAddress);
+            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
+        }
+
+        partial void RejectOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Tripod.Domain.Security.RejectEmailVerification command, string emailAddress);
+
+        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Reject(Tripod.Domain.Security.RejectEmailVerification command, string emailAddress)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Reject);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "command", command);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "emailAddress", emailAddress);
+            RejectOverride(callInfo, command, emailAddress);
+            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
+        }
+
+    }
+}
+
+namespace Tripod.Web.Controllers
+{
+    public partial class UserEmailsController
+    {
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected UserEmailsController(Dummy d) { }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected RedirectToRouteResult RedirectToAction(ActionResult result)
+        {
+            var callInfo = result.GetT4MVCResult();
+            return RedirectToRoute(callInfo.RouteValueDictionary);
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected RedirectToRouteResult RedirectToActionPermanent(ActionResult result)
+        {
+            var callInfo = result.GetT4MVCResult();
+            return RedirectToRoutePermanent(callInfo.RouteValueDictionary);
+        }
+
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Post()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Post);
+            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Put()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Put);
+            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Delete()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Delete);
+            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public UserEmailsController Actions { get { return MVC.UserEmails; } }
+        [GeneratedCode("T4MVC", "2.0")]
+        public readonly string Area = "";
+        [GeneratedCode("T4MVC", "2.0")]
+        public readonly string Name = "UserEmails";
+        [GeneratedCode("T4MVC", "2.0")]
+        public const string NameConst = "UserEmails";
+
+        static readonly ActionNamesClass s_actions = new ActionNamesClass();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionNamesClass ActionNames { get { return s_actions; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionNamesClass
+        {
+            public readonly string Index = "Index";
+            public readonly string Post = "Post";
+            public readonly string Put = "Put";
+            public readonly string Delete = "Delete";
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionNameConstants
+        {
+            public const string Index = "Index";
+            public const string Post = "Post";
+            public const string Put = "Put";
+            public const string Delete = "Delete";
+        }
+
+
+        static readonly ActionParamsClass_Post s_params_Post = new ActionParamsClass_Post();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_Post PostParams { get { return s_params_Post; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_Post
+        {
+            public readonly string command = "command";
+        }
+        static readonly ActionParamsClass_Put s_params_Put = new ActionParamsClass_Put();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_Put PutParams { get { return s_params_Put; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_Put
+        {
+            public readonly string emailAddressId = "emailAddressId";
+            public readonly string command = "command";
+        }
+        static readonly ActionParamsClass_Delete s_params_Delete = new ActionParamsClass_Delete();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_Delete DeleteParams { get { return s_params_Delete; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_Delete
+        {
+            public readonly string emailAddressId = "emailAddressId";
+            public readonly string command = "command";
+        }
+        static readonly ViewsClass s_views = new ViewsClass();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ViewsClass Views { get { return s_views; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ViewsClass
+        {
+            static readonly _ViewNamesClass s_ViewNames = new _ViewNamesClass();
+            public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
+            public class _ViewNamesClass
+            {
+            }
+        }
+    }
+
+    [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+    public partial class T4MVC_UserEmailsController : Tripod.Web.Controllers.UserEmailsController
+    {
+        public T4MVC_UserEmailsController() : base(Dummy.Instance) { }
+
+        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Index()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
+            IndexOverride(callInfo);
+            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
+        }
+
+        partial void PostOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Tripod.Domain.Security.SendVerificationEmail command);
+
+        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Post(Tripod.Domain.Security.SendVerificationEmail command)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Post);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "command", command);
+            PostOverride(callInfo, command);
+            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
+        }
+
+        partial void PutOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int emailAddressId, Tripod.Domain.Security.UpdateEmailAddress command);
+
+        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Put(int emailAddressId, Tripod.Domain.Security.UpdateEmailAddress command)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Put);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "emailAddressId", emailAddressId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "command", command);
+            PutOverride(callInfo, emailAddressId, command);
+            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
+        }
+
+        partial void DeleteOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int emailAddressId, Tripod.Domain.Security.DeleteEmailAddress command);
+
+        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Delete(int emailAddressId, Tripod.Domain.Security.DeleteEmailAddress command)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Delete);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "emailAddressId", emailAddressId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "command", command);
+            DeleteOverride(callInfo, emailAddressId, command);
+            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
+        }
+
+    }
+}
+
+namespace Tripod.Web.Controllers
+{
+    public partial class UserEmailVerifySecretController
+    {
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected UserEmailVerifySecretController(Dummy d) { }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected RedirectToRouteResult RedirectToAction(ActionResult result)
+        {
+            var callInfo = result.GetT4MVCResult();
+            return RedirectToRoute(callInfo.RouteValueDictionary);
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected RedirectToRouteResult RedirectToActionPermanent(ActionResult result)
+        {
+            var callInfo = result.GetT4MVCResult();
+            return RedirectToRoutePermanent(callInfo.RouteValueDictionary);
+        }
+
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Index()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
+            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Post()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Post);
+            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public UserEmailVerifySecretController Actions { get { return MVC.UserEmailVerifySecret; } }
+        [GeneratedCode("T4MVC", "2.0")]
+        public readonly string Area = "";
+        [GeneratedCode("T4MVC", "2.0")]
+        public readonly string Name = "UserEmailVerifySecret";
+        [GeneratedCode("T4MVC", "2.0")]
+        public const string NameConst = "UserEmailVerifySecret";
+
+        static readonly ActionNamesClass s_actions = new ActionNamesClass();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionNamesClass ActionNames { get { return s_actions; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionNamesClass
+        {
+            public readonly string Index = "Index";
+            public readonly string Post = "Post";
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionNameConstants
+        {
+            public const string Index = "Index";
+            public const string Post = "Post";
+        }
+
+
+        static readonly ActionParamsClass_Index s_params_Index = new ActionParamsClass_Index();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_Index IndexParams { get { return s_params_Index; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_Index
+        {
+            public readonly string ticket = "ticket";
+        }
+        static readonly ActionParamsClass_Post s_params_Post = new ActionParamsClass_Post();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_Post PostParams { get { return s_params_Post; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_Post
+        {
+            public readonly string ticket = "ticket";
+            public readonly string command = "command";
+            public readonly string emailAddress = "emailAddress";
+        }
+        static readonly ViewsClass s_views = new ViewsClass();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ViewsClass Views { get { return s_views; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ViewsClass
+        {
+            static readonly _ViewNamesClass s_ViewNames = new _ViewNamesClass();
+            public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
+            public class _ViewNamesClass
+            {
+            }
+        }
+    }
+
+    [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+    public partial class T4MVC_UserEmailVerifySecretController : Tripod.Web.Controllers.UserEmailVerifySecretController
+    {
+        public T4MVC_UserEmailVerifySecretController() : base(Dummy.Instance) { }
+
+        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ticket);
+
+        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Index(string ticket)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ticket", ticket);
+            IndexOverride(callInfo, ticket);
+            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
+        }
+
+        partial void PostOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ticket, Tripod.Domain.Security.VerifyEmailSecret command, string emailAddress);
+
+        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Post(string ticket, Tripod.Domain.Security.VerifyEmailSecret command, string emailAddress)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Post);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ticket", ticket);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "command", command);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "emailAddress", emailAddress);
+            PostOverride(callInfo, ticket, command, emailAddress);
+            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
+        }
+
+    }
+}
+
+namespace Tripod.Web.Controllers
+{
+    public partial class UserLoginsController
+    {
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected UserLoginsController(Dummy d) { }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected RedirectToRouteResult RedirectToAction(ActionResult result)
+        {
+            var callInfo = result.GetT4MVCResult();
+            return RedirectToRoute(callInfo.RouteValueDictionary);
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected RedirectToRouteResult RedirectToActionPermanent(ActionResult result)
+        {
+            var callInfo = result.GetT4MVCResult();
+            return RedirectToRoutePermanent(callInfo.RouteValueDictionary);
+        }
+
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult Post()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Post);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> LinkLoginCallback()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.LinkLoginCallback);
+            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Delete()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Delete);
+            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public UserLoginsController Actions { get { return MVC.UserLogins; } }
+        [GeneratedCode("T4MVC", "2.0")]
+        public readonly string Area = "";
+        [GeneratedCode("T4MVC", "2.0")]
+        public readonly string Name = "UserLogins";
+        [GeneratedCode("T4MVC", "2.0")]
+        public const string NameConst = "UserLogins";
+
+        static readonly ActionNamesClass s_actions = new ActionNamesClass();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionNamesClass ActionNames { get { return s_actions; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionNamesClass
+        {
+            public readonly string Index = "Index";
+            public readonly string Post = "Post";
+            public readonly string LinkLoginCallback = "LinkLoginCallback";
+            public readonly string Delete = "Delete";
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionNameConstants
+        {
+            public const string Index = "Index";
+            public const string Post = "Post";
+            public const string LinkLoginCallback = "LinkLoginCallback";
+            public const string Delete = "Delete";
+        }
+
+
+        static readonly ActionParamsClass_Post s_params_Post = new ActionParamsClass_Post();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_Post PostParams { get { return s_params_Post; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_Post
+        {
+            public readonly string provider = "provider";
+            public readonly string returnUrl = "returnUrl";
+        }
+        static readonly ActionParamsClass_LinkLoginCallback s_params_LinkLoginCallback = new ActionParamsClass_LinkLoginCallback();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_LinkLoginCallback LinkLoginCallbackParams { get { return s_params_LinkLoginCallback; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_LinkLoginCallback
+        {
+            public readonly string provider = "provider";
+            public readonly string returnUrl = "returnUrl";
+        }
+        static readonly ActionParamsClass_Delete s_params_Delete = new ActionParamsClass_Delete();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_Delete DeleteParams { get { return s_params_Delete; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_Delete
+        {
+            public readonly string loginProvider = "loginProvider";
+            public readonly string command = "command";
+        }
+        static readonly ViewsClass s_views = new ViewsClass();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ViewsClass Views { get { return s_views; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ViewsClass
+        {
+            static readonly _ViewNamesClass s_ViewNames = new _ViewNamesClass();
+            public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
+            public class _ViewNamesClass
+            {
+            }
+        }
+    }
+
+    [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+    public partial class T4MVC_UserLoginsController : Tripod.Web.Controllers.UserLoginsController
+    {
+        public T4MVC_UserLoginsController() : base(Dummy.Instance) { }
+
+        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Index()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
+            IndexOverride(callInfo);
+            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
+        }
+
+        partial void PostOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string provider, string returnUrl);
+
+        public override System.Web.Mvc.ActionResult Post(string provider, string returnUrl)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Post);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "provider", provider);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "returnUrl", returnUrl);
+            PostOverride(callInfo, provider, returnUrl);
+            return callInfo;
+        }
+
+        partial void LinkLoginCallbackOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string provider, string returnUrl);
+
+        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> LinkLoginCallback(string provider, string returnUrl)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.LinkLoginCallback);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "provider", provider);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "returnUrl", returnUrl);
+            LinkLoginCallbackOverride(callInfo, provider, returnUrl);
+            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
+        }
+
+        partial void DeleteOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string loginProvider, Tripod.Domain.Security.DeleteRemoteMembership command);
+
+        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Delete(string loginProvider, Tripod.Domain.Security.DeleteRemoteMembership command)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Delete);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "loginProvider", loginProvider);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "command", command);
+            DeleteOverride(callInfo, loginProvider, command);
+            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
+        }
+
+    }
+}
+
+namespace Tripod.Web.Controllers
+{
+    public partial class UserNameController
+    {
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected UserNameController(Dummy d) { }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected RedirectToRouteResult RedirectToAction(ActionResult result)
+        {
+            var callInfo = result.GetT4MVCResult();
+            return RedirectToRoute(callInfo.RouteValueDictionary);
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected RedirectToRouteResult RedirectToActionPermanent(ActionResult result)
+        {
+            var callInfo = result.GetT4MVCResult();
+            return RedirectToRoutePermanent(callInfo.RouteValueDictionary);
+        }
+
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Put()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Put);
+            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult ValidatePut()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ValidatePut);
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public UserNameController Actions { get { return MVC.UserName; } }
+        [GeneratedCode("T4MVC", "2.0")]
+        public readonly string Area = "";
+        [GeneratedCode("T4MVC", "2.0")]
+        public readonly string Name = "UserName";
+        [GeneratedCode("T4MVC", "2.0")]
+        public const string NameConst = "UserName";
+
+        static readonly ActionNamesClass s_actions = new ActionNamesClass();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionNamesClass ActionNames { get { return s_actions; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionNamesClass
+        {
+            public readonly string Index = "Index";
+            public readonly string Put = "Put";
+            public readonly string ValidatePut = "ValidatePut";
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionNameConstants
+        {
+            public const string Index = "Index";
+            public const string Put = "Put";
+            public const string ValidatePut = "ValidatePut";
+        }
+
+
+        static readonly ActionParamsClass_Put s_params_Put = new ActionParamsClass_Put();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_Put PutParams { get { return s_params_Put; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_Put
+        {
+            public readonly string command = "command";
+        }
+        static readonly ActionParamsClass_ValidatePut s_params_ValidatePut = new ActionParamsClass_ValidatePut();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_ValidatePut ValidatePutParams { get { return s_params_ValidatePut; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_ValidatePut
+        {
+            public readonly string command = "command";
+        }
+        static readonly ViewsClass s_views = new ViewsClass();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ViewsClass Views { get { return s_views; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ViewsClass
+        {
+            static readonly _ViewNamesClass s_ViewNames = new _ViewNamesClass();
+            public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
+            public class _ViewNamesClass
+            {
+            }
+        }
+    }
+
+    [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+    public partial class T4MVC_UserNameController : Tripod.Web.Controllers.UserNameController
+    {
+        public T4MVC_UserNameController() : base(Dummy.Instance) { }
+
+        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Index()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
+            IndexOverride(callInfo);
+            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
+        }
+
+        partial void PutOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Tripod.Domain.Security.ChangeUserName command);
+
+        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Put(Tripod.Domain.Security.ChangeUserName command)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Put);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "command", command);
+            PutOverride(callInfo, command);
+            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
+        }
+
+        partial void ValidatePutOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Tripod.Domain.Security.ChangeUserName command);
+
+        public override System.Web.Mvc.ActionResult ValidatePut(Tripod.Domain.Security.ChangeUserName command)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ValidatePut);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "command", command);
+            ValidatePutOverride(callInfo, command);
+            return callInfo;
+        }
+
+    }
+}
+
+namespace Tripod.Web.Controllers
+{
+    public partial class UserPasswordController
+    {
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected UserPasswordController(Dummy d) { }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected RedirectToRouteResult RedirectToAction(ActionResult result)
+        {
+            var callInfo = result.GetT4MVCResult();
+            return RedirectToRoute(callInfo.RouteValueDictionary);
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected RedirectToRouteResult RedirectToActionPermanent(ActionResult result)
+        {
+            var callInfo = result.GetT4MVCResult();
+            return RedirectToRoutePermanent(callInfo.RouteValueDictionary);
+        }
+
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Post()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Post);
+            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Put()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Put);
+            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult ValidatePut()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ValidatePut);
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public UserPasswordController Actions { get { return MVC.UserPassword; } }
+        [GeneratedCode("T4MVC", "2.0")]
+        public readonly string Area = "";
+        [GeneratedCode("T4MVC", "2.0")]
+        public readonly string Name = "UserPassword";
+        [GeneratedCode("T4MVC", "2.0")]
+        public const string NameConst = "UserPassword";
+
+        static readonly ActionNamesClass s_actions = new ActionNamesClass();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionNamesClass ActionNames { get { return s_actions; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionNamesClass
+        {
+            public readonly string Index = "Index";
+            public readonly string Post = "Post";
+            public readonly string Put = "Put";
+            public readonly string ValidatePut = "ValidatePut";
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionNameConstants
+        {
+            public const string Index = "Index";
+            public const string Post = "Post";
+            public const string Put = "Put";
+            public const string ValidatePut = "ValidatePut";
+        }
+
+
+        static readonly ActionParamsClass_Post s_params_Post = new ActionParamsClass_Post();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_Post PostParams { get { return s_params_Post; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_Post
+        {
+            public readonly string command = "command";
+        }
+        static readonly ActionParamsClass_Put s_params_Put = new ActionParamsClass_Put();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_Put PutParams { get { return s_params_Put; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_Put
+        {
+            public readonly string command = "command";
+        }
+        static readonly ActionParamsClass_ValidatePut s_params_ValidatePut = new ActionParamsClass_ValidatePut();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_ValidatePut ValidatePutParams { get { return s_params_ValidatePut; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_ValidatePut
+        {
+            public readonly string command = "command";
+            public readonly string fieldName = "fieldName";
+        }
+        static readonly ViewsClass s_views = new ViewsClass();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ViewsClass Views { get { return s_views; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ViewsClass
+        {
+            static readonly _ViewNamesClass s_ViewNames = new _ViewNamesClass();
+            public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
+            public class _ViewNamesClass
+            {
+            }
+        }
+    }
+
+    [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+    public partial class T4MVC_UserPasswordController : Tripod.Web.Controllers.UserPasswordController
+    {
+        public T4MVC_UserPasswordController() : base(Dummy.Instance) { }
+
+        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Index()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
+            IndexOverride(callInfo);
+            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
+        }
+
+        partial void PostOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Tripod.Domain.Security.CreateLocalMembership command);
+
+        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Post(Tripod.Domain.Security.CreateLocalMembership command)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Post);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "command", command);
+            PostOverride(callInfo, command);
+            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
+        }
+
+        partial void PutOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Tripod.Domain.Security.ChangeLocalPassword command);
+
+        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Put(Tripod.Domain.Security.ChangeLocalPassword command)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Put);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "command", command);
+            PutOverride(callInfo, command);
+            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
+        }
+
+        partial void ValidatePutOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, Tripod.Domain.Security.ChangeLocalPassword command, string fieldName);
+
+        public override System.Web.Mvc.ActionResult ValidatePut(Tripod.Domain.Security.ChangeLocalPassword command, string fieldName)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ValidatePut);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "command", command);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "fieldName", fieldName);
+            ValidatePutOverride(callInfo, command, fieldName);
+            return callInfo;
+        }
+
+    }
+}
+
+namespace Tripod.Web.Controllers
+{
+    public partial class UsersController
+    {
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected UsersController(Dummy d) { }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected RedirectToRouteResult RedirectToAction(ActionResult result)
+        {
+            var callInfo = result.GetT4MVCResult();
+            return RedirectToRoute(callInfo.RouteValueDictionary);
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected RedirectToRouteResult RedirectToActionPermanent(ActionResult result)
+        {
+            var callInfo = result.GetT4MVCResult();
+            return RedirectToRoutePermanent(callInfo.RouteValueDictionary);
+        }
+
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> ById()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ById);
+            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public UsersController Actions { get { return MVC.Users; } }
+        [GeneratedCode("T4MVC", "2.0")]
+        public readonly string Area = "";
+        [GeneratedCode("T4MVC", "2.0")]
+        public readonly string Name = "Users";
+        [GeneratedCode("T4MVC", "2.0")]
+        public const string NameConst = "Users";
+
+        static readonly ActionNamesClass s_actions = new ActionNamesClass();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionNamesClass ActionNames { get { return s_actions; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionNamesClass
+        {
+            public readonly string ById = "ById";
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionNameConstants
+        {
+            public const string ById = "ById";
+        }
+
+
+        static readonly ActionParamsClass_ById s_params_ById = new ActionParamsClass_ById();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_ById ByIdParams { get { return s_params_ById; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_ById
+        {
+            public readonly string userId = "userId";
+        }
+        static readonly ViewsClass s_views = new ViewsClass();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ViewsClass Views { get { return s_views; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ViewsClass
+        {
+            static readonly _ViewNamesClass s_ViewNames = new _ViewNamesClass();
+            public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
+            public class _ViewNamesClass
+            {
+                public readonly string _UserJumbotron = "_UserJumbotron";
+                public readonly string User = "User";
+            }
+            public readonly string _UserJumbotron = "~/Views/Users/_UserJumbotron.cshtml";
+            public readonly string User = "~/Views/Users/User.cshtml";
+        }
+    }
+
+    [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+    public partial class T4MVC_UsersController : Tripod.Web.Controllers.UsersController
+    {
+        public T4MVC_UsersController() : base(Dummy.Instance) { }
+
+        partial void ByIdOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int userId);
+
+        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> ById(int userId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ById);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "userId", userId);
+            ByIdOverride(callInfo, userId);
+            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
+        }
+
+    }
+}
+
+namespace T4MVC
+{
+    public class ScriptsController
+    {
+
+        static readonly ViewsClass s_views = new ViewsClass();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ViewsClass Views { get { return s_views; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ViewsClass
+        {
+            static readonly _ViewNamesClass s_ViewNames = new _ViewNamesClass();
+            public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
+            public class _ViewNamesClass
+            {
+                public readonly string Angular = "Angular";
+            }
+            public readonly string Angular = "~/Views/Scripts/Angular.cshtml";
+        }
+    }
+
+}
+
+namespace T4MVC
+{
+    public class SecurityController
+    {
+
+        static readonly ViewsClass s_views = new ViewsClass();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ViewsClass Views { get { return s_views; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ViewsClass
+        {
+            static readonly _ViewNamesClass s_ViewNames = new _ViewNamesClass();
+            public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
+            public class _ViewNamesClass
+            {
+                public readonly string SignIn = "SignIn";
+            }
+            public readonly string SignIn = "~/Views/Security/SignIn.cshtml";
+            static readonly _ResetPasswordClass s_ResetPassword = new _ResetPasswordClass();
+            public _ResetPasswordClass ResetPassword { get { return s_ResetPassword; } }
+            [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+            public partial class _ResetPasswordClass
+            {
+                static readonly _ViewNamesClass s_ViewNames = new _ViewNamesClass();
+                public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
+                public class _ViewNamesClass
+                {
+                    public readonly string ResetPassword = "ResetPassword";
+                    public readonly string SendEmail = "SendEmail";
+                    public readonly string VerifySecret = "VerifySecret";
+                }
+                public readonly string ResetPassword = "~/Views/Security/ResetPassword/ResetPassword.cshtml";
+                public readonly string SendEmail = "~/Views/Security/ResetPassword/SendEmail.cshtml";
+                public readonly string VerifySecret = "~/Views/Security/ResetPassword/VerifySecret.cshtml";
+            }
+            static readonly _SharedFormsClass s_SharedForms = new _SharedFormsClass();
+            public _SharedFormsClass SharedForms { get { return s_SharedForms; } }
+            [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+            public partial class _SharedFormsClass
+            {
+                static readonly _ViewNamesClass s_ViewNames = new _ViewNamesClass();
+                public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
+                public class _ViewNamesClass
+                {
+                    public readonly string _ChangePasswordForm = "_ChangePasswordForm";
+                    public readonly string _ChangeUserNameForm = "_ChangeUserNameForm";
+                    public readonly string _CreatePasswordForm = "_CreatePasswordForm";
+                    public readonly string _SendVerificationEmailForm = "_SendVerificationEmailForm";
+                    public readonly string _SignOnForm = "_SignOnForm";
+                    public readonly string _VerifyEmailSecretForm = "_VerifyEmailSecretForm";
+                }
+                public readonly string _ChangePasswordForm = "~/Views/Security/SharedForms/_ChangePasswordForm.cshtml";
+                public readonly string _ChangeUserNameForm = "~/Views/Security/SharedForms/_ChangeUserNameForm.cshtml";
+                public readonly string _CreatePasswordForm = "~/Views/Security/SharedForms/_CreatePasswordForm.cshtml";
+                public readonly string _SendVerificationEmailForm = "~/Views/Security/SharedForms/_SendVerificationEmailForm.cshtml";
+                public readonly string _SignOnForm = "~/Views/Security/SharedForms/_SignOnForm.cshtml";
+                public readonly string _VerifyEmailSecretForm = "~/Views/Security/SharedForms/_VerifyEmailSecretForm.cshtml";
+            }
+            static readonly _SharedViewsClass s_SharedViews = new _SharedViewsClass();
+            public _SharedViewsClass SharedViews { get { return s_SharedViews; } }
+            [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+            public partial class _SharedViewsClass
+            {
+                static readonly _ViewNamesClass s_ViewNames = new _ViewNamesClass();
+                public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
+                public class _ViewNamesClass
+                {
+                    public readonly string _SignOnFacebookButton = "_SignOnFacebookButton";
+                    public readonly string _SignOnGoogleButton = "_SignOnGoogleButton";
+                    public readonly string _SignOnTwitterButton = "_SignOnTwitterButton";
+                    public readonly string _UserSettingsNav = "_UserSettingsNav";
+                    public readonly string _VerifyEmailWizardSteps = "_VerifyEmailWizardSteps";
+                }
+                public readonly string _SignOnFacebookButton = "~/Views/Security/SharedViews/_SignOnFacebookButton.cshtml";
+                public readonly string _SignOnGoogleButton = "~/Views/Security/SharedViews/_SignOnGoogleButton.cshtml";
+                public readonly string _SignOnTwitterButton = "~/Views/Security/SharedViews/_SignOnTwitterButton.cshtml";
+                public readonly string _UserSettingsNav = "~/Views/Security/SharedViews/_UserSettingsNav.cshtml";
+                public readonly string _VerifyEmailWizardSteps = "~/Views/Security/SharedViews/_VerifyEmailWizardSteps.cshtml";
+            }
+            static readonly _SignOnClass s_SignOn = new _SignOnClass();
+            public _SignOnClass SignOn { get { return s_SignOn; } }
+            [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+            public partial class _SignOnClass
+            {
+                static readonly _ViewNamesClass s_ViewNames = new _ViewNamesClass();
+                public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
+                public class _ViewNamesClass
+                {
+                    public readonly string CreateUser = "CreateUser";
+                    public readonly string SendEmail = "SendEmail";
+                    public readonly string VerifySecret = "VerifySecret";
+                }
+                public readonly string CreateUser = "~/Views/Security/SignOn/CreateUser.cshtml";
+                public readonly string SendEmail = "~/Views/Security/SignOn/SendEmail.cshtml";
+                public readonly string VerifySecret = "~/Views/Security/SignOn/VerifySecret.cshtml";
+            }
+            static readonly _SignUpClass s_SignUp = new _SignUpClass();
+            public _SignUpClass SignUp { get { return s_SignUp; } }
+            [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+            public partial class _SignUpClass
+            {
+                static readonly _ViewNamesClass s_ViewNames = new _ViewNamesClass();
+                public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
+                public class _ViewNamesClass
+                {
+                    public readonly string CreateUser = "CreateUser";
+                    public readonly string SendEmail = "SendEmail";
+                    public readonly string VerifySecret = "VerifySecret";
+                }
+                public readonly string CreateUser = "~/Views/Security/SignUp/CreateUser.cshtml";
+                public readonly string SendEmail = "~/Views/Security/SignUp/SendEmail.cshtml";
+                public readonly string VerifySecret = "~/Views/Security/SignUp/VerifySecret.cshtml";
+            }
+            static readonly _UserClass s_User = new _UserClass();
+            public _UserClass User { get { return s_User; } }
+            [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+            public partial class _UserClass
+            {
+                static readonly _ViewNamesClass s_ViewNames = new _ViewNamesClass();
+                public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
+                public class _ViewNamesClass
+                {
+                    public readonly string AddEmailConfirm = "AddEmailConfirm";
+                    public readonly string AddEmailVerifySecret = "AddEmailVerifySecret";
+                    public readonly string ChangePassword = "ChangePassword";
+                    public readonly string CreatePassword = "CreatePassword";
+                    public readonly string EmailAddresses = "EmailAddresses";
+                    public readonly string Logins = "Logins";
+                    public readonly string Settings = "Settings";
+                }
+                public readonly string AddEmailConfirm = "~/Views/Security/User/AddEmailConfirm.cshtml";
+                public readonly string AddEmailVerifySecret = "~/Views/Security/User/AddEmailVerifySecret.cshtml";
+                public readonly string ChangePassword = "~/Views/Security/User/ChangePassword.cshtml";
+                public readonly string CreatePassword = "~/Views/Security/User/CreatePassword.cshtml";
+                public readonly string EmailAddresses = "~/Views/Security/User/EmailAddresses.cshtml";
+                public readonly string Logins = "~/Views/Security/User/Logins.cshtml";
+                public readonly string Settings = "~/Views/Security/User/Settings.cshtml";
+            }
+        }
+    }
+
+}
+
+namespace T4MVC
+{
+    public class SharedController
+    {
+
+        static readonly ViewsClass s_views = new ViewsClass();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ViewsClass Views { get { return s_views; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ViewsClass
+        {
+            static readonly _ViewNamesClass s_ViewNames = new _ViewNamesClass();
+            public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
+            public class _ViewNamesClass
+            {
+                public readonly string _AlertsTempData = "_AlertsTempData";
+                public readonly string _Layout = "_Layout";
+                public readonly string _LayoutNavbar = "_LayoutNavbar";
+                public readonly string Error = "Error";
+            }
+            public readonly string _AlertsTempData = "~/Views/Shared/_AlertsTempData.cshtml";
+            public readonly string _Layout = "~/Views/Shared/_Layout.cshtml";
+            public readonly string _LayoutNavbar = "~/Views/Shared/_LayoutNavbar.cshtml";
+            public readonly string Error = "~/Views/Shared/Error.cshtml";
+        }
+    }
+
+}
 
 
 

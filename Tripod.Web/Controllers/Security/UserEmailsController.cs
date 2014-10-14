@@ -25,8 +25,6 @@ namespace Tripod.Web.Controllers
             _commands = commands;
         }
 
-        #region Index & SendVerificationEmail
-
         [HttpGet, Route("settings/emails")]
         public virtual async Task<ActionResult> Index()
         {
@@ -52,14 +50,14 @@ namespace Tripod.Web.Controllers
                 },
             };
 
-            ViewBag.ActionUrl = Url.Action(MVC.UserEmails.SendVerificationEmail());
+            ViewBag.ActionUrl = Url.Action(MVC.UserEmails.Post());
             ViewBag.Purpose = model.SendVerificationEmail.Purpose;
-            return View(MVC.Security.Views.UserEmailAddresses, model);
+            return View(MVC.Security.Views.User.EmailAddresses, model);
         }
 
         [ValidateAntiForgeryToken]
         [HttpPost, Route("settings/emails")]
-        public virtual async Task<ActionResult> SendVerificationEmail(SendVerificationEmail command)
+        public virtual async Task<ActionResult> Post(SendVerificationEmail command)
         {
             if (command == null || command.Purpose == EmailVerificationPurpose.Invalid)
             {
@@ -86,8 +84,8 @@ namespace Tripod.Web.Controllers
                 };
 
                 TempData.Alerts("**Could not send verification email due to error(s) below.**", AlertFlavor.Danger);
-                ViewBag.ActionUrl = Url.Action(MVC.UserEmails.SendVerificationEmail());
-                return View(MVC.Security.Views.UserEmailAddresses, model);
+                ViewBag.ActionUrl = Url.Action(MVC.UserEmails.Post());
+                return View(MVC.Security.Views.User.EmailAddresses, model);
             }
 
             command.VerifyUrlFormat = VerifyUrlFormat();
@@ -96,13 +94,13 @@ namespace Tripod.Web.Controllers
 
             Session.VerifyEmailTickets(command.CreatedTicket);
 
-            return RedirectToAction(await MVC.UserEmails.VerifyEmailSecret(command.CreatedTicket));
+            return RedirectToAction(await MVC.UserEmailVerifySecret.Index(command.CreatedTicket));
         }
 
         private string VerifyUrlFormat()
         {
             Debug.Assert(Request.Url != null);
-            var encodedUrlFormat = Url.Action(MVC.UserEmails.RedeemEmailVerification("{0}", "{1}"));
+            var encodedUrlFormat = Url.Action(MVC.UserEmailConfirm.Index("{0}", "{1}"));
             var decodedUrlFormat = HttpUtility.UrlDecode(encodedUrlFormat);
             return string.Format("{0}://{1}{2}", Request.Url.Scheme, Request.Url.Authority, decodedUrlFormat);
         }
@@ -114,123 +112,9 @@ namespace Tripod.Web.Controllers
             return string.Format("{0}://{1}{2}", Request.Url.Scheme, Request.Url.Authority, url);
         }
 
-        #endregion
-        #region VerifyConfirmEmailSecret
-
-        [HttpGet, Route("settings/emails/{ticket}", Order = 2)]
-        public virtual async Task<ActionResult> VerifyEmailSecret(string ticket)
-        {
-            var verification = await _queries.Execute(new EmailVerificationBy(ticket)
-            {
-                EagerLoad = new Expression<Func<EmailVerification, object>>[]
-                {
-                    x => x.EmailAddress,
-                }
-            });
-            if (verification == null) return HttpNotFound();
-
-            // todo: confirmation token must not be redeemed, expired, or for different purpose
-
-            ViewBag.ActionUrl = Url.Action(MVC.UserEmails.VerifyEmailSecret(ticket));
-            ViewBag.Ticket = ticket;
-            ViewBag.Purpose = EmailVerificationPurpose.AddEmail;
-            if (Session.VerifyEmailTickets().Contains(ticket))
-                ViewBag.EmailAddress = verification.EmailAddress.Value;
-            return View(MVC.Security.Views.AddEmailVerifyEmailSecret);
-        }
-
-        [ValidateAntiForgeryToken]
-        [HttpPost, Route("settings/emails/{ticket}", Order = 2)]
-        public virtual async Task<ActionResult> VerifyEmailSecret(VerifyEmailSecret command, string emailAddress)
-        {
-            //System.Threading.Thread.Sleep(new Random().Next(5000, 5001));
-
-            if (command == null) return View(MVC.Errors.Views.BadRequest);
-
-            if (!ModelState.IsValid)
-            {
-                ViewBag.ActionUrl = Url.Action(MVC.UserEmails.VerifyEmailSecret(command.Ticket));
-                ViewBag.Ticket = command.Ticket;
-                ViewBag.Purpose = EmailVerificationPurpose.AddEmail;
-                if (Session.VerifyEmailTickets().Contains(command.Ticket))
-                    ViewBag.EmailAddress = emailAddress;
-                return View(MVC.Security.Views.AddEmailVerifyEmailSecret, command);
-            }
-
-            await _commands.Execute(command);
-
-            return RedirectToAction(await MVC.UserEmails.RedeemEmailVerification(command.Token, command.Ticket));
-        }
-
-        #endregion
-        #region RedeemEmailVerification
-
-        [HttpGet, Route("settings/emails/confirm", Order = 1)]
-        public virtual async Task<ActionResult> RedeemEmailVerification(string token, string ticket)
-        {
-            var verification = await _queries.Execute(new EmailVerificationBy(ticket));
-            if (verification == null) return HttpNotFound();
-
-            // todo: verification cannot be expired, redeemed, or for different purpose
-
-            ViewBag.EmailAddress = verification.EmailAddress.Value;
-            ViewBag.Ticket = ticket;
-            ViewBag.Token = token;
-            return View(MVC.Security.Views.AddEmailRedeemEmailVerification);
-        }
-
-        [ValidateAntiForgeryToken]
-        [HttpPost, Route("settings/emails/confirm", Order = 1)]
-        public virtual async Task<ActionResult> RedeemEmailVerification(RedeemEmailVerification command, string emailAddress)
-        {
-            //System.Threading.Thread.Sleep(new Random().Next(5000, 5001));
-
-            if (command == null || string.IsNullOrWhiteSpace(emailAddress))
-                return View(MVC.Errors.Views.BadRequest);
-
-            if (!ModelState.IsValid)
-            {
-                var firstError = ModelState.Values.SelectMany(x => x.Errors.Select(y => y.ErrorMessage)).First();
-                var message = string.Format("Could not confirm email address: **{0}**", firstError);
-                TempData.Alerts(message, AlertFlavor.Danger, true);
-                ViewBag.EmailAddress = emailAddress;
-                ViewBag.Ticket = command.Ticket;
-                ViewBag.Token = command.Token;
-                return View(MVC.Security.Views.AddEmailRedeemEmailVerification, command);
-            }
-
-            await _commands.Execute(command);
-
-            Session.VerifyEmailTickets(null);
-            return this.RedirectToLocal(await MVC.UserEmails.Index());
-        }
-
-        [ValidateAntiForgeryToken]
-        [HttpPost, Route("settings/emails/reject", Order = 1)]
-        public virtual async Task<ActionResult> RejectEmailVerification(RejectEmailVerification command, string emailAddress)
-        {
-            //System.Threading.Thread.Sleep(new Random().Next(5000, 5001));
-
-            if (command == null || string.IsNullOrWhiteSpace(emailAddress))
-                return View(MVC.Errors.Views.BadRequest);
-
-            if (ModelState.IsValid)
-            {
-                await _commands.Execute(command);
-            }
-
-            var message = string.Format("The email address confirmation for **{0}** was rejected.", emailAddress);
-            TempData.Alerts(message, AlertFlavor.Success, true);
-            Session.VerifyEmailTickets(null);
-            return this.RedirectToLocal(await MVC.UserEmails.Index());
-        }
-
-        #endregion
-        #region UpdateEmailAddress
-
         [ValidateAntiForgeryToken]
         [HttpPut, Route("settings/emails/{emailAddressId}")]
-        public virtual async Task<ActionResult> UpdateEmailAddress(int emailAddressId, UpdateEmailAddress command)
+        public virtual async Task<ActionResult> Put(int emailAddressId, UpdateEmailAddress command)
         {
             if (command == null) return View(MVC.Errors.Views.BadRequest);
 
@@ -258,12 +142,9 @@ namespace Tripod.Web.Controllers
             return RedirectToAction(await MVC.UserEmails.Index());
         }
 
-        #endregion
-        #region DeleteEmailAddress
-
         [ValidateAntiForgeryToken]
         [HttpDelete, Route("settings/emails/{emailAddressId}")]
-        public virtual async Task<ActionResult> DeleteEmailAddress(int emailAddressId, DeleteEmailAddress command)
+        public virtual async Task<ActionResult> Delete(int emailAddressId, DeleteEmailAddress command)
         {
             if (command == null) return View(MVC.Errors.Views.BadRequest);
 
@@ -286,7 +167,5 @@ namespace Tripod.Web.Controllers
 
             return RedirectToAction(await MVC.UserEmails.Index());
         }
-
-        #endregion
     }
 }

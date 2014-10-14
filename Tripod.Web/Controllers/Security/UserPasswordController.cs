@@ -32,7 +32,7 @@ namespace Tripod.Web.Controllers
                     UserView = user,
                     Command = new ChangeLocalPassword(),
                 };
-                return View(MVC.Security.Views.ChangePassword, model);
+                return View(MVC.Security.Views.User.ChangePassword, model);
             }
             else
             {
@@ -41,13 +41,13 @@ namespace Tripod.Web.Controllers
                     UserView = user,
                     Command = new CreateLocalMembership(),
                 };
-                return View(MVC.Security.Views.CreatePassword, model);
+                return View(MVC.Security.Views.User.CreatePassword, model);
             }
         }
 
         [ValidateAntiForgeryToken]
         [HttpPost, Route("settings/password")]
-        public virtual async Task<ActionResult> CreateLocalMembership(CreateLocalMembership command)
+        public virtual async Task<ActionResult> Post(CreateLocalMembership command)
         {
             if (command == null) return View(MVC.Errors.Views.BadRequest);
 
@@ -60,7 +60,7 @@ namespace Tripod.Web.Controllers
                     UserView = user,
                     Command = command,
                 };
-                return View(MVC.Security.Views.CreatePassword, model);
+                return View(MVC.Security.Views.User.CreatePassword, model);
             }
 
             await _commands.Execute(command);
@@ -70,7 +70,7 @@ namespace Tripod.Web.Controllers
 
         [ValidateAntiForgeryToken]
         [HttpPut, Route("settings/password")]
-        public virtual async Task<ActionResult> ChangeLocalPassword(ChangeLocalPassword command)
+        public virtual async Task<ActionResult> Put(ChangeLocalPassword command)
         {
             if (command == null) return View(MVC.Errors.Views.BadRequest);
 
@@ -83,7 +83,7 @@ namespace Tripod.Web.Controllers
                     UserView = user,
                     Command = command,
                 };
-                return View(MVC.Security.Views.ChangePassword, model);
+                return View(MVC.Security.Views.User.ChangePassword, model);
             }
 
             await _commands.Execute(command);
@@ -93,7 +93,7 @@ namespace Tripod.Web.Controllers
 
         [ValidateAntiForgeryToken]
         [HttpPost, Route("settings/password/validate/{fieldName?}", Order = 1)]
-        public virtual ActionResult ValidateChangeLocalPassword(ChangeLocalPassword command, string fieldName = null)
+        public virtual ActionResult ValidatePut(ChangeLocalPassword command, string fieldName = null)
         {
             //System.Threading.Thread.Sleep(new Random().Next(5000, 5001));
 

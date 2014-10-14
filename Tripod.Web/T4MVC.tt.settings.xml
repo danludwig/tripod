@@ -78,5 +78,5 @@ for the Import action method.-->
   <ExplicitHtmlHelpersForPartials>False</ExplicitHtmlHelpersForPartials>
   <ExplicitHtmlHelpersForPartialsFormat>Render{0}</ExplicitHtmlHelpersForPartialsFormat>
   <!--If true,the template output will be split into multiple files.-->
-  <SplitIntoMultipleFiles>True</SplitIntoMultipleFiles>
+  <SplitIntoMultipleFiles>False</SplitIntoMultipleFiles>
 </MvcSettings>

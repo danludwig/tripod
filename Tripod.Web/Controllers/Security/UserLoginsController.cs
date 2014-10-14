@@ -44,7 +44,7 @@ namespace Tripod.Web.Controllers
             };
 
             ViewBag.ReturnUrl = Url.Action(MVC.UserLogins.Index());
-            return View(MVC.Security.Views.UserLogins, model);
+            return View(MVC.Security.Views.User.Logins, model);
         }
 
         [ValidateAntiForgeryToken]
