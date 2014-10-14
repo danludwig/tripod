@@ -24,7 +24,7 @@ namespace Tripod.Web.Controllers
             ViewBag.ActionUrl = Url.Action(MVC.SignUpSendEmail.Post());
             ViewBag.Purpose = EmailVerificationPurpose.CreateLocalUser;
             ViewBag.VerifyUrlFormat = VerifyUrlFormat(returnUrl);
-            ViewBag.SendFromUrl = SendFromUrl(returnUrl);
+            ViewBag.SendFromUrl = Url.AbsoluteAction(Request.Url, MVC.SignUpSendEmail.Index(returnUrl));
             return View(MVC.Security.Views.SignUp.SendEmail);
         }
 
@@ -64,7 +64,7 @@ namespace Tripod.Web.Controllers
             }
 
             command.VerifyUrlFormat = VerifyUrlFormat(returnUrl);
-            command.SendFromUrl = SendFromUrl(returnUrl);
+            command.SendFromUrl = Url.AbsoluteAction(Request.Url, MVC.SignUpSendEmail.Index(returnUrl));
             await _commands.Execute(command);
 
             Session.VerifyEmailTickets(command.CreatedTicket);
@@ -80,13 +80,6 @@ namespace Tripod.Web.Controllers
             Debug.Assert(decodedUrlFormat != null);
             var formattedUrl = string.Format(decodedUrlFormat, "{0}", "{1}", returnUrl);
             return string.Format("{0}://{1}{2}", Request.Url.Scheme, Request.Url.Authority, formattedUrl);
-        }
-
-        private string SendFromUrl(string returnUrl)
-        {
-            Debug.Assert(Request.Url != null);
-            var url = Url.Action(MVC.SignUpSendEmail.Index(returnUrl));
-            return string.Format("{0}://{1}{2}", Request.Url.Scheme, Request.Url.Authority, url);
         }
     }
 }

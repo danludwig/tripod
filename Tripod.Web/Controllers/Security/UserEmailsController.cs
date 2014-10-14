@@ -45,7 +45,7 @@ namespace Tripod.Web.Controllers
                 SendVerificationEmail = new SendVerificationEmail
                 {
                     Purpose = EmailVerificationPurpose.AddEmail,
-                    SendFromUrl = SendFromUrl(),
+                    SendFromUrl = Url.AbsoluteAction(Request.Url, await MVC.UserEmails.Index()),
                     VerifyUrlFormat = VerifyUrlFormat(),
                 },
             };
@@ -89,7 +89,7 @@ namespace Tripod.Web.Controllers
             }
 
             command.VerifyUrlFormat = VerifyUrlFormat();
-            command.SendFromUrl = SendFromUrl();
+            command.SendFromUrl = Url.AbsoluteAction(Request.Url, await MVC.UserEmails.Index());
             await _commands.Execute(command);
 
             Session.VerifyEmailTickets(command.CreatedTicket);
@@ -97,19 +97,14 @@ namespace Tripod.Web.Controllers
             return RedirectToAction(await MVC.UserEmailVerifySecret.Index(command.CreatedTicket));
         }
 
-        private string VerifyUrlFormat()
+        private string VerifyUrlFormat(string returnUrl = null)
         {
             Debug.Assert(Request.Url != null);
-            var encodedUrlFormat = Url.Action(MVC.UserEmailConfirm.Index("{0}", "{1}"));
+            var encodedUrlFormat = Url.Action(MVC.SignUpCreateUser.Index("{0}", "{1}", "{2}"));
             var decodedUrlFormat = HttpUtility.UrlDecode(encodedUrlFormat);
-            return string.Format("{0}://{1}{2}", Request.Url.Scheme, Request.Url.Authority, decodedUrlFormat);
-        }
-
-        private string SendFromUrl()
-        {
-            Debug.Assert(Request.Url != null);
-            var url = Url.Action(MVC.UserEmails.Index());
-            return string.Format("{0}://{1}{2}", Request.Url.Scheme, Request.Url.Authority, url);
+            Debug.Assert(decodedUrlFormat != null);
+            var formattedUrl = string.Format(decodedUrlFormat, "{0}", "{1}", returnUrl);
+            return string.Format("{0}://{1}{2}", Request.Url.Scheme, Request.Url.Authority, formattedUrl);
         }
 
         [ValidateAntiForgeryToken]

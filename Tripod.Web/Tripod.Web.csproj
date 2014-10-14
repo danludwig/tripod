@@ -253,6 +253,7 @@
       <DependentUpon>Global.asax</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Helpers\UrlHelperExtensions.cs" />
     <Compile Include="Models\Security\ChangeLocalPasswordModel.cs" />
     <Compile Include="Models\Security\CreateLocalMembershipModel.cs" />
     <Compile Include="Models\Security\LoginSettingsModel.cs" />
