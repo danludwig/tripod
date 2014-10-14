@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Tripod.Domain.Security;
@@ -45,8 +43,8 @@ namespace Tripod.Web.Controllers
                 SendVerificationEmail = new SendVerificationEmail
                 {
                     Purpose = EmailVerificationPurpose.AddEmail,
-                    SendFromUrl = Url.AbsoluteAction(Request.Url, await MVC.UserEmails.Index()),
-                    VerifyUrlFormat = VerifyUrlFormat(),
+                    SendFromUrl = Url.AbsoluteAction(await MVC.UserEmails.Index()),
+                    VerifyUrlFormat = Url.AbsoluteActionFormat(await MVC.UserEmailConfirm.Index("{0}", "{1}")),
                 },
             };
 
@@ -88,23 +86,13 @@ namespace Tripod.Web.Controllers
                 return View(MVC.Security.Views.User.EmailAddresses, model);
             }
 
-            command.VerifyUrlFormat = VerifyUrlFormat();
-            command.SendFromUrl = Url.AbsoluteAction(Request.Url, await MVC.UserEmails.Index());
+            command.VerifyUrlFormat = Url.AbsoluteActionFormat(await MVC.UserEmailConfirm.Index("{0}", "{1}"));
+            command.SendFromUrl = Url.AbsoluteAction(await MVC.UserEmails.Index());
             await _commands.Execute(command);
 
             Session.VerifyEmailTickets(command.CreatedTicket);
 
             return RedirectToAction(await MVC.UserEmailVerifySecret.Index(command.CreatedTicket));
-        }
-
-        private string VerifyUrlFormat(string returnUrl = null)
-        {
-            Debug.Assert(Request.Url != null);
-            var encodedUrlFormat = Url.Action(MVC.SignUpCreateUser.Index("{0}", "{1}", "{2}"));
-            var decodedUrlFormat = HttpUtility.UrlDecode(encodedUrlFormat);
-            Debug.Assert(decodedUrlFormat != null);
-            var formattedUrl = string.Format(decodedUrlFormat, "{0}", "{1}", returnUrl);
-            return string.Format("{0}://{1}{2}", Request.Url.Scheme, Request.Url.Authority, formattedUrl);
         }
 
         [ValidateAntiForgeryToken]

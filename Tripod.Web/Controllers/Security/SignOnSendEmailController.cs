@@ -27,7 +27,7 @@ namespace Tripod.Web.Controllers
             ViewBag.ReturnUrl = returnUrl;
             ViewBag.ActionUrl = Url.Action(MVC.SignOnSendEmail.Post());
             ViewBag.Purpose = EmailVerificationPurpose.CreateRemoteUser;
-            ViewBag.SendFromUrl = Url.AbsoluteAction(Request.Url, MVC.SignIn.Index(returnUrl));
+            ViewBag.SendFromUrl = Url.AbsoluteAction(MVC.SignIn.Index(returnUrl));
             ViewBag.LoginProvider = loginInfo.Login.LoginProvider;
             return View(MVC.Security.Views.SignOn.SendEmail);
         }
@@ -51,7 +51,7 @@ namespace Tripod.Web.Controllers
                 return View(MVC.Security.Views.SignOn.SendEmail, command);
             }
 
-            command.SendFromUrl = Url.AbsoluteAction(Request.Url, MVC.SignIn.Index(returnUrl));
+            command.SendFromUrl = Url.AbsoluteAction(MVC.SignIn.Index(returnUrl));
             await _commands.Execute(command);
 
             Session.VerifyEmailTickets(command.CreatedTicket);

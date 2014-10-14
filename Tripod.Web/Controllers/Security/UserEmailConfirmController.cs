@@ -59,7 +59,7 @@ namespace Tripod.Web.Controllers
         }
 
         [ValidateAntiForgeryToken]
-        [HttpPost, Route("settings/emails/reject")]
+        [HttpPost, Route("settings/reject")]
         public virtual async Task<ActionResult> Reject(RejectEmailVerification command, string emailAddress)
         {
             //System.Threading.Thread.Sleep(new Random().Next(5000, 5001));

@@ -1,6 +1,4 @@
-﻿using System.Diagnostics;
-using System.Threading.Tasks;
-using System.Web;
+﻿using System.Threading.Tasks;
 using System.Web.Mvc;
 using Tripod.Domain.Security;
 
@@ -21,8 +19,10 @@ namespace Tripod.Web.Controllers
         {
             ViewBag.ReturnUrl = returnUrl;
             ViewBag.Purpose = EmailVerificationPurpose.ForgotPassword;
-            ViewBag.VerifyUrlFormat = VerifyUrlFormat(returnUrl);
-            ViewBag.SendFromUrl = Url.AbsoluteAction(Request.Url, MVC.ResetPasswordSendEmail.Index(returnUrl));
+            ViewBag.VerifyUrlFormat = Url.AbsoluteActionFormat(
+                MVC.ResetPassword.Index("{0}", "{1}", returnUrl).Result);
+            ViewBag.SendFromUrl = Url.AbsoluteAction(
+                MVC.ResetPasswordSendEmail.Index(returnUrl));
             return View(MVC.Security.Views.ResetPassword.SendEmail);
         }
 
@@ -41,23 +41,15 @@ namespace Tripod.Web.Controllers
                 return View(MVC.Security.Views.ResetPassword.SendEmail, command);
             }
 
-            command.VerifyUrlFormat = VerifyUrlFormat(returnUrl);
-            command.SendFromUrl = Url.AbsoluteAction(Request.Url, MVC.ResetPasswordSendEmail.Index(returnUrl));
+            command.VerifyUrlFormat = Url.AbsoluteActionFormat(
+                MVC.ResetPassword.Index("{0}", "{1}", returnUrl).Result);
+            command.SendFromUrl = Url.AbsoluteAction(
+                MVC.ResetPasswordSendEmail.Index(returnUrl));
             await _commands.Execute(command);
 
             Session.VerifyEmailTickets(command.CreatedTicket);
 
             return RedirectToAction(await MVC.ResetPasswordVerifySecret.Index(command.CreatedTicket, returnUrl));
-        }
-
-        private string VerifyUrlFormat(string returnUrl)
-        {
-            Debug.Assert(Request.Url != null);
-            var encodedUrlFormat = Url.Action(MVC.ResetPassword.Index("{0}", "{1}", "{2}"));
-            var decodedUrlFormat = HttpUtility.UrlDecode(encodedUrlFormat);
-            Debug.Assert(decodedUrlFormat != null);
-            var formattedUrl = string.Format(decodedUrlFormat, "{0}", "{1}", returnUrl);
-            return string.Format("{0}://{1}{2}", Request.Url.Scheme, Request.Url.Authority, formattedUrl);
         }
     }
 }
