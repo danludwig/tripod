@@ -36,7 +36,7 @@ namespace Tripod.Web.Controllers
             // todo: verification token must not be redeemed, expired, or for different purpose
 
             ViewBag.ReturnUrl = returnUrl;
-            ViewBag.ActionUrl = Url.Action(MVC.SignOnVerifySecret.Post(ticket, null, null, null));
+            ViewBag.ActionUrl = Url.Action(MVC.SignOnVerifySecret.Post());
             ViewBag.Ticket = ticket;
             ViewBag.Purpose = EmailVerificationPurpose.CreateRemoteUser;
             if (Session.VerifyEmailTickets().Contains(ticket))
@@ -57,7 +57,7 @@ namespace Tripod.Web.Controllers
             if (!ModelState.IsValid)
             {
                 ViewBag.ReturnUrl = returnUrl;
-                ViewBag.ActionUrl = Url.Action(MVC.SignOnVerifySecret.Post(ticket, null, null, null));
+                ViewBag.ActionUrl = Url.Action(MVC.SignOnVerifySecret.Post());
                 ViewBag.Ticket = ticket;
                 ViewBag.Purpose = EmailVerificationPurpose.CreateRemoteUser;
                 if (Session.VerifyEmailTickets().Contains(ticket))

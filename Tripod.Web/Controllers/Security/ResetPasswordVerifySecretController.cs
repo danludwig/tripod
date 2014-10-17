@@ -34,7 +34,7 @@ namespace Tripod.Web.Controllers
             // todo: confirmation token must not be redeemed, expired, or for different purpose
 
             ViewBag.ReturnUrl = returnUrl;
-            ViewBag.ActionUrl = Url.Action(MVC.ResetPasswordVerifySecret.Post(ticket, null, null, null));
+            ViewBag.ActionUrl = Url.Action(MVC.ResetPasswordVerifySecret.Post());
             ViewBag.Ticket = ticket;
             ViewBag.Purpose = EmailVerificationPurpose.ForgotPassword;
             if (Session.VerifyEmailTickets().Contains(ticket))
@@ -53,7 +53,7 @@ namespace Tripod.Web.Controllers
             if (!ModelState.IsValid)
             {
                 ViewBag.ReturnUrl = returnUrl;
-                ViewBag.ActionUrl = Url.Action(MVC.ResetPasswordVerifySecret.Post(ticket, null, null, null));
+                ViewBag.ActionUrl = Url.Action(MVC.ResetPasswordVerifySecret.Post());
                 ViewBag.Ticket = ticket;
                 ViewBag.Purpose = EmailVerificationPurpose.ForgotPassword;
                 if (Session.VerifyEmailTickets().Contains(ticket))
