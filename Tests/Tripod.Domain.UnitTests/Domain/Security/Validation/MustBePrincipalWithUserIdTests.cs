@@ -85,8 +85,10 @@ namespace Tripod.Domain.Security
         {
             const int userId = 11;
             var principal = new Mock<IPrincipal>(MockBehavior.Strict);
-            var identity = new ClaimsIdentity("username");
-            identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, (userId + 6).ToString(CultureInfo.InvariantCulture)));
+            var identity = new ClaimsIdentity(new[]
+            {
+                new Claim(ClaimTypes.NameIdentifier, (userId + 6).ToString(CultureInfo.InvariantCulture)),
+            });
             principal.SetupGet(x => x.Identity).Returns(identity);
             var command = new FakeMustBePrincipalWithUserIdCommand
             {
@@ -113,8 +115,10 @@ namespace Tripod.Domain.Security
         {
             const int userId = 11;
             var principal = new Mock<IPrincipal>(MockBehavior.Strict);
-            var identity = new ClaimsIdentity("username");
-            identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, userId.ToString(CultureInfo.InvariantCulture)));
+            var identity = new ClaimsIdentity(new[]
+            {
+                new Claim(ClaimTypes.NameIdentifier, (userId).ToString(CultureInfo.InvariantCulture)),
+            });
             principal.SetupGet(x => x.Identity).Returns(identity);
             var command = new FakeMustBePrincipalWithUserIdCommand
             {
