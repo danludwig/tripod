@@ -25,7 +25,7 @@ namespace Tripod.Domain.Security
             var inputBytes = Encoding.ASCII.GetBytes(emailAddress);
             var hash = md5.ComputeHash(inputBytes);
             var sb = new StringBuilder();
-            foreach (var t in hash) 
+            foreach (var t in hash)
                 sb.Append(t.ToString("x2"));
             var gravatar = sb.ToString();
             return Task.FromResult(gravatar);

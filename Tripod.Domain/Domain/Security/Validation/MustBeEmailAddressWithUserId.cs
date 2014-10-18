@@ -7,7 +7,7 @@ namespace Tripod.Domain.Security
     public class MustBeEmailAddressWithUserId<T> : PropertyValidator
     {
         private readonly IProcessQueries _queries;
-        private readonly Func<T, int> _userId; 
+        private readonly Func<T, int> _userId;
 
         internal MustBeEmailAddressWithUserId(IProcessQueries queries, Func<T, int> userId)
             : base(() => Resources.Validation_NotAuthorized_IntIdValue)

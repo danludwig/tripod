@@ -17,9 +17,9 @@ namespace Tripod.Services.Transactions
             container.Verify();
             var commands = container.GetInstance<IProcessCommands>();
             var command = new FakeCommandWithoutValidator();
-            
+
             commands.Execute(command);
-            
+
             command.ReturnValue.ShouldEqual("faked");
         }
     }

@@ -68,7 +68,7 @@ namespace Tripod.Domain.Security
                 localMembership = new LocalMembership { User = user, };
                 user.LocalMembership = localMembership;
             }
-            
+
             // update the password
             var passwordHash = await _queries.Execute(new HashedPassword(command.Password));
             user.LocalMembership.PasswordHash = passwordHash;

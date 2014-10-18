@@ -24,7 +24,7 @@ namespace Tripod.Domain.Security
                 .MustFindUserByNameOrEmail(queries)
                     .WithName(string.Format("{0} or {1}", User.Constraints.NameLabel, EmailAddress.Constraints.Label))
             ;
-            
+
             RuleFor(x => x.Password)
                 .NotEmpty()
                 .MustBeVerifiedPassword(queries, x => x.UserNameOrVerifiedEmail)

@@ -11,7 +11,6 @@ namespace Tripod
 
         public static IQueryable<TEntity> OrderBy<TEntity>(this IQueryable<TEntity> queryable,
             IEnumerable<KeyValuePair<Expression<Func<TEntity, object>>, OrderByDirection>> expressions)
-            
         {
             if (expressions == null) return queryable;
 

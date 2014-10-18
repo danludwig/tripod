@@ -51,7 +51,7 @@ namespace Tripod.Web.Models
             foreach (var validationFailure in validationFailures)
             {
                 var name = validationFailure.PropertyName;
-                
+
                 // may already have a validated field for this
                 var validatedField = ContainsKey(name) ? this[name] : null;
                 if (validatedField == null)

@@ -11,8 +11,8 @@ Additional paths to search for .pdb (symbol) files. Symbols must be found for mo
 If .pdb files are in the same folder as the .dll or .exe files, they are automatically found. Otherwise, specify them here.
 Note that searching for symbols increases code coverage runtime. So keep this small and local.
 -->
-            <!--           
-            <SymbolSearchPaths>              
+            <!--
+            <SymbolSearchPaths>
                    <Path>C:\Users\User\Documents\Visual Studio 2012\Projects\ProjectX\bin\Debug</Path>
                    <Path>\\mybuildshare\builds\ProjectX</Path>
             </SymbolSearchPaths>
@@ -77,7 +77,7 @@ Included items must then not match any entries in the exclude list to remain inc
               </Exclude>
             </Attributes>
 
-            <!-- Match the path of the source files in which each method is defined: 
+            <!-- Match the path of the source files in which each method is defined:
             <Sources>
               <Exclude>
                 <Source>.*\\atlmfc\\.*</Source>
@@ -104,7 +104,7 @@ Included items must then not match any entries in the exclude list to remain inc
 
             <!-- Match the public key token of a signed assembly: -->
             <PublicKeyTokens>
-              <!-- Exclude Visual Studio extensions: 
+              <!-- Exclude Visual Studio extensions:
               <Exclude>
                 <PublicKeyToken>^B77A5C561934E089$</PublicKeyToken>
                 <PublicKeyToken>^B03F5F7F11D50A3A$</PublicKeyToken>
