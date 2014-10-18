@@ -31,6 +31,13 @@ namespace Tripod
 
     public static class MaxLengthExtensions
     {
+        /// <summary>
+        /// Validates that this string property's length is not greater than a specified value.
+        /// </summary>
+        /// <typeparam name="T">The command with a string property to validate maximum length of.</typeparam>
+        /// <param name="ruleBuilder">Fluent rule builder options.</param>
+        /// <param name="maxLength">Maximum length allowed for this string property.</param>
+        /// <returns>Fluent rule builder options.</returns>
         public static IRuleBuilderOptions<T, string> MaxLength<T>
             (this IRuleBuilder<T, string> ruleBuilder, int maxLength)
         {

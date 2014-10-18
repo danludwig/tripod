@@ -32,6 +32,13 @@ namespace Tripod
 
     public static class MinLengthExtensions
     {
+        /// <summary>
+        /// Validates that this string property's length is not less than a specified value.
+        /// </summary>
+        /// <typeparam name="T">The command with a string property to validate minimum length of.</typeparam>
+        /// <param name="ruleBuilder">Fluent rule builder options.</param>
+        /// <param name="minLength">Minimum length allowed for this string property.</param>
+        /// <returns>Fluent rule builder options.</returns>
         public static IRuleBuilderOptions<T, string> MinLength<T>
             (this IRuleBuilder<T, string> ruleBuilder, int minLength)
         {
