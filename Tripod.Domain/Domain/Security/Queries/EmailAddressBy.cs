@@ -5,7 +5,6 @@ namespace Tripod.Domain.Security
 {
     public class EmailAddressBy : BaseEntityQuery<EmailAddress>, IDefineQuery<Task<EmailAddress>>
     {
-        [UsedImplicitly]
         public EmailAddressBy(int id)
         {
             Id = id;
@@ -56,7 +55,7 @@ namespace Tripod.Domain.Security
                 entityTask = queryable.ByValueAsync(query.Value);
             }
 
-            var entity = await entityTask.ConfigureAwait(false);
+            EmailAddress entity = await entityTask.ConfigureAwait(false);
 
             if (entity != null && query.IsVerified.HasValue && query.IsVerified.Value != entity.IsVerified)
                 entity = null;

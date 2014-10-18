@@ -21,7 +21,7 @@ namespace Tripod.Domain.Security
             var id = new Random().Next(int.MinValue, int.MaxValue);
             var query = new UserBy(id);
             query.Id.ShouldEqual(id);
-            query.Name.ShouldEqual(null);
+            query.Name.ShouldBeNull();
             query.UserLoginInfo.ShouldBeNull();
             query.Principal.ShouldBeNull();
         }
