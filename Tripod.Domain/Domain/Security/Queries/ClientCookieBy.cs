@@ -1,12 +1,11 @@
-﻿using System.Data.Entity;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 
 namespace Tripod.Domain.Security
 {
     public class ClientCookieBy : IDefineQuery<Task<ClientCookie>>
     {
-        public ClientCookieBy(int userId)
+        public ClientCookieBy(int? userId)
         {
             UserId = userId;
         }
@@ -17,31 +16,31 @@ namespace Tripod.Domain.Security
     [UsedImplicitly]
     public class HandleClientCookieByQuery : IHandleQuery<ClientCookieBy, Task<ClientCookie>>
     {
-        private readonly IReadEntities _entities;
+        private readonly IProcessQueries _queries;
 
-        public HandleClientCookieByQuery(IReadEntities entities)
+        public HandleClientCookieByQuery(IProcessQueries queries)
         {
-            _entities = entities;
+            _queries = queries;
         }
 
-        public async Task<ClientCookie> Handle(ClientCookieBy query)
+        public Task<ClientCookie> Handle(ClientCookieBy query)
         {
-            var queryable = _entities.Query<User>();
-
+            ClientCookie clientCookie = null;
             if (query.UserId.HasValue)
             {
-                queryable = queryable.Where(EntityExtensions.ById<User>(query.UserId.Value));
-                var clientCookie = await queryable.Select(x => new ClientCookie
+                var user = _queries.Execute(new UserBy(query.UserId.Value)).Result;
+                if (user != null)
                 {
-                    UserId = x.Id,
-                    UserName = x.Name,
-                    GravatarHash = x.EmailAddresses.FirstOrDefault(y => y.IsPrimary).HashedValue,
-                })
-                .SingleOrDefaultAsync().ConfigureAwait(false);
-                return clientCookie;
+                    clientCookie = new ClientCookie
+                    {
+                        UserId = user.Id,
+                        UserName = user.Name,
+                        GravatarHash = user.EmailAddresses.First(y => y.IsPrimary).HashedValue,
+                    };
+                }
             }
 
-            return null;
+            return Task.FromResult(clientCookie);
         }
     }
 }
