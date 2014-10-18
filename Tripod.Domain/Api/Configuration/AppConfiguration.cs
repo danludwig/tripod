@@ -1,64 +1,71 @@
-﻿//using System;
-//using System.Collections.Generic;
-//using System.Configuration;
-//using System.Linq;
-//using System.Net.Configuration;
-//using System.Net.Mail;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net.Configuration;
+using System.Net.Mail;
 
-//namespace Tripod
-//{
-//    public static class AppConfiguration
-//    {
-//        //public static string XsrfKey
-//        //{
-//        //    get { return ConfigurationManager.AppSettings[AppSettingKey.XsrfKey.ToString()]; }
-//        //}
+namespace Tripod
+{
+    [UsedImplicitly]
+    public class AppConfiguration
+    {
+        private readonly IReadConfiguration _configuration;
 
-//        //public static string DataProtectionAppName
-//        //{
-//        //    get { return ConfigurationManager.AppSettings[AppSettingKey.DataProtectionAppName.ToString()] ?? "AppName"; }
-//        //}
+        public AppConfiguration(IReadConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
 
-//        //public static MailAddress MailFromDefault
-//        //{
-//        //    get { return new MailAddress(ConfigurationManager.AppSettings[AppSettingKey.MailFromDefault.ToString()] ?? "UNCONFIGURED NOREPLY <no-reply@localhost.tld>"); }
-//        //}
+        public string XsrfKey
+        {
+            get { return _configuration.AppSettings[AppSettingKey.XsrfKey.ToString()]; }
+        }
 
-//        //public static IEnumerable<MailAddress> MailInterceptors
-//        //{
-//        //    get
-//        //    {
-//        //        return ExtractMailAddresses(ConfigurationManager.AppSettings[AppSettingKey.MailInterceptors.ToString()] ?? "UNCONFIGURED INTERCEPTORS <intercept@localhost.tld>");
-//        //    }
-//        //}
+        public string DataProtectionAppName
+        {
+            get { return _configuration.AppSettings[AppSettingKey.DataProtectionAppName.ToString()] ?? "AppName"; }
+        }
 
-//        //public static IEnumerable<MailAddress> MailExceptionTo
-//        //{
-//        //    get
-//        //    {
-//        //        return ExtractMailAddresses(ConfigurationManager.AppSettings[AppSettingKey.MailExceptionTo.ToString()] ?? "UNCONFIGURED EXCEPTION <exceptions@localhost.tld>");
-//        //    }
-//        //}
+        public MailAddress MailFromDefault
+        {
+            get { return new MailAddress(_configuration.AppSettings[AppSettingKey.MailFromDefault.ToString()] ?? "UNCONFIGURED NOREPLY <no-reply@localhost.tld>"); }
+        }
 
-//        //public static string MailPickupDirectory
-//        //{
-//        //    get { return ConfigurationManager.AppSettings[AppSettingKey.MailPickupDirectory.ToString()] ?? @"App_Data\mail\pickup"; }
-//        //}
+        public IEnumerable<MailAddress> MailInterceptors
+        {
+            get
+            {
+                return ExtractMailAddresses(_configuration.AppSettings[AppSettingKey.MailInterceptors.ToString()] ?? "UNCONFIGURED INTERCEPTORS <intercept@localhost.tld>");
+            }
+        }
 
-//        //public static SmtpDeliveryMethod MailDeliveryMethod
-//        //{
-//        //    get
-//        //    {
-//        //        var smtp = ConfigurationManager.GetSection("system.net/mailSettings/smtp") as SmtpSection;
-//        //        return smtp == null ? SmtpDeliveryMethod.SpecifiedPickupDirectory : smtp.DeliveryMethod;
-//        //    }
-//        //}
+        public IEnumerable<MailAddress> MailExceptionTo
+        {
+            get
+            {
+                return ExtractMailAddresses(_configuration.AppSettings[AppSettingKey.MailExceptionTo.ToString()] ?? "UNCONFIGURED EXCEPTION <exceptions@localhost.tld>");
+            }
+        }
 
-//        //private static IEnumerable<MailAddress> ExtractMailAddresses(string collapsed)
-//        //{
-//        //    return collapsed.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries)
-//        //        .Select(x => x.Trim()).Where(x => !string.IsNullOrWhiteSpace(x))
-//        //        .Select(x => new MailAddress(x)).ToArray();
-//        //}
-//    }
-//}
+        public string MailPickupDirectory
+        {
+            get { return _configuration.AppSettings[AppSettingKey.MailPickupDirectory.ToString()] ?? @"App_Data\mail\pickup"; }
+        }
+
+        public SmtpDeliveryMethod MailDeliveryMethod
+        {
+            get
+            {
+                var smtp = _configuration.GetSection("system.net/mailSettings/smtp") as SmtpSection;
+                return smtp == null ? SmtpDeliveryMethod.SpecifiedPickupDirectory : smtp.DeliveryMethod;
+            }
+        }
+
+        private IEnumerable<MailAddress> ExtractMailAddresses(string collapsed)
+        {
+            return collapsed.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries)
+                .Select(x => x.Trim()).Where(x => !string.IsNullOrWhiteSpace(x))
+                .Select(x => new MailAddress(x)).ToArray();
+        }
+    }
+}

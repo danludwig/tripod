@@ -4,6 +4,7 @@ using System;
 using System.Net.Mail;
 using SimpleInjector;
 using SimpleInjector.Extensions;
+using Tripod.Services.Configuration;
 
 namespace Tripod.Services.Net
 {

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Specialized;
 using System.Configuration;
 
-namespace Tripod
+namespace Tripod.Services.Configuration
 {
     [UsedImplicitly]
     public class ConfigurationManagerReader : IReadConfiguration

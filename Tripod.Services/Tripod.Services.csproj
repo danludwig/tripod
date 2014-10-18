@@ -135,6 +135,7 @@
     <Compile Include="CompositionRoot\CompositionRoot.cs" />
     <Compile Include="CompositionRoot\RootCompositionSettings.cs" />
     <Compile Include="Configuration\CompositionRoot.cs" />
+    <Compile Include="Configuration\ConfigurationManagerReader.cs" />
     <Compile Include="Cryptography\CompositionRoot.cs" />
     <Compile Include="Cryptography\RngCryptoSecretCreator.cs" />
     <Compile Include="EntityFramework\CompositionRoot.cs" />
