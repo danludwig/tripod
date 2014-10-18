@@ -23,12 +23,13 @@ namespace Tripod.Domain.Security
             _queries = queries;
         }
 
-        public Task<ClientCookie> Handle(ClientCookieBy query)
+        public async Task<ClientCookie> Handle(ClientCookieBy query)
         {
             ClientCookie clientCookie = null;
             if (query.UserId.HasValue)
             {
-                var user = _queries.Execute(new UserBy(query.UserId.Value)).Result;
+                var user = await _queries.Execute(new UserBy(query.UserId.Value))
+                    .ConfigureAwait(false);
                 if (user != null)
                 {
                     clientCookie = new ClientCookie
@@ -40,7 +41,7 @@ namespace Tripod.Domain.Security
                 }
             }
 
-            return Task.FromResult(clientCookie);
+            return clientCookie;
         }
     }
 }

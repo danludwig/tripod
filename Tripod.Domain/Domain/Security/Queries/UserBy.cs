@@ -26,18 +26,24 @@ namespace Tripod.Domain.Security
             _entities = entities;
         }
 
-        public Task<User> Handle(UserBy query)
+        public async Task<User> Handle(UserBy query)
         {
             var queryable = _entities.Query<User>().EagerLoad(query.EagerLoad);
+            Task<User> entityTask;
 
-            if (query.Id.HasValue) return queryable.ByIdAsync(query.Id.Value);
+            if (query.Id.HasValue)
+                entityTask = queryable.ByIdAsync(query.Id.Value);
 
-            if (query.Principal != null && query.Principal.Identity.IsAuthenticated)
-                return queryable.ByIdAsync(query.Principal.Identity.GetUserId<int>());
+            else if (query.Principal != null && query.Principal.Identity.IsAuthenticated)
+                entityTask = queryable.ByIdAsync(query.Principal.Identity.GetUserId<int>());
 
-            if (query.UserLoginInfo != null) return queryable.ByUserLoginInfoAsync(query.UserLoginInfo);
+            else if (query.UserLoginInfo != null)
+                entityTask = queryable.ByUserLoginInfoAsync(query.UserLoginInfo);
 
-            return queryable.ByNameAsync(query.Name);
+            else
+                entityTask = queryable.ByNameAsync(query.Name);
+
+            return await entityTask.ConfigureAwait(false);
         }
     }
 }
