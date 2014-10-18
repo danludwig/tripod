@@ -136,8 +136,9 @@
     <Compile Include="Domain\Security\Entities\_Fakes\ProxiedLocalMembership.cs" />
     <Compile Include="Domain\Security\Entities\_Fakes\ProxiedRemoteMembership.cs" />
     <Compile Include="Domain\Security\Entities\_Fakes\UserWithSpecifiedId.cs" />
-    <Compile Include="Domain\Security\Validation\_Fakes\FakeDataMustNotExistValidator.cs" />
-    <Compile Include="Domain\Security\Validation\_Fakes\FakeDataCommand.cs" />
+    <Compile Include="Domain\Security\Validation\MustBeValidPasswordTests.cs" />
+    <Compile Include="Domain\Security\Validation\_Fakes\FakeMustBeValidPasswordValidator.cs" />
+    <Compile Include="Domain\Security\Validation\_Fakes\FakeMustNotFindUserByNameValidator.cs" />
     <Compile Include="Domain\Security\Entities\_Fakes\ProxiedPermission.cs" />
     <Compile Include="Domain\Security\Entities\_Fakes\ProxiedUser.cs" />
     <Compile Include="Domain\Security\Entities\PermissionTests.cs" />

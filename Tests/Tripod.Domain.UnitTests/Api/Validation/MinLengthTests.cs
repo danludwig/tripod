@@ -5,6 +5,7 @@ using FluentValidation.Results;
 using FluentValidation.TestHelper;
 using Should;
 using Xunit;
+using Xunit.Extensions;
 
 namespace Tripod
 {
@@ -19,11 +20,14 @@ namespace Tripod
             exception.Message.ShouldStartWith(string.Format(Resources.Exception_ArgumentOutOfRange_CannotBeLessThan, 1));
         }
 
-        [Fact]
-        public void IsInvalid_WhenStringLength_IsLessThanMinLength()
+        [Theory]
+        [InlineData("12345678", 9)]
+        [InlineData("asdf", 5)]
+        [InlineData("x", 2)]
+        public void IsInvalid_WhenStringLength_IsLessThanMinLength(string value, int minLength)
         {
-            var command = new FakeStringLengthCommand { StringProperty = "asdf" };
-            var validator = new FakeStringMinLengthValidator(5);
+            var command = new FakeStringLengthCommand { StringProperty = value };
+            var validator = new FakeStringMinLengthValidator(minLength);
 
             var result = validator.Validate(command);
 
@@ -32,9 +36,11 @@ namespace Tripod
             result.Errors.Count(minLengthError).ShouldEqual(1);
             result.Errors.Single(minLengthError).ErrorMessage.ShouldEqual(Resources.Validation_MinLength
                 .Replace("{PropertyName}", "String Property")
-                .Replace("{MinLength}", "5")
+                .Replace("{MinLength}", minLength.ToString(CultureInfo.InvariantCulture))
                 .Replace("{TotalLength}", command.StringProperty.Length.ToString(CultureInfo.InvariantCulture))
-                .Replace("{Characters}", Resources.Validation_CharactersLower)
+                .Replace("{Characters}", value.Length == 1
+                    ? Resources.Validation_CharacterLower
+                    : Resources.Validation_CharactersLower)
             );
             validator.ShouldHaveValidationErrorFor(x => x.StringProperty, command.StringProperty);
         }

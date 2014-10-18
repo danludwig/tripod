@@ -26,11 +26,11 @@ namespace Tripod.Domain.Security
         {
             var userName = Guid.NewGuid().ToString();
             var queries = new Mock<IProcessQueries>(MockBehavior.Strict);
-            var command = new FakeDataCommand { UserName = userName };
+            var command = new FakeMustNotFindUserByNameCommand { UserName = userName };
             var entity = new User { Name = command.UserName };
             Expression<Func<UserBy, bool>> expectedQuery = y => y.Name == command.UserName;
             queries.Setup(x => x.Execute(It.Is(expectedQuery))).Returns(Task.FromResult(entity));
-            var validator = new FakeDataMustNotExistValidator(queries.Object);
+            var validator = new FakeMustNotFindUserByNameValidator(queries.Object);
 
             var result = validator.Validate(command);
 
@@ -52,7 +52,7 @@ namespace Tripod.Domain.Security
             const int userId = 797;
             var userName = Guid.NewGuid().ToString();
             var queries = new Mock<IProcessQueries>(MockBehavior.Strict);
-            var command = new FakeDataCommand
+            var command = new FakeMustNotFindUserByNameCommand
             {
                 UserName = userName,
                 UserId = userId + 1,
@@ -63,7 +63,7 @@ namespace Tripod.Domain.Security
             };
             Expression<Func<UserBy, bool>> expectedQuery = y => y.Name == command.UserName;
             queries.Setup(x => x.Execute(It.Is(expectedQuery))).Returns(Task.FromResult(entity as User));
-            var validator = new FakeDataMustNotExistValidator(queries.Object);
+            var validator = new FakeMustNotFindUserByNameValidator(queries.Object);
 
             var result = validator.Validate(command);
 
@@ -84,10 +84,10 @@ namespace Tripod.Domain.Security
         {
             var userName = Guid.NewGuid().ToString();
             var queries = new Mock<IProcessQueries>(MockBehavior.Strict);
-            var command = new FakeDataCommand { UserName = userName };
+            var command = new FakeMustNotFindUserByNameCommand { UserName = userName };
             Expression<Func<UserBy, bool>> expectedQuery = y => y.Name == command.UserName;
             queries.Setup(x => x.Execute(It.Is(expectedQuery))).Returns(Task.FromResult(null as User));
-            var validator = new FakeDataMustNotExistValidator(queries.Object);
+            var validator = new FakeMustNotFindUserByNameValidator(queries.Object);
 
             var result = validator.Validate(command);
 
@@ -103,7 +103,7 @@ namespace Tripod.Domain.Security
             const int userId = 797;
             var userName = Guid.NewGuid().ToString();
             var queries = new Mock<IProcessQueries>(MockBehavior.Strict);
-            var command = new FakeDataCommand
+            var command = new FakeMustNotFindUserByNameCommand
             {
                 UserName = userName,
                 UserId = userId,
@@ -114,7 +114,7 @@ namespace Tripod.Domain.Security
             };
             Expression<Func<UserBy, bool>> expectedQuery = y => y.Name == command.UserName;
             queries.Setup(x => x.Execute(It.Is(expectedQuery))).Returns(Task.FromResult(entity as User));
-            var validator = new FakeDataMustNotExistValidator(queries.Object);
+            var validator = new FakeMustNotFindUserByNameValidator(queries.Object);
 
             var result = validator.Validate(command);
 

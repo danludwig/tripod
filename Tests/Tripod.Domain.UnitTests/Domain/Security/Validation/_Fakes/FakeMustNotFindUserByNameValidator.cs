@@ -3,9 +3,15 @@ using FluentValidation;
 
 namespace Tripod.Domain.Security
 {
-    public class FakeDataMustNotExistValidator : AbstractValidator<FakeDataCommand>
+    public class FakeMustNotFindUserByNameCommand
     {
-        public FakeDataMustNotExistValidator(IProcessQueries queries)
+        public int? UserId { get; set; }
+        public string UserName { get; set; }
+    }
+
+    public class FakeMustNotFindUserByNameValidator : AbstractValidator<FakeMustNotFindUserByNameCommand>
+    {
+        public FakeMustNotFindUserByNameValidator(IProcessQueries queries)
         {
             When(x => !x.UserId.HasValue, () =>
                 RuleFor(x => x.UserName)
