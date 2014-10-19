@@ -26,7 +26,7 @@ namespace Tripod.Domain.Security
         [UsedImplicitly]
         internal static Expression<Func<RemoteMembership, bool>> ByUserId(int userId)
         {
-            return x => x.User.Id == userId;
+            return x => x.UserId == userId;
         }
 
         #endregion

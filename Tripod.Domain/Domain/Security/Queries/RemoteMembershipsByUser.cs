@@ -10,7 +10,6 @@ namespace Tripod.Domain.Security
             UserId = userId;
         }
 
-        [UsedImplicitly]
         public RemoteMembershipsByUser(string userName)
         {
             UserName = userName;
