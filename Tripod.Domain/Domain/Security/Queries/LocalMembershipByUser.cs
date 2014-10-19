@@ -10,7 +10,6 @@ namespace Tripod.Domain.Security
             UserId = userId;
         }
 
-        [UsedImplicitly]
         public LocalMembershipByUser(string userName)
         {
             UserName = userName;
@@ -36,12 +35,19 @@ namespace Tripod.Domain.Security
             _entities = entities;
         }
 
-        public Task<LocalMembership> Handle(LocalMembershipByUser query)
+        public async Task<LocalMembership> Handle(LocalMembershipByUser query)
         {
             var queryable = _entities.Query<LocalMembership>().EagerLoad(query.EagerLoad);
-            if (query.UserId.HasValue) return queryable.ByUserIdAsync(query.UserId.Value);
-            if (query.UserLoginInfo != null) return queryable.ByUserLoginInfoAsync(query.UserLoginInfo);
-            return queryable.ByUserNameAsync(query.UserName);
+            Task<LocalMembership> entityTask;
+
+            if (query.UserId.HasValue)
+                entityTask = queryable.ByUserIdAsync(query.UserId.Value);
+            else if (query.UserLoginInfo != null)
+                entityTask = queryable.ByUserLoginInfoAsync(query.UserLoginInfo);
+            else
+                entityTask = queryable.ByUserNameAsync(query.UserName);
+
+            return await entityTask.ConfigureAwait(false);
         }
     }
 }
