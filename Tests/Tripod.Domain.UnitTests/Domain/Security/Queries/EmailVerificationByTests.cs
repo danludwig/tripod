@@ -20,7 +20,7 @@ namespace Tripod.Domain.Security
         }
 
         [Fact]
-        public void Handler_ReturnsNullEmailVerification_ByTicket_WhenNotFound()
+        public void Handler_ReturnsNullEmailVerification_WhenNotFound_ByTicket()
         {
             var ticket = Guid.NewGuid().ToString();
             var emailVerification = new EmailVerification
@@ -42,7 +42,7 @@ namespace Tripod.Domain.Security
         }
 
         [Fact]
-        public void Handler_ReturnsNonNullEmailVerification_ByTicket_WhenFound()
+        public void Handler_ReturnsNonNullEmailVerification_WhenFound_ByTicket()
         {
             var ticket = Guid.NewGuid().ToString();
             var emailVerification = new EmailVerification

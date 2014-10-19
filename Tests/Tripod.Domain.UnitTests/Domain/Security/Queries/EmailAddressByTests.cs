@@ -24,7 +24,7 @@ namespace Tripod.Domain.Security
         }
 
         [Fact]
-        public void Handler_ReturnsNullEmailAddress_ById_WhenNotFound()
+        public void Handler_ReturnsNullEmailAddress_WhenNotFound_ById()
         {
             var emailAddressId = new Random().Next(3, int.MaxValue);
             var data = new[] { new ProxiedEmailAddress(emailAddressId - 1) }.AsQueryable();
@@ -44,7 +44,7 @@ namespace Tripod.Domain.Security
         [Theory]
         [InlineData(true)]
         [InlineData(false)]
-        public void Handler_ReturnsNullEmailAddress_ById_WhenFound_ButIsVerified_IsNotEqual(bool isVerified)
+        public void Handler_ReturnsNullEmailAddress_WhenFound_ById_ButIsVerifiedDoesNotMatch(bool isVerified)
         {
             var emailAddressId = new Random().Next(1, int.MaxValue);
             var emailAddress = new ProxiedEmailAddress(emailAddressId)
@@ -73,7 +73,7 @@ namespace Tripod.Domain.Security
         [InlineData(null, false)]
         [InlineData(true, true)]
         [InlineData(false, false)]
-        public void Handler_ReturnsNonNullEmailAddress_ById_WhenFound_AndIsVerifiedMatches(
+        public void Handler_ReturnsNonNullEmailAddress_WhenFound_ById_AndIsVerifiedMatches(
             bool? queryIsVerified, bool entityIsVerified)
         {
             var emailAddressId = new Random().Next(1, int.MaxValue);
@@ -113,7 +113,7 @@ namespace Tripod.Domain.Security
         }
 
         [Fact]
-        public void Handler_ReturnsNullEmailAddress_ByValue_WhenNotFound()
+        public void Handler_ReturnsNullEmailAddress_WhenNotFound_ByValue()
         {
             var emailAddressValue = string.Format("{0}@domain.tld", Guid.NewGuid());
             var emailAddress = new EmailAddress { Value = string.Format("{0}@domain.tld", Guid.NewGuid()) };
@@ -134,7 +134,7 @@ namespace Tripod.Domain.Security
         [Theory]
         [InlineData(true)]
         [InlineData(false)]
-        public void Handler_ReturnsNullEmailAddress_ByValue_WhenFound_ButIsVerified_IsNotEqual(bool isVerified)
+        public void Handler_ReturnsNullEmailAddress_WhenFound_ByValue_ButIsVerifiedDoesNotMatch(bool isVerified)
         {
             var emailAddressValue = string.Format("{0}@domain.tld", Guid.NewGuid());
             var emailAddress = new EmailAddress
@@ -164,7 +164,7 @@ namespace Tripod.Domain.Security
         [InlineData(null, false)]
         [InlineData(true, true)]
         [InlineData(false, false)]
-        public void Handler_ReturnsNonNullEmailAddress_ByValue_WhenFound_AndIsVerified_IsEqual(
+        public void Handler_ReturnsNonNullEmailAddress_WhenFound_ByValue_AndIsVerifiedMatches(
             bool? isQueryVerified, bool isEntityVerified)
         {
             var emailAddressValue = string.Format("{0}@domain.tld", Guid.NewGuid());
@@ -205,7 +205,7 @@ namespace Tripod.Domain.Security
         }
 
         [Fact]
-        public void Handler_ReturnsNullEmailAddress_ByClaim_WhenNotFound()
+        public void Handler_ReturnsNullEmailAddress_WhenNotFound_ByClaim()
         {
             var emailAddressValue = string.Format("{0}@domain.tld", Guid.NewGuid());
             var claim = new Claim(ClaimTypes.Email, emailAddressValue);
@@ -227,7 +227,7 @@ namespace Tripod.Domain.Security
         [Theory]
         [InlineData(true)]
         [InlineData(false)]
-        public void Handler_ReturnsNullEmailAddress_ByClaim_WhenFound_ButIsVerified_IsNotEqual(bool isVerified)
+        public void Handler_ReturnsNullEmailAddress_WhenFound_ByClaim_ButIsVerifiedDoesNotMatch(bool isVerified)
         {
             var emailAddressValue = string.Format("{0}@domain.tld", Guid.NewGuid());
             var claim = new Claim(ClaimTypes.Email, emailAddressValue);
@@ -254,7 +254,7 @@ namespace Tripod.Domain.Security
         }
 
         [Fact]
-        public void Handler_ReturnsNullEmailAddress_ByClaim_WhenClaimType_IsNotEmail()
+        public void Handler_ReturnsNullEmailAddress_WhenClaimType_IsNotEmail_ByClaim()
         {
             var emailAddressValue = string.Format("{0}@domain.tld", Guid.NewGuid());
             var claim = new Claim(ClaimTypes.NameIdentifier, emailAddressValue);
@@ -281,7 +281,7 @@ namespace Tripod.Domain.Security
         [InlineData(null, false)]
         [InlineData(true, true)]
         [InlineData(false, false)]
-        public void Handler_ReturnsNonNullEmailAddress_ByClaim_WhenFound_AndIsVerified_IsEqual(
+        public void Handler_ReturnsNonNullEmailAddress_WhenFound_ByClaim_AndIsVerified_IsEqual(
             bool? isQueryVerified, bool isEntityVerified)
         {
             var emailAddressValue = string.Format("{0}@domain.tld", Guid.NewGuid());

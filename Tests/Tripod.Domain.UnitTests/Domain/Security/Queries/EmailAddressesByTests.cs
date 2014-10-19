@@ -21,7 +21,7 @@ namespace Tripod.Domain.Security
         }
 
         [Fact]
-        public void Handler_ReturnsNoEmailAddresses_ByUserId_WhenNotFound()
+        public void Handler_ReturnsNoEmailAddresses_WhenNotFound_ByUserId()
         {
             var userId = new Random().Next(3, int.MaxValue);
             var data = new[]
@@ -49,7 +49,7 @@ namespace Tripod.Domain.Security
         [Theory]
         [InlineData(true)]
         [InlineData(false)]
-        public void Handler_ReturnsNoEmailAddresses_ByUserId_WhenFound_ButIsVerified_IsNotEqual(bool isVerified)
+        public void Handler_ReturnsNoEmailAddresses_WhenFound_ByUserId_ButIsVerifiedDoesNotMatch(bool isVerified)
         {
             var userId = new Random().Next(1, int.MaxValue);
             var data = new[]
@@ -83,7 +83,7 @@ namespace Tripod.Domain.Security
         [InlineData(null, false)]
         [InlineData(true, true)]
         [InlineData(false, false)]
-        public void Handler_ReturnsEmailAddresses_ByUserId_WhenFound_AndIsVerifiedMatches(
+        public void Handler_ReturnsEmailAddresses_WhenFound_ByUserId_AndIsVerifiedMatches(
             bool? queryIsVerified, bool entityIsVerified)
         {
             var userId = new Random().Next(3, int.MaxValue);

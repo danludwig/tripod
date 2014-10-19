@@ -26,7 +26,7 @@ namespace Tripod.Domain.Security
         }
 
         [Fact]
-        public void Handler_ReturnsFalse_ByUserId_WhenNotFound()
+        public void Handler_ReturnsFalse_WhenNotFound_ByUserId()
         {
             var userId = new Random().Next(3, int.MaxValue - 3);
             var user = new ProxiedUser(userId);
@@ -52,7 +52,7 @@ namespace Tripod.Domain.Security
         }
 
         [Fact]
-        public void Handler_ReturnsTrue_ByUserId_WhenFound()
+        public void Handler_ReturnsTrue_WhenFound_ByUserId()
         {
             var userId = new Random().Next(3, int.MaxValue - 3);
             var user = new ProxiedUser(userId);
@@ -92,7 +92,7 @@ namespace Tripod.Domain.Security
         }
 
         [Fact]
-        public void Handler_ReturnsFalse_ByUserName_WhenNotFound()
+        public void Handler_ReturnsFalse_WhenNotFound_ByUserName()
         {
             var userName = Guid.NewGuid().ToString();
             var user = new User { Name = userName, };
@@ -118,7 +118,7 @@ namespace Tripod.Domain.Security
         }
 
         [Fact]
-        public void Handler_ReturnsTrue_ByUserName_WhenFound()
+        public void Handler_ReturnsTrue_WhenFound_ByUserName()
         {
             var userName = Guid.NewGuid().ToString();
             var user = new User { Name = userName, };
@@ -246,7 +246,7 @@ namespace Tripod.Domain.Security
         }
 
         [Fact]
-        public void Handler_ReturnsFalse_ByPrincipal_WhenNotFound()
+        public void Handler_ReturnsFalse_WhenNotFound_ByPrincipal()
         {
             var userId = new Random().Next(1, int.MaxValue);
             var user = new ProxiedUser(userId);

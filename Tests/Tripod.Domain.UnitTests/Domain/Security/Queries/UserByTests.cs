@@ -27,7 +27,7 @@ namespace Tripod.Domain.Security
         }
 
         [Fact]
-        public void Handler_ReturnsNonNullUser_ById_WhenFound()
+        public void Handler_ReturnsNonNullUser_WhenFound_ById()
         {
             const int userId = 7;
             var data = new[] { new ProxiedUser(userId) }.AsQueryable();
@@ -46,7 +46,7 @@ namespace Tripod.Domain.Security
         }
 
         [Fact]
-        public void Handler_ReturnsNullUser_ById_WhenNotFound()
+        public void Handler_ReturnsNullUser_WhenNotFound_ById()
         {
             const int userId = 7;
             var data = new[] { new ProxiedUser(userId + 4) }.AsQueryable();
@@ -78,7 +78,7 @@ namespace Tripod.Domain.Security
         }
 
         [Fact]
-        public void Handler_ReturnsNonNullUser_ByName_WhenFound()
+        public void Handler_ReturnsNonNullUser_WhenFound_ByName()
         {
             var userName = Guid.NewGuid().ToString();
             var data = new[] { new User { Name = userName } }.AsQueryable();
@@ -97,7 +97,7 @@ namespace Tripod.Domain.Security
         }
 
         [Fact]
-        public void Handler_ReturnsNullUser_ByName_WhenNotFound()
+        public void Handler_ReturnsNullUser_WhenNotFound_ByName()
         {
             var userName = Guid.NewGuid().ToString();
             var data = new[] { new User { Name = Guid.NewGuid().ToString() } }.AsQueryable();
@@ -129,7 +129,7 @@ namespace Tripod.Domain.Security
         }
 
         [Fact]
-        public void Handler_ReturnsNonNullUser_ByPrincipal_WhenAuthenticatedAndFound()
+        public void Handler_ReturnsNonNullUser_WhenAuthenticatedAndFound_ByPrincipal()
         {
             const int userId = 78;
             var claims = new[]
@@ -154,7 +154,7 @@ namespace Tripod.Domain.Security
         }
 
         [Fact]
-        public void Handler_ReturnsNullUser_ByPrincipal_WhenNotAuthenticated()
+        public void Handler_ReturnsNullUser_WhenByUnauthenticatedPrincipal()
         {
             const int userId = 78;
             var claims = new[]
@@ -178,7 +178,7 @@ namespace Tripod.Domain.Security
         }
 
         [Fact]
-        public void Handler_ReturnsNullUser_ByPrincipal_WhenAuthenticatedButNotFound()
+        public void Handler_ReturnsNullUser_WhenAuthenticatedButNotFound_ByPrincipal()
         {
             const int userId = 78;
             var claims = new[]
@@ -216,7 +216,7 @@ namespace Tripod.Domain.Security
         }
 
         [Fact]
-        public void Handler_ReturnsNonNullUser_ByUserLoginInfo_WhenFound()
+        public void Handler_ReturnsNonNullUser_WhenFound_ByUserLoginInfo()
         {
             const string loginProvider = "loginProvider";
             var providerKey = Guid.NewGuid().ToString();
@@ -244,7 +244,7 @@ namespace Tripod.Domain.Security
         }
 
         [Fact]
-        public void Handler_ReturnsNullUser_ByUserLoginInfo_WhenNotFound()
+        public void Handler_ReturnsNullUser_WhenNotFound_ByUserLoginInfo()
         {
             const string loginProvider = "loginProvider";
             var providerKey = Guid.NewGuid().ToString();

@@ -20,7 +20,7 @@ namespace Tripod.Domain.Security
         }
 
         [Fact]
-        public void Handler_ReturnsNoRemoteMembershipViews_ByUserId_WhenNotFound()
+        public void Handler_ReturnsNoRemoteMembershipViews_WhenNotFound_ByUserId()
         {
             var userId = new Random().Next(1, int.MaxValue - 3);
             var remoteMemberships = new[]
@@ -44,7 +44,7 @@ namespace Tripod.Domain.Security
         }
 
         [Fact]
-        public void Handler_ReturnsRemoteMembershipViews_ByUserId_WhenFound()
+        public void Handler_ReturnsRemoteMembershipViews_WhenFound_ByUserId()
         {
             var userId = new Random().Next(1, int.MaxValue - 3);
             var remoteMemberships = new[]

@@ -23,7 +23,7 @@ namespace Tripod.Domain.Security
         }
 
         [Fact]
-        public void Handler_ReturnsNullLocalMembership_ByUserId_WhenNotFound()
+        public void Handler_ReturnsNullLocalMembership_WhenNotFound_ByUserId()
         {
             var userId = new Random().Next(3, int.MaxValue);
             var user = new ProxiedUser(userId - 1);
@@ -45,7 +45,7 @@ namespace Tripod.Domain.Security
         }
 
         [Fact]
-        public void Handler_ReturnsNonNullLocalMembership_ByUserId_WhenFound()
+        public void Handler_ReturnsNonNullLocalMembership_WhenFound_ByUserId()
         {
             var userId = new Random().Next(3, int.MaxValue);
             var user = new ProxiedUser(userId);
@@ -86,7 +86,7 @@ namespace Tripod.Domain.Security
         }
 
         [Fact]
-        public void Handler_ReturnsNullLocalMembership_ByUserName_WhenNotFound()
+        public void Handler_ReturnsNullLocalMembership_WhenNotFound_ByUserName()
         {
             var userName = Guid.NewGuid().ToString();
             var user = new User { Name = Guid.NewGuid().ToString() };
@@ -108,7 +108,7 @@ namespace Tripod.Domain.Security
         }
 
         [Fact]
-        public void Handler_ReturnsNonNullLocalMembership_ByUserName_WhenFound()
+        public void Handler_ReturnsNonNullLocalMembership_WhenFound_ByUserName()
         {
             var userName = Guid.NewGuid().ToString();
             var user = new User { Name = userName };
@@ -153,7 +153,7 @@ namespace Tripod.Domain.Security
         }
 
         [Fact]
-        public void Handler_ReturnsNullLocalMembership_ByUserLoginInfo_WhenNotFound()
+        public void Handler_ReturnsNullLocalMembership_WhenNotFound_ByUserLoginInfo()
         {
             var loginProvider = Guid.NewGuid().ToString();
             var providerKey = Guid.NewGuid().ToString();
@@ -179,7 +179,7 @@ namespace Tripod.Domain.Security
         }
 
         [Fact]
-        public void Handler_ReturnsNonNullLocalMembership_ByUserLoginInfo_WhenFound()
+        public void Handler_ReturnsNonNullLocalMembership_WhenFound_ByUserLoginInfo()
         {
             var loginProvider = Guid.NewGuid().ToString();
             var providerKey = Guid.NewGuid().ToString();

@@ -18,7 +18,7 @@ namespace Tripod.Domain.Security
         }
 
         [Fact]
-        public void Handler_ReturnsNullLocalMembership_ByVerifiedEmail_WhenFound_ButNotVerified()
+        public void Handler_ReturnsNullLocalMembership_WhenFoundButNotVerified_ByVerifiedEmail()
         {
             var emailAddress = string.Format("{0}@domain.tld", Guid.NewGuid());
             var user = new User();
@@ -45,7 +45,7 @@ namespace Tripod.Domain.Security
         }
 
         [Fact]
-        public void Handler_ReturnsNullLocalMembership_ByVerifiedEmail_WhenNotFound()
+        public void Handler_ReturnsNullLocalMembership_WhenNotFound_ByVerifiedEmail()
         {
             var emailAddress = string.Format("{0}@domain.tld", Guid.NewGuid());
             var user = new User();
@@ -72,7 +72,7 @@ namespace Tripod.Domain.Security
         }
 
         [Fact]
-        public void Handler_ReturnsNonNullLocalMembership_ByUserName_WhenFound()
+        public void Handler_ReturnsNonNullLocalMembership_WhenFound_ByUserName()
         {
             var emailAddress = string.Format("{0}@domain.tld", Guid.NewGuid());
             var user = new User();

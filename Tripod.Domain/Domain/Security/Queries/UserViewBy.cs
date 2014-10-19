@@ -9,7 +9,6 @@ namespace Tripod.Domain.Security
     public class UserViewBy : IDefineQuery<Task<UserView>>
     {
         public UserViewBy(int id) { Id = id; }
-        [UsedImplicitly]
         public UserViewBy(string name) { Name = name; }
         public UserViewBy(IPrincipal principal) { Principal = principal; }
 

@@ -21,7 +21,7 @@ namespace Tripod.Domain.Security
         }
 
         [Fact]
-        public void Handler_ReturnsNoRemoteMemberships_ByUserId_WhenNotFound()
+        public void Handler_ReturnsNoRemoteMemberships_WhenNotFound_ByUserId()
         {
             var userId = new Random().Next(1, int.MaxValue - 3);
             var remoteMemberships = new[]
@@ -45,7 +45,7 @@ namespace Tripod.Domain.Security
         }
 
         [Fact]
-        public void Handler_ReturnsRemoteMemberships_ByUserId_WhenFound()
+        public void Handler_ReturnsRemoteMemberships_WhenFound_ByUserId()
         {
             var userId = new Random().Next(1, int.MaxValue - 3);
             var remoteMemberships = new[]
@@ -86,7 +86,7 @@ namespace Tripod.Domain.Security
         }
 
         [Fact]
-        public void Handler_ReturnsNoRemoteMemberships_ByUserName_WhenNotFound()
+        public void Handler_ReturnsNoRemoteMemberships_WhenNotFound_ByUserName()
         {
             var userName = Guid.NewGuid().ToString();
             var differentUser1 = new User { Name = Guid.NewGuid().ToString(), };
@@ -112,7 +112,7 @@ namespace Tripod.Domain.Security
         }
 
         [Fact]
-        public void Handler_ReturnsRemoteMemberships_ByUserName_WhenFound()
+        public void Handler_ReturnsRemoteMemberships_WhenFound_ByUserName()
         {
             var userName = Guid.NewGuid().ToString();
             var user = new User { Name = userName, };
