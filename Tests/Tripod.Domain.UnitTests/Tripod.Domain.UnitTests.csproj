@@ -136,6 +136,7 @@
     <Compile Include="Domain\Security\Entities\_Fakes\ProxiedLocalMembership.cs" />
     <Compile Include="Domain\Security\Entities\_Fakes\ProxiedRemoteMembership.cs" />
     <Compile Include="Domain\Security\Queries\ClientCookieByTests.cs" />
+    <Compile Include="Domain\Security\Queries\LocalMembershipByVerifiedEmailTests.cs" />
     <Compile Include="Domain\Security\Queries\LocalMembershipByUserTests.cs" />
     <Compile Include="Domain\Security\Queries\EmailVerificationByTests.cs" />
     <Compile Include="Domain\Security\Queries\EmailAddressViewsByTests.cs" />
