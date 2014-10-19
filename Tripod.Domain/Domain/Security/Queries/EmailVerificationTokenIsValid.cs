@@ -32,9 +32,11 @@ namespace Tripod.Domain.Security
             if (string.IsNullOrWhiteSpace(query.Ticket) || string.IsNullOrWhiteSpace(query.Token))
                 return false;
 
-            var userToken = new UserTicket { UserName = query.Ticket };
+            var userTicket = new UserTicket { UserName = query.Ticket };
             var purposeString = query.Purpose.ToString();
-            bool isValid = await _userManager.UserTokenProvider.ValidateAsync(purposeString, query.Token, _userManager, userToken);
+            bool isValid = await _userManager.UserTokenProvider.ValidateAsync(
+                purposeString, query.Token, _userManager, userTicket)
+                .ConfigureAwait(false);
             return isValid;
         }
     }
