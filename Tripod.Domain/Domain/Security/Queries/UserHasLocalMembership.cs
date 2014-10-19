@@ -7,7 +7,6 @@ namespace Tripod.Domain.Security
 {
     public class UserHasLocalMembership : IDefineQuery<Task<bool>>
     {
-        [UsedImplicitly]
         public UserHasLocalMembership(int userId)
         {
             UserId = userId;
