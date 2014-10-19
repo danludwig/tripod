@@ -155,6 +155,7 @@
     <Compile Include="Domain\Security\Queries\RemoteMembershipByUserTests.cs" />
     <Compile Include="Domain\Security\Queries\UserByNameOrVerifiedEmailTests.cs" />
     <Compile Include="Domain\Security\Queries\UserHasLocalMembershipTests.cs" />
+    <Compile Include="Domain\Security\Queries\UserViewByTests.cs" />
     <Compile Include="Domain\Security\Validation\MustBeEmailAddressWithUserIdTests.cs" />
     <Compile Include="Domain\Security\Validation\MustBePrincipalWithUserIdTests.cs" />
     <Compile Include="Domain\Security\Validation\MustBeValidPasswordTests.cs" />

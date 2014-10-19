@@ -6,7 +6,7 @@ using System.Linq.Expressions;
 namespace Tripod
 {
     // http://msdn.microsoft.com/en-us/data/dn314429.aspx
-    public class FakeDbAsyncEnumerable<T> : EnumerableQuery<T>, IDbAsyncEnumerable<T>
+    public class FakeDbAsyncEnumerable<T> : EnumerableQuery<T>, IDbAsyncEnumerable<T>, IQueryable
     {
         public FakeDbAsyncEnumerable(IEnumerable<T> enumerable) : base(enumerable) { }
         public FakeDbAsyncEnumerable(Expression expression) : base(expression) { }
@@ -21,8 +21,7 @@ namespace Tripod
             return GetAsyncEnumerator();
         }
 
-        [UsedImplicitly]
-        public IQueryProvider Provider
+        IQueryProvider IQueryable.Provider
         {
             get { return new FakeDbAsyncQueryProvider<T>(this); }
         }
