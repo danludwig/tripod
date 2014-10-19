@@ -127,7 +127,7 @@ namespace Tripod.Domain.Security
         [UsedImplicitly]
         internal static Expression<Func<RemoteMembership, bool>> ByUserIdAndLoginInfo(int userId, UserLoginInfo userLoginInfo)
         {
-            return x => x.User.Id == userId
+            return x => x.UserId == userId
                 && x.LoginProvider == userLoginInfo.LoginProvider
                 && x.ProviderKey == userLoginInfo.ProviderKey;
         }
