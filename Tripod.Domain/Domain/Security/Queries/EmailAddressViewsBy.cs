@@ -5,14 +5,13 @@ namespace Tripod.Domain.Security
 {
     public class EmailAddressViewsBy : BaseEnumerableQuery<EmailAddressView>, IDefineQuery<Task<IQueryable<EmailAddressView>>>
     {
-        [UsedImplicitly]
         public EmailAddressViewsBy(int userId)
         {
             UserId = userId;
         }
 
         public int UserId { get; private set; }
-        public bool? IsVerified { get; [UsedImplicitly] set; }
+        public bool? IsVerified { get; set; }
     }
 
     [UsedImplicitly]

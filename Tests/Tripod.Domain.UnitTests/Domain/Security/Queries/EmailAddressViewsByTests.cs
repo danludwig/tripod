@@ -8,20 +8,20 @@ using Xunit.Extensions;
 
 namespace Tripod.Domain.Security
 {
-    public class EmailAddressesByTests
+    public class EmailAddressViewsByTests
     {
-        #region EmailAddressesBy UserId
+        #region EmailAddressViewsBy UserId
 
         [Fact]
         public void Query_IntCtor_SetsUserIdProperty()
         {
             var userId = new Random().Next(int.MinValue, int.MaxValue);
-            var query = new EmailAddressesBy(userId);
+            var query = new EmailAddressViewsBy(userId);
             query.UserId.ShouldEqual(userId);
         }
 
         [Fact]
-        public void Handler_ReturnsNoEmailAddresses_ByUserId_WhenNotFound()
+        public void Handler_ReturnsNoEmailAddressViews_ByUserId_WhenNotFound()
         {
             var userId = new Random().Next(3, int.MaxValue);
             var data = new[]
@@ -32,14 +32,14 @@ namespace Tripod.Domain.Security
                 new EmailAddress { UserId = userId - 1, IsPrimary = true, },
                 new EmailAddress { UserId = userId - 1, },
             }.AsQueryable();
-            var query = new EmailAddressesBy(userId);
+            var query = new EmailAddressViewsBy(userId);
             var dbSet = new Mock<DbSet<EmailAddress>>(MockBehavior.Strict).SetupDataAsync(data);
             var entities = new Mock<IReadEntities>(MockBehavior.Strict);
             var entitySet = new EntitySet<EmailAddress>(dbSet.Object, entities.Object);
             entities.Setup(x => x.Query<EmailAddress>()).Returns(entitySet);
-            var handler = new HandleEmailAddressesByQuery(entities.Object);
+            var handler = new HandleEmailAddressViewsByQuery(entities.Object);
 
-            EmailAddress[] result = handler.Handle(query).Result.ToArray();
+            EmailAddressView[] result = handler.Handle(query).Result.ToArray();
 
             Assert.NotNull(result);
             result.Length.ShouldEqual(0);
@@ -61,7 +61,7 @@ namespace Tripod.Domain.Security
                 new EmailAddress { UserId = userId - 1, },
                 new EmailAddress { UserId = userId, IsVerified = !isVerified, },
             }.AsQueryable();
-            var query = new EmailAddressesBy(userId)
+            var query = new EmailAddressViewsBy(userId)
             {
                 IsVerified = isVerified
             };
@@ -69,9 +69,9 @@ namespace Tripod.Domain.Security
             var entities = new Mock<IReadEntities>(MockBehavior.Strict);
             var entitySet = new EntitySet<EmailAddress>(dbSet.Object, entities.Object);
             entities.Setup(x => x.Query<EmailAddress>()).Returns(entitySet);
-            var handler = new HandleEmailAddressesByQuery(entities.Object);
+            var handler = new HandleEmailAddressViewsByQuery(entities.Object);
 
-            EmailAddress[] result = handler.Handle(query).Result.ToArray();
+            EmailAddressView[] result = handler.Handle(query).Result.ToArray();
 
             Assert.NotNull(result);
             result.Length.ShouldEqual(0);
@@ -94,10 +94,17 @@ namespace Tripod.Domain.Security
                 new EmailAddress { UserId = userId - 2, },
                 new EmailAddress { UserId = userId - 1, IsPrimary = true, },
                 new EmailAddress { UserId = userId - 1, },
-                new EmailAddress { UserId = userId, IsVerified = entityIsVerified, },
+                new EmailAddressWithSpecifiedId(664)
+                {
+                    UserId = userId,
+                    Value = string.Format("{0}@domain.tld", Guid.NewGuid()),
+                    HashedValue = "hashed email value",
+                    IsVerified = entityIsVerified,
+                    IsPrimary = entityIsVerified,
+                },
                 new EmailAddress { UserId = userId, IsVerified = !entityIsVerified, },
             }.AsQueryable();
-            var query = new EmailAddressesBy(userId)
+            var query = new EmailAddressViewsBy(userId)
             {
                 IsVerified = queryIsVerified,
             };
@@ -105,9 +112,9 @@ namespace Tripod.Domain.Security
             var entities = new Mock<IReadEntities>(MockBehavior.Strict);
             var entitySet = new EntitySet<EmailAddress>(dbSet.Object, entities.Object);
             entities.Setup(x => x.Query<EmailAddress>()).Returns(entitySet);
-            var handler = new HandleEmailAddressesByQuery(entities.Object);
+            var handler = new HandleEmailAddressViewsByQuery(entities.Object);
 
-            EmailAddress[] result = handler.Handle(query).Result.ToArray();
+            EmailAddressView[] result = handler.Handle(query).Result.ToArray();
 
             Assert.NotNull(result);
             result.Length.ShouldEqual(queryIsVerified.HasValue ? 1 : 2);
@@ -115,7 +122,13 @@ namespace Tripod.Domain.Security
             if (queryIsVerified.HasValue)
             {
                 EmailAddress expectedEntity = data.Single(x => x.UserId == userId && x.IsVerified == entityIsVerified);
-                result.Single().ShouldEqual(expectedEntity);
+                EmailAddressView actualView = result.Single();
+                actualView.EmailAddressId.ShouldEqual(expectedEntity.Id);
+                actualView.UserId.ShouldEqual(expectedEntity.UserId);
+                actualView.Value.ShouldEqual(expectedEntity.Value);
+                actualView.HashedValue.ShouldEqual(expectedEntity.HashedValue);
+                actualView.IsPrimary.ShouldEqual(expectedEntity.IsPrimary);
+                actualView.IsVerified.ShouldEqual(expectedEntity.IsVerified);
             }
         }
 

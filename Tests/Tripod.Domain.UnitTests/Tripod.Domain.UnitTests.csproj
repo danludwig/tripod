@@ -139,6 +139,7 @@
     <Compile Include="Domain\Security\Entities\_Fakes\RemoteMembershipWithSpecifiedId.cs" />
     <Compile Include="Domain\Security\Entities\_Fakes\UserWithSpecifiedId.cs" />
     <Compile Include="Domain\Security\Queries\ClientCookieByTests.cs" />
+    <Compile Include="Domain\Security\Queries\EmailAddressViewsByTests.cs" />
     <Compile Include="Domain\Security\Queries\EmailAddressesByTests.cs" />
     <Compile Include="Domain\Security\Queries\EmailAddressByTests.cs" />
     <Compile Include="Domain\Security\Validation\MustBeEmailAddressWithUserIdTests.cs" />
