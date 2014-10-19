@@ -43,6 +43,8 @@ namespace Tripod.Domain.Security
             public const int NameMinLength = 2;
             public const int NameMaxLength = 50;
             public const int SecurityStampMaxLength = 250;
+            public const string AllowedNameCharacters =
+                "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@.-_";
         }
     }
 }

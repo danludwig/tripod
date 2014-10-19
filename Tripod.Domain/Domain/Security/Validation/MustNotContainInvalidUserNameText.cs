@@ -6,8 +6,6 @@ namespace Tripod.Domain.Security
 {
     public class MustNotContainInvalidUserNameText : PropertyValidator
     {
-        private const string ValidCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@.-_";
-
         internal MustNotContainInvalidUserNameText()
             : base(() => Resources.Validation_UserName_AllowedCharacters)
         {
@@ -21,12 +19,18 @@ namespace Tripod.Domain.Security
             if (userName == null || EmailAddress.ValueRegex.IsMatch(userName)) return true;
 
             // otherwise, must not have invalid characters.
-            return userName.All(x => ValidCharacters.Contains(x));
+            return userName.All(x => User.Constraints.AllowedNameCharacters.Contains(x));
         }
     }
 
     public static class MustNotContainInvalidUserNameTextExtensions
     {
+        /// <summary>
+        /// Validates that this User Name contains only valid text characters.
+        /// </summary>
+        /// <typeparam name="T">The command with the User Name to validate.</typeparam>
+        /// <param name="ruleBuilder">Fluent rule builder options.</param>
+        /// <returns>Fluent rule builder options.</returns>
         public static IRuleBuilderOptions<T, string> MustNotContainInvalidUserNameText<T>
             (this IRuleBuilder<T, string> ruleBuilder)
         {
