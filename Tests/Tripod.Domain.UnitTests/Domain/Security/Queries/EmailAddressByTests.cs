@@ -27,7 +27,7 @@ namespace Tripod.Domain.Security
         public void Handler_ReturnsNullEmailAddress_ById_WhenNotFound()
         {
             var emailAddressId = new Random().Next(3, int.MaxValue);
-            var data = new[] { new EmailAddressWithSpecifiedId(emailAddressId - 1) }.AsQueryable();
+            var data = new[] { new ProxiedEmailAddress(emailAddressId - 1) }.AsQueryable();
             var query = new EmailAddressBy(emailAddressId);
             var dbSet = new Mock<DbSet<EmailAddress>>(MockBehavior.Strict).SetupDataAsync(data);
             var entities = new Mock<IReadEntities>(MockBehavior.Strict);
@@ -47,7 +47,7 @@ namespace Tripod.Domain.Security
         public void Handler_ReturnsNullEmailAddress_ById_WhenFound_ButIsVerified_IsNotEqual(bool isVerified)
         {
             var emailAddressId = new Random().Next(1, int.MaxValue);
-            var emailAddress = new EmailAddressWithSpecifiedId(emailAddressId)
+            var emailAddress = new ProxiedEmailAddress(emailAddressId)
             {
                 IsVerified = !isVerified,
             };
@@ -77,7 +77,7 @@ namespace Tripod.Domain.Security
             bool? queryIsVerified, bool entityIsVerified)
         {
             var emailAddressId = new Random().Next(1, int.MaxValue);
-            var emailAddress = new EmailAddressWithSpecifiedId(emailAddressId)
+            var emailAddress = new ProxiedEmailAddress(emailAddressId)
             {
                 IsVerified = entityIsVerified,
             };

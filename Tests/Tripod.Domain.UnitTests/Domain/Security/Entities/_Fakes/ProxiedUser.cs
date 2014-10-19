@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
+using System.Collections.ObjectModel;
 
 namespace Tripod.Domain.Security
 {
@@ -11,26 +11,24 @@ namespace Tripod.Domain.Security
             Name = "nameFromDb";
         }
 
-        public override ICollection<Permission> Permissions
+        protected internal ProxiedUser(int id)
+            : this()
         {
-            get { return base.Permissions.ToArray(); }
+            Id = id;
         }
+
+        private readonly ICollection<Permission> _permissions = new Collection<Permission>();
+        public override ICollection<Permission> Permissions { get { return _permissions; } }
 
         public override LocalMembership LocalMembership { get; protected internal set; }
 
-        public override ICollection<RemoteMembership> RemoteMemberships
-        {
-            get { return base.RemoteMemberships.ToArray(); }
-        }
+        private readonly ICollection<RemoteMembership> _remoteMemberships = new Collection<RemoteMembership>();
+        public override ICollection<RemoteMembership> RemoteMemberships { get { return _remoteMemberships; } }
 
-        public override ICollection<UserClaim> Claims
-        {
-            get { return base.Claims.ToArray(); }
-        }
+        private readonly ICollection<UserClaim> _claims = new Collection<UserClaim>();
+        public override ICollection<UserClaim> Claims { get { return _claims; } }
 
-        public override ICollection<EmailAddress> EmailAddresses
-        {
-            get { return base.EmailAddresses.ToArray(); }
-        }
+        private readonly ICollection<EmailAddress> _emailAddresses = new Collection<EmailAddress>();
+        public override ICollection<EmailAddress> EmailAddresses { get { return _emailAddresses; } }
     }
 }

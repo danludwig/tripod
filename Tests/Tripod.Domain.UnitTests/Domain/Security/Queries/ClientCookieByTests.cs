@@ -51,10 +51,10 @@ namespace Tripod.Domain.Security
         [Fact]
         public void Handler_ReturnsClientCookie_WhenUserById_Exists()
         {
-            const int userId = 11;
+            var userId = new Random().Next(3, int.MaxValue);
             var userName = Guid.NewGuid().ToString();
             var query = new ClientCookieBy(userId);
-            var user = new UserWithSpecifiedId(userId) { Name = userName };
+            var user = new ProxiedUser(userId) { Name = userName };
             user.EmailAddresses.Add(new EmailAddress
             {
                 HashedValue = "Email 0 hashed value",

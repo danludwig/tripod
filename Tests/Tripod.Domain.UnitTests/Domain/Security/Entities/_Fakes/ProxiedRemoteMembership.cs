@@ -2,6 +2,11 @@
 {
     public class ProxiedRemoteMembership : RemoteMembership
     {
+        protected internal ProxiedRemoteMembership(RemoteMembershipId id)
+            : this(id.LoginProvider, id.ProviderKey)
+        {
+        }
+
         protected internal ProxiedRemoteMembership(string loginProvider, string providerKey)
         {
             LoginProvider = loginProvider;

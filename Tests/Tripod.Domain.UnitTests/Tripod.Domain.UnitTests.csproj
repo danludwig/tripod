@@ -120,7 +120,7 @@
     <Compile Include="Api\_Extensions\_Fakes\IFakeOpenGenericB.cs" />
     <Compile Include="Api\_Extensions\ReflectionExtensionTests.cs" />
     <Compile Include="Domain\Audit\Entities\ExceptionAuditTests.cs" />
-    <Compile Include="Domain\Audit\Entities\_Fakes\ProxiedPermission.cs" />
+    <Compile Include="Domain\Audit\Entities\_Fakes\ProxiedExceptionAudit.cs" />
     <Compile Include="Domain\Security\Commands\SignInHandlerTests.cs" />
     <Compile Include="Domain\Security\Commands\CreateUserHandlerTests.cs" />
     <Compile Include="Domain\Security\Commands\SignInValidationTests.cs" />
@@ -129,15 +129,12 @@
     <Compile Include="Domain\Security\Entities\UserClaimTests.cs" />
     <Compile Include="Domain\Security\Entities\EmailAddressTests.cs" />
     <Compile Include="Domain\Security\Entities\LocalMembershipTests.cs" />
-    <Compile Include="Domain\Security\Entities\_Fakes\EmailAddressWithSpecifiedId.cs" />
     <Compile Include="Domain\Security\Entities\_Fakes\ProxiedClaim.cs" />
     <Compile Include="Domain\Security\Entities\_Fakes\ProxiedEmailMessage.cs" />
     <Compile Include="Domain\Security\Entities\_Fakes\ProxiedEmailVerification.cs" />
     <Compile Include="Domain\Security\Entities\_Fakes\ProxiedEmailAddress.cs" />
     <Compile Include="Domain\Security\Entities\_Fakes\ProxiedLocalMembership.cs" />
     <Compile Include="Domain\Security\Entities\_Fakes\ProxiedRemoteMembership.cs" />
-    <Compile Include="Domain\Security\Entities\_Fakes\RemoteMembershipWithSpecifiedId.cs" />
-    <Compile Include="Domain\Security\Entities\_Fakes\UserWithSpecifiedId.cs" />
     <Compile Include="Domain\Security\Queries\ClientCookieByTests.cs" />
     <Compile Include="Domain\Security\Queries\EmailAddressViewsByTests.cs" />
     <Compile Include="Domain\Security\Queries\EmailAddressesByTests.cs" />

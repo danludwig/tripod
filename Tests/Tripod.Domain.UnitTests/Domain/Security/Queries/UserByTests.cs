@@ -30,7 +30,7 @@ namespace Tripod.Domain.Security
         public void Handler_ReturnsNonNullUser_ById_WhenFound()
         {
             const int userId = 7;
-            var data = new[] { new UserWithSpecifiedId(userId) }.AsQueryable();
+            var data = new[] { new ProxiedUser(userId) }.AsQueryable();
             var query = new UserBy(userId);
             var dbSet = new Mock<DbSet<User>>(MockBehavior.Strict).SetupDataAsync(data);
             var entities = new Mock<IReadEntities>(MockBehavior.Strict);
@@ -49,7 +49,7 @@ namespace Tripod.Domain.Security
         public void Handler_ReturnsNullUser_ById_WhenNotFound()
         {
             const int userId = 7;
-            var data = new[] { new UserWithSpecifiedId(userId + 4) }.AsQueryable();
+            var data = new[] { new ProxiedUser(userId + 4) }.AsQueryable();
             var query = new UserBy(userId);
             var dbSet = new Mock<DbSet<User>>(MockBehavior.Strict).SetupDataAsync(data);
             var entities = new Mock<IReadEntities>(MockBehavior.Strict);
@@ -138,7 +138,7 @@ namespace Tripod.Domain.Security
             };
             var identity = new ClaimsIdentity(claims, "authenticationType");
             var principal = new GenericPrincipal(identity, null);
-            var data = new[] { new UserWithSpecifiedId(userId) }.AsQueryable();
+            var data = new[] { new ProxiedUser(userId) }.AsQueryable();
             var query = new UserBy(principal);
             var dbSet = new Mock<DbSet<User>>(MockBehavior.Strict).SetupDataAsync(data);
             var entities = new Mock<IReadEntities>(MockBehavior.Strict);
@@ -187,7 +187,7 @@ namespace Tripod.Domain.Security
             };
             var identity = new ClaimsIdentity(claims, "authenticationType");
             var principal = new GenericPrincipal(identity, null);
-            var data = new[] { new UserWithSpecifiedId(userId + 9) }.AsQueryable();
+            var data = new[] { new ProxiedUser(userId + 9) }.AsQueryable();
             var query = new UserBy(principal);
             var dbSet = new Mock<DbSet<User>>(MockBehavior.Strict).SetupDataAsync(data);
             var entities = new Mock<IReadEntities>(MockBehavior.Strict);
@@ -225,7 +225,7 @@ namespace Tripod.Domain.Security
                 LoginProvider = loginProvider,
                 ProviderKey = providerKey,
             };
-            var remoteMembership = new RemoteMembershipWithSpecifiedId(remoteMembershipId);
+            var remoteMembership = new ProxiedRemoteMembership(remoteMembershipId);
             var user = new User();
             user.RemoteMemberships.Add(remoteMembership);
             var data = new[] { user }.AsQueryable();
@@ -253,7 +253,7 @@ namespace Tripod.Domain.Security
                 LoginProvider = loginProvider,
                 ProviderKey = Guid.NewGuid().ToString(),
             };
-            var remoteMembership = new RemoteMembershipWithSpecifiedId(remoteMembershipId);
+            var remoteMembership = new ProxiedRemoteMembership(remoteMembershipId);
             var user = new User();
             user.RemoteMemberships.Add(remoteMembership);
             var data = new[] { user }.AsQueryable();

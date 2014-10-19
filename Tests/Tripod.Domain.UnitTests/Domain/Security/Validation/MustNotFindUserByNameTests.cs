@@ -56,7 +56,7 @@ namespace Tripod.Domain.Security
                 UserName = userName,
                 UserId = userId + 1,
             };
-            var entity = new UserWithSpecifiedId(userId)
+            var entity = new ProxiedUser(userId)
             {
                 Name = command.UserName,
             };
@@ -107,7 +107,7 @@ namespace Tripod.Domain.Security
                 UserName = userName,
                 UserId = userId,
             };
-            var entity = new UserWithSpecifiedId(userId)
+            var entity = new ProxiedUser(userId)
             {
                 Name = command.UserName,
             };

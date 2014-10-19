@@ -94,7 +94,7 @@ namespace Tripod.Domain.Security
                 new EmailAddress { UserId = userId - 2, },
                 new EmailAddress { UserId = userId - 1, IsPrimary = true, },
                 new EmailAddress { UserId = userId - 1, },
-                new EmailAddressWithSpecifiedId(664)
+                new ProxiedEmailAddress(664)
                 {
                     UserId = userId,
                     Value = string.Format("{0}@domain.tld", Guid.NewGuid()),
