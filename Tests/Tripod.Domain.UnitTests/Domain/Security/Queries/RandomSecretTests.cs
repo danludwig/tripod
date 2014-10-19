@@ -8,7 +8,7 @@ namespace Tripod.Domain.Security
     public class RandomSecretTests
     {
         [Fact]
-        public void Ctor_MinMax_ThrowsArgumentOutOfRangeException_WhenMinLength_IsLessThanOne()
+        public void Query_Ctor_MinMax_ThrowsArgumentOutOfRangeException_WhenMinLength_IsLessThanOne()
         {
             var minLength = new Random().Next(int.MinValue, 0);
             var exception = Assert.Throws<ArgumentOutOfRangeException>(
@@ -20,7 +20,7 @@ namespace Tripod.Domain.Security
         }
 
         [Fact]
-        public void Ctor_MinMax_ThrowsArgumentOutOfRangeException_WhenMaxLength_IsLessThanMinLength()
+        public void Query_Ctor_MinMax_ThrowsArgumentOutOfRangeException_WhenMaxLength_IsLessThanMinLength()
         {
             var minLength = new Random().Next(0, int.MaxValue);
             var maxLength = minLength - 1;
@@ -33,7 +33,7 @@ namespace Tripod.Domain.Security
         }
 
         [Fact]
-        public void Ctor_MinMax_SetsMinAndMaxLengthProperties_WhenArgumentsAreInRange()
+        public void Query_Ctor_MinMax_SetsMinAndMaxLengthProperties_WhenArgumentsAreInRange()
         {
             var minLength = new Random().Next(1, int.MaxValue / 2);
             var maxLength = minLength + new Random().Next(0, 2);
@@ -43,7 +43,7 @@ namespace Tripod.Domain.Security
         }
 
         [Fact]
-        public void Ctor_Exact_ThrowsArgumentOutOfRangeException_WhenExactLength_IsLessThanOne()
+        public void Query_Ctor_Exact_ThrowsArgumentOutOfRangeException_WhenExactLength_IsLessThanOne()
         {
             var exactLength = new Random().Next(int.MinValue, 0);
             var exception = Assert.Throws<ArgumentOutOfRangeException>(
@@ -55,7 +55,7 @@ namespace Tripod.Domain.Security
         }
 
         [Fact]
-        public void Ctor_Exact_SetsBothMinAndMaxLengthProperties_WhenArgumentIsInRange()
+        public void Query_Ctor_Exact_SetsBothMinAndMaxLengthProperties_WhenArgumentIsInRange()
         {
             var exactLength = new Random().Next(1, int.MaxValue);
             var query = new RandomSecret(exactLength);
@@ -64,7 +64,7 @@ namespace Tripod.Domain.Security
         }
 
         [Fact]
-        public void Handle_ReturnsValue_FromSecretCreator()
+        public void Handler_ReturnsValue_FromSecretCreator()
         {
             var minLength = new Random().Next(1, 50);
             var maxLength = new Random().Next(minLength, 100);

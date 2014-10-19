@@ -11,7 +11,7 @@ namespace Tripod.Domain.Security
     public class IsPasswordVerifiedTests
     {
         [Fact]
-        public void Handle_ReturnsFalse_WhenNoUserExists_WithNameOrVerifiedEmail()
+        public void Handler_ReturnsFalse_WhenNoUserExists_WithNameOrVerifiedEmail()
         {
             string nameOrVerifiedEmail = string.Format("{0}@domain.tld", Guid.NewGuid());
             string password = Guid.NewGuid().ToString();
@@ -36,7 +36,7 @@ namespace Tripod.Domain.Security
         }
 
         [Fact]
-        public void Handle_ReturnsFalse_WhenUserExists_ButHasDifferentPassword()
+        public void Handler_ReturnsFalse_WhenUserExists_ButHasDifferentPassword()
         {
             string nameOrVerifiedEmail = string.Format("{0}@domain.tld", Guid.NewGuid());
             string password = Guid.NewGuid().ToString();
@@ -70,7 +70,7 @@ namespace Tripod.Domain.Security
         }
 
         [Fact]
-        public void Handle_ReturnsTrue_WhenUserExists_AndPasswordHashesMatch()
+        public void Handler_ReturnsTrue_WhenUserExists_AndPasswordHashesMatch()
         {
             string nameOrVerifiedEmail = string.Format("{0}@domain.tld", Guid.NewGuid());
             string password = Guid.NewGuid().ToString();

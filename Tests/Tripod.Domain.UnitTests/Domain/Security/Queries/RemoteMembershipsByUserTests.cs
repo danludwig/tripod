@@ -12,7 +12,7 @@ namespace Tripod.Domain.Security
         #region RemoteMembershipsByUser Id
 
         [Fact]
-        public void IntCtor_SetsUserIdProperty()
+        public void Query_IntCtor_SetsUserIdProperty()
         {
             var userId = new Random().Next(1, int.MaxValue);
             var query = new RemoteMembershipsByUser(userId);
@@ -21,7 +21,7 @@ namespace Tripod.Domain.Security
         }
 
         [Fact]
-        public void Handle_ReturnsNoRemoteMemberships_ByUserId_WhenNotFound()
+        public void Handler_ReturnsNoRemoteMemberships_ByUserId_WhenNotFound()
         {
             var userId = new Random().Next(1, int.MaxValue - 3);
             var remoteMemberships = new[]
@@ -45,7 +45,7 @@ namespace Tripod.Domain.Security
         }
 
         [Fact]
-        public void Handle_ReturnsRemoteMemberships_ByUserId_WhenFound()
+        public void Handler_ReturnsRemoteMemberships_ByUserId_WhenFound()
         {
             var userId = new Random().Next(1, int.MaxValue - 3);
             var remoteMemberships = new[]
@@ -77,7 +77,7 @@ namespace Tripod.Domain.Security
         #region RemoteMembershipsByUser Name
 
         [Fact]
-        public void StringCtor_SetsUserNameProperty()
+        public void Query_StringCtor_SetsUserNameProperty()
         {
             var userName = Guid.NewGuid().ToString();
             var query = new RemoteMembershipsByUser(userName);
@@ -86,7 +86,7 @@ namespace Tripod.Domain.Security
         }
 
         [Fact]
-        public void Handle_ReturnsNoRemoteMemberships_ByUserName_WhenNotFound()
+        public void Handler_ReturnsNoRemoteMemberships_ByUserName_WhenNotFound()
         {
             var userName = Guid.NewGuid().ToString();
             var differentUser1 = new User { Name = Guid.NewGuid().ToString(), };
@@ -112,7 +112,7 @@ namespace Tripod.Domain.Security
         }
 
         [Fact]
-        public void Handle_ReturnsRemoteMemberships_ByUserName_WhenFound()
+        public void Handler_ReturnsRemoteMemberships_ByUserName_WhenFound()
         {
             var userName = Guid.NewGuid().ToString();
             var user = new User { Name = userName, };

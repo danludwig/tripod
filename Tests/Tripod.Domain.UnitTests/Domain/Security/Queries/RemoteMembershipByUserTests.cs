@@ -13,7 +13,7 @@ namespace Tripod.Domain.Security
         #region RemoteMembershipByUser Id
 
         [Fact]
-        public void IntCtor_SetsUserIdProperty_AndUserLoginInfoProperty()
+        public void Query_IntCtor_SetsUserIdProperty_AndUserLoginInfoProperty()
         {
             var userId = new Random().Next(1, int.MaxValue);
             var loginProvider = Guid.NewGuid().ToString();
@@ -26,7 +26,7 @@ namespace Tripod.Domain.Security
         }
 
         [Fact]
-        public void Handle_ReturnsNullRemoteMembership_ByUserId_WhenUserLoginInfo_IsNull()
+        public void Handler_ReturnsNullRemoteMembership_ByUserId_WhenUserLoginInfo_IsNull()
         {
             var userId = new Random().Next(1, int.MaxValue - 3);
             var loginProvider = Guid.NewGuid().ToString();
@@ -53,7 +53,7 @@ namespace Tripod.Domain.Security
         }
 
         [Fact]
-        public void Handle_ReturnsNullRemoteMembership_ByUserId_WhenNotFound()
+        public void Handler_ReturnsNullRemoteMembership_ByUserId_WhenNotFound()
         {
             var userId = new Random().Next(1, int.MaxValue - 3);
             var loginProvider = Guid.NewGuid().ToString();
@@ -81,7 +81,7 @@ namespace Tripod.Domain.Security
         }
 
         [Fact]
-        public void Handle_ReturnsNonNullRemoteMembership_ByUserId_WhenFound()
+        public void Handler_ReturnsNonNullRemoteMembership_ByUserId_WhenFound()
         {
             var userId = new Random().Next(1, int.MaxValue - 3);
             var loginProvider = Guid.NewGuid().ToString();
@@ -119,7 +119,7 @@ namespace Tripod.Domain.Security
         #region RemoteMembershipByUser Name
 
         [Fact]
-        public void StringCtor_SetsUserNameProperty_AndUserLoginInfoProperty()
+        public void Query_StringCtor_SetsUserNameProperty_AndUserLoginInfoProperty()
         {
             var userName = Guid.NewGuid().ToString();
             var loginProvider = Guid.NewGuid().ToString();
@@ -132,7 +132,7 @@ namespace Tripod.Domain.Security
         }
 
         [Fact]
-        public void Handle_ReturnsNullRemoteMembership_ByUserName_WhenUserLoginInfo_IsNull()
+        public void Handler_ReturnsNullRemoteMembership_ByUserName_WhenUserLoginInfo_IsNull()
         {
             var userName = Guid.NewGuid().ToString();
             var loginProvider = Guid.NewGuid().ToString();
@@ -161,7 +161,7 @@ namespace Tripod.Domain.Security
         }
 
         [Fact]
-        public void Handle_ReturnsNullRemoteMembership_ByUserName_WhenNotFound()
+        public void Handler_ReturnsNullRemoteMembership_ByUserName_WhenNotFound()
         {
             var userName = Guid.NewGuid().ToString();
             var loginProvider = Guid.NewGuid().ToString();
@@ -191,7 +191,7 @@ namespace Tripod.Domain.Security
         }
 
         [Fact]
-        public void Handle_ReturnsNonNullRemoteMembership_ByUserName_WhenFound()
+        public void Handler_ReturnsNonNullRemoteMembership_ByUserName_WhenFound()
         {
             var userName = Guid.NewGuid().ToString();
             var loginProvider = Guid.NewGuid().ToString();

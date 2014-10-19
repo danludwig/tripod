@@ -15,7 +15,7 @@ namespace Tripod.Domain.Security
         [InlineData(EmailVerificationPurpose.CreateLocalUser)]
         [InlineData(EmailVerificationPurpose.CreateRemoteUser)]
         [InlineData(EmailVerificationPurpose.ForgotPassword)]
-        public void Ctor_SetsProperties(EmailVerificationPurpose purpose)
+        public void Query_Ctor_SetsProperties(EmailVerificationPurpose purpose)
         {
             var token = Guid.NewGuid().ToString();
             var ticket = Guid.NewGuid().ToString();

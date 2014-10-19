@@ -14,7 +14,7 @@ namespace Tripod.Domain.Security
     public class ExternalCookieClaimTests
     {
         [Fact]
-        public void Ctor_SingleArg_SetsClaimType()
+        public void Query_Ctor_SingleArg_SetsClaimType()
         {
             var claimType = Guid.NewGuid().ToString();
             var query = new ExternalCookieClaim(claimType);
@@ -22,7 +22,7 @@ namespace Tripod.Domain.Security
         }
 
         [Fact]
-        public void Ctor_SingleArg_SetsAuthenticationType_ToDefaultExternalCookie()
+        public void Query_Ctor_SingleArg_SetsAuthenticationType_ToDefaultExternalCookie()
         {
             var claimType = Guid.NewGuid().ToString();
             var query = new ExternalCookieClaim(claimType);
@@ -30,7 +30,7 @@ namespace Tripod.Domain.Security
         }
 
         [Fact]
-        public void Ctor_SecondArg_SetsAuthenticationType()
+        public void Query_Ctor_SecondArg_SetsAuthenticationType()
         {
             var claimType = Guid.NewGuid().ToString();
             var authenticationType = Guid.NewGuid().ToString();

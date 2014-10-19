@@ -8,7 +8,7 @@ namespace Tripod.Domain.Security
     public class HashedEmailValueByTests
     {
         [Fact]
-        public void Ctor_SetsEmailAddressProperty_UsingStringArg()
+        public void Query_Ctor_SetsEmailAddressProperty_UsingStringArg()
         {
             var emailAddress = string.Format("{0}@domain.tld", Guid.NewGuid());
             var query = new HashedEmailValueBy(emailAddress);
@@ -21,7 +21,7 @@ namespace Tripod.Domain.Security
         [InlineData("008cf114-39dd-4d0e-93d5-4035d3b4f8a9@domain.tld", "f3aeb2c4824c408ac22040b5ad121582")]
         [InlineData(null, "d41d8cd98f00b204e9800998ecf8427e")]
         [InlineData("", "d41d8cd98f00b204e9800998ecf8427e")]
-        public void Handle_HashesEmail_GravatarStyle(string emailAddress, string expectedHash)
+        public void Handler_HashesEmail_GravatarStyle(string emailAddress, string expectedHash)
         {
             var handler = new HandleHashedEmailValueByQuery();
             var query = new HashedEmailValueBy(emailAddress);

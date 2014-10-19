@@ -10,7 +10,7 @@ namespace Tripod.Domain.Security
     public class UserByNameOrVerifiedEmailTests
     {
         [Fact]
-        public void Ctor_SetsNameOrEmailProperty()
+        public void Query_Ctor_SetsNameOrEmailProperty()
         {
             var nameOrEmail = string.Format("{0}@domain.tld", Guid.NewGuid());
             var query = new UserByNameOrVerifiedEmail(nameOrEmail);
@@ -18,7 +18,7 @@ namespace Tripod.Domain.Security
         }
 
         [Fact]
-        public void Handle_ReturnsNullUser_WhenNotFound()
+        public void Handler_ReturnsNullUser_WhenNotFound()
         {
             var nameOrEmail = string.Format("{0}@domain.tld", Guid.NewGuid());
             var query = new UserByNameOrVerifiedEmail(nameOrEmail);
@@ -41,7 +41,7 @@ namespace Tripod.Domain.Security
         }
 
         [Fact]
-        public void Handle_ReturnsNullUser_WhenFound_ByUnverifiedEmail()
+        public void Handler_ReturnsNullUser_WhenFound_ByUnverifiedEmail()
         {
             var nameOrEmail = string.Format("{0}@domain.tld", Guid.NewGuid());
             var query = new UserByNameOrVerifiedEmail(nameOrEmail);
@@ -72,7 +72,7 @@ namespace Tripod.Domain.Security
         }
 
         [Fact]
-        public void Handle_ReturnsNonNullUser_WhenFound_ByUserName()
+        public void Handler_ReturnsNonNullUser_WhenFound_ByUserName()
         {
             var nameOrEmail = string.Format("{0}@domain.tld", Guid.NewGuid());
             var query = new UserByNameOrVerifiedEmail(nameOrEmail);
@@ -95,7 +95,7 @@ namespace Tripod.Domain.Security
         }
 
         [Fact]
-        public void Handle_ReturnsNonNullUser_WhenFound_ByVerifiedEmail()
+        public void Handler_ReturnsNonNullUser_WhenFound_ByVerifiedEmail()
         {
             var nameOrEmail = string.Format("{0}@domain.tld", Guid.NewGuid());
             var query = new UserByNameOrVerifiedEmail(nameOrEmail);

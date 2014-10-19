@@ -12,7 +12,7 @@ namespace Tripod.Domain.Security
     public class PrincipalRemoteMembershipTicketTests
     {
         [Fact]
-        public void Ctor_ThrowsArgumentNullException_WhenPrincipalIsNull()
+        public void Query_Ctor_ThrowsArgumentNullException_WhenPrincipalIsNull()
         {
             var exception = Assert.Throws<ArgumentNullException>(
                 () => new PrincipalRemoteMembershipTicket(null));
@@ -21,7 +21,7 @@ namespace Tripod.Domain.Security
         }
 
         [Fact]
-        public void Ctor_SetsPrincipalsProperty_WhenPrincipalIsNotNull()
+        public void Query_Ctor_SetsPrincipalsProperty_WhenPrincipalIsNotNull()
         {
             var principal = new Mock<IPrincipal>(MockBehavior.Strict);
             var query = new PrincipalRemoteMembershipTicket(principal.Object);
@@ -29,7 +29,7 @@ namespace Tripod.Domain.Security
         }
 
         [Fact]
-        public void Handle_ReturnsRemoteMembershipTicket_UsingAuthenticatorMethod()
+        public void Handler_ReturnsRemoteMembershipTicket_UsingAuthenticatorMethod()
         {
             var userName = Guid.NewGuid().ToString();
             var loginProvider = Guid.NewGuid().ToString();

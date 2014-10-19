@@ -14,14 +14,14 @@ namespace Tripod.Domain.Security
     public class ExternalCookieClaimsTests
     {
         [Fact]
-        public void Ctor_NoArg_SetsAuthenticationType_ToDefaultExternalCookie()
+        public void Query_Ctor_NoArg_SetsAuthenticationType_ToDefaultExternalCookie()
         {
             var query = new ExternalCookieClaims();
             query.AuthenticationType.ShouldEqual(DefaultAuthenticationTypes.ExternalCookie);
         }
 
         [Fact]
-        public void Ctor_StringArg_SetsAuthenticationType_UsingArg()
+        public void Query_Ctor_StringArg_SetsAuthenticationType_UsingArg()
         {
             string authenticationType = Guid.NewGuid().ToString();
             var query = new ExternalCookieClaims(authenticationType);

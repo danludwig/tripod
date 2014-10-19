@@ -10,7 +10,7 @@ namespace Tripod.Domain.Security
     public class HashedPasswordTests
     {
         [Fact]
-        public void Ctor_SetsPasswordProperty()
+        public void Query_Ctor_SetsPasswordProperty()
         {
             var password = Guid.NewGuid().ToString();
             var query = new HashedPassword(password);
@@ -18,7 +18,7 @@ namespace Tripod.Domain.Security
         }
 
         [Fact]
-        public void Handle_ThrowsArgumentNullException_WhenPasswordIsNull()
+        public void Handler_ThrowsArgumentNullException_WhenPasswordIsNull()
         {
             var userStore = new Mock<IUserStore<User, int>>(MockBehavior.Strict);
             var userManager = new UserManager<User, int>(userStore.Object);
@@ -36,7 +36,7 @@ namespace Tripod.Domain.Security
         [InlineData("ad51e099-6e88-46fb-9aaa-ff2488724dbe")]
         [InlineData("")]
         [InlineData("\t\t\t")]
-        public void Handle_ReturnsResult_FromUserManager_PasswordHasher(string password)
+        public void Handler_ReturnsResult_FromUserManager_PasswordHasher(string password)
         {
             var userStore = new Mock<IUserStore<User, int>>(MockBehavior.Strict);
             var userManager = new UserManager<User, int>(userStore.Object);

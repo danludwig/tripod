@@ -12,7 +12,7 @@ namespace Tripod.Domain.Security
         #region RemoteMembershipViewsBy Id
 
         [Fact]
-        public void IntCtor_SetsUserIdProperty()
+        public void Query_IntCtor_SetsUserIdProperty()
         {
             var userId = new Random().Next(1, int.MaxValue);
             var query = new RemoteMembershipViewsBy(userId);
@@ -20,7 +20,7 @@ namespace Tripod.Domain.Security
         }
 
         [Fact]
-        public void Handle_ReturnsNoRemoteMembershipViews_ByUserId_WhenNotFound()
+        public void Handler_ReturnsNoRemoteMembershipViews_ByUserId_WhenNotFound()
         {
             var userId = new Random().Next(1, int.MaxValue - 3);
             var remoteMemberships = new[]
@@ -44,7 +44,7 @@ namespace Tripod.Domain.Security
         }
 
         [Fact]
-        public void Handle_ReturnsRemoteMembershipViews_ByUserId_WhenFound()
+        public void Handler_ReturnsRemoteMembershipViews_ByUserId_WhenFound()
         {
             var userId = new Random().Next(1, int.MaxValue - 3);
             var remoteMemberships = new[]
