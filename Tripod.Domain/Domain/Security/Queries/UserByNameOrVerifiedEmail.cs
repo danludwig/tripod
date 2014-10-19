@@ -38,7 +38,7 @@ namespace Tripod.Domain.Security
                 },
             }).Result;
 
-            user = email != null ? email.User : null;
+            user = email != null && email.IsVerified ? email.User : null;
             return Task.FromResult(user);
         }
     }
