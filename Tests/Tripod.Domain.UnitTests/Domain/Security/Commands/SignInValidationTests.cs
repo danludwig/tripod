@@ -78,7 +78,7 @@ namespace Tripod.Domain.Security
             var validator = new ValidateSignInCommand(queries.Object);
             var command = new SignIn { UserNameOrVerifiedEmail = userName, Password = password, };
             Expression<Func<IsPasswordVerified, bool>> expectedQuery = x =>
-                x.UserName == command.UserNameOrVerifiedEmail && x.Password == command.Password;
+                x.UserNameOrVerifiedEmail == command.UserNameOrVerifiedEmail && x.Password == command.Password;
             queries.Setup(x => x.Execute(It.Is(expectedQuery))).Returns(Task.FromResult(false));
             Expression<Func<UserByNameOrVerifiedEmail, bool>> userQuery = x => x.NameOrEmail == command.UserNameOrVerifiedEmail;
             queries.Setup(x => x.Execute(It.Is(userQuery))).Returns(Task.FromResult(new User()));
@@ -102,7 +102,7 @@ namespace Tripod.Domain.Security
             var validator = new ValidateSignInCommand(queries.Object);
             var command = new SignIn { UserNameOrVerifiedEmail = userName, Password = password, };
             Expression<Func<IsPasswordVerified, bool>> expectedQuery = x =>
-                x.UserName == command.UserNameOrVerifiedEmail && x.Password == command.Password;
+                x.UserNameOrVerifiedEmail == command.UserNameOrVerifiedEmail && x.Password == command.Password;
             Expression<Func<UserByNameOrVerifiedEmail, bool>> userById = x => x.NameOrEmail == command.UserNameOrVerifiedEmail;
             queries.Setup(x => x.Execute(It.Is(expectedQuery))).Returns(Task.FromResult(false));
             queries.Setup(x => x.Execute(It.Is(userById))).Returns(Task.FromResult(null as User));
@@ -125,7 +125,7 @@ namespace Tripod.Domain.Security
             var validator = new ValidateSignInCommand(queries.Object);
             var command = new SignIn { UserNameOrVerifiedEmail = userName, Password = password, };
             Expression<Func<IsPasswordVerified, bool>> passwordQuery = x =>
-                x.UserName == command.UserNameOrVerifiedEmail && x.Password == command.Password;
+                x.UserNameOrVerifiedEmail == command.UserNameOrVerifiedEmail && x.Password == command.Password;
             queries.Setup(x => x.Execute(It.Is(passwordQuery))).Returns(Task.FromResult(true));
             Expression<Func<UserByNameOrVerifiedEmail, bool>> userQuery = x => x.NameOrEmail == command.UserNameOrVerifiedEmail;
             queries.Setup(x => x.Execute(It.Is(userQuery))).Returns(Task.FromResult(new User()));

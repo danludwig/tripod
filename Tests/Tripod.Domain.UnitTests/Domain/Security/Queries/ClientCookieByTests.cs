@@ -38,7 +38,7 @@ namespace Tripod.Domain.Security
             const int userId = 456;
             var query = new ClientCookieBy(userId);
             var queries = new Mock<IProcessQueries>(MockBehavior.Strict);
-            Expression<Func<UserBy, bool>> expectedQuery = y => y.Id == query.UserId;
+            Expression<Func<UserBy, bool>> expectedQuery = x => x.Id == query.UserId;
             queries.Setup(x => x.Execute(It.Is(expectedQuery))).Returns(Task.FromResult(null as User));
             var handler = new HandleClientCookieByQuery(queries.Object);
 
@@ -65,7 +65,7 @@ namespace Tripod.Domain.Security
                 HashedValue = "Email 1 hashed value",
             });
             var queries = new Mock<IProcessQueries>(MockBehavior.Strict);
-            Expression<Func<UserBy, bool>> expectedQuery = y => y.Id == query.UserId;
+            Expression<Func<UserBy, bool>> expectedQuery = x => x.Id == query.UserId;
             queries.Setup(x => x.Execute(It.Is(expectedQuery))).Returns(Task.FromResult(user as User));
             var handler = new HandleClientCookieByQuery(queries.Object);
 

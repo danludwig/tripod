@@ -6,7 +6,7 @@ namespace Tripod.Domain.Security
     public class IsPasswordVerified : IDefineQuery<Task<bool>>
     {
         internal IsPasswordVerified() { }
-        internal string UserName { get; set; }
+        internal string UserNameOrVerifiedEmail { get; set; }
         internal string Password { get; set; }
     }
 
@@ -25,7 +25,7 @@ namespace Tripod.Domain.Security
         public async Task<bool> Handle(IsPasswordVerified query)
         {
             // match password with either a username or a verified email address
-            var user = await _queries.Execute(new UserByNameOrVerifiedEmail(query.UserName))
+            var user = await _queries.Execute(new UserByNameOrVerifiedEmail(query.UserNameOrVerifiedEmail))
                 .ConfigureAwait(false);
             if (user == null) return false;
 

@@ -24,7 +24,7 @@ namespace Tripod.Domain.Security
             var userName = _userName((T)context.Instance);
             var query = new IsPasswordVerified
             {
-                UserName = userName,
+                UserNameOrVerifiedEmail = userName,
                 Password = password,
             };
             var isVerified = _queries.Execute(query).Result;

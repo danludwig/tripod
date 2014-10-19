@@ -27,7 +27,7 @@ namespace Tripod.Domain.Security
             var queries = new Mock<IProcessQueries>(MockBehavior.Strict);
             var command = new FakeMustNotFindUserByNameCommand { UserName = userName };
             var entity = new User { Name = command.UserName };
-            Expression<Func<UserBy, bool>> expectedQuery = y => y.Name == command.UserName;
+            Expression<Func<UserBy, bool>> expectedQuery = x => x.Name == command.UserName;
             queries.Setup(x => x.Execute(It.Is(expectedQuery))).Returns(Task.FromResult(entity));
             var validator = new FakeMustNotFindUserByNameValidator(queries.Object);
 
@@ -60,7 +60,7 @@ namespace Tripod.Domain.Security
             {
                 Name = command.UserName,
             };
-            Expression<Func<UserBy, bool>> expectedQuery = y => y.Name == command.UserName;
+            Expression<Func<UserBy, bool>> expectedQuery = x => x.Name == command.UserName;
             queries.Setup(x => x.Execute(It.Is(expectedQuery))).Returns(Task.FromResult(entity as User));
             var validator = new FakeMustNotFindUserByNameValidator(queries.Object);
 
@@ -84,7 +84,7 @@ namespace Tripod.Domain.Security
             var userName = Guid.NewGuid().ToString();
             var queries = new Mock<IProcessQueries>(MockBehavior.Strict);
             var command = new FakeMustNotFindUserByNameCommand { UserName = userName };
-            Expression<Func<UserBy, bool>> expectedQuery = y => y.Name == command.UserName;
+            Expression<Func<UserBy, bool>> expectedQuery = x => x.Name == command.UserName;
             queries.Setup(x => x.Execute(It.Is(expectedQuery))).Returns(Task.FromResult(null as User));
             var validator = new FakeMustNotFindUserByNameValidator(queries.Object);
 
@@ -111,7 +111,7 @@ namespace Tripod.Domain.Security
             {
                 Name = command.UserName,
             };
-            Expression<Func<UserBy, bool>> expectedQuery = y => y.Name == command.UserName;
+            Expression<Func<UserBy, bool>> expectedQuery = x => x.Name == command.UserName;
             queries.Setup(x => x.Execute(It.Is(expectedQuery))).Returns(Task.FromResult(entity as User));
             var validator = new FakeMustNotFindUserByNameValidator(queries.Object);
 

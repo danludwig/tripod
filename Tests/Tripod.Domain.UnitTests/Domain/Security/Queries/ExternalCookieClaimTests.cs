@@ -50,7 +50,7 @@ namespace Tripod.Domain.Security
                 new Claim(ClaimTypes.Gender, string.Empty), 
             };
             var queries = new Mock<IProcessQueries>(MockBehavior.Strict);
-            Expression<Func<ExternalCookieClaims, bool>> expectedQuery = y => y.AuthenticationType == authenticationType;
+            Expression<Func<ExternalCookieClaims, bool>> expectedQuery = x => x.AuthenticationType == authenticationType;
             queries.Setup(x => x.Execute(It.Is(expectedQuery)))
                 .Returns(Task.FromResult(data as IEnumerable<Claim>));
             var handler = new HandleExternalCookieClaimQuery(queries.Object);
@@ -76,7 +76,7 @@ namespace Tripod.Domain.Security
                 new Claim(claimType, claimValue), 
             };
             var queries = new Mock<IProcessQueries>(MockBehavior.Strict);
-            Expression<Func<ExternalCookieClaims, bool>> expectedQuery = y => y.AuthenticationType == authenticationType;
+            Expression<Func<ExternalCookieClaims, bool>> expectedQuery = x => x.AuthenticationType == authenticationType;
             queries.Setup(x => x.Execute(It.Is(expectedQuery)))
                 .Returns(Task.FromResult(data as IEnumerable<Claim>));
             var handler = new HandleExternalCookieClaimQuery(queries.Object);

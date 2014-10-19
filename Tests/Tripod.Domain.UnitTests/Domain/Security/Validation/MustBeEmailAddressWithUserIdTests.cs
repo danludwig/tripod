@@ -44,7 +44,7 @@ namespace Tripod.Domain.Security
                 UserId = userId,
             };
             var entity = new EmailAddress { UserId = userId + 3, };
-            Expression<Func<EmailAddressBy, bool>> expectedQuery = y => y.Id == command.EmailAddressId;
+            Expression<Func<EmailAddressBy, bool>> expectedQuery = x => x.Id == command.EmailAddressId;
             queries.Setup(x => x.Execute(It.Is(expectedQuery))).Returns(Task.FromResult(entity));
             var validator = new FakeMustBeEmailAddressWithUserIdValidator(queries.Object);
 
@@ -74,7 +74,7 @@ namespace Tripod.Domain.Security
                 UserId = userId,
             };
             var entity = new EmailAddress { UserId = userId, };
-            Expression<Func<EmailAddressBy, bool>> expectedQuery = y => y.Id == command.EmailAddressId;
+            Expression<Func<EmailAddressBy, bool>> expectedQuery = x => x.Id == command.EmailAddressId;
             queries.Setup(x => x.Execute(It.Is(expectedQuery))).Returns(Task.FromResult(entity));
             var validator = new FakeMustBeEmailAddressWithUserIdValidator(queries.Object);
 
@@ -97,7 +97,7 @@ namespace Tripod.Domain.Security
                 EmailAddressId = emailAddressId,
                 UserId = userId,
             };
-            Expression<Func<EmailAddressBy, bool>> expectedQuery = y => y.Id == command.EmailAddressId;
+            Expression<Func<EmailAddressBy, bool>> expectedQuery = x => x.Id == command.EmailAddressId;
             queries.Setup(x => x.Execute(It.Is(expectedQuery))).Returns(Task.FromResult(null as EmailAddress));
             var validator = new FakeMustBeEmailAddressWithUserIdValidator(queries.Object);
 

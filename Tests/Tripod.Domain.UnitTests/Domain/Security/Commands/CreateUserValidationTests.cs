@@ -107,7 +107,7 @@ namespace Tripod.Domain.Security
             var queries = new Mock<IProcessQueries>(MockBehavior.Strict);
             var validator = new ValidateCreateUserCommand(queries.Object);
             var command = new CreateUser { Name = "valid" };
-            Expression<Func<UserBy, bool>> expectedQuery = y => y.Name == command.Name;
+            Expression<Func<UserBy, bool>> expectedQuery = x => x.Name == command.Name;
             queries.Setup(x => x.Execute(It.Is(expectedQuery))).Returns(Task.FromResult(null as User));
 
             var result = validator.Validate(command);
