@@ -29,7 +29,8 @@ namespace Tripod.Domain.Security
 
         public async Task<Claim> Handle(ExternalCookieClaim query)
         {
-            var claims = await _queries.Execute(new ExternalCookieClaims(query.AuthenticationType)).ConfigureAwait(false);
+            var claims = await _queries.Execute(new ExternalCookieClaims(query.AuthenticationType))
+                .ConfigureAwait(false);
             return claims.FirstOrDefault(x => x.Type == query.ClaimType);
         }
     }

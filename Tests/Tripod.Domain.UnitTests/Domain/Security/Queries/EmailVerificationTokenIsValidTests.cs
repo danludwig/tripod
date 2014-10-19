@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Moq;
@@ -37,7 +38,10 @@ namespace Tripod.Domain.Security
             var userStore = new Mock<IUserStore<UserTicket, string>>(MockBehavior.Strict);
             var userManager = new UserManager<UserTicket, string>(userStore.Object);
             var tokenProvider = new Mock<IUserTokenProvider<UserTicket, string>>(MockBehavior.Strict);
-            tokenProvider.Setup(x => x.ValidateAsync(purpose.ToString(), token, userManager, It.Is<UserTicket>(y => y.UserName == ticket)))
+            Expression<Func<IUserTokenProvider<UserTicket, string>, Task<bool>>> expectedMethod =
+                x => x.ValidateAsync(purpose.ToString(), token, userManager,
+                    It.Is<UserTicket>(y => y.UserName == ticket));
+            tokenProvider.Setup(expectedMethod)
                 .Returns(Task.FromResult(false));
             userManager.UserTokenProvider = tokenProvider.Object;
             var handler = new HandleEmailVerificationTokenIsValidQuery(userManager);
@@ -45,6 +49,7 @@ namespace Tripod.Domain.Security
             bool result = handler.Handle(command).Result;
 
             result.ShouldBeFalse();
+            tokenProvider.Verify(expectedMethod, Times.Once);
         }
 
         [Theory]
@@ -59,7 +64,10 @@ namespace Tripod.Domain.Security
             var userStore = new Mock<IUserStore<UserTicket, string>>(MockBehavior.Strict);
             var userManager = new UserManager<UserTicket, string>(userStore.Object);
             var tokenProvider = new Mock<IUserTokenProvider<UserTicket, string>>(MockBehavior.Strict);
-            tokenProvider.Setup(x => x.ValidateAsync(purpose.ToString(), token, userManager, It.Is<UserTicket>(y => y.UserName == ticket)))
+            Expression<Func<IUserTokenProvider<UserTicket, string>, Task<bool>>> expectedMethod =
+                x => x.ValidateAsync(purpose.ToString(), token, userManager,
+                    It.Is<UserTicket>(y => y.UserName == ticket));
+            tokenProvider.Setup(expectedMethod)
                 .Returns(Task.FromResult(true));
             userManager.UserTokenProvider = tokenProvider.Object;
             var handler = new HandleEmailVerificationTokenIsValidQuery(userManager);
@@ -67,6 +75,7 @@ namespace Tripod.Domain.Security
             bool result = handler.Handle(command).Result;
 
             result.ShouldBeFalse();
+            tokenProvider.Verify(expectedMethod, Times.Never);
         }
 
         [Theory]
@@ -81,7 +90,10 @@ namespace Tripod.Domain.Security
             var userStore = new Mock<IUserStore<UserTicket, string>>(MockBehavior.Strict);
             var userManager = new UserManager<UserTicket, string>(userStore.Object);
             var tokenProvider = new Mock<IUserTokenProvider<UserTicket, string>>(MockBehavior.Strict);
-            tokenProvider.Setup(x => x.ValidateAsync(purpose.ToString(), token, userManager, It.Is<UserTicket>(y => y.UserName == ticket)))
+            Expression<Func<IUserTokenProvider<UserTicket, string>, Task<bool>>> expectedMethod =
+                x => x.ValidateAsync(purpose.ToString(), token, userManager,
+                    It.Is<UserTicket>(y => y.UserName == ticket));
+            tokenProvider.Setup(expectedMethod)
                 .Returns(Task.FromResult(true));
             userManager.UserTokenProvider = tokenProvider.Object;
             var handler = new HandleEmailVerificationTokenIsValidQuery(userManager);
@@ -89,6 +101,7 @@ namespace Tripod.Domain.Security
             bool result = handler.Handle(command).Result;
 
             result.ShouldBeFalse();
+            tokenProvider.Verify(expectedMethod, Times.Never);
         }
 
         [Theory]
@@ -104,7 +117,10 @@ namespace Tripod.Domain.Security
             var userStore = new Mock<IUserStore<UserTicket, string>>(MockBehavior.Strict);
             var userManager = new UserManager<UserTicket, string>(userStore.Object);
             var tokenProvider = new Mock<IUserTokenProvider<UserTicket, string>>(MockBehavior.Strict);
-            tokenProvider.Setup(x => x.ValidateAsync(purpose.ToString(), token, userManager, It.Is<UserTicket>(y => y.UserName == ticket)))
+            Expression<Func<IUserTokenProvider<UserTicket, string>, Task<bool>>> expectedMethod =
+                x => x.ValidateAsync(purpose.ToString(), token, userManager,
+                    It.Is<UserTicket>(y => y.UserName == ticket));
+            tokenProvider.Setup(expectedMethod)
                 .Returns(Task.FromResult(true));
             userManager.UserTokenProvider = tokenProvider.Object;
             var handler = new HandleEmailVerificationTokenIsValidQuery(userManager);
@@ -112,6 +128,7 @@ namespace Tripod.Domain.Security
             bool result = handler.Handle(command).Result;
 
             result.ShouldBeTrue();
+            tokenProvider.Verify(expectedMethod, Times.Once);
         }
     }
 }

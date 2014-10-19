@@ -50,6 +50,7 @@ namespace Tripod.Domain.Security
             Assert.NotNull(result);
             result.Length.ShouldEqual(3);
             result.ShouldEqual(data);
+            authenticator.Verify(x => x.GetRemoteMembershipClaims(authenticationType), Times.Once);
         }
     }
 }
