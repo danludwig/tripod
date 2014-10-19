@@ -49,6 +49,7 @@ namespace Tripod.Domain.Security
             RemoteMembershipTicket result = handler.Handle(query).Result;
 
             result.ShouldEqual(remoteMembershipTicket);
+            authenticator.Verify(x => x.GetRemoteMembershipTicket(principal.Object), Times.Once);
         }
     }
 }

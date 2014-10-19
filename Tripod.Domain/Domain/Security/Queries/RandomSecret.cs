@@ -17,7 +17,6 @@ namespace Tripod.Domain.Security
             MaxLength = maxLength;
         }
 
-        [UsedImplicitly]
         public RandomSecret(int exactLength)
         {
             if (exactLength < 1)
