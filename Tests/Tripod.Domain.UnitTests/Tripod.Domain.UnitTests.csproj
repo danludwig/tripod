@@ -126,6 +126,7 @@
     <Compile Include="Domain\Security\Commands\SignInValidationTests.cs" />
     <Compile Include="Domain\Security\Commands\SendVerificationEmailValidationTests.cs" />
     <Compile Include="Domain\Security\Commands\CreateUserValidationTests.cs" />
+    <Compile Include="Domain\Security\Entities\EmailMessageTests.cs" />
     <Compile Include="Domain\Security\Entities\UserClaimTests.cs" />
     <Compile Include="Domain\Security\Entities\EmailAddressTests.cs" />
     <Compile Include="Domain\Security\Entities\LocalMembershipTests.cs" />
