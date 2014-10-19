@@ -475,6 +475,15 @@ namespace Tripod {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You must sign out in order to perform this action..
+        /// </summary>
+        public static string Validation_Principal_MustBeUnauthenticated {
+            get {
+                return ResourceManager.GetString("Validation_Principal_MustBeUnauthenticated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to There is no external login information to process..
         /// </summary>
         public static string Validation_RemoteMembership_NoTicket {

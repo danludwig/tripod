@@ -157,8 +157,10 @@
     <Compile Include="Domain\Security\Queries\UserHasLocalMembershipTests.cs" />
     <Compile Include="Domain\Security\Queries\UserViewByTests.cs" />
     <Compile Include="Domain\Security\Validation\MustBeEmailAddressWithUserIdTests.cs" />
+    <Compile Include="Domain\Security\Validation\MustBeUnauthenticatedPrincipalTests.cs" />
     <Compile Include="Domain\Security\Validation\MustBePrincipalWithUserIdTests.cs" />
     <Compile Include="Domain\Security\Validation\MustBeValidPasswordTests.cs" />
+    <Compile Include="Domain\Security\Validation\_Fakes\FakeMustBeUnauthenticatedPrincipalValidator.cs" />
     <Compile Include="Domain\Security\Validation\_Fakes\FakeMustBePrincipalWithUserIdValidator.cs" />
     <Compile Include="Domain\Security\Validation\_Fakes\FakeMustBeValidPasswordValidator.cs" />
     <Compile Include="Domain\Security\Validation\_Fakes\FakeMustBeEmailAddressWithUserIdValidator.cs" />

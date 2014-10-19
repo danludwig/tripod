@@ -273,4 +273,7 @@
   <data name="Validation_EmailVerificationTicket_HasInvalidToken" xml:space="preserve">
     <value>This {PropertyName} is corrupted. Please start this process over to try again.</value>
   </data>
+  <data name="Validation_Principal_MustBeUnauthenticated" xml:space="preserve">
+    <value>You must sign out in order to perform this action.</value>
+  </data>
 </root>

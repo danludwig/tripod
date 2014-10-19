@@ -7,7 +7,7 @@ namespace Tripod.Domain.Security
     public class MustBeUnauthenticatedPrincipal : PropertyValidator
     {
         internal MustBeUnauthenticatedPrincipal()
-            : base(() => "You must sign out in order to perform this action.")
+            : base(() => Resources.Validation_Principal_MustBeUnauthenticated)
         {
         }
 
@@ -20,6 +20,12 @@ namespace Tripod.Domain.Security
 
     public static class MustBeUnauthenticatedPrincipalExtensions
     {
+        /// <summary>
+        /// Validates that this IPrincipal is either null or has an unauthenticated identity.
+        /// </summary>
+        /// <typeparam name="T">The command with the Principal to validate.</typeparam>
+        /// <param name="ruleBuilder">Fluent rule builder options.</param>
+        /// <returns>Fluent rule builder options.</returns>
         public static IRuleBuilderOptions<T, IPrincipal> MustBeUnauthenticatedPrincipal<T>
             (this IRuleBuilder<T, IPrincipal> ruleBuilder)
         {
