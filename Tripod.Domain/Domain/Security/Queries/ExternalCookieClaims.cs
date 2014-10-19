@@ -25,9 +25,12 @@ namespace Tripod.Domain.Security
             _authenticator = authenticator;
         }
 
-        public Task<IEnumerable<Claim>> Handle(ExternalCookieClaims query)
+        public async Task<IEnumerable<Claim>> Handle(ExternalCookieClaims query)
         {
-            return _authenticator.GetRemoteMembershipClaims(query.AuthenticationType);
+            return await _authenticator
+                .GetRemoteMembershipClaims(query.AuthenticationType)
+                .ConfigureAwait(false)
+            ;
         }
     }
 }
