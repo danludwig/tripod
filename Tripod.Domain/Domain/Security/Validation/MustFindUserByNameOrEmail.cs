@@ -27,10 +27,11 @@ namespace Tripod.Domain.Security
         protected override bool IsValid(PropertyValidatorContext context)
         {
             var nameOrEmail = (string)context.PropertyValue;
-            if (string.IsNullOrWhiteSpace(nameOrEmail)) return false;
-
-            var user = _queries.Execute(new UserByNameOrVerifiedEmail(nameOrEmail)).Result;
-            if (user != null) return true;
+            if (!string.IsNullOrWhiteSpace(nameOrEmail))
+            {
+                var user = _queries.Execute(new UserByNameOrVerifiedEmail(nameOrEmail)).Result;
+                if (user != null) return true;
+            }
 
             context.MessageFormatter.AppendArgument("PropertyName", context.PropertyDescription.ToLower());
             return false;
