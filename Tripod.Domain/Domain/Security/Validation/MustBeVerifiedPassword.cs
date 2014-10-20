@@ -35,6 +35,14 @@ namespace Tripod.Domain.Security
 
     public static class MustBeVerifiedPasswordExtensions
     {
+        /// <summary>
+        /// Validates that this is the verified password for the user with name provided in the argument.
+        /// </summary>
+        /// <typeparam name="T">The command with the Password to validate.</typeparam>
+        /// <param name="ruleBuilder">Fluent rule builder options.</param>
+        /// <param name="queries">Query processor instance, for verifying password.</param>
+        /// <param name="userName">Name property of the User to verify this password for.</param>
+        /// <returns>Fluent rule builder options.</returns>
         public static IRuleBuilderOptions<T, string> MustBeVerifiedPassword<T>
             (this IRuleBuilder<T, string> ruleBuilder, IProcessQueries queries, Func<T, string> userName)
         {

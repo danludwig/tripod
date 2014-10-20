@@ -10,7 +10,7 @@ namespace Tripod.Domain.Security
         /// </summary>
         /// <typeparam name="T">The command or other data transfer object to validate.</typeparam>
         /// <param name="ruleBuilder">Fluent IRuleBuilderOptions for method chaining.</param>
-        /// <param name="queries">An IProcessQueries query processor instance.</param>
+        /// <param name="queries">Query processor instance.</param>
         /// <returns>Fluent IRuleBuilderOptions for method chaining.</returns>
         public static IRuleBuilderOptions<T, string> MustBeRedeemableVerifyEmailTicket<T>
             (this IRuleBuilder<T, string> ruleBuilder, IProcessQueries queries)
