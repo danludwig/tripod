@@ -22,7 +22,7 @@ namespace Tripod.Domain.Security
         }
     }
 
-    public class MustBePrincipalWithUserId<T> : PropertyValidator
+    internal class MustBePrincipalWithUserId<T> : PropertyValidator
     {
         private readonly Func<T, int> _userId;
 

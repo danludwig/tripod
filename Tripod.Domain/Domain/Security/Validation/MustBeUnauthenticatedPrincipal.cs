@@ -19,7 +19,7 @@ namespace Tripod.Domain.Security
         }
     }
 
-    public class MustBeUnauthenticatedPrincipal : PropertyValidator
+    internal class MustBeUnauthenticatedPrincipal : PropertyValidator
     {
         internal MustBeUnauthenticatedPrincipal()
             : base(() => Resources.Validation_Principal_MustBeUnauthenticated)

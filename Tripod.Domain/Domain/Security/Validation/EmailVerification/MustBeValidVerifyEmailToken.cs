@@ -13,7 +13,7 @@ namespace Tripod.Domain.Security
         }
     }
 
-    public class MustBeValidVerifyEmailToken<T> : PropertyValidator
+    internal class MustBeValidVerifyEmailToken<T> : PropertyValidator
     {
         private readonly IProcessQueries _queries;
         private readonly Func<T, string> _ticket;

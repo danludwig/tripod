@@ -21,7 +21,7 @@ namespace Tripod.Domain.Security
         }
     }
 
-    public class MustEqualPassword<T> : PropertyValidator
+    internal class MustEqualPassword<T> : PropertyValidator
     {
         private readonly Func<T, string> _password;
         private readonly string _matchLabel;

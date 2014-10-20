@@ -13,7 +13,7 @@ namespace Tripod.Domain.Security
         }
     }
 
-    public class MustFindUserByNameOrEmail : PropertyValidator
+    internal class MustFindUserByNameOrEmail : PropertyValidator
     {
         private readonly IProcessQueries _queries;
 

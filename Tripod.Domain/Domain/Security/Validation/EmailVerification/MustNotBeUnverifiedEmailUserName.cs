@@ -20,7 +20,7 @@ namespace Tripod.Domain.Security
         }
     }
 
-    public class MustNotBeUnverifiedEmailUserName<T> : PropertyValidator
+    internal class MustNotBeUnverifiedEmailUserName<T> : PropertyValidator
     {
         private readonly IProcessQueries _queries;
         private readonly Func<T, string> _ticket;

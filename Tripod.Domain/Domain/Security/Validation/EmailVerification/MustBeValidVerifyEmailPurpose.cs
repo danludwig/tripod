@@ -12,7 +12,7 @@ namespace Tripod.Domain.Security
         }
     }
 
-    public class MustBeValidVerifyEmailPurpose : PropertyValidator
+    internal class MustBeValidVerifyEmailPurpose : PropertyValidator
     {
         internal MustBeValidVerifyEmailPurpose()
             : base(() => Resources.Validation_EmailVerificationPurpose_IsEmpty)

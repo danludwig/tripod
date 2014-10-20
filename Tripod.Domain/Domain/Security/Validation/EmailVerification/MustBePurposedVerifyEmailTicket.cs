@@ -14,7 +14,7 @@ namespace Tripod.Domain.Security
         }
     }
 
-    public class MustBePurposedVerifyEmailTicket<T> : PropertyValidator
+    internal class MustBePurposedVerifyEmailTicket<T> : PropertyValidator
     {
         private readonly IProcessQueries _queries;
         private readonly Func<T, EmailVerificationPurpose>[] _purposes;

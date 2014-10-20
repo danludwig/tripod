@@ -13,7 +13,7 @@ namespace Tripod.Domain.Security
         }
     }
 
-    public class MustFindEmailAddressById : PropertyValidator
+    internal class MustFindEmailAddressById : PropertyValidator
     {
         private readonly IProcessQueries _queries;
 

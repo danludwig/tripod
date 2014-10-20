@@ -23,7 +23,7 @@ namespace Tripod.Domain.Security
         }
     }
 
-    public class MustNotFindUserByName<T> : PropertyValidator
+    internal class MustNotFindUserByName<T> : PropertyValidator
     {
         private readonly IProcessQueries _queries;
         private readonly Func<T, int> _unlessUserHasId;

@@ -13,7 +13,7 @@ namespace Tripod.Domain.Security
         }
     }
 
-    public class MustNotBeVerifiedEmailAddress : PropertyValidator
+    internal class MustNotBeVerifiedEmailAddress : PropertyValidator
     {
         private readonly IProcessQueries _queries;
 

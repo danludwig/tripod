@@ -22,7 +22,7 @@ namespace Tripod.Domain.Security
         }
     }
 
-    public class MustBeEmailAddressWithUserId<T> : PropertyValidator
+    internal class MustBeEmailAddressWithUserId<T> : PropertyValidator
     {
         private readonly IProcessQueries _queries;
         private readonly Func<T, int> _userId;

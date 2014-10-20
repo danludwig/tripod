@@ -13,7 +13,7 @@ namespace Tripod.Domain.Security
         }
     }
 
-    public class MustFindEmailVerificationByTicket : PropertyValidator
+    internal class MustFindEmailVerificationByTicket : PropertyValidator
     {
         private readonly IProcessQueries _queries;
 

@@ -13,7 +13,7 @@ namespace Tripod.Domain.Security
         }
     }
 
-    public class MustNotBeExpiredVerifyEmailTicket : PropertyValidator
+    internal class MustNotBeExpiredVerifyEmailTicket : PropertyValidator
     {
         private readonly IProcessQueries _queries;
 

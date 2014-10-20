@@ -21,7 +21,7 @@ namespace Tripod.Domain.Security
         }
     }
 
-    public class MustBeVerifiedPassword<T> : PropertyValidator
+    internal class MustBeVerifiedPassword<T> : PropertyValidator
     {
         private readonly IProcessQueries _queries;
         private readonly Func<T, string> _userName;

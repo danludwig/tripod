@@ -15,7 +15,7 @@ namespace Tripod.Domain.Security
         }
     }
 
-    public class MustNotFindLocalMembershipByPrincipal : PropertyValidator
+    internal class MustNotFindLocalMembershipByPrincipal : PropertyValidator
     {
         private readonly IProcessQueries _queries;
 

@@ -14,7 +14,7 @@ namespace Tripod.Domain.Security
         }
     }
 
-    public class MustFindUserByLoginProviderKey<T> : PropertyValidator
+    internal class MustFindUserByLoginProviderKey<T> : PropertyValidator
     {
         private readonly IProcessQueries _queries;
         private readonly Func<T, string> _loginProvider;

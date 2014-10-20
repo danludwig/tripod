@@ -19,7 +19,7 @@ namespace Tripod.Domain.Security
         }
     }
 
-    public class MustNotContainInvalidUserNameText : PropertyValidator
+    internal class MustNotContainInvalidUserNameText : PropertyValidator
     {
         internal MustNotContainInvalidUserNameText()
             : base(() => Resources.Validation_UserName_AllowedCharacters)

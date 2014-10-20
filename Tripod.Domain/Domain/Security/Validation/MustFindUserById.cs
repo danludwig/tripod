@@ -13,7 +13,7 @@ namespace Tripod.Domain.Security
         }
     }
 
-    public class MustFindUserById : PropertyValidator
+    internal class MustFindUserById : PropertyValidator
     {
         private readonly IProcessQueries _queries;
 

@@ -13,7 +13,7 @@ namespace Tripod.Domain.Security
         }
     }
 
-    public class MustNotBeRedeemedVerifyEmailTicket : PropertyValidator
+    internal class MustNotBeRedeemedVerifyEmailTicket : PropertyValidator
     {
         private readonly IProcessQueries _queries;
 

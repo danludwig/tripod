@@ -14,7 +14,7 @@ namespace Tripod.Domain.Security
         }
     }
 
-    public class MustFindRemoteMembershipTicket : PropertyValidator
+    internal class MustFindRemoteMembershipTicket : PropertyValidator
     {
         private readonly IProcessQueries _queries;
 
