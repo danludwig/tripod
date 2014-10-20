@@ -7,6 +7,14 @@ namespace Tripod.Domain.Security
 {
     public static class MustFindUserByLoginProviderKeyExtensions
     {
+        /// <summary>
+        /// Validates that a User with this provider key and loginProvider argument exists in the underlying data store.
+        /// </summary>
+        /// <typeparam name="T">The command with the provider key to validate.</typeparam>
+        /// <param name="ruleBuilder">Fluent rule builder options.</param>
+        /// <param name="queries">Query processor instance, for locating User by login provider.</param>
+        /// <param name="loginProvider">The login provider that provides this key.</param>
+        /// <returns>Fluent rule builder options.</returns>
         public static IRuleBuilderOptions<T, string> MustFindUserByLoginProviderKey<T>
             (this IRuleBuilder<T, string> ruleBuilder, IProcessQueries queries, Func<T, string> loginProvider)
         {
