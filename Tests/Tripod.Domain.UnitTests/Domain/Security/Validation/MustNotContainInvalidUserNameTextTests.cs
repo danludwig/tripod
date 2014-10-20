@@ -16,11 +16,11 @@ namespace Tripod.Domain.Security
         [InlineData("asdf\r\nasdf")]
         public void IsInvalid_WhenUserName_ContainsUnallowedCharacters(string userName)
         {
-            var command = new MustNotContainInvalidUserNameTextCommand
+            var command = new FakeMustNotContainInvalidUserNameTextCommand
             {
                 UserName = userName,
             };
-            var validator = new MustNotContainInvalidUserNameTextValidator();
+            var validator = new FakeMustNotContainInvalidUserNameTextValidator();
 
             var result = validator.Validate(command);
 
@@ -37,11 +37,11 @@ namespace Tripod.Domain.Security
         public void IsValid_WhenUserName_IsEmailAddress()
         {
             var userName = string.Format("{0}@domain.tld", Guid.NewGuid());
-            var command = new MustNotContainInvalidUserNameTextCommand
+            var command = new FakeMustNotContainInvalidUserNameTextCommand
             {
                 UserName = userName,
             };
-            var validator = new MustNotContainInvalidUserNameTextValidator();
+            var validator = new FakeMustNotContainInvalidUserNameTextValidator();
 
             var result = validator.Validate(command);
 
@@ -54,11 +54,11 @@ namespace Tripod.Domain.Security
         [InlineData("")]
         public void IsValid_WhenUserName_IsEmpty(string userName)
         {
-            var command = new MustNotContainInvalidUserNameTextCommand
+            var command = new FakeMustNotContainInvalidUserNameTextCommand
             {
                 UserName = userName,
             };
-            var validator = new MustNotContainInvalidUserNameTextValidator();
+            var validator = new FakeMustNotContainInvalidUserNameTextValidator();
 
             var result = validator.Validate(command);
 

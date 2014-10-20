@@ -18,11 +18,11 @@ namespace Tripod.Domain.Security
         [InlineData("\r\n")]
         public void IsInvalid_WhenUserName_IsEmpty(string userName)
         {
-            var command = new MustBeValidUserNameCommand
+            var command = new FakeMustBeValidUserNameCommand
             {
                 UserName = userName,
             };
-            var validator = new MustBeValidUserNameValidator();
+            var validator = new FakeMustBeValidUserNameValidator();
 
             var result = validator.Validate(command);
 
@@ -40,11 +40,11 @@ namespace Tripod.Domain.Security
         [InlineData("B")]
         public void IsInvalid_WhenUserName_IsLessThan_MinLength(string userName)
         {
-            var command = new MustBeValidUserNameCommand
+            var command = new FakeMustBeValidUserNameCommand
             {
                 UserName = userName,
             };
-            var validator = new MustBeValidUserNameValidator();
+            var validator = new FakeMustBeValidUserNameValidator();
 
             var result = validator.Validate(command);
 
@@ -69,11 +69,11 @@ namespace Tripod.Domain.Security
             var userName = Guid.NewGuid().ToString();
             while (userName.Length < User.Constraints.NameMaxLength)
                 userName += Guid.NewGuid().ToString();
-            var command = new MustBeValidUserNameCommand
+            var command = new FakeMustBeValidUserNameCommand
             {
                 UserName = userName,
             };
-            var validator = new MustBeValidUserNameValidator();
+            var validator = new FakeMustBeValidUserNameValidator();
 
             var result = validator.Validate(command);
 
@@ -95,11 +95,11 @@ namespace Tripod.Domain.Security
         [InlineData("asdf\r\nasdf")]
         public void IsInvalid_WhenUserName_ContainsUnallowedCharacters(string userName)
         {
-            var command = new MustBeValidUserNameCommand
+            var command = new FakeMustBeValidUserNameCommand
             {
                 UserName = userName,
             };
-            var validator = new MustBeValidUserNameValidator();
+            var validator = new FakeMustBeValidUserNameValidator();
 
             var result = validator.Validate(command);
 
@@ -116,11 +116,11 @@ namespace Tripod.Domain.Security
         public void IsValid_WhenUserName_IsEmailAddress()
         {
             var userName = string.Format("{0}@domain.tld", Guid.NewGuid());
-            var command = new MustBeValidUserNameCommand
+            var command = new FakeMustBeValidUserNameCommand
             {
                 UserName = userName,
             };
-            var validator = new MustBeValidUserNameValidator();
+            var validator = new FakeMustBeValidUserNameValidator();
 
             var result = validator.Validate(command);
 

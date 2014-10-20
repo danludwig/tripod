@@ -2,14 +2,14 @@
 
 namespace Tripod.Domain.Security
 {
-    public class MustBeValidUserNameCommand
+    public class FakeMustBeValidUserNameCommand
     {
         public string UserName { get; set; }
     }
 
-    public class MustBeValidUserNameValidator : AbstractValidator<MustBeValidUserNameCommand>
+    public class FakeMustBeValidUserNameValidator : AbstractValidator<FakeMustBeValidUserNameCommand>
     {
-        public MustBeValidUserNameValidator()
+        public FakeMustBeValidUserNameValidator()
         {
             RuleFor(x => x.UserName)
                 .MustBeValidUserName()

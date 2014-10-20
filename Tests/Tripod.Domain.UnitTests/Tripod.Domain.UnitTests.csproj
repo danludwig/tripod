@@ -165,10 +165,12 @@
     <Compile Include="Domain\Security\Validation\MustBeValidPasswordTests.cs" />
     <Compile Include="Domain\Security\Validation\MustBeValidUserNameTests.cs" />
     <Compile Include="Domain\Security\Validation\MustNotContainInvalidUserNameTextTests.cs" />
+    <Compile Include="Domain\Security\Validation\MustFindEmailAddressByIdTests.cs" />
+    <Compile Include="Domain\Security\Validation\_Fakes\FakeMustFindEmailAddressByIdValidator.cs" />
     <Compile Include="Domain\Security\Validation\_Fakes\FakeMustEqualPasswordValidator.cs" />
     <Compile Include="Domain\Security\Validation\_Fakes\FakeMustBeVerifiedPasswordValidator.cs" />
-    <Compile Include="Domain\Security\Validation\_Fakes\MustBeValidUserNameValidator.cs" />
-    <Compile Include="Domain\Security\Validation\_Fakes\MustNotContainInvalidUserNameTextValidator.cs" />
+    <Compile Include="Domain\Security\Validation\_Fakes\FakeMustBeValidUserNameValidator.cs" />
+    <Compile Include="Domain\Security\Validation\_Fakes\FakeMustNotContainInvalidUserNameTextValidator.cs" />
     <Compile Include="Domain\Security\Validation\_Fakes\FakeMustBeUnauthenticatedPrincipalValidator.cs" />
     <Compile Include="Domain\Security\Validation\_Fakes\FakeMustBePrincipalWithUserIdValidator.cs" />
     <Compile Include="Domain\Security\Validation\_Fakes\FakeMustBeValidPasswordValidator.cs" />

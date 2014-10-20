@@ -2,14 +2,14 @@
 
 namespace Tripod.Domain.Security
 {
-    public class MustNotContainInvalidUserNameTextCommand
+    public class FakeMustNotContainInvalidUserNameTextCommand
     {
         public string UserName { get; set; }
     }
 
-    public class MustNotContainInvalidUserNameTextValidator : AbstractValidator<MustNotContainInvalidUserNameTextCommand>
+    public class FakeMustNotContainInvalidUserNameTextValidator : AbstractValidator<FakeMustNotContainInvalidUserNameTextCommand>
     {
-        public MustNotContainInvalidUserNameTextValidator()
+        public FakeMustNotContainInvalidUserNameTextValidator()
         {
             RuleFor(x => x.UserName)
                 .MustNotContainInvalidUserNameText()
