@@ -23,6 +23,30 @@ namespace Tripod.Domain.Security
         }
 
         [Fact]
+        public void IsInvalid_WhenPrincipal_IsNull()
+        {
+            var queries = new Mock<IProcessQueries>(MockBehavior.Strict);
+            var command = new FakeMustFindRemoteMembershipTicketCommand();
+            Expression<Func<PrincipalRemoteMembershipTicket, bool>> expectedQuery =
+                x => x.Principal == null;
+            queries.Setup(x => x.Execute(It.Is(expectedQuery)))
+                .Returns(Task.FromResult(null as RemoteMembershipTicket));
+            var validator = new FakeMustFindRemoteMembershipTicketValidator(queries.Object);
+
+            var result = validator.Validate(command);
+
+            result.IsValid.ShouldBeFalse();
+            Func<ValidationFailure, bool> principalError = x => x.PropertyName == command.PropertyName(y => y.Principal);
+            result.Errors.Count(principalError).ShouldEqual(1);
+            result.Errors.Single(principalError).ErrorMessage.ShouldEqual(
+                Resources.Validation_RemoteMembership_NoTicket
+            );
+            queries.Verify(x => x.Execute(It.Is(expectedQuery)), Times.Never);
+            validator.ShouldHaveValidationErrorFor(x => x.Principal, command.Principal);
+            queries.Verify(x => x.Execute(It.Is(expectedQuery)), Times.Never);
+        }
+
+        [Fact]
         public void IsInvalid_WhenRemoteMembershipTicket_IsNotFound()
         {
             var principal = new Mock<IPrincipal>(MockBehavior.Strict);
