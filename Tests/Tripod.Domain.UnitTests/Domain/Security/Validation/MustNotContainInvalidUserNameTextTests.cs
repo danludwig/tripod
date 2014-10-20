@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using FluentValidation;
 using FluentValidation.Results;
 using FluentValidation.TestHelper;
 using Should;
@@ -64,6 +65,22 @@ namespace Tripod.Domain.Security
 
             result.IsValid.ShouldBeTrue();
             validator.ShouldNotHaveValidationErrorFor(x => x.UserName, command.UserName);
+        }
+    }
+
+    public class FakeMustNotContainInvalidUserNameTextCommand
+    {
+        public string UserName { get; set; }
+    }
+
+    public class FakeMustNotContainInvalidUserNameTextValidator : AbstractValidator<FakeMustNotContainInvalidUserNameTextCommand>
+    {
+        public FakeMustNotContainInvalidUserNameTextValidator()
+        {
+            RuleFor(x => x.UserName)
+                .MustNotContainInvalidUserNameText()
+                .WithName(User.Constraints.NameLabel)
+            ;
         }
     }
 }

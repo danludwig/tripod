@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using FluentValidation;
 using FluentValidation.Results;
 using FluentValidation.TestHelper;
 using Moq;
@@ -121,6 +123,33 @@ namespace Tripod.Domain.Security
             queries.Verify(x => x.Execute(It.Is(expectedQuery)), Times.Once);
             validator.ShouldNotHaveValidationErrorFor(x => x.UserName, command);
             queries.Verify(x => x.Execute(It.Is(expectedQuery)), Times.Exactly(2));
+        }
+    }
+
+    public class FakeMustNotFindUserByNameCommand
+    {
+        public int? UserId { get; set; }
+        public string UserName { get; set; }
+    }
+
+    public class FakeMustNotFindUserByNameValidator : AbstractValidator<FakeMustNotFindUserByNameCommand>
+    {
+        public FakeMustNotFindUserByNameValidator(IProcessQueries queries)
+        {
+            When(x => !x.UserId.HasValue, () =>
+                RuleFor(x => x.UserName)
+                    .MustNotFindUserByName(queries)
+                    .WithName(User.Constraints.NameLabel)
+            );
+
+            When(x => x.UserId.HasValue, () =>
+                RuleFor(x => x.UserName)
+                    .MustNotFindUserByName(queries, x =>
+                    {
+                        Debug.Assert(x.UserId.HasValue);
+                        return x.UserId.Value;
+                    })
+                .WithName(User.Constraints.NameLabel));
         }
     }
 }

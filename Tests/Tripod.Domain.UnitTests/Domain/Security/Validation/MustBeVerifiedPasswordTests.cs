@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using FluentValidation;
 using FluentValidation.Results;
 using FluentValidation.TestHelper;
 using Moq;
@@ -82,6 +83,22 @@ namespace Tripod.Domain.Security
             queries.Verify(x => x.Execute(It.Is(expectedQuery)), Times.Once);
             validator.ShouldNotHaveValidationErrorFor(x => x.Password, command);
             queries.Verify(x => x.Execute(It.Is(expectedQuery)), Times.Exactly(2));
+        }
+    }
+
+    public class FakeMustBeVerifiedPasswordCommand
+    {
+        public string Password { get; set; }
+        public string UserName { get; set; }
+    }
+
+    public class FakeMustBeVerifiedPasswordValidator : AbstractValidator<FakeMustBeVerifiedPasswordCommand>
+    {
+        public FakeMustBeVerifiedPasswordValidator(IProcessQueries queries)
+        {
+            RuleFor(x => x.Password)
+                .MustBeVerifiedPassword(queries, x => x.UserName)
+                .WithName(LocalMembership.Constraints.PasswordLabel);
         }
     }
 }

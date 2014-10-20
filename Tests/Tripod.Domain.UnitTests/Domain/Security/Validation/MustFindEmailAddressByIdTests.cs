@@ -3,6 +3,7 @@ using System.Globalization;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using FluentValidation;
 using FluentValidation.Results;
 using FluentValidation.TestHelper;
 using Moq;
@@ -62,6 +63,22 @@ namespace Tripod.Domain.Security
             queries.Verify(x => x.Execute(It.Is(expectedQuery)), Times.Once);
             validator.ShouldNotHaveValidationErrorFor(x => x.EmailAddressId, command.EmailAddressId);
             queries.Verify(x => x.Execute(It.Is(expectedQuery)), Times.Exactly(2));
+        }
+    }
+
+    public class FakeMustFindEmailAddressByIdCommand
+    {
+        public int EmailAddressId { get; set; }
+    }
+
+    public class FakeMustFindEmailAddressByIdValidator : AbstractValidator<FakeMustFindEmailAddressByIdCommand>
+    {
+        public FakeMustFindEmailAddressByIdValidator(IProcessQueries queries)
+        {
+            RuleFor(x => x.EmailAddressId)
+                .MustFindEmailAddressById(queries)
+                .WithName(EmailAddress.Constraints.Label)
+            ;
         }
     }
 }

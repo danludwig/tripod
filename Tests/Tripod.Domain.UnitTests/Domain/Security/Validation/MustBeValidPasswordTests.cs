@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using System.Linq;
+using FluentValidation;
 using FluentValidation.Results;
 using FluentValidation.TestHelper;
 using Should;
@@ -93,6 +94,21 @@ namespace Tripod.Domain.Security
 
             result.IsValid.ShouldBeTrue();
             validator.ShouldNotHaveValidationErrorFor(x => x.Password, command.Password);
+        }
+    }
+
+    public class FakeMustBeValidPasswordCommand
+    {
+        public string Password { get; set; }
+    }
+
+    public class FakeMustBeValidPasswordValidator : AbstractValidator<FakeMustBeValidPasswordCommand>
+    {
+        public FakeMustBeValidPasswordValidator()
+        {
+            RuleFor(x => x.Password)
+                .MustBeValidPassword()
+                .WithName(LocalMembership.Constraints.PasswordLabel);
         }
     }
 }

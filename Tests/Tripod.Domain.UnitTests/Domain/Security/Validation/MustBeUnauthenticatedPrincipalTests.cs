@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Security.Principal;
+using FluentValidation;
 using FluentValidation.Results;
 using FluentValidation.TestHelper;
 using Moq;
@@ -64,6 +65,22 @@ namespace Tripod.Domain.Security
 
             result.IsValid.ShouldBeTrue();
             validator.ShouldNotHaveValidationErrorFor(x => x.Principal, command);
+        }
+    }
+
+    public class FakeMustBeUnauthenticatedPrincipalCommand
+    {
+        public IPrincipal Principal { get; set; }
+    }
+
+    public class FakeMustBeUnauthenticatedPrincipalValidator : AbstractValidator<FakeMustBeUnauthenticatedPrincipalCommand>
+    {
+        public FakeMustBeUnauthenticatedPrincipalValidator()
+        {
+            RuleFor(x => x.Principal)
+                .MustBeUnauthenticatedPrincipal()
+                .WithName(User.Constraints.Label)
+            ;
         }
     }
 }

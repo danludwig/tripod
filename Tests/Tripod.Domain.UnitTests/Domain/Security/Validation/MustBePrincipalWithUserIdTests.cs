@@ -3,6 +3,7 @@ using System.Globalization;
 using System.Linq;
 using System.Security.Claims;
 using System.Security.Principal;
+using FluentValidation;
 using FluentValidation.Results;
 using FluentValidation.TestHelper;
 using Moq;
@@ -131,6 +132,23 @@ namespace Tripod.Domain.Security
 
             result.IsValid.ShouldBeTrue();
             validator.ShouldNotHaveValidationErrorFor(x => x.Principal, command);
+        }
+    }
+
+    public class FakeMustBePrincipalWithUserIdCommand
+    {
+        public IPrincipal Principal { get; set; }
+        public int UserId { get; set; }
+    }
+
+    public class FakeMustBePrincipalWithUserIdValidator : AbstractValidator<FakeMustBePrincipalWithUserIdCommand>
+    {
+        public FakeMustBePrincipalWithUserIdValidator()
+        {
+            RuleFor(x => x.Principal)
+                .MustBePrincipalWithUserId(x => x.UserId)
+                .WithName(User.Constraints.Label)
+            ;
         }
     }
 }
