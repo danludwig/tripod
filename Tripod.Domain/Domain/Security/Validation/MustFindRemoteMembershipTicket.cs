@@ -5,6 +5,15 @@ using FluentValidation.Validators;
 
 namespace Tripod.Domain.Security
 {
+    public static class MustFindRemoteMembershipTicketExtensions
+    {
+        public static IRuleBuilderOptions<T, IPrincipal> MustFindRemoteMembershipTicket<T>
+            (this IRuleBuilder<T, IPrincipal> ruleBuilder, IProcessQueries queries)
+        {
+            return ruleBuilder.SetValidator(new MustFindRemoteMembershipTicket(queries));
+        }
+    }
+
     public class MustFindRemoteMembershipTicket : PropertyValidator
     {
         private readonly IProcessQueries _queries;
@@ -24,15 +33,6 @@ namespace Tripod.Domain.Security
             var query =  new PrincipalRemoteMembershipTicket(principal);
             var ticket = _queries.Execute(query).Result;
             return ticket != null;
-        }
-    }
-
-    public static class MustFindRemoteMembershipTicketExtensions
-    {
-        public static IRuleBuilderOptions<T, IPrincipal> MustFindRemoteMembershipTicket<T>
-            (this IRuleBuilder<T, IPrincipal> ruleBuilder, IProcessQueries queries)
-        {
-            return ruleBuilder.SetValidator(new MustFindRemoteMembershipTicket(queries));
         }
     }
 }

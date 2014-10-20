@@ -3,6 +3,15 @@ using FluentValidation.Validators;
 
 namespace Tripod.Domain.Security
 {
+    public static class MustBeValidVerifyEmailPurposeExtensions
+    {
+        public static IRuleBuilderOptions<T, EmailVerificationPurpose> MustBeValidVerifyEmailPurpose<T>
+            (this IRuleBuilder<T, EmailVerificationPurpose> ruleBuilder)
+        {
+            return ruleBuilder.SetValidator(new MustBeValidVerifyEmailPurpose());
+        }
+    }
+
     public class MustBeValidVerifyEmailPurpose : PropertyValidator
     {
         internal MustBeValidVerifyEmailPurpose()
@@ -17,15 +26,6 @@ namespace Tripod.Domain.Security
 
             context.MessageFormatter.AppendArgument("PropertyName", context.PropertyDescription.ToLower());
             return false;
-        }
-    }
-
-    public static class MustBeValidVerifyEmailPurposeExtensions
-    {
-        public static IRuleBuilderOptions<T, EmailVerificationPurpose> MustBeValidVerifyEmailPurpose<T>
-            (this IRuleBuilder<T, EmailVerificationPurpose> ruleBuilder)
-        {
-            return ruleBuilder.SetValidator(new MustBeValidVerifyEmailPurpose());
         }
     }
 }

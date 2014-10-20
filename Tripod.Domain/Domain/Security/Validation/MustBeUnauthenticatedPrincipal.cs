@@ -4,20 +4,6 @@ using FluentValidation.Validators;
 
 namespace Tripod.Domain.Security
 {
-    public class MustBeUnauthenticatedPrincipal : PropertyValidator
-    {
-        internal MustBeUnauthenticatedPrincipal()
-            : base(() => Resources.Validation_Principal_MustBeUnauthenticated)
-        {
-        }
-
-        protected override bool IsValid(PropertyValidatorContext context)
-        {
-            var principal = (IPrincipal)context.PropertyValue;
-            return principal == null || !principal.Identity.IsAuthenticated;
-        }
-    }
-
     public static class MustBeUnauthenticatedPrincipalExtensions
     {
         /// <summary>
@@ -30,6 +16,20 @@ namespace Tripod.Domain.Security
             (this IRuleBuilder<T, IPrincipal> ruleBuilder)
         {
             return ruleBuilder.SetValidator(new MustBeUnauthenticatedPrincipal());
+        }
+    }
+
+    public class MustBeUnauthenticatedPrincipal : PropertyValidator
+    {
+        internal MustBeUnauthenticatedPrincipal()
+            : base(() => Resources.Validation_Principal_MustBeUnauthenticated)
+        {
+        }
+
+        protected override bool IsValid(PropertyValidatorContext context)
+        {
+            var principal = (IPrincipal)context.PropertyValue;
+            return principal == null || !principal.Identity.IsAuthenticated;
         }
     }
 }

@@ -6,6 +6,22 @@ using Microsoft.AspNet.Identity;
 
 namespace Tripod.Domain.Security
 {
+    public static class MustBePrincipalWithUserIdExtensions
+    {
+        /// <summary>
+        /// Validates that this IPrincipal has an expected User Id value.
+        /// </summary>
+        /// <typeparam name="T">The command with the EmailAddress id to validate.</typeparam>
+        /// <param name="ruleBuilder">Fluent rule builder options.</param>
+        /// <param name="userId">The expected UserId property value of this IPrincipal.</param>
+        /// <returns>Fluent rule builder options.</returns>
+        public static IRuleBuilderOptions<T, IPrincipal> MustBePrincipalWithUserId<T>
+            (this IRuleBuilder<T, IPrincipal> ruleBuilder, Func<T, int> userId)
+        {
+            return ruleBuilder.SetValidator(new MustBePrincipalWithUserId<T>(userId));
+        }
+    }
+
     public class MustBePrincipalWithUserId<T> : PropertyValidator
     {
         private readonly Func<T, int> _userId;
@@ -27,22 +43,6 @@ namespace Tripod.Domain.Security
             context.MessageFormatter.AppendArgument("PropertyName", context.PropertyDescription.ToLower());
             context.MessageFormatter.AppendArgument("UserId", userId);
             return false;
-        }
-    }
-
-    public static class MustBePrincipalWithUserIdExtensions
-    {
-        /// <summary>
-        /// Validates that this IPrincipal has an expected User Id value.
-        /// </summary>
-        /// <typeparam name="T">The command with the EmailAddress id to validate.</typeparam>
-        /// <param name="ruleBuilder">Fluent rule builder options.</param>
-        /// <param name="userId">The expected UserId property value of this IPrincipal.</param>
-        /// <returns>Fluent rule builder options.</returns>
-        public static IRuleBuilderOptions<T, IPrincipal> MustBePrincipalWithUserId<T>
-            (this IRuleBuilder<T, IPrincipal> ruleBuilder, Func<T, int> userId)
-        {
-            return ruleBuilder.SetValidator(new MustBePrincipalWithUserId<T>(userId));
         }
     }
 }

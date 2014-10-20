@@ -4,6 +4,15 @@ using FluentValidation.Validators;
 
 namespace Tripod.Domain.Security
 {
+    public static class MustHaveValidVerifyEmailTokenExtensions
+    {
+        public static IRuleBuilderOptions<T, string> MustHaveValidVerifyEmailToken<T>
+            (this IRuleBuilder<T, string> ruleBuilder, IProcessQueries queries, Func<T, string> token)
+        {
+            return ruleBuilder.SetValidator(new MustHaveValidVerifyEmailToken<T>(queries, token));
+        }
+    }
+
     public class MustHaveValidVerifyEmailToken<T> : PropertyValidator
     {
         private readonly IProcessQueries _queries;
@@ -38,15 +47,6 @@ namespace Tripod.Domain.Security
 
             context.MessageFormatter.AppendArgument("PropertyName", context.PropertyDescription.ToLower());
             return false;
-        }
-    }
-
-    public static class MustHaveValidVerifyEmailTokenExtensions
-    {
-        public static IRuleBuilderOptions<T, string> MustHaveValidVerifyEmailToken<T>
-            (this IRuleBuilder<T, string> ruleBuilder, IProcessQueries queries, Func<T, string> token)
-        {
-            return ruleBuilder.SetValidator(new MustHaveValidVerifyEmailToken<T>(queries, token));
         }
     }
 }

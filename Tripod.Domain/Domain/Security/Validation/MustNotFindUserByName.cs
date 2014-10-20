@@ -4,6 +4,25 @@ using FluentValidation.Validators;
 
 namespace Tripod.Domain.Security
 {
+    public static class MustNotFindUserByNameExtensions
+    {
+        /// <summary>
+        /// Validates that no User exists in the underlying data store with this UserName, unless the
+        /// user has the Id provided in the unlessUserHasId argument.
+        /// </summary>
+        /// <typeparam name="T">The command with the User Name property to validate.</typeparam>
+        /// <param name="ruleBuilder">Fluent rule builder options.</param>
+        /// <param name="queries">Query processor instance, for locating User by Name.</param>
+        /// <param name="unlessUserHasId">When this is provided, and a User is found with an Id property
+        ///     matching this value, the validation result will be true.</param>
+        /// <returns>Fluent rule builder options.</returns>
+        public static IRuleBuilderOptions<T, string> MustNotFindUserByName<T>
+            (this IRuleBuilder<T, string> ruleBuilder, IProcessQueries queries, Func<T, int> unlessUserHasId = null)
+        {
+            return ruleBuilder.SetValidator(new MustNotFindUserByName<T>(queries, unlessUserHasId));
+        }
+    }
+
     public class MustNotFindUserByName<T> : PropertyValidator
     {
         private readonly IProcessQueries _queries;
@@ -30,25 +49,6 @@ namespace Tripod.Domain.Security
 
             // assert that user does not exist
             return entity == null;
-        }
-    }
-
-    public static class MustNotFindUserByNameExtensions
-    {
-        /// <summary>
-        /// Validates that no User exists in the underlying data store with this UserName, unless the
-        /// user has the Id provided in the unlessUserHasId argument.
-        /// </summary>
-        /// <typeparam name="T">The command with the User Name property to validate.</typeparam>
-        /// <param name="ruleBuilder">Fluent rule builder options.</param>
-        /// <param name="queries">Query processor instance, for locating User by Name.</param>
-        /// <param name="unlessUserHasId">When this is provided, and a User is found with an Id property
-        ///     matching this value, the validation result will be true.</param>
-        /// <returns>Fluent rule builder options.</returns>
-        public static IRuleBuilderOptions<T, string> MustNotFindUserByName<T>
-            (this IRuleBuilder<T, string> ruleBuilder, IProcessQueries queries, Func<T, int> unlessUserHasId = null)
-        {
-            return ruleBuilder.SetValidator(new MustNotFindUserByName<T>(queries, unlessUserHasId));
         }
     }
 }

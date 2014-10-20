@@ -5,6 +5,21 @@ using FluentValidation.Validators;
 
 namespace Tripod.Domain.Security
 {
+    public static class MustNotBeUnverifiedEmailUserNameExtensions
+    {
+        public static IRuleBuilderOptions<T, string> MustNotBeUnverifiedEmailUserName<T>
+            (this IRuleBuilder<T, string> ruleBuilder, IProcessQueries queries, Func<T, string> ticket)
+        {
+            return ruleBuilder.SetValidator(new MustNotBeUnverifiedEmailUserName<T>(queries, ticket));
+        }
+
+        public static IRuleBuilderOptions<T, string> MustNotBeUnverifiedEmailUserName<T>
+            (this IRuleBuilder<T, string> ruleBuilder, IProcessQueries queries, Func<T, int> userId)
+        {
+            return ruleBuilder.SetValidator(new MustNotBeUnverifiedEmailUserName<T>(queries, userId));
+        }
+    }
+
     public class MustNotBeUnverifiedEmailUserName<T> : PropertyValidator
     {
         private readonly IProcessQueries _queries;
@@ -65,21 +80,6 @@ namespace Tripod.Domain.Security
 
             context.MessageFormatter.AppendArgument("PropertyName", User.Constraints.NameLabel.ToLower());
             return false;
-        }
-    }
-
-    public static class MustNotBeUnverifiedEmailUserNameExtensions
-    {
-        public static IRuleBuilderOptions<T, string> MustNotBeUnverifiedEmailUserName<T>
-            (this IRuleBuilder<T, string> ruleBuilder, IProcessQueries queries, Func<T, string> ticket)
-        {
-            return ruleBuilder.SetValidator(new MustNotBeUnverifiedEmailUserName<T>(queries, ticket));
-        }
-
-        public static IRuleBuilderOptions<T, string> MustNotBeUnverifiedEmailUserName<T>
-            (this IRuleBuilder<T, string> ruleBuilder, IProcessQueries queries, Func<T, int> userId)
-        {
-            return ruleBuilder.SetValidator(new MustNotBeUnverifiedEmailUserName<T>(queries, userId));
         }
     }
 }

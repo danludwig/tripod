@@ -4,6 +4,15 @@ using FluentValidation.Validators;
 
 namespace Tripod.Domain.Security
 {
+    public static class MustNotBePrimaryEmailAddressExtensions
+    {
+        public static IRuleBuilderOptions<T, int> MustNotBePrimaryEmailAddress<T>
+            (this IRuleBuilder<T, int> ruleBuilder, IProcessQueries queries)
+        {
+            return ruleBuilder.SetValidator(new MustNotBePrimaryEmailAddress(queries));
+        }
+    }
+
     public class MustNotBePrimaryEmailAddress : PropertyValidator
     {
         private readonly IProcessQueries _queries;
@@ -23,15 +32,6 @@ namespace Tripod.Domain.Security
 
             context.MessageFormatter.AppendArgument("PropertyName", context.PropertyDescription.ToLower());
             return false;
-        }
-    }
-
-    public static class MustNotBePrimaryEmailAddressExtensions
-    {
-        public static IRuleBuilderOptions<T, int> MustNotBePrimaryEmailAddress<T>
-            (this IRuleBuilder<T, int> ruleBuilder, IProcessQueries queries)
-        {
-            return ruleBuilder.SetValidator(new MustNotBePrimaryEmailAddress(queries));
         }
     }
 }

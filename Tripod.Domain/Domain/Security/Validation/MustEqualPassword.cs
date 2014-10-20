@@ -4,6 +4,23 @@ using FluentValidation.Validators;
 
 namespace Tripod.Domain.Security
 {
+    public static class MustEqualPasswordExtensions
+    {
+        /// <summary>
+        /// Validates that this password is exactly equal to another password provided by argument.
+        /// </summary>
+        /// <typeparam name="T">The command with the Password to validate.</typeparam>
+        /// <param name="ruleBuilder">Fluent rule builder options.</param>
+        /// <param name="password">The other password that much exactly equal this password.</param>
+        /// <param name="matchLabel">Label of the other password for validation messages.</param>
+        /// <returns>Fluent rule builder options.</returns>
+        public static IRuleBuilderOptions<T, string> MustEqualPassword<T>
+            (this IRuleBuilder<T, string> ruleBuilder, Func<T, string> password, string matchLabel = null)
+        {
+            return ruleBuilder.SetValidator(new MustEqualPassword<T>(password, matchLabel));
+        }
+    }
+
     public class MustEqualPassword<T> : PropertyValidator
     {
         private readonly Func<T, string> _password;
@@ -26,23 +43,6 @@ namespace Tripod.Domain.Security
 
             context.MessageFormatter.AppendArgument("PasswordLabel", _matchLabel ?? LocalMembership.Constraints.PasswordLabel.ToLower());
             return false;
-        }
-    }
-
-    public static class MustEqualPasswordExtensions
-    {
-        /// <summary>
-        /// Validates that this password is exactly equal to another password provided by argument.
-        /// </summary>
-        /// <typeparam name="T">The command with the Password to validate.</typeparam>
-        /// <param name="ruleBuilder">Fluent rule builder options.</param>
-        /// <param name="password">The other password that much exactly equal this password.</param>
-        /// <param name="matchLabel">Label of the other password for validation messages.</param>
-        /// <returns>Fluent rule builder options.</returns>
-        public static IRuleBuilderOptions<T, string> MustEqualPassword<T>
-            (this IRuleBuilder<T, string> ruleBuilder, Func<T, string> password, string matchLabel = null)
-        {
-            return ruleBuilder.SetValidator(new MustEqualPassword<T>(password, matchLabel));
         }
     }
 }

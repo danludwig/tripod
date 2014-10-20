@@ -4,6 +4,15 @@ using FluentValidation.Validators;
 
 namespace Tripod.Domain.Security
 {
+    public static class MustNotBeVerifiedEmailAddressExtensions
+    {
+        public static IRuleBuilderOptions<T, string> MustNotBeVerifiedEmailAddress<T>
+            (this IRuleBuilder<T, string> ruleBuilder, IProcessQueries queries)
+        {
+            return ruleBuilder.SetValidator(new MustNotBeVerifiedEmailAddress(queries));
+        }
+    }
+
     public class MustNotBeVerifiedEmailAddress : PropertyValidator
     {
         private readonly IProcessQueries _queries;
@@ -23,15 +32,6 @@ namespace Tripod.Domain.Security
 
             context.MessageFormatter.AppendArgument("PropertyName", context.PropertyDescription.ToLower());
             return false;
-        }
-    }
-
-    public static class MustNotBeVerifiedEmailAddressExtensions
-    {
-        public static IRuleBuilderOptions<T, string> MustNotBeVerifiedEmailAddress<T>
-            (this IRuleBuilder<T, string> ruleBuilder, IProcessQueries queries)
-        {
-            return ruleBuilder.SetValidator(new MustNotBeVerifiedEmailAddress(queries));
         }
     }
 }

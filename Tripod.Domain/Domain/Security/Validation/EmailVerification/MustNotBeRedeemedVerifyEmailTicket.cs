@@ -4,6 +4,15 @@ using FluentValidation.Validators;
 
 namespace Tripod.Domain.Security
 {
+    public static class MustNotBeRedeemedVerifyEmailTicketExtensions
+    {
+        public static IRuleBuilderOptions<T, string> MustNotBeRedeemedVerifyEmailTicket<T>
+            (this IRuleBuilder<T, string> ruleBuilder, IProcessQueries queries)
+        {
+            return ruleBuilder.SetValidator(new MustNotBeRedeemedVerifyEmailTicket(queries));
+        }
+    }
+
     public class MustNotBeRedeemedVerifyEmailTicket : PropertyValidator
     {
         private readonly IProcessQueries _queries;
@@ -25,15 +34,6 @@ namespace Tripod.Domain.Security
 
             context.MessageFormatter.AppendArgument("PropertyName", context.PropertyDescription.ToLower());
             return false;
-        }
-    }
-
-    public static class MustNotBeRedeemedVerifyEmailTicketExtensions
-    {
-        public static IRuleBuilderOptions<T, string> MustNotBeRedeemedVerifyEmailTicket<T>
-            (this IRuleBuilder<T, string> ruleBuilder, IProcessQueries queries)
-        {
-            return ruleBuilder.SetValidator(new MustNotBeRedeemedVerifyEmailTicket(queries));
         }
     }
 }

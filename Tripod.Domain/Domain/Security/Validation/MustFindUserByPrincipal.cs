@@ -5,6 +5,15 @@ using FluentValidation.Validators;
 
 namespace Tripod.Domain.Security
 {
+    public static class MustFindUserByPrincipalExtensions
+    {
+        public static IRuleBuilderOptions<T, IPrincipal> MustFindUserByPrincipal<T>
+            (this IRuleBuilder<T, IPrincipal> ruleBuilder, IProcessQueries queries)
+        {
+            return ruleBuilder.SetValidator(new MustFindUserByPrincipal(queries));
+        }
+    }
+
     public class MustFindUserByPrincipal : PropertyValidator
     {
         private readonly IProcessQueries _queries;
@@ -27,15 +36,6 @@ namespace Tripod.Domain.Security
 
             context.MessageFormatter.AppendArgument("PropertyValue", principal != null ? principal.Identity.Name : "");
             return false;
-        }
-    }
-
-    public static class MustFindUserByPrincipalExtensions
-    {
-        public static IRuleBuilderOptions<T, IPrincipal> MustFindUserByPrincipal<T>
-            (this IRuleBuilder<T, IPrincipal> ruleBuilder, IProcessQueries queries)
-        {
-            return ruleBuilder.SetValidator(new MustFindUserByPrincipal(queries));
         }
     }
 }

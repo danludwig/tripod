@@ -4,6 +4,15 @@ using FluentValidation.Validators;
 
 namespace Tripod.Domain.Security
 {
+    public static class MustFindUserByNameOrEmailExtensions
+    {
+        public static IRuleBuilderOptions<T, string> MustFindUserByNameOrEmail<T>
+            (this IRuleBuilder<T, string> ruleBuilder, IProcessQueries queries)
+        {
+            return ruleBuilder.SetValidator(new MustFindUserByNameOrEmail(queries));
+        }
+    }
+
     public class MustFindUserByNameOrEmail : PropertyValidator
     {
         private readonly IProcessQueries _queries;
@@ -25,15 +34,6 @@ namespace Tripod.Domain.Security
 
             context.MessageFormatter.AppendArgument("PropertyName", context.PropertyDescription.ToLower());
             return false;
-        }
-    }
-
-    public static class MustFindUserByNameOrEmailExtensions
-    {
-        public static IRuleBuilderOptions<T, string> MustFindUserByNameOrEmail<T>
-            (this IRuleBuilder<T, string> ruleBuilder, IProcessQueries queries)
-        {
-            return ruleBuilder.SetValidator(new MustFindUserByNameOrEmail(queries));
         }
     }
 }

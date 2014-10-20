@@ -4,6 +4,15 @@ using FluentValidation.Validators;
 
 namespace Tripod.Domain.Security
 {
+    public static class MustFindEmailVerificationByTicketExtensions
+    {
+        public static IRuleBuilderOptions<T, string> MustFindEmailVerificationByTicket<T>
+            (this IRuleBuilder<T, string> ruleBuilder, IProcessQueries queries)
+        {
+            return ruleBuilder.SetValidator(new MustFindEmailVerificationByTicket(queries));
+        }
+    }
+
     public class MustFindEmailVerificationByTicket : PropertyValidator
     {
         private readonly IProcessQueries _queries;
@@ -22,15 +31,6 @@ namespace Tripod.Domain.Security
 
             var entity = _queries.Execute(new EmailVerificationBy(ticket)).Result;
             return entity != null;
-        }
-    }
-
-    public static class MustFindEmailVerificationByTicketExtensions
-    {
-        public static IRuleBuilderOptions<T, string> MustFindEmailVerificationByTicket<T>
-            (this IRuleBuilder<T, string> ruleBuilder, IProcessQueries queries)
-        {
-            return ruleBuilder.SetValidator(new MustFindEmailVerificationByTicket(queries));
         }
     }
 }

@@ -6,6 +6,15 @@ using Microsoft.AspNet.Identity;
 
 namespace Tripod.Domain.Security
 {
+    public static class MustNotFindLocalMembershipByPrincipalExtensions
+    {
+        public static IRuleBuilderOptions<T, IPrincipal> MustNotFindLocalMembershipByPrincipal<T>
+            (this IRuleBuilder<T, IPrincipal> ruleBuilder, IProcessQueries queries)
+        {
+            return ruleBuilder.SetValidator(new MustNotFindLocalMembershipByPrincipal(queries));
+        }
+    }
+
     public class MustNotFindLocalMembershipByPrincipal : PropertyValidator
     {
         private readonly IProcessQueries _queries;
@@ -30,15 +39,6 @@ namespace Tripod.Domain.Security
             context.MessageFormatter.AppendArgument("PropertyValue", principal.Identity.Name);
             context.MessageFormatter.AppendArgument("PasswordLabel", LocalMembership.Constraints.Label.ToLower());
             return false;
-        }
-    }
-
-    public static class MustNotFindLocalMembershipByPrincipalExtensions
-    {
-        public static IRuleBuilderOptions<T, IPrincipal> MustNotFindLocalMembershipByPrincipal<T>
-            (this IRuleBuilder<T, IPrincipal> ruleBuilder, IProcessQueries queries)
-        {
-            return ruleBuilder.SetValidator(new MustNotFindLocalMembershipByPrincipal(queries));
         }
     }
 }

@@ -4,6 +4,24 @@ using FluentValidation.Validators;
 
 namespace Tripod.Domain.Security
 {
+    public static class MustBeEmailAddressWithUserIdExtensions
+    {
+        /// <summary>
+        /// Validates that when an EmailAddress with this Id exists in the underlying data store,
+        /// it's UserId value matches the userId argument provided.
+        /// </summary>
+        /// <typeparam name="T">The command with the EmailAddress id to validate.</typeparam>
+        /// <param name="ruleBuilder">Fluent rule builder options.</param>
+        /// <param name="queries">Query processor instance, for locating EmailAddress by Id.</param>
+        /// <param name="userId">The expected UserId property value of the EmailAddress.</param>
+        /// <returns>Fluent rule builder options.</returns>
+        public static IRuleBuilderOptions<T, int> MustBeEmailAddressWithUserId<T>
+            (this IRuleBuilder<T, int> ruleBuilder, IProcessQueries queries, Func<T, int> userId)
+        {
+            return ruleBuilder.SetValidator(new MustBeEmailAddressWithUserId<T>(queries, userId));
+        }
+    }
+
     public class MustBeEmailAddressWithUserId<T> : PropertyValidator
     {
         private readonly IProcessQueries _queries;
@@ -27,24 +45,6 @@ namespace Tripod.Domain.Security
 
             context.MessageFormatter.AppendArgument("PropertyName", context.PropertyDescription.ToLower());
             return false;
-        }
-    }
-
-    public static class MustBeEmailAddressWithUserIdExtensions
-    {
-        /// <summary>
-        /// Validates that when an EmailAddress with this Id exists in the underlying data store,
-        /// it's UserId value matches the userId argument provided.
-        /// </summary>
-        /// <typeparam name="T">The command with the EmailAddress id to validate.</typeparam>
-        /// <param name="ruleBuilder">Fluent rule builder options.</param>
-        /// <param name="queries">Query processor instance, for locating EmailAddress by Id.</param>
-        /// <param name="userId">The expected UserId property value of the EmailAddress.</param>
-        /// <returns>Fluent rule builder options.</returns>
-        public static IRuleBuilderOptions<T, int> MustBeEmailAddressWithUserId<T>
-            (this IRuleBuilder<T, int> ruleBuilder, IProcessQueries queries, Func<T, int> userId)
-        {
-            return ruleBuilder.SetValidator(new MustBeEmailAddressWithUserId<T>(queries, userId));
         }
     }
 }

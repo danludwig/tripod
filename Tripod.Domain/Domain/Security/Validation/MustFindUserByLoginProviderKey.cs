@@ -5,6 +5,15 @@ using Microsoft.AspNet.Identity;
 
 namespace Tripod.Domain.Security
 {
+    public static class MustFindUserByLoginProviderKeyExtensions
+    {
+        public static IRuleBuilderOptions<T, string> MustFindUserByLoginProviderKey<T>
+            (this IRuleBuilder<T, string> ruleBuilder, IProcessQueries queries, Func<T, string> loginProvider)
+        {
+            return ruleBuilder.SetValidator(new MustFindUserByLoginProviderKey<T>(queries, loginProvider));
+        }
+    }
+
     public class MustFindUserByLoginProviderKey<T> : PropertyValidator
     {
         private readonly IProcessQueries _queries;
@@ -28,16 +37,6 @@ namespace Tripod.Domain.Security
 
             // assert that user does exist
             return entity != null;
-        }
-    }
-
-    [UsedImplicitly]
-    public static class MustFindUserByLoginProviderKeyExtensions
-    {
-        public static IRuleBuilderOptions<T, string> MustFindUserByLoginProviderKey<T>
-            (this IRuleBuilder<T, string> ruleBuilder, IProcessQueries queries, Func<T, string> loginProvider)
-        {
-            return ruleBuilder.SetValidator(new MustFindUserByLoginProviderKey<T>(queries, loginProvider));
         }
     }
 }

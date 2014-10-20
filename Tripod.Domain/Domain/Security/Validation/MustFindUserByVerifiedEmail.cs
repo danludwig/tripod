@@ -4,6 +4,15 @@ using FluentValidation.Validators;
 
 namespace Tripod.Domain.Security
 {
+    public static class MustFindUserByVerifiedEmailExtensions
+    {
+        public static IRuleBuilderOptions<T, string> MustFindUserByVerifiedEmail<T>
+            (this IRuleBuilder<T, string> ruleBuilder, IProcessQueries queries)
+        {
+            return ruleBuilder.SetValidator(new MustFindUserByVerifiedEmail(queries));
+        }
+    }
+
     public class MustFindUserByVerifiedEmail : PropertyValidator
     {
         private readonly IProcessQueries _queries;
@@ -28,15 +37,6 @@ namespace Tripod.Domain.Security
 
             context.MessageFormatter.AppendArgument("PropertyName", context.PropertyDescription.ToLower());
             return false;
-        }
-    }
-
-    public static class MustFindUserByVerifiedEmailExtensions
-    {
-        public static IRuleBuilderOptions<T, string> MustFindUserByVerifiedEmail<T>
-            (this IRuleBuilder<T, string> ruleBuilder, IProcessQueries queries)
-        {
-            return ruleBuilder.SetValidator(new MustFindUserByVerifiedEmail(queries));
         }
     }
 }

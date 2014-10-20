@@ -5,6 +5,15 @@ using FluentValidation.Validators;
 
 namespace Tripod.Domain.Security
 {
+    public static class MustBePurposedVerifyEmailTicketExtensions
+    {
+        public static IRuleBuilderOptions<T, string> MustBePurposedVerifyEmailTicket<T>
+            (this IRuleBuilder<T, string> ruleBuilder, IProcessQueries queries, params Func<T, EmailVerificationPurpose>[] purposes)
+        {
+            return ruleBuilder.SetValidator(new MustBePurposedVerifyEmailTicket<T>(queries, purposes));
+        }
+    }
+
     public class MustBePurposedVerifyEmailTicket<T> : PropertyValidator
     {
         private readonly IProcessQueries _queries;
@@ -30,15 +39,6 @@ namespace Tripod.Domain.Security
 
             context.MessageFormatter.AppendArgument("PropertyName", context.PropertyDescription.ToLower());
             return false;
-        }
-    }
-
-    public static class MustBePurposedVerifyEmailTicketExtensions
-    {
-        public static IRuleBuilderOptions<T, string> MustBePurposedVerifyEmailTicket<T>
-            (this IRuleBuilder<T, string> ruleBuilder, IProcessQueries queries, params Func<T, EmailVerificationPurpose>[] purposes)
-        {
-            return ruleBuilder.SetValidator(new MustBePurposedVerifyEmailTicket<T>(queries, purposes));
         }
     }
 }
