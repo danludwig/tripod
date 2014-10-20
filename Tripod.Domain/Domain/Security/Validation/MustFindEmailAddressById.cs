@@ -7,7 +7,7 @@ namespace Tripod.Domain.Security
     public static class MustFindEmailAddressByIdExtensions
     {
         /// <summary>
-        /// Validates that an EmailAddress entity with this id exists in the underlying data store.
+        /// Validates that an EmailAddress entity with this Id exists in the underlying data store.
         /// </summary>
         /// <typeparam name="T">The command with the EmailAddress Id to validate.</typeparam>
         /// <param name="ruleBuilder">Fluent rule builder options.</param>

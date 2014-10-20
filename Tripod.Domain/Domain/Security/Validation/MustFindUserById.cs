@@ -6,6 +6,13 @@ namespace Tripod.Domain.Security
 {
     public static class MustFindUserByIdExtensions
     {
+        /// <summary>
+        /// Validates that an User entity with this Id exists in the underlying data store.
+        /// </summary>
+        /// <typeparam name="T">The command with the User Id to validate.</typeparam>
+        /// <param name="ruleBuilder">Fluent rule builder options.</param>
+        /// <param name="queries">Query processor instance, for locating User by Id.</param>
+        /// <returns>Fluent rule builder options.</returns>
         public static IRuleBuilderOptions<T, int> MustFindUserById<T>
             (this IRuleBuilder<T, int> ruleBuilder, IProcessQueries queries)
         {
