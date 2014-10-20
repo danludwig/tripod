@@ -7,6 +7,13 @@ namespace Tripod.Domain.Security
 {
     public static class MustFindRemoteMembershipTicketExtensions
     {
+        /// <summary>
+        /// Validates that this principal has a just authenticated remotely with a 3rd party login provider.
+        /// </summary>
+        /// <typeparam name="T">The command with the Principal to validate.</typeparam>
+        /// <param name="ruleBuilder">Fluent rule builder options.</param>
+        /// <param name="queries">Query processor instance, for checking the remote membership authentication.</param>
+        /// <returns>Fluent rule builder options.</returns>
         public static IRuleBuilderOptions<T, IPrincipal> MustFindRemoteMembershipTicket<T>
             (this IRuleBuilder<T, IPrincipal> ruleBuilder, IProcessQueries queries)
         {

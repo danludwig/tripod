@@ -164,6 +164,7 @@
     <Compile Include="Domain\Security\Validation\MustBePrincipalWithUserIdTests.cs" />
     <Compile Include="Domain\Security\Validation\MustBeValidPasswordTests.cs" />
     <Compile Include="Domain\Security\Validation\MustBeValidUserNameTests.cs" />
+    <Compile Include="Domain\Security\Validation\MustFindRemoteMembershipTicketTests.cs" />
     <Compile Include="Domain\Security\Validation\MustFindLocalMembershipByPrincipalTests.cs" />
     <Compile Include="Domain\Security\Validation\MustNotContainInvalidUserNameTextTests.cs" />
     <Compile Include="Domain\Security\Validation\MustFindEmailAddressByIdTests.cs" />
