@@ -8,6 +8,13 @@ namespace Tripod.Domain.Security
 {
     public static class MustFindLocalMembershipByPrincipalExtensions
     {
+        /// <summary>
+        /// Validates that a LocalMembership exists in the underlying data store for this Principal.
+        /// </summary>
+        /// <typeparam name="T">The command with the Principal to validate.</typeparam>
+        /// <param name="ruleBuilder">Fluent rule builder options.</param>
+        /// <param name="queries">Query processor instance, for locating LocalMembership by Principal.</param>
+        /// <returns>Fluent rule builder options.</returns>
         public static IRuleBuilderOptions<T, IPrincipal> MustFindLocalMembershipByPrincipal<T>
             (this IRuleBuilder<T, IPrincipal> ruleBuilder, IProcessQueries queries)
         {
@@ -33,12 +40,13 @@ namespace Tripod.Domain.Security
             {
                 if (principal.Identity.HasAppUserId())
                 {
-                    var entity = _queries.Execute(new LocalMembershipByUser(principal.Identity.GetUserId<int>())).Result;
+                    var userId = principal.Identity.GetUserId<int>();
+                    var entity = _queries.Execute(new LocalMembershipByUser(userId)).Result;
                     if (entity != null) return true;
                 }
             }
 
-            context.MessageFormatter.AppendArgument("PropertyValue", principal != null ? principal.Identity.Name : "");
+            context.MessageFormatter.AppendArgument("PropertyValue",principal != null ? principal.Identity.Name : "");
             context.MessageFormatter.AppendArgument("PasswordLabel", LocalMembership.Constraints.Label.ToLower());
             return false;
         }
