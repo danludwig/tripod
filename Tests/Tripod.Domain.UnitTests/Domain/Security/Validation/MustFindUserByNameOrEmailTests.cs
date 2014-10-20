@@ -30,8 +30,7 @@ namespace Tripod.Domain.Security
         {
             var queries = new Mock<IProcessQueries>(MockBehavior.Strict);
             var command = new FakeMustFindUserByNameOrEmailCommand { NameOrEmail = nameOrEmail };
-            Expression<Func<UserByNameOrVerifiedEmail, bool>> expectedQuery = x => x.NameOrEmail == nameOrEmail;
-            queries.Setup(x => x.Execute(It.Is(expectedQuery))).Returns(Task.FromResult(new User()));
+            queries.Setup(x => x.Execute(It.IsAny<UserByNameOrVerifiedEmail>())).Returns(Task.FromResult(new User()));
             var validator = new FakeMustFindUserByNameOrEmailValidator(queries.Object);
 
             var result = validator.Validate(command);
@@ -43,9 +42,9 @@ namespace Tripod.Domain.Security
                 .Replace("{PropertyName}", User.Constraints.Label.ToLower())
                 .Replace("{PropertyValue}", nameOrEmail)
             );
-            queries.Verify(x => x.Execute(It.Is(expectedQuery)), Times.Never);
+            queries.Verify(x => x.Execute(It.IsAny<UserByNameOrVerifiedEmail>()), Times.Never);
             validator.ShouldHaveValidationErrorFor(x => x.NameOrEmail, command.NameOrEmail);
-            queries.Verify(x => x.Execute(It.Is(expectedQuery)), Times.Never);
+            queries.Verify(x => x.Execute(It.IsAny<UserByNameOrVerifiedEmail>()), Times.Never);
         }
 
         [Fact]
