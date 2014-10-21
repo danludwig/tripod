@@ -21,7 +21,7 @@ namespace Tripod.Domain.Security
         {
             RuleFor(x => x.UserNameOrVerifiedEmail)
                 .NotEmpty()
-                .MustFindUserByNameOrEmail(queries)
+                .MustFindUserByNameOrVerifiedEmail(queries)
                     .WithName(string.Format("{0} or {1}", User.Constraints.NameLabel, EmailAddress.Constraints.Label))
             ;
 

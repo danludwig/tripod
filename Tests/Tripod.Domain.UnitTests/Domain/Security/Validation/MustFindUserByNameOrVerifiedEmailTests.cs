@@ -12,12 +12,12 @@ using Xunit.Extensions;
 
 namespace Tripod.Domain.Security
 {
-    public class MustFindUserByNameOrEmailTests : FluentValidationTests
+    public class MustFindUserByNameOrVerifiedEmailTests : FluentValidationTests
     {
         [Fact]
         public void Ctor_ThrowsArgumentNullException_WhenQueryProcessor_IsNull()
         {
-            var exception = Assert.Throws<ArgumentNullException>(() => new MustFindUserByNameOrEmail(null));
+            var exception = Assert.Throws<ArgumentNullException>(() => new MustFindUserByNameOrVerifiedEmail(null));
             exception.ShouldNotBeNull();
             exception.ParamName.ShouldEqual("queries");
         }
@@ -29,9 +29,9 @@ namespace Tripod.Domain.Security
         public void IsInvalid_WhenUserNameOrEmail_IsEmpty(string nameOrEmail)
         {
             var queries = new Mock<IProcessQueries>(MockBehavior.Strict);
-            var command = new FakeMustFindUserByNameOrEmailCommand { NameOrEmail = nameOrEmail };
+            var command = new FakeMustFindUserByNameOrVerifiedEmailCommand { NameOrEmail = nameOrEmail };
             queries.Setup(x => x.Execute(It.IsAny<UserByNameOrVerifiedEmail>())).Returns(Task.FromResult(new User()));
-            var validator = new FakeMustFindUserByNameOrEmailValidator(queries.Object);
+            var validator = new FakeMustFindUserByNameOrVerifiedEmailValidator(queries.Object);
 
             var result = validator.Validate(command);
 
@@ -52,10 +52,10 @@ namespace Tripod.Domain.Security
         {
             var nameOrEmail = string.Format("{0}@domain.tld", Guid.NewGuid());
             var queries = new Mock<IProcessQueries>(MockBehavior.Strict);
-            var command = new FakeMustFindUserByNameOrEmailCommand { NameOrEmail = nameOrEmail };
+            var command = new FakeMustFindUserByNameOrVerifiedEmailCommand { NameOrEmail = nameOrEmail };
             Expression<Func<UserByNameOrVerifiedEmail, bool>> expectedQuery = x => x.NameOrEmail == nameOrEmail;
             queries.Setup(x => x.Execute(It.Is(expectedQuery))).Returns(Task.FromResult(null as User));
-            var validator = new FakeMustFindUserByNameOrEmailValidator(queries.Object);
+            var validator = new FakeMustFindUserByNameOrVerifiedEmailValidator(queries.Object);
 
             var result = validator.Validate(command);
 
@@ -76,11 +76,11 @@ namespace Tripod.Domain.Security
         {
             var nameOrEmail = string.Format("{0}@domain.tld", Guid.NewGuid());
             var queries = new Mock<IProcessQueries>(MockBehavior.Strict);
-            var command = new FakeMustFindUserByNameOrEmailCommand { NameOrEmail = nameOrEmail };
+            var command = new FakeMustFindUserByNameOrVerifiedEmailCommand { NameOrEmail = nameOrEmail };
             var entity = new ProxiedUser(new Random().Next(1, int.MaxValue)) { Name = nameOrEmail };
             Expression<Func<UserByNameOrVerifiedEmail, bool>> expectedQuery = x => x.NameOrEmail == nameOrEmail;
             queries.Setup(x => x.Execute(It.Is(expectedQuery))).Returns(Task.FromResult(entity as User));
-            var validator = new FakeMustFindUserByNameOrEmailValidator(queries.Object);
+            var validator = new FakeMustFindUserByNameOrVerifiedEmailValidator(queries.Object);
 
             var result = validator.Validate(command);
 
@@ -91,17 +91,17 @@ namespace Tripod.Domain.Security
         }
     }
 
-    public class FakeMustFindUserByNameOrEmailCommand
+    public class FakeMustFindUserByNameOrVerifiedEmailCommand
     {
         public string NameOrEmail { get; set; }
     }
 
-    public class FakeMustFindUserByNameOrEmailValidator : AbstractValidator<FakeMustFindUserByNameOrEmailCommand>
+    public class FakeMustFindUserByNameOrVerifiedEmailValidator : AbstractValidator<FakeMustFindUserByNameOrVerifiedEmailCommand>
     {
-        public FakeMustFindUserByNameOrEmailValidator(IProcessQueries queries)
+        public FakeMustFindUserByNameOrVerifiedEmailValidator(IProcessQueries queries)
         {
             RuleFor(x => x.NameOrEmail)
-                .MustFindUserByNameOrEmail(queries)
+                .MustFindUserByNameOrVerifiedEmail(queries)
                 .WithName(User.Constraints.Label)
             ;
         }

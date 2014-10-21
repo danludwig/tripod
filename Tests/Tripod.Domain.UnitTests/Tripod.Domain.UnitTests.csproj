@@ -158,7 +158,7 @@
     <Compile Include="Domain\Security\Queries\UserHasLocalMembershipTests.cs" />
     <Compile Include="Domain\Security\Queries\UserViewByTests.cs" />
     <Compile Include="Domain\Security\Validation\MustFindUserByPrincipalTests.cs" />
-    <Compile Include="Domain\Security\Validation\MustFindUserByNameOrEmailTests.cs" />
+    <Compile Include="Domain\Security\Validation\MustFindUserByNameOrVerifiedEmailTests.cs" />
     <Compile Include="Domain\Security\Validation\MustFindUserByLoginProviderKeyTests.cs" />
     <Compile Include="Domain\Security\Validation\MustEqualPasswordTests.cs" />
     <Compile Include="Domain\Security\Validation\MustBeVerifiedPasswordTests.cs" />

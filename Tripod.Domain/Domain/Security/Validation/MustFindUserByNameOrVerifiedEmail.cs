@@ -4,20 +4,27 @@ using FluentValidation.Validators;
 
 namespace Tripod.Domain.Security
 {
-    public static class MustFindUserByNameOrEmailExtensions
+    public static class MustFindUserByNameOrVerifiedEmailExtensions
     {
-        public static IRuleBuilderOptions<T, string> MustFindUserByNameOrEmail<T>
+        /// <summary>
+        /// Validates that an User entity with this Name or verified Email exists in the underlying data store.
+        /// </summary>
+        /// <typeparam name="T">The command with the EmailAddress id to validate.</typeparam>
+        /// <param name="ruleBuilder">Fluent rule builder options.</param>
+        /// <param name="queries">Query processor instance, for locating User by Name or Email.</param>
+        /// <returns>Fluent rule builder options.</returns>
+        public static IRuleBuilderOptions<T, string> MustFindUserByNameOrVerifiedEmail<T>
             (this IRuleBuilder<T, string> ruleBuilder, IProcessQueries queries)
         {
-            return ruleBuilder.SetValidator(new MustFindUserByNameOrEmail(queries));
+            return ruleBuilder.SetValidator(new MustFindUserByNameOrVerifiedEmail(queries));
         }
     }
 
-    internal class MustFindUserByNameOrEmail : PropertyValidator
+    internal class MustFindUserByNameOrVerifiedEmail : PropertyValidator
     {
         private readonly IProcessQueries _queries;
 
-        internal MustFindUserByNameOrEmail(IProcessQueries queries)
+        internal MustFindUserByNameOrVerifiedEmail(IProcessQueries queries)
             : base(() => Resources.Validation_CouldNotFind)
         {
             if (queries == null) throw new ArgumentNullException("queries");
