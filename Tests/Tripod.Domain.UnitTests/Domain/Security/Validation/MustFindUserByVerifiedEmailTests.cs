@@ -53,7 +53,7 @@ namespace Tripod.Domain.Security
             var emailAddress = string.Format("{0}@domain.tld", Guid.NewGuid());
             var queries = new Mock<IProcessQueries>(MockBehavior.Strict);
             var command = new FakeMustFindUserByVerifiedEmailCommand { EmailAddress = emailAddress };
-            Expression<Func<EmailAddressBy, bool>> expectedQuery = y => y.Value == emailAddress;
+            Expression<Func<EmailAddressBy, bool>> expectedQuery = x => x.Value == emailAddress;
             queries.Setup(x => x.Execute(It.Is(expectedQuery))).Returns(Task.FromResult(null as EmailAddress));
             var validator = new FakeMustFindUserByVerifiedEmailValidator(queries.Object);
 
@@ -82,7 +82,7 @@ namespace Tripod.Domain.Security
                 Value = emailAddress,
             };
             var command = new FakeMustFindUserByVerifiedEmailCommand { EmailAddress = emailAddress };
-            Expression<Func<EmailAddressBy, bool>> expectedQuery = y => y.Value == emailAddress;
+            Expression<Func<EmailAddressBy, bool>> expectedQuery = x => x.Value == emailAddress;
             queries.Setup(x => x.Execute(It.Is(expectedQuery))).Returns(Task.FromResult(entity as EmailAddress));
             var validator = new FakeMustFindUserByVerifiedEmailValidator(queries.Object);
 
@@ -113,7 +113,7 @@ namespace Tripod.Domain.Security
                 User = user,
             };
             var command = new FakeMustFindUserByVerifiedEmailCommand { EmailAddress = emailAddress };
-            Expression<Func<EmailAddressBy, bool>> expectedQuery = y => y.Value == emailAddress;
+            Expression<Func<EmailAddressBy, bool>> expectedQuery = x => x.Value == emailAddress;
             queries.Setup(x => x.Execute(It.Is(expectedQuery))).Returns(Task.FromResult(entity as EmailAddress));
             var validator = new FakeMustFindUserByVerifiedEmailValidator(queries.Object);
 

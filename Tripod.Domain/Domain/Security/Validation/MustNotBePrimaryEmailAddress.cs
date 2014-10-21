@@ -6,6 +6,13 @@ namespace Tripod.Domain.Security
 {
     public static class MustNotBePrimaryEmailAddressExtensions
     {
+        /// <summary>
+        /// Validates that the email address with this Id is not the primary email address for its User.
+        /// </summary>
+        /// <typeparam name="T">The command with the email address to validate.</typeparam>
+        /// <param name="ruleBuilder">Fluent rule builder options.</param>
+        /// <param name="queries">Query processor instance, for locating EmailAddress by Id.</param>
+        /// <returns>Fluent rule builder options.</returns>
         public static IRuleBuilderOptions<T, int> MustNotBePrimaryEmailAddress<T>
             (this IRuleBuilder<T, int> ruleBuilder, IProcessQueries queries)
         {
