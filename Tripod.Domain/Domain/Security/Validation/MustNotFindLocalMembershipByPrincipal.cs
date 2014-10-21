@@ -8,6 +8,13 @@ namespace Tripod.Domain.Security
 {
     public static class MustNotFindLocalMembershipByPrincipalExtensions
     {
+        /// <summary>
+        /// Validates that this Principal does not have a LocalMembership.
+        /// </summary>
+        /// <typeparam name="T">The command with the Principal to validate.</typeparam>
+        /// <param name="ruleBuilder">Fluent rule builder options.</param>
+        /// <param name="queries">Query processor instance, for locating LocalMembership by Principal.</param>
+        /// <returns>Fluent rule builder options.</returns>
         public static IRuleBuilderOptions<T, IPrincipal> MustNotFindLocalMembershipByPrincipal<T>
             (this IRuleBuilder<T, IPrincipal> ruleBuilder, IProcessQueries queries)
         {
