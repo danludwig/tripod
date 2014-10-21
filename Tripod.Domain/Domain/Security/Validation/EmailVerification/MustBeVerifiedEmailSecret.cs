@@ -6,6 +6,15 @@ namespace Tripod.Domain.Security
 {
     public static class MustBeVerifiedEmailSecretExtensions
     {
+        /// <summary>
+        /// Validates that this EmailVerification Secret matches that of the EmailVerification with
+        /// the provided Ticket.
+        /// </summary>
+        /// <typeparam name="T">The command with the EmailVerification Ticket to validate.</typeparam>
+        /// <param name="ruleBuilder">Fluent rule builder options.</param>
+        /// <param name="queries">Query processor instance, for locating EmailVerification by Ticket.</param>
+        /// <param name="ticket">The Ticket of the EmailVerification to match the Secret against.</param>
+        /// <returns>Fluent rule builder options.</returns>
         public static IRuleBuilderOptions<T, string> MustBeVerifiedEmailSecret<T>
             (this IRuleBuilder<T, string> ruleBuilder, IProcessQueries queries, Func<T, string> ticket)
         {

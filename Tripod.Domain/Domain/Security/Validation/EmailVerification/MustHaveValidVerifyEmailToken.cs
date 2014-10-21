@@ -6,6 +6,14 @@ namespace Tripod.Domain.Security
 {
     public static class MustHaveValidVerifyEmailTokenExtensions
     {
+        /// <summary>
+        /// Validates that this EmailVerification Ticket has a valid Token.
+        /// </summary>
+        /// <typeparam name="T">The command with the EmailVerification Ticket to validate.</typeparam>
+        /// <param name="ruleBuilder">Fluent rule builder options.</param>
+        /// <param name="queries">Query processor instance, for locating EmailVerification by Ticket.</param>
+        /// <param name="token">The Token to validate this EmailVerification Ticket against.</param>
+        /// <returns>Fluent rule builder options.</returns>
         public static IRuleBuilderOptions<T, string> MustHaveValidVerifyEmailToken<T>
             (this IRuleBuilder<T, string> ruleBuilder, IProcessQueries queries, Func<T, string> token)
         {
@@ -42,7 +50,8 @@ namespace Tripod.Domain.Security
 
             // token is not valid unless it matches the ticket's token
             var query = new EmailVerificationTokenIsValid(token, ticket, verification.Purpose);
-            var isValid = _queries.Execute(query).Result && verification.Token == token && !string.IsNullOrWhiteSpace(token);
+            var isValid = _queries.Execute(query).Result && verification.Token == token
+                && !string.IsNullOrWhiteSpace(token);
             if (isValid) return true;
 
             context.MessageFormatter.AppendArgument("PropertyName", context.PropertyDescription.ToLower());

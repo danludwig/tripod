@@ -26,11 +26,7 @@ namespace Tripod.Domain.Security
                 .MustBePurposedVerifyEmailTicket(queries,
                     x => EmailVerificationPurpose.AddEmail
                 )
-                    .WithName(EmailVerification.Constraints.Label)
-            ;
-
-            RuleFor(x => x.Token)
-                .MustBeValidVerifyEmailToken(queries, x => x.Ticket)
+                .MustHaveValidVerifyEmailToken(queries, x => x.Token)
                 .WithName(EmailVerification.Constraints.Label)
             ;
         }

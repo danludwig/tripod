@@ -6,6 +6,13 @@ namespace Tripod.Domain.Security
 {
     public static class MustNotBeVerifiedEmailAddressExtensions
     {
+        /// <summary>
+        /// Validates that this EmailAddress is not already verified.
+        /// </summary>
+        /// <typeparam name="T">The command with the EmailAddress Value to validate.</typeparam>
+        /// <param name="ruleBuilder">Fluent rule builder options.</param>
+        /// <param name="queries">Query processor instance, for locating EmailAddress by Value.</param>
+        /// <returns>Fluent rule builder options.</returns>
         public static IRuleBuilderOptions<T, string> MustNotBeVerifiedEmailAddress<T>
             (this IRuleBuilder<T, string> ruleBuilder, IProcessQueries queries)
         {

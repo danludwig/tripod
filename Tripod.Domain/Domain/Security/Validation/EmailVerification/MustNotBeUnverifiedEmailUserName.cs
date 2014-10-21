@@ -7,12 +7,28 @@ namespace Tripod.Domain.Security
 {
     public static class MustNotBeUnverifiedEmailUserNameExtensions
     {
+        /// <summary>
+        /// Validates that this candidate User Name is not an unverified EmailAddress.
+        /// </summary>
+        /// <typeparam name="T">Command with the candidate User Name text.</typeparam>
+        /// <param name="ruleBuilder">Fluent rule builder options.</param>
+        /// <param name="queries">Query processor instance, for locating EmailVerification by Ticket.</param>
+        /// <param name="ticket">EmailVerification Ticket that allows usage of email address as User Name.</param>
+        /// <returns>Fluent rule builder options.</returns>
         public static IRuleBuilderOptions<T, string> MustNotBeUnverifiedEmailUserName<T>
             (this IRuleBuilder<T, string> ruleBuilder, IProcessQueries queries, Func<T, string> ticket)
         {
             return ruleBuilder.SetValidator(new MustNotBeUnverifiedEmailUserName<T>(queries, ticket));
         }
 
+        /// <summary>
+        /// Validates that this candidate User Name is not an unverified EmailAddress.
+        /// </summary>
+        /// <typeparam name="T">Command with the candidate User Name text.</typeparam>
+        /// <param name="ruleBuilder">Fluent rule builder options.</param>
+        /// <param name="queries">Query processor instance, for locating EmailAddress by User Id.</param>
+        /// <param name="userId">Id of the User expected to own the possible email address User Name candidate.</param>
+        /// <returns>Fluent rule builder options.</returns>
         public static IRuleBuilderOptions<T, string> MustNotBeUnverifiedEmailUserName<T>
             (this IRuleBuilder<T, string> ruleBuilder, IProcessQueries queries, Func<T, int> userId)
         {

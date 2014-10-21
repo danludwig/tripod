@@ -6,6 +6,13 @@ namespace Tripod.Domain.Security
 {
     public static class MustNotBeExpiredVerifyEmailTicketExtensions
     {
+        /// <summary>
+        /// Validates that the EmailVerification with this Ticket is not expired.
+        /// </summary>
+        /// <typeparam name="T">The command with the EmailVerification Ticket to validate.</typeparam>
+        /// <param name="ruleBuilder">Fluent rule builder options.</param>
+        /// <param name="queries">Query processor instance, for locating EmailVerification by Ticket.</param>
+        /// <returns>Fluent rule builder options.</returns>
         public static IRuleBuilderOptions<T, string> MustNotBeExpiredVerifyEmailTicket<T>
             (this IRuleBuilder<T, string> ruleBuilder, IProcessQueries queries)
         {

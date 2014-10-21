@@ -5,6 +5,12 @@ namespace Tripod.Domain.Security
 {
     public static class MustBeValidVerifyEmailPurposeExtensions
     {
+        /// <summary>
+        /// Validates that this EmailVerificationPurpose is not EmailVerificationPurpose.Invalid.
+        /// </summary>
+        /// <typeparam name="T">The command with the EmailVerificationPurpose to validate.</typeparam>
+        /// <param name="ruleBuilder">Fluent rule builder options.</param>
+        /// <returns>Fluent rule builder options.</returns>
         public static IRuleBuilderOptions<T, EmailVerificationPurpose> MustBeValidVerifyEmailPurpose<T>
             (this IRuleBuilder<T, EmailVerificationPurpose> ruleBuilder)
         {

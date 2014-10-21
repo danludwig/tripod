@@ -157,7 +157,6 @@
     <Compile Include="Domain\Security\Validation\EmailVerification\MustHaveValidVerifyEmailToken.cs" />
     <Compile Include="Domain\Security\Validation\EmailVerification\MustBeRedeemableVerifyEmailTicket.cs" />
     <Compile Include="Domain\Security\Validation\EmailVerification\MustBeValidVerifyEmailPurpose.cs" />
-    <Compile Include="Domain\Security\Validation\EmailVerification\MustBeValidVerifyEmailToken.cs" />
     <Compile Include="Domain\Security\Validation\EmailVerification\MustBeVerifiableEmailAddress.cs" />
     <Compile Include="Domain\Security\Validation\EmailVerification\MustNotBeVerifiedEmailAddress.cs" />
     <Compile Include="Domain\Security\Validation\EmailVerification\MustNotBeUnverifiedEmailUserName.cs" />

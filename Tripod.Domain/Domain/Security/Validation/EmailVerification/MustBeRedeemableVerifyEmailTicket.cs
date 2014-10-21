@@ -5,13 +5,13 @@ namespace Tripod.Domain.Security
     public static class MustBeRedeemableVerifyEmailTicketExtensions
     {
         /// <summary>
-        /// Validates that an email verification ticket is not empty, exists in the data store, is not already redeemed,
-        /// and is not expired.
+        /// Validates that an EmailVerification Ticket is not empty, exists in the data store,
+        /// is not already redeemed, and is not expired.
         /// </summary>
-        /// <typeparam name="T">The command or other data transfer object to validate.</typeparam>
-        /// <param name="ruleBuilder">Fluent IRuleBuilderOptions for method chaining.</param>
+        /// <typeparam name="T">The command with the EmailVerification Ticket to validate.</typeparam>
+        /// <param name="ruleBuilder">Fluent rule builder options.</param>
         /// <param name="queries">Query processor instance.</param>
-        /// <returns>Fluent IRuleBuilderOptions for method chaining.</returns>
+        /// <returns>Fluent rule builder options.</returns>
         public static IRuleBuilderOptions<T, string> MustBeRedeemableVerifyEmailTicket<T>
             (this IRuleBuilder<T, string> ruleBuilder, IProcessQueries queries)
         {
