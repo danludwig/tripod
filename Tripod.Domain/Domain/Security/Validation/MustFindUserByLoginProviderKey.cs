@@ -5,6 +5,7 @@ using Microsoft.AspNet.Identity;
 
 namespace Tripod.Domain.Security
 {
+    // TODO: this validator is currently not used by the domain, only by unit tests.
     public static class MustFindUserByLoginProviderKeyExtensions
     {
         /// <summary>

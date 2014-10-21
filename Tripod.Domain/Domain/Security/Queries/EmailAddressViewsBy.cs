@@ -3,14 +3,23 @@ using System.Threading.Tasks;
 
 namespace Tripod.Domain.Security
 {
-    public class EmailAddressViewsBy : BaseEnumerableQuery<EmailAddressView>, IDefineQuery<Task<IQueryable<EmailAddressView>>>
+    /// <summary>
+    /// Find all EmailAddressViews by User Id.
+    /// </summary>
+    public class EmailAddressViewsBy : BaseEnumerableQuery<EmailAddressView>, 
+        IDefineQuery<Task<IQueryable<EmailAddressView>>>
     {
-        public EmailAddressViewsBy(int userId)
-        {
-            UserId = userId;
-        }
+        /// <summary>
+        /// Find all EmailAddressViews by User Id.
+        /// </summary>
+        /// <param name="userId">Id of the User to find EmailAddressViews for.</param>
+        public EmailAddressViewsBy(int userId) { UserId = userId; }
 
         public int UserId { get; private set; }
+
+        /// <summary>
+        /// When not null, the EmailAddress IsVerified property must match this value.
+        /// </summary>
         public bool? IsVerified { get; set; }
     }
 

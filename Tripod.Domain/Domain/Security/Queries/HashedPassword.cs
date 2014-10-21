@@ -3,12 +3,16 @@ using Microsoft.AspNet.Identity;
 
 namespace Tripod.Domain.Security
 {
+    /// <summary>
+    /// Generate a hash for a password.
+    /// </summary>
     public class HashedPassword : IDefineQuery<Task<string>>
     {
-        public HashedPassword(string password)
-        {
-            Password = password;
-        }
+        /// <summary>
+        /// Generate a hash for a password.
+        /// </summary>
+        /// <param name="password">The password to generate a hash for.</param>
+        public HashedPassword(string password) { Password = password; }
 
         public string Password { get; private set; }
     }

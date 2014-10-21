@@ -4,12 +4,16 @@ using System.Threading.Tasks;
 
 namespace Tripod.Domain.Security
 {
+    /// <summary>
+    /// Generate a hash for an EmailAddress (for use with Gravatar).
+    /// </summary>
     public class HashedEmailValueBy : IDefineQuery<Task<string>>
     {
-        internal HashedEmailValueBy(string emailAddress)
-        {
-            EmailAddress = emailAddress;
-        }
+        /// <summary>
+        /// Generate a hash for an EmailAddress (for use with Gravatar).
+        /// </summary>
+        /// <param name="emailAddress">Email address to generate a hash for.</param>
+        internal HashedEmailValueBy(string emailAddress) { EmailAddress = emailAddress; }
 
         internal string EmailAddress { get; private set; }
     }

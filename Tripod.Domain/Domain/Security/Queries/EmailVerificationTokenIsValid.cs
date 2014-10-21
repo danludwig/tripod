@@ -3,8 +3,17 @@ using Microsoft.AspNet.Identity;
 
 namespace Tripod.Domain.Security
 {
+    /// <summary>
+    /// Verify that a given token is valid for a verification ticket and purpose.
+    /// </summary>
     public class EmailVerificationTokenIsValid : IDefineQuery<Task<bool>>
     {
+        /// <summary>
+        /// Verify that a given token is valid for an EmailVerification ticket and purpose.
+        /// </summary>
+        /// <param name="token">Token generated for the EmailVerification Ticket.</param>
+        /// <param name="ticket">EmailVerification Ticket used to generate the Token.</param>
+        /// <param name="purpose">Purpose of the EmailVerification Ticket.</param>
         public EmailVerificationTokenIsValid(string token, string ticket, EmailVerificationPurpose purpose)
         {
             Token = token;

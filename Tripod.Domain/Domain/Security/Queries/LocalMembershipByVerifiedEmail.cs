@@ -2,12 +2,16 @@
 
 namespace Tripod.Domain.Security
 {
+    /// <summary>
+    /// Find a LocalMembership by verified EmailAddress.
+    /// </summary>
     public class LocalMembershipByVerifiedEmail : BaseEntityQuery<LocalMembership>, IDefineQuery<Task<LocalMembership>>
     {
-        public LocalMembershipByVerifiedEmail(string emailAddress)
-        {
-            EmailAddress = emailAddress;
-        }
+        /// <summary>
+        /// Find a LocalMembership by verified EmailAddress.
+        /// </summary>
+        /// <param name="emailAddress">Verified email address value to find a LocalMembership for.</param>
+        public LocalMembershipByVerifiedEmail(string emailAddress) { EmailAddress = emailAddress; }
 
         public string EmailAddress { get; private set; }
     }

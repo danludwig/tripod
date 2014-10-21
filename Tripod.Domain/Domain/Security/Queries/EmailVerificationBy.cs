@@ -2,12 +2,16 @@
 
 namespace Tripod.Domain.Security
 {
+    /// <summary>
+    /// Find an EmailVerification by Ticket.
+    /// </summary>
     public class EmailVerificationBy : BaseEntityQuery<EmailVerification>, IDefineQuery<Task<EmailVerification>>
     {
-        public EmailVerificationBy(string ticket)
-        {
-            Ticket = ticket;
-        }
+        /// <summary>
+        /// Find an EmailVerification by Ticket.
+        /// </summary>
+        /// <param name="ticket">Ticket of the EmailVerification to find.</param>
+        public EmailVerificationBy(string ticket) { Ticket = ticket; }
 
         public string Ticket { get; private set; }
     }

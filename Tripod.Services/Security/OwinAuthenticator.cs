@@ -10,6 +10,7 @@ using Tripod.Domain.Security;
 
 namespace Tripod.Services.Security
 {
+    [UsedImplicitly]
     public class OwinAuthenticator : IAuthenticate
     {
         private readonly IAuthenticationManager _authenticationManager;

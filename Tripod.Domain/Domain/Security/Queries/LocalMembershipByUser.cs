@@ -3,22 +3,29 @@ using Microsoft.AspNet.Identity;
 
 namespace Tripod.Domain.Security
 {
+    /// <summary>
+    /// Find a LocalMembership by User Id, User Name, or UserLoginInfo.
+    /// </summary>
     public class LocalMembershipByUser : BaseEntityQuery<LocalMembership>, IDefineQuery<Task<LocalMembership>>
     {
-        public LocalMembershipByUser(int userId)
-        {
-            UserId = userId;
-        }
+        /// <summary>
+        /// Find a LocalMembership by User Id.
+        /// </summary>
+        /// <param name="userId">Id of the User to find a LocalMembership for.</param>
+        public LocalMembershipByUser(int userId) { UserId = userId; }
 
-        public LocalMembershipByUser(string userName)
-        {
-            UserName = userName;
-        }
+        /// <summary>
+        /// Find a LocalMembership by User Name.
+        /// </summary>
+        /// <param name="userName">Name of the User to find a LocalMembership for.</param>
+        public LocalMembershipByUser(string userName) { UserName = userName; }
 
-        public LocalMembershipByUser(UserLoginInfo userLoginInfo)
-        {
-            UserLoginInfo = userLoginInfo;
-        }
+        /// <summary>
+        /// Find a LocalMembership by UserLoginInfo (login provider and provider key)
+        /// </summary>
+        /// <param name="userLoginInfo">Login provider and key belonging to the User to find
+        ///     a LocalMembership for.</param>
+        public LocalMembershipByUser(UserLoginInfo userLoginInfo) { UserLoginInfo = userLoginInfo; }
 
         public int? UserId { get; private set; }
         public string UserName { get; private set; }

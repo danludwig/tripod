@@ -3,9 +3,16 @@ using Microsoft.AspNet.Identity;
 
 namespace Tripod.Domain.Security
 {
+    /// <summary>
+    /// Verify the password for a given User Name or verified EmailAddress.
+    /// </summary>
     public class IsPasswordVerified : IDefineQuery<Task<bool>>
     {
+        /// <summary>
+        /// Verify the password for a given User Name or verified EmailAddress.
+        /// </summary>
         internal IsPasswordVerified() { }
+
         internal string UserNameOrVerifiedEmail { get; set; }
         internal string Password { get; set; }
     }

@@ -6,10 +6,27 @@ using Microsoft.AspNet.Identity;
 
 namespace Tripod.Domain.Security
 {
+    /// <summary>
+    /// Find a UserView by User Id, User Name, or IPrincipal.
+    /// </summary>
     public class UserViewBy : IDefineQuery<Task<UserView>>
     {
+        /// <summary>
+        /// Find a UserView by User Id.
+        /// </summary>
+        /// <param name="id">Id of the UserView to find.</param>
         public UserViewBy(int id) { Id = id; }
+
+        /// <summary>
+        /// Find a UserView by User Name.
+        /// </summary>
+        /// <param name="name">Name of the UserView to find.</param>
         public UserViewBy(string name) { Name = name; }
+
+        /// <summary>
+        /// Find a UserView by Principal (uses NameIdentifier of ClaimsIdentity).
+        /// </summary>
+        /// <param name="principal">Principal with ClaimsIdentity and NameIdentifier with User Id.</param>
         public UserViewBy(IPrincipal principal) { Principal = principal; }
 
         public int? Id { get; private set; }
@@ -32,18 +49,15 @@ namespace Tripod.Domain.Security
             var queryable = _entities.Query<User>();
 
             if (query.Id.HasValue)
-            {
                 queryable = queryable.Where(EntityExtensions.ById<User>(query.Id.Value));
-            }
-            else if (query.Principal != null && query.Principal.Identity.IsAuthenticated)
-            {
-                queryable = queryable.Where(EntityExtensions.ById<User>(query.Principal.Identity.GetUserId<int>()));
-            }
-            else
-            {
-                queryable = queryable.Where(QueryUsers.ByName(query.Name));
-            }
 
+            else if (query.Principal != null && query.Principal.Identity.IsAuthenticated)
+                queryable = queryable.Where(EntityExtensions.ById<User>(query.Principal.Identity.GetUserId<int>()));
+
+            else
+                queryable = queryable.Where(QueryUsers.ByName(query.Name));
+
+            // project before querying to only get the data needed for the view.
             var projection = await queryable.Select(x => new
             {
                 UserId = x.Id,

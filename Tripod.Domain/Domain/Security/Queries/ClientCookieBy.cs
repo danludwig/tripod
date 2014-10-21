@@ -3,12 +3,16 @@ using System.Threading.Tasks;
 
 namespace Tripod.Domain.Security
 {
+    /// <summary>
+    /// Derive client cookie data for a given User Id.
+    /// </summary>
     public class ClientCookieBy : IDefineQuery<Task<ClientCookie>>
     {
-        public ClientCookieBy(int? userId)
-        {
-            UserId = userId;
-        }
+        /// <summary>
+        /// Derive client cookie data for a given User Id.
+        /// </summary>
+        /// <param name="userId">Id of the User to generate client cookie data for.</param>
+        public ClientCookieBy(int? userId) { UserId = userId; }
 
         public int? UserId { get; private set; }
     }

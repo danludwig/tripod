@@ -15,6 +15,7 @@ namespace Tripod.Domain.Security
         public User SignedIn { get; internal set; }
     }
 
+    [UsedImplicitly]
     public class ValidateSignInCommand : AbstractValidator<SignIn>
     {
         public ValidateSignInCommand(IProcessQueries queries)
@@ -34,6 +35,7 @@ namespace Tripod.Domain.Security
         }
     }
 
+    [UsedImplicitly]
     public class HandleSignInCommand : IHandleCommand<SignIn>
     {
         private readonly IProcessQueries _queries;

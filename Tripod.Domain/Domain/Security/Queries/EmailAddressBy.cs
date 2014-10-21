@@ -3,26 +3,36 @@ using System.Threading.Tasks;
 
 namespace Tripod.Domain.Security
 {
+    /// <summary>
+    /// Find an email address by Id, Value, or Claim.
+    /// </summary>
     public class EmailAddressBy : BaseEntityQuery<EmailAddress>, IDefineQuery<Task<EmailAddress>>
     {
-        public EmailAddressBy(int id)
-        {
-            Id = id;
-        }
+        /// <summary>
+        /// Find an EmailAddress by Id.
+        /// </summary>
+        /// <param name="id">Id of the EmailAddress to find.</param>
+        public EmailAddressBy(int id) { Id = id; }
 
-        public EmailAddressBy(string value)
-        {
-            Value = value;
-        }
+        /// <summary>
+        /// Find an EmailAddress by Value.
+        /// </summary>
+        /// <param name="value">Value of the EmailAddress to find.</param>
+        public EmailAddressBy(string value) { Value = value; }
 
-        public EmailAddressBy(Claim claim)
-        {
-            Claim = claim;
-        }
+        /// <summary>
+        /// Find an EmailAddress by Claim.
+        /// </summary>
+        /// <param name="claim">Claim of type Email containing the EmailAddress value.</param>
+        public EmailAddressBy(Claim claim) { Claim = claim; }
 
         public int? Id { get; private set; }
         public string Value { get; private set; }
         public Claim Claim { get; private set; }
+
+        /// <summary>
+        /// When not null, the EmailAddress IsVerified property must match this value.
+        /// </summary>
         public bool? IsVerified { get; set; }
     }
 

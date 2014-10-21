@@ -2,6 +2,7 @@
 
 namespace Tripod.Services.EntityFramework
 {
+    [UsedImplicitly]
     public class GreenfieldDbInitializer : DropCreateDatabaseIfModelChanges<DbContext>
     {
         private readonly ICustomizeDb _customizer;

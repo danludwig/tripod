@@ -10,6 +10,7 @@ using Tripod.Domain.Security;
 
 namespace Tripod.Services.Security
 {
+    [UsedImplicitly]
     public class SecurityStore : IQueryableUserStore<User, int>, IUserLoginStore<User, int>,
         IUserRoleStore<User, int>, IUserPasswordStore<User, int>, IUserClaimStore<User, int>, IUserSecurityStampStore<User, int>
         //IUserEmailStore<User, int>, IUserConfirmationStore<User, int>

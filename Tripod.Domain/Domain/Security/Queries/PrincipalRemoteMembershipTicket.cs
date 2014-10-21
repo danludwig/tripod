@@ -4,8 +4,15 @@ using System.Threading.Tasks;
 
 namespace Tripod.Domain.Security
 {
+    /// <summary>
+    /// Find a RemoteMembershipTicket for a given IPrincipal.
+    /// </summary>
     public class PrincipalRemoteMembershipTicket : IDefineQuery<Task<RemoteMembershipTicket>>
     {
+        /// <summary>
+        /// Find a RemoteMembershipTicket for a given IPrincipal.
+        /// </summary>
+        /// <param name="principal">Principal to find a RemoteMembershipTicket for.</param>
         public PrincipalRemoteMembershipTicket(IPrincipal principal)
         {
             if (principal == null)

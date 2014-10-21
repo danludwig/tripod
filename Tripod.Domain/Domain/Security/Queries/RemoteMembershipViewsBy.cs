@@ -3,13 +3,16 @@ using System.Threading.Tasks;
 
 namespace Tripod.Domain.Security
 {
+    /// <summary>
+    /// Find all RemoteMembershipViews by User Id.
+    /// </summary>
     public class RemoteMembershipViewsBy : BaseEnumerableQuery<RemoteMembershipView>, IDefineQuery<Task<IQueryable<RemoteMembershipView>>>
     {
-        [UsedImplicitly]
-        public RemoteMembershipViewsBy(int userId)
-        {
-            UserId = userId;
-        }
+        /// <summary>
+        /// Find all RemoteMembershipViews by User Id.
+        /// </summary>
+        /// <param name="userId">Id of the User to return RemoteMembershipViews for.</param>
+        public RemoteMembershipViewsBy(int userId) { UserId = userId; }
 
         public int UserId { get; private set; }
     }

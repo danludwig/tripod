@@ -4,12 +4,17 @@ using System.Threading.Tasks;
 
 namespace Tripod.Domain.Security
 {
+    /// <summary>
+    /// Find a User by either Name or verified EmailAddress using a single input.
+    /// </summary>
     public class UserByNameOrVerifiedEmail : BaseEntityQuery<User>, IDefineQuery<Task<User>>
     {
-        public UserByNameOrVerifiedEmail(string nameOrEmail)
-        {
-            NameOrEmail = nameOrEmail;
-        }
+        /// <summary>
+        /// Find a User by either Name or verified EmailAddress using a single input.
+        /// </summary>
+        /// <param name="nameOrEmail">Text that can be used to find a User either by Name
+        ///     or a verified EmailAddress.</param>
+        public UserByNameOrVerifiedEmail(string nameOrEmail) { NameOrEmail = nameOrEmail; }
 
         public string NameOrEmail { get; private set; }
     }

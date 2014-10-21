@@ -5,8 +5,15 @@ using Microsoft.AspNet.Identity;
 
 namespace Tripod.Domain.Security
 {
+    /// <summary>
+    /// Retrieve all Claims from a cookie (defaults to external cookie).
+    /// </summary>
     public class ExternalCookieClaims : IDefineQuery<Task<IEnumerable<Claim>>>
     {
+        /// <summary>
+        /// Retrieve all Claims from a cookie (defaults to external cookie).
+        /// </summary>
+        /// <param name="authenticationType">Type of cookie, default is external when omitted.</param>
         public ExternalCookieClaims(string authenticationType = DefaultAuthenticationTypes.ExternalCookie)
         {
             AuthenticationType = authenticationType;

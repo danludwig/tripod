@@ -3,15 +3,22 @@ using System.Threading.Tasks;
 
 namespace Tripod.Domain.Security
 {
+    /// <summary>
+    /// Find all EmailAddreses by User Id.
+    /// </summary>
     public class EmailAddressesBy : BaseEntitiesQuery<EmailAddress>, IDefineQuery<Task<IQueryable<EmailAddress>>>
     {
-        [UsedImplicitly]
-        public EmailAddressesBy(int userId)
-        {
-            UserId = userId;
-        }
+        /// <summary>
+        /// Find all EmailAddreses by User Id.
+        /// </summary>
+        /// <param name="userId">Id of the User to find EmailAddresses for.</param>
+        public EmailAddressesBy(int userId) { UserId = userId; }
 
         public int UserId { get; private set; }
+
+        /// <summary>
+        /// When not null, the EmailAddress IsVerified property must match this value.
+        /// </summary>
         public bool? IsVerified { get; set; }
     }
 
