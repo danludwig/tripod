@@ -10,7 +10,7 @@ namespace Tripod.Domain.Security
         /// <summary>
         /// Validates that an User entity exists in the underlying data store for this authenticated Principal.
         /// </summary>
-        /// <typeparam name="T">The command with the EmailAddress id to validate.</typeparam>
+        /// <typeparam name="T">The command with the Principal to validate.</typeparam>
         /// <param name="ruleBuilder">Fluent rule builder options.</param>
         /// <param name="queries">Query processor instance, for locating User by Principal.</param>
         /// <returns>Fluent rule builder options.</returns>

@@ -9,9 +9,9 @@ namespace Tripod.Domain.Security
         /// <summary>
         /// Validates that an User entity with this Name or verified Email exists in the underlying data store.
         /// </summary>
-        /// <typeparam name="T">The command with the EmailAddress id to validate.</typeparam>
+        /// <typeparam name="T">The command with the name or email to validate.</typeparam>
         /// <param name="ruleBuilder">Fluent rule builder options.</param>
-        /// <param name="queries">Query processor instance, for locating User by Name or Email.</param>
+        /// <param name="queries">Query processor instance, for locating User by Name or verified Email.</param>
         /// <returns>Fluent rule builder options.</returns>
         public static IRuleBuilderOptions<T, string> MustFindUserByNameOrVerifiedEmail<T>
             (this IRuleBuilder<T, string> ruleBuilder, IProcessQueries queries)
