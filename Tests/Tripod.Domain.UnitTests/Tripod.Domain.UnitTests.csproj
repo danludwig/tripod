@@ -158,6 +158,7 @@
     <Compile Include="Domain\Security\Queries\UserHasLocalMembershipTests.cs" />
     <Compile Include="Domain\Security\Queries\UserViewByTests.cs" />
     <Compile Include="Domain\Security\Validation\EmailVerification\MustBePurposedVerifyEmailTicketTests.cs" />
+    <Compile Include="Domain\Security\Validation\EmailVerification\MustNotBeExpiredVerifyEmailTicketTests.cs" />
     <Compile Include="Domain\Security\Validation\EmailVerification\MustNotBeRedeemedVerifyEmailTicketTests.cs" />
     <Compile Include="Domain\Security\Validation\EmailVerification\MustFindEmailVerificationByTicketTests.cs" />
     <Compile Include="Domain\Security\Validation\MustNotFindLocalMembershipByPrincipalTests.cs" />
