@@ -159,6 +159,7 @@
     <Compile Include="Domain\Security\Queries\UserViewByTests.cs" />
     <Compile Include="Domain\Security\Validation\EmailVerification\MustBePurposedVerifyEmailTicketTests.cs" />
     <Compile Include="Domain\Security\Validation\EmailVerification\MustBeRedeemableVerifyEmailTicketTests.cs" />
+    <Compile Include="Domain\Security\Validation\EmailVerification\MustBeValidVerifyEmailPurposeTests.cs" />
     <Compile Include="Domain\Security\Validation\EmailVerification\MustNotBeExpiredVerifyEmailTicketTests.cs" />
     <Compile Include="Domain\Security\Validation\EmailVerification\MustNotBeRedeemedVerifyEmailTicketTests.cs" />
     <Compile Include="Domain\Security\Validation\EmailVerification\MustFindEmailVerificationByTicketTests.cs" />
