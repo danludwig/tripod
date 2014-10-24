@@ -25,7 +25,7 @@ namespace Tripod.Domain.Security
         }
 
         [Fact]
-        public void Ctor_ThrowsArgumentNullException_WhenUserId_IsNull()
+        public void Ctor_ThrowsArgumentNullException_Purposes_IsNull()
         {
             var queries = new Mock<IProcessQueries>(MockBehavior.Strict);
             var exception = Assert.Throws<ArgumentNullException>(
