@@ -147,10 +147,13 @@ namespace Tripod.Domain.Security
                 VerifyUrlFormat = "[here is the token:' {0}']",
             };
             Expression<Func<EmailAddressBy, bool>> expectedQuery = x => x.Value == command.EmailAddress;
-            queries.Setup(x => x.Execute(It.Is(expectedQuery))).Returns(Task.FromResult(new EmailAddress
+            User user = new ProxiedUser(new Random().Next(1, int.MaxValue));
+            var emailAddress = new EmailAddress
             {
                 Value = command.EmailAddress,
-            }));
+                User = user,
+            };
+            queries.Setup(x => x.Execute(It.Is(expectedQuery))).Returns(Task.FromResult(emailAddress));
 
             var result = validator.Validate(command);
 
