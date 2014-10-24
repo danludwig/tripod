@@ -90,7 +90,7 @@ namespace Tripod.Domain.Security
             var entity = new EmailVerification
             {
                 Ticket = ticket,
-                ExpiresOnUtc = DateTime.UtcNow.AddMinutes(-1)
+                ExpiresOnUtc = DateTime.UtcNow.AddMinutes(-1),
             };
             Expression<Func<EmailVerificationBy, bool>> expectedQuery = x => x.Ticket == ticket;
             queries.Setup(x => x.Execute(It.Is(expectedQuery))).Returns(Task.FromResult(entity));
