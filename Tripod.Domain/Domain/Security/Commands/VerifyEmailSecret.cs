@@ -22,10 +22,7 @@ namespace Tripod.Domain.Security
         public ValidateVerifyEmailSecretCommand(IProcessQueries queries)
         {
             RuleFor(x => x.Ticket)
-                .NotEmpty()
-                .MustFindEmailVerificationByTicket(queries)
-                .MustNotBeRedeemedVerifyEmailTicket(queries)
-                .MustNotBeExpiredVerifyEmailTicket(queries)
+                .MustBeRedeemableVerifyEmailTicket(queries)
                 .MustBePurposedVerifyEmailTicket(queries, x => x.Purpose)
                     .WithName(EmailVerification.Constraints.Label);
 
