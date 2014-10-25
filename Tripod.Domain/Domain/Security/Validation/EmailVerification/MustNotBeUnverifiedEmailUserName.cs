@@ -13,7 +13,7 @@ namespace Tripod.Domain.Security
         /// <typeparam name="T">Command with the candidate User Name text.</typeparam>
         /// <param name="ruleBuilder">Fluent rule builder options.</param>
         /// <param name="queries">Query processor instance, for locating EmailVerification by Ticket.</param>
-        /// <param name="ticket">EmailVerification Ticket that allows usage of email address as User Name.</param>
+        /// <param name="ticket">EmailVerification Ticket that allows usage of this email address as a User Name.</param>
         /// <returns>Fluent rule builder options.</returns>
         public static IRuleBuilderOptions<T, string> MustNotBeUnverifiedEmailUserName<T>
             (this IRuleBuilder<T, string> ruleBuilder, IProcessQueries queries, Func<T, string> ticket)
