@@ -25,7 +25,7 @@ namespace Tripod.Domain.Security
         [Fact]
         public void IsInvalid_WhenEmailAddress_IsNotFoundById()
         {
-            var emailAddressId = new Random().Next(1, int.MaxValue);
+            var emailAddressId = FakeData.Id();
             var queries = new Mock<IProcessQueries>(MockBehavior.Strict);
             var command = new FakeMustFindEmailAddressByIdCommand { EmailAddressId = emailAddressId };
             Expression<Func<EmailAddressBy, bool>> expectedQuery = x => x.Id == emailAddressId;
@@ -49,7 +49,7 @@ namespace Tripod.Domain.Security
         [Fact]
         public void IsValid_WhenEmailAddress_IsFoundById()
         {
-            var emailAddressId = new Random().Next(1, int.MaxValue);
+            var emailAddressId = FakeData.Id();
             var queries = new Mock<IProcessQueries>(MockBehavior.Strict);
             var command = new FakeMustFindEmailAddressByIdCommand { EmailAddressId = emailAddressId };
             var entity = new ProxiedEmailAddress(emailAddressId);

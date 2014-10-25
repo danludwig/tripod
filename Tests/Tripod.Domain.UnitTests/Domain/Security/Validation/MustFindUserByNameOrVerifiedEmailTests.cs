@@ -77,7 +77,7 @@ namespace Tripod.Domain.Security
             var nameOrEmail = FakeData.Email();
             var queries = new Mock<IProcessQueries>(MockBehavior.Strict);
             var command = new FakeMustFindUserByNameOrVerifiedEmailCommand { NameOrEmail = nameOrEmail };
-            var entity = new ProxiedUser(new Random().Next(1, int.MaxValue)) { Name = nameOrEmail };
+            var entity = new ProxiedUser(FakeData.Id()) { Name = nameOrEmail };
             Expression<Func<UserByNameOrVerifiedEmail, bool>> expectedQuery = x => x.NameOrEmail == nameOrEmail;
             queries.Setup(x => x.Execute(It.Is(expectedQuery))).Returns(Task.FromResult(entity as User));
             var validator = new FakeMustFindUserByNameOrVerifiedEmailValidator(queries.Object);

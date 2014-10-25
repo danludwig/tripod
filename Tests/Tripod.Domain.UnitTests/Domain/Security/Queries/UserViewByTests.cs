@@ -17,7 +17,7 @@ namespace Tripod.Domain.Security
         [Fact]
         public void Query_IntCtor_SetsIdProperty()
         {
-            var id = new Random().Next(int.MinValue, int.MaxValue);
+            var id = FakeData.Id();
             var query = new UserViewBy(id);
             query.Id.ShouldEqual(id);
             query.Name.ShouldBeNull();
@@ -27,8 +27,9 @@ namespace Tripod.Domain.Security
         [Fact]
         public void Handler_ReturnsNullUserView_WhenNotFound_ById()
         {
-            var userId = new Random().Next(1, int.MaxValue - 3);
-            var user = new ProxiedUser(userId + 1) { Name = Guid.NewGuid().ToString(), };
+            var userId = FakeData.Id();
+            var otherUserId = FakeData.Id(canNotBe: userId);
+            var user = new ProxiedUser(otherUserId) { Name = Guid.NewGuid().ToString(), };
             var primaryEmail = new EmailAddress
             {
                 Value = FakeData.Email(),
@@ -126,7 +127,7 @@ namespace Tripod.Domain.Security
         [Fact]
         public void Handler_ReturnsNullUserView_WhenNotFound_ByName()
         {
-            var userId = new Random().Next(1, int.MaxValue - 3);
+            var userId = FakeData.Id();
             var userName = Guid.NewGuid().ToString();
             var user = new ProxiedUser(userId) { Name = Guid.NewGuid().ToString(), };
             var primaryEmail = new EmailAddress
@@ -168,7 +169,7 @@ namespace Tripod.Domain.Security
         [Fact]
         public void Handler_ReturnsNonNullUserView_WhenFound_ByName()
         {
-            var userId = new Random().Next(1, int.MaxValue - 3);
+            var userId = FakeData.Id();
             var userName = Guid.NewGuid().ToString();
             var user = new ProxiedUser(userId) { Name = userName, };
             var primaryEmail = new EmailAddress
@@ -227,7 +228,7 @@ namespace Tripod.Domain.Security
         [Fact]
         public void Handler_ReturnsNullUserView_WhenPrincipalIsNull()
         {
-            var userId = new Random().Next(1, int.MaxValue - 3);
+            var userId = FakeData.Id();
             var user = new ProxiedUser(userId) { Name = Guid.NewGuid().ToString(), };
             var data = new[] { user }.AsQueryable();
             var query = new UserViewBy(null as IPrincipal);
@@ -247,7 +248,7 @@ namespace Tripod.Domain.Security
         [Fact]
         public void Handler_ReturnsNullUserView_WhenPrincipalIdentity_IsNotAuthenticated()
         {
-            var userId = new Random().Next(1, int.MaxValue - 3);
+            var userId = FakeData.Id();
             var user = new ProxiedUser(userId) { Name = Guid.NewGuid().ToString(), };
             var data = new[] { user }.AsQueryable();
             var claims = new[]
@@ -273,7 +274,7 @@ namespace Tripod.Domain.Security
         [Fact]
         public void Handler_ReturnsNullUserView_WhenPrincipalIdentity_IsNotClaimsIdentity()
         {
-            var userId = new Random().Next(1, int.MaxValue - 3);
+            var userId = FakeData.Id();
             var user = new ProxiedUser(userId) { Name = Guid.NewGuid().ToString(), };
             var data = new[] { user }.AsQueryable();
             var identity = new GenericIdentity(user.Name, "authentication type");
@@ -295,7 +296,7 @@ namespace Tripod.Domain.Security
         [Fact]
         public void Handler_ReturnsNullUserView_WhenPrincipalIdentity_HasNoNameIdentifierClaim()
         {
-            var userId = new Random().Next(1, int.MaxValue - 3);
+            var userId = FakeData.Id();
             var user = new ProxiedUser(userId) { Name = Guid.NewGuid().ToString(), };
             var data = new[] { user }.AsQueryable();
             var claims = new[]
@@ -321,8 +322,9 @@ namespace Tripod.Domain.Security
         [Fact]
         public void Handler_ReturnsNullUserView_WhenNotFound_ByPrincipal()
         {
-            var userId = new Random().Next(1, int.MaxValue - 3);
-            var user = new ProxiedUser(userId + 1) { Name = Guid.NewGuid().ToString(), };
+            var userId = FakeData.Id();
+            var otherUserId = FakeData.Id(canNotBe: userId);
+            var user = new ProxiedUser(otherUserId) { Name = Guid.NewGuid().ToString(), };
             var primaryEmail = new EmailAddress
             {
                 Value = FakeData.Email(),
@@ -368,7 +370,7 @@ namespace Tripod.Domain.Security
         [Fact]
         public void Handler_ReturnsNonNullUserView_WhenFound_ByPrincipal()
         {
-            var userId = new Random().Next(1, int.MaxValue - 3);
+            var userId = FakeData.Id();
             var user = new ProxiedUser(userId) { Name = Guid.NewGuid().ToString(), };
             var primaryEmail = new EmailAddress
             {

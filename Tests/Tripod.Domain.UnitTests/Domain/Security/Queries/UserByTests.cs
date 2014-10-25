@@ -18,7 +18,7 @@ namespace Tripod.Domain.Security
         [Fact]
         public void Query_IntCtor_SetsIdProperty()
         {
-            var id = new Random().Next(int.MinValue, int.MaxValue);
+            var id = FakeData.Id();
             var query = new UserBy(id);
             query.Id.ShouldEqual(id);
             query.Name.ShouldBeNull();

@@ -24,7 +24,7 @@ namespace Tripod.Domain.Security
         [Fact]
         public void IsInvalid_WhenEmailAddress_IsFound_ButIsVerified()
         {
-            EmailAddress emailAddress = new ProxiedEmailAddress(new Random().Next(1, int.MaxValue))
+            EmailAddress emailAddress = new ProxiedEmailAddress(FakeData.Id())
             {
                 Value = FakeData.Email(),
                 IsVerified = true,
@@ -53,7 +53,7 @@ namespace Tripod.Domain.Security
         [Fact]
         public void IsValid_WhenEmailAddress_IsFound_AndIsNotVerified()
         {
-            EmailAddress emailAddress = new ProxiedEmailAddress(new Random().Next(1, int.MaxValue))
+            EmailAddress emailAddress = new ProxiedEmailAddress(FakeData.Id())
             {
                 Value = FakeData.Email(),
             };

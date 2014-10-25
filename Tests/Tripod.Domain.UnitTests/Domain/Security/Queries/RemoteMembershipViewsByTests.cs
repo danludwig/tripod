@@ -14,7 +14,7 @@ namespace Tripod.Domain.Security
         [Fact]
         public void Query_IntCtor_SetsUserIdProperty()
         {
-            var userId = new Random().Next(1, int.MaxValue);
+            var userId = FakeData.Id();
             var query = new RemoteMembershipViewsBy(userId);
             query.UserId.ShouldEqual(userId);
         }
@@ -22,11 +22,13 @@ namespace Tripod.Domain.Security
         [Fact]
         public void Handler_ReturnsNoRemoteMembershipViews_WhenNotFound_ByUserId()
         {
-            var userId = new Random().Next(1, int.MaxValue - 3);
+            var userId = FakeData.Id();
+            var otherUserId1 = FakeData.Id(userId);
+            var otherUserId2 = FakeData.Id(userId, otherUserId1);
             var remoteMemberships = new[]
             {
-                new RemoteMembership { UserId = userId + 1, },
-                new RemoteMembership { UserId = userId - 1, },
+                new RemoteMembership { UserId = otherUserId1, },
+                new RemoteMembership { UserId = otherUserId2, },
             };
             var data = remoteMemberships.AsQueryable();
             var query = new RemoteMembershipViewsBy(userId);
@@ -46,13 +48,15 @@ namespace Tripod.Domain.Security
         [Fact]
         public void Handler_ReturnsRemoteMembershipViews_WhenFound_ByUserId()
         {
-            var userId = new Random().Next(1, int.MaxValue - 3);
+            var userId = FakeData.Id();
+            var otherUserId1 = FakeData.Id(userId);
+            var otherUserId2 = FakeData.Id(userId, otherUserId1);
             var remoteMemberships = new[]
             {
                 new ProxiedRemoteMembership(Guid.NewGuid().ToString(), Guid.NewGuid().ToString())
-                    { UserId = userId + 1, },
+                    { UserId = otherUserId1, },
                 new ProxiedRemoteMembership(Guid.NewGuid().ToString(), Guid.NewGuid().ToString())
-                    { UserId = userId - 1, },
+                    { UserId = otherUserId2, },
                 new ProxiedRemoteMembership(Guid.NewGuid().ToString(), Guid.NewGuid().ToString())
                     { UserId = userId, },
             };

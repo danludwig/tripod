@@ -140,13 +140,13 @@ namespace Tripod.Domain.Security
         [Fact]
         public void ByEmailAddressId_Queryable_FiltersByEmailAddressId()
         {
-            var emailAddressId = new Random().Next(1, int.MaxValue - 100000);
+            var emailAddressId = FakeData.Id();
             var data = new[]
             {
                 new EmailVerification
                 {
                     Ticket = Guid.NewGuid().ToString(),
-                    EmailAddressId = new Random().Next(int.MaxValue - 10000, int.MaxValue),
+                    EmailAddressId = FakeData.Id(canNotBe: emailAddressId),
                 },
                 new EmailVerification
                 {
@@ -161,12 +161,12 @@ namespace Tripod.Domain.Security
                 new EmailVerification
                 {
                     Ticket = Guid.NewGuid().ToString(),
-                    EmailAddressId = new Random().Next(int.MaxValue - 10000, int.MaxValue),
+                    EmailAddressId = FakeData.Id(canNotBe: emailAddressId),
                 },
                 new EmailVerification
                 {
                     Ticket = Guid.NewGuid().ToString(),
-                    EmailAddressId = new Random().Next(int.MaxValue - 10000, int.MaxValue),
+                    EmailAddressId = FakeData.Id(canNotBe: emailAddressId),
                 },
                 new EmailVerification
                 {
@@ -183,13 +183,13 @@ namespace Tripod.Domain.Security
         [Fact]
         public void ByEmailAddressId_Enumerable_FiltersByEmailAddressId()
         {
-            var emailAddressId = new Random().Next(1, int.MaxValue - 100000);
+            var emailAddressId = FakeData.Id();
             var data = new[]
             {
                 new EmailVerification
                 {
                     Ticket = Guid.NewGuid().ToString(),
-                    EmailAddressId = new Random().Next(int.MaxValue - 10000, int.MaxValue),
+                    EmailAddressId = FakeData.Id(canNotBe: emailAddressId),
                 },
                 new EmailVerification
                 {
@@ -204,12 +204,12 @@ namespace Tripod.Domain.Security
                 new EmailVerification
                 {
                     Ticket = Guid.NewGuid().ToString(),
-                    EmailAddressId = new Random().Next(int.MaxValue - 10000, int.MaxValue),
+                    EmailAddressId = FakeData.Id(canNotBe: emailAddressId),
                 },
                 new EmailVerification
                 {
                     Ticket = Guid.NewGuid().ToString(),
-                    EmailAddressId = new Random().Next(int.MaxValue - 10000, int.MaxValue),
+                    EmailAddressId = FakeData.Id(canNotBe: emailAddressId),
                 },
                 new EmailVerification
                 {

@@ -15,7 +15,7 @@ namespace Tripod.Domain.Security
         [Fact]
         public void Query_IntCtor_SetsUserIdProperty()
         {
-            var userId = new Random().Next(int.MinValue, int.MaxValue);
+            var userId = FakeData.Id();
             var query = new LocalMembershipByUser(userId);
             query.UserId.ShouldEqual(userId);
             query.UserName.ShouldBeNull();
@@ -25,8 +25,9 @@ namespace Tripod.Domain.Security
         [Fact]
         public void Handler_ReturnsNullLocalMembership_WhenNotFound_ByUserId()
         {
-            var userId = new Random().Next(3, int.MaxValue);
-            var user = new ProxiedUser(userId - 1);
+            var userId = FakeData.Id();
+            var otherUserId = FakeData.Id(canNotBe: userId);
+            var user = new ProxiedUser(otherUserId);
             var data = new[]
             {
                 new LocalMembership { User = user, },
@@ -47,7 +48,7 @@ namespace Tripod.Domain.Security
         [Fact]
         public void Handler_ReturnsNonNullLocalMembership_WhenFound_ByUserId()
         {
-            var userId = new Random().Next(3, int.MaxValue);
+            var userId = FakeData.Id();
             var user = new ProxiedUser(userId);
             var data = new[]
             {

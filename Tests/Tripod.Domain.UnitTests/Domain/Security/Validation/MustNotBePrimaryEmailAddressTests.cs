@@ -24,7 +24,7 @@ namespace Tripod.Domain.Security
         [Fact]
         public void IsInvalid_WhenEmailAddress_IsFound_ButIsPrimary()
         {
-            var emailAddress = new ProxiedEmailAddress(new Random().Next(1, int.MaxValue))
+            var emailAddress = new ProxiedEmailAddress(FakeData.Id())
             {
                 Value = FakeData.Email(),
                 IsPrimary = true,
@@ -51,7 +51,7 @@ namespace Tripod.Domain.Security
         [Fact]
         public void IsValid_WhenEmailAddress_IsFound_AndIsNotPrimary()
         {
-            var emailAddress = new ProxiedEmailAddress(new Random().Next(1, int.MaxValue))
+            var emailAddress = new ProxiedEmailAddress(FakeData.Id())
             {
                 Value = FakeData.Email(),
                 IsPrimary = false,
@@ -73,7 +73,7 @@ namespace Tripod.Domain.Security
         [Fact]
         public void IsValid_WhenEmailAddress_IsNotFound()
         {
-            var emailAddressId = new Random().Next(1, int.MaxValue);
+            var emailAddressId = FakeData.Id();
             var queries = new Mock<IProcessQueries>(MockBehavior.Strict);
             var command = new FakeMustNotBePrimaryEmailAddressCommand { EmailAddressId = emailAddressId };
             Expression<Func<EmailAddressBy, bool>> expectedQuery = x => x.Id == emailAddressId;

@@ -72,7 +72,7 @@ namespace Tripod.Domain.Security
                 LoginProvider = loginProvider,
                 ProviderKey = providerKey,
             };
-            var user = new ProxiedUser(new Random().Next(1, int.MaxValue));
+            var user = new ProxiedUser(FakeData.Id());
             user.RemoteMemberships.Add(new ProxiedRemoteMembership(loginProvider, providerKey)
             {
                 User = user,

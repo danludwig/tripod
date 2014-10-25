@@ -17,7 +17,7 @@ namespace Tripod.Domain.Security
         [Fact]
         public void Query_IntCtor_SetsUserIdProperty()
         {
-            var userId = new Random().Next(int.MinValue, int.MaxValue);
+            var userId = FakeData.Id();
             var query = new UserHasLocalMembership(userId);
             query.UserId.ShouldEqual(userId);
             query.UserName.ShouldBeNull();
@@ -27,14 +27,16 @@ namespace Tripod.Domain.Security
         [Fact]
         public void Handler_ReturnsFalse_WhenNotFound_ByUserId()
         {
-            var userId = new Random().Next(3, int.MaxValue - 3);
+            var userId = FakeData.Id();
+            var otherUserId1 = FakeData.Id(userId);
+            var otherUserId2 = FakeData.Id(userId, otherUserId1);
             var user = new ProxiedUser(userId);
-            var differentUser1 = new ProxiedUser(userId + 1);
-            var differentUser2 = new ProxiedUser(userId - 1);
+            var otherUser1 = new ProxiedUser(otherUserId1);
+            var otherUser2 = new ProxiedUser(otherUserId2);
             var localMemberships = new[]
             {
-                new LocalMembership { User = differentUser1, },
-                new LocalMembership { User = differentUser2, },
+                new LocalMembership { User = otherUser1, },
+                new LocalMembership { User = otherUser2, },
             };
             var data = localMemberships.AsQueryable();
             var query = new UserHasLocalMembership(user.Id);
@@ -53,15 +55,17 @@ namespace Tripod.Domain.Security
         [Fact]
         public void Handler_ReturnsTrue_WhenFound_ByUserId()
         {
-            var userId = new Random().Next(3, int.MaxValue - 3);
+            var userId = FakeData.Id();
+            var otherUserId1 = FakeData.Id(userId);
+            var otherUserId2 = FakeData.Id(userId, otherUserId1);
             var user = new ProxiedUser(userId);
-            var differentUser1 = new ProxiedUser(userId + 1);
-            var differentUser2 = new ProxiedUser(userId - 1);
+            var otherUser1 = new ProxiedUser(otherUserId1);
+            var otherUser2 = new ProxiedUser(otherUserId2);
             var localMemberships = new[]
             {
-                new LocalMembership { User = differentUser1, },
+                new LocalMembership { User = otherUser1, },
                 new LocalMembership { User = user, },
-                new LocalMembership { User = differentUser2, },
+                new LocalMembership { User = otherUser2, },
             };
             var data = localMemberships.AsQueryable();
             var query = new UserHasLocalMembership(user.Id);
@@ -95,12 +99,12 @@ namespace Tripod.Domain.Security
         {
             var userName = Guid.NewGuid().ToString();
             var user = new User { Name = userName, };
-            var differentUser1 = new User { Name = Guid.NewGuid().ToString(), };
-            var differentUser2 = new User { Name = Guid.NewGuid().ToString(), };
+            var otherUser1 = new User { Name = Guid.NewGuid().ToString(), };
+            var otherUser2 = new User { Name = Guid.NewGuid().ToString(), };
             var localMemberships = new[]
             {
-                new LocalMembership { User = differentUser1, },
-                new LocalMembership { User = differentUser2, },
+                new LocalMembership { User = otherUser1, },
+                new LocalMembership { User = otherUser2, },
             };
             var data = localMemberships.AsQueryable();
             var query = new UserHasLocalMembership(user.Name);
@@ -121,13 +125,13 @@ namespace Tripod.Domain.Security
         {
             var userName = Guid.NewGuid().ToString();
             var user = new User { Name = userName, };
-            var differentUser1 = new User { Name = Guid.NewGuid().ToString(), };
-            var differentUser2 = new User { Name = Guid.NewGuid().ToString(), };
+            var otherUser1 = new User { Name = Guid.NewGuid().ToString(), };
+            var otherUser2 = new User { Name = Guid.NewGuid().ToString(), };
             var localMemberships = new[]
             {
-                new LocalMembership { User = differentUser1, },
+                new LocalMembership { User = otherUser1, },
                 new LocalMembership { User = user, },
-                new LocalMembership { User = differentUser2, },
+                new LocalMembership { User = otherUser2, },
             };
             var data = localMemberships.AsQueryable();
             var query = new UserHasLocalMembership(user.Name);
@@ -159,15 +163,15 @@ namespace Tripod.Domain.Security
         [Fact]
         public void Handler_ReturnsFalse_WhenPrincipal_IsNull()
         {
-            var userId = new Random().Next(1, int.MaxValue);
+            var userId = FakeData.Id();
             var user = new ProxiedUser(userId) { Name = Guid.NewGuid().ToString(), };
-            var differentUser1 = new ProxiedUser(userId + 1) { Name = Guid.NewGuid().ToString(), };
-            var differentUser2 = new ProxiedUser(userId - 1) { Name = Guid.NewGuid().ToString(), };
+            var otherUser1 = new ProxiedUser(userId + 1) { Name = Guid.NewGuid().ToString(), };
+            var otherUser2 = new ProxiedUser(userId - 1) { Name = Guid.NewGuid().ToString(), };
             var localMemberships = new[]
             {
-                new LocalMembership { User = differentUser1, },
+                new LocalMembership { User = otherUser1, },
                 new LocalMembership { User = user, },
-                new LocalMembership { User = differentUser2, },
+                new LocalMembership { User = otherUser2, },
             };
             var data = localMemberships.AsQueryable();
             var query = new UserHasLocalMembership(null as IPrincipal);
@@ -186,15 +190,15 @@ namespace Tripod.Domain.Security
         [Fact]
         public void Handler_ReturnsFalse_WhenPrincipalIdentity_HasNoNameIdentifierClaim()
         {
-            var userId = new Random().Next(1, int.MaxValue);
+            var userId = FakeData.Id();
             var user = new ProxiedUser(userId) { Name = Guid.NewGuid().ToString(), };
-            var differentUser1 = new ProxiedUser(userId + 1) { Name = Guid.NewGuid().ToString(), };
-            var differentUser2 = new ProxiedUser(userId - 1) { Name = Guid.NewGuid().ToString(), };
+            var otherUser1 = new ProxiedUser(userId + 1) { Name = Guid.NewGuid().ToString(), };
+            var otherUser2 = new ProxiedUser(userId - 1) { Name = Guid.NewGuid().ToString(), };
             var localMemberships = new[]
             {
-                new LocalMembership { User = differentUser1, },
+                new LocalMembership { User = otherUser1, },
                 new LocalMembership { User = user, },
-                new LocalMembership { User = differentUser2, },
+                new LocalMembership { User = otherUser2, },
             };
             var identity = new ClaimsIdentity(new[]
             {
@@ -218,15 +222,15 @@ namespace Tripod.Domain.Security
         [Fact]
         public void Handler_ReturnsFalse_WhenPrincipalIdentity_IsNotClaimsIdentity()
         {
-            var userId = new Random().Next(1, int.MaxValue);
+            var userId = FakeData.Id();
             var user = new ProxiedUser(userId) { Name = Guid.NewGuid().ToString(), };
-            var differentUser1 = new ProxiedUser(userId + 1) { Name = Guid.NewGuid().ToString(), };
-            var differentUser2 = new ProxiedUser(userId - 1) { Name = Guid.NewGuid().ToString(), };
+            var otherUser1 = new ProxiedUser(userId + 1) { Name = Guid.NewGuid().ToString(), };
+            var otherUser2 = new ProxiedUser(userId - 1) { Name = Guid.NewGuid().ToString(), };
             var localMemberships = new[]
             {
-                new LocalMembership { User = differentUser1, },
+                new LocalMembership { User = otherUser1, },
                 new LocalMembership { User = user, },
-                new LocalMembership { User = differentUser2, },
+                new LocalMembership { User = otherUser2, },
             };
             var identity = new GenericIdentity(user.Name);
             var principal = new GenericPrincipal(identity, null);
@@ -247,14 +251,14 @@ namespace Tripod.Domain.Security
         [Fact]
         public void Handler_ReturnsFalse_WhenNotFound_ByPrincipal()
         {
-            var userId = new Random().Next(1, int.MaxValue);
+            var userId = FakeData.Id();
             var user = new ProxiedUser(userId);
-            var differentUser1 = new ProxiedUser(userId + 1);
-            var differentUser2 = new ProxiedUser(userId - 1);
+            var otherUser1 = new ProxiedUser(userId + 1);
+            var otherUser2 = new ProxiedUser(userId - 1);
             var localMemberships = new[]
             {
-                new LocalMembership { User = differentUser1, },
-                new LocalMembership { User = differentUser2, },
+                new LocalMembership { User = otherUser1, },
+                new LocalMembership { User = otherUser2, },
             };
             var identity = new ClaimsIdentity(new[]
             {
@@ -278,15 +282,15 @@ namespace Tripod.Domain.Security
         [Fact]
         public void Handler_ReturnsTrue_WhenFound_ByPrincipal()
         {
-            var userId = new Random().Next(1, int.MaxValue);
+            var userId = FakeData.Id();
             var user = new ProxiedUser(userId) { Name = Guid.NewGuid().ToString(), };
-            var differentUser1 = new ProxiedUser(userId + 1) { Name = Guid.NewGuid().ToString(), };
-            var differentUser2 = new ProxiedUser(userId - 1) { Name = Guid.NewGuid().ToString(), };
+            var otherUser1 = new ProxiedUser(userId + 1) { Name = Guid.NewGuid().ToString(), };
+            var otherUser2 = new ProxiedUser(userId - 1) { Name = Guid.NewGuid().ToString(), };
             var localMemberships = new[]
             {
-                new LocalMembership { User = differentUser1, },
+                new LocalMembership { User = otherUser1, },
                 new LocalMembership { User = user, },
-                new LocalMembership { User = differentUser2, },
+                new LocalMembership { User = otherUser2, },
             };
             var identity = new ClaimsIdentity(new[]
             {

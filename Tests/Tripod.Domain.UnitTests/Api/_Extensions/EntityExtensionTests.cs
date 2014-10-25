@@ -223,7 +223,7 @@ namespace Tripod
         [Fact]
         public void OrderBy_SortsNavigationalQueryable_WithInt()
         {
-            var number = new Random().Next(int.MinValue, int.MaxValue - 3);
+            var number = FakeData.Int(int.MinValue, int.MaxValue - 3);
             var data = new[]
             {
                 new FakeEntityWithNavigationProperty { NavigationProperty = new FakeEntityWithSortableProperties { Int = number + 2 } },
@@ -244,7 +244,7 @@ namespace Tripod
         [Fact]
         public void OrderBy_SortsNavigationalQueryable_WithNullableInt()
         {
-            var number = new Random().Next(int.MinValue, int.MaxValue - 3);
+            var number = FakeData.Int(int.MinValue, int.MaxValue - 3);
             var data = new[]
             {
                 new FakeEntityWithNavigationProperty { NavigationProperty = new FakeEntityWithSortableProperties { NullableInt = number + 1 } },
@@ -265,7 +265,7 @@ namespace Tripod
         [Fact]
         public void OrderBy_SortsNavigationalQueryable_WithLong()
         {
-            var number = new Random().Next(int.MinValue, int.MaxValue - 3);
+            var number = FakeData.Int(int.MinValue, int.MaxValue - 3);
             var data = new[]
             {
                 new FakeEntityWithNavigationProperty { NavigationProperty = new FakeEntityWithSortableProperties { Long = number + 2 } },
@@ -286,7 +286,7 @@ namespace Tripod
         [Fact]
         public void OrderBy_SortsNavigationalQueryable_WithNullableLong()
         {
-            var number = new Random().Next(int.MinValue, int.MaxValue - 3);
+            var number = FakeData.Int(int.MinValue, int.MaxValue - 3);
             var data = new[]
             {
                 new FakeEntityWithNavigationProperty { NavigationProperty = new FakeEntityWithSortableProperties { NullableLong = number + 1 } },
@@ -307,7 +307,7 @@ namespace Tripod
         [Fact]
         public void OrderBy_SortsNavigationalQueryable_WithShort()
         {
-            var number = (short)new Random().Next(short.MinValue, short.MaxValue - 3);
+            var number = FakeData.Short(short.MinValue, short.MaxValue - 3);
             var data = new[]
             {
                 new FakeEntityWithNavigationProperty { NavigationProperty = new FakeEntityWithSortableProperties { Short = (short)(number + 2) } },
@@ -328,7 +328,7 @@ namespace Tripod
         [Fact]
         public void OrderBy_SortsNavigationalQueryable_WithNullableShort()
         {
-            var number = (short)new Random().Next(short.MinValue, short.MaxValue - 3);
+            var number = FakeData.Short(short.MinValue, short.MaxValue - 3);
             var data = new[]
             {
                 new FakeEntityWithNavigationProperty { NavigationProperty = new FakeEntityWithSortableProperties { NullableShort = (short)(number + 1) } },
@@ -349,7 +349,7 @@ namespace Tripod
         [Fact]
         public void OrderBy_SortsNavigationalQueryable_WithDouble()
         {
-            var number = new Random().Next(int.MinValue, int.MaxValue - 4) + 0.5;
+            double number = FakeData.Double(int.MinValue, int.MaxValue - 3);
             var data = new[]
             {
                 new FakeEntityWithNavigationProperty { NavigationProperty = new FakeEntityWithSortableProperties { Double = number + 2 } },
@@ -370,7 +370,7 @@ namespace Tripod
         [Fact]
         public void OrderBy_SortsNavigationalQueryable_WithNullableDouble()
         {
-            var number = new Random().Next(int.MinValue, int.MaxValue - 4) + 0.5;
+            double number = FakeData.Double(int.MinValue, int.MaxValue - 3);
             var data = new[]
             {
                 new FakeEntityWithNavigationProperty { NavigationProperty = new FakeEntityWithSortableProperties { NullableDouble = number + 1 } },
@@ -391,7 +391,7 @@ namespace Tripod
         [Fact]
         public void OrderBy_SortsNavigationalQueryable_WithFloat()
         {
-            var number = new Random().Next(short.MinValue, short.MaxValue - 4) + 0.5f;
+            float number = FakeData.Float(short.MinValue, short.MaxValue - 3);
             var data = new[]
             {
                 new FakeEntityWithNavigationProperty { NavigationProperty = new FakeEntityWithSortableProperties { Float = number + 2 } },
@@ -412,7 +412,7 @@ namespace Tripod
         [Fact]
         public void OrderBy_SortsNavigationalQueryable_WithNullableFloat()
         {
-            var number = new Random().Next(short.MinValue, short.MaxValue - 4) + 0.5f;
+            float number = FakeData.Float(short.MinValue, short.MaxValue - 3);
             var data = new[]
             {
                 new FakeEntityWithNavigationProperty { NavigationProperty = new FakeEntityWithSortableProperties { NullableFloat = number + 1 } },
@@ -433,7 +433,7 @@ namespace Tripod
         [Fact]
         public void OrderBy_SortsNavigationalQueryable_WithDecimal()
         {
-            var number = new Random().Next(int.MinValue, int.MaxValue - 4) + 0.5m;
+            decimal number = FakeData.Decimal(int.MinValue, int.MaxValue - 3);
             var data = new[]
             {
                 new FakeEntityWithNavigationProperty { NavigationProperty = new FakeEntityWithSortableProperties { Decimal = number + 2 } },
@@ -454,7 +454,7 @@ namespace Tripod
         [Fact]
         public void OrderBy_SortsNavigationalQueryable_WithNullableDecimal()
         {
-            var number = new Random().Next(int.MinValue, int.MaxValue - 4) + 0.5m;
+            decimal number = FakeData.Decimal(int.MinValue, int.MaxValue - 3);
             var data = new[]
             {
                 new FakeEntityWithNavigationProperty { NavigationProperty = new FakeEntityWithSortableProperties { NullableDecimal = number + 1 } },
@@ -475,7 +475,7 @@ namespace Tripod
         [Fact]
         public void OrderBy_ThrowsNotSupportedException_WithByte()
         {
-            var number = (byte)new Random().Next(byte.MinValue, byte.MaxValue - 3);
+            byte number = FakeData.Byte(byte.MinValue, byte.MaxValue - 3);
             var data = new[]
             {
                 new FakeEntityWithNavigationProperty { NavigationProperty = new FakeEntityWithSortableProperties { Byte = (byte)(number + 2) } },

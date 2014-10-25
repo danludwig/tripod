@@ -1,5 +1,4 @@
-﻿using System;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using System.Linq;
 using System.Security.Claims;
 using Moq;
@@ -16,7 +15,7 @@ namespace Tripod.Domain.Security
         [Fact]
         public void Query_IntCtor_SetsIdProperty()
         {
-            var id = new Random().Next(int.MinValue, int.MaxValue);
+            var id = FakeData.Id();
             var query = new EmailAddressBy(id);
             query.Id.ShouldEqual(id);
             query.Value.ShouldBeNull();
@@ -26,8 +25,8 @@ namespace Tripod.Domain.Security
         [Fact]
         public void Handler_ReturnsNullEmailAddress_WhenNotFound_ById()
         {
-            var emailAddressId = new Random().Next(3, int.MaxValue);
-            var data = new[] { new ProxiedEmailAddress(emailAddressId - 1) }.AsQueryable();
+            var emailAddressId = FakeData.Id();
+            var data = new[] { new ProxiedEmailAddress(FakeData.Id(canNotBe: emailAddressId)) }.AsQueryable();
             var query = new EmailAddressBy(emailAddressId);
             var dbSet = new Mock<DbSet<EmailAddress>>(MockBehavior.Strict).SetupDataAsync(data);
             var entities = new Mock<IReadEntities>(MockBehavior.Strict);
@@ -46,7 +45,7 @@ namespace Tripod.Domain.Security
         [InlineData(false)]
         public void Handler_ReturnsNullEmailAddress_WhenFound_ById_ButIsVerifiedDoesNotMatch(bool isVerified)
         {
-            var emailAddressId = new Random().Next(1, int.MaxValue);
+            var emailAddressId = FakeData.Id();
             var emailAddress = new ProxiedEmailAddress(emailAddressId)
             {
                 IsVerified = !isVerified,
@@ -76,7 +75,7 @@ namespace Tripod.Domain.Security
         public void Handler_ReturnsNonNullEmailAddress_WhenFound_ById_AndIsVerifiedMatches(
             bool? queryIsVerified, bool entityIsVerified)
         {
-            var emailAddressId = new Random().Next(1, int.MaxValue);
+            var emailAddressId = FakeData.Id();
             var emailAddress = new ProxiedEmailAddress(emailAddressId)
             {
                 IsVerified = entityIsVerified,

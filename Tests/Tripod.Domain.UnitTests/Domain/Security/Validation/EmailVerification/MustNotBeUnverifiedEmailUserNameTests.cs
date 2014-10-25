@@ -46,11 +46,11 @@ namespace Tripod.Domain.Security
         {
             string ticket = Guid.NewGuid().ToString();
             var queries = new Mock<IProcessQueries>(MockBehavior.Strict);
-            EmailAddress emailAddress = new ProxiedEmailAddress(new Random().Next(1, int.MaxValue))
+            EmailAddress emailAddress = new ProxiedEmailAddress(FakeData.Id())
             {
                 Value = ticketEmail,
             };
-            EmailVerification verification = new ProxiedEmailVerification(new Random().Next(1, int.MaxValue))
+            EmailVerification verification = new ProxiedEmailVerification(FakeData.Id())
             {
                 Ticket = ticket,
                 EmailAddress = emailAddress,
@@ -167,11 +167,11 @@ namespace Tripod.Domain.Security
         {
             string ticket = Guid.NewGuid().ToString();
             var queries = new Mock<IProcessQueries>(MockBehavior.Strict);
-            EmailAddress emailAddress = new ProxiedEmailAddress(new Random().Next(1, int.MaxValue))
+            EmailAddress emailAddress = new ProxiedEmailAddress(FakeData.Id())
             {
                 Value = ticketEmail,
             };
-            EmailVerification verification = new ProxiedEmailVerification(new Random().Next(1, int.MaxValue))
+            EmailVerification verification = new ProxiedEmailVerification(FakeData.Id())
             {
                 Ticket = ticket,
                 EmailAddress = emailAddress,
@@ -224,9 +224,9 @@ namespace Tripod.Domain.Security
         [InlineData("email@domain.com", "email@domain.net")]
         public void IsInvalid_WhenEmailAddressByUserId_IsFound_CaseInsensitively(string userName, string emailValue)
         {
-            var userId = new Random().Next(1, int.MaxValue);
+            var userId = FakeData.Id();
             var queries = new Mock<IProcessQueries>(MockBehavior.Strict);
-            EmailAddress emailAddress = new ProxiedEmailAddress(new Random().Next(1, int.MaxValue))
+            EmailAddress emailAddress = new ProxiedEmailAddress(FakeData.Id())
             {
                 UserId = userId,
                 IsVerified = true,
@@ -269,7 +269,7 @@ namespace Tripod.Domain.Security
         [InlineData("\t")]
         public void IsValid_WhenUserName_IsEmpty_WithUserId(string userName)
         {
-            var userId = new Random().Next(1, int.MaxValue);
+            var userId = FakeData.Id();
             var queries = new Mock<IProcessQueries>(MockBehavior.Strict);
             var command = new FakeMustNotBeUnverifiedEmailUserNameCommand
             {
@@ -294,7 +294,7 @@ namespace Tripod.Domain.Security
         [InlineData("username@domaintld")]
         public void IsValid_WhenUserName_DoesNotMatchEmailRegEx_WithUserId(string userName)
         {
-            var userId = new Random().Next(1, int.MaxValue);
+            var userId = FakeData.Id();
             var queries = new Mock<IProcessQueries>(MockBehavior.Strict);
             var command = new FakeMustNotBeUnverifiedEmailUserNameCommand
             {
@@ -319,9 +319,9 @@ namespace Tripod.Domain.Security
         [InlineData("Email3@Domain.Tld", "email3@domain.tld")]
         public void IsValid_WhenEmailAddressByUserId_IsFound_CaseInsensitively(string userName, string emailValue)
         {
-            var userId = new Random().Next(1, int.MaxValue);
+            var userId = FakeData.Id();
             var queries = new Mock<IProcessQueries>(MockBehavior.Strict);
-            EmailAddress emailAddress = new ProxiedEmailAddress(new Random().Next(1, int.MaxValue))
+            EmailAddress emailAddress = new ProxiedEmailAddress(FakeData.Id())
             {
                 UserId = userId,
                 IsVerified = true,

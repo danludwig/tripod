@@ -1,5 +1,4 @@
-﻿using System;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using System.Linq;
 using Moq;
 using Should;
@@ -15,7 +14,7 @@ namespace Tripod.Domain.Security
         [Fact]
         public void Query_IntCtor_SetsUserIdProperty()
         {
-            var userId = new Random().Next(int.MinValue, int.MaxValue);
+            var userId = FakeData.Id();
             var query = new EmailAddressesBy(userId);
             query.UserId.ShouldEqual(userId);
         }
@@ -23,14 +22,16 @@ namespace Tripod.Domain.Security
         [Fact]
         public void Handler_ReturnsNoEmailAddresses_WhenNotFound_ByUserId()
         {
-            var userId = new Random().Next(3, int.MaxValue);
+            var userId = FakeData.Id();
+            var otherUserId1 = FakeData.Id(canNotBe: userId);
+            var otherUserId2 = FakeData.Id(userId, otherUserId1);
             var data = new[]
             {
-                new EmailAddress { UserId = userId - 2, IsPrimary = true, },
-                new EmailAddress { UserId = userId - 2, },
-                new EmailAddress { UserId = userId - 2, },
-                new EmailAddress { UserId = userId - 1, IsPrimary = true, },
-                new EmailAddress { UserId = userId - 1, },
+                new EmailAddress { UserId = otherUserId1, IsPrimary = true, },
+                new EmailAddress { UserId = otherUserId1, },
+                new EmailAddress { UserId = otherUserId1, },
+                new EmailAddress { UserId = otherUserId2, IsPrimary = true, },
+                new EmailAddress { UserId = otherUserId2, },
             }.AsQueryable();
             var query = new EmailAddressesBy(userId);
             var dbSet = new Mock<DbSet<EmailAddress>>(MockBehavior.Strict).SetupDataAsync(data);
@@ -51,7 +52,7 @@ namespace Tripod.Domain.Security
         [InlineData(false)]
         public void Handler_ReturnsNoEmailAddresses_WhenFound_ByUserId_ButIsVerifiedDoesNotMatch(bool isVerified)
         {
-            var userId = new Random().Next(1, int.MaxValue);
+            var userId = FakeData.Id();
             var data = new[]
             {
                 new EmailAddress { UserId = userId - 2, IsPrimary = true, },
@@ -86,14 +87,16 @@ namespace Tripod.Domain.Security
         public void Handler_ReturnsEmailAddresses_WhenFound_ByUserId_AndIsVerifiedMatches(
             bool? queryIsVerified, bool entityIsVerified)
         {
-            var userId = new Random().Next(3, int.MaxValue);
+            var userId = FakeData.Id();
+            var otherUserId1 = FakeData.Id(canNotBe: userId);
+            var otherUserId2 = FakeData.Id(userId, otherUserId1);
             var data = new[]
             {
-                new EmailAddress { UserId = userId - 2, IsPrimary = true, },
-                new EmailAddress { UserId = userId - 2, },
-                new EmailAddress { UserId = userId - 2, },
-                new EmailAddress { UserId = userId - 1, IsPrimary = true, },
-                new EmailAddress { UserId = userId - 1, },
+                new EmailAddress { UserId = otherUserId1, IsPrimary = true, },
+                new EmailAddress { UserId = otherUserId1, },
+                new EmailAddress { UserId = otherUserId1, },
+                new EmailAddress { UserId = otherUserId2, IsPrimary = true, },
+                new EmailAddress { UserId = otherUserId2, },
                 new EmailAddress { UserId = userId, IsVerified = entityIsVerified, },
                 new EmailAddress { UserId = userId, IsVerified = !entityIsVerified, },
             }.AsQueryable();

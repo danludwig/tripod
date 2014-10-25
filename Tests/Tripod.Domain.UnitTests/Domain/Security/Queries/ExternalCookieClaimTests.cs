@@ -45,7 +45,7 @@ namespace Tripod.Domain.Security
             var data = new[]
             {
                 new Claim(ClaimTypes.Email, FakeData.Email()),
-                new Claim(ClaimTypes.NameIdentifier, new Random().Next(3, int.MaxValue)
+                new Claim(ClaimTypes.NameIdentifier, FakeData.Id()
                     .ToString(CultureInfo.InvariantCulture)), 
                 new Claim(ClaimTypes.Gender, string.Empty), 
             };
@@ -71,7 +71,7 @@ namespace Tripod.Domain.Security
             var data = new[]
             {
                 new Claim(ClaimTypes.Email, FakeData.Email()),
-                new Claim(ClaimTypes.NameIdentifier, new Random().Next(3, int.MaxValue)
+                new Claim(ClaimTypes.NameIdentifier, FakeData.Id()
                     .ToString(CultureInfo.InvariantCulture)), 
                 new Claim(claimType, claimValue), 
             };

@@ -140,13 +140,13 @@ namespace Tripod.Domain.Security
         [Fact]
         public void ByUserId_Queryable_FiltersByUserId()
         {
-            var userId = new Random().Next(1, int.MaxValue - 100000);
+            var userId = FakeData.Id();
             var data = new[]
             {
                 new EmailAddress
                 {
                     Value = FakeData.Email(),
-                    UserId = new Random().Next(int.MaxValue - 10000, int.MaxValue),
+                    UserId = FakeData.Id(canNotBe: userId),
                 },
                 new EmailAddress
                 {
@@ -161,12 +161,12 @@ namespace Tripod.Domain.Security
                 new EmailAddress
                 {
                     Value = FakeData.Email(),
-                    UserId = new Random().Next(int.MaxValue - 10000, int.MaxValue),
+                    UserId = FakeData.Id(canNotBe: userId),
                 },
                 new EmailAddress
                 {
                     Value = FakeData.Email(),
-                    UserId = new Random().Next(int.MaxValue - 10000, int.MaxValue),
+                    UserId = FakeData.Id(canNotBe: userId),
                 },
                 new EmailAddress
                 {
@@ -183,13 +183,13 @@ namespace Tripod.Domain.Security
         [Fact]
         public void ByUserId_Enumerable_FiltersByUserId()
         {
-            var userId = new Random().Next(1, int.MaxValue - 100000);
+            var userId = FakeData.Id();
             var data = new[]
             {
                 new EmailAddress
                 {
                     Value = FakeData.Email(),
-                    UserId = new Random().Next(int.MaxValue - 10000, int.MaxValue),
+                    UserId = FakeData.Id(canNotBe: userId),
                 },
                 new EmailAddress
                 {
@@ -204,12 +204,12 @@ namespace Tripod.Domain.Security
                 new EmailAddress
                 {
                     Value = FakeData.Email(),
-                    UserId = new Random().Next(int.MaxValue - 10000, int.MaxValue),
+                    UserId = FakeData.Id(canNotBe: userId),
                 },
                 new EmailAddress
                 {
                     Value = FakeData.Email(),
-                    UserId = new Random().Next(int.MaxValue - 10000, int.MaxValue),
+                    UserId = FakeData.Id(canNotBe: userId),
                 },
                 new EmailAddress
                 {

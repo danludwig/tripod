@@ -1,5 +1,4 @@
-﻿using System;
-using Should;
+﻿using Should;
 using Xunit;
 using Xunit.Extensions;
 

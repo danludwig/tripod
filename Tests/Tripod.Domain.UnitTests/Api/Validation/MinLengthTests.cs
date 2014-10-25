@@ -77,7 +77,7 @@ namespace Tripod
         public void IsValid_WhenString_IsNull()
         {
             var command = new FakeStringLengthCommand { StringProperty = null };
-            var validator = new FakeStringMinLengthValidator(new Random().Next(1, int.MaxValue - 3));
+            var validator = new FakeStringMinLengthValidator(FakeData.Int(1, int.MaxValue - 3));
 
             var result = validator.Validate(command);
 

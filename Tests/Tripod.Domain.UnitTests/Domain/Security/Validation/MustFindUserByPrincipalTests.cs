@@ -110,7 +110,7 @@ namespace Tripod.Domain.Security
             identity.SetupGet(x => x.IsAuthenticated).Returns(true);
             identity.SetupGet(x => x.Name).Returns(userName);
             principal.SetupGet(x => x.Identity).Returns(identity.Object);
-            var entity = new ProxiedUser(new Random().Next(1, int.MaxValue)) { Name = userName };
+            var entity = new ProxiedUser(FakeData.Id()) { Name = userName };
             var queries = new Mock<IProcessQueries>(MockBehavior.Strict);
             var command = new FakeMustFindUserByPrincipalCommand { Principal = principal.Object, };
             Expression<Func<UserBy, bool>> expectedQuery = x => x.Principal == principal.Object;

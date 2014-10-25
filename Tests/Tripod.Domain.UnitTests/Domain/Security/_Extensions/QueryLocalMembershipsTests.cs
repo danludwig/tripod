@@ -15,29 +15,36 @@ namespace Tripod.Domain.Security
         [Fact]
         public void ByUserId_Queryable_CanAllowNull()
         {
-            var userId = new Random().Next(1, 99);
+            var userId = FakeData.Id();
+            var otherUserId1 = FakeData.Id(userId);
+            var otherUserId2 = FakeData.Id(userId, otherUserId1);
             var data = new[]
             {
-                new LocalMembership { User = new ProxiedUser(new Random().Next(100, 999)), },
+                new LocalMembership { User = new ProxiedUser(otherUserId1), },
                 new LocalMembership { User = new ProxiedUser(userId), },
-                new LocalMembership { User = new ProxiedUser(new Random().Next(100, 999)), },
+                new LocalMembership { User = new ProxiedUser(otherUserId2), },
             };
-            data.AsQueryable().ByUserId(new Random().Next(1000, int.MaxValue)).ShouldBeNull();
+            var otherUserId3 = FakeData.Id(userId, otherUserId1, otherUserId2);
+            data.AsQueryable().ByUserId(otherUserId3).ShouldBeNull();
         }
 
         [Fact]
         public void ByUserId_Queryable_CanDisallowNull()
         {
-            var userId = new Random().Next(1, 99);
+            var userId = FakeData.Id();
+            var otherUserId1 = FakeData.Id(userId);
+            var otherUserId2 = FakeData.Id(userId, otherUserId1);
             var data = new[]
             {
-                new LocalMembership { User = new ProxiedUser(new Random().Next(100, 999)), },
+                new LocalMembership { User = new ProxiedUser(otherUserId1), },
                 new LocalMembership { User = new ProxiedUser(userId), },
-                new LocalMembership { User = new ProxiedUser(new Random().Next(100, 999)), },
+                new LocalMembership { User = new ProxiedUser(otherUserId2), },
             };
             data.AsQueryable().ByUserId(data[1].User.Id, false).ShouldNotBeNull();
+
+            var otherUserId3 = FakeData.Id(userId, otherUserId1, otherUserId2);
             var exception = Assert.Throws<InvalidOperationException>(() =>
-                data.AsQueryable().ByUserId(new Random().Next(1000, int.MaxValue), false));
+                data.AsQueryable().ByUserId(otherUserId3, false));
             Assert.NotNull(exception);
             exception.Message.IndexOf("Sequence contains no matching element", StringComparison.CurrentCulture)
                 .ShouldEqual(0);
@@ -46,29 +53,37 @@ namespace Tripod.Domain.Security
         [Fact]
         public void ByUserId_Enumerable_CanAllowNull()
         {
-            var userId = new Random().Next(1, 99);
+            var userId = FakeData.Id();
+            var otherUserId1 = FakeData.Id(userId);
+            var otherUserId2 = FakeData.Id(userId, otherUserId1);
             var data = new[]
             {
-                new LocalMembership { User = new ProxiedUser(new Random().Next(100, 999)), },
+                new LocalMembership { User = new ProxiedUser(otherUserId1), },
                 new LocalMembership { User = new ProxiedUser(userId), },
-                new LocalMembership { User = new ProxiedUser(new Random().Next(100, 999)), },
+                new LocalMembership { User = new ProxiedUser(otherUserId2), },
             };
-            data.AsEnumerable().ByUserId(new Random().Next(1000, int.MaxValue)).ShouldBeNull();
+
+            var otherUserId3 = FakeData.Id(userId, otherUserId1, otherUserId2);
+            data.AsEnumerable().ByUserId(otherUserId3).ShouldBeNull();
         }
 
         [Fact]
         public void ByUserId_Enumerable_CanDisallowNull()
         {
-            var userId = new Random().Next(1, 99);
+            var userId = FakeData.Id();
+            var otherUserId1 = FakeData.Id(userId);
+            var otherUserId2 = FakeData.Id(userId, otherUserId1);
             var data = new[]
             {
-                new LocalMembership { User = new ProxiedUser(new Random().Next(100, 999)), },
+                new LocalMembership { User = new ProxiedUser(otherUserId1), },
                 new LocalMembership { User = new ProxiedUser(userId), },
-                new LocalMembership { User = new ProxiedUser(new Random().Next(100, 999)), },
+                new LocalMembership { User = new ProxiedUser(otherUserId2), },
             };
             data.AsEnumerable().ByUserId(data[1].User.Id, false).ShouldNotBeNull();
+
+            var otherUserId3 = FakeData.Id(userId, otherUserId1, otherUserId2);
             var exception = Assert.Throws<InvalidOperationException>(() =>
-                data.AsEnumerable().ByUserId(new Random().Next(1000, int.MaxValue), false));
+                data.AsEnumerable().ByUserId(otherUserId3, false));
             Assert.NotNull(exception);
             exception.Message.IndexOf("Sequence contains no matching element", StringComparison.CurrentCulture)
                 .ShouldEqual(0);
@@ -77,33 +92,40 @@ namespace Tripod.Domain.Security
         [Fact]
         public void ByUserIdAsync_Queryable_CanAllowNull()
         {
-            var userId = new Random().Next(1, 99);
+            var userId = FakeData.Id();
+            var otherUserId1 = FakeData.Id(userId);
+            var otherUserId2 = FakeData.Id(userId, otherUserId1);
             var data = new[]
             {
-                new LocalMembership { User = new ProxiedUser(new Random().Next(100, 999)), },
+                new LocalMembership { User = new ProxiedUser(otherUserId1), },
                 new LocalMembership { User = new ProxiedUser(userId), },
-                new LocalMembership { User = new ProxiedUser(new Random().Next(100, 999)), },
+                new LocalMembership { User = new ProxiedUser(otherUserId2), },
             };
             var dbSet = new Mock<DbSet<LocalMembership>>(MockBehavior.Strict).SetupDataAsync(data.AsQueryable());
-            dbSet.Object.AsQueryable().ByUserIdAsync(new Random().Next(1000, int.MaxValue))
+
+            var otherUserId3 = FakeData.Id(userId, otherUserId1, otherUserId2);
+            dbSet.Object.AsQueryable().ByUserIdAsync(otherUserId3)
                 .Result.ShouldBeNull();
         }
 
         [Fact]
         public void ByUserIdAsync_Queryable_CanDisallowNull()
         {
-            var userId = new Random().Next(1, 99);
+            var userId = FakeData.Id();
+            var otherUserId1 = FakeData.Id(userId);
+            var otherUserId2 = FakeData.Id(userId, otherUserId1);
             var data = new[]
             {
-                new LocalMembership { User = new ProxiedUser(new Random().Next(100, 999)), },
+                new LocalMembership { User = new ProxiedUser(otherUserId1), },
                 new LocalMembership { User = new ProxiedUser(userId), },
-                new LocalMembership { User = new ProxiedUser(new Random().Next(100, 999)), },
+                new LocalMembership { User = new ProxiedUser(otherUserId2), },
             };
             var dbSet = new Mock<DbSet<LocalMembership>>(MockBehavior.Strict).SetupDataAsync(data.AsQueryable());
             dbSet.Object.AsQueryable().ByUserIdAsync(data[1].User.Id, false).Result.ShouldNotBeNull();
 
+            var otherUserId3 = FakeData.Id(userId, otherUserId1, otherUserId2);
             var exception = Assert.Throws<InvalidOperationException>(() =>
-                dbSet.Object.AsQueryable().ByUserIdAsync(new Random().Next(1000, int.MaxValue), false).Result);
+                dbSet.Object.AsQueryable().ByUserIdAsync(otherUserId3, false).Result);
             Assert.NotNull(exception);
             exception.Message.IndexOf("Sequence contains no matching element", StringComparison.CurrentCulture)
                 .ShouldEqual(0);
@@ -112,33 +134,40 @@ namespace Tripod.Domain.Security
         [Fact]
         public void ByUserIdAsync_Enumerable_CanAllowNull()
         {
-            var userId = new Random().Next(1, 99);
+            var userId = FakeData.Id();
+            var otherUserId1 = FakeData.Id(userId);
+            var otherUserId2 = FakeData.Id(userId, otherUserId1);
             var data = new[]
             {
-                new LocalMembership { User = new ProxiedUser(new Random().Next(100, 999)), },
+                new LocalMembership { User = new ProxiedUser(otherUserId1), },
                 new LocalMembership { User = new ProxiedUser(userId), },
-                new LocalMembership { User = new ProxiedUser(new Random().Next(100, 999)), },
+                new LocalMembership { User = new ProxiedUser(otherUserId2), },
             };
             var dbSet = new Mock<DbSet<LocalMembership>>(MockBehavior.Strict).SetupDataAsync(data.AsQueryable());
-            dbSet.Object.AsEnumerable().ByUserIdAsync(new Random().Next(1000, int.MaxValue))
+
+            var otherUserId3 = FakeData.Id(userId, otherUserId1, otherUserId2);
+            dbSet.Object.AsEnumerable().ByUserIdAsync(otherUserId3)
                 .Result.ShouldBeNull();
         }
 
         [Fact]
         public void ByUserIdAsync_Enumerable_CanDisallowNull()
         {
-            var userId = new Random().Next(1, 99);
+            var userId = FakeData.Id();
+            var otherUserId1 = FakeData.Id(userId);
+            var otherUserId2 = FakeData.Id(userId, otherUserId1);
             var data = new[]
             {
-                new LocalMembership { User = new ProxiedUser(new Random().Next(100, 999)), },
+                new LocalMembership { User = new ProxiedUser(otherUserId1), },
                 new LocalMembership { User = new ProxiedUser(userId), },
-                new LocalMembership { User = new ProxiedUser(new Random().Next(100, 999)), },
+                new LocalMembership { User = new ProxiedUser(otherUserId2), },
             };
             var dbSet = new Mock<DbSet<LocalMembership>>(MockBehavior.Strict).SetupDataAsync(data.AsQueryable());
             dbSet.Object.AsEnumerable().ByUserIdAsync(data[1].User.Id, false).Result.ShouldNotBeNull();
 
+            var otherUserId3 = FakeData.Id(userId, otherUserId1, otherUserId2);
             var exception = Assert.Throws<InvalidOperationException>(() =>
-                dbSet.Object.AsEnumerable().ByUserIdAsync(new Random().Next(1000, int.MaxValue), false).Result);
+                dbSet.Object.AsEnumerable().ByUserIdAsync(otherUserId3, false).Result);
             Assert.NotNull(exception);
             exception.Message.IndexOf("Sequence contains no matching element", StringComparison.CurrentCulture)
                 .ShouldEqual(0);

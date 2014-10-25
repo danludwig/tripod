@@ -25,7 +25,7 @@ namespace Tripod.Domain.Security
         [Fact]
         public void IsInvalid_WhenUser_IsNotFoundById()
         {
-            var userId = new Random().Next(1, int.MaxValue);
+            var userId = FakeData.Id();
             var queries = new Mock<IProcessQueries>(MockBehavior.Strict);
             var command = new FakeMustFindUserByIdCommand { UserId = userId };
             Expression<Func<UserBy, bool>> expectedQuery = x => x.Id == userId;
@@ -50,7 +50,7 @@ namespace Tripod.Domain.Security
         [Fact]
         public void IsCalid_WhenUser_IsFoundById()
         {
-            var userId = new Random().Next(1, int.MaxValue);
+            var userId = FakeData.Id();
             var queries = new Mock<IProcessQueries>(MockBehavior.Strict);
             var command = new FakeMustFindUserByIdCommand { UserId = userId };
             var user = new ProxiedUser(userId);

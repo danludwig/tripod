@@ -76,7 +76,7 @@ namespace Tripod.Domain.Security
         {
             var emailAddress = FakeData.Email();
             var queries = new Mock<IProcessQueries>(MockBehavior.Strict);
-            var entity = new ProxiedEmailAddress(new Random().Next(1, int.MaxValue))
+            var entity = new ProxiedEmailAddress(FakeData.Id())
             {
                 IsVerified = true,
                 Value = emailAddress,
@@ -106,7 +106,7 @@ namespace Tripod.Domain.Security
             var emailAddress = FakeData.Email();
             var queries = new Mock<IProcessQueries>(MockBehavior.Strict);
             var user = new User();
-            var entity = new ProxiedEmailAddress(new Random().Next(1, int.MaxValue))
+            var entity = new ProxiedEmailAddress(FakeData.Id())
             {
                 IsVerified = true,
                 Value = emailAddress,

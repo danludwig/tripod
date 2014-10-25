@@ -51,7 +51,7 @@ namespace Tripod.Domain.Security
         [Fact]
         public void Handler_ReturnsClientCookie_WhenUserById_Exists()
         {
-            var userId = new Random().Next(3, int.MaxValue);
+            var userId = FakeData.Id();
             var userName = Guid.NewGuid().ToString();
             var query = new ClientCookieBy(userId);
             var user = new ProxiedUser(userId) { Name = userName };

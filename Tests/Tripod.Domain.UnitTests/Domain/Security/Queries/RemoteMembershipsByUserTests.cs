@@ -14,7 +14,7 @@ namespace Tripod.Domain.Security
         [Fact]
         public void Query_IntCtor_SetsUserIdProperty()
         {
-            var userId = new Random().Next(1, int.MaxValue);
+            var userId = FakeData.Id();
             var query = new RemoteMembershipsByUser(userId);
             query.UserId.ShouldEqual(userId);
             query.UserName.ShouldBeNull();
@@ -23,11 +23,13 @@ namespace Tripod.Domain.Security
         [Fact]
         public void Handler_ReturnsNoRemoteMemberships_WhenNotFound_ByUserId()
         {
-            var userId = new Random().Next(1, int.MaxValue - 3);
+            var userId = FakeData.Id();
+            var otherUserId1 = FakeData.Id(userId);
+            var otherUserId2 = FakeData.Id(userId, otherUserId1);
             var remoteMemberships = new[]
             {
-                new RemoteMembership { UserId = userId + 1, },
-                new RemoteMembership { UserId = userId - 1, },
+                new RemoteMembership { UserId = otherUserId1, },
+                new RemoteMembership { UserId = otherUserId2, },
             };
             var data = remoteMemberships.AsQueryable();
             var query = new RemoteMembershipsByUser(userId);
@@ -47,11 +49,13 @@ namespace Tripod.Domain.Security
         [Fact]
         public void Handler_ReturnsRemoteMemberships_WhenFound_ByUserId()
         {
-            var userId = new Random().Next(1, int.MaxValue - 3);
+            var userId = FakeData.Id();
+            var otherUserId1 = FakeData.Id(userId);
+            var otherUserId2 = FakeData.Id(userId, otherUserId1);
             var remoteMemberships = new[]
             {
-                new RemoteMembership { UserId = userId + 1, },
-                new RemoteMembership { UserId = userId - 1, },
+                new RemoteMembership { UserId = otherUserId1, },
+                new RemoteMembership { UserId = otherUserId2, },
                 new RemoteMembership { UserId = userId, },
                 new RemoteMembership { UserId = userId, },
             };
