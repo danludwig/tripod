@@ -499,5 +499,236 @@ namespace Tripod.Domain.Security
         }
 
         #endregion
+        #region ByVerifiedEmail
+
+        [Fact]
+        public void ByVerifiedEmail_Queryable_CanAllowNull()
+        {
+            var data = new[]
+            {
+                new LocalMembership { User = new User { Name = Guid.NewGuid().ToString() }, },
+                new LocalMembership { User = new User { Name = Guid.NewGuid().ToString() }, },
+                new LocalMembership { User = new User { Name = Guid.NewGuid().ToString() }, },
+            };
+            foreach (var localMembership in data)
+            {
+                for (var i = 0; i < 3; i++)
+                {
+                    var emailAddress = new EmailAddress
+                    {
+                        Value = string.Format("{0}@domain.tld", Guid.NewGuid()),
+                        IsVerified = true,
+                    };
+                    localMembership.User.EmailAddresses.Add(emailAddress);
+                }
+            }
+            data.AsQueryable().ByVerifiedEmail(string.Format("{0}@domain.tld", Guid.NewGuid())).ShouldBeNull();
+        }
+
+        [Fact]
+        public void ByVerifiedEmail_Queryable_CanDisallowNull()
+        {
+            var data = new[]
+            {
+                new LocalMembership { User = new User { Name = Guid.NewGuid().ToString() }, },
+                new LocalMembership { User = new User { Name = Guid.NewGuid().ToString() }, },
+                new LocalMembership { User = new User { Name = Guid.NewGuid().ToString() }, },
+            };
+            foreach (var localMembership in data)
+            {
+                for (var i = 0; i < 3; i++)
+                {
+                    var emailAddress = new EmailAddress
+                    {
+                        Value = string.Format("{0}@domain.tld", Guid.NewGuid()),
+                        IsVerified = true,
+                    };
+                    localMembership.User.EmailAddresses.Add(emailAddress);
+                }
+            }
+            var existingEmailValue = data[0].User.EmailAddresses.First().Value;
+            data.AsQueryable().ByVerifiedEmail(existingEmailValue, false).ShouldNotBeNull();
+
+            var exception = Assert.Throws<InvalidOperationException>(() =>
+                data.AsQueryable().ByVerifiedEmail(string.Format("{0}@domain.tld", Guid.NewGuid()), false));
+            Assert.NotNull(exception);
+            exception.Message.IndexOf("Sequence contains no matching element", StringComparison.CurrentCulture)
+                .ShouldEqual(0);
+        }
+
+        [Fact]
+        public void ByVerifiedEmail_Enumerable_CanAllowNull()
+        {
+            var data = new[]
+            {
+                new LocalMembership { User = new User { Name = Guid.NewGuid().ToString() }, },
+                new LocalMembership { User = new User { Name = Guid.NewGuid().ToString() }, },
+                new LocalMembership { User = new User { Name = Guid.NewGuid().ToString() }, },
+            };
+            foreach (var localMembership in data)
+            {
+                for (var i = 0; i < 3; i++)
+                {
+                    var emailAddress = new EmailAddress
+                    {
+                        Value = string.Format("{0}@domain.tld", Guid.NewGuid()),
+                        IsVerified = true,
+                    };
+                    localMembership.User.EmailAddresses.Add(emailAddress);
+                }
+            }
+            data.AsEnumerable().ByVerifiedEmail(string.Format("{0}@domain.tld", Guid.NewGuid())).ShouldBeNull();
+        }
+
+        [Fact]
+        public void ByVerifiedEmail_Enumerable_CanDisallowNull()
+        {
+            var data = new[]
+            {
+                new LocalMembership { User = new User { Name = Guid.NewGuid().ToString() }, },
+                new LocalMembership { User = new User { Name = Guid.NewGuid().ToString() }, },
+                new LocalMembership { User = new User { Name = Guid.NewGuid().ToString() }, },
+            };
+            foreach (var localMembership in data)
+            {
+                for (var i = 0; i < 3; i++)
+                {
+                    var emailAddress = new EmailAddress
+                    {
+                        Value = string.Format("{0}@domain.tld", Guid.NewGuid()),
+                        IsVerified = true,
+                    };
+                    localMembership.User.EmailAddresses.Add(emailAddress);
+                }
+            }
+            var existingEmailValue = data[0].User.EmailAddresses.First().Value;
+            data.AsEnumerable().ByVerifiedEmail(existingEmailValue, false).ShouldNotBeNull();
+
+            var exception = Assert.Throws<InvalidOperationException>(() =>
+                data.AsEnumerable().ByVerifiedEmail(string.Format("{0}@domain.tld", Guid.NewGuid()), false));
+            Assert.NotNull(exception);
+            exception.Message.IndexOf("Sequence contains no matching element", StringComparison.CurrentCulture)
+                .ShouldEqual(0);
+        }
+
+        [Fact]
+        public void ByVerifiedEmailAsync_Queryable_CanAllowNull()
+        {
+            var data = new[]
+            {
+                new LocalMembership { User = new User { Name = Guid.NewGuid().ToString() }, },
+                new LocalMembership { User = new User { Name = Guid.NewGuid().ToString() }, },
+                new LocalMembership { User = new User { Name = Guid.NewGuid().ToString() }, },
+            };
+            foreach (var localMembership in data)
+            {
+                for (var i = 0; i < 3; i++)
+                {
+                    var emailAddress = new EmailAddress
+                    {
+                        Value = string.Format("{0}@domain.tld", Guid.NewGuid()),
+                        IsVerified = true,
+                    };
+                    localMembership.User.EmailAddresses.Add(emailAddress);
+                }
+            }
+            var dbSet = new Mock<DbSet<LocalMembership>>(MockBehavior.Strict).SetupDataAsync(data.AsQueryable());
+            var emailValue = string.Format("{0}@domain.tld", Guid.NewGuid());
+            dbSet.Object.AsQueryable().ByVerifiedEmailAsync(emailValue).Result.ShouldBeNull();
+        }
+
+        [Fact]
+        public void ByVerifiedEmailAsync_Queryable_CanDisallowNull()
+        {
+            var data = new[]
+            {
+                new LocalMembership { User = new User { Name = Guid.NewGuid().ToString() }, },
+                new LocalMembership { User = new User { Name = Guid.NewGuid().ToString() }, },
+                new LocalMembership { User = new User { Name = Guid.NewGuid().ToString() }, },
+            };
+            foreach (var localMembership in data)
+            {
+                for (var i = 0; i < 3; i++)
+                {
+                    var emailAddress = new EmailAddress
+                    {
+                        Value = string.Format("{0}@domain.tld", Guid.NewGuid()),
+                        IsVerified = true,
+                    };
+                    localMembership.User.EmailAddresses.Add(emailAddress);
+                }
+            }
+            var dbSet = new Mock<DbSet<LocalMembership>>(MockBehavior.Strict).SetupDataAsync(data.AsQueryable());
+            var existingEmailValue = data[0].User.EmailAddresses.First().Value;
+            dbSet.Object.AsQueryable().ByVerifiedEmailAsync(existingEmailValue, false).Result.ShouldNotBeNull();
+
+            string missingEmailValue = string.Format("{0}@domain.tld", Guid.NewGuid());
+            var exception = Assert.Throws<InvalidOperationException>(() =>
+                dbSet.Object.AsQueryable().ByVerifiedEmailAsync(missingEmailValue, false).Result);
+            Assert.NotNull(exception);
+            exception.Message.IndexOf("Sequence contains no matching element", StringComparison.CurrentCulture)
+                .ShouldEqual(0);
+        }
+
+        [Fact]
+        public void ByVerifiedEmailAsync_Enumerable_CanAllowNull()
+        {
+            var data = new[]
+            {
+                new LocalMembership { User = new User { Name = Guid.NewGuid().ToString() }, },
+                new LocalMembership { User = new User { Name = Guid.NewGuid().ToString() }, },
+                new LocalMembership { User = new User { Name = Guid.NewGuid().ToString() }, },
+            };
+            foreach (var localMembership in data)
+            {
+                for (var i = 0; i < 3; i++)
+                {
+                    var emailAddress = new EmailAddress
+                    {
+                        Value = string.Format("{0}@domain.tld", Guid.NewGuid()),
+                        IsVerified = true,
+                    };
+                    localMembership.User.EmailAddresses.Add(emailAddress);
+                }
+            }
+            var dbSet = new Mock<DbSet<LocalMembership>>(MockBehavior.Strict).SetupDataAsync(data.AsQueryable());
+            var emailValue = string.Format("{0}@domain.tld", Guid.NewGuid());
+            dbSet.Object.AsEnumerable().ByVerifiedEmailAsync(emailValue).Result.ShouldBeNull();
+        }
+
+        [Fact]
+        public void ByVerifiedEmailAsync_Enumerable_CanDisallowNull()
+        {
+            var data = new[]
+            {
+                new LocalMembership { User = new User { Name = Guid.NewGuid().ToString() }, },
+                new LocalMembership { User = new User { Name = Guid.NewGuid().ToString() }, },
+                new LocalMembership { User = new User { Name = Guid.NewGuid().ToString() }, },
+            };
+            foreach (var localMembership in data)
+            {
+                for (var i = 0; i < 3; i++)
+                {
+                    var emailAddress = new EmailAddress
+                    {
+                        Value = string.Format("{0}@domain.tld", Guid.NewGuid()),
+                        IsVerified = true,
+                    };
+                    localMembership.User.EmailAddresses.Add(emailAddress);
+                }
+            }
+            var dbSet = new Mock<DbSet<LocalMembership>>(MockBehavior.Strict).SetupDataAsync(data.AsQueryable());
+            var existingEmailValue = data[0].User.EmailAddresses.First().Value;
+            dbSet.Object.AsEnumerable().ByVerifiedEmailAsync(existingEmailValue, false).Result.ShouldNotBeNull();
+
+            string missingEmailValue = string.Format("{0}@domain.tld", Guid.NewGuid());
+            var exception = Assert.Throws<InvalidOperationException>(() =>
+                dbSet.Object.AsEnumerable().ByVerifiedEmailAsync(missingEmailValue, false).Result);
+            Assert.NotNull(exception);
+            exception.Message.IndexOf("Sequence contains no matching element", StringComparison.CurrentCulture)
+                .ShouldEqual(0);
+        }
+
+        #endregion
     }
 }
