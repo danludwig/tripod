@@ -516,7 +516,8 @@ namespace Tripod
             var exception = Assert.Throws<InvalidOperationException>(() =>
                 data.AsQueryable().ById(int.MaxValue, false));
             Assert.NotNull(exception);
-            exception.Message.IndexOf("Sequence contains no matching element", StringComparison.CurrentCulture).ShouldEqual(0);
+            exception.Message.IndexOf("Sequence contains no matching element", StringComparison.CurrentCulture)
+                .ShouldEqual(0);
         }
 
         [Fact]
@@ -544,7 +545,8 @@ namespace Tripod
             var exception = Assert.Throws<InvalidOperationException>(() =>
                 data.AsEnumerable().ById(int.MaxValue, false));
             Assert.NotNull(exception);
-            exception.Message.IndexOf("Sequence contains no matching element", StringComparison.CurrentCulture).ShouldEqual(0);
+            exception.Message.IndexOf("Sequence contains no matching element", StringComparison.CurrentCulture)
+                .ShouldEqual(0);
         }
 
         [Fact]
@@ -574,7 +576,8 @@ namespace Tripod
             var exception = Assert.Throws<InvalidOperationException>(() =>
                 dbSet.Object.AsQueryable().ByIdAsync(int.MaxValue, false).Result);
             Assert.NotNull(exception);
-            exception.Message.IndexOf("Sequence contains no matching element", StringComparison.CurrentCulture).ShouldEqual(0);
+            exception.Message.IndexOf("Sequence contains no matching element", StringComparison.CurrentCulture)
+                .ShouldEqual(0);
         }
 
         [Fact]
@@ -605,7 +608,8 @@ namespace Tripod
             var exception = Assert.Throws<InvalidOperationException>(() =>
                 dbSet.Object.AsEnumerable().ByIdAsync(int.MaxValue, false).Result);
             Assert.NotNull(exception);
-            exception.Message.IndexOf("Sequence contains no matching element", StringComparison.CurrentCulture).ShouldEqual(0);
+            exception.Message.IndexOf("Sequence contains no matching element", StringComparison.CurrentCulture)
+                .ShouldEqual(0);
         }
     }
 }
