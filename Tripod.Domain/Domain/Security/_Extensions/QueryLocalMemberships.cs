@@ -68,13 +68,11 @@ namespace Tripod.Domain.Security
         #endregion
         #region ByUserLoginInfo
 
-        [UsedImplicitly]
         public static LocalMembership ByUserLoginInfo(this IQueryable<LocalMembership> set, UserLoginInfo userLoginInfo, bool allowNull = true)
         {
             return allowNull ? set.SingleOrDefault(ByUserLoginInfo(userLoginInfo)) : set.Single(ByUserLoginInfo(userLoginInfo));
         }
 
-        [UsedImplicitly]
         public static LocalMembership ByUserLoginInfo(this IEnumerable<LocalMembership> set, UserLoginInfo userLoginInfo, bool allowNull = true)
         {
             return set.AsQueryable().ByUserLoginInfo(userLoginInfo, allowNull);
@@ -85,7 +83,6 @@ namespace Tripod.Domain.Security
             return allowNull ? set.SingleOrDefaultAsync(ByUserLoginInfo(userLoginInfo)) : set.SingleAsync(ByUserLoginInfo(userLoginInfo));
         }
 
-        [UsedImplicitly]
         public static Task<LocalMembership> ByUserLoginInfoAsync(this IEnumerable<LocalMembership> set, UserLoginInfo userLoginInfo, bool allowNull = true)
         {
             return set.AsQueryable().ByUserLoginInfoAsync(userLoginInfo, allowNull);
