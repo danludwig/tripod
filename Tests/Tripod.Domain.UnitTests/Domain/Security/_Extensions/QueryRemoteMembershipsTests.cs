@@ -118,9 +118,9 @@ namespace Tripod.Domain.Security
                 new ProxiedRemoteMembership(FakeData.String(), FakeData.String()),
                 new ProxiedRemoteMembership(FakeData.String(), FakeData.String()),
             };
-            var existingRemoteMembership = data[0];
+            var existingEntity = data[0];
             var userLoginInfo = new UserLoginInfo(
-                existingRemoteMembership.LoginProvider, existingRemoteMembership.ProviderKey);
+                existingEntity.LoginProvider, existingEntity.ProviderKey);
             data.AsQueryable().ByUserLoginInfo(userLoginInfo, false).ShouldNotBeNull();
 
             userLoginInfo = new UserLoginInfo(FakeData.String(), FakeData.String());
@@ -153,9 +153,9 @@ namespace Tripod.Domain.Security
                 new ProxiedRemoteMembership(FakeData.String(), FakeData.String()),
                 new ProxiedRemoteMembership(FakeData.String(), FakeData.String()),
             };
-            var existingRemoteMembership = data[0];
+            var existingEntity = data[0];
             var userLoginInfo = new UserLoginInfo(
-                existingRemoteMembership.LoginProvider, existingRemoteMembership.ProviderKey);
+                existingEntity.LoginProvider, existingEntity.ProviderKey);
             data.AsEnumerable().ByUserLoginInfo(userLoginInfo, false).ShouldNotBeNull();
 
             userLoginInfo = new UserLoginInfo(FakeData.String(), FakeData.String());
@@ -190,9 +190,9 @@ namespace Tripod.Domain.Security
                 new ProxiedRemoteMembership(FakeData.String(), FakeData.String()),
             };
             var dbSet = new Mock<DbSet<RemoteMembership>>(MockBehavior.Strict).SetupDataAsync(data.AsQueryable());
-            var existingRemoteMembership = data[0];
+            var existingEntity = data[0];
             var userLoginInfo = new UserLoginInfo(
-                existingRemoteMembership.LoginProvider, existingRemoteMembership.ProviderKey);
+                existingEntity.LoginProvider, existingEntity.ProviderKey);
             dbSet.Object.AsQueryable().ByUserLoginInfoAsync(userLoginInfo, false).Result.ShouldNotBeNull();
 
             userLoginInfo = new UserLoginInfo(FakeData.String(), FakeData.String());
@@ -227,14 +227,243 @@ namespace Tripod.Domain.Security
                 new ProxiedRemoteMembership(FakeData.String(), FakeData.String()),
             };
             var dbSet = new Mock<DbSet<RemoteMembership>>(MockBehavior.Strict).SetupDataAsync(data.AsQueryable());
-            var existingRemoteMembership = data[0];
+            var existingEntity = data[0];
             var userLoginInfo = new UserLoginInfo(
-                existingRemoteMembership.LoginProvider, existingRemoteMembership.ProviderKey);
+                existingEntity.LoginProvider, existingEntity.ProviderKey);
             dbSet.Object.AsEnumerable().ByUserLoginInfoAsync(userLoginInfo, false).Result.ShouldNotBeNull();
 
             userLoginInfo = new UserLoginInfo(FakeData.String(), FakeData.String());
             var exception = Assert.Throws<InvalidOperationException>(() =>
                 dbSet.Object.AsEnumerable().ByUserLoginInfoAsync(userLoginInfo, false).Result);
+            Assert.NotNull(exception);
+            exception.Message.IndexOf("Sequence contains no matching element", StringComparison.CurrentCulture)
+                .ShouldEqual(0);
+        }
+
+        #endregion
+        #region ByUserIdAndLoginInfo
+
+        [Fact]
+        public void ByUserIdAndLoginInfo_Queryable_CanAllowNull()
+        {
+            var data = new[]
+            {
+                new ProxiedRemoteMembership(FakeData.String(), FakeData.String())
+                {
+                    UserId = FakeData.Id()
+                },
+                new ProxiedRemoteMembership(FakeData.String(), FakeData.String())
+                {
+                    UserId = FakeData.Id()
+                },
+                new ProxiedRemoteMembership(FakeData.String(), FakeData.String())
+                {
+                    UserId = FakeData.Id()
+                },
+            };
+            var userId = FakeData.Id();
+            var userLoginInfo = new UserLoginInfo(FakeData.String(), FakeData.String());
+            data.AsQueryable().ByUserIdAndLoginInfo(userId, userLoginInfo).ShouldBeNull();
+        }
+
+        [Fact]
+        public void ByUserIdAndLoginInfo_Queryable_CanDisallowNull()
+        {
+            var data = new[]
+            {
+                new ProxiedRemoteMembership(FakeData.String(), FakeData.String())
+                {
+                    UserId = FakeData.Id()
+                },
+                new ProxiedRemoteMembership(FakeData.String(), FakeData.String())
+                {
+                    UserId = FakeData.Id()
+                },
+                new ProxiedRemoteMembership(FakeData.String(), FakeData.String())
+                {
+                    UserId = FakeData.Id()
+                },
+            };
+            var existingEntity = data[0];
+            var userLoginInfo = new UserLoginInfo(
+                existingEntity.LoginProvider, existingEntity.ProviderKey);
+            data.AsQueryable().ByUserIdAndLoginInfo(existingEntity.UserId, userLoginInfo, false)
+                .ShouldNotBeNull();
+
+            userLoginInfo = new UserLoginInfo(FakeData.String(), FakeData.String());
+            var exception = Assert.Throws<InvalidOperationException>(() =>
+                data.AsQueryable().ByUserIdAndLoginInfo(FakeData.Id(), userLoginInfo, false));
+            Assert.NotNull(exception);
+            exception.Message.IndexOf("Sequence contains no matching element", StringComparison.CurrentCulture)
+                .ShouldEqual(0);
+        }
+
+        [Fact]
+        public void ByUserIdAndLoginInfo_Enumerable_CanAllowNull()
+        {
+            var data = new[]
+            {
+                new ProxiedRemoteMembership(FakeData.String(), FakeData.String())
+                {
+                    UserId = FakeData.Id()
+                },
+                new ProxiedRemoteMembership(FakeData.String(), FakeData.String())
+                {
+                    UserId = FakeData.Id()
+                },
+                new ProxiedRemoteMembership(FakeData.String(), FakeData.String())
+                {
+                    UserId = FakeData.Id()
+                },
+            };
+            var userId = FakeData.Id();
+            var userLoginInfo = new UserLoginInfo(FakeData.String(), FakeData.String());
+            data.AsEnumerable().ByUserIdAndLoginInfo(userId, userLoginInfo).ShouldBeNull();
+        }
+
+        [Fact]
+        public void ByUserIdAndLoginInfo_Enumerable_CanDisallowNull()
+        {
+            var data = new[]
+            {
+                new ProxiedRemoteMembership(FakeData.String(), FakeData.String())
+                {
+                    UserId = FakeData.Id()
+                },
+                new ProxiedRemoteMembership(FakeData.String(), FakeData.String())
+                {
+                    UserId = FakeData.Id()
+                },
+                new ProxiedRemoteMembership(FakeData.String(), FakeData.String())
+                {
+                    UserId = FakeData.Id()
+                },
+            };
+            var existingEntity = data[0];
+            var userLoginInfo = new UserLoginInfo(
+                existingEntity.LoginProvider, existingEntity.ProviderKey);
+            data.AsEnumerable().ByUserIdAndLoginInfo(existingEntity.UserId, userLoginInfo, false)
+                .ShouldNotBeNull();
+
+            userLoginInfo = new UserLoginInfo(FakeData.String(), FakeData.String());
+            var exception = Assert.Throws<InvalidOperationException>(() =>
+                data.AsEnumerable().ByUserIdAndLoginInfo(FakeData.Id(), userLoginInfo, false));
+            Assert.NotNull(exception);
+            exception.Message.IndexOf("Sequence contains no matching element", StringComparison.CurrentCulture)
+                .ShouldEqual(0);
+        }
+
+        [Fact]
+        public void ByUserIdAndLoginInfoAsync_Queryable_CanAllowNull()
+        {
+            var data = new[]
+            {
+                new ProxiedRemoteMembership(FakeData.String(), FakeData.String())
+                {
+                    UserId = FakeData.Id()
+                },
+                new ProxiedRemoteMembership(FakeData.String(), FakeData.String())
+                {
+                    UserId = FakeData.Id()
+                },
+                new ProxiedRemoteMembership(FakeData.String(), FakeData.String())
+                {
+                    UserId = FakeData.Id()
+                },
+            };
+            var userId = FakeData.Id();
+            var dbSet = new Mock<DbSet<RemoteMembership>>(MockBehavior.Strict).SetupDataAsync(data.AsQueryable());
+            var userLoginInfo = new UserLoginInfo(FakeData.String(), FakeData.String());
+            dbSet.Object.AsQueryable().ByUserIdAndLoginInfoAsync(userId, userLoginInfo).Result.ShouldBeNull();
+        }
+
+        [Fact]
+        public void ByUserIdAndLoginInfoAsync_Queryable_CanDisallowNull()
+        {
+            var data = new[]
+            {
+                new ProxiedRemoteMembership(FakeData.String(), FakeData.String())
+                {
+                    UserId = FakeData.Id()
+                },
+                new ProxiedRemoteMembership(FakeData.String(), FakeData.String())
+                {
+                    UserId = FakeData.Id()
+                },
+                new ProxiedRemoteMembership(FakeData.String(), FakeData.String())
+                {
+                    UserId = FakeData.Id()
+                },
+            };
+            var dbSet = new Mock<DbSet<RemoteMembership>>(MockBehavior.Strict).SetupDataAsync(data.AsQueryable());
+            var existingEntity = data[0];
+            var userLoginInfo = new UserLoginInfo(
+                existingEntity.LoginProvider, existingEntity.ProviderKey);
+            dbSet.Object.AsQueryable().ByUserIdAndLoginInfoAsync(existingEntity.UserId, userLoginInfo, false)
+                .Result.ShouldNotBeNull();
+
+            var userId = FakeData.Id();
+            userLoginInfo = new UserLoginInfo(FakeData.String(), FakeData.String());
+            var exception = Assert.Throws<InvalidOperationException>(() =>
+                dbSet.Object.AsQueryable().ByUserIdAndLoginInfoAsync(userId, userLoginInfo, false).Result);
+            Assert.NotNull(exception);
+            exception.Message.IndexOf("Sequence contains no matching element", StringComparison.CurrentCulture)
+                .ShouldEqual(0);
+        }
+
+        [Fact]
+        public void ByUserIdAndLoginInfoAsync_Enumerable_CanAllowNull()
+        {
+            var data = new[]
+            {
+                new ProxiedRemoteMembership(FakeData.String(), FakeData.String())
+                {
+                    UserId = FakeData.Id()
+                },
+                new ProxiedRemoteMembership(FakeData.String(), FakeData.String())
+                {
+                    UserId = FakeData.Id()
+                },
+                new ProxiedRemoteMembership(FakeData.String(), FakeData.String())
+                {
+                    UserId = FakeData.Id()
+                },
+            };
+            var userId = FakeData.Id();
+            var dbSet = new Mock<DbSet<RemoteMembership>>(MockBehavior.Strict).SetupDataAsync(data.AsQueryable());
+            var userLoginInfo = new UserLoginInfo(FakeData.String(), FakeData.String());
+            dbSet.Object.AsEnumerable().ByUserIdAndLoginInfoAsync(userId, userLoginInfo).Result.ShouldBeNull();
+        }
+
+        [Fact]
+        public void ByUserIdAndLoginInfoAsync_Enumerable_CanDisallowNull()
+        {
+            var data = new[]
+            {
+                new ProxiedRemoteMembership(FakeData.String(), FakeData.String())
+                {
+                    UserId = FakeData.Id()
+                },
+                new ProxiedRemoteMembership(FakeData.String(), FakeData.String())
+                {
+                    UserId = FakeData.Id()
+                },
+                new ProxiedRemoteMembership(FakeData.String(), FakeData.String())
+                {
+                    UserId = FakeData.Id()
+                },
+            };
+            var dbSet = new Mock<DbSet<RemoteMembership>>(MockBehavior.Strict).SetupDataAsync(data.AsQueryable());
+            var existingEntity = data[0];
+            var userLoginInfo = new UserLoginInfo(
+                existingEntity.LoginProvider, existingEntity.ProviderKey);
+            dbSet.Object.AsEnumerable().ByUserIdAndLoginInfoAsync(existingEntity.UserId, userLoginInfo, false)
+                .Result.ShouldNotBeNull();
+
+            var userId = FakeData.Id();
+            userLoginInfo = new UserLoginInfo(FakeData.String(), FakeData.String());
+            var exception = Assert.Throws<InvalidOperationException>(() =>
+                dbSet.Object.AsEnumerable().ByUserIdAndLoginInfoAsync(userId, userLoginInfo, false).Result);
             Assert.NotNull(exception);
             exception.Message.IndexOf("Sequence contains no matching element", StringComparison.CurrentCulture)
                 .ShouldEqual(0);
