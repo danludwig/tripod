@@ -17,14 +17,12 @@ namespace Tripod.Domain.Security
             return set.Where(ByUserId(userId));
         }
 
-        [UsedImplicitly]
         public static IEnumerable<RemoteMembership> ByUserId(this IEnumerable<RemoteMembership> set, int userId)
         {
             return set.AsQueryable().ByUserId(userId);
         }
 
-        [UsedImplicitly]
-        internal static Expression<Func<RemoteMembership, bool>> ByUserId(int userId)
+        private static Expression<Func<RemoteMembership, bool>> ByUserId(int userId)
         {
             return x => x.UserId == userId;
         }
@@ -37,14 +35,12 @@ namespace Tripod.Domain.Security
             return set.Where(ByUserName(userName));
         }
 
-        [UsedImplicitly]
         public static IEnumerable<RemoteMembership> ByUserName(this IEnumerable<RemoteMembership> set, string userName)
         {
             return set.AsQueryable().ByUserName(userName);
         }
 
-        [UsedImplicitly]
-        internal static Expression<Func<RemoteMembership, bool>> ByUserName(string userName)
+        private static Expression<Func<RemoteMembership, bool>> ByUserName(string userName)
         {
             return x => x.User.Name.Equals(userName, StringComparison.OrdinalIgnoreCase);
         }
