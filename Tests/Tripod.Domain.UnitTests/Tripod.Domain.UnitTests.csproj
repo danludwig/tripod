@@ -157,6 +157,7 @@
     <Compile Include="Domain\Security\Queries\UserByNameOrVerifiedEmailTests.cs" />
     <Compile Include="Domain\Security\Queries\UserHasLocalMembershipTests.cs" />
     <Compile Include="Domain\Security\Queries\UserViewByTests.cs" />
+    <Compile Include="Domain\Security\Validation\EmailVerification\MustHaveValidVerifyEmailTokenTests.cs" />
     <Compile Include="Domain\Security\Validation\EmailVerification\MustBeEmailAddressWithUserIdTests.cs" />
     <Compile Include="Domain\Security\Validation\EmailVerification\MustBePurposedVerifyEmailTicketTests.cs" />
     <Compile Include="Domain\Security\Validation\EmailVerification\MustBeVerifiableEmailAddressTests.cs" />
