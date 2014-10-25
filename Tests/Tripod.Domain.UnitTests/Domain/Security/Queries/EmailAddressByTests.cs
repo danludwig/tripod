@@ -105,7 +105,7 @@ namespace Tripod.Domain.Security
         [Fact]
         public void Query_StringCtor_SetsValueProperty()
         {
-            var value = string.Format("{0}@domain.tld", Guid.NewGuid());
+            var value = FakeData.Email();
             var query = new EmailAddressBy(value);
             query.Id.ShouldBeNull();
             query.Value.ShouldEqual(value);
@@ -115,8 +115,8 @@ namespace Tripod.Domain.Security
         [Fact]
         public void Handler_ReturnsNullEmailAddress_WhenNotFound_ByValue()
         {
-            var emailAddressValue = string.Format("{0}@domain.tld", Guid.NewGuid());
-            var emailAddress = new EmailAddress { Value = string.Format("{0}@domain.tld", Guid.NewGuid()) };
+            var emailAddressValue = FakeData.Email();
+            var emailAddress = new EmailAddress { Value = FakeData.Email() };
             var data = new[] { emailAddress }.AsQueryable();
             var query = new EmailAddressBy(emailAddressValue);
             var dbSet = new Mock<DbSet<EmailAddress>>(MockBehavior.Strict).SetupDataAsync(data);
@@ -136,7 +136,7 @@ namespace Tripod.Domain.Security
         [InlineData(false)]
         public void Handler_ReturnsNullEmailAddress_WhenFound_ByValue_ButIsVerifiedDoesNotMatch(bool isVerified)
         {
-            var emailAddressValue = string.Format("{0}@domain.tld", Guid.NewGuid());
+            var emailAddressValue = FakeData.Email();
             var emailAddress = new EmailAddress
             {
                 Value = emailAddressValue,
@@ -167,7 +167,7 @@ namespace Tripod.Domain.Security
         public void Handler_ReturnsNonNullEmailAddress_WhenFound_ByValue_AndIsVerifiedMatches(
             bool? isQueryVerified, bool isEntityVerified)
         {
-            var emailAddressValue = string.Format("{0}@domain.tld", Guid.NewGuid());
+            var emailAddressValue = FakeData.Email();
             var emailAddress = new EmailAddress
             {
                 Value = emailAddressValue,
@@ -207,9 +207,9 @@ namespace Tripod.Domain.Security
         [Fact]
         public void Handler_ReturnsNullEmailAddress_WhenNotFound_ByClaim()
         {
-            var emailAddressValue = string.Format("{0}@domain.tld", Guid.NewGuid());
+            var emailAddressValue = FakeData.Email();
             var claim = new Claim(ClaimTypes.Email, emailAddressValue);
-            var emailAddress = new EmailAddress { Value = string.Format("{0}@domain.tld", Guid.NewGuid()) };
+            var emailAddress = new EmailAddress { Value = FakeData.Email() };
             var data = new[] { emailAddress }.AsQueryable();
             var query = new EmailAddressBy(claim);
             var dbSet = new Mock<DbSet<EmailAddress>>(MockBehavior.Strict).SetupDataAsync(data);
@@ -229,7 +229,7 @@ namespace Tripod.Domain.Security
         [InlineData(false)]
         public void Handler_ReturnsNullEmailAddress_WhenFound_ByClaim_ButIsVerifiedDoesNotMatch(bool isVerified)
         {
-            var emailAddressValue = string.Format("{0}@domain.tld", Guid.NewGuid());
+            var emailAddressValue = FakeData.Email();
             var claim = new Claim(ClaimTypes.Email, emailAddressValue);
             var emailAddress = new EmailAddress
             {
@@ -256,7 +256,7 @@ namespace Tripod.Domain.Security
         [Fact]
         public void Handler_ReturnsNullEmailAddress_WhenClaimType_IsNotEmail_ByClaim()
         {
-            var emailAddressValue = string.Format("{0}@domain.tld", Guid.NewGuid());
+            var emailAddressValue = FakeData.Email();
             var claim = new Claim(ClaimTypes.NameIdentifier, emailAddressValue);
             var emailAddress = new EmailAddress
             {
@@ -284,7 +284,7 @@ namespace Tripod.Domain.Security
         public void Handler_ReturnsNonNullEmailAddress_WhenFound_ByClaim_AndIsVerified_IsEqual(
             bool? isQueryVerified, bool isEntityVerified)
         {
-            var emailAddressValue = string.Format("{0}@domain.tld", Guid.NewGuid());
+            var emailAddressValue = FakeData.Email();
             var claim = new Claim(ClaimTypes.Email, emailAddressValue);
             var emailAddress = new EmailAddress
             {

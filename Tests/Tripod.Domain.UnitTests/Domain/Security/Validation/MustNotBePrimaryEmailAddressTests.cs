@@ -26,7 +26,7 @@ namespace Tripod.Domain.Security
         {
             var emailAddress = new ProxiedEmailAddress(new Random().Next(1, int.MaxValue))
             {
-                Value = string.Format("{0}@domain.tld", Guid.NewGuid()),
+                Value = FakeData.Email(),
                 IsPrimary = true,
             };
             var queries = new Mock<IProcessQueries>(MockBehavior.Strict);
@@ -53,7 +53,7 @@ namespace Tripod.Domain.Security
         {
             var emailAddress = new ProxiedEmailAddress(new Random().Next(1, int.MaxValue))
             {
-                Value = string.Format("{0}@domain.tld", Guid.NewGuid()),
+                Value = FakeData.Email(),
                 IsPrimary = false,
             };
             var queries = new Mock<IProcessQueries>(MockBehavior.Strict);

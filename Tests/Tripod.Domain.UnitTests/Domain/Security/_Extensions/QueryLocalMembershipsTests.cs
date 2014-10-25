@@ -516,13 +516,13 @@ namespace Tripod.Domain.Security
                 {
                     var emailAddress = new EmailAddress
                     {
-                        Value = string.Format("{0}@domain.tld", Guid.NewGuid()),
+                        Value = FakeData.Email(),
                         IsVerified = true,
                     };
                     localMembership.User.EmailAddresses.Add(emailAddress);
                 }
             }
-            data.AsQueryable().ByVerifiedEmail(string.Format("{0}@domain.tld", Guid.NewGuid())).ShouldBeNull();
+            data.AsQueryable().ByVerifiedEmail(FakeData.Email()).ShouldBeNull();
         }
 
         [Fact]
@@ -540,7 +540,7 @@ namespace Tripod.Domain.Security
                 {
                     var emailAddress = new EmailAddress
                     {
-                        Value = string.Format("{0}@domain.tld", Guid.NewGuid()),
+                        Value = FakeData.Email(),
                         IsVerified = true,
                     };
                     localMembership.User.EmailAddresses.Add(emailAddress);
@@ -550,7 +550,7 @@ namespace Tripod.Domain.Security
             data.AsQueryable().ByVerifiedEmail(existingEmailValue, false).ShouldNotBeNull();
 
             var exception = Assert.Throws<InvalidOperationException>(() =>
-                data.AsQueryable().ByVerifiedEmail(string.Format("{0}@domain.tld", Guid.NewGuid()), false));
+                data.AsQueryable().ByVerifiedEmail(FakeData.Email(), false));
             Assert.NotNull(exception);
             exception.Message.IndexOf("Sequence contains no matching element", StringComparison.CurrentCulture)
                 .ShouldEqual(0);
@@ -571,13 +571,13 @@ namespace Tripod.Domain.Security
                 {
                     var emailAddress = new EmailAddress
                     {
-                        Value = string.Format("{0}@domain.tld", Guid.NewGuid()),
+                        Value = FakeData.Email(),
                         IsVerified = true,
                     };
                     localMembership.User.EmailAddresses.Add(emailAddress);
                 }
             }
-            data.AsEnumerable().ByVerifiedEmail(string.Format("{0}@domain.tld", Guid.NewGuid())).ShouldBeNull();
+            data.AsEnumerable().ByVerifiedEmail(FakeData.Email()).ShouldBeNull();
         }
 
         [Fact]
@@ -595,7 +595,7 @@ namespace Tripod.Domain.Security
                 {
                     var emailAddress = new EmailAddress
                     {
-                        Value = string.Format("{0}@domain.tld", Guid.NewGuid()),
+                        Value = FakeData.Email(),
                         IsVerified = true,
                     };
                     localMembership.User.EmailAddresses.Add(emailAddress);
@@ -605,7 +605,7 @@ namespace Tripod.Domain.Security
             data.AsEnumerable().ByVerifiedEmail(existingEmailValue, false).ShouldNotBeNull();
 
             var exception = Assert.Throws<InvalidOperationException>(() =>
-                data.AsEnumerable().ByVerifiedEmail(string.Format("{0}@domain.tld", Guid.NewGuid()), false));
+                data.AsEnumerable().ByVerifiedEmail(FakeData.Email(), false));
             Assert.NotNull(exception);
             exception.Message.IndexOf("Sequence contains no matching element", StringComparison.CurrentCulture)
                 .ShouldEqual(0);
@@ -626,14 +626,14 @@ namespace Tripod.Domain.Security
                 {
                     var emailAddress = new EmailAddress
                     {
-                        Value = string.Format("{0}@domain.tld", Guid.NewGuid()),
+                        Value = FakeData.Email(),
                         IsVerified = true,
                     };
                     localMembership.User.EmailAddresses.Add(emailAddress);
                 }
             }
             var dbSet = new Mock<DbSet<LocalMembership>>(MockBehavior.Strict).SetupDataAsync(data.AsQueryable());
-            var emailValue = string.Format("{0}@domain.tld", Guid.NewGuid());
+            var emailValue = FakeData.Email();
             dbSet.Object.AsQueryable().ByVerifiedEmailAsync(emailValue).Result.ShouldBeNull();
         }
 
@@ -652,7 +652,7 @@ namespace Tripod.Domain.Security
                 {
                     var emailAddress = new EmailAddress
                     {
-                        Value = string.Format("{0}@domain.tld", Guid.NewGuid()),
+                        Value = FakeData.Email(),
                         IsVerified = true,
                     };
                     localMembership.User.EmailAddresses.Add(emailAddress);
@@ -662,7 +662,7 @@ namespace Tripod.Domain.Security
             var existingEmailValue = data[0].User.EmailAddresses.First().Value;
             dbSet.Object.AsQueryable().ByVerifiedEmailAsync(existingEmailValue, false).Result.ShouldNotBeNull();
 
-            string missingEmailValue = string.Format("{0}@domain.tld", Guid.NewGuid());
+            string missingEmailValue = FakeData.Email();
             var exception = Assert.Throws<InvalidOperationException>(() =>
                 dbSet.Object.AsQueryable().ByVerifiedEmailAsync(missingEmailValue, false).Result);
             Assert.NotNull(exception);
@@ -685,14 +685,14 @@ namespace Tripod.Domain.Security
                 {
                     var emailAddress = new EmailAddress
                     {
-                        Value = string.Format("{0}@domain.tld", Guid.NewGuid()),
+                        Value = FakeData.Email(),
                         IsVerified = true,
                     };
                     localMembership.User.EmailAddresses.Add(emailAddress);
                 }
             }
             var dbSet = new Mock<DbSet<LocalMembership>>(MockBehavior.Strict).SetupDataAsync(data.AsQueryable());
-            var emailValue = string.Format("{0}@domain.tld", Guid.NewGuid());
+            var emailValue = FakeData.Email();
             dbSet.Object.AsEnumerable().ByVerifiedEmailAsync(emailValue).Result.ShouldBeNull();
         }
 
@@ -711,7 +711,7 @@ namespace Tripod.Domain.Security
                 {
                     var emailAddress = new EmailAddress
                     {
-                        Value = string.Format("{0}@domain.tld", Guid.NewGuid()),
+                        Value = FakeData.Email(),
                         IsVerified = true,
                     };
                     localMembership.User.EmailAddresses.Add(emailAddress);
@@ -721,7 +721,7 @@ namespace Tripod.Domain.Security
             var existingEmailValue = data[0].User.EmailAddresses.First().Value;
             dbSet.Object.AsEnumerable().ByVerifiedEmailAsync(existingEmailValue, false).Result.ShouldNotBeNull();
 
-            string missingEmailValue = string.Format("{0}@domain.tld", Guid.NewGuid());
+            string missingEmailValue = FakeData.Email();
             var exception = Assert.Throws<InvalidOperationException>(() =>
                 dbSet.Object.AsEnumerable().ByVerifiedEmailAsync(missingEmailValue, false).Result);
             Assert.NotNull(exception);

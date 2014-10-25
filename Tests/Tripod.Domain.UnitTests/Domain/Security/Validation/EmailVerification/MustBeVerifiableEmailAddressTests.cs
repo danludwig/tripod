@@ -75,7 +75,7 @@ namespace Tripod.Domain.Security
         [Fact]
         public void IsInvalid_WhenEmailAddress_IsGreaterThanMaxLength()
         {
-            var emailAddress = string.Format("{0}@domain.tld", Guid.NewGuid());
+            var emailAddress = FakeData.Email();
             while (emailAddress.Length < EmailAddress.Constraints.ValueMaxLength)
                 emailAddress = Guid.NewGuid() + emailAddress;
             var queries = new Mock<IProcessQueries>(MockBehavior.Strict);
@@ -104,7 +104,7 @@ namespace Tripod.Domain.Security
         {
             EmailAddress emailAddress = new ProxiedEmailAddress(new Random().Next(1, int.MaxValue))
             {
-                Value = string.Format("{0}@domain.tld", Guid.NewGuid()),
+                Value = FakeData.Email(),
                 IsVerified = true,
             };
             var queries = new Mock<IProcessQueries>(MockBehavior.Strict);
@@ -133,7 +133,7 @@ namespace Tripod.Domain.Security
         {
             EmailAddress emailAddress = new ProxiedEmailAddress(new Random().Next(1, int.MaxValue))
             {
-                Value = string.Format("{0}@domain.tld", Guid.NewGuid()),
+                Value = FakeData.Email(),
             };
             var queries = new Mock<IProcessQueries>(MockBehavior.Strict);
             var command = new FakeMustBeVerifiableEmailAddressCommand { EmailAddress = emailAddress.Value };
@@ -152,7 +152,7 @@ namespace Tripod.Domain.Security
         [Fact]
         public void IsValid_WhenEmailAddress_IsNotFound()
         {
-            var emailAddress = string.Format("{0}@domain.tld", Guid.NewGuid());
+            var emailAddress = FakeData.Email();
             var queries = new Mock<IProcessQueries>(MockBehavior.Strict);
             var command = new FakeMustBeVerifiableEmailAddressCommand { EmailAddress = emailAddress };
             Expression<Func<EmailAddressBy, bool>> expectedQuery = x => x.Value == emailAddress;

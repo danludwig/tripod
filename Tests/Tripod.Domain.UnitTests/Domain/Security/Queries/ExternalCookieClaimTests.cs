@@ -44,7 +44,7 @@ namespace Tripod.Domain.Security
             const string authenticationType = DefaultAuthenticationTypes.ApplicationCookie;
             var data = new[]
             {
-                new Claim(ClaimTypes.Email, string.Format("{0}@domain.tld", Guid.NewGuid())),
+                new Claim(ClaimTypes.Email, FakeData.Email()),
                 new Claim(ClaimTypes.NameIdentifier, new Random().Next(3, int.MaxValue)
                     .ToString(CultureInfo.InvariantCulture)), 
                 new Claim(ClaimTypes.Gender, string.Empty), 
@@ -70,7 +70,7 @@ namespace Tripod.Domain.Security
             string claimValue = Guid.NewGuid().ToString();
             var data = new[]
             {
-                new Claim(ClaimTypes.Email, string.Format("{0}@domain.tld", Guid.NewGuid())),
+                new Claim(ClaimTypes.Email, FakeData.Email()),
                 new Claim(ClaimTypes.NameIdentifier, new Random().Next(3, int.MaxValue)
                     .ToString(CultureInfo.InvariantCulture)), 
                 new Claim(claimType, claimValue), 

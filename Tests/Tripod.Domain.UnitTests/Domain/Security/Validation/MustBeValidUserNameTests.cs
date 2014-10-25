@@ -116,7 +116,7 @@ namespace Tripod.Domain.Security
         [Fact]
         public void IsValid_WhenUserName_IsEmailAddress()
         {
-            var userName = string.Format("{0}@domain.tld", Guid.NewGuid());
+            var userName = FakeData.Email();
             var command = new FakeMustBeValidUserNameCommand
             {
                 UserName = userName,

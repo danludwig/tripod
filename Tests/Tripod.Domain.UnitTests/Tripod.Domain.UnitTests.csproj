@@ -84,6 +84,7 @@
     <Compile Include="Api\Configuration\AppConfigurationTests.cs" />
     <Compile Include="Api\Entities\EntitySetTests.cs" />
     <Compile Include="Api\Entities\EntityWithIdTests.cs" />
+    <Compile Include="Api\Entities\_Fakes\FakeData.cs" />
     <Compile Include="Api\Entities\_Fakes\FakeDbAsyncEnumerable.cs" />
     <Compile Include="Api\Entities\_Fakes\FakeDbAsyncEnumerator.cs" />
     <Compile Include="Api\Entities\_Fakes\FakeDbAsyncExtensions.cs" />

@@ -10,7 +10,7 @@ namespace Tripod.Domain.Security
         [Fact]
         public void Query_Ctor_SetsEmailAddressProperty_UsingStringArg()
         {
-            var emailAddress = string.Format("{0}@domain.tld", Guid.NewGuid());
+            var emailAddress = FakeData.Email();
             var query = new HashedEmailValueBy(emailAddress);
             query.EmailAddress.ShouldEqual(emailAddress);
         }

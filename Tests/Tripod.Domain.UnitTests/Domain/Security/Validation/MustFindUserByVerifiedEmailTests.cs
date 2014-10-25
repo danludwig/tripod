@@ -50,7 +50,7 @@ namespace Tripod.Domain.Security
         [Fact]
         public void IsInvalid_WhenEmailAddress_IsNotFound()
         {
-            var emailAddress = string.Format("{0}@domain.tld", Guid.NewGuid());
+            var emailAddress = FakeData.Email();
             var queries = new Mock<IProcessQueries>(MockBehavior.Strict);
             var command = new FakeMustFindUserByVerifiedEmailCommand { EmailAddress = emailAddress };
             Expression<Func<EmailAddressBy, bool>> expectedQuery = x => x.Value == emailAddress;
@@ -74,7 +74,7 @@ namespace Tripod.Domain.Security
         [Fact]
         public void IsInvalid_WhenEmailAddress_IsFound_ButHasNullUser()
         {
-            var emailAddress = string.Format("{0}@domain.tld", Guid.NewGuid());
+            var emailAddress = FakeData.Email();
             var queries = new Mock<IProcessQueries>(MockBehavior.Strict);
             var entity = new ProxiedEmailAddress(new Random().Next(1, int.MaxValue))
             {
@@ -103,7 +103,7 @@ namespace Tripod.Domain.Security
         [Fact]
         public void IsValid_WhenEmailAddress_IsFound_WithNonNullUser()
         {
-            var emailAddress = string.Format("{0}@domain.tld", Guid.NewGuid());
+            var emailAddress = FakeData.Email();
             var queries = new Mock<IProcessQueries>(MockBehavior.Strict);
             var user = new User();
             var entity = new ProxiedEmailAddress(new Random().Next(1, int.MaxValue))

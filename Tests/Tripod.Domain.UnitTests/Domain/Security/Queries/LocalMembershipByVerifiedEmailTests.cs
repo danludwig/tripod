@@ -12,7 +12,7 @@ namespace Tripod.Domain.Security
         [Fact]
         public void Query_StringCtor_SetsEmailAddressProperty()
         {
-            var emailAddress = string.Format("{0}@domain.tld", Guid.NewGuid());
+            var emailAddress = FakeData.Email();
             var query = new LocalMembershipByVerifiedEmail(emailAddress);
             query.EmailAddress.ShouldEqual(emailAddress);
         }
@@ -20,12 +20,12 @@ namespace Tripod.Domain.Security
         [Fact]
         public void Handler_ReturnsNullLocalMembership_WhenFoundButNotVerified_ByVerifiedEmail()
         {
-            var emailAddress = string.Format("{0}@domain.tld", Guid.NewGuid());
+            var emailAddress = FakeData.Email();
             var user = new User();
             user.EmailAddresses.Add(new EmailAddress
             {
                 IsVerified = true,
-                Value = string.Format("{0}@domain.tld", Guid.NewGuid()) ,
+                Value = FakeData.Email() ,
             });
             var data = new[]
             {
@@ -47,7 +47,7 @@ namespace Tripod.Domain.Security
         [Fact]
         public void Handler_ReturnsNullLocalMembership_WhenNotFound_ByVerifiedEmail()
         {
-            var emailAddress = string.Format("{0}@domain.tld", Guid.NewGuid());
+            var emailAddress = FakeData.Email();
             var user = new User();
             user.EmailAddresses.Add(new EmailAddress
             {
@@ -74,7 +74,7 @@ namespace Tripod.Domain.Security
         [Fact]
         public void Handler_ReturnsNonNullLocalMembership_WhenFound_ByUserName()
         {
-            var emailAddress = string.Format("{0}@domain.tld", Guid.NewGuid());
+            var emailAddress = FakeData.Email();
             var user = new User();
             user.EmailAddresses.Add(new EmailAddress
             {

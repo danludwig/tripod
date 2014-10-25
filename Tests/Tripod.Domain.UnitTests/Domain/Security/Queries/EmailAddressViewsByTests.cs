@@ -97,7 +97,7 @@ namespace Tripod.Domain.Security
                 new ProxiedEmailAddress(664)
                 {
                     UserId = userId,
-                    Value = string.Format("{0}@domain.tld", Guid.NewGuid()),
+                    Value = FakeData.Email(),
                     HashedValue = "hashed email value",
                     IsVerified = entityIsVerified,
                     IsPrimary = entityIsVerified,

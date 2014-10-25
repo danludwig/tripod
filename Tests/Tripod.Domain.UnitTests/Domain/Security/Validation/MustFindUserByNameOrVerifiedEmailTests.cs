@@ -50,7 +50,7 @@ namespace Tripod.Domain.Security
         [Fact]
         public void IsInvalid_WhenUserNotFound_ByNameOrEmail()
         {
-            var nameOrEmail = string.Format("{0}@domain.tld", Guid.NewGuid());
+            var nameOrEmail = FakeData.Email();
             var queries = new Mock<IProcessQueries>(MockBehavior.Strict);
             var command = new FakeMustFindUserByNameOrVerifiedEmailCommand { NameOrEmail = nameOrEmail };
             Expression<Func<UserByNameOrVerifiedEmail, bool>> expectedQuery = x => x.NameOrEmail == nameOrEmail;
@@ -74,7 +74,7 @@ namespace Tripod.Domain.Security
         [Fact]
         public void IsIValid_WhenUserFound_ByNameOrEmail()
         {
-            var nameOrEmail = string.Format("{0}@domain.tld", Guid.NewGuid());
+            var nameOrEmail = FakeData.Email();
             var queries = new Mock<IProcessQueries>(MockBehavior.Strict);
             var command = new FakeMustFindUserByNameOrVerifiedEmailCommand { NameOrEmail = nameOrEmail };
             var entity = new ProxiedUser(new Random().Next(1, int.MaxValue)) { Name = nameOrEmail };

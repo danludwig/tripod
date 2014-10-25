@@ -31,20 +31,20 @@ namespace Tripod.Domain.Security
             var user = new ProxiedUser(userId + 1) { Name = Guid.NewGuid().ToString(), };
             var primaryEmail = new EmailAddress
             {
-                Value = string.Format("{0}@domain.tld", Guid.NewGuid()),
+                Value = FakeData.Email(),
                 HashedValue = Guid.NewGuid().ToString(),
                 IsPrimary = true,
                 IsVerified = true,
             };
             var secondaryEmail1 = new EmailAddress
             {
-                Value = string.Format("{0}@domain.tld", Guid.NewGuid()),
+                Value = FakeData.Email(),
                 HashedValue = Guid.NewGuid().ToString(),
                 IsVerified = true,
             };
             var secondaryEmail2 = new EmailAddress
             {
-                Value = string.Format("{0}@domain.tld", Guid.NewGuid()),
+                Value = FakeData.Email(),
                 HashedValue = Guid.NewGuid().ToString(),
             };
             user.EmailAddresses.Add(secondaryEmail1);
@@ -72,20 +72,20 @@ namespace Tripod.Domain.Security
             var user = new ProxiedUser(userId) { Name = Guid.NewGuid().ToString(), };
             var primaryEmail = new EmailAddress
             {
-                Value = string.Format("{0}@domain.tld", Guid.NewGuid()),
+                Value = FakeData.Email(),
                 HashedValue = Guid.NewGuid().ToString(),
                 IsPrimary = true,
                 IsVerified = true,
             };
             var secondaryEmail1 = new EmailAddress
             {
-                Value = string.Format("{0}@domain.tld", Guid.NewGuid()),
+                Value = FakeData.Email(),
                 HashedValue = Guid.NewGuid().ToString(),
                 IsVerified = true,
             };
             var secondaryEmail2 = new EmailAddress
             {
-                Value = string.Format("{0}@domain.tld", Guid.NewGuid()),
+                Value = FakeData.Email(),
                 HashedValue = Guid.NewGuid().ToString(),
             };
             user.EmailAddresses.Add(secondaryEmail1);
@@ -131,20 +131,20 @@ namespace Tripod.Domain.Security
             var user = new ProxiedUser(userId) { Name = Guid.NewGuid().ToString(), };
             var primaryEmail = new EmailAddress
             {
-                Value = string.Format("{0}@domain.tld", Guid.NewGuid()),
+                Value = FakeData.Email(),
                 HashedValue = Guid.NewGuid().ToString(),
                 IsPrimary = true,
                 IsVerified = true,
             };
             var secondaryEmail1 = new EmailAddress
             {
-                Value = string.Format("{0}@domain.tld", Guid.NewGuid()),
+                Value = FakeData.Email(),
                 HashedValue = Guid.NewGuid().ToString(),
                 IsVerified = true,
             };
             var secondaryEmail2 = new EmailAddress
             {
-                Value = string.Format("{0}@domain.tld", Guid.NewGuid()),
+                Value = FakeData.Email(),
                 HashedValue = Guid.NewGuid().ToString(),
             };
             user.EmailAddresses.Add(secondaryEmail1);
@@ -173,20 +173,20 @@ namespace Tripod.Domain.Security
             var user = new ProxiedUser(userId) { Name = userName, };
             var primaryEmail = new EmailAddress
             {
-                Value = string.Format("{0}@domain.tld", Guid.NewGuid()),
+                Value = FakeData.Email(),
                 HashedValue = Guid.NewGuid().ToString(),
                 IsPrimary = true,
                 IsVerified = true,
             };
             var secondaryEmail1 = new EmailAddress
             {
-                Value = string.Format("{0}@domain.tld", Guid.NewGuid()),
+                Value = FakeData.Email(),
                 HashedValue = Guid.NewGuid().ToString(),
                 IsVerified = true,
             };
             var secondaryEmail2 = new EmailAddress
             {
-                Value = string.Format("{0}@domain.tld", Guid.NewGuid()),
+                Value = FakeData.Email(),
                 HashedValue = Guid.NewGuid().ToString(),
             };
             user.EmailAddresses.Add(secondaryEmail1);
@@ -325,20 +325,20 @@ namespace Tripod.Domain.Security
             var user = new ProxiedUser(userId + 1) { Name = Guid.NewGuid().ToString(), };
             var primaryEmail = new EmailAddress
             {
-                Value = string.Format("{0}@domain.tld", Guid.NewGuid()),
+                Value = FakeData.Email(),
                 HashedValue = Guid.NewGuid().ToString(),
                 IsPrimary = true,
                 IsVerified = true,
             };
             var secondaryEmail1 = new EmailAddress
             {
-                Value = string.Format("{0}@domain.tld", Guid.NewGuid()),
+                Value = FakeData.Email(),
                 HashedValue = Guid.NewGuid().ToString(),
                 IsVerified = true,
             };
             var secondaryEmail2 = new EmailAddress
             {
-                Value = string.Format("{0}@domain.tld", Guid.NewGuid()),
+                Value = FakeData.Email(),
                 HashedValue = Guid.NewGuid().ToString(),
             };
             user.EmailAddresses.Add(secondaryEmail1);
@@ -372,20 +372,20 @@ namespace Tripod.Domain.Security
             var user = new ProxiedUser(userId) { Name = Guid.NewGuid().ToString(), };
             var primaryEmail = new EmailAddress
             {
-                Value = string.Format("{0}@domain.tld", Guid.NewGuid()),
+                Value = FakeData.Email(),
                 HashedValue = Guid.NewGuid().ToString(),
                 IsPrimary = true,
                 IsVerified = true,
             };
             var secondaryEmail1 = new EmailAddress
             {
-                Value = string.Format("{0}@domain.tld", Guid.NewGuid()),
+                Value = FakeData.Email(),
                 HashedValue = Guid.NewGuid().ToString(),
                 IsVerified = true,
             };
             var secondaryEmail2 = new EmailAddress
             {
-                Value = string.Format("{0}@domain.tld", Guid.NewGuid()),
+                Value = FakeData.Email(),
                 HashedValue = Guid.NewGuid().ToString(),
             };
             user.EmailAddresses.Add(secondaryEmail1);

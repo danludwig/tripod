@@ -13,7 +13,7 @@ namespace Tripod.Domain.Security
         [Fact]
         public void Handler_ReturnsFalse_WhenNoUserExists_WithNameOrVerifiedEmail()
         {
-            string nameOrVerifiedEmail = string.Format("{0}@domain.tld", Guid.NewGuid());
+            string nameOrVerifiedEmail = FakeData.Email();
             string password = Guid.NewGuid().ToString();
             var queries = new Mock<IProcessQueries>(MockBehavior.Strict);
             Expression<Func<UserByNameOrVerifiedEmail, bool>> expectedQuery =
@@ -38,7 +38,7 @@ namespace Tripod.Domain.Security
         [Fact]
         public void Handler_ReturnsFalse_WhenUserExists_ButHasDifferentPassword()
         {
-            string nameOrVerifiedEmail = string.Format("{0}@domain.tld", Guid.NewGuid());
+            string nameOrVerifiedEmail = FakeData.Email();
             string password = Guid.NewGuid().ToString();
             var user = new User { Name = nameOrVerifiedEmail, };
             var queries = new Mock<IProcessQueries>(MockBehavior.Strict);
@@ -72,7 +72,7 @@ namespace Tripod.Domain.Security
         [Fact]
         public void Handler_ReturnsTrue_WhenUserExists_AndPasswordHashesMatch()
         {
-            string nameOrVerifiedEmail = string.Format("{0}@domain.tld", Guid.NewGuid());
+            string nameOrVerifiedEmail = FakeData.Email();
             string password = Guid.NewGuid().ToString();
             var user = new User { Name = nameOrVerifiedEmail, };
             var queries = new Mock<IProcessQueries>(MockBehavior.Strict);

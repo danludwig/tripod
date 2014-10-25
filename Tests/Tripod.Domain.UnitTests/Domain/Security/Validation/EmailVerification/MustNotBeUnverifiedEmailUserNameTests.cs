@@ -135,7 +135,7 @@ namespace Tripod.Domain.Security
         [Fact]
         public void IsValid_WhenEmailVerificationByTicket_IsNotFound()
         {
-            string userName = string.Format("{0}@domain.tld", Guid.NewGuid());
+            string userName = FakeData.Email();
             string ticket = Guid.NewGuid().ToString();
             var queries = new Mock<IProcessQueries>(MockBehavior.Strict);
             Expression<Func<EmailVerificationBy, bool>> expectedQuery = x => x.Ticket == ticket;

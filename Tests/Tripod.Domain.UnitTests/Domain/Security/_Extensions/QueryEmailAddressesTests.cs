@@ -16,11 +16,11 @@ namespace Tripod.Domain.Security
         {
             var data = new[]
             {
-                new EmailAddress { Value = string.Format("{0}@domain.tld", Guid.NewGuid()), },
-                new EmailAddress { Value = string.Format("{0}@domain.tld", Guid.NewGuid()), },
-                new EmailAddress { Value = string.Format("{0}@domain.tld", Guid.NewGuid()), },
+                new EmailAddress { Value = FakeData.Email(), },
+                new EmailAddress { Value = FakeData.Email(), },
+                new EmailAddress { Value = FakeData.Email(), },
             };
-            data.AsQueryable().ByValue(string.Format("{0}@domain.tld", Guid.NewGuid())).ShouldBeNull();
+            data.AsQueryable().ByValue(FakeData.Email()).ShouldBeNull();
         }
 
         [Fact]
@@ -28,13 +28,13 @@ namespace Tripod.Domain.Security
         {
             var data = new[]
             {
-                new EmailAddress { Value = string.Format("{0}@domain.tld", Guid.NewGuid()), },
-                new EmailAddress { Value = string.Format("{0}@domain.tld", Guid.NewGuid()), },
-                new EmailAddress { Value = string.Format("{0}@domain.tld", Guid.NewGuid()), },
+                new EmailAddress { Value = FakeData.Email(), },
+                new EmailAddress { Value = FakeData.Email(), },
+                new EmailAddress { Value = FakeData.Email(), },
             };
             data.AsQueryable().ByValue(data[0].Value, false).ShouldNotBeNull();
             var exception = Assert.Throws<InvalidOperationException>(() =>
-                data.AsQueryable().ByValue(string.Format("{0}@domain.tld", Guid.NewGuid()), false));
+                data.AsQueryable().ByValue(FakeData.Email(), false));
             Assert.NotNull(exception);
             exception.Message.IndexOf("Sequence contains no matching element", StringComparison.CurrentCulture)
                 .ShouldEqual(0);
@@ -45,11 +45,11 @@ namespace Tripod.Domain.Security
         {
             var data = new[]
             {
-                new EmailAddress { Value = string.Format("{0}@domain.tld", Guid.NewGuid()), },
-                new EmailAddress { Value = string.Format("{0}@domain.tld", Guid.NewGuid()), },
-                new EmailAddress { Value = string.Format("{0}@domain.tld", Guid.NewGuid()), },
+                new EmailAddress { Value = FakeData.Email(), },
+                new EmailAddress { Value = FakeData.Email(), },
+                new EmailAddress { Value = FakeData.Email(), },
             };
-            data.AsEnumerable().ByValue(string.Format("{0}@domain.tld", Guid.NewGuid())).ShouldBeNull();
+            data.AsEnumerable().ByValue(FakeData.Email()).ShouldBeNull();
         }
 
         [Fact]
@@ -57,13 +57,13 @@ namespace Tripod.Domain.Security
         {
             var data = new[]
             {
-                new EmailAddress { Value = string.Format("{0}@domain.tld", Guid.NewGuid()), },
-                new EmailAddress { Value = string.Format("{0}@domain.tld", Guid.NewGuid()), },
-                new EmailAddress { Value = string.Format("{0}@domain.tld", Guid.NewGuid()), },
+                new EmailAddress { Value = FakeData.Email(), },
+                new EmailAddress { Value = FakeData.Email(), },
+                new EmailAddress { Value = FakeData.Email(), },
             };
             data.AsEnumerable().ByValue(data[0].Value, false).ShouldNotBeNull();
             var exception = Assert.Throws<InvalidOperationException>(() =>
-                data.AsEnumerable().ByValue(string.Format("{0}@domain.tld", Guid.NewGuid()), false));
+                data.AsEnumerable().ByValue(FakeData.Email(), false));
             Assert.NotNull(exception);
             exception.Message.IndexOf("Sequence contains no matching element", StringComparison.CurrentCulture)
                 .ShouldEqual(0);
@@ -74,12 +74,12 @@ namespace Tripod.Domain.Security
         {
             var data = new[]
             {
-                new EmailAddress { Value = string.Format("{0}@domain.tld", Guid.NewGuid()), },
-                new EmailAddress { Value = string.Format("{0}@domain.tld", Guid.NewGuid()), },
-                new EmailAddress { Value = string.Format("{0}@domain.tld", Guid.NewGuid()), },
+                new EmailAddress { Value = FakeData.Email(), },
+                new EmailAddress { Value = FakeData.Email(), },
+                new EmailAddress { Value = FakeData.Email(), },
             };
             var dbSet = new Mock<DbSet<EmailAddress>>(MockBehavior.Strict).SetupDataAsync(data.AsQueryable());
-            dbSet.Object.AsQueryable().ByValueAsync(string.Format("{0}@domain.tld", Guid.NewGuid()))
+            dbSet.Object.AsQueryable().ByValueAsync(FakeData.Email())
                 .Result.ShouldBeNull();
         }
 
@@ -88,15 +88,15 @@ namespace Tripod.Domain.Security
         {
             var data = new[]
             {
-                new EmailAddress { Value = string.Format("{0}@domain.tld", Guid.NewGuid()), },
-                new EmailAddress { Value = string.Format("{0}@domain.tld", Guid.NewGuid()), },
-                new EmailAddress { Value = string.Format("{0}@domain.tld", Guid.NewGuid()), },
+                new EmailAddress { Value = FakeData.Email(), },
+                new EmailAddress { Value = FakeData.Email(), },
+                new EmailAddress { Value = FakeData.Email(), },
             };
             var dbSet = new Mock<DbSet<EmailAddress>>(MockBehavior.Strict).SetupDataAsync(data.AsQueryable());
             dbSet.Object.AsQueryable().ByValueAsync(data[0].Value, false).Result.ShouldNotBeNull();
 
             var exception = Assert.Throws<InvalidOperationException>(() =>
-                dbSet.Object.AsQueryable().ByValueAsync(string.Format("{0}@domain.tld", Guid.NewGuid()), false).Result);
+                dbSet.Object.AsQueryable().ByValueAsync(FakeData.Email(), false).Result);
             Assert.NotNull(exception);
             exception.Message.IndexOf("Sequence contains no matching element",StringComparison.CurrentCulture)
                 .ShouldEqual(0);
@@ -107,12 +107,12 @@ namespace Tripod.Domain.Security
         {
             var data = new[]
             {
-                new EmailAddress { Value = string.Format("{0}@domain.tld", Guid.NewGuid()), },
-                new EmailAddress { Value = string.Format("{0}@domain.tld", Guid.NewGuid()), },
-                new EmailAddress { Value = string.Format("{0}@domain.tld", Guid.NewGuid()), },
+                new EmailAddress { Value = FakeData.Email(), },
+                new EmailAddress { Value = FakeData.Email(), },
+                new EmailAddress { Value = FakeData.Email(), },
             };
             var dbSet = new Mock<DbSet<EmailAddress>>(MockBehavior.Strict).SetupDataAsync(data.AsQueryable());
-            dbSet.Object.AsEnumerable().ByValueAsync(string.Format("{0}@domain.tld", Guid.NewGuid()))
+            dbSet.Object.AsEnumerable().ByValueAsync(FakeData.Email())
                 .Result.ShouldBeNull();
         }
 
@@ -121,14 +121,14 @@ namespace Tripod.Domain.Security
         {
             var data = new[]
             {
-                new EmailAddress { Value = string.Format("{0}@domain.tld", Guid.NewGuid()), },
-                new EmailAddress { Value = string.Format("{0}@domain.tld", Guid.NewGuid()), },
-                new EmailAddress { Value = string.Format("{0}@domain.tld", Guid.NewGuid()), },
+                new EmailAddress { Value = FakeData.Email(), },
+                new EmailAddress { Value = FakeData.Email(), },
+                new EmailAddress { Value = FakeData.Email(), },
             };
             var dbSet = new Mock<DbSet<EmailAddress>>(MockBehavior.Strict).SetupDataAsync(data.AsQueryable());
             dbSet.Object.AsEnumerable().ByValueAsync(data[0].Value, false).Result.ShouldNotBeNull();
             var exception = Assert.Throws<InvalidOperationException>(() =>
-                dbSet.Object.AsEnumerable().ByValueAsync(string.Format("{0}@domain.tld", Guid.NewGuid()), false).Result);
+                dbSet.Object.AsEnumerable().ByValueAsync(FakeData.Email(), false).Result);
             Assert.NotNull(exception);
             exception.Message.IndexOf("Sequence contains no matching element", StringComparison.CurrentCulture)
                 .ShouldEqual(0);
@@ -145,32 +145,32 @@ namespace Tripod.Domain.Security
             {
                 new EmailAddress
                 {
-                    Value = string.Format("{0}@domain.tld", Guid.NewGuid()),
+                    Value = FakeData.Email(),
                     UserId = new Random().Next(int.MaxValue - 10000, int.MaxValue),
                 },
                 new EmailAddress
                 {
-                    Value = string.Format("{0}@domain.tld", Guid.NewGuid()),
+                    Value = FakeData.Email(),
                     UserId = userId,
                 },
                 new EmailAddress
                 {
-                    Value = string.Format("{0}@domain.tld", Guid.NewGuid()),
+                    Value = FakeData.Email(),
                     UserId = userId,
                 },
                 new EmailAddress
                 {
-                    Value = string.Format("{0}@domain.tld", Guid.NewGuid()),
+                    Value = FakeData.Email(),
                     UserId = new Random().Next(int.MaxValue - 10000, int.MaxValue),
                 },
                 new EmailAddress
                 {
-                    Value = string.Format("{0}@domain.tld", Guid.NewGuid()),
+                    Value = FakeData.Email(),
                     UserId = new Random().Next(int.MaxValue - 10000, int.MaxValue),
                 },
                 new EmailAddress
                 {
-                    Value = string.Format("{0}@domain.tld", Guid.NewGuid()),
+                    Value = FakeData.Email(),
                     UserId = userId,
                 },
             };
@@ -188,32 +188,32 @@ namespace Tripod.Domain.Security
             {
                 new EmailAddress
                 {
-                    Value = string.Format("{0}@domain.tld", Guid.NewGuid()),
+                    Value = FakeData.Email(),
                     UserId = new Random().Next(int.MaxValue - 10000, int.MaxValue),
                 },
                 new EmailAddress
                 {
-                    Value = string.Format("{0}@domain.tld", Guid.NewGuid()),
+                    Value = FakeData.Email(),
                     UserId = userId,
                 },
                 new EmailAddress
                 {
-                    Value = string.Format("{0}@domain.tld", Guid.NewGuid()),
+                    Value = FakeData.Email(),
                     UserId = userId,
                 },
                 new EmailAddress
                 {
-                    Value = string.Format("{0}@domain.tld", Guid.NewGuid()),
+                    Value = FakeData.Email(),
                     UserId = new Random().Next(int.MaxValue - 10000, int.MaxValue),
                 },
                 new EmailAddress
                 {
-                    Value = string.Format("{0}@domain.tld", Guid.NewGuid()),
+                    Value = FakeData.Email(),
                     UserId = new Random().Next(int.MaxValue - 10000, int.MaxValue),
                 },
                 new EmailAddress
                 {
-                    Value = string.Format("{0}@domain.tld", Guid.NewGuid()),
+                    Value = FakeData.Email(),
                     UserId = userId,
                 },
             };

@@ -12,7 +12,7 @@ namespace Tripod.Domain.Security
         [Fact]
         public void Query_Ctor_SetsNameOrEmailProperty()
         {
-            var nameOrEmail = string.Format("{0}@domain.tld", Guid.NewGuid());
+            var nameOrEmail = FakeData.Email();
             var query = new UserByNameOrVerifiedEmail(nameOrEmail);
             query.NameOrEmail.ShouldEqual(nameOrEmail);
         }
@@ -20,7 +20,7 @@ namespace Tripod.Domain.Security
         [Fact]
         public void Handler_ReturnsNullUser_WhenNotFound()
         {
-            var nameOrEmail = string.Format("{0}@domain.tld", Guid.NewGuid());
+            var nameOrEmail = FakeData.Email();
             var query = new UserByNameOrVerifiedEmail(nameOrEmail);
             var queries = new Mock<IProcessQueries>(MockBehavior.Strict);
             Expression<Func<UserBy, bool>> expectedUserQuery =
@@ -43,7 +43,7 @@ namespace Tripod.Domain.Security
         [Fact]
         public void Handler_ReturnsNullUser_WhenFound_ByUnverifiedEmail()
         {
-            var nameOrEmail = string.Format("{0}@domain.tld", Guid.NewGuid());
+            var nameOrEmail = FakeData.Email();
             var query = new UserByNameOrVerifiedEmail(nameOrEmail);
             var queries = new Mock<IProcessQueries>(MockBehavior.Strict);
             Expression<Func<UserBy, bool>> expectedUserQuery =
@@ -74,7 +74,7 @@ namespace Tripod.Domain.Security
         [Fact]
         public void Handler_ReturnsNonNullUser_WhenFound_ByUserName()
         {
-            var nameOrEmail = string.Format("{0}@domain.tld", Guid.NewGuid());
+            var nameOrEmail = FakeData.Email();
             var query = new UserByNameOrVerifiedEmail(nameOrEmail);
             var queries = new Mock<IProcessQueries>(MockBehavior.Strict);
             var user = new User { Name = nameOrEmail, };
@@ -97,7 +97,7 @@ namespace Tripod.Domain.Security
         [Fact]
         public void Handler_ReturnsNonNullUser_WhenFound_ByVerifiedEmail()
         {
-            var nameOrEmail = string.Format("{0}@domain.tld", Guid.NewGuid());
+            var nameOrEmail = FakeData.Email();
             var query = new UserByNameOrVerifiedEmail(nameOrEmail);
             var queries = new Mock<IProcessQueries>(MockBehavior.Strict);
             Expression<Func<UserBy, bool>> expectedUserQuery =
