@@ -36,8 +36,8 @@ namespace Tripod.Domain.Security
         [Fact]
         public void IsInvalid_WhenEmailVerificationTokenIsValid_ReturnsFalse()
         {
-            string token = Guid.NewGuid().ToString();
-            string ticket = Guid.NewGuid().ToString();
+            string token = FakeData.String();
+            string ticket = FakeData.String();
             var queries = new Mock<IProcessQueries>(MockBehavior.Strict);
             var command = new FakeMustHaveValidVerifyEmailTokenCommand
             {
@@ -76,8 +76,8 @@ namespace Tripod.Domain.Security
         [Fact]
         public void IsInvalid_WhenCommandToken_DoesNotEqualEntityToken()
         {
-            string token = Guid.NewGuid().ToString().ToUpper();
-            string ticket = Guid.NewGuid().ToString();
+            string token = FakeData.String().ToUpper();
+            string ticket = FakeData.String();
             var queries = new Mock<IProcessQueries>(MockBehavior.Strict);
             var command = new FakeMustHaveValidVerifyEmailTokenCommand
             {
@@ -119,7 +119,7 @@ namespace Tripod.Domain.Security
         [InlineData("\t")]
         public void IsInvalid_WhenCommandToken_IsEmpty(string token)
         {
-            string ticket = Guid.NewGuid().ToString();
+            string ticket = FakeData.String();
             var queries = new Mock<IProcessQueries>(MockBehavior.Strict);
             var command = new FakeMustHaveValidVerifyEmailTokenCommand
             {
@@ -161,7 +161,7 @@ namespace Tripod.Domain.Security
         [InlineData("\t")]
         public void IsValid_WhenTicket_IsEmpty(string ticket)
         {
-            var token = Guid.NewGuid().ToString();
+            var token = FakeData.String();
             var queries = new Mock<IProcessQueries>(MockBehavior.Strict);
             var command = new FakeMustHaveValidVerifyEmailTokenCommand
             {
@@ -181,8 +181,8 @@ namespace Tripod.Domain.Security
         [Fact]
         public void IsValid_WhenEmailVerificationByTicket_IsNotFound()
         {
-            var token = Guid.NewGuid().ToString();
-            var ticket = Guid.NewGuid().ToString();
+            var token = FakeData.String();
+            var ticket = FakeData.String();
             var queries = new Mock<IProcessQueries>(MockBehavior.Strict);
             var command = new FakeMustHaveValidVerifyEmailTokenCommand
             {
@@ -204,8 +204,8 @@ namespace Tripod.Domain.Security
         [Fact]
         public void IsValid_WhenEmailVerificationByTicketIsFound_AndTokenIsValid_AndTokensAreEqual_AndTokenIsNotEmpty()
         {
-            string token = Guid.NewGuid().ToString();
-            string ticket = Guid.NewGuid().ToString();
+            string token = FakeData.String();
+            string ticket = FakeData.String();
             var queries = new Mock<IProcessQueries>(MockBehavior.Strict);
             var command = new FakeMustHaveValidVerifyEmailTokenCommand
             {

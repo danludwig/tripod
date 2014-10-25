@@ -25,8 +25,8 @@ namespace Tripod.Domain.Security
         [InlineData(false)]
         public void IsInvalid_WhenPasswords_DoNotMatch(bool useMatchLabel)
         {
-            string passwordA = Guid.NewGuid().ToString();
-            string passwordB = Guid.NewGuid().ToString();
+            string passwordA = FakeData.String();
+            string passwordB = FakeData.String();
             var command = new FakeMustEqualPasswordCommand
             {
                 PasswordA = passwordA,
@@ -53,7 +53,7 @@ namespace Tripod.Domain.Security
         [Fact]
         public void IsValid_WhenPasswords_Match()
         {
-            string passwordA = Guid.NewGuid().ToString();
+            string passwordA = FakeData.String();
             string passwordB = passwordA;
             var command = new FakeMustEqualPasswordCommand
             {

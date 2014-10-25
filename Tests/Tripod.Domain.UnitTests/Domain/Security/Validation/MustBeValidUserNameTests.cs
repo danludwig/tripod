@@ -67,9 +67,9 @@ namespace Tripod.Domain.Security
         [Fact]
         public void IsInvalid_WhenUserName_IsGreaterThan_MaxLength()
         {
-            var userName = Guid.NewGuid().ToString();
+            var userName = FakeData.String();
             while (userName.Length < User.Constraints.NameMaxLength)
-                userName += Guid.NewGuid().ToString();
+                userName += FakeData.String();
             var command = new FakeMustBeValidUserNameCommand
             {
                 UserName = userName,

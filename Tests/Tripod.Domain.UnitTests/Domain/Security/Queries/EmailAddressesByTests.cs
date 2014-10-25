@@ -53,13 +53,15 @@ namespace Tripod.Domain.Security
         public void Handler_ReturnsNoEmailAddresses_WhenFound_ByUserId_ButIsVerifiedDoesNotMatch(bool isVerified)
         {
             var userId = FakeData.Id();
+            var otherUserId1 = FakeData.Id(userId);
+            var otherUserId2 = FakeData.Id(userId, otherUserId1);
             var data = new[]
             {
-                new EmailAddress { UserId = userId - 2, IsPrimary = true, },
-                new EmailAddress { UserId = userId - 2, },
-                new EmailAddress { UserId = userId - 2, },
-                new EmailAddress { UserId = userId - 1, IsPrimary = true, },
-                new EmailAddress { UserId = userId - 1, },
+                new EmailAddress { UserId = otherUserId1, IsPrimary = true, },
+                new EmailAddress { UserId = otherUserId1, },
+                new EmailAddress { UserId = otherUserId1, },
+                new EmailAddress { UserId = otherUserId2, IsPrimary = true, },
+                new EmailAddress { UserId = otherUserId2, },
                 new EmailAddress { UserId = userId, IsVerified = !isVerified, },
             }.AsQueryable();
             var query = new EmailAddressesBy(userId)

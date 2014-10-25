@@ -17,11 +17,11 @@ namespace Tripod.Domain.Security
         {
             var data = new[]
             {
-                new User { Name = Guid.NewGuid().ToString() },
-                new User { Name = Guid.NewGuid().ToString() },
-                new User { Name = Guid.NewGuid().ToString() },
+                new User { Name = FakeData.String() },
+                new User { Name = FakeData.String() },
+                new User { Name = FakeData.String() },
             };
-            data.AsQueryable().ByName(Guid.NewGuid().ToString()).ShouldBeNull();
+            data.AsQueryable().ByName(FakeData.String()).ShouldBeNull();
         }
 
         [Fact]
@@ -29,13 +29,13 @@ namespace Tripod.Domain.Security
         {
             var data = new[]
             {
-                new User { Name = Guid.NewGuid().ToString() },
-                new User { Name = Guid.NewGuid().ToString() },
-                new User { Name = Guid.NewGuid().ToString() },
+                new User { Name = FakeData.String() },
+                new User { Name = FakeData.String() },
+                new User { Name = FakeData.String() },
             };
             data.AsQueryable().ByName(data[0].Name, false).ShouldNotBeNull();
             var exception = Assert.Throws<InvalidOperationException>(() =>
-                data.AsQueryable().ByName(Guid.NewGuid().ToString(), false));
+                data.AsQueryable().ByName(FakeData.String(), false));
             Assert.NotNull(exception);
             exception.Message.IndexOf("Sequence contains no matching element", StringComparison.CurrentCulture)
                 .ShouldEqual(0);
@@ -46,11 +46,11 @@ namespace Tripod.Domain.Security
         {
             var data = new[]
             {
-                new User { Name = Guid.NewGuid().ToString() },
-                new User { Name = Guid.NewGuid().ToString() },
-                new User { Name = Guid.NewGuid().ToString() },
+                new User { Name = FakeData.String() },
+                new User { Name = FakeData.String() },
+                new User { Name = FakeData.String() },
             };
-            data.AsEnumerable().ByName(Guid.NewGuid().ToString()).ShouldBeNull();
+            data.AsEnumerable().ByName(FakeData.String()).ShouldBeNull();
         }
 
         [Fact]
@@ -58,13 +58,13 @@ namespace Tripod.Domain.Security
         {
             var data = new[]
             {
-                new User { Name = Guid.NewGuid().ToString() },
-                new User { Name = Guid.NewGuid().ToString() },
-                new User { Name = Guid.NewGuid().ToString() },
+                new User { Name = FakeData.String() },
+                new User { Name = FakeData.String() },
+                new User { Name = FakeData.String() },
             };
             data.AsEnumerable().ByName(data[0].Name, false).ShouldNotBeNull();
             var exception = Assert.Throws<InvalidOperationException>(() =>
-                data.AsEnumerable().ByName(Guid.NewGuid().ToString(), false));
+                data.AsEnumerable().ByName(FakeData.String(), false));
             Assert.NotNull(exception);
             exception.Message.IndexOf("Sequence contains no matching element", StringComparison.CurrentCulture)
                 .ShouldEqual(0);
@@ -75,12 +75,12 @@ namespace Tripod.Domain.Security
         {
             var data = new[]
             {
-                new User { Name = Guid.NewGuid().ToString() },
-                new User { Name = Guid.NewGuid().ToString() },
-                new User { Name = Guid.NewGuid().ToString() },
+                new User { Name = FakeData.String() },
+                new User { Name = FakeData.String() },
+                new User { Name = FakeData.String() },
             };
             var dbSet = new Mock<DbSet<User>>(MockBehavior.Strict).SetupDataAsync(data.AsQueryable());
-            dbSet.Object.AsQueryable().ByNameAsync(Guid.NewGuid().ToString()).Result.ShouldBeNull();
+            dbSet.Object.AsQueryable().ByNameAsync(FakeData.String()).Result.ShouldBeNull();
         }
 
         [Fact]
@@ -88,15 +88,15 @@ namespace Tripod.Domain.Security
         {
             var data = new[]
             {
-                new User { Name = Guid.NewGuid().ToString() },
-                new User { Name = Guid.NewGuid().ToString() },
-                new User { Name = Guid.NewGuid().ToString() },
+                new User { Name = FakeData.String() },
+                new User { Name = FakeData.String() },
+                new User { Name = FakeData.String() },
             };
             var dbSet = new Mock<DbSet<User>>(MockBehavior.Strict).SetupDataAsync(data.AsQueryable());
             dbSet.Object.AsQueryable().ByNameAsync(data[0].Name, false).Result.ShouldNotBeNull();
 
             var exception = Assert.Throws<InvalidOperationException>(() =>
-                dbSet.Object.AsQueryable().ByNameAsync(Guid.NewGuid().ToString(), false).Result);
+                dbSet.Object.AsQueryable().ByNameAsync(FakeData.String(), false).Result);
             Assert.NotNull(exception);
             exception.Message.IndexOf("Sequence contains no matching element", StringComparison.CurrentCulture)
                 .ShouldEqual(0);
@@ -107,12 +107,12 @@ namespace Tripod.Domain.Security
         {
             var data = new[]
             {
-                new User { Name = Guid.NewGuid().ToString() },
-                new User { Name = Guid.NewGuid().ToString() },
-                new User { Name = Guid.NewGuid().ToString() },
+                new User { Name = FakeData.String() },
+                new User { Name = FakeData.String() },
+                new User { Name = FakeData.String() },
             };
             var dbSet = new Mock<DbSet<User>>(MockBehavior.Strict).SetupDataAsync(data.AsQueryable());
-            dbSet.Object.AsEnumerable().ByNameAsync(Guid.NewGuid().ToString()).Result.ShouldBeNull();
+            dbSet.Object.AsEnumerable().ByNameAsync(FakeData.String()).Result.ShouldBeNull();
         }
 
         [Fact]
@@ -120,14 +120,14 @@ namespace Tripod.Domain.Security
         {
             var data = new[]
             {
-                new User { Name = Guid.NewGuid().ToString() },
-                new User { Name = Guid.NewGuid().ToString() },
-                new User { Name = Guid.NewGuid().ToString() },
+                new User { Name = FakeData.String() },
+                new User { Name = FakeData.String() },
+                new User { Name = FakeData.String() },
             };
             var dbSet = new Mock<DbSet<User>>(MockBehavior.Strict).SetupDataAsync(data.AsQueryable());
             dbSet.Object.AsEnumerable().ByNameAsync(data[0].Name, false).Result.ShouldNotBeNull();
             var exception = Assert.Throws<InvalidOperationException>(() =>
-                dbSet.Object.AsEnumerable().ByNameAsync(Guid.NewGuid().ToString(), false).Result);
+                dbSet.Object.AsEnumerable().ByNameAsync(FakeData.String(), false).Result);
             Assert.NotNull(exception);
             exception.Message.IndexOf("Sequence contains no matching element", StringComparison.CurrentCulture)
                 .ShouldEqual(0);
@@ -141,21 +141,21 @@ namespace Tripod.Domain.Security
         {
             var data = new[]
             {
-                new User{ Name = Guid.NewGuid().ToString(), },
-                new User{ Name = Guid.NewGuid().ToString(), },
-                new User{ Name = Guid.NewGuid().ToString(), },
+                new User{ Name = FakeData.String(), },
+                new User{ Name = FakeData.String(), },
+                new User{ Name = FakeData.String(), },
             };
             foreach (var user in data)
             {
                 for (var i = 0; i < 3; i++)
                 {
-                    string loginProvider = Guid.NewGuid().ToString();
-                    string providerKey = Guid.NewGuid().ToString();
+                    string loginProvider = FakeData.String();
+                    string providerKey = FakeData.String();
                     var remoteMembership = new ProxiedRemoteMembership(loginProvider, providerKey);
                     user.RemoteMemberships.Add(remoteMembership);
                 }
             }
-            var userLoginInfo = new UserLoginInfo(Guid.NewGuid().ToString(), Guid.NewGuid().ToString());
+            var userLoginInfo = new UserLoginInfo(FakeData.String(), FakeData.String());
             data.AsQueryable().ByUserLoginInfo(userLoginInfo).ShouldBeNull();
         }
 
@@ -164,16 +164,16 @@ namespace Tripod.Domain.Security
         {
             var data = new[]
             {
-                new User{ Name = Guid.NewGuid().ToString(), },
-                new User{ Name = Guid.NewGuid().ToString(), },
-                new User{ Name = Guid.NewGuid().ToString(), },
+                new User{ Name = FakeData.String(), },
+                new User{ Name = FakeData.String(), },
+                new User{ Name = FakeData.String(), },
             };
             foreach (var user in data)
             {
                 for (var i = 0; i < 3; i++)
                 {
-                    string loginProvider = Guid.NewGuid().ToString();
-                    string providerKey = Guid.NewGuid().ToString();
+                    string loginProvider = FakeData.String();
+                    string providerKey = FakeData.String();
                     var remoteMembership = new ProxiedRemoteMembership(loginProvider, providerKey);
                     user.RemoteMemberships.Add(remoteMembership);
                 }
@@ -183,7 +183,7 @@ namespace Tripod.Domain.Security
                 existingRemoteMembership.LoginProvider, existingRemoteMembership.ProviderKey);
             data.AsQueryable().ByUserLoginInfo(userLoginInfo, false).ShouldNotBeNull();
 
-            userLoginInfo = new UserLoginInfo(Guid.NewGuid().ToString(), Guid.NewGuid().ToString());
+            userLoginInfo = new UserLoginInfo(FakeData.String(), FakeData.String());
             var exception = Assert.Throws<InvalidOperationException>(() =>
                 data.AsQueryable().ByUserLoginInfo(userLoginInfo, false));
             Assert.NotNull(exception);
@@ -196,21 +196,21 @@ namespace Tripod.Domain.Security
         {
             var data = new[]
             {
-                new User{ Name = Guid.NewGuid().ToString(), },
-                new User{ Name = Guid.NewGuid().ToString(), },
-                new User{ Name = Guid.NewGuid().ToString(), },
+                new User{ Name = FakeData.String(), },
+                new User{ Name = FakeData.String(), },
+                new User{ Name = FakeData.String(), },
             };
             foreach (var user in data)
             {
                 for (var i = 0; i < 3; i++)
                 {
-                    string loginProvider = Guid.NewGuid().ToString();
-                    string providerKey = Guid.NewGuid().ToString();
+                    string loginProvider = FakeData.String();
+                    string providerKey = FakeData.String();
                     var remoteMembership = new ProxiedRemoteMembership(loginProvider, providerKey);
                     user.RemoteMemberships.Add(remoteMembership);
                 }
             }
-            var userLoginInfo = new UserLoginInfo(Guid.NewGuid().ToString(), Guid.NewGuid().ToString());
+            var userLoginInfo = new UserLoginInfo(FakeData.String(), FakeData.String());
             data.AsEnumerable().ByUserLoginInfo(userLoginInfo).ShouldBeNull();
         }
 
@@ -219,16 +219,16 @@ namespace Tripod.Domain.Security
         {
             var data = new[]
             {
-                new User{ Name = Guid.NewGuid().ToString(), },
-                new User{ Name = Guid.NewGuid().ToString(), },
-                new User{ Name = Guid.NewGuid().ToString(), },
+                new User{ Name = FakeData.String(), },
+                new User{ Name = FakeData.String(), },
+                new User{ Name = FakeData.String(), },
             };
             foreach (var user in data)
             {
                 for (var i = 0; i < 3; i++)
                 {
-                    string loginProvider = Guid.NewGuid().ToString();
-                    string providerKey = Guid.NewGuid().ToString();
+                    string loginProvider = FakeData.String();
+                    string providerKey = FakeData.String();
                     var remoteMembership = new ProxiedRemoteMembership(loginProvider, providerKey);
                     user.RemoteMemberships.Add(remoteMembership);
                 }
@@ -238,7 +238,7 @@ namespace Tripod.Domain.Security
                 existingRemoteMembership.LoginProvider, existingRemoteMembership.ProviderKey);
             data.AsEnumerable().ByUserLoginInfo(userLoginInfo, false).ShouldNotBeNull();
 
-            userLoginInfo = new UserLoginInfo(Guid.NewGuid().ToString(), Guid.NewGuid().ToString());
+            userLoginInfo = new UserLoginInfo(FakeData.String(), FakeData.String());
             var exception = Assert.Throws<InvalidOperationException>(() =>
                 data.AsEnumerable().ByUserLoginInfo(userLoginInfo, false));
             Assert.NotNull(exception);
@@ -251,22 +251,22 @@ namespace Tripod.Domain.Security
         {
             var data = new[]
             {
-                new User{ Name = Guid.NewGuid().ToString(), },
-                new User{ Name = Guid.NewGuid().ToString(), },
-                new User{ Name = Guid.NewGuid().ToString(), },
+                new User{ Name = FakeData.String(), },
+                new User{ Name = FakeData.String(), },
+                new User{ Name = FakeData.String(), },
             };
             foreach (var user in data)
             {
                 for (var i = 0; i < 3; i++)
                 {
-                    string loginProvider = Guid.NewGuid().ToString();
-                    string providerKey = Guid.NewGuid().ToString();
+                    string loginProvider = FakeData.String();
+                    string providerKey = FakeData.String();
                     var remoteMembership = new ProxiedRemoteMembership(loginProvider, providerKey);
                     user.RemoteMemberships.Add(remoteMembership);
                 }
             }
             var dbSet = new Mock<DbSet<User>>(MockBehavior.Strict).SetupDataAsync(data.AsQueryable());
-            var userLoginInfo = new UserLoginInfo(Guid.NewGuid().ToString(), Guid.NewGuid().ToString());
+            var userLoginInfo = new UserLoginInfo(FakeData.String(), FakeData.String());
             dbSet.Object.AsQueryable().ByUserLoginInfoAsync(userLoginInfo).Result.ShouldBeNull();
         }
 
@@ -275,16 +275,16 @@ namespace Tripod.Domain.Security
         {
             var data = new[]
             {
-                new User{ Name = Guid.NewGuid().ToString(), },
-                new User{ Name = Guid.NewGuid().ToString(), },
-                new User{ Name = Guid.NewGuid().ToString(), },
+                new User{ Name = FakeData.String(), },
+                new User{ Name = FakeData.String(), },
+                new User{ Name = FakeData.String(), },
             };
             foreach (var user in data)
             {
                 for (var i = 0; i < 3; i++)
                 {
-                    string loginProvider = Guid.NewGuid().ToString();
-                    string providerKey = Guid.NewGuid().ToString();
+                    string loginProvider = FakeData.String();
+                    string providerKey = FakeData.String();
                     var remoteMembership = new ProxiedRemoteMembership(loginProvider, providerKey);
                     user.RemoteMemberships.Add(remoteMembership);
                 }
@@ -295,7 +295,7 @@ namespace Tripod.Domain.Security
                 existingRemoteMembership.LoginProvider, existingRemoteMembership.ProviderKey);
             dbSet.Object.AsQueryable().ByUserLoginInfoAsync(userLoginInfo, false).Result.ShouldNotBeNull();
 
-            userLoginInfo = new UserLoginInfo(Guid.NewGuid().ToString(), Guid.NewGuid().ToString());
+            userLoginInfo = new UserLoginInfo(FakeData.String(), FakeData.String());
             var exception = Assert.Throws<InvalidOperationException>(() =>
                 dbSet.Object.AsQueryable().ByUserLoginInfoAsync(userLoginInfo, false).Result);
             Assert.NotNull(exception);
@@ -308,22 +308,22 @@ namespace Tripod.Domain.Security
         {
             var data = new[]
             {
-                new User{ Name = Guid.NewGuid().ToString(), },
-                new User{ Name = Guid.NewGuid().ToString(), },
-                new User{ Name = Guid.NewGuid().ToString(), },
+                new User{ Name = FakeData.String(), },
+                new User{ Name = FakeData.String(), },
+                new User{ Name = FakeData.String(), },
             };
             foreach (var user in data)
             {
                 for (var i = 0; i < 3; i++)
                 {
-                    string loginProvider = Guid.NewGuid().ToString();
-                    string providerKey = Guid.NewGuid().ToString();
+                    string loginProvider = FakeData.String();
+                    string providerKey = FakeData.String();
                     var remoteMembership = new ProxiedRemoteMembership(loginProvider, providerKey);
                     user.RemoteMemberships.Add(remoteMembership);
                 }
             }
             var dbSet = new Mock<DbSet<User>>(MockBehavior.Strict).SetupDataAsync(data.AsQueryable());
-            var userLoginInfo = new UserLoginInfo(Guid.NewGuid().ToString(), Guid.NewGuid().ToString());
+            var userLoginInfo = new UserLoginInfo(FakeData.String(), FakeData.String());
             dbSet.Object.AsEnumerable().ByUserLoginInfoAsync(userLoginInfo).Result.ShouldBeNull();
         }
 
@@ -332,16 +332,16 @@ namespace Tripod.Domain.Security
         {
             var data = new[]
             {
-                new User{ Name = Guid.NewGuid().ToString(), },
-                new User{ Name = Guid.NewGuid().ToString(), },
-                new User{ Name = Guid.NewGuid().ToString(), },
+                new User{ Name = FakeData.String(), },
+                new User{ Name = FakeData.String(), },
+                new User{ Name = FakeData.String(), },
             };
             foreach (var user in data)
             {
                 for (var i = 0; i < 3; i++)
                 {
-                    string loginProvider = Guid.NewGuid().ToString();
-                    string providerKey = Guid.NewGuid().ToString();
+                    string loginProvider = FakeData.String();
+                    string providerKey = FakeData.String();
                     var remoteMembership = new ProxiedRemoteMembership(loginProvider, providerKey);
                     user.RemoteMemberships.Add(remoteMembership);
                 }
@@ -352,7 +352,7 @@ namespace Tripod.Domain.Security
                 existingRemoteMembership.LoginProvider, existingRemoteMembership.ProviderKey);
             dbSet.Object.AsEnumerable().ByUserLoginInfoAsync(userLoginInfo, false).Result.ShouldNotBeNull();
 
-            userLoginInfo = new UserLoginInfo(Guid.NewGuid().ToString(), Guid.NewGuid().ToString());
+            userLoginInfo = new UserLoginInfo(FakeData.String(), FakeData.String());
             var exception = Assert.Throws<InvalidOperationException>(() =>
                 dbSet.Object.AsEnumerable().ByUserLoginInfoAsync(userLoginInfo, false).Result);
             Assert.NotNull(exception);

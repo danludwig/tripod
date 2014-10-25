@@ -17,8 +17,8 @@ namespace Tripod.Domain.Security
         [InlineData(EmailVerificationPurpose.ForgotPassword)]
         public void Query_Ctor_SetsProperties(EmailVerificationPurpose purpose)
         {
-            var token = Guid.NewGuid().ToString();
-            var ticket = Guid.NewGuid().ToString();
+            var token = FakeData.String();
+            var ticket = FakeData.String();
             var query = new EmailVerificationTokenIsValid(token, ticket, purpose);
             query.Token.ShouldEqual(token);
             query.Ticket.ShouldEqual(ticket);
@@ -32,8 +32,8 @@ namespace Tripod.Domain.Security
         [InlineData(EmailVerificationPurpose.ForgotPassword)]
         public void Handler_ReturnsFalse_WhenTokenIsInvalid(EmailVerificationPurpose purpose)
         {
-            string token = Guid.NewGuid().ToString();
-            string ticket = Guid.NewGuid().ToString();
+            string token = FakeData.String();
+            string ticket = FakeData.String();
             var command = new EmailVerificationTokenIsValid(token, ticket, purpose);
             var userStore = new Mock<IUserStore<UserTicket, string>>(MockBehavior.Strict);
             var userManager = new UserManager<UserTicket, string>(userStore.Object);
@@ -59,7 +59,7 @@ namespace Tripod.Domain.Security
         [InlineData(EmailVerificationPurpose.ForgotPassword, " \t\t\t  ")]
         public void Handler_ReturnsFalse_WhenTokenIsEmpty(EmailVerificationPurpose purpose, string token)
         {
-            string ticket = Guid.NewGuid().ToString();
+            string ticket = FakeData.String();
             var command = new EmailVerificationTokenIsValid(token, ticket, purpose);
             var userStore = new Mock<IUserStore<UserTicket, string>>(MockBehavior.Strict);
             var userManager = new UserManager<UserTicket, string>(userStore.Object);
@@ -85,7 +85,7 @@ namespace Tripod.Domain.Security
         [InlineData(EmailVerificationPurpose.ForgotPassword, " \t\t\t  ")]
         public void Handler_ReturnsFalse_WhenTicketIsEmpty(EmailVerificationPurpose purpose, string ticket)
         {
-            string token = Guid.NewGuid().ToString();
+            string token = FakeData.String();
             var command = new EmailVerificationTokenIsValid(token, ticket, purpose);
             var userStore = new Mock<IUserStore<UserTicket, string>>(MockBehavior.Strict);
             var userManager = new UserManager<UserTicket, string>(userStore.Object);
@@ -111,8 +111,8 @@ namespace Tripod.Domain.Security
         [InlineData(EmailVerificationPurpose.ForgotPassword)]
         public void Handler_ReturnsTrue_WhenTokenIsValid(EmailVerificationPurpose purpose)
         {
-            string token = Guid.NewGuid().ToString();
-            string ticket = Guid.NewGuid().ToString();
+            string token = FakeData.String();
+            string ticket = FakeData.String();
             var command = new EmailVerificationTokenIsValid(token, ticket, purpose);
             var userStore = new Mock<IUserStore<UserTicket, string>>(MockBehavior.Strict);
             var userManager = new UserManager<UserTicket, string>(userStore.Object);

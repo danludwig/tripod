@@ -31,9 +31,9 @@ namespace Tripod.Domain.Security
         [Fact]
         public void Handler_ReturnsRemoteMembershipTicket_UsingAuthenticatorMethod()
         {
-            var userName = Guid.NewGuid().ToString();
-            var loginProvider = Guid.NewGuid().ToString();
-            var providerKey = Guid.NewGuid().ToString();
+            var userName = FakeData.String();
+            var loginProvider = FakeData.String();
+            var providerKey = FakeData.String();
             var principal = new Mock<IPrincipal>(MockBehavior.Strict);
             var remoteMembershipTicket = new RemoteMembershipTicket
             {

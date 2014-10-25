@@ -44,7 +44,7 @@ namespace Tripod.Domain.Security
         public void IsInvalid_WhenEmailVerificationByTicket_IsNotAllowedPurpose(
             EmailVerificationPurpose entityPurpose, EmailVerificationPurpose allowedPurpose1, EmailVerificationPurpose? allowedPurpose2)
         {
-            var ticket = Guid.NewGuid().ToString();
+            var ticket = FakeData.String();
             var queries = new Mock<IProcessQueries>(MockBehavior.Strict);
             var command = new FakeMustBePurposedVerifyEmailTicketCommand
             {
@@ -96,7 +96,7 @@ namespace Tripod.Domain.Security
         [Fact]
         public void IsValid_WhenEmailVerificationByTicket_DoesNotExist()
         {
-            var ticket = Guid.NewGuid().ToString();
+            var ticket = FakeData.String();
             var queries = new Mock<IProcessQueries>(MockBehavior.Strict);
             var command = new FakeMustBePurposedVerifyEmailTicketCommand
             {
@@ -125,7 +125,7 @@ namespace Tripod.Domain.Security
         public void IsValid_WhenEmailVerificationByTicket_IsAllowedPurpose(
             EmailVerificationPurpose entityPurpose, EmailVerificationPurpose allowedPurpose1, EmailVerificationPurpose? allowedPurpose2)
         {
-            var ticket = Guid.NewGuid().ToString();
+            var ticket = FakeData.String();
             var queries = new Mock<IProcessQueries>(MockBehavior.Strict);
             var command = new FakeMustBePurposedVerifyEmailTicketCommand
             {

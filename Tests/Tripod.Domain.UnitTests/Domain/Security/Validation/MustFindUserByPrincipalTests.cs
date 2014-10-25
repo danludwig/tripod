@@ -47,7 +47,7 @@ namespace Tripod.Domain.Security
         [Fact]
         public void IsInvalid_WhenPrincipal_IsNotAuthenticated()
         {
-            string userName = Guid.NewGuid().ToString();
+            string userName = FakeData.String();
             var principal = new Mock<IPrincipal>(MockBehavior.Strict);
             var identity = new Mock<IIdentity>(MockBehavior.Strict);
             identity.SetupGet(x => x.IsAuthenticated).Returns(false);
@@ -75,7 +75,7 @@ namespace Tripod.Domain.Security
         [Fact]
         public void IsInvalid_WhenUserNotFound_ByPrincipal()
         {
-            string userName = Guid.NewGuid().ToString();
+            string userName = FakeData.String();
             var principal = new Mock<IPrincipal>(MockBehavior.Strict);
             var identity = new Mock<IIdentity>(MockBehavior.Strict);
             identity.SetupGet(x => x.IsAuthenticated).Returns(true);
@@ -104,7 +104,7 @@ namespace Tripod.Domain.Security
         [Fact]
         public void IsValid_WhenUserIsFound_ByPrincipal()
         {
-            string userName = Guid.NewGuid().ToString();
+            string userName = FakeData.String();
             var principal = new Mock<IPrincipal>(MockBehavior.Strict);
             var identity = new Mock<IIdentity>(MockBehavior.Strict);
             identity.SetupGet(x => x.IsAuthenticated).Returns(true);

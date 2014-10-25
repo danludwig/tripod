@@ -44,7 +44,7 @@ namespace Tripod.Domain.Security
         public void IsInvalid_WhenEmailVerificationByTicket_HasEmailNotMatchingUserName(
             string userName, string ticketEmail)
         {
-            string ticket = Guid.NewGuid().ToString();
+            string ticket = FakeData.String();
             var queries = new Mock<IProcessQueries>(MockBehavior.Strict);
             EmailAddress emailAddress = new ProxiedEmailAddress(FakeData.Id())
             {
@@ -88,7 +88,7 @@ namespace Tripod.Domain.Security
         [InlineData("\t")]
         public void IsValid_WhenUserName_IsEmpty_WithTicket(string userName)
         {
-            string ticket = Guid.NewGuid().ToString();
+            string ticket = FakeData.String();
             var queries = new Mock<IProcessQueries>(MockBehavior.Strict);
             var command = new FakeMustNotBeUnverifiedEmailUserNameCommand
             {
@@ -113,7 +113,7 @@ namespace Tripod.Domain.Security
         [InlineData("username@domaintld")]
         public void IsValid_WhenUserName_DoesNotMatchEmailRegEx_WithTicket(string userName)
         {
-            string ticket = Guid.NewGuid().ToString();
+            string ticket = FakeData.String();
             var queries = new Mock<IProcessQueries>(MockBehavior.Strict);
             var command = new FakeMustNotBeUnverifiedEmailUserNameCommand
             {
@@ -136,7 +136,7 @@ namespace Tripod.Domain.Security
         public void IsValid_WhenEmailVerificationByTicket_IsNotFound()
         {
             string userName = FakeData.Email();
-            string ticket = Guid.NewGuid().ToString();
+            string ticket = FakeData.String();
             var queries = new Mock<IProcessQueries>(MockBehavior.Strict);
             Expression<Func<EmailVerificationBy, bool>> expectedQuery = x => x.Ticket == ticket;
             queries.Setup(x => x.Execute(It.Is(expectedQuery)))
@@ -165,7 +165,7 @@ namespace Tripod.Domain.Security
         public void IsValid_WhenEmailVerificationByTicket_HasEmailMatchingUserName_CaseInsensitively(
             string userName, string ticketEmail)
         {
-            string ticket = Guid.NewGuid().ToString();
+            string ticket = FakeData.String();
             var queries = new Mock<IProcessQueries>(MockBehavior.Strict);
             EmailAddress emailAddress = new ProxiedEmailAddress(FakeData.Id())
             {

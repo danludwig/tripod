@@ -14,7 +14,7 @@ namespace Tripod.Domain.Security
         public void Handler_ReturnsFalse_WhenNoUserExists_WithNameOrVerifiedEmail()
         {
             string nameOrVerifiedEmail = FakeData.Email();
-            string password = Guid.NewGuid().ToString();
+            string password = FakeData.String();
             var queries = new Mock<IProcessQueries>(MockBehavior.Strict);
             Expression<Func<UserByNameOrVerifiedEmail, bool>> expectedQuery =
                 x => x.NameOrEmail == nameOrVerifiedEmail;
@@ -39,7 +39,7 @@ namespace Tripod.Domain.Security
         public void Handler_ReturnsFalse_WhenUserExists_ButHasDifferentPassword()
         {
             string nameOrVerifiedEmail = FakeData.Email();
-            string password = Guid.NewGuid().ToString();
+            string password = FakeData.String();
             var user = new User { Name = nameOrVerifiedEmail, };
             var queries = new Mock<IProcessQueries>(MockBehavior.Strict);
             Expression<Func<UserByNameOrVerifiedEmail, bool>> expectedQuery =
@@ -51,7 +51,7 @@ namespace Tripod.Domain.Security
             var passwordHasher = new PasswordHasher();
             Expression<Func<User, bool>> expectedUser = x => x.Name == nameOrVerifiedEmail;
             userStore.As<IUserPasswordStore<User, int>>().Setup(x => x.GetPasswordHashAsync(It.Is(expectedUser)))
-                .Returns(Task.FromResult(passwordHasher.HashPassword(Guid.NewGuid().ToString())));
+                .Returns(Task.FromResult(passwordHasher.HashPassword(FakeData.String())));
             var userManager = new UserManager<User, int>(userStore.Object);
             var handler = new HandleIsPasswordVerifiedQuery(queries.Object, userManager);
             var query = new IsPasswordVerified
@@ -73,7 +73,7 @@ namespace Tripod.Domain.Security
         public void Handler_ReturnsTrue_WhenUserExists_AndPasswordHashesMatch()
         {
             string nameOrVerifiedEmail = FakeData.Email();
-            string password = Guid.NewGuid().ToString();
+            string password = FakeData.String();
             var user = new User { Name = nameOrVerifiedEmail, };
             var queries = new Mock<IProcessQueries>(MockBehavior.Strict);
             Expression<Func<UserByNameOrVerifiedEmail, bool>> expectedQuery =

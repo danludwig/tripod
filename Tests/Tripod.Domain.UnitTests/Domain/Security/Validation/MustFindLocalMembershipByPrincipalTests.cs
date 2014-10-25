@@ -52,7 +52,7 @@ namespace Tripod.Domain.Security
         [Fact]
         public void IsInvalid_WhenPrincipalIdentity_IsNotClaimsIdentity()
         {
-            var userName = Guid.NewGuid().ToString();
+            var userName = FakeData.String();
             var queries = new Mock<IProcessQueries>(MockBehavior.Strict);
             var principal = new Mock<IPrincipal>(MockBehavior.Strict);
             var identity = new Mock<IIdentity>(MockBehavior.Strict);
@@ -83,7 +83,7 @@ namespace Tripod.Domain.Security
         public void IsInvalid_WhenPrincipalIdentity_HasNoNameIdentifierClaim()
         {
             var userId = FakeData.Id();
-            var userName = Guid.NewGuid().ToString();
+            var userName = FakeData.String();
             var queries = new Mock<IProcessQueries>(MockBehavior.Strict);
             var principal = new Mock<IPrincipal>(MockBehavior.Strict);
             var claims = new[]
@@ -118,7 +118,7 @@ namespace Tripod.Domain.Security
         public void IsInvalid_WhenNotFound_ByPrincipal()
         {
             var userId = FakeData.Id();
-            var userName = Guid.NewGuid().ToString();
+            var userName = FakeData.String();
             var queries = new Mock<IProcessQueries>(MockBehavior.Strict);
             var principal = new Mock<IPrincipal>(MockBehavior.Strict);
             var claims = new[]
@@ -154,7 +154,7 @@ namespace Tripod.Domain.Security
         public void IsValid_WhenFound_ByPrincipal()
         {
             var userId = FakeData.Id();
-            var userName = Guid.NewGuid().ToString();
+            var userName = FakeData.String();
             var queries = new Mock<IProcessQueries>(MockBehavior.Strict);
             var principal = new Mock<IPrincipal>(MockBehavior.Strict);
             var claims = new[]

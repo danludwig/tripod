@@ -55,7 +55,7 @@ namespace Tripod
         [Fact]
         public void IsValid_WhenStringLength_IsLessThanMaxLength()
         {
-            var command = new FakeStringLengthCommand { StringProperty = Guid.NewGuid().ToString() };
+            var command = new FakeStringLengthCommand { StringProperty = FakeData.String() };
             var validator = new FakeStringMaxLengthValidator(command.StringProperty.Length + 1);
 
             var result = validator.Validate(command);

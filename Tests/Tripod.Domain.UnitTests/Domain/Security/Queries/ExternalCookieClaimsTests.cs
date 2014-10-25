@@ -23,7 +23,7 @@ namespace Tripod.Domain.Security
         [Fact]
         public void Query_Ctor_StringArg_SetsAuthenticationType_UsingArg()
         {
-            string authenticationType = Guid.NewGuid().ToString();
+            string authenticationType = FakeData.String();
             var query = new ExternalCookieClaims(authenticationType);
             query.AuthenticationType.ShouldEqual(authenticationType);
         }

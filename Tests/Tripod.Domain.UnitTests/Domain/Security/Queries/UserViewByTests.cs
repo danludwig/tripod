@@ -29,24 +29,24 @@ namespace Tripod.Domain.Security
         {
             var userId = FakeData.Id();
             var otherUserId = FakeData.Id(canNotBe: userId);
-            var user = new ProxiedUser(otherUserId) { Name = Guid.NewGuid().ToString(), };
+            var user = new ProxiedUser(otherUserId) { Name = FakeData.String(), };
             var primaryEmail = new EmailAddress
             {
                 Value = FakeData.Email(),
-                HashedValue = Guid.NewGuid().ToString(),
+                HashedValue = FakeData.String(),
                 IsPrimary = true,
                 IsVerified = true,
             };
             var secondaryEmail1 = new EmailAddress
             {
                 Value = FakeData.Email(),
-                HashedValue = Guid.NewGuid().ToString(),
+                HashedValue = FakeData.String(),
                 IsVerified = true,
             };
             var secondaryEmail2 = new EmailAddress
             {
                 Value = FakeData.Email(),
-                HashedValue = Guid.NewGuid().ToString(),
+                HashedValue = FakeData.String(),
             };
             user.EmailAddresses.Add(secondaryEmail1);
             user.EmailAddresses.Add(secondaryEmail2);
@@ -69,25 +69,25 @@ namespace Tripod.Domain.Security
         [Fact]
         public void Handler_ReturnsNonNullUserView_WhenFound_ById()
         {
-            const int userId = 7;
-            var user = new ProxiedUser(userId) { Name = Guid.NewGuid().ToString(), };
+            var userId = FakeData.Id();
+            var user = new ProxiedUser(userId) { Name = FakeData.String(), };
             var primaryEmail = new EmailAddress
             {
                 Value = FakeData.Email(),
-                HashedValue = Guid.NewGuid().ToString(),
+                HashedValue = FakeData.String(),
                 IsPrimary = true,
                 IsVerified = true,
             };
             var secondaryEmail1 = new EmailAddress
             {
                 Value = FakeData.Email(),
-                HashedValue = Guid.NewGuid().ToString(),
+                HashedValue = FakeData.String(),
                 IsVerified = true,
             };
             var secondaryEmail2 = new EmailAddress
             {
                 Value = FakeData.Email(),
-                HashedValue = Guid.NewGuid().ToString(),
+                HashedValue = FakeData.String(),
             };
             user.EmailAddresses.Add(secondaryEmail1);
             user.EmailAddresses.Add(secondaryEmail2);
@@ -117,7 +117,7 @@ namespace Tripod.Domain.Security
         [Fact]
         public void Query_StringCtor_SetsNameProperty()
         {
-            var name = Guid.NewGuid().ToString();
+            var name = FakeData.String();
             var query = new UserViewBy(name);
             query.Id.ShouldBeNull();
             query.Name.ShouldEqual(name);
@@ -128,25 +128,25 @@ namespace Tripod.Domain.Security
         public void Handler_ReturnsNullUserView_WhenNotFound_ByName()
         {
             var userId = FakeData.Id();
-            var userName = Guid.NewGuid().ToString();
-            var user = new ProxiedUser(userId) { Name = Guid.NewGuid().ToString(), };
+            var userName = FakeData.String();
+            var user = new ProxiedUser(userId) { Name = FakeData.String(), };
             var primaryEmail = new EmailAddress
             {
                 Value = FakeData.Email(),
-                HashedValue = Guid.NewGuid().ToString(),
+                HashedValue = FakeData.String(),
                 IsPrimary = true,
                 IsVerified = true,
             };
             var secondaryEmail1 = new EmailAddress
             {
                 Value = FakeData.Email(),
-                HashedValue = Guid.NewGuid().ToString(),
+                HashedValue = FakeData.String(),
                 IsVerified = true,
             };
             var secondaryEmail2 = new EmailAddress
             {
                 Value = FakeData.Email(),
-                HashedValue = Guid.NewGuid().ToString(),
+                HashedValue = FakeData.String(),
             };
             user.EmailAddresses.Add(secondaryEmail1);
             user.EmailAddresses.Add(secondaryEmail2);
@@ -170,25 +170,25 @@ namespace Tripod.Domain.Security
         public void Handler_ReturnsNonNullUserView_WhenFound_ByName()
         {
             var userId = FakeData.Id();
-            var userName = Guid.NewGuid().ToString();
+            var userName = FakeData.String();
             var user = new ProxiedUser(userId) { Name = userName, };
             var primaryEmail = new EmailAddress
             {
                 Value = FakeData.Email(),
-                HashedValue = Guid.NewGuid().ToString(),
+                HashedValue = FakeData.String(),
                 IsPrimary = true,
                 IsVerified = true,
             };
             var secondaryEmail1 = new EmailAddress
             {
                 Value = FakeData.Email(),
-                HashedValue = Guid.NewGuid().ToString(),
+                HashedValue = FakeData.String(),
                 IsVerified = true,
             };
             var secondaryEmail2 = new EmailAddress
             {
                 Value = FakeData.Email(),
-                HashedValue = Guid.NewGuid().ToString(),
+                HashedValue = FakeData.String(),
             };
             user.EmailAddresses.Add(secondaryEmail1);
             user.EmailAddresses.Add(secondaryEmail2);
@@ -229,7 +229,7 @@ namespace Tripod.Domain.Security
         public void Handler_ReturnsNullUserView_WhenPrincipalIsNull()
         {
             var userId = FakeData.Id();
-            var user = new ProxiedUser(userId) { Name = Guid.NewGuid().ToString(), };
+            var user = new ProxiedUser(userId) { Name = FakeData.String(), };
             var data = new[] { user }.AsQueryable();
             var query = new UserViewBy(null as IPrincipal);
             var dbSet = new Mock<DbSet<User>>(MockBehavior.Strict).SetupDataAsync(data);
@@ -249,7 +249,7 @@ namespace Tripod.Domain.Security
         public void Handler_ReturnsNullUserView_WhenPrincipalIdentity_IsNotAuthenticated()
         {
             var userId = FakeData.Id();
-            var user = new ProxiedUser(userId) { Name = Guid.NewGuid().ToString(), };
+            var user = new ProxiedUser(userId) { Name = FakeData.String(), };
             var data = new[] { user }.AsQueryable();
             var claims = new[]
             {
@@ -275,7 +275,7 @@ namespace Tripod.Domain.Security
         public void Handler_ReturnsNullUserView_WhenPrincipalIdentity_IsNotClaimsIdentity()
         {
             var userId = FakeData.Id();
-            var user = new ProxiedUser(userId) { Name = Guid.NewGuid().ToString(), };
+            var user = new ProxiedUser(userId) { Name = FakeData.String(), };
             var data = new[] { user }.AsQueryable();
             var identity = new GenericIdentity(user.Name, "authentication type");
             var principal = new GenericPrincipal(identity, null);
@@ -297,7 +297,7 @@ namespace Tripod.Domain.Security
         public void Handler_ReturnsNullUserView_WhenPrincipalIdentity_HasNoNameIdentifierClaim()
         {
             var userId = FakeData.Id();
-            var user = new ProxiedUser(userId) { Name = Guid.NewGuid().ToString(), };
+            var user = new ProxiedUser(userId) { Name = FakeData.String(), };
             var data = new[] { user }.AsQueryable();
             var claims = new[]
             {
@@ -324,24 +324,24 @@ namespace Tripod.Domain.Security
         {
             var userId = FakeData.Id();
             var otherUserId = FakeData.Id(canNotBe: userId);
-            var user = new ProxiedUser(otherUserId) { Name = Guid.NewGuid().ToString(), };
+            var user = new ProxiedUser(otherUserId) { Name = FakeData.String(), };
             var primaryEmail = new EmailAddress
             {
                 Value = FakeData.Email(),
-                HashedValue = Guid.NewGuid().ToString(),
+                HashedValue = FakeData.String(),
                 IsPrimary = true,
                 IsVerified = true,
             };
             var secondaryEmail1 = new EmailAddress
             {
                 Value = FakeData.Email(),
-                HashedValue = Guid.NewGuid().ToString(),
+                HashedValue = FakeData.String(),
                 IsVerified = true,
             };
             var secondaryEmail2 = new EmailAddress
             {
                 Value = FakeData.Email(),
-                HashedValue = Guid.NewGuid().ToString(),
+                HashedValue = FakeData.String(),
             };
             user.EmailAddresses.Add(secondaryEmail1);
             user.EmailAddresses.Add(secondaryEmail2);
@@ -371,24 +371,24 @@ namespace Tripod.Domain.Security
         public void Handler_ReturnsNonNullUserView_WhenFound_ByPrincipal()
         {
             var userId = FakeData.Id();
-            var user = new ProxiedUser(userId) { Name = Guid.NewGuid().ToString(), };
+            var user = new ProxiedUser(userId) { Name = FakeData.String(), };
             var primaryEmail = new EmailAddress
             {
                 Value = FakeData.Email(),
-                HashedValue = Guid.NewGuid().ToString(),
+                HashedValue = FakeData.String(),
                 IsPrimary = true,
                 IsVerified = true,
             };
             var secondaryEmail1 = new EmailAddress
             {
                 Value = FakeData.Email(),
-                HashedValue = Guid.NewGuid().ToString(),
+                HashedValue = FakeData.String(),
                 IsVerified = true,
             };
             var secondaryEmail2 = new EmailAddress
             {
                 Value = FakeData.Email(),
-                HashedValue = Guid.NewGuid().ToString(),
+                HashedValue = FakeData.String(),
             };
             user.EmailAddresses.Add(secondaryEmail1);
             user.EmailAddresses.Add(secondaryEmail2);

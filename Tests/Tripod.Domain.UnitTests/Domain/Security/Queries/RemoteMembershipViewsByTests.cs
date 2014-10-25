@@ -53,11 +53,11 @@ namespace Tripod.Domain.Security
             var otherUserId2 = FakeData.Id(userId, otherUserId1);
             var remoteMemberships = new[]
             {
-                new ProxiedRemoteMembership(Guid.NewGuid().ToString(), Guid.NewGuid().ToString())
+                new ProxiedRemoteMembership(FakeData.String(), FakeData.String())
                     { UserId = otherUserId1, },
-                new ProxiedRemoteMembership(Guid.NewGuid().ToString(), Guid.NewGuid().ToString())
+                new ProxiedRemoteMembership(FakeData.String(), FakeData.String())
                     { UserId = otherUserId2, },
-                new ProxiedRemoteMembership(Guid.NewGuid().ToString(), Guid.NewGuid().ToString())
+                new ProxiedRemoteMembership(FakeData.String(), FakeData.String())
                     { UserId = userId, },
             };
             var data = remoteMemberships.AsQueryable();

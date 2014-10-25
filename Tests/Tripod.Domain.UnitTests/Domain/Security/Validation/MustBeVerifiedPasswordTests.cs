@@ -35,8 +35,8 @@ namespace Tripod.Domain.Security
         [Fact]
         public void IsInvalid_WhenPassword_IsNotVerified()
         {
-            string userName = Guid.NewGuid().ToString();
-            string password = Guid.NewGuid().ToString();
+            string userName = FakeData.String();
+            string password = FakeData.String();
             var queries = new Mock<IProcessQueries>(MockBehavior.Strict);
             var command = new FakeMustBeVerifiedPasswordCommand
             {
@@ -64,8 +64,8 @@ namespace Tripod.Domain.Security
         [Fact]
         public void IsValid_WhenPassword_IsVerified()
         {
-            string userName = Guid.NewGuid().ToString();
-            string password = Guid.NewGuid().ToString();
+            string userName = FakeData.String();
+            string password = FakeData.String();
             var queries = new Mock<IProcessQueries>(MockBehavior.Strict);
             var command = new FakeMustBeVerifiedPasswordCommand
             {

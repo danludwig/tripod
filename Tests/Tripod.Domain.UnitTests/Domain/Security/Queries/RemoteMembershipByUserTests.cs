@@ -16,8 +16,8 @@ namespace Tripod.Domain.Security
         public void Query_IntCtor_SetsUserIdProperty_AndUserLoginInfoProperty()
         {
             var userId = FakeData.Id();
-            var loginProvider = Guid.NewGuid().ToString();
-            var providerKey = Guid.NewGuid().ToString();
+            var loginProvider = FakeData.String();
+            var providerKey = FakeData.String();
             var userLoginInfo = new UserLoginInfo(loginProvider, providerKey);
             var query = new RemoteMembershipByUser(userId, userLoginInfo);
             query.UserId.ShouldEqual(userId);
@@ -30,13 +30,13 @@ namespace Tripod.Domain.Security
         {
             var userId = FakeData.Id();
             var otherUserId = FakeData.Id(userId);
-            var loginProvider = Guid.NewGuid().ToString();
-            var providerKey = Guid.NewGuid().ToString();
+            var loginProvider = FakeData.String();
+            var providerKey = FakeData.String();
             var remoteMemberships = new[]
             {
                 new ProxiedRemoteMembership(loginProvider, providerKey)
                     { UserId = otherUserId, },
-                new ProxiedRemoteMembership(Guid.NewGuid().ToString(), Guid.NewGuid().ToString())
+                new ProxiedRemoteMembership(FakeData.String(), FakeData.String())
                     { UserId = userId, },
             };
             var data = remoteMemberships.AsQueryable();
@@ -58,14 +58,14 @@ namespace Tripod.Domain.Security
         {
             var userId = FakeData.Id();
             var otherUserId = FakeData.Id(userId);
-            var loginProvider = Guid.NewGuid().ToString();
-            var providerKey = Guid.NewGuid().ToString();
+            var loginProvider = FakeData.String();
+            var providerKey = FakeData.String();
             var userLoginInfo = new UserLoginInfo(loginProvider, providerKey);
             var remoteMemberships = new[]
             {
                 new ProxiedRemoteMembership(loginProvider, providerKey)
                     { UserId = otherUserId, },
-                new ProxiedRemoteMembership(Guid.NewGuid().ToString(), Guid.NewGuid().ToString())
+                new ProxiedRemoteMembership(FakeData.String(), FakeData.String())
                     { UserId = userId, },
             };
             var data = remoteMemberships.AsQueryable();
@@ -87,14 +87,14 @@ namespace Tripod.Domain.Security
         {
             var userId = FakeData.Id();
             var otherUserId = FakeData.Id(userId);
-            var loginProvider = Guid.NewGuid().ToString();
-            var providerKey = Guid.NewGuid().ToString();
+            var loginProvider = FakeData.String();
+            var providerKey = FakeData.String();
             var userLoginInfo = new UserLoginInfo(loginProvider, providerKey);
             var remoteMemberships = new[]
             {
                 new ProxiedRemoteMembership(loginProvider, providerKey)
                     { UserId = otherUserId, },
-                new ProxiedRemoteMembership(Guid.NewGuid().ToString(), Guid.NewGuid().ToString())
+                new ProxiedRemoteMembership(FakeData.String(), FakeData.String())
                     { UserId = userId, },
                 new ProxiedRemoteMembership(loginProvider, providerKey)
                     { UserId = userId, },
@@ -124,9 +124,9 @@ namespace Tripod.Domain.Security
         [Fact]
         public void Query_StringCtor_SetsUserNameProperty_AndUserLoginInfoProperty()
         {
-            var userName = Guid.NewGuid().ToString();
-            var loginProvider = Guid.NewGuid().ToString();
-            var providerKey = Guid.NewGuid().ToString();
+            var userName = FakeData.String();
+            var loginProvider = FakeData.String();
+            var providerKey = FakeData.String();
             var userLoginInfo = new UserLoginInfo(loginProvider, providerKey);
             var query = new RemoteMembershipByUser(userName, userLoginInfo);
             query.UserId.ShouldBeNull();
@@ -137,16 +137,16 @@ namespace Tripod.Domain.Security
         [Fact]
         public void Handler_ReturnsNullRemoteMembership_WhenUserLoginInfoIsNull_ByUserName()
         {
-            var userName = Guid.NewGuid().ToString();
-            var loginProvider = Guid.NewGuid().ToString();
-            var providerKey = Guid.NewGuid().ToString();
+            var userName = FakeData.String();
+            var loginProvider = FakeData.String();
+            var providerKey = FakeData.String();
             var user = new User { Name = userName };
-            var differentUser = new User { Name = Guid.NewGuid().ToString() };
+            var otherUser = new User { Name = FakeData.String() };
             var remoteMemberships = new[]
             {
                 new ProxiedRemoteMembership(loginProvider, providerKey)
-                    { User = differentUser, },
-                new ProxiedRemoteMembership(Guid.NewGuid().ToString(), Guid.NewGuid().ToString())
+                    { User = otherUser, },
+                new ProxiedRemoteMembership(FakeData.String(), FakeData.String())
                     { User = user, },
             };
             var data = remoteMemberships.AsQueryable();
@@ -166,17 +166,17 @@ namespace Tripod.Domain.Security
         [Fact]
         public void Handler_ReturnsNullRemoteMembership_WhenNotFound_ByUserName()
         {
-            var userName = Guid.NewGuid().ToString();
-            var loginProvider = Guid.NewGuid().ToString();
-            var providerKey = Guid.NewGuid().ToString();
+            var userName = FakeData.String();
+            var loginProvider = FakeData.String();
+            var providerKey = FakeData.String();
             var userLoginInfo = new UserLoginInfo(loginProvider, providerKey);
             var user = new User { Name = userName };
-            var differentUser = new User { Name = Guid.NewGuid().ToString() };
+            var otherUser = new User { Name = FakeData.String() };
             var remoteMemberships = new[]
             {
                 new ProxiedRemoteMembership(loginProvider, providerKey)
-                    { User = differentUser, },
-                new ProxiedRemoteMembership(Guid.NewGuid().ToString(), Guid.NewGuid().ToString())
+                    { User = otherUser, },
+                new ProxiedRemoteMembership(FakeData.String(), FakeData.String())
                     { User = user, },
             };
             var data = remoteMemberships.AsQueryable();
@@ -196,17 +196,17 @@ namespace Tripod.Domain.Security
         [Fact]
         public void Handler_ReturnsNonNullRemoteMembership_WhenFound_ByUserName()
         {
-            var userName = Guid.NewGuid().ToString();
-            var loginProvider = Guid.NewGuid().ToString();
-            var providerKey = Guid.NewGuid().ToString();
+            var userName = FakeData.String();
+            var loginProvider = FakeData.String();
+            var providerKey = FakeData.String();
             var userLoginInfo = new UserLoginInfo(loginProvider, providerKey);
             var user = new User { Name = userName };
-            var differentUser = new User { Name = Guid.NewGuid().ToString() };
+            var otherUser = new User { Name = FakeData.String() };
             var remoteMemberships = new[]
             {
                 new ProxiedRemoteMembership(loginProvider, providerKey)
-                    { User = differentUser, },
-                new ProxiedRemoteMembership(Guid.NewGuid().ToString(), Guid.NewGuid().ToString())
+                    { User = otherUser, },
+                new ProxiedRemoteMembership(FakeData.String(), FakeData.String())
                     { User = user, },
                 new ProxiedRemoteMembership(loginProvider, providerKey)
                     { User = user, },

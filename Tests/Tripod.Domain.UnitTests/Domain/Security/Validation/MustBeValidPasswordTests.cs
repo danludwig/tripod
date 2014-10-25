@@ -61,9 +61,9 @@ namespace Tripod.Domain.Security
         [Fact]
         public void IsInvalid_WhenPasswordLength_IsGreaterThan_PasswordMaxLength()
         {
-            var password = Guid.NewGuid().ToString();
+            var password = FakeData.String();
             while (password.Length <= LocalMembership.Constraints.PasswordMaxLength)
-                password += Guid.NewGuid().ToString();
+                password += FakeData.String();
             var command = new FakeMustBeValidPasswordCommand { Password = password };
             var validator = new FakeMustBeValidPasswordValidator();
 

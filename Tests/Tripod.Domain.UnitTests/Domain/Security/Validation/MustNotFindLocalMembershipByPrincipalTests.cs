@@ -28,7 +28,7 @@ namespace Tripod.Domain.Security
         public void IsInvalid_WhenLocalMembershipIsFound_ByPrincipal()
         {
             var userId = FakeData.Id();
-            var userName = Guid.NewGuid().ToString();
+            var userName = FakeData.String();
             var principal = new Mock<IPrincipal>(MockBehavior.Strict);
             var claims = new[]
             {
@@ -103,7 +103,7 @@ namespace Tripod.Domain.Security
         public void IsValid_WhenPrincipalIdentity_HasNoNameIdentifierClaim()
         {
             var userId = FakeData.Id();
-            var userName = Guid.NewGuid().ToString();
+            var userName = FakeData.String();
             var principal = new Mock<IPrincipal>(MockBehavior.Strict);
             var claims = new[]
             {
@@ -130,7 +130,7 @@ namespace Tripod.Domain.Security
         public void IsValid_WhenLocalMembershipIsNotFound_ByPrincipal()
         {
             var userId = FakeData.Id();
-            var userName = Guid.NewGuid().ToString();
+            var userName = FakeData.String();
             var principal = new Mock<IPrincipal>(MockBehavior.Strict);
             var claims = new[]
             {

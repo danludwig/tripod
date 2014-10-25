@@ -26,7 +26,7 @@ namespace Tripod.Domain.Security
         [Fact]
         public void Validate_ThrowsNullReferenceException_WhenPrincipal_IsNull()
         {
-            const int userId = 11;
+            var userId = FakeData.Id();
             var command = new FakeMustBePrincipalWithUserIdCommand
             {
                 Principal = null,
@@ -41,7 +41,7 @@ namespace Tripod.Domain.Security
         [Fact]
         public void Validate_ThrowsArgumentNullException_WhenPrincipalIdentity_IsNull()
         {
-            const int userId = 11;
+            var userId = FakeData.Id();
             var principal = new Mock<IPrincipal>(MockBehavior.Strict);
             principal.SetupGet(x => x.Identity).Returns(null as IIdentity);
             var command = new FakeMustBePrincipalWithUserIdCommand
@@ -58,7 +58,7 @@ namespace Tripod.Domain.Security
         [Fact]
         public void IsInvalid_WhenPrincipalIdentity_IsNotClaimsIdentityInstance()
         {
-            const int userId = 11;
+            var userId = FakeData.Id();
             var principal = new Mock<IPrincipal>(MockBehavior.Strict);
             principal.SetupGet(x => x.Identity).Returns(new GenericIdentity("username"));
             var command = new FakeMustBePrincipalWithUserIdCommand
@@ -84,11 +84,12 @@ namespace Tripod.Domain.Security
         [Fact]
         public void IsInvalid_WhenPrincipalIdentity_IsClaimsIdentityInstance_WithDifferentNameIdentifierClaim()
         {
-            const int userId = 11;
+            var userId = FakeData.Id();
+            var otherUserId = FakeData.Id(userId);
             var principal = new Mock<IPrincipal>(MockBehavior.Strict);
             var identity = new ClaimsIdentity(new[]
             {
-                new Claim(ClaimTypes.NameIdentifier, (userId + 6).ToString(CultureInfo.InvariantCulture)),
+                new Claim(ClaimTypes.NameIdentifier, otherUserId.ToString(CultureInfo.InvariantCulture)),
             });
             principal.SetupGet(x => x.Identity).Returns(identity);
             var command = new FakeMustBePrincipalWithUserIdCommand
@@ -114,7 +115,7 @@ namespace Tripod.Domain.Security
         [Fact]
         public void IsValid_WhenPrincipalIdentity_IsClaimsIdentityInstance_WithEqualNameIdentifierClaim()
         {
-            const int userId = 11;
+            var userId = FakeData.Id();
             var principal = new Mock<IPrincipal>(MockBehavior.Strict);
             var identity = new ClaimsIdentity(new[]
             {

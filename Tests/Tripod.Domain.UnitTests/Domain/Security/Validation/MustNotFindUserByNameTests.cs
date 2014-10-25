@@ -25,7 +25,7 @@ namespace Tripod.Domain.Security
         [Fact]
         public void IsInvalid_WhenUserName_AlreadyExists()
         {
-            var userName = Guid.NewGuid().ToString();
+            var userName = FakeData.String();
             var queries = new Mock<IProcessQueries>(MockBehavior.Strict);
             var command = new FakeMustNotFindUserByNameCommand { UserName = userName };
             var entity = new User { Name = command.UserName };
@@ -50,13 +50,14 @@ namespace Tripod.Domain.Security
         [Fact]
         public void IsValid_WhenUserByName_AlreadyExists_AndHasUserId_DifferentFromProvided()
         {
-            const int userId = 797;
-            var userName = Guid.NewGuid().ToString();
+            var userId = FakeData.Id();
+            var otherUserId = FakeData.Id(userId);
+            var userName = FakeData.String();
             var queries = new Mock<IProcessQueries>(MockBehavior.Strict);
             var command = new FakeMustNotFindUserByNameCommand
             {
                 UserName = userName,
-                UserId = userId + 1,
+                UserId = otherUserId,
             };
             var entity = new ProxiedUser(userId)
             {
@@ -83,7 +84,7 @@ namespace Tripod.Domain.Security
         [Fact]
         public void IsValid_WhenUserByName_DoesNotExist()
         {
-            var userName = Guid.NewGuid().ToString();
+            var userName = FakeData.String();
             var queries = new Mock<IProcessQueries>(MockBehavior.Strict);
             var command = new FakeMustNotFindUserByNameCommand { UserName = userName };
             Expression<Func<UserBy, bool>> expectedQuery = x => x.Name == command.UserName;
@@ -101,8 +102,8 @@ namespace Tripod.Domain.Security
         [Fact]
         public void IsValid_WhenUserByName_AlreadyExists_ButHasUserId_SameAsProvided()
         {
-            const int userId = 797;
-            var userName = Guid.NewGuid().ToString();
+            var userId = FakeData.Id();
+            var userName = FakeData.String();
             var queries = new Mock<IProcessQueries>(MockBehavior.Strict);
             var command = new FakeMustNotFindUserByNameCommand
             {

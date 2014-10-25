@@ -7,9 +7,14 @@ namespace Tripod
     {
         private static readonly Random Random = new Random(Guid.NewGuid().GetHashCode());
 
+        public static string String()
+        {
+            return Guid.NewGuid().ToString();
+        }
+
         public static string Email()
         {
-            return string.Format("{0}@domain.tld", Guid.NewGuid());
+            return string.Format("{0}@domain.tld", String());
         }
 
         public static int Id(params int[] canNotBe)

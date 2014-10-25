@@ -68,9 +68,9 @@ namespace Tripod.Domain.Security
         {
             var minLength = FakeData.Int(1, 50);
             var maxLength = FakeData.Int(minLength, 100);
-            var secret = Guid.NewGuid().ToString();
+            var secret = FakeData.String();
             while (secret.Length < minLength)
-                secret += Guid.NewGuid().ToString();
+                secret += FakeData.String();
             while (secret.Length > maxLength)
                 secret = secret.Substring(0, secret.Length - 2);
             var secretCreator = new Mock<ICreateSecrets>(MockBehavior.Strict);

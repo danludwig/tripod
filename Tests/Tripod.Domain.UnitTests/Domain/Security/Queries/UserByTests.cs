@@ -29,7 +29,7 @@ namespace Tripod.Domain.Security
         [Fact]
         public void Handler_ReturnsNonNullUser_WhenFound_ById()
         {
-            const int userId = 7;
+            var userId = FakeData.Id();
             var data = new[] { new ProxiedUser(userId) }.AsQueryable();
             var query = new UserBy(userId);
             var dbSet = new Mock<DbSet<User>>(MockBehavior.Strict).SetupDataAsync(data);
@@ -48,8 +48,9 @@ namespace Tripod.Domain.Security
         [Fact]
         public void Handler_ReturnsNullUser_WhenNotFound_ById()
         {
-            const int userId = 7;
-            var data = new[] { new ProxiedUser(userId + 4) }.AsQueryable();
+            var userId = FakeData.Id();
+            var otherUserId = FakeData.Id(userId);
+            var data = new[] { new ProxiedUser(otherUserId) }.AsQueryable();
             var query = new UserBy(userId);
             var dbSet = new Mock<DbSet<User>>(MockBehavior.Strict).SetupDataAsync(data);
             var entities = new Mock<IReadEntities>(MockBehavior.Strict);
@@ -69,7 +70,7 @@ namespace Tripod.Domain.Security
         [Fact]
         public void Query_StringCtor_SetsNameProperty()
         {
-            var name = Guid.NewGuid().ToString();
+            var name = FakeData.String();
             var query = new UserBy(name);
             query.Name.ShouldEqual(name);
             query.Id.HasValue.ShouldBeFalse();
@@ -80,7 +81,7 @@ namespace Tripod.Domain.Security
         [Fact]
         public void Handler_ReturnsNonNullUser_WhenFound_ByName()
         {
-            var userName = Guid.NewGuid().ToString();
+            var userName = FakeData.String();
             var data = new[] { new User { Name = userName } }.AsQueryable();
             var query = new UserBy(userName);
             var dbSet = new Mock<DbSet<User>>(MockBehavior.Strict).SetupDataAsync(data);
@@ -99,8 +100,8 @@ namespace Tripod.Domain.Security
         [Fact]
         public void Handler_ReturnsNullUser_WhenNotFound_ByName()
         {
-            var userName = Guid.NewGuid().ToString();
-            var data = new[] { new User { Name = Guid.NewGuid().ToString() } }.AsQueryable();
+            var userName = FakeData.String();
+            var data = new[] { new User { Name = FakeData.String() } }.AsQueryable();
             var query = new UserBy(userName);
             var dbSet = new Mock<DbSet<User>>(MockBehavior.Strict).SetupDataAsync(data);
             var entities = new Mock<IReadEntities>(MockBehavior.Strict);
@@ -131,7 +132,7 @@ namespace Tripod.Domain.Security
         [Fact]
         public void Handler_ReturnsNonNullUser_WhenAuthenticatedAndFound_ByPrincipal()
         {
-            const int userId = 78;
+            var userId = FakeData.Id();
             var claims = new[]
             {
                 new Claim(ClaimTypes.NameIdentifier, userId.ToString(CultureInfo.InvariantCulture)),
@@ -156,7 +157,7 @@ namespace Tripod.Domain.Security
         [Fact]
         public void Handler_ReturnsNullUser_WhenByUnauthenticatedPrincipal()
         {
-            const int userId = 78;
+            var userId = FakeData.Id();
             var claims = new[]
             {
                 new Claim(ClaimTypes.NameIdentifier, userId.ToString(CultureInfo.InvariantCulture)),
@@ -180,14 +181,15 @@ namespace Tripod.Domain.Security
         [Fact]
         public void Handler_ReturnsNullUser_WhenAuthenticatedButNotFound_ByPrincipal()
         {
-            const int userId = 78;
+            var userId = FakeData.Id();
+            var otherUserId = FakeData.Id(userId);
             var claims = new[]
             {
                 new Claim(ClaimTypes.NameIdentifier, userId.ToString(CultureInfo.InvariantCulture)),
             };
             var identity = new ClaimsIdentity(claims, "authenticationType");
             var principal = new GenericPrincipal(identity, null);
-            var data = new[] { new ProxiedUser(userId + 9) }.AsQueryable();
+            var data = new[] { new ProxiedUser(otherUserId) }.AsQueryable();
             var query = new UserBy(principal);
             var dbSet = new Mock<DbSet<User>>(MockBehavior.Strict).SetupDataAsync(data);
             var entities = new Mock<IReadEntities>(MockBehavior.Strict);
@@ -218,8 +220,8 @@ namespace Tripod.Domain.Security
         [Fact]
         public void Handler_ReturnsNonNullUser_WhenFound_ByUserLoginInfo()
         {
-            const string loginProvider = "loginProvider";
-            var providerKey = Guid.NewGuid().ToString();
+            var loginProvider = FakeData.String();
+            var providerKey = FakeData.String();
             var remoteMembershipId = new RemoteMembershipId
             {
                 LoginProvider = loginProvider,
@@ -246,12 +248,12 @@ namespace Tripod.Domain.Security
         [Fact]
         public void Handler_ReturnsNullUser_WhenNotFound_ByUserLoginInfo()
         {
-            const string loginProvider = "loginProvider";
-            var providerKey = Guid.NewGuid().ToString();
+            var loginProvider = FakeData.String();
+            var providerKey = FakeData.String();
             var remoteMembershipId = new RemoteMembershipId
             {
                 LoginProvider = loginProvider,
-                ProviderKey = Guid.NewGuid().ToString(),
+                ProviderKey = FakeData.String(),
             };
             var remoteMembership = new ProxiedRemoteMembership(remoteMembershipId);
             var user = new User();

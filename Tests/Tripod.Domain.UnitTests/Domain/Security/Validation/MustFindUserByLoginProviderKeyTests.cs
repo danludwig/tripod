@@ -35,8 +35,8 @@ namespace Tripod.Domain.Security
         [Fact]
         public void IsInvalid_WhenUser_IsNotFound_ByUserLoginInfo()
         {
-            var loginProvider = Guid.NewGuid().ToString();
-            var providerKey = Guid.NewGuid().ToString();
+            var loginProvider = FakeData.String();
+            var providerKey = FakeData.String();
             var queries = new Mock<IProcessQueries>(MockBehavior.Strict);
             var command = new FakeMustFindUserByLoginProviderKeyCommand
             {
@@ -64,8 +64,8 @@ namespace Tripod.Domain.Security
         [Fact]
         public void IsValid_WhenUser_IsFound_ByUserLoginInfo()
         {
-            var loginProvider = Guid.NewGuid().ToString();
-            var providerKey = Guid.NewGuid().ToString();
+            var loginProvider = FakeData.String();
+            var providerKey = FakeData.String();
             var queries = new Mock<IProcessQueries>(MockBehavior.Strict);
             var command = new FakeMustFindUserByLoginProviderKeyCommand
             {

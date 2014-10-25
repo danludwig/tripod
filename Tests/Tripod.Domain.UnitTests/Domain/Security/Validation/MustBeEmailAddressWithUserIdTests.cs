@@ -36,15 +36,16 @@ namespace Tripod.Domain.Security
         [Fact]
         public void IsInvalid_WhenEmailAddressExists_WithDifferentUserId()
         {
-            const int userId = 11;
-            const int emailAddressId = 7;
+            var userId = FakeData.Id();
+            var otherUserId = FakeData.Id(canNotBe: userId);
+            var emailAddressId = FakeData.Id();
             var queries = new Mock<IProcessQueries>(MockBehavior.Strict);
             var command = new FakeMustBeEmailAddressWithUserIdCommand
             {
-                EmailAddressId = 7,
+                EmailAddressId = emailAddressId,
                 UserId = userId,
             };
-            var entity = new EmailAddress { UserId = userId + 3, };
+            var entity = new EmailAddress { UserId = otherUserId, };
             Expression<Func<EmailAddressBy, bool>> expectedQuery = x => x.Id == command.EmailAddressId;
             queries.Setup(x => x.Execute(It.Is(expectedQuery))).Returns(Task.FromResult(entity));
             var validator = new FakeMustBeEmailAddressWithUserIdValidator(queries.Object);
@@ -66,8 +67,8 @@ namespace Tripod.Domain.Security
         [Fact]
         public void IsValid_WhenEmailAddressExists_WithEqualUserId()
         {
-            const int userId = 11;
-            const int emailAddressId = 7;
+            var userId = FakeData.Id();
+            var emailAddressId = FakeData.Id();
             var queries = new Mock<IProcessQueries>(MockBehavior.Strict);
             var command = new FakeMustBeEmailAddressWithUserIdCommand
             {
@@ -90,8 +91,8 @@ namespace Tripod.Domain.Security
         [Fact]
         public void IsValid_WhenEmailAddress_DoesNotExist()
         {
-            const int userId = 11;
-            const int emailAddressId = 7;
+            var userId = FakeData.Id();
+            var emailAddressId = FakeData.Id();
             var queries = new Mock<IProcessQueries>(MockBehavior.Strict);
             var command = new FakeMustBeEmailAddressWithUserIdCommand
             {

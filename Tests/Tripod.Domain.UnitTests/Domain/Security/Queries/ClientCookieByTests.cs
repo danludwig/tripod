@@ -35,7 +35,7 @@ namespace Tripod.Domain.Security
         [Fact]
         public void Handler_ReturnsNull_WhenUserById_DoesNotExist()
         {
-            const int userId = 456;
+            var userId = FakeData.Id();
             var query = new ClientCookieBy(userId);
             var queries = new Mock<IProcessQueries>(MockBehavior.Strict);
             Expression<Func<UserBy, bool>> expectedQuery = x => x.Id == query.UserId;
@@ -52,7 +52,7 @@ namespace Tripod.Domain.Security
         public void Handler_ReturnsClientCookie_WhenUserById_Exists()
         {
             var userId = FakeData.Id();
-            var userName = Guid.NewGuid().ToString();
+            var userName = FakeData.String();
             var query = new ClientCookieBy(userId);
             var user = new ProxiedUser(userId) { Name = userName };
             user.EmailAddresses.Add(new EmailAddress

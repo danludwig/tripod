@@ -83,7 +83,7 @@ namespace Tripod.Domain.Security
         [Fact]
         public void Query_StringCtor_SetsUserNameProperty()
         {
-            var userName = Guid.NewGuid().ToString();
+            var userName = FakeData.String();
             var query = new RemoteMembershipsByUser(userName);
             query.UserId.ShouldBeNull();
             query.UserName.ShouldEqual(userName);
@@ -92,13 +92,13 @@ namespace Tripod.Domain.Security
         [Fact]
         public void Handler_ReturnsNoRemoteMemberships_WhenNotFound_ByUserName()
         {
-            var userName = Guid.NewGuid().ToString();
-            var differentUser1 = new User { Name = Guid.NewGuid().ToString(), };
-            var differentUser2 = new User { Name = Guid.NewGuid().ToString(), };
+            var userName = FakeData.String();
+            var otherUser1 = new User { Name = FakeData.String(), };
+            var otherUser2 = new User { Name = FakeData.String(), };
             var remoteMemberships = new[]
             {
-                new RemoteMembership { User = differentUser1, },
-                new RemoteMembership { User = differentUser2, },
+                new RemoteMembership { User = otherUser1, },
+                new RemoteMembership { User = otherUser2, },
             };
             var data = remoteMemberships.AsQueryable();
             var query = new RemoteMembershipsByUser(userName);
@@ -118,14 +118,14 @@ namespace Tripod.Domain.Security
         [Fact]
         public void Handler_ReturnsRemoteMemberships_WhenFound_ByUserName()
         {
-            var userName = Guid.NewGuid().ToString();
+            var userName = FakeData.String();
             var user = new User { Name = userName, };
-            var differentUser1 = new User { Name = Guid.NewGuid().ToString(), };
-            var differentUser2 = new User { Name = Guid.NewGuid().ToString(), };
+            var otherUser1 = new User { Name = FakeData.String(), };
+            var otherUser2 = new User { Name = FakeData.String(), };
             var remoteMemberships = new[]
             {
-                new RemoteMembership { User = differentUser1, },
-                new RemoteMembership { User = differentUser2, },
+                new RemoteMembership { User = otherUser1, },
+                new RemoteMembership { User = otherUser2, },
                 new RemoteMembership { User = user, },
                 new RemoteMembership { User = user, },
             };

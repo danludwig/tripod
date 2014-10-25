@@ -33,7 +33,7 @@ namespace Tripod.Domain.Security
         [Fact]
         public void IsInvalid_WhenUserName_MatchesNoUserOrEmail()
         {
-            const string userName = "noMatchUserName";
+            var userName = FakeData.String();
             var queries = new Mock<IProcessQueries>(MockBehavior.Strict);
             var validator = new ValidateSignInCommand(queries.Object);
             var command = new SignIn { UserNameOrVerifiedEmail = userName };
@@ -72,8 +72,8 @@ namespace Tripod.Domain.Security
         [Fact]
         public void IsInvalid_WhenPassword_IsNotVerified_AndUserExists()
         {
-            const string userName = "username";
-            const string password = "wrong password";
+            var userName = FakeData.String();
+            var password = FakeData.String();
             var queries = new Mock<IProcessQueries>(MockBehavior.Strict);
             var validator = new ValidateSignInCommand(queries.Object);
             var command = new SignIn { UserNameOrVerifiedEmail = userName, Password = password, };
@@ -96,8 +96,8 @@ namespace Tripod.Domain.Security
         [Fact]
         public void PasswordIsValid_WhenNoUserExists()
         {
-            const string userName = "username";
-            const string password = "wrong password";
+            var userName = FakeData.String();
+            var password = FakeData.String();
             var queries = new Mock<IProcessQueries>(MockBehavior.Strict);
             var validator = new ValidateSignInCommand(queries.Object);
             var command = new SignIn { UserNameOrVerifiedEmail = userName, Password = password, };
@@ -119,8 +119,8 @@ namespace Tripod.Domain.Security
         [Fact]
         public void IsValid_WhenAllRulesPass()
         {
-            const string userName = "username";
-            const string password = "correct password";
+            var userName = FakeData.String();
+            var password = FakeData.String();
             var queries = new Mock<IProcessQueries>(MockBehavior.Strict);
             var validator = new ValidateSignInCommand(queries.Object);
             var command = new SignIn { UserNameOrVerifiedEmail = userName, Password = password, };

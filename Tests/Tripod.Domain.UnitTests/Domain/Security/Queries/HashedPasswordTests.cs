@@ -12,7 +12,7 @@ namespace Tripod.Domain.Security
         [Fact]
         public void Query_Ctor_SetsPasswordProperty()
         {
-            var password = Guid.NewGuid().ToString();
+            var password = FakeData.String();
             var query = new HashedPassword(password);
             query.Password.ShouldEqual(password);
         }

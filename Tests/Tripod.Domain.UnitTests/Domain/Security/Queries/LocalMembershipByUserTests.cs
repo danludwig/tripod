@@ -79,7 +79,7 @@ namespace Tripod.Domain.Security
         [Fact]
         public void Query_StringCtor_SetsUserNameProperty()
         {
-            var userName = Guid.NewGuid().ToString();
+            var userName = FakeData.String();
             var query = new LocalMembershipByUser(userName);
             query.UserId.ShouldBeNull();
             query.UserName.ShouldEqual(userName);
@@ -89,8 +89,8 @@ namespace Tripod.Domain.Security
         [Fact]
         public void Handler_ReturnsNullLocalMembership_WhenNotFound_ByUserName()
         {
-            var userName = Guid.NewGuid().ToString();
-            var user = new User { Name = Guid.NewGuid().ToString() };
+            var userName = FakeData.String();
+            var user = new User { Name = FakeData.String(), };
             var data = new[]
             {
                 new LocalMembership { User = user, },
@@ -111,7 +111,7 @@ namespace Tripod.Domain.Security
         [Fact]
         public void Handler_ReturnsNonNullLocalMembership_WhenFound_ByUserName()
         {
-            var userName = Guid.NewGuid().ToString();
+            var userName = FakeData.String();
             var user = new User { Name = userName };
             var data = new[]
             {
@@ -142,8 +142,8 @@ namespace Tripod.Domain.Security
         [Fact]
         public void Query_UserLoginInfoCtor_SetsUserLoginInfoProperty()
         {
-            var loginProvider = Guid.NewGuid().ToString();
-            var providerKey = Guid.NewGuid().ToString();
+            var loginProvider = FakeData.String();
+            var providerKey = FakeData.String();
             var userLoginInfo = new UserLoginInfo(loginProvider, providerKey);
             var query = new LocalMembershipByUser(userLoginInfo);
             query.UserId.ShouldBeNull();
@@ -156,12 +156,12 @@ namespace Tripod.Domain.Security
         [Fact]
         public void Handler_ReturnsNullLocalMembership_WhenNotFound_ByUserLoginInfo()
         {
-            var loginProvider = Guid.NewGuid().ToString();
-            var providerKey = Guid.NewGuid().ToString();
+            var loginProvider = FakeData.String();
+            var providerKey = FakeData.String();
             var userLoginInfo = new UserLoginInfo(loginProvider, providerKey);
             var user = new User();
             user.RemoteMemberships.Add(new ProxiedRemoteMembership(
-                Guid.NewGuid().ToString(), Guid.NewGuid().ToString()));
+                FakeData.String(), FakeData.String()));
             var data = new[]
             {
                 new LocalMembership { User = user, },
@@ -182,8 +182,8 @@ namespace Tripod.Domain.Security
         [Fact]
         public void Handler_ReturnsNonNullLocalMembership_WhenFound_ByUserLoginInfo()
         {
-            var loginProvider = Guid.NewGuid().ToString();
-            var providerKey = Guid.NewGuid().ToString();
+            var loginProvider = FakeData.String();
+            var providerKey = FakeData.String();
             var userLoginInfo = new UserLoginInfo(loginProvider, providerKey);
             var user = new User();
             user.RemoteMemberships.Add(new ProxiedRemoteMembership(

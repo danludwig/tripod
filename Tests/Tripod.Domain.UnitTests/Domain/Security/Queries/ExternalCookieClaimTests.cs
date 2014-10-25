@@ -16,7 +16,7 @@ namespace Tripod.Domain.Security
         [Fact]
         public void Query_Ctor_SingleArg_SetsClaimType()
         {
-            var claimType = Guid.NewGuid().ToString();
+            var claimType = FakeData.String();
             var query = new ExternalCookieClaim(claimType);
             query.ClaimType.ShouldEqual(claimType);
         }
@@ -24,7 +24,7 @@ namespace Tripod.Domain.Security
         [Fact]
         public void Query_Ctor_SingleArg_SetsAuthenticationType_ToDefaultExternalCookie()
         {
-            var claimType = Guid.NewGuid().ToString();
+            var claimType = FakeData.String();
             var query = new ExternalCookieClaim(claimType);
             query.AuthenticationType.ShouldEqual(DefaultAuthenticationTypes.ExternalCookie);
         }
@@ -32,8 +32,8 @@ namespace Tripod.Domain.Security
         [Fact]
         public void Query_Ctor_SecondArg_SetsAuthenticationType()
         {
-            var claimType = Guid.NewGuid().ToString();
-            var authenticationType = Guid.NewGuid().ToString();
+            var claimType = FakeData.String();
+            var authenticationType = FakeData.String();
             var query = new ExternalCookieClaim(claimType, authenticationType);
             query.AuthenticationType.ShouldEqual(authenticationType);
         }
@@ -67,7 +67,7 @@ namespace Tripod.Domain.Security
         {
             const string authenticationType = DefaultAuthenticationTypes.ApplicationCookie;
             const string claimType = ClaimTypes.GivenName;
-            string claimValue = Guid.NewGuid().ToString();
+            string claimValue = FakeData.String();
             var data = new[]
             {
                 new Claim(ClaimTypes.Email, FakeData.Email()),

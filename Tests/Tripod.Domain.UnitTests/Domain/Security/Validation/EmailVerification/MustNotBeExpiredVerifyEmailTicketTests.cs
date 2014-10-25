@@ -43,7 +43,7 @@ namespace Tripod.Domain.Security
         [Fact]
         public void IsValid_WhenEmailVerification_IsNotFoundByTicket()
         {
-            var ticket = Guid.NewGuid().ToString();
+            var ticket = FakeData.String();
             var queries = new Mock<IProcessQueries>(MockBehavior.Strict);
             var command = new FakeMustNotBeExpiredVerifyEmailTicketCommand { Ticket = ticket, };
             Expression<Func<EmailVerificationBy, bool>> expectedQuery = x => x.Ticket == ticket;
@@ -61,7 +61,7 @@ namespace Tripod.Domain.Security
         [Fact]
         public void IsValid_WhenEmailVerification_HasNotExpiredYet()
         {
-            var ticket = Guid.NewGuid().ToString();
+            var ticket = FakeData.String();
             var queries = new Mock<IProcessQueries>(MockBehavior.Strict);
             var command = new FakeMustNotBeExpiredVerifyEmailTicketCommand { Ticket = ticket, };
             var entity = new EmailVerification
@@ -84,7 +84,7 @@ namespace Tripod.Domain.Security
         [Fact]
         public void IsInvalid_WhenEmailVerification_HasExpired()
         {
-            var ticket = Guid.NewGuid().ToString();
+            var ticket = FakeData.String();
             var queries = new Mock<IProcessQueries>(MockBehavior.Strict);
             var command = new FakeMustNotBeExpiredVerifyEmailTicketCommand { Ticket = ticket, };
             var entity = new EmailVerification

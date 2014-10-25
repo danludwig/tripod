@@ -16,11 +16,11 @@ namespace Tripod.Domain.Security
         {
             var data = new[]
             {
-                new EmailVerification { Ticket = Guid.NewGuid().ToString(), },
-                new EmailVerification { Ticket = Guid.NewGuid().ToString(), },
-                new EmailVerification { Ticket = Guid.NewGuid().ToString(), },
+                new EmailVerification { Ticket = FakeData.String(), },
+                new EmailVerification { Ticket = FakeData.String(), },
+                new EmailVerification { Ticket = FakeData.String(), },
             };
-            data.AsQueryable().ByTicket(Guid.NewGuid().ToString()).ShouldBeNull();
+            data.AsQueryable().ByTicket(FakeData.String()).ShouldBeNull();
         }
 
         [Fact]
@@ -28,13 +28,13 @@ namespace Tripod.Domain.Security
         {
             var data = new[]
             {
-                new EmailVerification { Ticket = Guid.NewGuid().ToString(), },
-                new EmailVerification { Ticket = Guid.NewGuid().ToString(), },
-                new EmailVerification { Ticket = Guid.NewGuid().ToString(), },
+                new EmailVerification { Ticket = FakeData.String(), },
+                new EmailVerification { Ticket = FakeData.String(), },
+                new EmailVerification { Ticket = FakeData.String(), },
             };
             data.AsQueryable().ByTicket(data[0].Ticket, false).ShouldNotBeNull();
             var exception = Assert.Throws<InvalidOperationException>(() =>
-                data.AsQueryable().ByTicket(Guid.NewGuid().ToString(), false));
+                data.AsQueryable().ByTicket(FakeData.String(), false));
             Assert.NotNull(exception);
             exception.Message.IndexOf("Sequence contains no matching element", StringComparison.CurrentCulture)
                 .ShouldEqual(0);
@@ -45,11 +45,11 @@ namespace Tripod.Domain.Security
         {
             var data = new[]
             {
-                new EmailVerification { Ticket = Guid.NewGuid().ToString(), },
-                new EmailVerification { Ticket = Guid.NewGuid().ToString(), },
-                new EmailVerification { Ticket = Guid.NewGuid().ToString(), },
+                new EmailVerification { Ticket = FakeData.String(), },
+                new EmailVerification { Ticket = FakeData.String(), },
+                new EmailVerification { Ticket = FakeData.String(), },
             };
-            data.AsEnumerable().ByTicket(Guid.NewGuid().ToString()).ShouldBeNull();
+            data.AsEnumerable().ByTicket(FakeData.String()).ShouldBeNull();
         }
 
         [Fact]
@@ -57,13 +57,13 @@ namespace Tripod.Domain.Security
         {
             var data = new[]
             {
-                new EmailVerification { Ticket = Guid.NewGuid().ToString(), },
-                new EmailVerification { Ticket = Guid.NewGuid().ToString(), },
-                new EmailVerification { Ticket = Guid.NewGuid().ToString(), },
+                new EmailVerification { Ticket = FakeData.String(), },
+                new EmailVerification { Ticket = FakeData.String(), },
+                new EmailVerification { Ticket = FakeData.String(), },
             };
             data.AsEnumerable().ByTicket(data[0].Ticket, false).ShouldNotBeNull();
             var exception = Assert.Throws<InvalidOperationException>(() =>
-                data.AsEnumerable().ByTicket(Guid.NewGuid().ToString(), false));
+                data.AsEnumerable().ByTicket(FakeData.String(), false));
             Assert.NotNull(exception);
             exception.Message.IndexOf("Sequence contains no matching element", StringComparison.CurrentCulture)
                 .ShouldEqual(0);
@@ -74,12 +74,12 @@ namespace Tripod.Domain.Security
         {
             var data = new[]
             {
-                new EmailVerification { Ticket = Guid.NewGuid().ToString(), },
-                new EmailVerification { Ticket = Guid.NewGuid().ToString(), },
-                new EmailVerification { Ticket = Guid.NewGuid().ToString(), },
+                new EmailVerification { Ticket = FakeData.String(), },
+                new EmailVerification { Ticket = FakeData.String(), },
+                new EmailVerification { Ticket = FakeData.String(), },
             };
             var dbSet = new Mock<DbSet<EmailVerification>>(MockBehavior.Strict).SetupDataAsync(data.AsQueryable());
-            dbSet.Object.AsQueryable().ByTicketAsync(Guid.NewGuid().ToString())
+            dbSet.Object.AsQueryable().ByTicketAsync(FakeData.String())
                 .Result.ShouldBeNull();
         }
 
@@ -88,15 +88,15 @@ namespace Tripod.Domain.Security
         {
             var data = new[]
             {
-                new EmailVerification { Ticket = Guid.NewGuid().ToString(), },
-                new EmailVerification { Ticket = Guid.NewGuid().ToString(), },
-                new EmailVerification { Ticket = Guid.NewGuid().ToString(), },
+                new EmailVerification { Ticket = FakeData.String(), },
+                new EmailVerification { Ticket = FakeData.String(), },
+                new EmailVerification { Ticket = FakeData.String(), },
             };
             var dbSet = new Mock<DbSet<EmailVerification>>(MockBehavior.Strict).SetupDataAsync(data.AsQueryable());
             dbSet.Object.AsQueryable().ByTicketAsync(data[0].Ticket, false).Result.ShouldNotBeNull();
 
             var exception = Assert.Throws<InvalidOperationException>(() =>
-                dbSet.Object.AsQueryable().ByTicketAsync(Guid.NewGuid().ToString(), false).Result);
+                dbSet.Object.AsQueryable().ByTicketAsync(FakeData.String(), false).Result);
             Assert.NotNull(exception);
             exception.Message.IndexOf("Sequence contains no matching element", StringComparison.CurrentCulture)
                 .ShouldEqual(0);
@@ -107,12 +107,12 @@ namespace Tripod.Domain.Security
         {
             var data = new[]
             {
-                new EmailVerification { Ticket = Guid.NewGuid().ToString(), },
-                new EmailVerification { Ticket = Guid.NewGuid().ToString(), },
-                new EmailVerification { Ticket = Guid.NewGuid().ToString(), },
+                new EmailVerification { Ticket = FakeData.String(), },
+                new EmailVerification { Ticket = FakeData.String(), },
+                new EmailVerification { Ticket = FakeData.String(), },
             };
             var dbSet = new Mock<DbSet<EmailVerification>>(MockBehavior.Strict).SetupDataAsync(data.AsQueryable());
-            dbSet.Object.AsEnumerable().ByTicketAsync(Guid.NewGuid().ToString())
+            dbSet.Object.AsEnumerable().ByTicketAsync(FakeData.String())
                 .Result.ShouldBeNull();
         }
 
@@ -121,14 +121,14 @@ namespace Tripod.Domain.Security
         {
             var data = new[]
             {
-                new EmailVerification { Ticket = Guid.NewGuid().ToString(), },
-                new EmailVerification { Ticket = Guid.NewGuid().ToString(), },
-                new EmailVerification { Ticket = Guid.NewGuid().ToString(), },
+                new EmailVerification { Ticket = FakeData.String(), },
+                new EmailVerification { Ticket = FakeData.String(), },
+                new EmailVerification { Ticket = FakeData.String(), },
             };
             var dbSet = new Mock<DbSet<EmailVerification>>(MockBehavior.Strict).SetupDataAsync(data.AsQueryable());
             dbSet.Object.AsEnumerable().ByTicketAsync(data[0].Ticket, false).Result.ShouldNotBeNull();
             var exception = Assert.Throws<InvalidOperationException>(() =>
-                dbSet.Object.AsEnumerable().ByTicketAsync(Guid.NewGuid().ToString(), false).Result);
+                dbSet.Object.AsEnumerable().ByTicketAsync(FakeData.String(), false).Result);
             Assert.NotNull(exception);
             exception.Message.IndexOf("Sequence contains no matching element", StringComparison.CurrentCulture)
                 .ShouldEqual(0);
@@ -145,32 +145,32 @@ namespace Tripod.Domain.Security
             {
                 new EmailVerification
                 {
-                    Ticket = Guid.NewGuid().ToString(),
+                    Ticket = FakeData.String(),
                     EmailAddressId = FakeData.Id(canNotBe: emailAddressId),
                 },
                 new EmailVerification
                 {
-                    Ticket = Guid.NewGuid().ToString(),
+                    Ticket = FakeData.String(),
                     EmailAddressId = emailAddressId,
                 },
                 new EmailVerification
                 {
-                    Ticket = Guid.NewGuid().ToString(),
+                    Ticket = FakeData.String(),
                     EmailAddressId = emailAddressId,
                 },
                 new EmailVerification
                 {
-                    Ticket = Guid.NewGuid().ToString(),
+                    Ticket = FakeData.String(),
                     EmailAddressId = FakeData.Id(canNotBe: emailAddressId),
                 },
                 new EmailVerification
                 {
-                    Ticket = Guid.NewGuid().ToString(),
+                    Ticket = FakeData.String(),
                     EmailAddressId = FakeData.Id(canNotBe: emailAddressId),
                 },
                 new EmailVerification
                 {
-                    Ticket = Guid.NewGuid().ToString(),
+                    Ticket = FakeData.String(),
                     EmailAddressId = emailAddressId,
                 },
             };
@@ -188,32 +188,32 @@ namespace Tripod.Domain.Security
             {
                 new EmailVerification
                 {
-                    Ticket = Guid.NewGuid().ToString(),
+                    Ticket = FakeData.String(),
                     EmailAddressId = FakeData.Id(canNotBe: emailAddressId),
                 },
                 new EmailVerification
                 {
-                    Ticket = Guid.NewGuid().ToString(),
+                    Ticket = FakeData.String(),
                     EmailAddressId = emailAddressId,
                 },
                 new EmailVerification
                 {
-                    Ticket = Guid.NewGuid().ToString(),
+                    Ticket = FakeData.String(),
                     EmailAddressId = emailAddressId,
                 },
                 new EmailVerification
                 {
-                    Ticket = Guid.NewGuid().ToString(),
+                    Ticket = FakeData.String(),
                     EmailAddressId = FakeData.Id(canNotBe: emailAddressId),
                 },
                 new EmailVerification
                 {
-                    Ticket = Guid.NewGuid().ToString(),
+                    Ticket = FakeData.String(),
                     EmailAddressId = FakeData.Id(canNotBe: emailAddressId),
                 },
                 new EmailVerification
                 {
-                    Ticket = Guid.NewGuid().ToString(),
+                    Ticket = FakeData.String(),
                     EmailAddressId = emailAddressId,
                 },
             };

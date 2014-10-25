@@ -50,7 +50,7 @@ namespace Tripod.Domain.Security
         [Fact]
         public void IsInvalid_WhenEmailVerification_IsNotFoundByTicket()
         {
-            var ticket = Guid.NewGuid().ToString();
+            var ticket = FakeData.String();
             var queries = new Mock<IProcessQueries>(MockBehavior.Strict);
             var command = new FakeMustBeRedeemableVerifyEmailTicketCommand { Ticket = ticket, };
             Expression<Func<EmailVerificationBy, bool>> expectedQuery = x => x.Ticket == ticket;
@@ -74,7 +74,7 @@ namespace Tripod.Domain.Security
         [Fact]
         public void IsInvalid_WhenEmailVerification_IsAlreadyRedeemed()
         {
-            var ticket = Guid.NewGuid().ToString();
+            var ticket = FakeData.String();
             var queries = new Mock<IProcessQueries>(MockBehavior.Strict);
             var command = new FakeMustBeRedeemableVerifyEmailTicketCommand { Ticket = ticket, };
             var entity = new EmailVerification
@@ -103,7 +103,7 @@ namespace Tripod.Domain.Security
         [Fact]
         public void IsInvalid_WhenEmailVerification_HasExpired()
         {
-            var ticket = Guid.NewGuid().ToString();
+            var ticket = FakeData.String();
             var queries = new Mock<IProcessQueries>(MockBehavior.Strict);
             var command = new FakeMustBeRedeemableVerifyEmailTicketCommand { Ticket = ticket, };
             var entity = new EmailVerification
@@ -132,7 +132,7 @@ namespace Tripod.Domain.Security
         [Fact]
         public void IsValid_WhenEmailVerification_IsNotEmpty_AndIsFoundByTicket_AndIsNotRedeemed_AndIsNotExpired()
         {
-            var ticket = Guid.NewGuid().ToString();
+            var ticket = FakeData.String();
             var queries = new Mock<IProcessQueries>(MockBehavior.Strict);
             var command = new FakeMustBeRedeemableVerifyEmailTicketCommand { Ticket = ticket, };
             var entity = new EmailVerification

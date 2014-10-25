@@ -50,7 +50,7 @@ namespace Tripod.Domain.Security
                 x => x.Name == nameOrEmail;
             queries.Setup(x => x.Execute(It.Is(expectedUserQuery)))
                 .Returns(Task.FromResult(null as User));
-            var user = new User { Name = Guid.NewGuid().ToString(), };
+            var user = new User { Name = FakeData.String(), };
             var emailAddress = new EmailAddress
             {
                 Value = nameOrEmail,
@@ -104,7 +104,7 @@ namespace Tripod.Domain.Security
                 x => x.Name == nameOrEmail;
             queries.Setup(x => x.Execute(It.Is(expectedUserQuery)))
                 .Returns(Task.FromResult(null as User));
-            var user = new User { Name = Guid.NewGuid().ToString(), };
+            var user = new User { Name = FakeData.String(), };
             var emailAddress = new EmailAddress
             {
                 Value = nameOrEmail,

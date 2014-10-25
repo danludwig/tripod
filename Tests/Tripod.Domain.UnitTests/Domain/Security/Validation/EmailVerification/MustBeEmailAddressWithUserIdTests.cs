@@ -36,8 +36,8 @@ namespace Tripod.Domain.Security
         [Fact]
         public void IsInvalid_WhenEmailVerificationByTicket_HasSecretNotEqualToCommandSecret()
         {
-            string secret = Guid.NewGuid().ToString().ToUpper();
-            string ticket = Guid.NewGuid().ToString();
+            string secret = FakeData.String().ToUpper();
+            string ticket = FakeData.String();
             var queries = new Mock<IProcessQueries>(MockBehavior.Strict);
             var command = new FakeMustBeVerifiedEmailSecretCommand { Secret = secret, Ticket = ticket, };
             var entity = new EmailVerification { Secret = secret.ToLower(), Ticket = ticket, };
@@ -87,8 +87,8 @@ namespace Tripod.Domain.Security
             var queries = new Mock<IProcessQueries>(MockBehavior.Strict);
             var command = new FakeMustBeVerifiedEmailSecretCommand
             {
-                Secret = Guid.NewGuid().ToString(),
-                Ticket = Guid.NewGuid().ToString(),
+                Secret = FakeData.String(),
+                Ticket = FakeData.String(),
             };
             Expression<Func<EmailVerificationBy, bool>> expectedQuery = x => x.Ticket == command.Ticket;
             queries.Setup(x => x.Execute(It.Is(expectedQuery))).Returns(Task.FromResult(null as EmailVerification));
@@ -105,8 +105,8 @@ namespace Tripod.Domain.Security
         [Fact]
         public void IsValid_WhenEmailVerificationByTicket_HasSecretEqualingCommandSecret()
         {
-            string secret = Guid.NewGuid().ToString();
-            string ticket = Guid.NewGuid().ToString();
+            string secret = FakeData.String();
+            string ticket = FakeData.String();
             var queries = new Mock<IProcessQueries>(MockBehavior.Strict);
             var command = new FakeMustBeVerifiedEmailSecretCommand { Secret = secret, Ticket = ticket, };
             var entity = new EmailVerification { Secret = secret, Ticket = ticket, };

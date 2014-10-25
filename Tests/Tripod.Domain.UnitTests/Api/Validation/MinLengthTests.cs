@@ -62,7 +62,7 @@ namespace Tripod
         [Fact]
         public void IsValid_WhenStringLength_IsGreaterThanMinLength()
         {
-            var command = new FakeStringLengthCommand { StringProperty = Guid.NewGuid().ToString() };
+            var command = new FakeStringLengthCommand { StringProperty = FakeData.String() };
             var validator = new FakeStringMinLengthValidator(5);
 
             var result = validator.Validate(command);

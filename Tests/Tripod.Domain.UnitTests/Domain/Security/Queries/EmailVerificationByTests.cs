@@ -14,7 +14,7 @@ namespace Tripod.Domain.Security
         [Fact]
         public void Query_StringCtor_SetsTicketProperty()
         {
-            var ticket = Guid.NewGuid().ToString();
+            var ticket = FakeData.String();
             var query = new EmailVerificationBy(ticket);
             query.Ticket.ShouldEqual(ticket);
         }
@@ -22,10 +22,10 @@ namespace Tripod.Domain.Security
         [Fact]
         public void Handler_ReturnsNullEmailVerification_WhenNotFound_ByTicket()
         {
-            var ticket = Guid.NewGuid().ToString();
+            var ticket = FakeData.String();
             var emailVerification = new EmailVerification
             {
-                Ticket = Guid.NewGuid().ToString(),
+                Ticket = FakeData.String(),
             };
             var data = new[] { emailVerification }.AsQueryable();
             var query = new EmailVerificationBy(ticket);
@@ -44,7 +44,7 @@ namespace Tripod.Domain.Security
         [Fact]
         public void Handler_ReturnsNonNullEmailVerification_WhenFound_ByTicket()
         {
-            var ticket = Guid.NewGuid().ToString();
+            var ticket = FakeData.String();
             var emailVerification = new EmailVerification
             {
                 Ticket = ticket,
