@@ -141,9 +141,9 @@ namespace Tripod.Domain.Security
         {
             var data = new[]
             {
-                new User{ Name = FakeData.String(), },
-                new User{ Name = FakeData.String(), },
-                new User{ Name = FakeData.String(), },
+                new User { Name = FakeData.String(), },
+                new User { Name = FakeData.String(), },
+                new User { Name = FakeData.String(), },
             };
             foreach (var user in data)
             {
@@ -164,9 +164,9 @@ namespace Tripod.Domain.Security
         {
             var data = new[]
             {
-                new User{ Name = FakeData.String(), },
-                new User{ Name = FakeData.String(), },
-                new User{ Name = FakeData.String(), },
+                new User { Name = FakeData.String(), },
+                new User { Name = FakeData.String(), },
+                new User { Name = FakeData.String(), },
             };
             foreach (var user in data)
             {
@@ -196,9 +196,9 @@ namespace Tripod.Domain.Security
         {
             var data = new[]
             {
-                new User{ Name = FakeData.String(), },
-                new User{ Name = FakeData.String(), },
-                new User{ Name = FakeData.String(), },
+                new User { Name = FakeData.String(), },
+                new User { Name = FakeData.String(), },
+                new User { Name = FakeData.String(), },
             };
             foreach (var user in data)
             {
@@ -219,9 +219,9 @@ namespace Tripod.Domain.Security
         {
             var data = new[]
             {
-                new User{ Name = FakeData.String(), },
-                new User{ Name = FakeData.String(), },
-                new User{ Name = FakeData.String(), },
+                new User { Name = FakeData.String(), },
+                new User { Name = FakeData.String(), },
+                new User { Name = FakeData.String(), },
             };
             foreach (var user in data)
             {
@@ -251,9 +251,9 @@ namespace Tripod.Domain.Security
         {
             var data = new[]
             {
-                new User{ Name = FakeData.String(), },
-                new User{ Name = FakeData.String(), },
-                new User{ Name = FakeData.String(), },
+                new User { Name = FakeData.String(), },
+                new User { Name = FakeData.String(), },
+                new User { Name = FakeData.String(), },
             };
             foreach (var user in data)
             {
@@ -275,9 +275,9 @@ namespace Tripod.Domain.Security
         {
             var data = new[]
             {
-                new User{ Name = FakeData.String(), },
-                new User{ Name = FakeData.String(), },
-                new User{ Name = FakeData.String(), },
+                new User { Name = FakeData.String(), },
+                new User { Name = FakeData.String(), },
+                new User { Name = FakeData.String(), },
             };
             foreach (var user in data)
             {
@@ -308,9 +308,9 @@ namespace Tripod.Domain.Security
         {
             var data = new[]
             {
-                new User{ Name = FakeData.String(), },
-                new User{ Name = FakeData.String(), },
-                new User{ Name = FakeData.String(), },
+                new User { Name = FakeData.String(), },
+                new User { Name = FakeData.String(), },
+                new User { Name = FakeData.String(), },
             };
             foreach (var user in data)
             {
@@ -332,9 +332,9 @@ namespace Tripod.Domain.Security
         {
             var data = new[]
             {
-                new User{ Name = FakeData.String(), },
-                new User{ Name = FakeData.String(), },
-                new User{ Name = FakeData.String(), },
+                new User { Name = FakeData.String(), },
+                new User { Name = FakeData.String(), },
+                new User { Name = FakeData.String(), },
             };
             foreach (var user in data)
             {
