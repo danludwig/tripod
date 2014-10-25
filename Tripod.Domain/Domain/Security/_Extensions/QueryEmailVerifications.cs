@@ -16,7 +16,6 @@ namespace Tripod.Domain.Security
             return allowNull ? set.SingleOrDefault(ByTicket(ticket)) : set.Single(ByTicket(ticket));
         }
 
-        [UsedImplicitly]
         public static EmailVerification ByTicket(this IEnumerable<EmailVerification> set, string ticket, bool allowNull = true)
         {
             return set.AsQueryable().ByTicket(ticket, allowNull);
@@ -27,7 +26,6 @@ namespace Tripod.Domain.Security
             return allowNull ? set.SingleOrDefaultAsync(ByTicket(ticket)) : set.SingleAsync(ByTicket(ticket));
         }
 
-        [UsedImplicitly]
         public static Task<EmailVerification> ByTicketAsync(this IEnumerable<EmailVerification> set, string ticket, bool allowNull = true)
         {
             return set.AsQueryable().ByTicketAsync(ticket, allowNull);
@@ -46,7 +44,6 @@ namespace Tripod.Domain.Security
             return set.Where(ByEmailAddressId(emailAddressId));
         }
 
-        [UsedImplicitly]
         public static IEnumerable<EmailVerification> ByEmailAddressId(this IEnumerable<EmailVerification> set, int emailAddressId)
         {
             return set.AsQueryable().ByEmailAddressId(emailAddressId);
