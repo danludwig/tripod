@@ -12,13 +12,11 @@ namespace Tripod.Domain.Security
     {
         #region ByUserId
 
-        [UsedImplicitly]
         public static LocalMembership ByUserId(this IQueryable<LocalMembership> set, int userId, bool allowNull = true)
         {
             return allowNull ? set.SingleOrDefault(ByUserId(userId)) : set.Single(ByUserId(userId));
         }
 
-        [UsedImplicitly]
         public static LocalMembership ByUserId(this IEnumerable<LocalMembership> set, int userId, bool allowNull = true)
         {
             return set.AsQueryable().ByUserId(userId, allowNull);
@@ -29,7 +27,6 @@ namespace Tripod.Domain.Security
             return allowNull ? set.SingleOrDefaultAsync(ByUserId(userId)) : set.SingleAsync(ByUserId(userId));
         }
 
-        [UsedImplicitly]
         public static Task<LocalMembership> ByUserIdAsync(this IEnumerable<LocalMembership> set, int userId, bool allowNull = true)
         {
             return set.AsQueryable().ByUserIdAsync(userId, allowNull);

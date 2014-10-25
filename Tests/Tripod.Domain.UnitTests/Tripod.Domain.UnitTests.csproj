@@ -196,6 +196,7 @@
     <Compile Include="Domain\Security\Validation\MustNotFindUserByNameTests.cs" />
     <Compile Include="Domain\Security\_Extensions\QueryEmailAddressesTests.cs" />
     <Compile Include="Domain\Security\_Extensions\QueryEmailVerificationsTests.cs" />
+    <Compile Include="Domain\Security\_Extensions\QueryLocalMembershipsTests.cs" />
     <Compile Include="Domain\Security\_Extensions\QueryUsersTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
