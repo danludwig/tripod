@@ -40,13 +40,11 @@ namespace Tripod.Domain.Security
         #endregion
         #region ByUserName
 
-        [UsedImplicitly]
         public static LocalMembership ByUserName(this IQueryable<LocalMembership> set, string userName, bool allowNull = true)
         {
             return allowNull ? set.SingleOrDefault(ByUserName(userName)) : set.Single(ByUserName(userName));
         }
 
-        [UsedImplicitly]
         public static LocalMembership ByUserName(this IEnumerable<LocalMembership> set, string userName, bool allowNull = true)
         {
             return set.AsQueryable().ByUserName(userName, allowNull);
@@ -57,7 +55,6 @@ namespace Tripod.Domain.Security
             return allowNull ? set.SingleOrDefaultAsync(ByUserName(userName)) : set.SingleAsync(ByUserName(userName));
         }
 
-        [UsedImplicitly]
         public static Task<LocalMembership> ByUserNameAsync(this IEnumerable<LocalMembership> set, string userName, bool allowNull = true)
         {
             return set.AsQueryable().ByUserNameAsync(userName, allowNull);
