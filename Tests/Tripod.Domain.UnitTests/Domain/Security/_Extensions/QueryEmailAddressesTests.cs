@@ -137,6 +137,92 @@ namespace Tripod.Domain.Security
         #endregion
         #region ByUserId
 
+        [Fact]
+        public void ByUserId_Queryable_FiltersByUserId()
+        {
+            var userId = new Random().Next(1, int.MaxValue - 100000);
+            var data = new[]
+            {
+                new EmailAddress
+                {
+                    Value = string.Format("{0}@domain.tld", Guid.NewGuid()),
+                    UserId = new Random().Next(int.MaxValue - 10000, int.MaxValue),
+                },
+                new EmailAddress
+                {
+                    Value = string.Format("{0}@domain.tld", Guid.NewGuid()),
+                    UserId = userId,
+                },
+                new EmailAddress
+                {
+                    Value = string.Format("{0}@domain.tld", Guid.NewGuid()),
+                    UserId = userId,
+                },
+                new EmailAddress
+                {
+                    Value = string.Format("{0}@domain.tld", Guid.NewGuid()),
+                    UserId = new Random().Next(int.MaxValue - 10000, int.MaxValue),
+                },
+                new EmailAddress
+                {
+                    Value = string.Format("{0}@domain.tld", Guid.NewGuid()),
+                    UserId = new Random().Next(int.MaxValue - 10000, int.MaxValue),
+                },
+                new EmailAddress
+                {
+                    Value = string.Format("{0}@domain.tld", Guid.NewGuid()),
+                    UserId = userId,
+                },
+            };
+
+            var results = data.AsQueryable().ByUserId(userId).ToArray();
+            results.ShouldNotBeNull();
+            results.Length.ShouldEqual(3);
+        }
+
+        [Fact]
+        public void ByUserId_Enumerable_FiltersByUserId()
+        {
+            var userId = new Random().Next(1, int.MaxValue - 100000);
+            var data = new[]
+            {
+                new EmailAddress
+                {
+                    Value = string.Format("{0}@domain.tld", Guid.NewGuid()),
+                    UserId = new Random().Next(int.MaxValue - 10000, int.MaxValue),
+                },
+                new EmailAddress
+                {
+                    Value = string.Format("{0}@domain.tld", Guid.NewGuid()),
+                    UserId = userId,
+                },
+                new EmailAddress
+                {
+                    Value = string.Format("{0}@domain.tld", Guid.NewGuid()),
+                    UserId = userId,
+                },
+                new EmailAddress
+                {
+                    Value = string.Format("{0}@domain.tld", Guid.NewGuid()),
+                    UserId = new Random().Next(int.MaxValue - 10000, int.MaxValue),
+                },
+                new EmailAddress
+                {
+                    Value = string.Format("{0}@domain.tld", Guid.NewGuid()),
+                    UserId = new Random().Next(int.MaxValue - 10000, int.MaxValue),
+                },
+                new EmailAddress
+                {
+                    Value = string.Format("{0}@domain.tld", Guid.NewGuid()),
+                    UserId = userId,
+                },
+            };
+
+            var results = data.AsEnumerable().ByUserId(userId).ToArray();
+            results.ShouldNotBeNull();
+            results.Length.ShouldEqual(3);
+        }
+
         #endregion
     }
 }
