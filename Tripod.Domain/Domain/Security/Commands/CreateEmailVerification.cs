@@ -21,11 +21,12 @@ namespace Tripod.Domain.Security
                     .When(x => x.Purpose != EmailVerificationPurpose.ForgotPassword, ApplyConditionTo.CurrentValidator)
                 .MustFindUserByVerifiedEmail(queries)
                     .When(x => x.Purpose == EmailVerificationPurpose.ForgotPassword, ApplyConditionTo.CurrentValidator)
-                    .WithName(EmailAddress.Constraints.Label);
+                .WithName(EmailAddress.Constraints.Label)
+            ;
 
             RuleFor(x => x.Purpose)
                 .MustBeValidVerifyEmailPurpose()
-                    .WithName(EmailVerification.Constraints.Label);
+                .WithName(EmailVerification.Constraints.Label);
         }
     }
 

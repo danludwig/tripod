@@ -124,6 +124,7 @@
     <Compile Include="Domain\Audit\Entities\_Fakes\ProxiedExceptionAudit.cs" />
     <Compile Include="Domain\Security\Commands\ChangeLocalPasswordTests.cs" />
     <Compile Include="Domain\Security\Commands\ChangeUserNameTests.cs" />
+    <Compile Include="Domain\Security\Commands\CreateEmailVerificationTests.cs" />
     <Compile Include="Domain\Security\Commands\SignInTests.cs" />
     <Compile Include="Domain\Security\Commands\CreateUserTests.cs" />
     <Compile Include="Domain\Security\Commands\SendVerificationEmailTests.cs" />
@@ -131,6 +132,7 @@
     <Compile Include="Domain\Security\Entities\UserClaimTests.cs" />
     <Compile Include="Domain\Security\Entities\EmailAddressTests.cs" />
     <Compile Include="Domain\Security\Entities\LocalMembershipTests.cs" />
+    <Compile Include="Domain\Security\Entities\UserTicketTests.cs" />
     <Compile Include="Domain\Security\Entities\_Fakes\ProxiedClaim.cs" />
     <Compile Include="Domain\Security\Entities\_Fakes\ProxiedEmailMessage.cs" />
     <Compile Include="Domain\Security\Entities\_Fakes\ProxiedEmailVerification.cs" />

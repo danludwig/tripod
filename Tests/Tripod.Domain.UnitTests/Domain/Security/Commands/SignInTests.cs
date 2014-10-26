@@ -167,7 +167,7 @@ namespace Tripod.Domain.Security
         }
 
         [Fact]
-        public void Handler_AuthenticatesUser()
+        public void Handler_AuthenticatesUser_WhenFoundByNameOrVerifiedEmail()
         {
             var command = new SignIn { UserNameOrVerifiedEmail = "username", Password = "password" };
             var user = new User { Name = command.UserNameOrVerifiedEmail };
@@ -185,6 +185,29 @@ namespace Tripod.Domain.Security
             handler.Handle(command).Wait();
 
             authenticator.Verify(x => x.SignOn(user, command.IsPersistent), Times.Once);
+            userManager.Verify(x => x.FindAsync(command.UserNameOrVerifiedEmail, command.Password), Times.Once);
+        }
+
+        [Fact]
+        public void Handler_DoesNotAuthenticateUser_WhenNotFoundByNameOrVerifiedEmail()
+        {
+            var command = new SignIn
+            {
+                UserNameOrVerifiedEmail = FakeData.String(),
+                Password = FakeData.String(),
+            };
+            var userStore = new Mock<IUserStore<User, int>>();
+            var queries = new Mock<IProcessQueries>(MockBehavior.Strict);
+            var userManager = new Mock<UserManager<User, int>>(userStore.Object);
+            var authenticator = new Mock<IAuthenticate>(MockBehavior.Strict);
+            var handler = new HandleSignInCommand(queries.Object, userManager.Object, authenticator.Object);
+            Expression<Func<UserByNameOrVerifiedEmail, bool>> userByNameOrVerifiedEmail = x => x.NameOrEmail == command.UserNameOrVerifiedEmail;
+            queries.Setup(x => x.Execute(It.Is(userByNameOrVerifiedEmail))).Returns(Task.FromResult(null as User));
+
+            handler.Handle(command).Wait();
+
+            authenticator.Verify(x => x.SignOn(It.IsAny<User>(), It.IsAny<bool>()), Times.Never);
+            userManager.Verify(x => x.FindAsync(It.IsAny<string>(), It.IsAny<string>()), Times.Never);
         }
 
         [Theory]

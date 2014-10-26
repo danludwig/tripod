@@ -43,8 +43,8 @@ namespace Tripod.Domain.Security
 
             RuleFor(x => x.IsExpectingEmail)
                 .Equal(true)
-                    .WithMessage(Resources.Validation_SendVerificationEmail_IsExpectingEmail)
-                    .WithName(EmailAddress.Constraints.Label.ToLower());
+                .WithMessage(Resources.Validation_SendVerificationEmail_IsExpectingEmail)
+                .WithName(EmailAddress.Constraints.Label.ToLower());
 
             RuleFor(x => x.Purpose)
                 .MustBeValidVerifyEmailPurpose()
@@ -52,10 +52,11 @@ namespace Tripod.Domain.Security
 
             RuleFor(x => x.VerifyUrlFormat)
                 .NotEmpty()
-                    .WithMessage(Resources.Validation_EmailVerification_MissingMessageFormatter)
-                    // do not require a verification url when registering remote users,
-                    // but do require one when registering local users and adding new emails to user account
-                    .When(x => x.Purpose != EmailVerificationPurpose.CreateRemoteUser);
+                // do not require a verification url when registering remote users,
+                // but do require one when registering local users and adding new emails to user account
+                .When(x => x.Purpose != EmailVerificationPurpose.CreateRemoteUser)
+                .WithMessage(Resources.Validation_EmailVerification_MissingMessageFormatter)
+            ;
 
             RuleFor(x => x.SendFromUrl)
                 .NotEmpty()

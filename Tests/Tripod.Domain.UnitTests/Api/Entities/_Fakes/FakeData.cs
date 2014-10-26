@@ -25,6 +25,12 @@ namespace Tripod
             return id;
         }
 
+        public static T OneOf<T>(params T[] options)
+        {
+            var index = Random.Next(0, options.Length - 1);
+            return options[index];
+        }
+
         public static int Int(int minValue, int maxValue)
         {
             var integer = Random.Next(minValue, maxValue);
