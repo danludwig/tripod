@@ -135,7 +135,9 @@
     <Compile Include="Domain\Security\Commands\SignInTests.cs" />
     <Compile Include="Domain\Security\Commands\CreateUserTests.cs" />
     <Compile Include="Domain\Security\Commands\SendVerificationEmailTests.cs" />
+    <Compile Include="Domain\Security\Commands\SignOnTests.cs" />
     <Compile Include="Domain\Security\Commands\SignOutTests.cs" />
+    <Compile Include="Domain\Security\Commands\UpdateEmailAddressTests.cs" />
     <Compile Include="Domain\Security\Commands\VerifyEmailSecretTests.cs" />
     <Compile Include="Domain\Security\Entities\EmailMessageTests.cs" />
     <Compile Include="Domain\Security\Entities\UserClaimTests.cs" />

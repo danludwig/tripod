@@ -36,7 +36,7 @@ namespace Tripod.Domain.Security
                 .MustNotBePrimaryEmailAddress(queries)
                     .When(x => x.IsPrimary == false, ApplyConditionTo.CurrentValidator)
 
-                    // only need to validate this field when there is a principal
+                // only need to validate this field when there is a principal
                 .When(x => x.Principal != null)
                 .WithName(EmailAddress.Constraints.Label)
             ;
