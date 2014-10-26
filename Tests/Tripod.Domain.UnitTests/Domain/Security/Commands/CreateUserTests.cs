@@ -11,7 +11,7 @@ using Xunit.Extensions;
 
 namespace Tripod.Domain.Security
 {
-    public class CreateUserTests
+    public class CreateUserTests : FluentValidationTests
     {
         [Theory]
         [InlineData(null)]

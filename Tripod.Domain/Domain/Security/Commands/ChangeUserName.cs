@@ -20,18 +20,18 @@ namespace Tripod.Domain.Security
         {
             RuleFor(x => x.UserId)
                 .MustFindUserById(queries)
-                    .WithName(User.Constraints.Label);
+                .WithName(User.Constraints.Label);
 
             RuleFor(x => x.Principal)
                 .MustFindUserByPrincipal(queries)
                 .MustBePrincipalWithUserId(x => x.UserId)
-                    .WithName(User.Constraints.Label);
+                .WithName(User.Constraints.Label);
 
             RuleFor(x => x.UserName)
                 .MustBeValidUserName()
                 .MustNotBeUnverifiedEmailUserName(queries, x => x.UserId)
                 .MustNotFindUserByName(queries, x => x.UserId)
-                    .WithName(User.Constraints.NameLabel);
+                .WithName(User.Constraints.NameLabel);
         }
     }
 

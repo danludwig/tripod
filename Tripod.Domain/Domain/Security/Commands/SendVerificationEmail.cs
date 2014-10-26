@@ -39,16 +39,16 @@ namespace Tripod.Domain.Security
                     .When(x => x.Purpose != EmailVerificationPurpose.ForgotPassword, ApplyConditionTo.CurrentValidator)
                 .MustFindUserByVerifiedEmail(queries)
                     .When(x => x.Purpose == EmailVerificationPurpose.ForgotPassword, ApplyConditionTo.CurrentValidator)
-                    .WithName(EmailAddress.Constraints.Label);
+                .WithName(EmailAddress.Constraints.Label);
 
             RuleFor(x => x.IsExpectingEmail)
                 .Equal(true)
                     .WithMessage(Resources.Validation_SendVerificationEmail_IsExpectingEmail)
-                        .WithName(EmailAddress.Constraints.Label.ToLower());
+                    .WithName(EmailAddress.Constraints.Label.ToLower());
 
             RuleFor(x => x.Purpose)
                 .MustBeValidVerifyEmailPurpose()
-                    .WithName(EmailVerification.Constraints.Label);
+                .WithName(EmailVerification.Constraints.Label);
 
             RuleFor(x => x.VerifyUrlFormat)
                 .NotEmpty()
@@ -59,7 +59,7 @@ namespace Tripod.Domain.Security
 
             RuleFor(x => x.SendFromUrl)
                 .NotEmpty()
-                    .WithMessage(Resources.Validation_EmailVerification_MissingMessageFormatter);
+                .WithMessage(Resources.Validation_EmailVerification_MissingMessageFormatter);
         }
     }
 

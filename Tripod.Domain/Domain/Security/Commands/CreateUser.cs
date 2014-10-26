@@ -17,7 +17,7 @@ namespace Tripod.Domain.Security
             RuleFor(x => x.Name)
                 .MustBeValidUserName()
                 .MustNotFindUserByName(queries)
-                    .WithName(User.Constraints.NameLabel)
+                .WithName(User.Constraints.NameLabel)
             ;
         }
     }

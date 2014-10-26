@@ -122,6 +122,8 @@
     <Compile Include="Api\_Extensions\ReflectionExtensionTests.cs" />
     <Compile Include="Domain\Audit\Entities\ExceptionAuditTests.cs" />
     <Compile Include="Domain\Audit\Entities\_Fakes\ProxiedExceptionAudit.cs" />
+    <Compile Include="Domain\Security\Commands\ChangeLocalPasswordTests.cs" />
+    <Compile Include="Domain\Security\Commands\ChangeUserNameTests.cs" />
     <Compile Include="Domain\Security\Commands\SignInTests.cs" />
     <Compile Include="Domain\Security\Commands\CreateUserTests.cs" />
     <Compile Include="Domain\Security\Commands\SendVerificationEmailTests.cs" />

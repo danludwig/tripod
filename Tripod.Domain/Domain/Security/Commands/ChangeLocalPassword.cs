@@ -23,24 +23,26 @@ namespace Tripod.Domain.Security
             RuleFor(x => x.Principal)
                 .MustFindUserByPrincipal(queries)
                 .MustFindLocalMembershipByPrincipal(queries)
-                    .WithName(User.Constraints.Label);
+                .WithName(User.Constraints.Label);
 
             RuleFor(x => x.OldPassword)
                 .NotEmpty()
                 .MustBeVerifiedPassword(queries, x => x.Principal.Identity.Name)
-                    .WithMessage(Resources.Validation_InvalidPassword)
-                    .WithName(LocalMembership.Constraints.OldPasswordLabel);
+                    .When(x => x.Principal != null, ApplyConditionTo.CurrentValidator)
+                //.WithMessage(Resources.Validation_InvalidPassword)
+                .WithName(LocalMembership.Constraints.OldPasswordLabel);
 
             RuleFor(x => x.NewPassword)
                 .MustBeValidPassword()
-                    .WithName(LocalMembership.Constraints.NewPasswordLabel)
+                .WithName(LocalMembership.Constraints.NewPasswordLabel)
             ;
 
             RuleFor(x => x.ConfirmPassword)
                 .NotEmpty()
                 .MustEqualPassword(x => x.NewPassword, LocalMembership.Constraints.NewPasswordLabel)
-                    .WithName(LocalMembership.Constraints.NewPasswordConfirmationLabel)
-                .When(x => !string.IsNullOrWhiteSpace(x.NewPassword), ApplyConditionTo.CurrentValidator);
+                    .When(x => !string.IsNullOrWhiteSpace(x.NewPassword), ApplyConditionTo.CurrentValidator)
+                .WithName(LocalMembership.Constraints.NewPasswordConfirmationLabel)
+            ;
         }
     }
 
