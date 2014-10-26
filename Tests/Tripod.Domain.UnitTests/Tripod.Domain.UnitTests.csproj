@@ -122,11 +122,9 @@
     <Compile Include="Api\_Extensions\ReflectionExtensionTests.cs" />
     <Compile Include="Domain\Audit\Entities\ExceptionAuditTests.cs" />
     <Compile Include="Domain\Audit\Entities\_Fakes\ProxiedExceptionAudit.cs" />
-    <Compile Include="Domain\Security\Commands\SignInHandlerTests.cs" />
-    <Compile Include="Domain\Security\Commands\CreateUserHandlerTests.cs" />
-    <Compile Include="Domain\Security\Commands\SignInValidationTests.cs" />
-    <Compile Include="Domain\Security\Commands\SendVerificationEmailValidationTests.cs" />
-    <Compile Include="Domain\Security\Commands\CreateUserValidationTests.cs" />
+    <Compile Include="Domain\Security\Commands\SignInTests.cs" />
+    <Compile Include="Domain\Security\Commands\CreateUserTests.cs" />
+    <Compile Include="Domain\Security\Commands\SendVerificationEmailTests.cs" />
     <Compile Include="Domain\Security\Entities\EmailMessageTests.cs" />
     <Compile Include="Domain\Security\Entities\UserClaimTests.cs" />
     <Compile Include="Domain\Security\Entities\EmailAddressTests.cs" />

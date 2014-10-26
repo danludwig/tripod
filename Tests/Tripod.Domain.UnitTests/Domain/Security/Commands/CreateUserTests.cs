@@ -11,10 +11,13 @@ using Xunit.Extensions;
 
 namespace Tripod.Domain.Security
 {
-    public class CreateUserValidationTests : FluentValidationTests
+    public class CreateUserTests
     {
-        [Theory, InlineData(null), InlineData(""), InlineData("\t  \r\n")]
-        public void IsInvalid_WhenName_IsEmpty(string name)
+        [Theory]
+        [InlineData(null)]
+        [InlineData("")]
+        [InlineData("\t  \r\n")]
+        public void Validator_IsInvalid_WhenName_IsEmpty(string name)
         {
             var queries = new Mock<IProcessQueries>(MockBehavior.Strict);
             var validator = new ValidateCreateUserCommand(queries.Object);
@@ -32,7 +35,7 @@ namespace Tripod.Domain.Security
         }
 
         [Fact]
-        public void IsInvalid_WhenNameLength_IsLessThan_MinLength()
+        public void Validator_IsInvalid_WhenNameLength_IsLessThan_MinLength()
         {
             var queries = new Mock<IProcessQueries>(MockBehavior.Strict);
             var validator = new ValidateCreateUserCommand(queries.Object);
@@ -54,7 +57,7 @@ namespace Tripod.Domain.Security
         }
 
         [Fact]
-        public void IsInvalid_WhenNameLength_IsGreaterThan_MaxLength()
+        public void Validator_IsInvalid_WhenNameLength_IsGreaterThan_MaxLength()
         {
             var queries = new Mock<IProcessQueries>(MockBehavior.Strict);
             var validator = new ValidateCreateUserCommand(queries.Object);
@@ -75,7 +78,7 @@ namespace Tripod.Domain.Security
         }
 
         [Fact]
-        public void IsInvalid_WhenName_AlreadyExists()
+        public void Validator_IsInvalid_WhenName_AlreadyExists()
         {
             var queries = new Mock<IProcessQueries>(MockBehavior.Strict);
             var validator = new ValidateCreateUserCommand(queries.Object);
@@ -102,7 +105,7 @@ namespace Tripod.Domain.Security
         }
 
         [Fact]
-        public void IsValid_WhenAllRulesPass()
+        public void Validator_IsValid_WhenAllRulesPass()
         {
             var queries = new Mock<IProcessQueries>(MockBehavior.Strict);
             var validator = new ValidateCreateUserCommand(queries.Object);
@@ -116,6 +119,33 @@ namespace Tripod.Domain.Security
             queries.Verify(x => x.Execute(It.Is(expectedQuery)), Times.Once);
             //validator.ShouldNotHaveValidationErrorFor(x => x.Name, command.Name);
             //queries.Verify(x => x.Execute(It.Is(expectedQuery)), Times.Once);
+        }
+
+        [Fact]
+        public void Handler_CreatesUserEntity()
+        {
+            var command = new CreateUser { Name = "new" };
+            var entities = new Mock<IWriteEntities>(MockBehavior.Strict);
+            var handler = new HandleCreateUserCommand(entities.Object);
+            Expression<Func<User, bool>> expectedEntity = x => x.Name.Equals(command.Name);
+            entities.Setup(x => x.Create(It.Is(expectedEntity)));
+
+            handler.Handle(command);
+
+            entities.Verify(x => x.Create(It.Is(expectedEntity)), Times.Once);
+        }
+
+        [Fact]
+        public void Handler_SetsCreatedProperty_OnCommand()
+        {
+            var command = new CreateUser { Name = "new" };
+            var entities = new Mock<IWriteEntities>(MockBehavior.Loose);
+            var handler = new HandleCreateUserCommand(entities.Object);
+
+            handler.Handle(command);
+
+            command.CreatedEntity.ShouldNotBeNull();
+            command.CreatedEntity.Name.ShouldEqual(command.Name);
         }
     }
 }
