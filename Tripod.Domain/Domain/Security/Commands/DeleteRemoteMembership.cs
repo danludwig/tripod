@@ -1,6 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Linq.Expressions;
+﻿using System.Linq;
 using System.Security.Principal;
 using System.Threading.Tasks;
 using FluentValidation;
@@ -58,7 +56,7 @@ namespace Tripod.Domain.Security
             var userId = command.Principal.Identity.GetUserId<int>();
             var userLoginInfo = new UserLoginInfo(command.LoginProvider, command.ProviderKey);
             var remoteMembership = await _entities.Get<RemoteMembership>()
-                .EagerLoad(new Expression<Func<RemoteMembership, object>>[] { x => x.User, })
+                //.EagerLoad(new Expression<Func<RemoteMembership, object>>[] { x => x.User, })
                 .ByUserIdAndLoginInfoAsync(userId, userLoginInfo);
             if (remoteMembership == null) return;
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Linq;
 
 namespace Tripod
@@ -23,6 +24,11 @@ namespace Tripod
             while (canNotBe.Contains(id))
                 id = Random.Next(1, int.MaxValue);
             return id;
+        }
+
+        public static string IdString(params int[] canNotBe)
+        {
+            return Id(canNotBe).ToString(CultureInfo.InvariantCulture);
         }
 
         public static T OneOf<T>(params T[] options)
