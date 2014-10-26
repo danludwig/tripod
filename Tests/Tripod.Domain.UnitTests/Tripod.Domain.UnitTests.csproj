@@ -129,9 +129,14 @@
     <Compile Include="Domain\Security\Commands\CreateRemoteMembershipTests.cs" />
     <Compile Include="Domain\Security\Commands\DeleteEmailAddressTests.cs" />
     <Compile Include="Domain\Security\Commands\DeleteRemoteMembershipTests.cs" />
+    <Compile Include="Domain\Security\Commands\RedeemEmailVerificationTests.cs" />
+    <Compile Include="Domain\Security\Commands\RejectEmailVerificationTests.cs" />
+    <Compile Include="Domain\Security\Commands\ResetPasswordTests.cs" />
     <Compile Include="Domain\Security\Commands\SignInTests.cs" />
     <Compile Include="Domain\Security\Commands\CreateUserTests.cs" />
     <Compile Include="Domain\Security\Commands\SendVerificationEmailTests.cs" />
+    <Compile Include="Domain\Security\Commands\SignOutTests.cs" />
+    <Compile Include="Domain\Security\Commands\VerifyEmailSecretTests.cs" />
     <Compile Include="Domain\Security\Entities\EmailMessageTests.cs" />
     <Compile Include="Domain\Security\Entities\UserClaimTests.cs" />
     <Compile Include="Domain\Security\Entities\EmailAddressTests.cs" />

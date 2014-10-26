@@ -24,12 +24,12 @@ namespace Tripod.Domain.Security
             RuleFor(x => x.Ticket)
                 .MustBeRedeemableVerifyEmailTicket(queries)
                 .MustBePurposedVerifyEmailTicket(queries, x => x.Purpose)
-                    .WithName(EmailVerification.Constraints.Label);
+                .WithName(EmailVerification.Constraints.Label);
 
             RuleFor(x => x.Secret)
                 .NotEmpty()
                 .MustBeVerifiedEmailSecret(queries, x => x.Ticket)
-                    .WithName(EmailVerification.Constraints.SecretLabel);
+                .WithName(EmailVerification.Constraints.SecretLabel);
         }
     }
 

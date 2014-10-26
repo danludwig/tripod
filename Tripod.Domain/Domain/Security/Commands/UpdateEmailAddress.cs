@@ -22,7 +22,7 @@ namespace Tripod.Domain.Security
             RuleFor(x => x.Principal)
                 // must find user by principal
                 .MustFindUserByPrincipal(queries)
-                    .WithName(User.Constraints.Label)
+                .WithName(User.Constraints.Label)
             ;
 
             RuleFor(x => x.EmailAddressId)
@@ -37,8 +37,8 @@ namespace Tripod.Domain.Security
                     .When(x => x.IsPrimary == false, ApplyConditionTo.CurrentValidator)
 
                     // only need to validate this field when there is a principal
-                    .When(x => x.Principal != null)
-                    .WithName(EmailAddress.Constraints.Label)
+                .When(x => x.Principal != null)
+                .WithName(EmailAddress.Constraints.Label)
             ;
         }
     }

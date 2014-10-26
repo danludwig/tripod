@@ -48,8 +48,8 @@ namespace Tripod.Domain.Security
 
         public HandleResetPasswordCommand(IProcessQueries queries, IWriteEntities entities)
         {
-            _entities = entities;
             _queries = queries;
+            _entities = entities;
         }
 
         public async Task Handle(ResetPassword command)

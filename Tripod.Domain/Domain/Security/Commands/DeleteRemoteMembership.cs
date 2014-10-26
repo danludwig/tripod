@@ -27,8 +27,8 @@ namespace Tripod.Domain.Security
                         .Result.Any(y => y.LoginProvider != x.LoginProvider && y.ProviderKey != x.ProviderKey),
                             ApplyConditionTo.CurrentValidator)
 
-                    .WithMessage(Resources.Validation_RemoteMembershipByUser_IsOnlyLogin)
-                    .WithName(User.Constraints.Label)
+                .WithMessage(Resources.Validation_RemoteMembershipByUser_IsOnlyLogin)
+                .WithName(User.Constraints.Label)
             ;
 
             RuleFor(x => x.LoginProvider)

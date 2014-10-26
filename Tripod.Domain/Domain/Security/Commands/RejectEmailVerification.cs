@@ -18,7 +18,7 @@ namespace Tripod.Domain.Security
         {
             RuleFor(x => x.Principal)
                 .MustFindUserByPrincipal(queries)
-                    .WithName(User.Constraints.Label)
+                .WithName(User.Constraints.Label)
             ;
 
             RuleFor(x => x.Ticket)
