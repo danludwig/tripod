@@ -252,7 +252,7 @@ namespace Tripod.Domain.Security
             var data = new[] { user }.AsQueryable();
             var claims = new[]
             {
-                new Claim(ClaimTypes.NameIdentifier, userId.ToString(CultureInfo.InvariantCulture)), 
+                new Claim(ClaimTypes.NameIdentifier, userId.ToString(CultureInfo.InvariantCulture)),
             };
             var identity = new ClaimsIdentity(claims);
             var principal = new GenericPrincipal(identity, null);
@@ -300,7 +300,7 @@ namespace Tripod.Domain.Security
             var data = new[] { user }.AsQueryable();
             var claims = new[]
             {
-                new Claim(ClaimTypes.Name, userId.ToString(CultureInfo.InvariantCulture)), 
+                new Claim(ClaimTypes.Name, userId.ToString(CultureInfo.InvariantCulture)),
             };
             var identity = new ClaimsIdentity(claims, "authentication type");
             var principal = new GenericPrincipal(identity, null);
@@ -348,7 +348,7 @@ namespace Tripod.Domain.Security
             var data = new[] { user }.AsQueryable();
             var claims = new[]
             {
-                new Claim(ClaimTypes.NameIdentifier, userId.ToString(CultureInfo.InvariantCulture)), 
+                new Claim(ClaimTypes.NameIdentifier, userId.ToString(CultureInfo.InvariantCulture)),
             };
             var identity = new ClaimsIdentity(claims, "authenticationType");
             var principal = new GenericPrincipal(identity, null);
@@ -395,7 +395,7 @@ namespace Tripod.Domain.Security
             var data = new[] { user }.AsQueryable();
             var claims = new[]
             {
-                new Claim(ClaimTypes.NameIdentifier, userId.ToString(CultureInfo.InvariantCulture)), 
+                new Claim(ClaimTypes.NameIdentifier, userId.ToString(CultureInfo.InvariantCulture)),
             };
             var identity = new ClaimsIdentity(claims, "authentication type");
             var principal = new GenericPrincipal(identity, null);

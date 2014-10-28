@@ -45,8 +45,8 @@ namespace Tripod.Domain.Security
             {
                 Principal = new GenericPrincipal(new ClaimsIdentity(new[]
                 {
-                    new Claim(ClaimTypes.Name, FakeData.String()), 
-                    new Claim(ClaimTypes.NameIdentifier, FakeData.Id().ToString(CultureInfo.InvariantCulture)), 
+                    new Claim(ClaimTypes.Name, FakeData.String()),
+                    new Claim(ClaimTypes.NameIdentifier, FakeData.Id().ToString(CultureInfo.InvariantCulture)),
                 }), null),
                 OldPassword = FakeData.String(),
                 NewPassword = FakeData.String(),
@@ -77,7 +77,7 @@ namespace Tripod.Domain.Security
             {
                 Principal = new GenericPrincipal(new ClaimsIdentity(new[]
                 {
-                    new Claim(ClaimTypes.NameIdentifier, FakeData.Id().ToString(CultureInfo.InvariantCulture)), 
+                    new Claim(ClaimTypes.NameIdentifier, FakeData.Id().ToString(CultureInfo.InvariantCulture)),
                 }), null),
                 NewPassword = FakeData.String(),
             };
@@ -110,7 +110,7 @@ namespace Tripod.Domain.Security
             {
                 Principal = new GenericPrincipal(new ClaimsIdentity(new[]
                 {
-                    new Claim(ClaimTypes.NameIdentifier, FakeData.Id().ToString(CultureInfo.InvariantCulture)), 
+                    new Claim(ClaimTypes.NameIdentifier, FakeData.Id().ToString(CultureInfo.InvariantCulture)),
                 }), null),
                 NewPassword = FakeData.String(),
             };

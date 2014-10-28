@@ -35,8 +35,8 @@ namespace Tripod.Domain.Security
             {
                 new Claim(ClaimTypes.Email, FakeData.Email()),
                 new Claim(ClaimTypes.NameIdentifier, FakeData.Id()
-                    .ToString(CultureInfo.InvariantCulture)), 
-                new Claim(ClaimTypes.Gender, string.Empty), 
+                    .ToString(CultureInfo.InvariantCulture)),
+                new Claim(ClaimTypes.Gender, string.Empty),
             };
             var authenticator = new Mock<IAuthenticate>(MockBehavior.Strict);
             authenticator.Setup(x => x.GetRemoteMembershipClaims(authenticationType))

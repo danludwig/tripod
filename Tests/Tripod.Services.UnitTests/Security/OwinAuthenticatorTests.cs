@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Specialized;
 using System.Linq.Expressions;
 using System.Security.Claims;
+using System.Security.Principal;
+using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
 using Moq;
@@ -79,6 +82,81 @@ namespace Tripod.Services.Security
             instance.SignOut().Wait();
 
             authenticationManager.Verify(x => x.SignOut(), Times.Once);
+        }
+
+        [Fact]
+        public void GetRemoteMembershipTicket_InvokesOnIAuthenticationManagerNoArg_WhenPrincipalIsNotAuthenticated()
+        {
+            var principal = new GenericPrincipal(new ClaimsIdentity(new[]
+            {
+                new Claim(ClaimTypes.Name, FakeData.String()),
+                new Claim(ClaimTypes.NameIdentifier, FakeData.IdString()),
+                new Claim(ClaimTypes.Email, FakeData.Email()),
+            }, null), null);
+            var authenticationManager = new Mock<IAuthenticationManager>(MockBehavior.Strict);
+            var instance = new OwinAuthenticator(authenticationManager.Object, null, null);
+            authenticationManager.Setup(x => x.AuthenticateAsync(DefaultAuthenticationTypes.ExternalCookie))
+                .Returns(Task.FromResult(new AuthenticateResult(
+                    principal.Identity,
+                    new AuthenticationProperties(),
+                    new AuthenticationDescription())));
+
+            instance.GetRemoteMembershipTicket(principal).Wait();
+
+            authenticationManager.Verify(x => x.AuthenticateAsync(DefaultAuthenticationTypes.ExternalCookie),
+                Times.Once);
+        }
+
+        [Fact]
+        public void GetRemoteMembershipTicket_InvokesOnIAuthenticationManager2Arg_WhenPrincipalIsAuthenticated()
+        {
+            var principal = new GenericPrincipal(new ClaimsIdentity(new[]
+            {
+                new Claim(ClaimTypes.Name, FakeData.String()),
+                new Claim(ClaimTypes.NameIdentifier, FakeData.IdString()),
+                new Claim(ClaimTypes.Email, FakeData.Email()),
+            }, "authenticationType"), null);
+            var configReader = new Mock<IReadConfiguration>(MockBehavior.Strict);
+            configReader.SetupGet(x => x.AppSettings).Returns(new NameValueCollection
+            {
+                { AppSettingKey.XsrfKey.ToString(), "XsrfKey" },
+            });
+            var appConfig = new AppConfiguration(configReader.Object);
+            var authenticationManager = new Mock<IAuthenticationManager>(MockBehavior.Strict);
+            var instance = new OwinAuthenticator(authenticationManager.Object, null, appConfig);
+            authenticationManager.Setup(x => x.AuthenticateAsync(DefaultAuthenticationTypes.ExternalCookie))
+                .Returns(Task.FromResult(new AuthenticateResult(
+                    principal.Identity,
+                    new AuthenticationProperties(),
+                    new AuthenticationDescription())));
+
+            instance.GetRemoteMembershipTicket(principal).Wait();
+
+            authenticationManager.Verify(x => x.AuthenticateAsync(DefaultAuthenticationTypes.ExternalCookie),
+                Times.Once);
+        }
+
+        [Fact]
+        public void GetRemoteMembershipClaims_InvokesOnIAuthenticationManager()
+        {
+            var principal = new GenericPrincipal(new ClaimsIdentity(new[]
+            {
+                new Claim(ClaimTypes.Name, FakeData.String()),
+                new Claim(ClaimTypes.NameIdentifier, FakeData.IdString()),
+                new Claim(ClaimTypes.Email, FakeData.Email()),
+            }, "authenticationType"), null);
+            var authenticationManager = new Mock<IAuthenticationManager>(MockBehavior.Strict);
+            var instance = new OwinAuthenticator(authenticationManager.Object, null, null);
+            authenticationManager.Setup(x => x.AuthenticateAsync(It.IsAny<string>()))
+                .Returns(Task.FromResult(new AuthenticateResult(
+                    principal.Identity,
+                    new AuthenticationProperties(),
+                    new AuthenticationDescription())));
+
+            instance.GetRemoteMembershipClaims(DefaultAuthenticationTypes.TwoFactorCookie).Wait();
+
+            authenticationManager.Verify(x => x.AuthenticateAsync(It.IsAny<string>()),
+                Times.Once);
         }
     }
 }

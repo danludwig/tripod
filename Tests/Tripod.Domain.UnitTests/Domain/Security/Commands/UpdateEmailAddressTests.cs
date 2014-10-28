@@ -21,8 +21,8 @@ namespace Tripod.Domain.Security
             {
                 Principal = new GenericPrincipal(new ClaimsIdentity(new[]
                 {
-                    new Claim(ClaimTypes.NameIdentifier, FakeData.IdString()), 
-                    new Claim(ClaimTypes.Name, FakeData.String()), 
+                    new Claim(ClaimTypes.NameIdentifier, FakeData.IdString()),
+                    new Claim(ClaimTypes.Name, FakeData.String()),
                 }, "authenticationType"), null),
                 EmailAddressId = FakeData.Id(),
                 IsPrimary = false,
@@ -57,8 +57,8 @@ namespace Tripod.Domain.Security
             {
                 Principal = new GenericPrincipal(new ClaimsIdentity(new[]
                 {
-                    new Claim(ClaimTypes.NameIdentifier, FakeData.IdString()), 
-                    new Claim(ClaimTypes.Name, FakeData.String()), 
+                    new Claim(ClaimTypes.NameIdentifier, FakeData.IdString()),
+                    new Claim(ClaimTypes.Name, FakeData.String()),
                 }, "authenticationType"), null),
                 EmailAddressId = FakeData.Id(),
                 IsPrimary = true,

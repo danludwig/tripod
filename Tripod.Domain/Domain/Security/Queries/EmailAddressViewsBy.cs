@@ -6,7 +6,7 @@ namespace Tripod.Domain.Security
     /// <summary>
     /// Find all EmailAddressViews by User Id.
     /// </summary>
-    public class EmailAddressViewsBy : BaseEnumerableQuery<EmailAddressView>, 
+    public class EmailAddressViewsBy : BaseEnumerableQuery<EmailAddressView>,
         IDefineQuery<Task<IQueryable<EmailAddressView>>>
     {
         /// <summary>

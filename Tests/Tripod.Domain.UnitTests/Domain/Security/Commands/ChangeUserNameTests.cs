@@ -46,8 +46,8 @@ namespace Tripod.Domain.Security
             {
                 Principal = new GenericPrincipal(new ClaimsIdentity(new[]
                 {
-                    new Claim(ClaimTypes.Name, FakeData.String()), 
-                    new Claim(ClaimTypes.NameIdentifier, FakeData.Id().ToString(CultureInfo.InvariantCulture)), 
+                    new Claim(ClaimTypes.Name, FakeData.String()),
+                    new Claim(ClaimTypes.NameIdentifier, FakeData.Id().ToString(CultureInfo.InvariantCulture)),
                 }, "authenticationType"), null),
                 UserName = FakeData.Email(),
                 UserId = FakeData.Id(),
@@ -90,8 +90,8 @@ namespace Tripod.Domain.Security
             {
                 Principal = new GenericPrincipal(new ClaimsIdentity(new[]
                 {
-                    new Claim(ClaimTypes.Name, FakeData.String()), 
-                    new Claim(ClaimTypes.NameIdentifier, FakeData.Id().ToString(CultureInfo.InvariantCulture)), 
+                    new Claim(ClaimTypes.Name, FakeData.String()),
+                    new Claim(ClaimTypes.NameIdentifier, FakeData.Id().ToString(CultureInfo.InvariantCulture)),
                 }, "authenticationType"), null),
                 UserName = FakeData.Email(),
                 UserId = FakeData.Id(),
@@ -135,8 +135,8 @@ namespace Tripod.Domain.Security
             {
                 Principal = new GenericPrincipal(new ClaimsIdentity(new[]
                 {
-                    new Claim(ClaimTypes.Name, FakeData.String()), 
-                    new Claim(ClaimTypes.NameIdentifier, FakeData.Id().ToString(CultureInfo.InvariantCulture)), 
+                    new Claim(ClaimTypes.Name, FakeData.String()),
+                    new Claim(ClaimTypes.NameIdentifier, FakeData.Id().ToString(CultureInfo.InvariantCulture)),
                 }, "authenticationType"), null),
             };
             User user = new ProxiedUser(FakeData.Id());

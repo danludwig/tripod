@@ -89,7 +89,7 @@ namespace Tripod.Domain.Security
             {
                 Principal = new GenericPrincipal(new ClaimsIdentity(new[]
                 {
-                    new Claim(ClaimTypes.NameIdentifier, FakeData.IdString()), 
+                    new Claim(ClaimTypes.NameIdentifier, FakeData.IdString()),
                 }, "authenticationType"), null),
                 Ticket = FakeData.String(),
             };

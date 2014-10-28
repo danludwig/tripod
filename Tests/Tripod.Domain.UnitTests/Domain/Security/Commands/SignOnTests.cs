@@ -23,7 +23,7 @@ namespace Tripod.Domain.Security
                 Principal = new GenericPrincipal(new ClaimsIdentity(new[]
                 {
                     new Claim(ClaimTypes.Name, userName),
-                    new Claim(ClaimTypes.NameIdentifier, userId.ToString(CultureInfo.InvariantCulture)), 
+                    new Claim(ClaimTypes.NameIdentifier, userId.ToString(CultureInfo.InvariantCulture)),
                 }, "authenticationType"), null),
             };
             User user = new ProxiedUser(userId) { Name = userName };

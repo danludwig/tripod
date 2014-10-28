@@ -231,7 +231,7 @@ namespace Tripod.Domain.Security
             {
                 Principal = new GenericPrincipal(new ClaimsIdentity(new[]
                 {
-                    new Claim(ClaimTypes.NameIdentifier, FakeData.Id().ToString(CultureInfo.InvariantCulture)), 
+                    new Claim(ClaimTypes.NameIdentifier, FakeData.Id().ToString(CultureInfo.InvariantCulture)),
                 }, "authenticationType"), null),
                 EmailAddress = FakeData.Email(),
                 Purpose = EmailVerificationPurpose.AddEmail,
