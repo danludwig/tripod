@@ -276,4 +276,7 @@
   <data name="Validation_Principal_MustBeUnauthenticated" xml:space="preserve">
     <value>You must sign out in order to perform this action.</value>
   </data>
+  <data name="Validation_RemoteMembership_AlreadyAssigned" xml:space="preserve">
+    <value>You have already registered your '{ProviderName}' login with a different user account.</value>
+  </data>
 </root>

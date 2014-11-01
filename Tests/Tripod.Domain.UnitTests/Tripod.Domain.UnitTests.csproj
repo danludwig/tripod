@@ -167,7 +167,7 @@
     <Compile Include="Domain\Security\Queries\RandomSecretTests.cs" />
     <Compile Include="Domain\Security\Queries\RemoteMembershipViewsByTests.cs" />
     <Compile Include="Domain\Security\Queries\RemoteMembershipsByUserTests.cs" />
-    <Compile Include="Domain\Security\Queries\RemoteMembershipByUserTests.cs" />
+    <Compile Include="Domain\Security\Queries\RemoteMembershipByTests.cs" />
     <Compile Include="Domain\Security\Queries\UserByNameOrVerifiedEmailTests.cs" />
     <Compile Include="Domain\Security\Queries\UserHasLocalMembershipTests.cs" />
     <Compile Include="Domain\Security\Queries\UserViewByTests.cs" />
@@ -182,6 +182,7 @@
     <Compile Include="Domain\Security\Validation\EmailVerification\MustNotBeVerifiedEmailAddressTests.cs" />
     <Compile Include="Domain\Security\Validation\EmailVerification\MustNotBeRedeemedVerifyEmailTicketTests.cs" />
     <Compile Include="Domain\Security\Validation\EmailVerification\MustFindEmailVerificationByTicketTests.cs" />
+    <Compile Include="Domain\Security\Validation\MustNotFindRemoteMembershipTests.cs" />
     <Compile Include="Domain\Security\Validation\MustNotFindLocalMembershipByPrincipalTests.cs" />
     <Compile Include="Domain\Security\Validation\MustNotBePrimaryEmailAddressTests.cs" />
     <Compile Include="Domain\Security\Validation\MustFindUserByVerifiedEmailTests.cs" />

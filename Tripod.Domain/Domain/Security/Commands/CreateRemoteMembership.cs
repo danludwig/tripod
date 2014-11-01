@@ -26,6 +26,7 @@ namespace Tripod.Domain.Security
                     .When(x => x.Principal.Identity.IsAuthenticated,
                         ApplyConditionTo.CurrentValidator)
                 .MustFindRemoteMembershipTicket(queries)
+                .MustNotFindRemoteMembership(queries)
                 .WithName(User.Constraints.Label)
             ;
 

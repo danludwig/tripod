@@ -484,6 +484,15 @@ namespace Tripod {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You have already registered your &apos;{ProviderName}&apos; login with a different user account..
+        /// </summary>
+        public static string Validation_RemoteMembership_AlreadyAssigned {
+            get {
+                return ResourceManager.GetString("Validation_RemoteMembership_AlreadyAssigned", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to There is no external login information to process..
         /// </summary>
         public static string Validation_RemoteMembership_NoTicket {

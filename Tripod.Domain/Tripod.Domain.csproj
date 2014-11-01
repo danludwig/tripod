@@ -147,7 +147,7 @@
     <Compile Include="Domain\Security\Queries\PrincipalRemoteMembershipTicket.cs" />
     <Compile Include="Domain\Security\Queries\IsPasswordVerified.cs" />
     <Compile Include="Domain\Security\Queries\RemoteMembershipsByUser.cs" />
-    <Compile Include="Domain\Security\Queries\RemoteMembershipByUser.cs" />
+    <Compile Include="Domain\Security\Queries\RemoteMembershipBy.cs" />
     <Compile Include="Domain\Security\Queries\ClientCookieBy.cs" />
     <Compile Include="Domain\Security\Queries\UserViewBy.cs" />
     <Compile Include="Domain\Security\Queries\UserByNameOrVerifiedEmail.cs" />
@@ -161,6 +161,7 @@
     <Compile Include="Domain\Security\Validation\EmailVerification\MustNotBeVerifiedEmailAddress.cs" />
     <Compile Include="Domain\Security\Validation\EmailVerification\MustNotBeUnverifiedEmailUserName.cs" />
     <Compile Include="Domain\Security\Validation\EmailVerification\MustBeVerifiedEmailSecret.cs" />
+    <Compile Include="Domain\Security\Validation\MustNotFindRemoteMembership.cs" />
     <Compile Include="Domain\Security\Validation\MustFindUserByVerifiedEmail.cs" />
     <Compile Include="Domain\Security\Validation\MustNotBePrimaryEmailAddress.cs" />
     <Compile Include="Domain\Security\Validation\MustBeUnauthenticatedPrincipal.cs" />

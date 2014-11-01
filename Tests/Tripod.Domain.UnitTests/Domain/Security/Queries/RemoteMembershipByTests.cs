@@ -8,9 +8,105 @@ using Xunit;
 
 namespace Tripod.Domain.Security
 {
-    public class RemoteMembershipByUserTests
+    public class RemoteMembershipByTests
     {
-        #region RemoteMembershipByUser Id
+        #region RemoteMembershipByUserLoginInfo Only
+
+        [Fact]
+        public void Query_Ctor_SetsUserLoginInfoProperty()
+        {
+            var loginProvider = FakeData.String();
+            var providerKey = FakeData.String();
+            var userLoginInfo = new UserLoginInfo(loginProvider, providerKey);
+            var query = new RemoteMembershipBy(userLoginInfo);
+            query.UserId.ShouldBeNull();
+            query.UserName.ShouldBeNull();
+            query.UserLoginInfo.ShouldEqual(userLoginInfo);
+        }
+
+        [Fact]
+        public void Handler_ReturnsNullRemoteMembership_WhenUserLoginInfoIsNull()
+        {
+            var loginProvider = FakeData.String();
+            var providerKey = FakeData.String();
+            var remoteMemberships = new[]
+            {
+                new ProxiedRemoteMembership(FakeData.String(), FakeData.String()),
+                new ProxiedRemoteMembership(loginProvider, providerKey),
+                new ProxiedRemoteMembership(FakeData.String(), FakeData.String()),
+            };
+            var data = remoteMemberships.AsQueryable();
+            var query = new RemoteMembershipBy(null);
+            var dbSet = new Mock<DbSet<RemoteMembership>>(MockBehavior.Strict).SetupDataAsync(data);
+            var entities = new Mock<IReadEntities>(MockBehavior.Strict);
+            var entitySet = new EntitySet<RemoteMembership>(dbSet.Object, entities.Object);
+            entities.Setup(x => x.Query<RemoteMembership>()).Returns(entitySet);
+            var handler = new HandleRemoteMembershipByQuery(entities.Object);
+
+            RemoteMembership result = handler.Handle(query).Result;
+
+            result.ShouldBeNull();
+            entities.Verify(x => x.Query<RemoteMembership>(), Times.Never);
+        }
+
+        [Fact]
+        public void Handler_ReturnsNullRemoteMembership_WhenNotFound()
+        {
+            var loginProvider = FakeData.String();
+            var providerKey = FakeData.String();
+            var userLoginInfo = new UserLoginInfo(loginProvider, providerKey);
+            var remoteMemberships = new[]
+            {
+                new ProxiedRemoteMembership(FakeData.String(), FakeData.String()),
+                new ProxiedRemoteMembership(FakeData.String(), FakeData.String()),
+                new ProxiedRemoteMembership(FakeData.String(), FakeData.String()),
+            };
+            var data = remoteMemberships.AsQueryable();
+            var query = new RemoteMembershipBy(userLoginInfo);
+            var dbSet = new Mock<DbSet<RemoteMembership>>(MockBehavior.Strict).SetupDataAsync(data);
+            var entities = new Mock<IReadEntities>(MockBehavior.Strict);
+            var entitySet = new EntitySet<RemoteMembership>(dbSet.Object, entities.Object);
+            entities.Setup(x => x.Query<RemoteMembership>()).Returns(entitySet);
+            var handler = new HandleRemoteMembershipByQuery(entities.Object);
+
+            RemoteMembership result = handler.Handle(query).Result;
+
+            result.ShouldBeNull();
+            entities.Verify(x => x.Query<RemoteMembership>(), Times.Once);
+        }
+
+        [Fact]
+        public void Handler_ReturnsNonNullRemoteMembership_WhenFound()
+        {
+            var loginProvider = FakeData.String();
+            var providerKey = FakeData.String();
+            var userLoginInfo = new UserLoginInfo(loginProvider, providerKey);
+            var remoteMemberships = new[]
+            {
+                new ProxiedRemoteMembership(FakeData.String(), FakeData.String()),
+                new ProxiedRemoteMembership(loginProvider, providerKey),
+                new ProxiedRemoteMembership(FakeData.String(), FakeData.String()),
+            };
+            var data = remoteMemberships.AsQueryable();
+            var query = new RemoteMembershipBy(userLoginInfo);
+            var dbSet = new Mock<DbSet<RemoteMembership>>(MockBehavior.Strict).SetupDataAsync(data);
+            var entities = new Mock<IReadEntities>(MockBehavior.Strict);
+            var entitySet = new EntitySet<RemoteMembership>(dbSet.Object, entities.Object);
+            entities.Setup(x => x.Query<RemoteMembership>()).Returns(entitySet);
+            var handler = new HandleRemoteMembershipByQuery(entities.Object);
+
+            RemoteMembership result = handler.Handle(query).Result;
+
+            result.ShouldNotBeNull();
+            Func<ProxiedRemoteMembership, bool> expectedRemoteMembership =
+                x => x.LoginProvider == loginProvider &&
+                    x.ProviderKey == providerKey;
+            result.ShouldEqual(remoteMemberships.Single(expectedRemoteMembership));
+            entities.Verify(x => x.Query<RemoteMembership>(), Times.Once);
+        }
+
+        #endregion
+        #region RemoteMembershipByUserLoginInfo & Id
 
         [Fact]
         public void Query_IntCtor_SetsUserIdProperty_AndUserLoginInfoProperty()
@@ -19,7 +115,7 @@ namespace Tripod.Domain.Security
             var loginProvider = FakeData.String();
             var providerKey = FakeData.String();
             var userLoginInfo = new UserLoginInfo(loginProvider, providerKey);
-            var query = new RemoteMembershipByUser(userId, userLoginInfo);
+            var query = new RemoteMembershipBy(userLoginInfo, userId);
             query.UserId.ShouldEqual(userId);
             query.UserName.ShouldBeNull();
             query.UserLoginInfo.ShouldEqual(userLoginInfo);
@@ -40,12 +136,12 @@ namespace Tripod.Domain.Security
                     { UserId = userId, },
             };
             var data = remoteMemberships.AsQueryable();
-            var query = new RemoteMembershipByUser(userId, null);
+            var query = new RemoteMembershipBy(null, userId);
             var dbSet = new Mock<DbSet<RemoteMembership>>(MockBehavior.Strict).SetupDataAsync(data);
             var entities = new Mock<IReadEntities>(MockBehavior.Strict);
             var entitySet = new EntitySet<RemoteMembership>(dbSet.Object, entities.Object);
             entities.Setup(x => x.Query<RemoteMembership>()).Returns(entitySet);
-            var handler = new HandleRemoteMembershipByUserQuery(entities.Object);
+            var handler = new HandleRemoteMembershipByQuery(entities.Object);
 
             RemoteMembership result = handler.Handle(query).Result;
 
@@ -69,12 +165,12 @@ namespace Tripod.Domain.Security
                     { UserId = userId, },
             };
             var data = remoteMemberships.AsQueryable();
-            var query = new RemoteMembershipByUser(userId, userLoginInfo);
+            var query = new RemoteMembershipBy(userLoginInfo, userId);
             var dbSet = new Mock<DbSet<RemoteMembership>>(MockBehavior.Strict).SetupDataAsync(data);
             var entities = new Mock<IReadEntities>(MockBehavior.Strict);
             var entitySet = new EntitySet<RemoteMembership>(dbSet.Object, entities.Object);
             entities.Setup(x => x.Query<RemoteMembership>()).Returns(entitySet);
-            var handler = new HandleRemoteMembershipByUserQuery(entities.Object);
+            var handler = new HandleRemoteMembershipByQuery(entities.Object);
 
             RemoteMembership result = handler.Handle(query).Result;
 
@@ -92,7 +188,7 @@ namespace Tripod.Domain.Security
             var userLoginInfo = new UserLoginInfo(loginProvider, providerKey);
             var remoteMemberships = new[]
             {
-                new ProxiedRemoteMembership(loginProvider, providerKey)
+                new ProxiedRemoteMembership(FakeData.String(), FakeData.String())
                     { UserId = otherUserId, },
                 new ProxiedRemoteMembership(FakeData.String(), FakeData.String())
                     { UserId = userId, },
@@ -100,12 +196,12 @@ namespace Tripod.Domain.Security
                     { UserId = userId, },
             };
             var data = remoteMemberships.AsQueryable();
-            var query = new RemoteMembershipByUser(userId, userLoginInfo);
+            var query = new RemoteMembershipBy(userLoginInfo, userId);
             var dbSet = new Mock<DbSet<RemoteMembership>>(MockBehavior.Strict).SetupDataAsync(data);
             var entities = new Mock<IReadEntities>(MockBehavior.Strict);
             var entitySet = new EntitySet<RemoteMembership>(dbSet.Object, entities.Object);
             entities.Setup(x => x.Query<RemoteMembership>()).Returns(entitySet);
-            var handler = new HandleRemoteMembershipByUserQuery(entities.Object);
+            var handler = new HandleRemoteMembershipByQuery(entities.Object);
 
             RemoteMembership result = handler.Handle(query).Result;
 
@@ -119,7 +215,7 @@ namespace Tripod.Domain.Security
         }
 
         #endregion
-        #region RemoteMembershipByUser Name
+        #region RemoteMembershipByUserLoginInfo & Name
 
         [Fact]
         public void Query_StringCtor_SetsUserNameProperty_AndUserLoginInfoProperty()
@@ -128,7 +224,7 @@ namespace Tripod.Domain.Security
             var loginProvider = FakeData.String();
             var providerKey = FakeData.String();
             var userLoginInfo = new UserLoginInfo(loginProvider, providerKey);
-            var query = new RemoteMembershipByUser(userName, userLoginInfo);
+            var query = new RemoteMembershipBy(userLoginInfo, userName);
             query.UserId.ShouldBeNull();
             query.UserName.ShouldEqual(userName);
             query.UserLoginInfo.ShouldEqual(userLoginInfo);
@@ -150,12 +246,12 @@ namespace Tripod.Domain.Security
                     { User = user, },
             };
             var data = remoteMemberships.AsQueryable();
-            var query = new RemoteMembershipByUser(userName, null);
+            var query = new RemoteMembershipBy(null, userName);
             var dbSet = new Mock<DbSet<RemoteMembership>>(MockBehavior.Strict).SetupDataAsync(data);
             var entities = new Mock<IReadEntities>(MockBehavior.Strict);
             var entitySet = new EntitySet<RemoteMembership>(dbSet.Object, entities.Object);
             entities.Setup(x => x.Query<RemoteMembership>()).Returns(entitySet);
-            var handler = new HandleRemoteMembershipByUserQuery(entities.Object);
+            var handler = new HandleRemoteMembershipByQuery(entities.Object);
 
             RemoteMembership result = handler.Handle(query).Result;
 
@@ -180,12 +276,12 @@ namespace Tripod.Domain.Security
                     { User = user, },
             };
             var data = remoteMemberships.AsQueryable();
-            var query = new RemoteMembershipByUser(userName, userLoginInfo);
+            var query = new RemoteMembershipBy(userLoginInfo, userName);
             var dbSet = new Mock<DbSet<RemoteMembership>>(MockBehavior.Strict).SetupDataAsync(data);
             var entities = new Mock<IReadEntities>(MockBehavior.Strict);
             var entitySet = new EntitySet<RemoteMembership>(dbSet.Object, entities.Object);
             entities.Setup(x => x.Query<RemoteMembership>()).Returns(entitySet);
-            var handler = new HandleRemoteMembershipByUserQuery(entities.Object);
+            var handler = new HandleRemoteMembershipByQuery(entities.Object);
 
             RemoteMembership result = handler.Handle(query).Result;
 
@@ -212,12 +308,12 @@ namespace Tripod.Domain.Security
                     { User = user, },
             };
             var data = remoteMemberships.AsQueryable();
-            var query = new RemoteMembershipByUser(userName, userLoginInfo);
+            var query = new RemoteMembershipBy(userLoginInfo, userName);
             var dbSet = new Mock<DbSet<RemoteMembership>>(MockBehavior.Strict).SetupDataAsync(data);
             var entities = new Mock<IReadEntities>(MockBehavior.Strict);
             var entitySet = new EntitySet<RemoteMembership>(dbSet.Object, entities.Object);
             entities.Setup(x => x.Query<RemoteMembership>()).Returns(entitySet);
-            var handler = new HandleRemoteMembershipByUserQuery(entities.Object);
+            var handler = new HandleRemoteMembershipByQuery(entities.Object);
 
             RemoteMembership result = handler.Handle(query).Result;
 
