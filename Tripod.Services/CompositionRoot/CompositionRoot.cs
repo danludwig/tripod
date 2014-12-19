@@ -4,6 +4,7 @@ using Tripod.Services.Audit;
 using Tripod.Services.Configuration;
 using Tripod.Services.Cryptography;
 using Tripod.Services.EntityFramework;
+using Tripod.Services.Events;
 using Tripod.Services.FluentValidation;
 using Tripod.Services.Net;
 using Tripod.Services.Security;
@@ -29,6 +30,7 @@ namespace Tripod.Services
             container.RegisterFluentValidation(settings.FluentValidatorAssemblies);
             container.RegisterQueryTransactions(settings.QueryHandlerAssemblies);
             container.RegisterCommandTransactions(settings.CommandHandlerAssemblies);
+            container.RegisterEventing(settings.EventHandlerAssemblies);
         }
     }
 }

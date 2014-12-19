@@ -1,10 +1,9 @@
-﻿using System.Diagnostics;
-using SimpleInjector;
+﻿using SimpleInjector;
 
 namespace Tripod.Services.Transactions
 {
     [UsedImplicitly]
-    sealed class QueryProcessor : IProcessQueries
+    internal sealed class QueryProcessor : IProcessQueries
     {
         private readonly Container _container;
 
@@ -13,7 +12,7 @@ namespace Tripod.Services.Transactions
             _container = container;
         }
 
-        [DebuggerStepThrough]
+        [System.Diagnostics.DebuggerStepThrough]
         public TResult Execute<TResult>(IDefineQuery<TResult> query)
         {
             var handlerType = typeof(IHandleQuery<,>).MakeGenericType(query.GetType(), typeof(TResult));

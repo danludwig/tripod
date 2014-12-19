@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Threading.Tasks;
 
 namespace Tripod.Services.Transactions
@@ -13,7 +12,7 @@ namespace Tripod.Services.Transactions
             _handlerFactory = handlerFactory;
         }
 
-        [DebuggerStepThrough]
+        [System.Diagnostics.DebuggerStepThrough]
         public Task Handle(TCommand command)
         {
             if (Equals(command, null)) throw new ArgumentNullException("command");

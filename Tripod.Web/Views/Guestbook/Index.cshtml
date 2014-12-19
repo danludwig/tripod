@@ -1,0 +1,56 @@
+﻿<form method="POST" action="@Url.Action(MVC.Guestbook.Post())">
+    <input type="text" name="text" />
+    <button type="submit">Submit</button>
+</form>
+
+@section scripts {
+
+    <script src="~/scripts/jquery.signalR-2.1.2.js"></script>
+    @* ReSharper disable Html.PathError *@
+    <script src="/signalr/hubs"></script>
+    @* ReSharper restore Html.PathError *@
+    <script>
+        var console = window.console || { log: function() {} };
+
+        $('form').on('submit', function () {
+            var $message = $(this).find('input[name="text"]');
+            $.ajax({
+                url: '/api/guestbook',
+                method: 'POST',
+                data: {
+                    text: $message.val(),
+                },
+            })
+            .done(function() {
+                $message.val('');
+            })
+            .fail(function(xhr) {
+                alert('An unexpected error occurred. Check the console for more information.');
+                console.log(xhr.status + ' ' + xhr.statusText + ': ' + xhr.responseText);
+            }).always(function() {
+                $message.focus().select();
+            });
+            return false;
+        });
+
+        $.connection.guestbookHub.logging = true;
+        var connection = $.hubConnection();
+        connection.error(function(error) {
+            console.log('SignalR connection error: ' + error);
+        });
+        var guestbook = $.connection.guestbookHub;
+        guestbook.client.receiveLog = function(value) {
+            console.log('Received log: ' + value);
+        };
+        guestbook.client.receiveHello = function() {
+            console.log('Received Hello.');
+        };
+        $.connection.hub.start().done(function() {
+            $('form button[type=submit]').on('click', function() {
+                guestbook.server.hello().fail(function(error) {
+                    console.log('SignalR Hello error: ' + error);
+                });
+            });
+        });
+    </script>
+}

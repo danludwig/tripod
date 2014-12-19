@@ -1,11 +1,10 @@
-﻿using System.Diagnostics;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using SimpleInjector;
 
 namespace Tripod.Services.Transactions
 {
     [UsedImplicitly]
-    sealed class CommandProcessor : IProcessCommands
+    internal sealed class CommandProcessor : IProcessCommands
     {
         private readonly Container _container;
 
@@ -14,7 +13,7 @@ namespace Tripod.Services.Transactions
             _container = container;
         }
 
-        [DebuggerStepThrough]
+        [System.Diagnostics.DebuggerStepThrough]
         public Task Execute(IDefineCommand command)
         {
             var handlerType = typeof(IHandleCommand<>).MakeGenericType(command.GetType());

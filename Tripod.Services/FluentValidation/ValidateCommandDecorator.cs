@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using FluentValidation;
 
 namespace Tripod.Services.FluentValidation
@@ -17,7 +16,7 @@ namespace Tripod.Services.FluentValidation
             _validator = validator;
         }
 
-        [DebuggerStepThrough]
+        [System.Diagnostics.DebuggerStepThrough]
         public Task Handle(TCommand command)
         {
             _validator.ValidateAndThrow(command);

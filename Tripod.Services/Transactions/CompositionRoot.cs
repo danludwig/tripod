@@ -37,6 +37,10 @@ namespace Tripod.Services.Transactions
             container.RegisterManyForOpenGeneric(typeof(IHandleCommand<>), assemblies);
             container.RegisterDecorator(
                 typeof(IHandleCommand<>),
+                typeof(CommandedEventProcessingDecorator<>)
+            );
+            container.RegisterDecorator(
+                typeof(IHandleCommand<>),
                 typeof(ValidateCommandDecorator<>)
             );
             container.RegisterSingleDecorator(

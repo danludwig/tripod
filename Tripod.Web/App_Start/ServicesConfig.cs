@@ -1,6 +1,8 @@
 ﻿using System.Reflection;
 using System.Web.Http;
 using System.Web.Mvc;
+using Microsoft.AspNet.SignalR;
+using Microsoft.AspNet.SignalR.Hubs;
 using SimpleInjector;
 using SimpleInjector.Integration.Web.Mvc;
 using Tripod.Services;
@@ -23,6 +25,12 @@ namespace Tripod.Web
                     Assembly.GetAssembly(typeof(IHandleCommand<>)),
                     Assembly.GetExecutingAssembly(),
                 },
+
+                EventHandlerAssemblies = new[]
+                {
+                    Assembly.GetAssembly(typeof(IHandleEvent<>)),
+                    Assembly.GetExecutingAssembly(),
+                },
             };
             container.ComposeRoot(settings);
 
@@ -33,6 +41,7 @@ namespace Tripod.Web
 
             DependencyResolver.SetResolver(new SimpleInjectorDependencyResolver(container));
             GlobalConfiguration.Configuration.DependencyResolver = new WebApiDependencyResolver(container);
+            GlobalHost.DependencyResolver.Register(typeof(IHubActivator), () => new HubActivator(container));
 
             FluentValidation.Mvc.FluentValidationModelValidatorProvider.Configure(
                 provider =>

@@ -69,6 +69,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.1.0\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.Core">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.Core.2.1.2\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Owin, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.Owin.3.0.0\lib\net45\Microsoft.Owin.dll</HintPath>
@@ -90,8 +93,9 @@
       <HintPath>..\packages\Microsoft.Owin.Security.OAuth.2.1.0\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
-    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.4.5.11\lib\net40\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="Owin">
       <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
@@ -133,6 +137,7 @@
     <Compile Include="Audit\CompositionRoot.cs" />
     <Compile Include="Audit\ElmahExceptionAuditor.cs" />
     <Compile Include="CompositionRoot\CompositionRoot.cs" />
+    <Compile Include="CompositionRoot\HubActivator.cs" />
     <Compile Include="CompositionRoot\RootCompositionSettings.cs" />
     <Compile Include="Configuration\CompositionRoot.cs" />
     <Compile Include="Configuration\ConfigurationManagerReader.cs" />
@@ -149,7 +154,14 @@
     <Compile Include="EntityFramework\ModelCreation\DefaultDbModelCreator.cs" />
     <Compile Include="EntityFramework\ModelCreation\ICreateDbModel.cs" />
     <Compile Include="EntityFramework\Schemas\AuditSchema.cs" />
+    <Compile Include="EntityFramework\Schemas\GuestbookSchema.cs" />
     <Compile Include="EntityFramework\Schemas\SecuritySchema.cs" />
+    <Compile Include="Events\EventProcessor.cs" />
+    <Compile Include="Events\TriggerEventAsynchronouslyDecorator.cs" />
+    <Compile Include="Events\HandleEventAsynchronouslyDecorator.cs" />
+    <Compile Include="Events\MultipleDispatchEventTrigger.cs" />
+    <Compile Include="Events\CompositionRoot.cs" />
+    <Compile Include="Events\TriggerEventWhenHandlersExistDecorator.cs" />
     <Compile Include="FluentValidation\CompositionRoot.cs" />
     <Compile Include="FluentValidation\ValidationProcessor.cs" />
     <Compile Include="FluentValidation\ValidatorFactory.cs" />
@@ -173,6 +185,7 @@
     <Compile Include="Security\SecurityStore.cs" />
     <Compile Include="Security\BigFatPhonyAuthenticationManager.cs" />
     <Compile Include="Security\UserTokenSecurityStore.cs" />
+    <Compile Include="Transactions\CommandedEventProcessingDecorator.cs" />
     <Compile Include="Transactions\CommandLifetimeScopeDecorator.cs" />
     <Compile Include="Transactions\CommandNotNullDecorator.cs" />
     <Compile Include="Transactions\CommandProcessor.cs" />

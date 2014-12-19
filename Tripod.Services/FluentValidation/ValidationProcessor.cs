@@ -1,12 +1,11 @@
-﻿using System.Diagnostics;
-using FluentValidation;
+﻿using FluentValidation;
 using FluentValidation.Results;
 using SimpleInjector;
 
 namespace Tripod.Services.FluentValidation
 {
     [UsedImplicitly]
-    sealed class ValidationProcessor : IProcessValidation
+    internal sealed class ValidationProcessor : IProcessValidation
     {
         private readonly Container _container;
 
@@ -15,7 +14,7 @@ namespace Tripod.Services.FluentValidation
             _container = container;
         }
 
-        [DebuggerStepThrough]
+        [System.Diagnostics.DebuggerStepThrough]
         public ValidationResult Validate<TResult>(IDefineQuery<TResult> query)
         {
             var validatedType = typeof(IValidator<>).MakeGenericType(query.GetType());
@@ -23,7 +22,7 @@ namespace Tripod.Services.FluentValidation
             return validator.Validate((dynamic)query);
         }
 
-        [DebuggerStepThrough]
+        [System.Diagnostics.DebuggerStepThrough]
         public ValidationResult Validate(IDefineCommand command)
         {
             var validatedType = typeof(IValidator<>).MakeGenericType(command.GetType());

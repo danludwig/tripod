@@ -11,8 +11,8 @@ namespace Tripod.Services.Net
 
         public DeliverEmailAsynchronouslyDecorator(Container container, Func<IDeliverEmailMessage> factory)
         {
-            _factory = factory;
             _container = container;
+            _factory = factory;
         }
 
         public void Deliver(int emailMessageId)

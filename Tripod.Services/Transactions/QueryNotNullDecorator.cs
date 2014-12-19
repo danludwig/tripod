@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 
 namespace Tripod.Services.Transactions
 {
@@ -12,7 +11,7 @@ namespace Tripod.Services.Transactions
             _handlerFactory = handlerFactory;
         }
 
-        [DebuggerStepThrough]
+        [System.Diagnostics.DebuggerStepThrough]
         public TResult Handle(TQuery query)
         {
             if (Equals(query, null)) throw new ArgumentNullException("query");

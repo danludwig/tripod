@@ -8,5 +8,6 @@ namespace Tripod.Services
         public Assembly[] FluentValidatorAssemblies { get; set; }
         public Assembly[] QueryHandlerAssemblies { get; set; }
         public Assembly[] CommandHandlerAssemblies { get; set; }
+        public Assembly[] EventHandlerAssemblies { get; set; }
     }
 }

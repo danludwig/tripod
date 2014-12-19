@@ -1,6 +1,6 @@
 ﻿namespace Tripod
 {
-    public abstract class BaseEntityCommand
+    public abstract class BaseEntityCommand : IDefineEvent
     {
         protected BaseEntityCommand()
         {

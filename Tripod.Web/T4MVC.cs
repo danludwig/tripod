@@ -25,6 +25,7 @@ using T4MVC;
 public static class MVC
 {
     public static Tripod.Web.Controllers.ErrorsController Errors = new Tripod.Web.Controllers.T4MVC_ErrorsController();
+    public static Tripod.Web.Controllers.GuestbookController Guestbook = new Tripod.Web.Controllers.T4MVC_GuestbookController();
     public static Tripod.Web.Controllers.HomeController Home = new Tripod.Web.Controllers.T4MVC_HomeController();
     public static Tripod.Web.Controllers.ResetPasswordController ResetPassword = new Tripod.Web.Controllers.T4MVC_ResetPasswordController();
     public static Tripod.Web.Controllers.ResetPasswordSendEmailController ResetPasswordSendEmail = new Tripod.Web.Controllers.T4MVC_ResetPasswordSendEmailController();
@@ -472,6 +473,8 @@ namespace Links
         public static readonly string jquery_1_10_2_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery-1.10.2.min.js") ? Url("jquery-1.10.2.min.js") : Url("jquery-1.10.2.js");
         public static readonly string jquery_1_10_2_min_js = Url("jquery-1.10.2.min.js");
         public static readonly string jquery_1_10_2_min_map = Url("jquery-1.10.2.min.map");
+        public static readonly string jquery_signalR_2_1_2_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.signalR-2.1.2.min.js") ? Url("jquery.signalR-2.1.2.min.js") : Url("jquery.signalR-2.1.2.js");
+        public static readonly string jquery_signalR_2_1_2_min_js = Url("jquery.signalR-2.1.2.min.js");
         public static readonly string jquery_validate_vsdoc_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.validate-vsdoc.min.js") ? Url("jquery.validate-vsdoc.min.js") : Url("jquery.validate-vsdoc.js");
         public static readonly string jquery_validate_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.validate.min.js") ? Url("jquery.validate.min.js") : Url("jquery.validate.js");
         public static readonly string jquery_validate_min_js = Url("jquery.validate.min.js");
@@ -777,6 +780,115 @@ namespace Tripod.Web.Controllers
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.NotFound);
             NotFoundOverride(callInfo);
+            return callInfo;
+        }
+
+    }
+}
+
+namespace Tripod.Web.Controllers
+{
+    public partial class GuestbookController
+    {
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public GuestbookController() { }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected GuestbookController(Dummy d) { }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected RedirectToRouteResult RedirectToAction(ActionResult result)
+        {
+            var callInfo = result.GetT4MVCResult();
+            return RedirectToRoute(callInfo.RouteValueDictionary);
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected RedirectToRouteResult RedirectToActionPermanent(ActionResult result)
+        {
+            var callInfo = result.GetT4MVCResult();
+            return RedirectToRoutePermanent(callInfo.RouteValueDictionary);
+        }
+
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult Post()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Post);
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public GuestbookController Actions { get { return MVC.Guestbook; } }
+        [GeneratedCode("T4MVC", "2.0")]
+        public readonly string Area = "";
+        [GeneratedCode("T4MVC", "2.0")]
+        public readonly string Name = "Guestbook";
+        [GeneratedCode("T4MVC", "2.0")]
+        public const string NameConst = "Guestbook";
+
+        static readonly ActionNamesClass s_actions = new ActionNamesClass();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionNamesClass ActionNames { get { return s_actions; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionNamesClass
+        {
+            public readonly string Get = "Get";
+            public readonly string Post = "Post";
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionNameConstants
+        {
+            public const string Get = "Get";
+            public const string Post = "Post";
+        }
+
+
+        static readonly ActionParamsClass_Post s_params_Post = new ActionParamsClass_Post();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_Post PostParams { get { return s_params_Post; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_Post
+        {
+            public readonly string text = "text";
+        }
+        static readonly ViewsClass s_views = new ViewsClass();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ViewsClass Views { get { return s_views; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ViewsClass
+        {
+            static readonly _ViewNamesClass s_ViewNames = new _ViewNamesClass();
+            public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
+            public class _ViewNamesClass
+            {
+                public readonly string Index = "Index";
+            }
+            public readonly string Index = "~/Views/Guestbook/Index.cshtml";
+        }
+    }
+
+    [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+    public partial class T4MVC_GuestbookController : Tripod.Web.Controllers.GuestbookController
+    {
+        public T4MVC_GuestbookController() : base(Dummy.Instance) { }
+
+        partial void GetOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        public override System.Web.Mvc.ActionResult Get()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Get);
+            GetOverride(callInfo);
+            return callInfo;
+        }
+
+        partial void PostOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string text);
+
+        public override System.Web.Mvc.ActionResult Post(string text)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Post);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "text", text);
+            PostOverride(callInfo, text);
             return callInfo;
         }
 

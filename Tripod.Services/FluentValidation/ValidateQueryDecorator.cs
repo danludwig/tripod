@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using FluentValidation;
+﻿using FluentValidation;
 
 namespace Tripod.Services.FluentValidation
 {
@@ -16,7 +15,7 @@ namespace Tripod.Services.FluentValidation
             _validator = validator;
         }
 
-        [DebuggerStepThrough]
+        [System.Diagnostics.DebuggerStepThrough]
         public TResult Handle(TQuery query)
         {
             _validator.ValidateAndThrow(query);

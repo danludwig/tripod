@@ -76,6 +76,12 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.1.0\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.Core">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.Core.2.1.2\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.SystemWeb">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.SystemWeb.2.1.2\lib\net45\Microsoft.AspNet.SignalR.SystemWeb.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Owin, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -220,6 +226,7 @@
     <Compile Include="..\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="ApiControllers\GuestbookController.cs" />
     <Compile Include="ApiControllers\StartupController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -228,6 +235,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\GuestbookController.cs" />
     <Compile Include="Controllers\Security\ResetPasswordController.cs" />
     <Compile Include="Controllers\Security\ResetPasswordSendEmailController.cs" />
     <Compile Include="Controllers\Security\ResetPasswordVerifySecretController.cs" />
@@ -254,6 +262,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Helpers\UrlHelperExtensions.cs" />
+    <Compile Include="Hubs\GuestbookHub.cs" />
     <Compile Include="Models\Security\ChangeLocalPasswordModel.cs" />
     <Compile Include="Models\Security\CreateLocalMembershipModel.cs" />
     <Compile Include="Models\Security\LoginSettingsModel.cs" />
@@ -639,6 +648,8 @@
     <Content Include="scripts\jquery-1.10.2.js" />
     <Content Include="scripts\jquery-1.10.2.min.js" />
     <None Include="scripts\jquery.validate-vsdoc.js" />
+    <Content Include="scripts\jquery.signalR-2.1.2.js" />
+    <Content Include="scripts\jquery.signalR-2.1.2.min.js" />
     <Content Include="scripts\jquery.validate.js" />
     <Content Include="scripts\jquery.validate.min.js" />
     <Content Include="scripts\jquery.validate.unobtrusive.js" />
@@ -718,6 +729,7 @@
     <Content Include="Views\Security\SharedViews\_SignOnTwitterButton.cshtml" />
     <Content Include="Views\Security\SharedViews\_SignOnGoogleButton.cshtml" />
     <Content Include="Views\Security\SharedViews\_SignOnFacebookButton.cshtml" />
+    <Content Include="Views\Guestbook\Index.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

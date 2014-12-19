@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using SimpleInjector;
 
 namespace Tripod.Services.Transactions
@@ -15,7 +14,7 @@ namespace Tripod.Services.Transactions
             _handlerFactory = handlerFactory;
         }
 
-        [DebuggerStepThrough]
+        [System.Diagnostics.DebuggerStepThrough]
         public TResult Handle(TQuery query)
         {
             if (_container.GetCurrentLifetimeScope() != null)
