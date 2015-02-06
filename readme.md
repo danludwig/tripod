@@ -53,7 +53,9 @@ Tripod was published as an example of how to organize and structure *server* (AS
 
 ##OK, so how does Tripod work?
 
-Download it, run it, explore it, and try figure it out for yourself. If you have any questions or concerns, [post them under issues](https://github.com/danludwig/tripod/issues/). I will write more about it as I build upon it over time. I have only put it on GitHub to share it with a couple of people who already know about it, and it is **not finished**. However if you're looking to explore different ideas, why *not* at least have a look at it?
+[Review the wiki](https://github.com/danludwig/tripod/wiki) (still a work in progress).
+
+Download it, run it, explore it, and try figure it out for yourself. If you have any questions or concerns, [post them under issues](https://github.com/danludwig/tripod/issues/). I have only put it on GitHub to share it with a couple of people who already know about it, and it is **not finished**. However if you're looking to explore different ideas, why *not* at least have a look at it?
 
 #License
 
